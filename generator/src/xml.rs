@@ -103,6 +103,10 @@ pub struct Type {
     pub name_attr: Option<String>,
     #[serde(rename = "@alias")]
     pub alias: Option<String>,
+    #[serde(rename = "@parent")]
+    pub parent: Option<String>,
+    #[serde(rename = "@objtypeenum")]
+    pub object_type_enum: Option<String>,
     #[serde(rename = "@requires")]
     pub requires: Option<String>,
     #[serde(rename = "@api")]

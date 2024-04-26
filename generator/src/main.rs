@@ -17,5 +17,8 @@ fn main() -> Result<(), Box<dyn Error>>{
     let enums = generator.generate_enums()?;
     //println!("{}", enums);
     fs::write("src/enums.rs", enums)?;
+
+    let handles = generator.generate_handles()?;
+    fs::write("src/raw/handles.rs", handles)?;
     Ok(())
 }

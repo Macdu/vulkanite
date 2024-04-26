@@ -19,7 +19,9 @@ pub struct Generator<'a> {
     registry: &'a xml::Registry,
     enums: HashMap<&'a str, Enum<'a>>,
     constants: HashMap<&'a str, Constant<'a>>,
+    handles: HashMap<&'a str, Handle<'a>>,
     listed_enum: RefCell<HashSet<String>>,
+    mapping: RefCell<HashMap<&'a str, String>>,
 }
 
 impl<'a> Generator<'a> {
@@ -40,28 +42,47 @@ impl<'a> Generator<'a> {
         let constants = registry.enums[0]
             .enums
             .iter()
-            .map(|cst| Ok((cst.name.as_ref(), Constant::try_from(cst)?)))
+            .map(|cst| Ok((cst.name.as_str(), Constant::try_from(cst)?)))
             .collect::<Result<_>>()?;
 
         let enums = registry
             .enums
             .iter()
             .skip(1)
-            .map(|it| Ok((it.name.as_ref(), Enum::try_from(it)?)))
+            .map(|it| Ok((it.name.as_str(), Enum::try_from(it)?)))
+            .collect::<Result<_>>()?;
+
+        let handles = registry
+            .types
+            .iter()
+            .map(|tys| &tys.types)
+            .flatten()
+            .filter(|ty| {
+                ty.category.as_ref().is_some_and(|cat| cat == "handle") && ty.alias.is_none()
+            })
+            .map(|ty| {
+                let handle = Handle::try_from(ty)?;
+                Ok((handle.vk_name, handle))
+            })
             .collect::<Result<_>>()?;
 
         let gen = Generator {
             registry,
             enums,
             constants,
+            handles,
             listed_enum: RefCell::new(HashSet::new()),
+            mapping: RefCell::new(HashMap::new()),
         };
         gen.extend_enums()?;
+        gen.extend_handles()?;
 
         Ok(gen)
     }
 
     pub fn generate_enums(&self) -> Result<String> {
+        self.listed_enum.borrow_mut().clear();
+
         let feature_enums = self
             .registry
             .features
@@ -88,6 +109,70 @@ impl<'a> Generator<'a> {
 
         let formatted_result = Self::format_result(result)?;
         Ok(Self::bitflag_format_fixup(formatted_result))
+    }
+
+    pub fn generate_handles(&self) -> Result<String> {
+        let mapping = self.mapping.borrow();
+        let handles = self
+            .handles
+            .iter()
+            .map(|(_, handle)| {
+                if handle.object_type == "VK_OBJECT_TYPE_SEMAPHORE_SCI_SYNC_POOL_NV" {
+                    // annoying VulkanSC handle (we don't have its object type defined)
+                    return Ok(quote! {});
+                }
+
+                let name = format_ident!("{}", handle.name);
+                let dispatch_macro = if handle.is_dispatchable {
+                    "handle_dispatchable"
+                } else {
+                    "handle_nondispatchable"
+                };
+                let dispatch_macro = format_ident!("{dispatch_macro}");
+                let doc_tag = make_doc_link_inner(handle.vk_name);
+                let object_type = &mapping
+                        .borrow()
+                        .get(handle.object_type)
+                        .ok_or_else(|| {
+                            anyhow!(
+                                "Failed to find matching object type for {}",
+                                handle.object_type
+                            )
+                        })?
+                        // Remove the prefix
+                        [("ObjectType::".len())..];
+                let object_type = format_ident!("{object_type}");
+                let aliases = handle
+                    .aliases
+                    .borrow()
+                    .iter()
+                    .map(|alias| {
+                        let doc_tag = make_doc_link(&format!("Vk{alias}"));
+                        let alias = format_ident!("{alias}");
+                        quote! ( #doc_tag pub type #alias = #name; )
+                    })
+                    .collect::<Vec<_>>();
+
+                Ok(quote! {
+                    #dispatch_macro !{#name, #object_type, #doc_tag}
+                    #(#aliases)*
+                })
+            })
+            .collect::<Result<Vec<_>>>()?;
+
+        let result = quote! {
+            use core::fmt;
+            use std::num::{NonZeroUsize, NonZeroU64};
+
+            use crate::{handle_dispatchable, handle_nondispatchable, vk_handle, private};
+            use crate::{Handle, ObjectType};
+
+            #(#handles)*
+        }
+        .to_string();
+
+        let formatted_result = Self::format_result(result)?;
+        Ok(formatted_result)
     }
 
     fn format_result(input: String) -> Result<String> {
@@ -134,6 +219,15 @@ impl<'a> Generator<'a> {
     }
 
     fn extend_enums(&self) -> Result<()> {
+        // add constants to the mapping
+        let mut mapping = self.mapping.borrow_mut();
+        for (vk_name, constant) in &self.constants {
+            let name = match constant {
+                Constant::Aliased { name, .. } | Constant::Field { name, .. } => name,
+            };
+            mapping.insert(&vk_name, name.clone());
+        }
+
         // add all aliases
         for ty in self.registry.types.iter().map(|t| &t.types).flatten() {
             if ty.name_attr.is_none() {
@@ -155,10 +249,7 @@ impl<'a> Generator<'a> {
                     // check for ty.name_attr emptiness has been done above
                     let ty_name = ty.name_attr.as_ref().unwrap().as_str();
                     let parsed_name = Enum::parse_name(ty_name);
-                    parent
-                        .aliases
-                        .borrow_mut()
-                        .push((ty_name, parsed_name));
+                    parent.aliases.borrow_mut().push((ty_name, parsed_name));
                 }
                 _ => {}
             }
@@ -253,6 +344,64 @@ impl<'a> Generator<'a> {
             }
         }
 
+        // add all enum fields / eliases to the mapping
+        for (enum_vk_name, enum_decl) in self.enums.iter() {
+            mapping.insert(enum_vk_name, enum_decl.name.clone());
+
+            // add all fields
+            for (field_vk_name, field) in enum_decl.values.borrow().iter() {
+                let name = match field {
+                    EnumValue::Aliased(EnumAliased { name, .. })
+                    | EnumValue::Variant(EnumVariant { name, .. })
+                    | EnumValue::Flag(EnumFlag { name, .. }) => name,
+                };
+                let full_name = format!("{}::{name}", enum_decl.name);
+                mapping.insert(field_vk_name, full_name);
+            }
+
+            // add all aliases
+            for (alias_vk_name, alias_name) in enum_decl.aliases.borrow().iter() {
+                mapping.insert(alias_vk_name, alias_name.clone());
+            }
+        }
+
+        Ok(())
+    }
+
+    fn extend_handles(&self) -> Result<()> {
+        let mut mapping = self.mapping.borrow_mut();
+
+        for handle in self.all_types().filter(|ty| {
+            ty.category.as_ref().is_some_and(|cat| cat == "handle") && ty.alias.is_some()
+        }) {
+            // checked above
+            let alias = handle.alias.as_ref().unwrap().as_str();
+            let vk_name = &handle
+                .name_attr
+                .as_ref()
+                .ok_or_else(|| anyhow!("Expected a name for {:?}", handle))?
+                .as_str();
+
+            // Remove the Vk prefix
+            let name = &vk_name[2..];
+
+            // add the alias to the mapping
+            mapping.insert(vk_name, name.to_string());
+
+            self.handles
+                .borrow()
+                .get(alias)
+                .ok_or_else(|| anyhow!("Failed to find aliased enum for {:?}", handle))?
+                .aliases
+                .borrow_mut()
+                .push(name);
+        }
+
+        // add all handles to the mapping
+        for (vk_name, handle) in &self.handles {
+            mapping.insert(vk_name, handle.name.to_string());
+        }
+
         Ok(())
     }
 
@@ -272,6 +421,10 @@ impl<'a> Generator<'a> {
             .map(|exts| &exts.extension)
             .flatten()
             .filter(|ext| ext.supported.contains(&xml::ExtensionSupported::Vulkan))
+    }
+
+    fn all_types(&self) -> impl Iterator<Item = &'a xml::Type> {
+        self.registry.types.iter().map(|ty| &ty.types).flatten()
     }
 
     fn generate_group_enums(
@@ -536,7 +689,7 @@ impl<'a> Enum<'a> {
 impl<'a> TryFrom<&'a xml::Enums> for Enum<'a> {
     type Error = anyhow::Error;
 
-    fn try_from(value: &'a xml::Enums) -> Result<Self, Self::Error> {
+    fn try_from(value: &'a xml::Enums) -> Result<Self> {
         let values = value
             .enums
             .iter()
@@ -544,7 +697,7 @@ impl<'a> TryFrom<&'a xml::Enums> for Enum<'a> {
             .collect::<Result<_>>()?;
 
         let bitflag: bool = matches!(value.ty, Some(xml::EnumsType::Bitmask));
-        
+
         let name = Self::parse_name(&value.name);
         Ok(Enum {
             name,
@@ -564,18 +717,18 @@ enum EnumValue<'a> {
 
 impl<'a> EnumValue<'a> {
     fn try_from(value: &'a xml::Enum, container_name: &'a str) -> Result<Self> {
-        match value {
-            &xml::Enum {
-                ref name,
-                alias: Some(ref alias),
+        match &value {
+            xml::Enum {
+                name,
+                alias: Some(alias),
                 ..
             } => {
                 let name = convert_field_to_snake_case(&container_name, name)?;
                 Ok(EnumValue::Aliased(EnumAliased { name, alias }))
             }
-            &xml::Enum {
-                ref name,
-                value: Some(ref value),
+            xml::Enum {
+                name,
+                value: Some(value),
                 ..
             } => {
                 let name = convert_field_to_snake_case(&container_name, name)?;
@@ -584,13 +737,16 @@ impl<'a> EnumValue<'a> {
                     value: Cow::Borrowed(value),
                 }))
             }
-            &xml::Enum {
-                ref name,
+            xml::Enum {
+                name,
                 bitpos: Some(bitpos),
                 ..
             } => {
                 let name = convert_field_to_snake_case(&container_name, name)?;
-                Ok(EnumValue::Flag(EnumFlag { name, bitpos }))
+                Ok(EnumValue::Flag(EnumFlag {
+                    name,
+                    bitpos: *bitpos,
+                }))
             }
             _ => Err(anyhow!("XML enum {:?} is ill-formed for an enum", value)),
         }
@@ -628,20 +784,20 @@ impl<'a> TryFrom<&'a xml::Enum> for Constant<'a> {
     type Error = anyhow::Error;
 
     fn try_from(value: &'a xml::Enum) -> Result<Self, Self::Error> {
-        match value {
-            &xml::Enum {
-                ref name,
-                alias: Some(ref alias),
+        match &value {
+            xml::Enum {
+                name,
+                alias: Some(alias),
                 ..
             } => {
                 // same as below
                 let name = name[("VK_".len())..].to_owned();
                 Ok(Constant::Aliased { name, alias })
             }
-            &xml::Enum {
-                ref name,
-                ty: Some(ref ty),
-                value: Some(ref value),
+            xml::Enum {
+                name,
+                ty: Some(ty),
+                value: Some(value),
                 ..
             } => {
                 // this is a real constant, use the appropriate rust case
@@ -650,6 +806,63 @@ impl<'a> TryFrom<&'a xml::Enum> for Constant<'a> {
                 Ok(Constant::Field { name, ty, value })
             }
             _ => Err(anyhow!("XML enum {:?} is ill-formed for a constant", value)),
+        }
+    }
+}
+
+struct Handle<'a> {
+    name: &'a str,
+    vk_name: &'a str,
+    is_dispatchable: bool,
+    parent: Option<&'a str>,
+    object_type: &'a str,
+    aliases: RefCell<Vec<&'a str>>,
+}
+
+impl<'a> TryFrom<&'a xml::Type> for Handle<'a> {
+    type Error = anyhow::Error;
+
+    fn try_from(value: &'a xml::Type) -> Result<Self> {
+        match &value {
+            xml::Type {
+                category: Some(cat),
+                parent,
+                alias: None,
+                content,
+                object_type_enum: Some(object_type),
+                ..
+            } if cat == "handle" => {
+                match &content[..] {
+                    // content should be
+                    // <type>VK_DEFINE_HANDLE</type>(<name>VkInstance</name>)
+                    // or
+                    // <type>VK_DEFINE_NON_DISPATCHABLE_HANDLE</type>(<name>VkBuffer</name>)
+                    [xml::TypeContent::Type(ty), xml::TypeContent::Text(_), xml::TypeContent::Name(name), xml::TypeContent::Text(_)] =>
+                    {
+                        let is_dispatchable = match ty.as_str() {
+                            "VK_DEFINE_HANDLE" => true,
+                            "VK_DEFINE_NON_DISPATCHABLE_HANDLE" => false,
+                            _ => return Err(anyhow!("Unknown type {ty} for {:?}", value)),
+                        };
+                        let vk_name = name.as_str();
+                        // remove the Vk Prefix
+                        let name = &name[2..];
+                        Ok(Handle {
+                            name,
+                            vk_name,
+                            is_dispatchable,
+                            object_type: object_type.as_str(),
+                            parent: parent.as_ref().map(|p| p.as_str()),
+                            aliases: RefCell::new(Vec::new()),
+                        })
+                    }
+                    _ => Err(anyhow!(
+                        "Failed to parse content as handle from {:?}",
+                        value
+                    )),
+                }
+            }
+            _ => Err(anyhow!("Failed to extract handle from {:?}", value)),
         }
     }
 }
@@ -801,7 +1014,18 @@ fn parse_value(value: &str, ty: CType) -> TokenStream {
     rust_value.parse().unwrap()
 }
 
+fn get_doc_url(item_name: &str) -> String {
+    format!(
+        "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/{item_name}.html>"
+    )
+}
+
 fn make_doc_link(item_name: &str) -> TokenStream {
-    let doc_name = format!("<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/{item_name}.html>");
+    let doc_name = get_doc_url(item_name);
     quote! (#[doc = #doc_name])
+}
+
+fn make_doc_link_inner(item_name: &str) -> TokenStream {
+    let doc_name = get_doc_url(item_name);
+    quote! (doc = #doc_name)
 }
