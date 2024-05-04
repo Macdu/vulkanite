@@ -135,6 +135,27 @@ pub(crate) fn screaming_snake_to_pascal_case(name: &str) -> String {
     result
 }
 
+pub(crate) fn camel_case_to_snake_case(name: &str) -> String {
+    let mut result: String = String::with_capacity(name.len());
+    // Contiguous uppercase letters must not have an underscore between them
+    // prevent UUID from being translated to u_u_i_d
+    let mut can_put_separation = false;
+    for c in name.chars() {
+        if c == '_' {
+            // just for textureCompressionASTC_HDR..
+            can_put_separation = true;
+            continue
+        } else if c.is_ascii_uppercase() && can_put_separation {
+            result.push('_');
+            can_put_separation = false;
+        } else if !c.is_ascii_uppercase() {
+            can_put_separation = true;
+        }
+        result.push(c.to_ascii_lowercase());
+    }
+    result
+}
+
 pub(crate) fn longuest_common_prefix<'a, 'b>(str1: &'a str, str2: &'b str) -> &'a str {
     let prefix_size = str1
         .chars()

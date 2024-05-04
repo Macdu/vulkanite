@@ -117,8 +117,8 @@ pub struct Type {
     pub allow_duplicate: Option<bool>,
     #[serde(rename = "@returnedonly")]
     pub returned_only: Option<()>,
-    #[serde(rename = "@structextends")]
-    pub struct_extends: Option<String>,
+    #[serde(default, rename = "@structextends", deserialize_with = "comma_separated")]
+    pub struct_extends: Vec<String>,
     #[serde(default, rename = "$value")]
     pub content: Vec<TypeContent>,
 }

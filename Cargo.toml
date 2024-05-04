@@ -9,3 +9,6 @@ bitflags = "2.5.0"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
+# to remove
+[profile.dev]
+panic = "abort"

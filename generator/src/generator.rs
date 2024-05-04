@@ -6,13 +6,16 @@ use std::{
 };
 
 use anyhow::{anyhow, Result};
-use proc_macro2::{Span, TokenStream};
-use quote::{format_ident, quote};
+use proc_macro2::TokenStream;
+use quote::{format_ident, quote, ToTokens};
 use syn::Ident;
 
 use crate::{
-    helpers::{longuest_common_prefix, screaming_snake_to_pascal_case},
-    xml::{self, RequireEnum, RequireType},
+    structs::{
+        convert_field_to_snake_case, Api, CType, Constant, Enum, EnumAliased, EnumFlag, EnumValue,
+        EnumVariant, Handle, Struct, StructBasetype, StructField, StructStandard, Type,
+    },
+    xml::{self, Require, RequireContent, RequireType},
 };
 
 pub struct Generator<'a> {
@@ -20,12 +23,12 @@ pub struct Generator<'a> {
     enums: HashMap<&'a str, Enum<'a>>,
     constants: HashMap<&'a str, Constant<'a>>,
     handles: HashMap<&'a str, Handle<'a>>,
-    listed_enum: RefCell<HashSet<String>>,
+    structs: HashMap<&'a str, Struct<'a>>,
     mapping: RefCell<HashMap<&'a str, String>>,
 }
 
 impl<'a> Generator<'a> {
-    pub fn new(_api: Api, registry: &xml::Registry) -> Result<Generator> {
+    pub fn new(_api: Api, registry: &'a xml::Registry) -> Result<Generator> {
         if registry
             .enums
             .get(0)
@@ -52,51 +55,103 @@ impl<'a> Generator<'a> {
             .map(|it| Ok((it.name.as_str(), Enum::try_from(it)?)))
             .collect::<Result<_>>()?;
 
-        let handles = registry
-            .types
-            .iter()
-            .map(|tys| &tys.types)
-            .flatten()
+        let all_types = registry.types.iter().flat_map(|tys| &tys.types);
+
+        let find_name = |ty: &'a xml::TypeContent| match ty {
+            xml::TypeContent::Name(name) => Some(name.as_str()),
+            _ => None,
+        };
+
+        let handles = all_types
+            .clone()
             .filter(|ty| {
                 ty.category.as_ref().is_some_and(|cat| cat == "handle") && ty.alias.is_none()
             })
             .map(|ty| {
                 let handle = Handle::try_from(ty)?;
-                Ok((handle.vk_name, handle))
+                let name = ty.content.iter().find_map(find_name).unwrap();
+                Ok((name, handle))
             })
             .collect::<Result<_>>()?;
+
+        let structs = all_types
+            .clone()
+            .filter(|ty| {
+                ty.category
+                    .as_ref()
+                    .is_some_and(|cat| cat == "basetype" || cat == "struct" || cat == "union")
+                    && ty.alias.is_none()
+                    && !ty.name_attr.as_ref().is_some_and(|name| {
+                        name == "VkBaseInStructure" || name == "VkBaseOutStructure"
+                    })
+            })
+            .map(|ty| {
+                let my_struct = Struct::try_from(ty)?;
+                let name = ty
+                    .name_attr
+                    .as_ref()
+                    .map(|n| n.as_str())
+                    // the fact try_from did not return error means this unwrap won't fail
+                    .unwrap_or_else(|| ty.content.iter().find_map(find_name).unwrap());
+                Ok((name, my_struct))
+            })
+            .collect::<Result<_>>()?;
+
+        let mapping = HashMap::from_iter(
+            [
+                ("uint8_t", "u8"),
+                ("int8_t", "i8"),
+                ("char", "c_char"),
+                ("uint16_t", "u16"),
+                ("int16_t", "i16"),
+                ("uint32_t", "u32"),
+                ("int32_t", "i32"),
+                ("int", "c_int"),
+                ("uint32_t", "u32"),
+                ("int32_t", "i32"),
+                ("uint64_t", "u64"),
+                ("int64_t", "i64"),
+                ("size_t", "usize"),
+                ("float", "f32"),
+                ("double", "f64"),
+                ("void", "c_void"),
+            ]
+            .into_iter()
+            .map(|(key, val)| (key, String::from(val))),
+        );
 
         let gen = Generator {
             registry,
             enums,
             constants,
             handles,
-            listed_enum: RefCell::new(HashSet::new()),
-            mapping: RefCell::new(HashMap::new()),
+            structs,
+            mapping: RefCell::new(mapping),
         };
+
         gen.extend_enums()?;
         gen.extend_handles()?;
+        gen.extend_structs()?;
 
         Ok(gen)
     }
 
     pub fn generate_enums(&self) -> Result<String> {
-        self.listed_enum.borrow_mut().clear();
+        let listed_enums = RefCell::new(HashSet::from(
+            // we define TRUE and FALSE in lib.rs
+            ["VK_TRUE", "VK_FALSE"],
+        ));
 
         let feature_enums = self
-            .registry
-            .features
-            .iter()
-            .map(|feature| self.generate_group_enums(&feature.name, &feature.require))
+            .filtered_features()
+            .map(|feature| {
+                self.generate_group_enums(&feature.name, &feature.require, &listed_enums)
+            })
             .collect::<Result<Vec<_>>>()?;
 
         let extension_enums = self
-            .registry
-            .extensions
-            .iter()
-            .map(|exts| &exts.extension)
-            .flatten()
-            .map(|ext| self.generate_group_enums(&ext.name, &ext.require))
+            .filtered_extensions()
+            .map(|ext| self.generate_group_enums(&ext.name, &ext.require, &listed_enums))
             .collect::<Result<Vec<_>>>()?;
 
         let result = quote! {
@@ -112,52 +167,40 @@ impl<'a> Generator<'a> {
     }
 
     pub fn generate_handles(&self) -> Result<String> {
-        let mapping = self.mapping.borrow();
-        let handles = self
-            .handles
-            .iter()
-            .map(|(_, handle)| {
-                if handle.object_type == "VK_OBJECT_TYPE_SEMAPHORE_SCI_SYNC_POOL_NV" {
-                    // annoying VulkanSC handle (we don't have its object type defined)
-                    return Ok(quote! {});
-                }
+        let listed_handles = RefCell::new(HashSet::new());
 
-                let name = format_ident!("{}", handle.name);
-                let dispatch_macro = if handle.is_dispatchable {
-                    "handle_dispatchable"
-                } else {
-                    "handle_nondispatchable"
-                };
-                let dispatch_macro = format_ident!("{dispatch_macro}");
-                let doc_tag = make_doc_link_inner(handle.vk_name);
-                let object_type = &mapping
-                        .borrow()
-                        .get(handle.object_type)
-                        .ok_or_else(|| {
-                            anyhow!(
-                                "Failed to find matching object type for {}",
-                                handle.object_type
-                            )
-                        })?
-                        // Remove the prefix
-                        [("ObjectType::".len())..];
-                let object_type = format_ident!("{object_type}");
-                let aliases = handle
-                    .aliases
-                    .borrow()
-                    .iter()
-                    .map(|alias| {
-                        let doc_tag = make_doc_link(&format!("Vk{alias}"));
-                        let alias = format_ident!("{alias}");
-                        quote! ( #doc_tag pub type #alias = #name; )
-                    })
-                    .collect::<Vec<_>>();
-
-                Ok(quote! {
-                    #dispatch_macro !{#name, #object_type, #doc_tag}
-                    #(#aliases)*
+        let generate_group_handle = |require: &Require| -> Result<TokenStream> {
+            let handles = require
+                .content
+                .iter()
+                .filter_map(|item| match item {
+                    RequireContent::Type(RequireType { name, .. }) => {
+                        if let Some(handle) = self.handles.get(name.as_str()) {
+                            if listed_handles.borrow_mut().insert(name.clone()) {
+                                Some(self.generate_handle(handle, name))
+                            } else {
+                                None
+                            }
+                        } else {
+                            None
+                        }
+                    }
+                    _ => None,
                 })
-            })
+                .collect::<Result<Vec<_>>>()?;
+
+            Ok(quote! { #(#handles)*})
+        };
+
+        let feature_handles = self
+            .filtered_features()
+            .flat_map(|feature| &feature.require)
+            .map(|req| generate_group_handle(req))
+            .collect::<Result<Vec<_>>>()?;
+        let feature_extensions = self
+            .filtered_extensions()
+            .flat_map(|ext| &ext.require)
+            .map(|req| generate_group_handle(req))
             .collect::<Result<Vec<_>>>()?;
 
         let result = quote! {
@@ -167,7 +210,82 @@ impl<'a> Generator<'a> {
             use crate::{handle_dispatchable, handle_nondispatchable, vk_handle, private};
             use crate::{Handle, ObjectType};
 
-            #(#handles)*
+            #(#feature_handles)*
+            #(#feature_extensions)*
+        }
+        .to_string();
+
+        let formatted_result = Self::format_result(result)?;
+        Ok(formatted_result)
+    }
+
+    pub fn generate_structs(&self) -> Result<String> {
+        let listed_structs = RefCell::new(HashSet::from(
+            // We use our own Bool32 type
+            ["VkBool32"],
+        ));
+
+        let generate_group_struct = |require: &'a Require| -> Result<TokenStream> {
+            let structs = require
+                .content
+                .iter()
+                .filter_map(|item| match item {
+                    RequireContent::Type(RequireType { name: ty_name, .. }) => {
+                        if let Some(my_struct) = self.structs.get(ty_name.as_str()) {
+                            if listed_structs.borrow_mut().insert(&ty_name) {
+                                match my_struct {
+                                    Struct::BaseType(StructBasetype {
+                                        name,
+                                        ty,
+                                        has_lifetime,
+                                    }) => {
+                                        let ty =
+                                            self.generate_type(&ty).expect("Failed to get type");
+                                        let name = format_ident!("{name}");
+                                        let doc_tag = make_doc_link(ty_name);
+                                        let lifetime =
+                                            has_lifetime.get().unwrap().then(|| quote! (<'a>));
+                                        Some(Ok(quote! (#doc_tag pub type #name #lifetime = #ty;)))
+                                    }
+                                    Struct::Standard(my_struct) => {
+                                        Some(self.generate_struct(my_struct, ty_name))
+                                    }
+                                }
+                            } else {
+                                None
+                            }
+                        } else {
+                            None
+                        }
+                    }
+                    _ => None,
+                })
+                .collect::<Result<Vec<_>>>()?;
+
+            Ok(quote! { #(#structs)*})
+        };
+
+        let struct_features = self
+            .filtered_features()
+            .flat_map(|feature| &feature.require)
+            .map(|req| generate_group_struct(req))
+            .collect::<Result<Vec<_>>>()?;
+        let struct_extensions = self
+            .filtered_extensions()
+            .flat_map(|ext| &ext.require)
+            .map(|req| generate_group_struct(req))
+            .collect::<Result<Vec<_>>>()?;
+
+        let result = quote! {
+            use crate::*;
+            use crate::raw::*;
+            use core::slice;
+            use std::ptr::{self, NonNull};
+            use std::marker::PhantomData;
+            use std::ffi::c_char;
+
+            #(#struct_features)*
+            #(#struct_extensions)*
         }
         .to_string();
 
@@ -177,7 +295,7 @@ impl<'a> Generator<'a> {
 
     fn format_result(input: String) -> Result<String> {
         // This comes from a mix of looking at ash (https://github.com/ash-rs/ash/blob/660553c9184997c805c5a9f990395eab6d5e8dd4/generator/src/lib.rs#L3458)
-        // and bindgen (https://docs.rs/bindgen/0.51.1/src/bindgen/lib.rs.html#1968)
+        // and  (https://docs.rs/bindgen/0.51.1bindgen/src/bindgen/lib.rs.html#1968)
 
         let mut cmd = std::process::Command::new("rustfmt")
             .stdin(std::process::Stdio::piped())
@@ -229,7 +347,7 @@ impl<'a> Generator<'a> {
         }
 
         // add all aliases
-        for ty in self.registry.types.iter().map(|t| &t.types).flatten() {
+        for ty in self.all_types() {
             if ty.name_attr.is_none() {
                 continue;
             }
@@ -259,17 +377,14 @@ impl<'a> Generator<'a> {
         // we also need while flattening everything to keep track of the extension number, which complicates everything
         let requires_ext = self
             .filtered_extensions()
-            .map(|ext| ext.require.iter().map(|req| (Some(ext.number), req)))
-            .flatten();
+            .flat_map(|ext| ext.require.iter().map(|req| (Some(ext.number), req)));
         let requires = self
             .filtered_features()
-            .map(|feat| feat.require.iter().map(|req| (None, req)))
-            .flatten()
+            .flat_map(|feat| feat.require.iter().map(|req| (None, req)))
             .chain(requires_ext);
 
         let enum_extends = requires
-            .map(|(nb, req)| req.content.iter().map(move |cnt| (nb.clone(), cnt)))
-            .flatten()
+            .flat_map(|(nb, req)| req.content.iter().map(move |cnt| (nb.clone(), cnt)))
             .filter_map(|(nb, el)| match el {
                 xml::RequireContent::Enum(req_enum) if req_enum.extends.is_some() => {
                     Some((nb, req_enum))
@@ -344,9 +459,11 @@ impl<'a> Generator<'a> {
             }
         }
 
-        // add all enum fields / eliases to the mapping
+        // add all enum fields / aliases to the mapping
         for (enum_vk_name, enum_decl) in self.enums.iter() {
-            mapping.insert(enum_vk_name, enum_decl.name.clone());
+            assert!(mapping
+                .insert(enum_vk_name, enum_decl.name.clone())
+                .is_none());
 
             // add all fields
             for (field_vk_name, field) in enum_decl.values.borrow().iter() {
@@ -356,13 +473,78 @@ impl<'a> Generator<'a> {
                     | EnumValue::Flag(EnumFlag { name, .. }) => name,
                 };
                 let full_name = format!("{}::{name}", enum_decl.name);
-                mapping.insert(field_vk_name, full_name);
+                assert!(mapping.insert(field_vk_name, full_name).is_none());
             }
 
             // add all aliases
             for (alias_vk_name, alias_name) in enum_decl.aliases.borrow().iter() {
-                mapping.insert(alias_vk_name, alias_name.clone());
+                assert!(mapping.insert(alias_vk_name, alias_name.clone()).is_none());
             }
+        }
+
+        // add bitmask to the mapping (VkAccessFlagBits enum => VkAccessFlags bitmask)
+        for bitmask in self
+            .all_types()
+            .filter(|ty| ty.category.as_ref().is_some_and(|cat| cat == "bitmask"))
+        {
+            if let Some(alias) = &bitmask.alias {
+                let vk_name = bitmask
+                    .name_attr
+                    .as_ref()
+                    .ok_or_else(|| anyhow!("Failed to get name for {alias}"))?;
+                let alias = alias.replace("Flags", "FlagBits");
+                if let Some(enum_base) = self.enums.get(alias.as_str()) {
+                    // add the alias only if it does not exists already as the FlagBits version
+                    let mut aliases = enum_base.aliases.borrow_mut();
+                    // Remove the "Vk" prefix
+                    let name = &vk_name[2..];
+                    if !aliases.iter().any(|(_, alias_name)| alias_name == name) {
+                        aliases.push((vk_name.as_str(), name.to_string()));
+                    }
+                    assert!(mapping.insert(vk_name, enum_base.name.clone()).is_none());
+                } else {
+                    // alias of an empty bitmask
+                    assert!(mapping.insert(vk_name, String::from("u32")).is_none());
+                }
+            } else {
+                let name = bitmask
+                    .content
+                    .iter()
+                    .find_map(|cnt| match cnt {
+                        xml::TypeContent::Name(name) => Some(name.as_str()),
+                        _ => None,
+                    })
+                    .ok_or_else(|| anyhow!("Failed to find name for bimask"))?;
+                let value = if let Some(req) = &bitmask.requires {
+                    mapping
+                        .get(req.as_str())
+                        .ok_or_else(|| anyhow!("Failed to find bitflag {req}"))?
+                        .clone()
+                } else {
+                    // bitflag with no value defined yet (can only be 0)
+                    String::from("u32")
+                };
+                assert!(mapping.insert(name, value).is_none());
+            }
+        }
+
+        // workaround for the time being
+        for funcptr in self.all_types().filter_map(|ty| match &ty {
+            &xml::Type {
+                category: Some(category),
+                ..
+            } if category == "funcpointer" => Some(ty),
+            _ => None,
+        }) {
+            let name = funcptr
+                .content
+                .iter()
+                .find_map(|cnt| match cnt {
+                    xml::TypeContent::Name(name) => Some(name.as_str()),
+                    _ => None,
+                })
+                .ok_or_else(|| anyhow!("Failed to find name for funcptr"))?;
+            assert!(mapping.insert(name, "FuncPtr".to_owned()).is_none());
         }
 
         Ok(())
@@ -386,7 +568,7 @@ impl<'a> Generator<'a> {
             let name = &vk_name[2..];
 
             // add the alias to the mapping
-            mapping.insert(vk_name, name.to_string());
+            assert!(mapping.insert(vk_name, name.to_string()).is_none());
 
             self.handles
                 .borrow()
@@ -399,10 +581,92 @@ impl<'a> Generator<'a> {
 
         // add all handles to the mapping
         for (vk_name, handle) in &self.handles {
-            mapping.insert(vk_name, handle.name.to_string());
+            assert!(mapping.insert(vk_name, handle.name.to_string()).is_none());
         }
 
         Ok(())
+    }
+
+    fn extend_structs(&self) -> Result<()> {
+        let mut mapping = self.mapping.borrow_mut();
+
+        // add include types
+        for ty in self.all_types() {
+            match (&ty.requires, &ty.name_attr) {
+                (Some(_), Some(name)) => {
+                    // only insert if it is not already custom defined
+                    mapping
+                        .entry(name)
+                        .or_insert_with(|| String::from("VoidPtr"));
+                }
+                _ => {}
+            }
+        }
+
+        // No need to put the fields, only put the definitions
+        for (vk_name, my_struct) in &self.structs {
+            let name = match my_struct {
+                Struct::BaseType(StructBasetype { name, .. })
+                | Struct::Standard(StructStandard { name, .. }) => name,
+            };
+            assert!(mapping.insert(vk_name, name.to_string()).is_none());
+        }
+
+        // register all lifetimes
+        for (vk_name, my_struct) in &self.structs {
+            if my_struct.lifetime().is_some() {
+                continue;
+            }
+
+            self.compute_name_lifetime(vk_name);
+            assert!(my_struct.lifetime().is_some());
+        }
+
+        Ok(())
+    }
+
+    /// Return if the type ty needs to have a lifetime parameter
+    /// i.e if the type is pointer to a sized type of a struct with a lifetime
+    fn compute_type_lifetime(&self, ty: &Type) -> bool {
+        match ty {
+            Type::Void | Type::VoidPtr | Type::Bitfield { .. } => false,
+            Type::Ptr(_) | Type::DoublePtr(_) | Type::CStrArr => true,
+            Type::Path(ty)
+            | Type::ArrayEnum { ty, .. }
+            | Type::ArrayCst { ty, .. }
+            | Type::ArrayDoubleCst { ty, .. } => self.compute_name_lifetime(ty),
+        }
+    }
+
+    /// Return if the type name needs a lifetime
+    /// i.e if the type is a base type whose type has a lifetime
+    /// Or a standard struct and one of its type requires a lifetime
+    fn compute_name_lifetime(&self, name: &str) -> bool {
+        let my_struct = match self.structs.get(name) {
+            Some(my_struct) => my_struct,
+            None => return false,
+        };
+
+        if let Some(lifetime) = my_struct.lifetime() {
+            return lifetime;
+        }
+
+        match my_struct {
+            Struct::BaseType(base_type) => {
+                let lifetime = self.compute_type_lifetime(&base_type.ty);
+                base_type.has_lifetime.set(Some(lifetime));
+                lifetime
+            }
+            Struct::Standard(standard_type) => {
+                let lifetime = standard_type.s_type.is_some()
+                    || standard_type
+                        .fields
+                        .iter()
+                        .any(|field| self.compute_type_lifetime(&field.ty));
+                standard_type.has_lifetime.set(Some(lifetime));
+                lifetime
+            }
+        }
     }
 
     // remove VulkanSC only features
@@ -418,31 +682,34 @@ impl<'a> Generator<'a> {
         self.registry
             .extensions
             .iter()
-            .map(|exts| &exts.extension)
-            .flatten()
+            .flat_map(|exts| &exts.extension)
             .filter(|ext| ext.supported.contains(&xml::ExtensionSupported::Vulkan))
     }
 
     fn all_types(&self) -> impl Iterator<Item = &'a xml::Type> {
-        self.registry.types.iter().map(|ty| &ty.types).flatten()
+        self.registry
+            .types
+            .iter()
+            .flat_map(|ty| &ty.types)
+            .filter(|ty| ty.api != Some(xml::Api::Vulkansc))
     }
 
     fn generate_group_enums(
         &self,
         _group_name: &str,
-        require: &Vec<xml::Require>,
+        require: &'a Vec<xml::Require>,
+        listed_enums: &RefCell<HashSet<&'a str>>,
     ) -> Result<TokenStream> {
         let content = require
             .iter()
-            .map(|req| &req.content)
-            .flatten()
+            .flat_map(|req| &req.content)
             .collect::<Vec<_>>();
         let group_enums = content
             .into_iter()
             .filter_map(|cnt| match cnt {
-                xml::RequireContent::Enum(RequireEnum { name, .. })
-                | xml::RequireContent::Type(RequireType { name, .. }) => {
-                    if !self.listed_enum.borrow().contains(name) {
+                xml::RequireContent::Enum(xml::RequireEnum { name, .. })
+                | xml::RequireContent::Type(xml::RequireType { name, .. }) => {
+                    if !listed_enums.borrow().contains(name.as_str()) {
                         Some(name.as_str())
                     } else {
                         None
@@ -459,7 +726,7 @@ impl<'a> Generator<'a> {
                     None
                 };
                 if result.is_some() {
-                    self.listed_enum.borrow_mut().insert(name.to_string());
+                    listed_enums.borrow_mut().insert(name);
                 }
                 result
             })
@@ -596,7 +863,7 @@ impl<'a> Generator<'a> {
             .collect::<Vec<_>>();
         let doc_tag = make_doc_link(enum_name);
         let result = quote! {
-            #[derive(Debug, Clone, Copy)]
+            #[derive(Debug, Clone, Copy, PartialEq, Eq)]
             #doc_tag
             #pre_qualifier
             pub #struct_ty #name #post_qualifier {
@@ -623,6 +890,336 @@ impl<'a> Generator<'a> {
             })
         } else {
             Ok(result)
+        }
+    }
+
+    fn generate_handle(&self, handle: &Handle<'a>, vk_name: &str) -> Result<TokenStream> {
+        let name = format_ident!("{}", handle.name);
+        let dispatch_macro = if handle.is_dispatchable {
+            "handle_dispatchable"
+        } else {
+            "handle_nondispatchable"
+        };
+        let dispatch_macro = format_ident!("{dispatch_macro}");
+        let doc_tag = make_doc_link_inner(vk_name);
+        let mapping = self.mapping.borrow();
+        let object_type = &mapping.get(handle.object_type)
+            .ok_or_else(|| anyhow!( "Failed to find matching object type for {}", handle.object_type))?
+            // Remove the prefix
+            [("ObjectType::".len())..];
+        let object_type = format_ident!("{object_type}");
+        let aliases = handle
+            .aliases
+            .borrow()
+            .iter()
+            .map(|alias| {
+                let doc_tag = make_doc_link(&format!("Vk{alias}"));
+                let alias = format_ident!("{alias}");
+                quote! ( #doc_tag pub type #alias = #name; )
+            })
+            .collect::<Vec<_>>();
+
+        Ok(quote! {
+            #dispatch_macro !{#name, #object_type, #doc_tag}
+            #(#aliases)*
+        })
+    }
+
+    fn generate_struct(
+        &self,
+        my_struct: &StructStandard<'a>,
+        struct_vk_name: &str,
+    ) -> Result<TokenStream> {
+        let mapping = self.mapping.borrow();
+        let all_fields: HashMap<_, _> = my_struct.fields.iter().map(|f| (f.vk_name, f)).collect();
+        let mut simple_fields = all_fields.clone();
+        if my_struct.s_type.is_some() {
+            // remove preemptively s_type and p_next
+            simple_fields.remove("sType");
+            simple_fields.remove("pNext");
+        }
+
+        struct FieldWithLen<'a, 'b> {
+            len_field: &'b StructField<'a>,
+            array_fields: Vec<&'b StructField<'a>>,
+        }
+        let mut length_fields: HashMap<_, _> = HashMap::new();
+
+        // retrieve all arrays with a len
+        for field in &my_struct.fields {
+            let len = match &field.xml.len {
+                Some(len) => len.as_str(),
+                _ => continue,
+            };
+            if field.xml.alt_len.is_some() || len.contains(',') || len == "null-terminated" {
+                // TODO: handle
+                continue;
+            }
+
+            let len_field = *all_fields
+                .get(len)
+                .ok_or_else(|| anyhow!("Failed to find length field {len}"))?;
+
+            simple_fields.remove(field.vk_name);
+            simple_fields.remove(len_field.vk_name);
+
+            length_fields
+                .entry(len)
+                .or_insert_with(|| FieldWithLen {
+                    len_field,
+                    array_fields: Vec::new(),
+                })
+                .array_fields
+                .push(field);
+        }
+
+        let iter = my_struct
+            .fields
+            .iter()
+            .map(|field| {
+                let field_name = format_ident!("{}", field.name);
+                let (ty_name, vis, default_impl) = match field.vk_name {
+                    "sType" => (
+                        quote!(StructureType),
+                        None,
+                        quote! {#field_name: Self::STRUCTURE_TYPE,},
+                    ),
+                    "pNext" => (
+                        quote!(Cell<*const Header>),
+                        None,
+                        quote! {p_next: Cell::new(ptr::null()),},
+                    ),
+                    _ => (
+                        self.generate_type(&field.ty)?,
+                        simple_fields.get(field.vk_name).map(|_| quote!(pub)),
+                        quote! {#field_name: Default::default(),},
+                    ),
+                };
+                Ok((quote! {#vis #field_name: #ty_name,}, default_impl))
+            })
+            .collect::<Result<Vec<_>>>()?;
+
+        let (fields, default_impl): (Vec<_>, Vec<_>) = iter.into_iter().unzip();
+
+        let simple_accessors = simple_fields
+            .iter()
+            .map(|(_, field)| {
+                if field.vk_name == "sType" {
+                    return Ok(quote!());
+                }
+
+                let name = format_ident!("{}", field.name);
+                let ty_name = self.generate_type(&field.ty)?;
+                Ok(quote! {
+                    #[inline]
+                    pub fn #name(&mut self, value: #ty_name) -> &mut Self {
+                        self.#name = value;
+                        self
+                    }
+                })
+            })
+            .collect::<Result<Vec<_>>>()?;
+
+        let array_accessors = length_fields
+            .iter()
+            .map(|(_, length_field)| {
+                if length_field.array_fields.len() > 1 {
+                    //TODO
+                    return Ok(quote!());
+                }
+
+                let field = length_field.array_fields[0];
+                if !field.name.starts_with("p_") {
+                    //TODO
+                    return Ok(quote!());
+                }
+
+                let setter_name = format_ident!("{}", field.name[2..]);
+                let getter_name = format_ident!("get_{}", field.name[2..]);
+                let length_name = format_ident!("{}", length_field.len_field.name);
+                let ptr_name = format_ident!("{}", field.name);
+                let ty_inner = self
+                    .generate_sugar_type(&field.ty)
+                    .ok_or_else(|| anyhow!("Failed to find type for {}", field.name))?;
+                Ok(quote! {
+                    #[inline]
+                    pub fn #setter_name(&mut self, value: &'a [#ty_inner]) -> &mut Self {
+                        self.#ptr_name = Some(<NonNull<[_]>>::from(value).cast());
+                        self.#length_name = value.len() as _;
+                        self
+                    }
+
+                    pub fn #getter_name(&self) -> &'a [#ty_inner] {
+                        let value = self.#ptr_name.map_or(ptr::null(), |v| v.as_ptr());
+                        unsafe { slice::from_raw_parts(value, self.#length_name as _) }
+                    }
+                })
+            })
+            .collect::<Result<Vec<_>>>()?;
+
+        let name = format_ident!("{}", my_struct.name);
+        let doc_tag = make_doc_link(struct_vk_name);
+
+        let has_lifetime = my_struct.has_lifetime.get().unwrap();
+        let lifetime = has_lifetime.then(|| quote! (<'a>));
+        let require_phantom = has_lifetime && simple_fields.len() != all_fields.len();
+        let phantom_decl = require_phantom.then(|| quote! (phantom: PhantomData<&'a ()>,));
+        let phantom_default = require_phantom.then(|| quote! (phantom: PhantomData,));
+        let (s_type_impl, p_next_impl) = if let Some(s_type) = my_struct.s_type {
+            let s_type_value: TokenStream = mapping
+                .get(s_type)
+                .ok_or_else(|| anyhow!("Failed to find structure type for {s_type}"))?
+                .parse()
+                .unwrap();
+            (Some(quote! {
+                unsafe impl #lifetime ExtendableStructure for #name #lifetime {
+                    const STRUCTURE_TYPE: StructureType = #s_type_value;
+                }
+            }), Some(quote! {
+                pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
+                    unsafe { self.push_next_unchecked(ext) }
+                }
+            }))
+        } else {
+            (None, None)
+        };
+        let struct_extensions = my_struct
+            .extends
+            .iter()
+            .map(|name| {
+                mapping
+                    .get(name.as_str())
+                    .map(|name| format_ident!("{name}"))
+                    .ok_or_else(|| anyhow!("Failed to find extension {}", name))
+            })
+            .collect::<Result<Vec<_>>>()?;
+
+        if my_struct.is_union {
+            // union are much more lightweight
+            // we should have wrapper around them (as they are unsafe)
+
+            // For the default implementation, take the first field and use its default value
+            let first_field_name = format_ident!("{}", my_struct.fields.first().unwrap().name);
+            return Ok(quote! {
+                #[repr(C)]
+                #doc_tag
+                pub union #name #lifetime {
+                    #(#fields)*
+                }
+
+                impl Default for #name {
+                    fn default() -> Self {
+                        Self {
+                            #first_field_name: Default::default(),
+                        }
+                    }
+                }
+            });
+        }
+
+        Ok(quote! {
+            #[repr(C)]
+            #doc_tag
+            pub struct #name #lifetime {
+                #(#fields)*
+                #phantom_decl
+            }
+            #s_type_impl
+            unsafe impl #lifetime Send for #name #lifetime {}
+            unsafe impl #lifetime Sync for #name #lifetime {}
+            #(unsafe impl<'a, 'b> ExtendingStructure<#struct_extensions<'b>> for #name<'a> {})*
+
+            impl #lifetime Default for #name #lifetime {
+                fn default() -> Self {
+                    Self {
+                        #(#default_impl)*
+                        #phantom_default
+                    }
+                }
+            }
+
+            impl #lifetime #name #lifetime {
+                #(#simple_accessors)*
+                #(#array_accessors)*
+                #p_next_impl
+            }
+        })
+    }
+
+    fn generate_type(&self, ty: &Type<'a>) -> Result<TokenStream> {
+        let get_name = |name: &'a str| {
+            self.mapping
+                .borrow()
+                .get(name)
+                .cloned()
+                .ok_or_else(|| anyhow!("Failed to find key {name}"))
+        };
+
+        let get_lifetime = |ty: &str| self.compute_name_lifetime(ty).then(|| quote! (<'a>));
+
+        let result = match ty {
+            Type::Void => quote!(()),
+            Type::VoidPtr => quote!(*const ()),
+            Type::Path(ty) => {
+                let lifetime = get_lifetime(ty);
+                let ty = format_ident!("{}", get_name(ty)?);
+                quote! (#ty #lifetime)
+            }
+            Type::Ptr(ty) => {
+                let lifetime = get_lifetime(ty);
+                let ty = format_ident!("{}", get_name(ty)?);
+                quote! (Option<NonNull<#ty #lifetime>>)
+            }
+            Type::DoublePtr(ty) => {
+                let lifetime = get_lifetime(ty);
+                let ty: Ident = format_ident!("{}", get_name(ty)?);
+                quote!(Option<NonNull<NonNull<#ty #lifetime>>>)
+            }
+            Type::CStrArr => {
+                quote!(&'a [*const c_char])
+            }
+            Type::ArrayEnum { ty, size } => {
+                let lifetime = get_lifetime(ty);
+                let ty: Ident = format_ident!("{}", get_name(ty)?);
+                let size: Ident = format_ident!("{}", get_name(size)?);
+                quote! ([#ty #lifetime; #size as _])
+            }
+            Type::ArrayCst { ty, size } => {
+                let lifetime = get_lifetime(ty);
+                let ty: Ident = format_ident!("{}", get_name(ty)?);
+                quote! ([#ty #lifetime; #size as _])
+            }
+            Type::ArrayDoubleCst { ty, size1, size2 } => {
+                let lifetime = get_lifetime(ty);
+                let ty: Ident = format_ident!("{}", get_name(ty)?);
+                quote! ([[#ty #lifetime; #size2 as _]; #size1 as _])
+            }
+            Type::Bitfield {
+                ty,
+                bitsize: _bitsize,
+            } => {
+                // Todo: Not correct
+                let ty: Ident = format_ident!("{}", get_name(ty)?);
+                quote! (#ty)
+            }
+        };
+        Ok(result)
+    }
+
+    pub fn generate_sugar_type<'b>(&self, ty: &Type<'a>) -> Option<TokenStream> {
+        match ty {
+            Type::VoidPtr => Some(quote!(*const ())),
+            Type::Ptr(name) => self
+                .mapping
+                .borrow()
+                .get(name)
+                .map(|name| format_ident!("{name}").into_token_stream()),
+            Type::DoublePtr(name) => self
+                .mapping
+                .borrow()
+                .get(name)
+                .map(|name| format!("&'a {name}").parse().unwrap()),
+            _ => None,
         }
     }
 
@@ -662,341 +1259,6 @@ impl<'a> Generator<'a> {
 
         lines.join("\n")
     }
-}
-
-pub enum Api {
-    Vulkan,
-    //VulkanSc
-}
-
-struct Enum<'a> {
-    name: String,
-    bitflag: bool,
-    width_is_64: bool,
-    values: RefCell<Vec<(&'a str, EnumValue<'a>)>>,
-    aliases: RefCell<Vec<(&'a str, String)>>,
-}
-
-impl<'a> Enum<'a> {
-    fn parse_name(name: &str) -> String {
-        // remove the Vk prefix
-        // and replace FlagBits by Flags
-        // VkMemoryAllocateFlagBitsKHR -> MemoryAllocateFlagsKHR
-        name[2..].replace("FlagBits", "Flags")
-    }
-}
-
-impl<'a> TryFrom<&'a xml::Enums> for Enum<'a> {
-    type Error = anyhow::Error;
-
-    fn try_from(value: &'a xml::Enums) -> Result<Self> {
-        let values = value
-            .enums
-            .iter()
-            .map(|val| Ok((val.name.as_str(), EnumValue::try_from(val, &value.name)?)))
-            .collect::<Result<_>>()?;
-
-        let bitflag: bool = matches!(value.ty, Some(xml::EnumsType::Bitmask));
-
-        let name = Self::parse_name(&value.name);
-        Ok(Enum {
-            name,
-            bitflag,
-            width_is_64: value.bitwidth_is_64.is_some(),
-            values: RefCell::new(values),
-            aliases: RefCell::new(Vec::new()),
-        })
-    }
-}
-
-enum EnumValue<'a> {
-    Aliased(EnumAliased<'a>),
-    Variant(EnumVariant<'a>),
-    Flag(EnumFlag),
-}
-
-impl<'a> EnumValue<'a> {
-    fn try_from(value: &'a xml::Enum, container_name: &'a str) -> Result<Self> {
-        match &value {
-            xml::Enum {
-                name,
-                alias: Some(alias),
-                ..
-            } => {
-                let name = convert_field_to_snake_case(&container_name, name)?;
-                Ok(EnumValue::Aliased(EnumAliased { name, alias }))
-            }
-            xml::Enum {
-                name,
-                value: Some(value),
-                ..
-            } => {
-                let name = convert_field_to_snake_case(&container_name, name)?;
-                Ok(EnumValue::Variant(EnumVariant {
-                    name,
-                    value: Cow::Borrowed(value),
-                }))
-            }
-            xml::Enum {
-                name,
-                bitpos: Some(bitpos),
-                ..
-            } => {
-                let name = convert_field_to_snake_case(&container_name, name)?;
-                Ok(EnumValue::Flag(EnumFlag {
-                    name,
-                    bitpos: *bitpos,
-                }))
-            }
-            _ => Err(anyhow!("XML enum {:?} is ill-formed for an enum", value)),
-        }
-    }
-}
-
-struct EnumAliased<'a> {
-    name: String,
-    alias: &'a str,
-}
-
-struct EnumVariant<'a> {
-    name: String,
-    value: Cow<'a, str>,
-}
-
-struct EnumFlag {
-    name: String,
-    bitpos: u8,
-}
-
-enum Constant<'a> {
-    Aliased {
-        name: String,
-        alias: &'a str,
-    },
-    Field {
-        name: String,
-        ty: CType,
-        value: &'a str,
-    },
-}
-
-impl<'a> TryFrom<&'a xml::Enum> for Constant<'a> {
-    type Error = anyhow::Error;
-
-    fn try_from(value: &'a xml::Enum) -> Result<Self, Self::Error> {
-        match &value {
-            xml::Enum {
-                name,
-                alias: Some(alias),
-                ..
-            } => {
-                // same as below
-                let name = name[("VK_".len())..].to_owned();
-                Ok(Constant::Aliased { name, alias })
-            }
-            xml::Enum {
-                name,
-                ty: Some(ty),
-                value: Some(value),
-                ..
-            } => {
-                // this is a real constant, use the appropriate rust case
-                let name = name[("VK_".len())..].to_owned();
-                let ty: CType = (ty as &str).try_into()?;
-                Ok(Constant::Field { name, ty, value })
-            }
-            _ => Err(anyhow!("XML enum {:?} is ill-formed for a constant", value)),
-        }
-    }
-}
-
-struct Handle<'a> {
-    name: &'a str,
-    vk_name: &'a str,
-    is_dispatchable: bool,
-    parent: Option<&'a str>,
-    object_type: &'a str,
-    aliases: RefCell<Vec<&'a str>>,
-}
-
-impl<'a> TryFrom<&'a xml::Type> for Handle<'a> {
-    type Error = anyhow::Error;
-
-    fn try_from(value: &'a xml::Type) -> Result<Self> {
-        match &value {
-            xml::Type {
-                category: Some(cat),
-                parent,
-                alias: None,
-                content,
-                object_type_enum: Some(object_type),
-                ..
-            } if cat == "handle" => {
-                match &content[..] {
-                    // content should be
-                    // <type>VK_DEFINE_HANDLE</type>(<name>VkInstance</name>)
-                    // or
-                    // <type>VK_DEFINE_NON_DISPATCHABLE_HANDLE</type>(<name>VkBuffer</name>)
-                    [xml::TypeContent::Type(ty), xml::TypeContent::Text(_), xml::TypeContent::Name(name), xml::TypeContent::Text(_)] =>
-                    {
-                        let is_dispatchable = match ty.as_str() {
-                            "VK_DEFINE_HANDLE" => true,
-                            "VK_DEFINE_NON_DISPATCHABLE_HANDLE" => false,
-                            _ => return Err(anyhow!("Unknown type {ty} for {:?}", value)),
-                        };
-                        let vk_name = name.as_str();
-                        // remove the Vk Prefix
-                        let name = &name[2..];
-                        Ok(Handle {
-                            name,
-                            vk_name,
-                            is_dispatchable,
-                            object_type: object_type.as_str(),
-                            parent: parent.as_ref().map(|p| p.as_str()),
-                            aliases: RefCell::new(Vec::new()),
-                        })
-                    }
-                    _ => Err(anyhow!(
-                        "Failed to parse content as handle from {:?}",
-                        value
-                    )),
-                }
-            }
-            _ => Err(anyhow!("Failed to extract handle from {:?}", value)),
-        }
-    }
-}
-
-#[derive(Clone, Copy)]
-enum CType {
-    Uint32,
-    Int32,
-    Uint64,
-    Int64,
-    Float,
-}
-
-impl TryFrom<&str> for CType {
-    type Error = anyhow::Error;
-
-    fn try_from(value: &str) -> Result<Self, Self::Error> {
-        match value {
-            "uint32_t" => Ok(CType::Uint32),
-            "int32_t" => Ok(CType::Int32),
-            "uint64_t" => Ok(CType::Uint64),
-            "int64_t" => Ok(CType::Int64),
-            "float" => Ok(CType::Float),
-            _ => Err(anyhow!("Unknown c type {value}")),
-        }
-    }
-}
-
-impl Into<Ident> for &CType {
-    fn into(self) -> Ident {
-        let ident_str = match self {
-            CType::Uint32 => "u32",
-            CType::Int32 => "i32",
-            CType::Uint64 => "u64",
-            CType::Int64 => "i64",
-            CType::Float => "f32",
-        };
-        Ident::new(ident_str, Span::call_site())
-    }
-}
-
-/// Performs screaming snake case to pascal case conversion
-/// We only keep the part of the field not already in the container:
-/// VK_PRIMITIVE_TOPOLOGY_POINT_LIST => PointList
-///
-/// If the container name has an extension name, it is stripped of the field name:
-/// VK_BLEND_OVERLAP_UNCORRELATED_EXT => Uncorrelated (container name is VkBlendOverlapEXT)
-/// VK_PIPELINE_BIND_POINT_RAY_TRACING_KHR => RayTracingKHR (Khr is kept because the container name VkPipelineBindPoint has no Khr)
-///
-/// For bitflags, the _BIT part is removed
-/// VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT => SampledImage
-///
-/// Because rust enums can't start with a number, it will be removed and instead some prefix based
-/// on the container name will be added:
-/// VK_SHADING_RATE_PALETTE_ENTRY_16_INVOCATIONS_PER_PIXEL_NV => Rate16InvocationsPerPixel
-/// VK_SAMPLE_COUNT_4_BIT => Count4
-fn convert_field_to_snake_case(container_name: &str, field_name: &str) -> Result<String> {
-    // try to detect extensions NV, KHR, HUAWEI...
-    let post_extension_size = container_name
-        .chars()
-        .rev()
-        .take_while(|c| c.is_ascii_uppercase())
-        .count();
-    let post_extension = &container_name[(container_name.len() - post_extension_size)..];
-    let field_name = if post_extension.len() >= 2 && field_name.ends_with(post_extension) {
-        // No extension has one letter
-        // also removing the underscore before the extension
-        &field_name[..(field_name.len() - post_extension.len() - 1)]
-    } else {
-        field_name
-    };
-    let result = screaming_snake_to_pascal_case(field_name);
-
-    let container_simplified = if let Some(pos) = container_name.find("FlagBits") {
-        &container_name[..pos]
-    } else if post_extension_size >= 2 {
-        &container_name[..(container_name.len() - post_extension_size)]
-    } else {
-        &container_name[..]
-    };
-    let prefix = longuest_common_prefix(container_simplified, &result);
-
-    // remove the prefix
-    let mut result = result[prefix.len()..].to_string();
-    if post_extension_size >= 2 {}
-    if let Some(pos) = container_name.find("FlagBits") {
-        // remove the 'Bit' part
-        if let Some(pos) = result.rfind("Bit") {
-            result.replace_range(pos..(pos + "Bit".len()), "");
-        }
-
-        // the enum number is a bit all over the place (VkBufferUsageFlagBits2KHR -> VK_BUFFER_USAGE_2_TRANSFER_DST_BIT_KHR)
-        // handle it here
-        let nb_between = container_name.len() - (pos + "FlagBits".len() + post_extension_size);
-        if nb_between == 1
-            && container_name
-                .chars()
-                .nth_back(post_extension_size)
-                .unwrap()
-                .is_numeric()
-        {
-            //go from 2TransferDst to TransferDst
-            result = result[1..].to_string();
-        } else if nb_between >= 2 {
-            return Err(anyhow!(
-                "Unexpected name for {field_name} and {container_name}"
-            ));
-        }
-    }
-
-    let prefix = if result
-        .chars()
-        .next()
-        .ok_or_else(|| anyhow!("The resulting field from {field_name} is an empty string"))?
-        .is_numeric()
-    {
-        // we can't let it start with a number
-        // add something relevant in front
-        [
-            "Type", "Count", "Depth", "Size", "Rate", "Format", "Result", "Controls", "Chroma",
-            "Image",
-        ]
-        .into_iter()
-        .find(|kw| container_name.contains(kw))
-        .ok_or_else(|| {
-            anyhow!(
-                "Failed to find a relevant keyword to add in front of {result} for {field_name}"
-            )
-        })?
-    } else {
-        ""
-    };
-
-    Ok(format!("{prefix}{result}"))
 }
 
 fn parse_value(value: &str, ty: CType) -> TokenStream {
