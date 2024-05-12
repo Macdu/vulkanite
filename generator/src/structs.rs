@@ -339,7 +339,8 @@ impl<'a> TryFrom<&'a xml::Type> for Struct<'a> {
                     s_type,
                     fields: members,
                     has_lifetime,
-                    extends: &value.struct_extends
+                    extends: &value.struct_extends,
+                    aliases: RefCell::new(Vec::new()),
                 }))
             }
             _ => Err(anyhow!("XML value {:?} is ill-formed for a struct", value)),
@@ -360,12 +361,15 @@ pub struct StructStandard<'a> {
     pub fields: Vec<StructField<'a>>,
     pub has_lifetime: Cell<Option<bool>>,
     pub extends: &'a Vec<String>,
+    pub aliases: RefCell<Vec<&'a str>>,
 }
 
 pub struct StructField<'a> {
     pub name: String,
     pub vk_name: &'a str,
     pub ty: Type<'a>,
+    pub advanced_ty: Cell<Option<AdvancedType<'a>>>,
+    pub optional: bool,
     pub xml: &'a xml::Member,
 }
 
@@ -454,13 +458,38 @@ impl<'a> TryFrom<&'a xml::Member> for StructField<'a> {
             _ => &name,
         }
         .to_string();
+        let optional = value.optional.contains(&true);
         Ok(StructField {
             name,
             vk_name,
             ty,
+            advanced_ty: Cell::new(None),
+            optional,
             xml: value,
         })
     }
+}
+
+#[derive(Clone, Copy)]
+pub enum AdvancedType<'a> {
+    Void,
+    VoidPtr,
+    Handle(&'a str),
+    HandlePtr(&'a str),
+    HandleArray(&'a str, &'a str),
+    Struct(&'a str),
+    Enum(&'a str),
+    Func(&'a str),
+    Other(&'a str),
+    OtherPtr(&'a str),
+    OtherDoublePtr(&'a str),
+    OtherArrayWithEnum(&'a str, &'a str),
+    OtherArrayWithCst(&'a str, u16),
+    OtherDoubleArray(&'a str, u8, u8),
+    CharArray(&'a str),
+    CString,
+    CStringPtr,
+    Bitfield(&'a str, u8),
 }
 
 pub enum Type<'a> {
@@ -479,7 +508,7 @@ pub enum Type<'a> {
     // char[VK_MAX_PHYSICAL_DEVICE_NAME_SIZE]
     ArrayEnum { ty: &'a str, size: &'a str },
     // VkExtent[2]
-    ArrayCst { ty: &'a str, size: u8 },
+    ArrayCst { ty: &'a str, size: u16 },
     // float[3][4]
     ArrayDoubleCst { ty: &'a str, size1: u8, size2: u8 },
     // uint32_t:8
@@ -521,6 +550,26 @@ impl Into<Ident> for &CType {
         };
         Ident::new(ident_str, Span::call_site())
     }
+}
+
+#[derive(Clone)]
+pub struct MappingEntry<'a> {
+    pub name: String,
+    pub ty: MappingType<'a>,
+}
+
+#[derive(Clone, Copy)]
+pub enum MappingType<'a> {
+    Constant,
+    Enum,
+    AliasedEnum(&'a str),
+    EnumValue,
+    Handle,
+    HandleAlias(&'a str),
+    BaseType,
+    Struct,
+    AliasedStruct(&'a str),
+    FunctionPtr,
 }
 
 /// Performs screaming snake case to pascal case conversion

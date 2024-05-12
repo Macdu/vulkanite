@@ -8,12 +8,13 @@ use std::{
 use anyhow::{anyhow, Result};
 use proc_macro2::TokenStream;
 use quote::{format_ident, quote, ToTokens};
-use syn::Ident;
+use syn::{Ident, Lifetime};
 
 use crate::{
     structs::{
-        convert_field_to_snake_case, Api, CType, Constant, Enum, EnumAliased, EnumFlag, EnumValue,
-        EnumVariant, Handle, Struct, StructBasetype, StructField, StructStandard, Type,
+        convert_field_to_snake_case, AdvancedType, Api, CType, Constant, Enum, EnumAliased,
+        EnumFlag, EnumValue, EnumVariant, Handle, MappingEntry, MappingType, Struct,
+        StructBasetype, StructField, StructStandard, Type,
     },
     xml::{self, Require, RequireContent, RequireType},
 };
@@ -24,7 +25,7 @@ pub struct Generator<'a> {
     constants: HashMap<&'a str, Constant<'a>>,
     handles: HashMap<&'a str, Handle<'a>>,
     structs: HashMap<&'a str, Struct<'a>>,
-    mapping: RefCell<HashMap<&'a str, String>>,
+    mapping: RefCell<HashMap<&'a str, MappingEntry<'a>>>,
 }
 
 impl<'a> Generator<'a> {
@@ -51,6 +52,7 @@ impl<'a> Generator<'a> {
         let enums = registry
             .enums
             .iter()
+            // Skip the constants from above
             .skip(1)
             .map(|it| Ok((it.name.as_str(), Enum::try_from(it)?)))
             .collect::<Result<_>>()?;
@@ -97,28 +99,35 @@ impl<'a> Generator<'a> {
             })
             .collect::<Result<_>>()?;
 
-        let mapping = HashMap::from_iter(
-            [
-                ("uint8_t", "u8"),
-                ("int8_t", "i8"),
-                ("char", "c_char"),
-                ("uint16_t", "u16"),
-                ("int16_t", "i16"),
-                ("uint32_t", "u32"),
-                ("int32_t", "i32"),
-                ("int", "c_int"),
-                ("uint32_t", "u32"),
-                ("int32_t", "i32"),
-                ("uint64_t", "u64"),
-                ("int64_t", "i64"),
-                ("size_t", "usize"),
-                ("float", "f32"),
-                ("double", "f64"),
-                ("void", "c_void"),
-            ]
-            .into_iter()
-            .map(|(key, val)| (key, String::from(val))),
-        );
+        let mapping: HashMap<&str, MappingEntry> = [
+            ("uint8_t", "u8"),
+            ("int8_t", "i8"),
+            ("char", "c_char"),
+            ("uint16_t", "u16"),
+            ("int16_t", "i16"),
+            ("uint32_t", "u32"),
+            ("int32_t", "i32"),
+            ("int", "c_int"),
+            ("uint32_t", "u32"),
+            ("int32_t", "i32"),
+            ("uint64_t", "u64"),
+            ("int64_t", "i64"),
+            ("size_t", "usize"),
+            ("float", "f32"),
+            ("double", "f64"),
+            ("void", "c_void"),
+        ]
+        .into_iter()
+        .map(|(key, val)| {
+            (
+                key,
+                MappingEntry {
+                    name: val.to_owned(),
+                    ty: MappingType::BaseType,
+                },
+            )
+        })
+        .collect();
 
         let gen = Generator {
             registry,
@@ -239,8 +248,10 @@ impl<'a> Generator<'a> {
                                         ty,
                                         has_lifetime,
                                     }) => {
-                                        let ty =
-                                            self.generate_type(&ty).expect("Failed to get type");
+                                        let advanced_type = self.compute_advanced_type(ty);
+                                        let ty = self
+                                            .generate_type_inner(&advanced_type)
+                                            .expect("Failed to get type");
                                         let name = format_ident!("{name}");
                                         let doc_tag = make_doc_link(ty_name);
                                         let lifetime =
@@ -281,8 +292,10 @@ impl<'a> Generator<'a> {
             use crate::raw::*;
             use core::slice;
             use std::ptr::{self, NonNull};
+            use std::array;
             use std::marker::PhantomData;
-            use std::ffi::c_char;
+            use std::ffi::{c_char, c_int};
+            use std::mem::ManuallyDrop;
 
             #(#struct_features)*
             #(#struct_extensions)*
@@ -343,7 +356,13 @@ impl<'a> Generator<'a> {
             let name = match constant {
                 Constant::Aliased { name, .. } | Constant::Field { name, .. } => name,
             };
-            mapping.insert(&vk_name, name.clone());
+            mapping.insert(
+                &vk_name,
+                MappingEntry {
+                    name: name.clone(),
+                    ty: MappingType::Constant,
+                },
+            );
         }
 
         // add all aliases
@@ -462,7 +481,13 @@ impl<'a> Generator<'a> {
         // add all enum fields / aliases to the mapping
         for (enum_vk_name, enum_decl) in self.enums.iter() {
             assert!(mapping
-                .insert(enum_vk_name, enum_decl.name.clone())
+                .insert(
+                    enum_vk_name,
+                    MappingEntry {
+                        name: enum_decl.name.clone(),
+                        ty: MappingType::Enum
+                    }
+                )
                 .is_none());
 
             // add all fields
@@ -473,12 +498,28 @@ impl<'a> Generator<'a> {
                     | EnumValue::Flag(EnumFlag { name, .. }) => name,
                 };
                 let full_name = format!("{}::{name}", enum_decl.name);
-                assert!(mapping.insert(field_vk_name, full_name).is_none());
+                assert!(mapping
+                    .insert(
+                        field_vk_name,
+                        MappingEntry {
+                            name: full_name,
+                            ty: MappingType::EnumValue
+                        }
+                    )
+                    .is_none());
             }
 
             // add all aliases
             for (alias_vk_name, alias_name) in enum_decl.aliases.borrow().iter() {
-                assert!(mapping.insert(alias_vk_name, alias_name.clone()).is_none());
+                assert!(mapping
+                    .insert(
+                        alias_vk_name,
+                        MappingEntry {
+                            name: alias_name.clone(),
+                            ty: MappingType::AliasedEnum(enum_vk_name)
+                        }
+                    )
+                    .is_none());
             }
         }
 
@@ -492,8 +533,8 @@ impl<'a> Generator<'a> {
                     .name_attr
                     .as_ref()
                     .ok_or_else(|| anyhow!("Failed to get name for {alias}"))?;
-                let alias = alias.replace("Flags", "FlagBits");
-                if let Some(enum_base) = self.enums.get(alias.as_str()) {
+                let alias_bits = alias.replace("Flags", "FlagBits");
+                if let Some(enum_base) = self.enums.get(alias_bits.as_str()) {
                     // add the alias only if it does not exists already as the FlagBits version
                     let mut aliases = enum_base.aliases.borrow_mut();
                     // Remove the "Vk" prefix
@@ -501,10 +542,26 @@ impl<'a> Generator<'a> {
                     if !aliases.iter().any(|(_, alias_name)| alias_name == name) {
                         aliases.push((vk_name.as_str(), name.to_string()));
                     }
-                    assert!(mapping.insert(vk_name, enum_base.name.clone()).is_none());
+                    assert!(mapping
+                        .insert(
+                            vk_name,
+                            MappingEntry {
+                                name: name.to_owned(),
+                                ty: MappingType::AliasedEnum(alias.as_str())
+                            }
+                        )
+                        .is_none());
                 } else {
                     // alias of an empty bitmask
-                    assert!(mapping.insert(vk_name, String::from("u32")).is_none());
+                    assert!(mapping
+                        .insert(
+                            vk_name,
+                            MappingEntry {
+                                name: "u32".to_owned(),
+                                ty: MappingType::BaseType
+                            }
+                        )
+                        .is_none());
                 }
             } else {
                 let name = bitmask
@@ -522,7 +579,10 @@ impl<'a> Generator<'a> {
                         .clone()
                 } else {
                     // bitflag with no value defined yet (can only be 0)
-                    String::from("u32")
+                    MappingEntry {
+                        name: "u32".to_owned(),
+                        ty: MappingType::BaseType,
+                    }
                 };
                 assert!(mapping.insert(name, value).is_none());
             }
@@ -544,7 +604,15 @@ impl<'a> Generator<'a> {
                     _ => None,
                 })
                 .ok_or_else(|| anyhow!("Failed to find name for funcptr"))?;
-            assert!(mapping.insert(name, "FuncPtr".to_owned()).is_none());
+            assert!(mapping
+                .insert(
+                    name,
+                    MappingEntry {
+                        name: "FuncPtr".to_owned(),
+                        ty: MappingType::FunctionPtr
+                    }
+                )
+                .is_none());
         }
 
         Ok(())
@@ -568,7 +636,15 @@ impl<'a> Generator<'a> {
             let name = &vk_name[2..];
 
             // add the alias to the mapping
-            assert!(mapping.insert(vk_name, name.to_string()).is_none());
+            assert!(mapping
+                .insert(
+                    vk_name,
+                    MappingEntry {
+                        name: name.to_owned(),
+                        ty: MappingType::HandleAlias(alias)
+                    }
+                )
+                .is_none());
 
             self.handles
                 .borrow()
@@ -581,7 +657,15 @@ impl<'a> Generator<'a> {
 
         // add all handles to the mapping
         for (vk_name, handle) in &self.handles {
-            assert!(mapping.insert(vk_name, handle.name.to_string()).is_none());
+            assert!(mapping
+                .insert(
+                    vk_name,
+                    MappingEntry {
+                        name: handle.name.to_owned(),
+                        ty: MappingType::Handle
+                    }
+                )
+                .is_none());
         }
 
         Ok(())
@@ -592,12 +676,24 @@ impl<'a> Generator<'a> {
 
         // add include types
         for ty in self.all_types() {
-            match (&ty.requires, &ty.name_attr) {
-                (Some(_), Some(name)) => {
+            match (&ty.requires, &ty.name_attr, &ty.category, &ty.alias) {
+                (Some(_), Some(name), ..) => {
                     // only insert if it is not already custom defined
-                    mapping
-                        .entry(name)
-                        .or_insert_with(|| String::from("VoidPtr"));
+                    mapping.entry(name).or_insert_with(|| MappingEntry {
+                        name: "VoidPtr".to_string(),
+                        ty: MappingType::BaseType,
+                    });
+                }
+                (_, Some(name), Some(cat), Some(alias)) if cat == "struct" => {
+                    if let Struct::Standard(base_struct) = self
+                        .structs
+                        .get(alias.as_str())
+                        .ok_or_else(|| anyhow!("Failed to find alias {alias} for {name}"))?
+                    {
+                        base_struct.aliases.borrow_mut().push(&name);
+                    } else {
+                        return Err(anyhow!("Defining an alias for a basetype is not handled"));
+                    }
                 }
                 _ => {}
             }
@@ -605,21 +701,54 @@ impl<'a> Generator<'a> {
 
         // No need to put the fields, only put the definitions
         for (vk_name, my_struct) in &self.structs {
-            let name = match my_struct {
-                Struct::BaseType(StructBasetype { name, .. })
-                | Struct::Standard(StructStandard { name, .. }) => name,
+            let (name, ty) = match my_struct {
+                Struct::BaseType(StructBasetype { name, .. }) => (name, MappingType::BaseType),
+                Struct::Standard(StructStandard { name, .. }) => (name, MappingType::Struct),
             };
-            assert!(mapping.insert(vk_name, name.to_string()).is_none());
+            assert!(mapping
+                .insert(
+                    vk_name,
+                    MappingEntry {
+                        name: name.clone(),
+                        ty
+                    }
+                )
+                .is_none());
+
+            if let Struct::Standard(my_struct) = my_struct {
+                for alias in my_struct.aliases.borrow().iter() {
+                    // Remove the Vk prefix
+                    let real_name = &alias[2..];
+                    assert!(mapping
+                        .insert(
+                            alias,
+                            MappingEntry {
+                                name: real_name.to_owned(),
+                                ty: MappingType::AliasedStruct(vk_name)
+                            }
+                        )
+                        .is_none())
+                }
+            }
         }
 
-        // register all lifetimes
+        // we must drop the mutable reference before the next part
+        std::mem::drop(mapping);
+
+        // register all lifetimes and field aspect
         for (vk_name, my_struct) in &self.structs {
-            if my_struct.lifetime().is_some() {
-                continue;
+            if my_struct.lifetime().is_none() {
+                self.compute_name_lifetime(vk_name);
+                assert!(my_struct.lifetime().is_some());
             }
 
-            self.compute_name_lifetime(vk_name);
-            assert!(my_struct.lifetime().is_some());
+            if let Struct::Standard(my_struct) = &my_struct {
+                for field in &my_struct.fields {
+                    field
+                        .advanced_ty
+                        .set(Some(self.compute_advanced_type(&field.ty)));
+                }
+            }
         }
 
         Ok(())
@@ -644,7 +773,8 @@ impl<'a> Generator<'a> {
     fn compute_name_lifetime(&self, name: &str) -> bool {
         let my_struct = match self.structs.get(name) {
             Some(my_struct) => my_struct,
-            None => return false,
+            // if it is a handle, it always has a lifetime
+            None => return self.handles.contains_key(name),
         };
 
         if let Some(lifetime) = my_struct.lifetime() {
@@ -657,6 +787,23 @@ impl<'a> Generator<'a> {
                 base_type.has_lifetime.set(Some(lifetime));
                 lifetime
             }
+            Struct::Standard(union_type) if union_type.is_union => {
+                let lifetime = union_type.fields.iter().any(|field| {
+                    self.compute_type_lifetime(&field.ty)
+                        // we must have an internal lifetime for unions (pointer to basetypes do not count)
+                        // we assume the basetype has already been added to the mapping
+                        && match field.ty {
+                            Type::Ptr(name) => !self
+                                .mapping
+                                .borrow()
+                                .get(name)
+                                .is_some_and(|entry| matches!(entry.ty, MappingType::BaseType)),
+                            _ => true
+                        }
+                });
+                union_type.has_lifetime.set(Some(lifetime));
+                lifetime
+            }
             Struct::Standard(standard_type) => {
                 let lifetime = standard_type.s_type.is_some()
                     || standard_type
@@ -666,6 +813,46 @@ impl<'a> Generator<'a> {
                 standard_type.has_lifetime.set(Some(lifetime));
                 lifetime
             }
+        }
+    }
+
+    fn compute_advanced_type(&self, ty: &Type<'a>) -> AdvancedType<'a> {
+        type AT<'a> = AdvancedType<'a>;
+        match ty {
+            Type::Void => AT::Void,
+            Type::VoidPtr => AT::VoidPtr,
+            Type::Path(name) => match self.mapping.borrow().get(name).map(|entry| entry.ty) {
+                Some(MappingType::Struct | MappingType::AliasedStruct(_)) => AT::Struct(name),
+                Some(MappingType::Handle | MappingType::HandleAlias(_)) => AT::Handle(name),
+                Some(MappingType::Enum | MappingType::AliasedEnum(_)) => AT::Enum(name),
+                Some(MappingType::FunctionPtr) => AT::Func(name),
+                _ => AT::Other(name),
+            },
+            Type::Ptr(name) => {
+                if self.mapping.borrow().get(name).is_some_and(|entry| {
+                    matches!(entry.ty, MappingType::Handle | MappingType::HandleAlias(_))
+                }) {
+                    AT::HandlePtr(name)
+                } else if *name == "char" {
+                    AT::CString
+                } else {
+                    AT::OtherPtr(name)
+                }
+            }
+            Type::DoublePtr(name) => AT::OtherDoublePtr(name),
+            Type::CStrArr => AT::CStringPtr,
+            Type::ArrayEnum { ty, size } => {
+                if self.handles.contains_key(ty) {
+                    AT::HandleArray(ty, size)
+                } else if *ty == "char" {
+                    AT::CharArray(size)
+                } else {
+                    AT::OtherArrayWithEnum(ty, size)
+                }
+            }
+            Type::ArrayCst { ty, size } => AT::OtherArrayWithCst(ty, *size),
+            Type::ArrayDoubleCst { ty, size1, size2 } => AT::OtherDoubleArray(ty, *size1, *size2),
+            Type::Bitfield { ty, bitsize } => AT::Bitfield(ty, *bitsize),
         }
     }
 
@@ -684,6 +871,8 @@ impl<'a> Generator<'a> {
             .iter()
             .flat_map(|exts| &exts.extension)
             .filter(|ext| ext.supported.contains(&xml::ExtensionSupported::Vulkan))
+            // for the time being, ignore video extensions
+            .filter(|ext| !ext.name.starts_with("VK_KHR_video"))
     }
 
     fn all_types(&self) -> impl Iterator<Item = &'a xml::Type> {
@@ -874,6 +1063,7 @@ impl<'a> Generator<'a> {
         if is_bitflag {
             Ok(quote! {
                 bitflags! {
+                    #[derive(Default)]
                     #result
                 }
                 #(#aliases)*
@@ -904,7 +1094,7 @@ impl<'a> Generator<'a> {
         let doc_tag = make_doc_link_inner(vk_name);
         let mapping = self.mapping.borrow();
         let object_type = &mapping.get(handle.object_type)
-            .ok_or_else(|| anyhow!( "Failed to find matching object type for {}", handle.object_type))?
+            .ok_or_else(|| anyhow!( "Failed to find matching object type for {}", handle.object_type))?.name
             // Remove the prefix
             [("ObjectType::".len())..];
         let object_type = format_ident!("{object_type}");
@@ -947,13 +1137,20 @@ impl<'a> Generator<'a> {
 
         // retrieve all arrays with a len
         for field in &my_struct.fields {
-            let len = match &field.xml.len {
+            let mut len = match &field.xml.len {
                 Some(len) => len.as_str(),
                 _ => continue,
             };
-            if field.xml.alt_len.is_some() || len.contains(',') || len == "null-terminated" {
+
+            if len.ends_with("null-terminated") || field.xml.alt_len.is_some() {
                 // TODO: handle
+                simple_fields.remove(field.vk_name);
                 continue;
+            }
+
+            if len.contains(',') {
+                // TODO: handle
+                len = len.split(',').next().unwrap();
             }
 
             let len_field = *all_fields
@@ -982,18 +1179,30 @@ impl<'a> Generator<'a> {
                     "sType" => (
                         quote!(StructureType),
                         None,
-                        quote! {#field_name: Self::STRUCTURE_TYPE,},
+                        quote! {#field_name: Self::STRUCTURE_TYPE},
                     ),
                     "pNext" => (
                         quote!(Cell<*const Header>),
                         None,
-                        quote! {p_next: Cell::new(ptr::null()),},
+                        quote! {p_next: Cell::new(ptr::null())},
                     ),
-                    _ => (
-                        self.generate_type(&field.ty)?,
-                        simple_fields.get(field.vk_name).map(|_| quote!(pub)),
-                        quote! {#field_name: Default::default(),},
-                    ),
+                    _ => {
+                        let default_value =
+                            self.generate_default(&field.advanced_ty.get().unwrap())?;
+                        let ty_inner =
+                            self.generate_type_inner(&field.advanced_ty.get().unwrap())?;
+                        let ty_inner = if my_struct.is_union {
+                            quote! (ManuallyDrop<#ty_inner>)
+                        } else {
+                            ty_inner
+                        };
+                        (
+                            ty_inner,
+                            (my_struct.is_union || simple_fields.get(field.vk_name).is_some())
+                                .then(|| quote!(pub)),
+                            quote! (#field_name: #default_value),
+                        )
+                    }
                 };
                 Ok((quote! {#vis #field_name: #ty_name,}, default_impl))
             })
@@ -1009,11 +1218,13 @@ impl<'a> Generator<'a> {
                 }
 
                 let name = format_ident!("{}", field.name);
-                let ty_name = self.generate_type(&field.ty)?;
+                let ty = field.advanced_ty.get().unwrap();
+                let ty_name = self.generate_type_outer(&ty, field.optional)?;
+                let value = self.generate_type_outer_to_inner(&ty, field.optional)?;
                 Ok(quote! {
                     #[inline]
                     pub fn #name(&mut self, value: #ty_name) -> &mut Self {
-                        self.#name = value;
+                        self.#name = #value;
                         self
                     }
                 })
@@ -1033,53 +1244,64 @@ impl<'a> Generator<'a> {
                     //TODO
                     return Ok(quote!());
                 }
+                Ok(quote!())
 
-                let setter_name = format_ident!("{}", field.name[2..]);
+                /*let setter_name = format_ident!("{}", field.name[2..]);
                 let getter_name = format_ident!("get_{}", field.name[2..]);
                 let length_name = format_ident!("{}", length_field.len_field.name);
                 let ptr_name = format_ident!("{}", field.name);
                 let ty_inner = self
-                    .generate_sugar_type(&field.ty)
+                    .generate_type_in_array(&field.ty)
                     .ok_or_else(|| anyhow!("Failed to find type for {}", field.name))?;
                 Ok(quote! {
                     #[inline]
                     pub fn #setter_name(&mut self, value: &'a [#ty_inner]) -> &mut Self {
-                        self.#ptr_name = Some(<NonNull<[_]>>::from(value).cast());
+                        self.#ptr_name = ptr::from_ref(value).cast();
                         self.#length_name = value.len() as _;
                         self
                     }
 
                     pub fn #getter_name(&self) -> &'a [#ty_inner] {
-                        let value = self.#ptr_name.map_or(ptr::null(), |v| v.as_ptr());
-                        unsafe { slice::from_raw_parts(value, self.#length_name as _) }
+                        unsafe { slice::from_raw_parts(self.#ptr_name.cast(), self.#length_name as _) }
                     }
-                })
+                })*/
             })
             .collect::<Result<Vec<_>>>()?;
+
+        let aliases = my_struct
+            .aliases
+            .borrow()
+            .iter()
+            .map(|name| format_ident!("{}", mapping.get(name).unwrap().name))
+            .collect::<Vec<_>>();
 
         let name = format_ident!("{}", my_struct.name);
         let doc_tag = make_doc_link(struct_vk_name);
 
         let has_lifetime = my_struct.has_lifetime.get().unwrap();
         let lifetime = has_lifetime.then(|| quote! (<'a>));
-        let require_phantom = has_lifetime && simple_fields.len() != all_fields.len();
+        let require_phantom = has_lifetime;
         let phantom_decl = require_phantom.then(|| quote! (phantom: PhantomData<&'a ()>,));
         let phantom_default = require_phantom.then(|| quote! (phantom: PhantomData,));
         let (s_type_impl, p_next_impl) = if let Some(s_type) = my_struct.s_type {
             let s_type_value: TokenStream = mapping
                 .get(s_type)
                 .ok_or_else(|| anyhow!("Failed to find structure type for {s_type}"))?
+                .name
                 .parse()
                 .unwrap();
-            (Some(quote! {
-                unsafe impl #lifetime ExtendableStructure for #name #lifetime {
-                    const STRUCTURE_TYPE: StructureType = #s_type_value;
-                }
-            }), Some(quote! {
-                pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-                    unsafe { self.push_next_unchecked(ext) }
-                }
-            }))
+            (
+                Some(quote! {
+                    unsafe impl #lifetime ExtendableStructure for #name #lifetime {
+                        const STRUCTURE_TYPE: StructureType = #s_type_value;
+                    }
+                }),
+                Some(quote! {
+                    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
+                        unsafe { self.push_next_unchecked(ext) }
+                    }
+                }),
+            )
         } else {
             (None, None)
         };
@@ -1089,7 +1311,7 @@ impl<'a> Generator<'a> {
             .map(|name| {
                 mapping
                     .get(name.as_str())
-                    .map(|name| format_ident!("{name}"))
+                    .map(|entry| format_ident!("{}", entry.name))
                     .ok_or_else(|| anyhow!("Failed to find extension {}", name))
             })
             .collect::<Result<Vec<_>>>()?;
@@ -1099,7 +1321,10 @@ impl<'a> Generator<'a> {
             // we should have wrapper around them (as they are unsafe)
 
             // For the default implementation, take the first field and use its default value
-            let first_field_name = format_ident!("{}", my_struct.fields.first().unwrap().name);
+            let first_field = my_struct.fields.first().unwrap();
+            let first_field_name = format_ident!("{}", first_field.name);
+            let first_field_default =
+                self.generate_default(&first_field.advanced_ty.get().unwrap())?;
             return Ok(quote! {
                 #[repr(C)]
                 #doc_tag
@@ -1107,13 +1332,15 @@ impl<'a> Generator<'a> {
                     #(#fields)*
                 }
 
-                impl Default for #name {
+                impl #lifetime Default for #name #lifetime {
                     fn default() -> Self {
                         Self {
-                            #first_field_name: Default::default(),
+                            #first_field_name: ManuallyDrop::new(#first_field_default),
                         }
                     }
                 }
+
+                #(pub type #aliases #lifetime = #name #lifetime;)*
             });
         }
 
@@ -1132,7 +1359,7 @@ impl<'a> Generator<'a> {
             impl #lifetime Default for #name #lifetime {
                 fn default() -> Self {
                     Self {
-                        #(#default_impl)*
+                        #(#default_impl,)*
                         #phantom_default
                     }
                 }
@@ -1143,83 +1370,291 @@ impl<'a> Generator<'a> {
                 #(#array_accessors)*
                 #p_next_impl
             }
+
+            #(pub type #aliases #lifetime = #name #lifetime;)*
         })
     }
 
-    fn generate_type(&self, ty: &Type<'a>) -> Result<TokenStream> {
+    /// Generate the raw type, as it is stored
+    fn generate_type_inner(&self, ty: &AdvancedType<'a>) -> Result<TokenStream> {
         let get_name = |name: &'a str| {
             self.mapping
                 .borrow()
                 .get(name)
-                .cloned()
+                .map(|entry| entry.name.clone())
                 .ok_or_else(|| anyhow!("Failed to find key {name}"))
         };
 
         let get_lifetime = |ty: &str| self.compute_name_lifetime(ty).then(|| quote! (<'a>));
 
+        type AT<'a> = AdvancedType<'a>;
         let result = match ty {
-            Type::Void => quote!(()),
-            Type::VoidPtr => quote!(*const ()),
-            Type::Path(ty) => {
+            AT::Void => quote!(()),
+            AT::VoidPtr => quote!(*const ()),
+            AT::Enum(ty) | AT::Other(ty) => {
+                let ty_ident = format_ident!("{}", get_name(ty)?);
+                quote! (#ty_ident)
+            }
+            AT::Handle(ty) => {
+                let ty_ident = format_ident!("{}", get_name(ty)?);
+                quote! (Option<#ty_ident>)
+            }
+            AT::Func(_ty) => {
+                //TODO
+                quote!(Option<NonNull<()>>)
+            }
+            AT::Struct(ty) => {
                 let lifetime = get_lifetime(ty);
                 let ty = format_ident!("{}", get_name(ty)?);
                 quote! (#ty #lifetime)
             }
-            Type::Ptr(ty) => {
+            AT::HandlePtr(ty) => {
+                let ty = format_ident!("{}", get_name(ty)?);
+                quote! (*const #ty)
+            }
+            AT::OtherPtr(ty) => {
                 let lifetime = get_lifetime(ty);
                 let ty = format_ident!("{}", get_name(ty)?);
-                quote! (Option<NonNull<#ty #lifetime>>)
+                quote! (*const #ty #lifetime)
             }
-            Type::DoublePtr(ty) => {
+            AT::OtherDoublePtr(ty) => {
                 let lifetime = get_lifetime(ty);
+                let ty = if *ty == "void" {
+                    quote!(())
+                } else {
+                    format_ident!("{}", get_name(ty)?).into_token_stream()
+                };
+                quote! (*const *const #ty #lifetime)
+            }
+            AT::HandleArray(ty, size) => {
                 let ty: Ident = format_ident!("{}", get_name(ty)?);
-                quote!(Option<NonNull<NonNull<#ty #lifetime>>>)
+                let size: Ident = format_ident!("{}", get_name(size)?);
+                quote! ([Option<#ty>; #size as _])
             }
-            Type::CStrArr => {
-                quote!(&'a [*const c_char])
-            }
-            Type::ArrayEnum { ty, size } => {
+            AT::OtherArrayWithEnum(ty, size) => {
                 let lifetime = get_lifetime(ty);
                 let ty: Ident = format_ident!("{}", get_name(ty)?);
                 let size: Ident = format_ident!("{}", get_name(size)?);
                 quote! ([#ty #lifetime; #size as _])
             }
-            Type::ArrayCst { ty, size } => {
+            AT::OtherArrayWithCst(ty, size) => {
                 let lifetime = get_lifetime(ty);
                 let ty: Ident = format_ident!("{}", get_name(ty)?);
                 quote! ([#ty #lifetime; #size as _])
             }
-            Type::ArrayDoubleCst { ty, size1, size2 } => {
+            AT::OtherDoubleArray(ty, size1, size2) => {
                 let lifetime = get_lifetime(ty);
                 let ty: Ident = format_ident!("{}", get_name(ty)?);
                 quote! ([[#ty #lifetime; #size2 as _]; #size1 as _])
             }
-            Type::Bitfield {
-                ty,
-                bitsize: _bitsize,
-            } => {
-                // Todo: Not correct
-                let ty: Ident = format_ident!("{}", get_name(ty)?);
-                quote! (#ty)
+            AT::CharArray(size) => {
+                let size: Ident = format_ident!("{}", get_name(size)?);
+                quote! ([c_char; #size as _])
+            }
+            AT::CString => {
+                quote!(*const c_char)
+            }
+            AT::CStringPtr => {
+                quote!(*const *const c_char)
+            }
+            AT::Bitfield(_ty, bitsize) => {
+                // Note: this may not be correct if there are padding bytes before
+                let nb_bytes = bitsize / 8;
+                quote! ([u8; #nb_bytes as _])
             }
         };
         Ok(result)
     }
 
-    pub fn generate_sugar_type<'b>(&self, ty: &Type<'a>) -> Option<TokenStream> {
+    /// Generate a nice representation of the type which is a lot easier to interact with
+    /// For example using references instead of raw pointers
+    fn generate_type_outer(&self, ty: &AdvancedType<'a>, optional: bool) -> Result<TokenStream> {
+        let get_name = |name: &'a str| {
+            self.mapping
+                .borrow()
+                .get(name)
+                .map(|entry| format_ident!("{}", entry.name))
+                .ok_or_else(|| anyhow!("Failed to find key {name}"))
+        };
+        let get_lifetime = |ty: &str| self.compute_name_lifetime(ty).then(|| quote! (<'a>));
+
+        let mut can_option = true;
+        let result = match ty {
+            AdvancedType::Handle(name) => {
+                let name = get_name(name)?;
+                Ok(quote!(&'a #name))
+            }
+            AdvancedType::HandlePtr(name) => {
+                let name = get_name(name)?;
+                Ok(quote! (&'a #name))
+            }
+            AdvancedType::HandleArray(_, _) => {
+                Err(anyhow!("Trying to generate outer type of a handle array"))
+            }
+            AdvancedType::OtherPtr(name) => {
+                let lifetime = get_lifetime(name);
+                let name = get_name(name)?;
+                Ok(quote! (&'a #name #lifetime))
+            }
+            AdvancedType::OtherDoublePtr(name) => {
+                let lifetime = get_lifetime(name);
+                let name = get_name(name)?;
+                Ok(quote! (&'a &'a #name #lifetime))
+            }
+            AdvancedType::CString => Ok(quote!(&'a CStr)),
+            AdvancedType::CStringPtr => Err(anyhow!(
+                "Trying to generate outer type of a cstring pointer"
+            )),
+            AdvancedType::Bitfield(name, _) => {
+                can_option = false;
+                let name = get_name(name)?;
+                Ok(quote! (#name))
+            }
+            _ => {
+                can_option = false;
+                self.generate_type_inner(ty)
+            }
+        };
+        if optional && can_option {
+            result.map(|tk| quote! (Option<#tk>))
+        } else {
+            result
+        }
+    }
+
+    fn generate_type_outer_to_inner(
+        &self,
+        ty: &AdvancedType<'a>,
+        optional: bool,
+    ) -> Result<TokenStream> {
+        let mut add_option = false;
+        let handle_ptr_option = || {
+            if optional {
+                quote!(value.map(|v| ptr::from_ref(v)).unwrap_or(ptr::null()))
+            } else {
+                quote!(ptr::from_ref(value))
+            }
+        };
+        let result = match ty {
+            AdvancedType::Handle(_) => {
+                add_option = true;
+                if optional {
+                    Ok(quote!(value.map(|v| unsafe { v.clone() })))
+                } else {
+                    Ok(quote!(unsafe { value.clone() }))
+                }
+            }
+            AdvancedType::HandlePtr(_) => Ok(handle_ptr_option()),
+            AdvancedType::HandleArray(_, _) => {
+                Err(anyhow!("Trying to get outer type of a handle array"))
+            }
+            AdvancedType::OtherPtr(_) => Ok(handle_ptr_option()),
+            AdvancedType::OtherDoublePtr(_) => {
+                let ptr = handle_ptr_option();
+                Ok(quote! (#ptr.cast()))
+            }
+            AdvancedType::CString => {
+                if optional {
+                    Ok(quote!(value.map(|v| v.as_ptr).unwrap_or(ptr::null())))
+                } else {
+                    Ok(quote!(value.as_ptr()))
+                }
+            }
+            AdvancedType::CStringPtr => Err(anyhow!(
+                "Trying to generate outer type of a cstring pointer"
+            )),
+            AdvancedType::Bitfield(name, bitsize) => {
+                let nb_bytes = *bitsize as usize / 8;
+                assert!(nb_bytes <= 4);
+                // we must use the .bits() method if it is a bitflag
+                let value = self
+                    .enums
+                    .get(name.replace("Flags", "FlagBits").as_str())
+                    .filter(|en| en.bitflag)
+                    .map(|_| quote!(value.bits()))
+                    .unwrap_or_else(|| quote!((value as u32)));
+                Ok(quote! {
+                    #value.to_ne_bytes()[..#nb_bytes].try_into().unwrap()
+                })
+            }
+            _ => Ok(quote!(value)),
+        };
+
+        if add_option && !optional {
+            result.map(|tk| quote!(Some(#tk)))
+        } else {
+            result
+        }
+    }
+
+    fn generate_default(&self, ty: &AdvancedType<'a>) -> Result<TokenStream> {
         match ty {
-            Type::VoidPtr => Some(quote!(*const ())),
-            Type::Ptr(name) => self
-                .mapping
-                .borrow()
-                .get(name)
-                .map(|name| format_ident!("{name}").into_token_stream()),
-            Type::DoublePtr(name) => self
-                .mapping
-                .borrow()
-                .get(name)
-                .map(|name| format!("&'a {name}").parse().unwrap()),
-            _ => None,
+            AdvancedType::Void => Err(anyhow!(
+                "Void type should never have to be constructed directly"
+            )),
+            AdvancedType::VoidPtr
+            | AdvancedType::HandlePtr(_)
+            | AdvancedType::OtherPtr(_)
+            | AdvancedType::OtherDoublePtr(_)
+            | AdvancedType::CStringPtr
+            | AdvancedType::CString => Ok(quote!(ptr::null())),
+            AdvancedType::Handle(_)
+            | AdvancedType::HandleArray(_, _)
+            | AdvancedType::Func(_)
+            | AdvancedType::Struct(_)
+            | AdvancedType::OtherDoubleArray(_, _, _) => Ok(quote!(Default::default())),
+            AdvancedType::Other(name) => {
+                // We can't use default if the basetype is the alias of a pointer
+                self.structs
+                    .get(name)
+                    .filter(|my_struct| {
+                        matches!(
+                            my_struct,
+                            Struct::BaseType(StructBasetype {
+                                ty: Type::VoidPtr,
+                                ..
+                            })
+                        )
+                    })
+                    .map_or_else(
+                        || Ok(quote!(Default::default())),
+                        |_| Ok(quote!(ptr::null())),
+                    )
+            }
+            AdvancedType::Enum(name) => {
+                // There is no default for regular enums
+                let name = match self.mapping.borrow().get(name).map(|entry| entry.ty) {
+                    Some(MappingType::Enum) => name,
+                    Some(MappingType::AliasedEnum(alias_name)) => alias_name,
+                    _ => return Err(anyhow!("Type {name} was not found as an enum")),
+                };
+                Ok(self
+                    .enums
+                    .get(name)
+                    .filter(|my_enum| !my_enum.bitflag)
+                    .and_then(|my_enum| {
+                        self.mapping
+                            .borrow()
+                            .get(my_enum.values.borrow()[0].0)
+                            .map(|entry| entry.name.parse().unwrap())
+                    })
+                    .unwrap_or_else(|| quote!(Default::default())))
+            }
+            AdvancedType::OtherArrayWithEnum(name, _)
+            | AdvancedType::OtherArrayWithCst(name, _) => {
+                let value_default = self
+                    .mapping
+                    .borrow()
+                    .get(name)
+                    .is_some_and(|entry| {
+                        matches!(entry.ty, MappingType::AliasedEnum(_) | MappingType::Enum)
+                    })
+                    .then(|| self.generate_default(&AdvancedType::Enum(name)))
+                    .unwrap_or_else(|| Ok(quote!(Default::default())))?;
+                Ok(quote!(array::from_fn(|_| #value_default)))
+            }
+            AdvancedType::CharArray(_) => Ok(quote!(array::from_fn(|_| Default::default()))),
+            AdvancedType::Bitfield(_, _bitsize) => Ok(quote!(Default::default())),
         }
     }
 

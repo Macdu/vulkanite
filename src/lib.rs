@@ -3,10 +3,13 @@ pub mod raw;
 mod structs;
 
 use std::cell::Cell;
-use std::ops::{Deref, DerefMut};
-use std::ptr;
+use std::marker::PhantomData;
+use std::ptr::{self, NonNull};
 
 pub use enums::*;
+
+// to remove
+type VoidPtr = Option<NonNull<()>>;
 
 #[repr(u32)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
@@ -52,12 +55,12 @@ mod private {
 }
 
 /// A dispatchable or non-dispatchable Vulkan Handle
-trait Handle: private::Sealed + Sized {
+pub trait Handle: private::Sealed + Sized {
     type InnerType;
     const TYPE: ObjectType;
 
     /// Retrieve the inner content of the vulkan handle, to be used by other Vulkan librairies not using this crate
-    fn as_raw(self) -> Self::InnerType;
+    fn as_raw(&self) -> Self::InnerType;
 
     /// Convert a pointer to a handle
     /// When calling this code, the user must ensure the following:
@@ -73,9 +76,71 @@ trait Handle: private::Sealed + Sized {
     {
         Self::InnerType::try_from(x).ok().map(|t| Self::from_raw(t))
     }
+
+    fn borrow<'a>(&'a self) -> BorrowedHandle<'a, Self> {
+        BorrowedHandle {
+            value: self.as_raw(),
+            phantom: PhantomData,
+        }
+    }
+
+    fn borrow_mut<'a>(&'a mut self) -> BorrowedMutHandle<'a, Self> {
+        BorrowedMutHandle {
+            value: self.as_raw(),
+            phantom: PhantomData,
+        }
+    }
+
+    /// clone the current object, this function is unsafe as the caller must ensure that only one of the two
+    /// handles is destroyed, moreover, the second handle must not be used after the first has been destroyed
+    unsafe fn clone(&self) -> Self;
 }
 
-/// A trait implemented by Vulkan C structs whose 2 first fields are:
+/// This represents a reference to an handle
+/// Its internal representation is the same as the handle
+#[repr(transparent)]
+#[derive(Debug, Clone, Copy)]
+pub struct BorrowedHandle<'a, T: Handle> {
+    value: T::InnerType,
+    phantom: PhantomData<&'a T>,
+}
+
+impl<'a, T: Handle> AsRef<T> for BorrowedHandle<'a, T> {
+    fn as_ref(&self) -> &T {
+        // SAFETY: BorrowedHandle<T> and T have the same internal representation
+        // Moreover, the reference will only live as long as the borrowed handle
+        // (it cannot live as long as the original one as we are not tracking it location)
+        unsafe {
+            ptr::from_ref(&self.value)
+                .cast::<T>()
+                .as_ref()
+                .unwrap_unchecked()
+        }
+    }
+}
+
+/// This represents a reference to a mutable handle
+/// Its internal representation is the same as the handle
+#[repr(transparent)]
+#[derive(Debug, Clone, Copy)]
+pub struct BorrowedMutHandle<'a, T: Handle> {
+    value: T::InnerType,
+    phantom: PhantomData<&'a mut T>,
+}
+
+impl<'a, T: Handle> AsMut<T> for BorrowedMutHandle<'a, T> {
+    fn as_mut(&mut self) -> &mut T {
+        // SAFETY: Same as [BorrowedHandle::AsRef]
+        unsafe {
+            ptr::from_mut(&mut self.value)
+                .cast::<T>()
+                .as_mut()
+                .unwrap_unchecked()
+        }
+    }
+}
+
+/// A trait implemented by Vulkan C structs whose first 2 fields are:
 ///     VkStructureType        sType;
 ///     const void*            pNext;
 /// sType must always be set to STRUCTURE_TYPE
@@ -123,7 +188,7 @@ macro_rules! vk_handle {
     ($name:ident, $obj_type:ident, $doc_tag:meta, $ty:ident) => {
         #[repr(transparent)]
         #[$doc_tag]
-        #[derive(Eq, PartialEq, PartialOrd, Ord, Clone, Copy, Hash)]
+        #[derive(Eq, PartialEq, PartialOrd, Ord, Hash)]
         pub struct $name($ty);
 
         impl private::Sealed for $name {}
@@ -132,12 +197,16 @@ macro_rules! vk_handle {
 
             const TYPE: ObjectType = ObjectType::$obj_type;
 
-            fn as_raw(self) -> $ty {
+            fn as_raw(&self) -> $ty {
                 self.0
             }
 
             unsafe fn from_raw(x: $ty) -> Self {
                 Self(x)
+            }
+
+            unsafe fn clone(&self) -> Self {
+                Self(self.0)
             }
         }
 
@@ -178,7 +247,7 @@ pub struct Header {
 }
 
 /// Structure chain trait
-pub unsafe trait StructureChain<H>: Deref<Target = H> + DerefMut
+pub unsafe trait StructureChain<H>: AsRef<H> + AsMut<H>
 where
     H: ExtendableStructure,
 {
@@ -238,13 +307,11 @@ where
         }
     }
 
-impl<H, $($ext_ty),*> Deref for $name<H, $($ext_ty),*>
+impl<H, $($ext_ty),*> AsRef<H> for $name<H, $($ext_ty),*>
 where
     H: ExtendableStructure,
     $($ext_ty: ExtendingStructure<H>),* {
-        type Target = H;
-
-        fn deref(&self) -> &Self::Target {
+        fn as_ref(&self) -> &H {
             if self.has_changed.get(){
                 self.perform_linking();
             }
@@ -252,11 +319,11 @@ where
         }
     }
 
-impl<H, $($ext_ty),*> DerefMut for $name<H, $($ext_ty),*>
+impl<H, $($ext_ty),*> AsMut<H> for $name<H, $($ext_ty),*>
     where
         H: ExtendableStructure,
         $($ext_ty: ExtendingStructure<H>),* {
-            fn deref_mut(&mut self) -> &mut Self::Target {
+            fn as_mut(&mut self) -> &mut H {
                 if self.has_changed.get(){
                     self.perform_linking();
                 }
@@ -280,7 +347,7 @@ where
     fn get_mut<T: ExtendingStructure<H>>(&mut self) -> &mut T {
         if H::STRUCTURE_TYPE == T::STRUCTURE_TYPE {
             unsafe {
-                ptr::from_mut(self.deref_mut())
+                ptr::from_mut(AsMut::<H>::as_mut(self))
                     .cast::<T>()
                     .as_mut()
                     .unwrap_unchecked()
@@ -303,7 +370,7 @@ where
     fn get<T: ExtendingStructure<H>>(&self) -> &T {
         if H::STRUCTURE_TYPE == T::STRUCTURE_TYPE {
             unsafe {
-                ptr::from_ref(self.deref())
+                ptr::from_ref(AsRef::<H>::as_ref(self))
                     .cast::<T>()
                     .as_ref()
                     .unwrap_unchecked()
