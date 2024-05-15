@@ -8,7 +8,7 @@ use std::{
 use anyhow::{anyhow, Result};
 use proc_macro2::TokenStream;
 use quote::{format_ident, quote, ToTokens};
-use syn::{Ident, Lifetime};
+use syn::Ident;
 
 use crate::{
     structs::{
@@ -21,6 +21,7 @@ use crate::{
 
 pub struct Generator<'a> {
     registry: &'a xml::Registry,
+    ext_names: Vec<&'a str>,
     enums: HashMap<&'a str, Enum<'a>>,
     constants: HashMap<&'a str, Constant<'a>>,
     handles: HashMap<&'a str, Handle<'a>>,
@@ -43,6 +44,13 @@ impl<'a> Generator<'a> {
             ));
         }
 
+        let ext_names: Vec<_> = registry
+            .tags
+            .iter()
+            .flat_map(|tags| &tags.tag)
+            .map(|tag| tag.name.as_str())
+            .collect();
+
         let constants = registry.enums[0]
             .enums
             .iter()
@@ -54,7 +62,7 @@ impl<'a> Generator<'a> {
             .iter()
             // Skip the constants from above
             .skip(1)
-            .map(|it| Ok((it.name.as_str(), Enum::try_from(it)?)))
+            .map(|it| Ok((it.name.as_str(), Enum::try_from(it, &ext_names)?)))
             .collect::<Result<_>>()?;
 
         let all_types = registry.types.iter().flat_map(|tys| &tys.types);
@@ -131,6 +139,7 @@ impl<'a> Generator<'a> {
 
         let gen = Generator {
             registry,
+            ext_names,
             enums,
             constants,
             handles,
@@ -414,7 +423,7 @@ impl<'a> Generator<'a> {
         for (ext_number, ext) in enum_extends {
             // we checked above that extends.is_some()
             let parent_name = ext.extends.as_ref().unwrap();
-            let name = convert_field_to_snake_case(&parent_name, &ext.name)?;
+            let name = convert_field_to_snake_case(&parent_name, &ext.name, &self.ext_names)?;
 
             let parent = self
                 .enums
@@ -1234,37 +1243,44 @@ impl<'a> Generator<'a> {
         let array_accessors = length_fields
             .iter()
             .map(|(_, length_field)| {
-                if length_field.array_fields.len() > 1 {
-                    //TODO
-                    return Ok(quote!());
+                if my_struct.return_only {
+                    // TODO: still add getters
+                    return Ok(quote! ());
                 }
 
-                let field = length_field.array_fields[0];
-                if !field.name.starts_with("p_") {
-                    //TODO
-                    return Ok(quote!());
-                }
-                Ok(quote!())
-
-                /*let setter_name = format_ident!("{}", field.name[2..]);
-                let getter_name = format_ident!("get_{}", field.name[2..]);
+                let len_field = length_field.len_field;
+                let var_name = if length_field.array_fields.len() == 1 && length_field.array_fields[0].name.starts_with("p_") {
+                    &length_field.array_fields[0].name[("p_".len())..]
+                } else if len_field.name.ends_with("_count") {
+                     &len_field.name[..(len_field.name.len() - "_count".len())]
+                } else if len_field.name.ends_with("_size") {
+                    &len_field.name[..(len_field.name.len() - "_size".len())]
+                } else if len_field.name == "size" {
+                    "values"  
+                } else {
+                    return Err(anyhow!("field length name not expected: {}", len_field.name))
+                };
+                let setter_name = format_ident!("{}", var_name);
+                //let getter_name = format_ident!("get_{}", field.name[2..]);
                 let length_name = format_ident!("{}", length_field.len_field.name);
-                let ptr_name = format_ident!("{}", field.name);
-                let ty_inner = self
-                    .generate_type_in_array(&field.ty)
-                    .ok_or_else(|| anyhow!("Failed to find type for {}", field.name))?;
+                let ty_tokens = length_field.array_fields.iter().enumerate().map(|(idx, field)|{
+                    self.generate_slice_type(field.advanced_ty.get().unwrap(), idx as u32, format_ident!("{}", field.name))
+                }).collect::<Result<Vec<_>>>()?;
+                let field_names = length_field.array_fields.iter().map(|field| {
+                    format_ident!("{}",field.name)
+                }).collect::<Vec<_>>();
+                let first_field_name = &field_names[0];
+                let template_arg = ty_tokens.iter().map(|(x,_,_)| x).filter(|x| !x.is_empty());
+                let slice_ty = ty_tokens.iter().map(|(_,y,_)| y);
+                let attr = ty_tokens.iter().map(|(_,_,z)| z);
                 Ok(quote! {
                     #[inline]
-                    pub fn #setter_name(&mut self, value: &'a [#ty_inner]) -> &mut Self {
-                        self.#ptr_name = ptr::from_ref(value).cast();
-                        self.#length_name = value.len() as _;
+                    pub fn #setter_name<#(#template_arg),*>(&mut self, #(#field_names: #slice_ty),*) -> &mut Self {
+                        #(#attr;)*
+                        self.#length_name = #first_field_name.len() as _;
                         self
                     }
-
-                    pub fn #getter_name(&self) -> &'a [#ty_inner] {
-                        unsafe { slice::from_raw_parts(self.#ptr_name.cast(), self.#length_name as _) }
-                    }
-                })*/
+                })
             })
             .collect::<Result<Vec<_>>>()?;
 
@@ -1555,7 +1571,7 @@ impl<'a> Generator<'a> {
             }
             AdvancedType::CString => {
                 if optional {
-                    Ok(quote!(value.map(|v| v.as_ptr).unwrap_or(ptr::null())))
+                    Ok(quote!(value.map(|v| v.as_ptr()).unwrap_or(ptr::null())))
                 } else {
                     Ok(quote!(value.as_ptr()))
                 }
@@ -1584,6 +1600,59 @@ impl<'a> Generator<'a> {
             result.map(|tk| quote!(Some(#tk)))
         } else {
             result
+        }
+    }
+
+    /// First returned argument is the template parameter, second is the slice type, third is the affectation
+    fn generate_slice_type(
+        &self,
+        ty: AdvancedType<'a>,
+        index: u32,
+        name: Ident,
+    ) -> Result<(TokenStream, TokenStream, TokenStream)> {
+        let get_name = |name: &'a str| {
+            self.mapping
+                .borrow()
+                .get(name)
+                .map(|entry| format_ident!("{}", entry.name))
+                .ok_or_else(|| anyhow!("Failed to find key {name}"))
+        };
+        let get_lifetime = |ty: &str| self.compute_name_lifetime(ty).then(|| quote! (<'a>));
+        let template_ty = format_ident!("V{}", index);
+        let simple_affectation = quote! (self.#name = ptr::from_ref(#name).cast());
+
+        match ty {
+            AdvancedType::HandlePtr(name) | AdvancedType::HandleArray(name, _) => {
+                let name = get_name(name)?;
+                Ok((
+                    quote! (#template_ty: Alias<#name>),
+                    quote! (&'a [#template_ty]),
+                    simple_affectation,
+                ))
+            }
+            AdvancedType::OtherPtr(name) => {
+                let lifetime = get_lifetime(name);
+                let name = get_name(name)?;
+                Ok((quote!(), quote! (&'a [#name #lifetime]), simple_affectation))
+            }
+            AdvancedType::VoidPtr => {
+                // binary data
+                Ok((quote!(), quote!(&'a [u8]), simple_affectation))
+            }
+            AdvancedType::OtherDoublePtr(ty) => {
+                let lifetime = get_lifetime(ty);
+                let ty = if ty == "void" {
+                    quote!(())
+                } else {
+                    format_ident!("{}", get_name(ty)?).into_token_stream()
+                };
+                Ok((
+                    quote!(),
+                    quote! (&'a [&'a #ty #lifetime]),
+                    simple_affectation,
+                ))
+            }
+            _ => Err(anyhow!("Trying to get array with unexpected type")),
         }
     }
 

@@ -54,6 +54,13 @@ mod private {
     pub trait Sealed {}
 }
 
+/// If A implements Alias<B>, this means A and B have exactly the same memory representation
+/// Thus transmuting from A to B is safe
+pub unsafe trait Alias<T: Sized>: Sized {}
+
+/// T has always the same memory representation as itself
+unsafe impl<T: Sized> Alias<T> for T {}
+
 /// A dispatchable or non-dispatchable Vulkan Handle
 pub trait Handle: private::Sealed + Sized {
     type InnerType;
@@ -105,6 +112,9 @@ pub struct BorrowedHandle<'a, T: Handle> {
     phantom: PhantomData<&'a T>,
 }
 
+/// BorrowedHandle<'a, T> is repr(transparent) of T
+unsafe impl<'a, T: Handle> Alias<T> for BorrowedHandle<'a, T> {}
+
 impl<'a, T: Handle> AsRef<T> for BorrowedHandle<'a, T> {
     fn as_ref(&self) -> &T {
         // SAFETY: BorrowedHandle<T> and T have the same internal representation
@@ -127,6 +137,9 @@ pub struct BorrowedMutHandle<'a, T: Handle> {
     value: T::InnerType,
     phantom: PhantomData<&'a mut T>,
 }
+
+/// BorrowedMutHandle<'a, T> is repr(transparent) of T
+unsafe impl<'a, T: Handle> Alias<T> for BorrowedMutHandle<'a, T> {}
 
 impl<'a, T: Handle> AsMut<T> for BorrowedMutHandle<'a, T> {
     fn as_mut(&mut self) -> &mut T {

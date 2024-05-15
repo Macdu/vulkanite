@@ -34,14 +34,17 @@ impl<'a> Enum<'a> {
     }
 }
 
-impl<'a> TryFrom<&'a xml::Enums> for Enum<'a> {
-    type Error = anyhow::Error;
-
-    fn try_from(value: &'a xml::Enums) -> Result<Self> {
+impl<'a> Enum<'a> {
+    pub fn try_from(value: &'a xml::Enums, ext_names: &[&str]) -> Result<Self> {
         let values = value
             .enums
             .iter()
-            .map(|val| Ok((val.name.as_str(), EnumValue::try_from(val, &value.name)?)))
+            .map(|val| {
+                Ok((
+                    val.name.as_str(),
+                    EnumValue::try_from(val, &value.name, ext_names)?,
+                ))
+            })
             .collect::<Result<_>>()?;
 
         let bitflag: bool = matches!(value.ty, Some(xml::EnumsType::Bitmask));
@@ -64,14 +67,18 @@ pub enum EnumValue<'a> {
 }
 
 impl<'a> EnumValue<'a> {
-    pub fn try_from(value: &'a xml::Enum, container_name: &'a str) -> Result<Self> {
+    pub fn try_from(
+        value: &'a xml::Enum,
+        container_name: &'a str,
+        ext_names: &[&str],
+    ) -> Result<Self> {
         match &value {
             xml::Enum {
                 name,
                 alias: Some(alias),
                 ..
             } => {
-                let name = convert_field_to_snake_case(&container_name, name)?;
+                let name = convert_field_to_snake_case(&container_name, name, ext_names)?;
                 Ok(EnumValue::Aliased(EnumAliased { name, alias }))
             }
             xml::Enum {
@@ -79,7 +86,7 @@ impl<'a> EnumValue<'a> {
                 value: Some(value),
                 ..
             } => {
-                let name = convert_field_to_snake_case(&container_name, name)?;
+                let name = convert_field_to_snake_case(&container_name, name, ext_names)?;
                 Ok(EnumValue::Variant(EnumVariant {
                     name,
                     value: Cow::Borrowed(value),
@@ -90,7 +97,7 @@ impl<'a> EnumValue<'a> {
                 bitpos: Some(bitpos),
                 ..
             } => {
-                let name = convert_field_to_snake_case(&container_name, name)?;
+                let name = convert_field_to_snake_case(&container_name, name, ext_names)?;
                 Ok(EnumValue::Flag(EnumFlag {
                     name,
                     bitpos: *bitpos,
@@ -578,7 +585,7 @@ pub enum MappingType<'a> {
 ///
 /// If the container name has an extension name, it is stripped of the field name:
 /// VK_BLEND_OVERLAP_UNCORRELATED_EXT => Uncorrelated (container name is VkBlendOverlapEXT)
-/// VK_PIPELINE_BIND_POINT_RAY_TRACING_KHR => RayTracingKHR (Khr is kept because the container name VkPipelineBindPoint has no Khr)
+/// VK_PIPELINE_BIND_POINT_RAY_TRACING_KHR => RayTracingKHR (KHR is kept because the container name VkPipelineBindPoint has no KHR)
 ///
 /// For bitflags, the _BIT part is removed
 /// VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT => SampledImage
@@ -587,15 +594,17 @@ pub enum MappingType<'a> {
 /// on the container name will be added:
 /// VK_SHADING_RATE_PALETTE_ENTRY_16_INVOCATIONS_PER_PIXEL_NV => Rate16InvocationsPerPixel
 /// VK_SAMPLE_COUNT_4_BIT => Count4
-pub fn convert_field_to_snake_case(container_name: &str, field_name: &str) -> Result<String> {
-    // try to detect extensions NV, KHR, HUAWEI...
-    let post_extension_size = container_name
-        .chars()
-        .rev()
-        .take_while(|c| c.is_ascii_uppercase())
-        .count();
-    let post_extension = &container_name[(container_name.len() - post_extension_size)..];
-    let field_name = if post_extension.len() >= 2 && field_name.ends_with(post_extension) {
+pub fn convert_field_to_snake_case(
+    container_name: &str,
+    field_name: &str,
+    ext_names: &[&str],
+) -> Result<String> {
+    let post_extension = ext_names
+        .iter()
+        .map(|ext| *ext)
+        .find(|ext| container_name.ends_with(ext))
+        .unwrap_or_default();
+    let field_name = if !post_extension.is_empty() && field_name.ends_with(post_extension) {
         // No extension has one letter
         // also removing the underscore before the extension
         &field_name[..(field_name.len() - post_extension.len() - 1)]
@@ -606,8 +615,8 @@ pub fn convert_field_to_snake_case(container_name: &str, field_name: &str) -> Re
 
     let container_simplified = if let Some(pos) = container_name.find("FlagBits") {
         &container_name[..pos]
-    } else if post_extension_size >= 2 {
-        &container_name[..(container_name.len() - post_extension_size)]
+    } else if !post_extension.is_empty() {
+        &container_name[..(container_name.len() - post_extension.len())]
     } else {
         &container_name[..]
     };
@@ -615,7 +624,23 @@ pub fn convert_field_to_snake_case(container_name: &str, field_name: &str) -> Re
 
     // remove the prefix
     let mut result = result[prefix.len()..].to_string();
-    if post_extension_size >= 2 {}
+    let result_extension = ext_names
+        .iter()
+        .map(|ext| *ext)
+        .find(|ext| {
+            result
+                .to_ascii_lowercase()
+                .ends_with(&ext.to_ascii_lowercase())
+        })
+        .unwrap_or_default();
+    if !result_extension.is_empty() && result_extension != post_extension {
+        // keep the extension as uppercase
+        result = format!(
+            "{}{}",
+            &result[..(result.len() - result_extension.len())],
+            result_extension
+        );
+    }
     if let Some(pos) = container_name.find("FlagBits") {
         // remove the 'Bit' part
         if let Some(pos) = result.rfind("Bit") {
@@ -624,11 +649,11 @@ pub fn convert_field_to_snake_case(container_name: &str, field_name: &str) -> Re
 
         // the enum number is a bit all over the place (VkBufferUsageFlagBits2KHR -> VK_BUFFER_USAGE_2_TRANSFER_DST_BIT_KHR)
         // handle it here
-        let nb_between = container_name.len() - (pos + "FlagBits".len() + post_extension_size);
+        let nb_between = container_name.len() - (pos + "FlagBits".len() + post_extension.len());
         if nb_between == 1
             && container_name
                 .chars()
-                .nth_back(post_extension_size)
+                .nth_back(post_extension.len())
                 .unwrap()
                 .is_numeric()
         {
