@@ -338,6 +338,10 @@ impl<'a> TryFrom<&'a xml::Type> for Struct<'a> {
                     })
                     .collect::<Result<Vec<_>>>()?;
 
+                // don't use the usual stype / pnext tools on these structures
+                let s_type =
+                    s_type.filter(|_| name != "VkBaseInStructure" && name != "VkBaseOutStructure");
+
                 let name = correct_name(name);
                 Ok(Struct::Standard(StructStandard {
                     name,
@@ -391,7 +395,7 @@ impl<'a> TryFrom<&'a xml::Member> for StructField<'a> {
             .content
             .iter()
             .filter(|cnt| !matches!(cnt, Ty::Comment(_)))
-            .filter(|cnt| !matches!(cnt, Ty::Text(spec) if spec == "const" || spec == "struct"))
+            .filter(|cnt| !matches!(cnt, Ty::Text(spec) if spec.starts_with("const") || spec == "struct"))
             .collect::<Vec<_>>();
 
         let (ty, vk_name) = match &content[..] {
@@ -473,6 +477,120 @@ impl<'a> TryFrom<&'a xml::Member> for StructField<'a> {
             advanced_ty: Cell::new(None),
             optional,
             xml: value,
+        })
+    }
+}
+
+pub struct Command<'a> {
+    pub vk_name: &'a str,
+    pub name: String,
+    pub return_ty: ReturnType<'a>,
+    pub params: Vec<CommandParam<'a>>,
+    pub aliases: RefCell<Vec<(&'a str, String)>>,
+}
+
+impl<'a> TryFrom<&'a xml::Command> for Command<'a> {
+    type Error = anyhow::Error;
+
+    fn try_from(value: &'a xml::Command) -> Result<Self> {
+        let proto = value
+            .proto
+            .as_ref()
+            .ok_or_else(|| anyhow!("Command {value:?} does not have a proto"))?;
+        let return_ty = match proto.ty.as_str() {
+            "void" => ReturnType::Void,
+            "VkResult" => ReturnType::Result,
+            _ => ReturnType::BaseType(&proto.ty),
+        };
+        assert!(proto.name.starts_with("vk"));
+        let name = camel_case_to_snake_case(&proto.name[("vk".len())..]);
+
+        let params = value
+            .param
+            .iter()
+            .map(|param| CommandParam::try_from(param))
+            .collect::<Result<_>>()?;
+
+        Ok(Command {
+            vk_name: &proto.name,
+            name,
+            return_ty,
+            params,
+            aliases: RefCell::new(Vec::new()),
+        })
+    }
+}
+
+pub enum ReturnType<'a> {
+    Void,
+    Result,
+    BaseType(&'a str),
+}
+
+pub struct CommandParam<'a> {
+    pub name: String,
+    pub vk_name: &'a str,
+    pub ty: Type<'a>,
+    pub advanced_ty: Cell<Option<AdvancedType<'a>>>,
+    pub optional: bool,
+    pub is_const: bool,
+    pub xml: &'a xml::Param,
+}
+
+impl<'a> TryFrom<&'a xml::Param> for CommandParam<'a> {
+    type Error = anyhow::Error;
+
+    fn try_from(value: &'a xml::Param) -> Result<Self> {
+        use xml::ParamContent as Ty;
+
+        let const_check =
+            |cnt: &xml::ParamContent| matches!(cnt, Ty::Text(modif) if modif.starts_with("const"));
+
+        let is_const = value.content.first().is_some_and(const_check);
+        let content: Vec<_> = value
+            .content
+            .iter()
+            .filter(|cnt| !const_check(cnt))
+            .filter(|cnt| !matches!(cnt, Ty::Text(t_struct) if t_struct == "struct"))
+            .collect();
+        let optional = value.optional.as_slice() == &[true];
+        let advanced_ty = Cell::new(None);
+
+        let (ty, vk_name): (Type, &'a str) = match content.as_slice() {
+            // void* pData
+            [Ty::Type(void), Ty::Text(star), Ty::Name(name)] if void == "void" && star == "*" => {
+                (Type::VoidPtr, &name)
+            }
+            // VkInstanceCreateInfo* pCreateInfo
+            [Ty::Type(ty), Ty::Text(star), Ty::Name(name)] if star == "*" => {
+                (Type::Ptr(&ty), &name)
+            }
+            // VkInstance instance
+            [Ty::Type(ty), Ty::Name(name)] => (Type::Path(ty), &name),
+            // void** ppData
+            [Ty::Type(ty), Ty::Text(starstar), Ty::Name(name)]
+                if starstar == "**" || starstar == "* const*" =>
+            {
+                (Type::DoublePtr(ty), &name)
+            }
+            // float blendConstants[4]
+            [Ty::Type(ty), Ty::Name(name), Ty::Text(array)] if array.starts_with('[') => {
+                assert!(array.ends_with(']'));
+                let size: u16 = array[1..(array.len() - 1)].parse()?;
+                (Type::ArrayCst { ty, size }, &name)
+            }
+
+            _ => return Err(anyhow!("Unexpected command content {content:?}")),
+        };
+        let name = camel_case_to_snake_case(vk_name);
+        Ok(CommandParam {
+            name,
+            vk_name,
+            ty,
+            advanced_ty,
+            optional,
+            is_const,
+            xml: &value,
         })
     }
 }
@@ -576,6 +694,8 @@ pub enum MappingType<'a> {
     BaseType,
     Struct,
     AliasedStruct(&'a str),
+    Command,
+    CommandAlias(&'a str),
     FunctionPtr,
 }
 

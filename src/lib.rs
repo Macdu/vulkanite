@@ -1,15 +1,18 @@
 pub mod enums;
 pub mod raw;
-mod structs;
+pub mod structs;
+pub mod dispatcher;
 
 use std::cell::Cell;
 use std::marker::PhantomData;
 use std::ptr::{self, NonNull};
 
 pub use enums::*;
+pub use structs::*;
 
 // to remove
 type VoidPtr = Option<NonNull<()>>;
+type FuncPtr = *const ();
 
 #[repr(u32)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]

@@ -290,7 +290,8 @@ pub struct Command {
     #[serde(default, rename = "@videocoding")]
     pub videocoding: Option<VideoCoding>,
     pub proto: Option<Proto>,
-    pub param: Option<Vec<Param>>,
+    #[serde(default)]
+    pub param: Vec<Param>,
 }
 
 pub type SuccessCode = String;

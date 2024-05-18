@@ -3,6 +3,7 @@ use std::{
     cell::RefCell,
     collections::{HashMap, HashSet},
     io::Write,
+    iter,
 };
 
 use anyhow::{anyhow, Result};
@@ -11,10 +12,11 @@ use quote::{format_ident, quote, ToTokens};
 use syn::Ident;
 
 use crate::{
+    helpers::camel_case_to_snake_case,
     structs::{
-        convert_field_to_snake_case, AdvancedType, Api, CType, Constant, Enum, EnumAliased,
-        EnumFlag, EnumValue, EnumVariant, Handle, MappingEntry, MappingType, Struct,
-        StructBasetype, StructField, StructStandard, Type,
+        convert_field_to_snake_case, AdvancedType, Api, CType, Command, Constant, Enum,
+        EnumAliased, EnumFlag, EnumValue, EnumVariant, Handle, MappingEntry, MappingType,
+        ReturnType, Struct, StructBasetype, StructField, StructStandard, Type,
     },
     xml::{self, Require, RequireContent, RequireType},
 };
@@ -26,6 +28,7 @@ pub struct Generator<'a> {
     constants: HashMap<&'a str, Constant<'a>>,
     handles: HashMap<&'a str, Handle<'a>>,
     structs: HashMap<&'a str, Struct<'a>>,
+    commands: HashMap<&'a str, Command<'a>>,
     mapping: RefCell<HashMap<&'a str, MappingEntry<'a>>>,
 }
 
@@ -91,9 +94,6 @@ impl<'a> Generator<'a> {
                     .as_ref()
                     .is_some_and(|cat| cat == "basetype" || cat == "struct" || cat == "union")
                     && ty.alias.is_none()
-                    && !ty.name_attr.as_ref().is_some_and(|name| {
-                        name == "VkBaseInStructure" || name == "VkBaseOutStructure"
-                    })
             })
             .map(|ty| {
                 let my_struct = Struct::try_from(ty)?;
@@ -105,6 +105,14 @@ impl<'a> Generator<'a> {
                     .unwrap_or_else(|| ty.content.iter().find_map(find_name).unwrap());
                 Ok((name, my_struct))
             })
+            .collect::<Result<_>>()?;
+
+        let commands = registry
+            .commands
+            .iter()
+            .flat_map(|cmds| &cmds.command)
+            .filter(|cmd| cmd.alias.is_none() && cmd.api != Some(xml::Api::Vulkansc))
+            .map(|cmd| Command::try_from(cmd).map(|cmd| (cmd.vk_name, cmd)))
             .collect::<Result<_>>()?;
 
         let mapping: HashMap<&str, MappingEntry> = [
@@ -144,12 +152,14 @@ impl<'a> Generator<'a> {
             constants,
             handles,
             structs,
+            commands,
             mapping: RefCell::new(mapping),
         };
 
         gen.extend_enums()?;
         gen.extend_handles()?;
         gen.extend_structs()?;
+        gen.extend_commands()?;
 
         Ok(gen)
     }
@@ -248,36 +258,27 @@ impl<'a> Generator<'a> {
                 .content
                 .iter()
                 .filter_map(|item| match item {
-                    RequireContent::Type(RequireType { name: ty_name, .. }) => {
-                        if let Some(my_struct) = self.structs.get(ty_name.as_str()) {
-                            if listed_structs.borrow_mut().insert(&ty_name) {
-                                match my_struct {
-                                    Struct::BaseType(StructBasetype {
-                                        name,
-                                        ty,
-                                        has_lifetime,
-                                    }) => {
-                                        let advanced_type = self.compute_advanced_type(ty);
-                                        let ty = self
-                                            .generate_type_inner(&advanced_type)
-                                            .expect("Failed to get type");
-                                        let name = format_ident!("{name}");
-                                        let doc_tag = make_doc_link(ty_name);
-                                        let lifetime =
-                                            has_lifetime.get().unwrap().then(|| quote! (<'a>));
-                                        Some(Ok(quote! (#doc_tag pub type #name #lifetime = #ty;)))
-                                    }
-                                    Struct::Standard(my_struct) => {
-                                        Some(self.generate_struct(my_struct, ty_name))
-                                    }
-                                }
-                            } else {
-                                None
+                    RequireContent::Type(RequireType { name: ty_name, .. }) => self
+                        .structs
+                        .get(ty_name.as_str())
+                        .filter(|_| listed_structs.borrow_mut().insert(&ty_name))
+                        .map(|my_struct| match my_struct {
+                            Struct::BaseType(StructBasetype {
+                                name,
+                                ty,
+                                has_lifetime,
+                            }) => {
+                                let advanced_type = self.compute_advanced_type(ty);
+                                let ty = self
+                                    .generate_type_inner(&advanced_type, true)
+                                    .expect("Failed to get type");
+                                let name = format_ident!("{name}");
+                                let doc_tag = make_doc_link(ty_name);
+                                let lifetime = has_lifetime.get().unwrap().then(|| quote! (<'a>));
+                                Ok(quote! (#doc_tag pub type #name #lifetime = #ty;))
                             }
-                        } else {
-                            None
-                        }
-                    }
+                            Struct::Standard(my_struct) => self.generate_struct(my_struct, ty_name),
+                        }),
                     _ => None,
                 })
                 .collect::<Result<Vec<_>>>()?;
@@ -308,6 +309,55 @@ impl<'a> Generator<'a> {
 
             #(#struct_features)*
             #(#struct_extensions)*
+        }
+        .to_string();
+
+        let formatted_result = Self::format_result(result)?;
+        Ok(formatted_result)
+    }
+
+    pub fn generate_dispatcher(&self) -> Result<String> {
+        let listed_commands = RefCell::new(HashSet::new());
+
+        let generate_group_dispatcher = |require: &'a Require| -> Result<TokenStream> {
+            let cmds = require
+                .content
+                .iter()
+                .filter_map(|req| match req {
+                    RequireContent::Command(cmd) => self
+                        .commands
+                        .get(cmd.name.as_str())
+                        .filter(|_| listed_commands.borrow_mut().insert(&cmd.name))
+                        .map(|cmd| self.generate_dispatch_command(&cmd)),
+                    _ => None,
+                })
+                .collect::<Result<Vec<_>>>()?;
+
+            Ok(quote! (#(#cmds)*))
+        };
+
+        let dispatcher_features = self
+            .filtered_features()
+            .flat_map(|feat| &feat.require)
+            .map(generate_group_dispatcher)
+            .collect::<Result<Vec<_>>>()?;
+        let dispatcher_extensions = self
+            .filtered_extensions()
+            .flat_map(|ext: &xml::Extension| &ext.require)
+            .map(generate_group_dispatcher)
+            .collect::<Result<Vec<_>>>()?;
+
+        let result = quote! {
+            use crate::*;
+            use crate::raw::*;
+
+            use std::cell::Cell;
+            use std::ffi::{c_char, c_int};
+
+            pub struct Dispatcher {
+                #(#dispatcher_features)*
+                #(#dispatcher_extensions)*
+            }
         }
         .to_string();
 
@@ -763,6 +813,63 @@ impl<'a> Generator<'a> {
         Ok(())
     }
 
+    fn extend_commands(&self) -> Result<()> {
+        // first register aliases
+        for cmd in self.all_commands().filter(|cmd| cmd.alias.is_some()) {
+            let original = self
+                .commands
+                .get(cmd.alias.as_ref().unwrap().as_str())
+                .ok_or_else(|| anyhow!("Failed to find command {}", cmd.alias.as_ref().unwrap()))?;
+
+            let vk_name = cmd.name.as_ref().unwrap().as_str();
+            assert!(vk_name.starts_with("vk"));
+            let name = camel_case_to_snake_case(&vk_name[2..]);
+            original.aliases.borrow_mut().push((vk_name, name));
+        }
+
+        // then update the mapping
+        let mut mapping = self.mapping.borrow_mut();
+        for (vk_name, cmd) in &self.commands {
+            assert!(mapping
+                .insert(
+                    vk_name,
+                    MappingEntry {
+                        name: cmd.name.clone(),
+                        ty: MappingType::Command
+                    }
+                )
+                .is_none());
+
+            for (alias_vk_name, alias_name) in cmd.aliases.borrow().iter() {
+                assert!(mapping
+                    .insert(
+                        alias_vk_name,
+                        MappingEntry {
+                            name: alias_name.clone(),
+                            ty: MappingType::CommandAlias(vk_name)
+                        }
+                    )
+                    .is_none());
+            }
+        }
+
+        // we need to borrow the mapping in the next part
+        std::mem::drop(mapping);
+
+        // compute all advanced types
+        for (_, cmd) in &self.commands {
+            // no need to compute an advanced type for the return type (can only be void, result or a basetype)
+
+            for param in &cmd.params {
+                param
+                    .advanced_ty
+                    .set(Some(self.compute_advanced_type(&param.ty)));
+            }
+        }
+
+        Ok(())
+    }
+
     /// Return if the type ty needs to have a lifetime parameter
     /// i.e if the type is pointer to a sized type of a struct with a lifetime
     fn compute_type_lifetime(&self, ty: &Type) -> bool {
@@ -890,6 +997,14 @@ impl<'a> Generator<'a> {
             .iter()
             .flat_map(|ty| &ty.types)
             .filter(|ty| ty.api != Some(xml::Api::Vulkansc))
+    }
+
+    fn all_commands(&self) -> impl Iterator<Item = &'a xml::Command> {
+        self.registry
+            .commands
+            .iter()
+            .flat_map(|cmd| &cmd.command)
+            .filter(|cmd| cmd.api != Some(xml::Api::Vulkansc))
     }
 
     fn generate_group_enums(
@@ -1073,6 +1188,7 @@ impl<'a> Generator<'a> {
             Ok(quote! {
                 bitflags! {
                     #[derive(Default)]
+                    #[repr(transparent)]
                     #result
                 }
                 #(#aliases)*
@@ -1185,12 +1301,12 @@ impl<'a> Generator<'a> {
             .map(|field| {
                 let field_name = format_ident!("{}", field.name);
                 let (ty_name, vis, default_impl) = match field.vk_name {
-                    "sType" => (
+                    "sType" if my_struct.s_type.is_some() => (
                         quote!(StructureType),
                         None,
                         quote! {#field_name: Self::STRUCTURE_TYPE},
                     ),
-                    "pNext" => (
+                    "pNext" if my_struct.s_type.is_some() => (
                         quote!(Cell<*const Header>),
                         None,
                         quote! {p_next: Cell::new(ptr::null())},
@@ -1199,7 +1315,7 @@ impl<'a> Generator<'a> {
                         let default_value =
                             self.generate_default(&field.advanced_ty.get().unwrap())?;
                         let ty_inner =
-                            self.generate_type_inner(&field.advanced_ty.get().unwrap())?;
+                            self.generate_type_inner(&field.advanced_ty.get().unwrap(), true)?;
                         let ty_inner = if my_struct.is_union {
                             quote! (ManuallyDrop<#ty_inner>)
                         } else {
@@ -1391,8 +1507,42 @@ impl<'a> Generator<'a> {
         })
     }
 
+    fn generate_dispatch_command(&self, cmd: &Command<'a>) -> Result<TokenStream> {
+        let ret_type = match cmd.return_ty {
+            ReturnType::Void => quote!(),
+            ReturnType::Result => quote! (-> Result),
+            ReturnType::BaseType(name) => {
+                let name = self
+                    .mapping
+                    .borrow()
+                    .get(name)
+                    .map(|entry| format_ident!("{}", entry.name))
+                    .ok_or_else(|| anyhow!("Failed to find type {name}"))?;
+                quote! (-> #name)
+            }
+        };
+        let params = cmd
+            .params
+            .iter()
+            .map(|param| self.generate_type_inner(&param.advanced_ty.get().unwrap(), false))
+            .collect::<Result<Vec<_>>>()?;
+
+        let aliases = cmd.aliases.borrow();
+        let names = iter::once(cmd.name.as_str())
+            .chain(aliases.iter().map(|(_, alias)| alias.as_str()))
+            .map(|name| {
+                let name = format_ident!("{name}");
+                quote! (pub #name: Cell<Option<unsafe extern "system" fn(#(#params),*) #ret_type>>,)
+            });
+        Ok(quote! (#(#names)*))
+    }
+
     /// Generate the raw type, as it is stored
-    fn generate_type_inner(&self, ty: &AdvancedType<'a>) -> Result<TokenStream> {
+    fn generate_type_inner(
+        &self,
+        ty: &AdvancedType<'a>,
+        add_lifetime: bool,
+    ) -> Result<TokenStream> {
         let get_name = |name: &'a str| {
             self.mapping
                 .borrow()
@@ -1401,7 +1551,13 @@ impl<'a> Generator<'a> {
                 .ok_or_else(|| anyhow!("Failed to find key {name}"))
         };
 
-        let get_lifetime = |ty: &str| self.compute_name_lifetime(ty).then(|| quote! (<'a>));
+        let get_lifetime = |ty: &str| {
+            if add_lifetime {
+                self.compute_name_lifetime(ty).then(|| quote! (<'a>))
+            } else {
+                None
+            }
+        };
 
         type AT<'a> = AdvancedType<'a>;
         let result = match ty {
@@ -1528,7 +1684,7 @@ impl<'a> Generator<'a> {
             }
             _ => {
                 can_option = false;
-                self.generate_type_inner(ty)
+                self.generate_type_inner(ty, true)
             }
         };
         if optional && can_option {

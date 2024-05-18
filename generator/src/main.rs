@@ -26,5 +26,8 @@ fn main() -> Result<(), Box<dyn Error>> {
     let structs = generator.generate_structs()?;
     fs::write("src/structs.rs", structs)?;
 
+    let dispatcher = generator.generate_dispatcher()?;
+    fs::write("src/dispatcher.rs", dispatcher)?;
+
     Ok(())
 }
