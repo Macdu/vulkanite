@@ -2,14 +2,15 @@ use std::{
     borrow::{Borrow, Cow},
     cell::RefCell,
     collections::{HashMap, HashSet},
+    ffi::CString,
     io::Write,
     iter,
 };
 
 use anyhow::{anyhow, Result};
-use proc_macro2::TokenStream;
+use proc_macro2::{Span, TokenStream};
 use quote::{format_ident, quote, ToTokens};
-use syn::Ident;
+use syn::{Ident, LitCStr};
 
 use crate::{
     helpers::camel_case_to_snake_case,
@@ -65,7 +66,14 @@ impl<'a> Generator<'a> {
             .iter()
             // Skip the constants from above
             .skip(1)
-            .map(|it| Ok((it.name.as_str(), Enum::try_from(it, &ext_names)?)))
+            .map(|it| {
+                let mut my_enum = Enum::try_from(it, &ext_names)?;
+                if it.name == "VkResult" {
+                    // Rename Result as Status so that vk::Result<A> = std::Result<A, vk::Status>
+                    my_enum.name = "Status".to_owned();
+                }
+                Ok((it.name.as_str(), my_enum))
+            })
             .collect::<Result<_>>()?;
 
         let all_types = registry.types.iter().flat_map(|tys| &tys.types);
@@ -318,6 +326,9 @@ impl<'a> Generator<'a> {
 
     pub fn generate_dispatcher(&self) -> Result<String> {
         let listed_commands = RefCell::new(HashSet::new());
+        let mut proc_addr_loader = Vec::new();
+        let mut instance_loader = Vec::new();
+        let mut device_loader = Vec::new();
 
         let generate_group_dispatcher = |require: &'a Require| -> Result<TokenStream> {
             let cmds = require
@@ -328,7 +339,14 @@ impl<'a> Generator<'a> {
                         .commands
                         .get(cmd.name.as_str())
                         .filter(|_| listed_commands.borrow_mut().insert(&cmd.name))
-                        .map(|cmd| self.generate_dispatch_command(&cmd)),
+                        .map(|cmd| {
+                            self.generate_dispatch_command(
+                                &cmd,
+                                &mut proc_addr_loader,
+                                &mut instance_loader,
+                                &mut device_loader,
+                            )
+                        }),
                     _ => None,
                 })
                 .collect::<Result<Vec<_>>>()?;
@@ -336,14 +354,13 @@ impl<'a> Generator<'a> {
             Ok(quote! (#(#cmds)*))
         };
 
-        let dispatcher_features = self
-            .filtered_features()
-            .flat_map(|feat| &feat.require)
-            .map(generate_group_dispatcher)
-            .collect::<Result<Vec<_>>>()?;
+        let dispatcher_features = self.filtered_features().flat_map(|feat| &feat.require);
         let dispatcher_extensions = self
             .filtered_extensions()
-            .flat_map(|ext: &xml::Extension| &ext.require)
+            .flat_map(|ext: &xml::Extension| &ext.require);
+
+        let dispatcher_impl = dispatcher_features
+            .chain(dispatcher_extensions)
             .map(generate_group_dispatcher)
             .collect::<Result<Vec<_>>>()?;
 
@@ -351,12 +368,40 @@ impl<'a> Generator<'a> {
             use crate::*;
             use crate::raw::*;
 
+            use std::mem;
             use std::cell::Cell;
             use std::ffi::{c_char, c_int};
 
-            pub struct Dispatcher {
-                #(#dispatcher_features)*
-                #(#dispatcher_extensions)*
+            #[derive(Default, Clone)]
+            pub struct CommandsDispatcher {
+                #(#dispatcher_impl)*
+            }
+            unsafe impl Send for CommandsDispatcher{}
+            unsafe impl Sync for CommandsDispatcher{}
+
+            impl DynamicDispatcher {
+                pub(super) unsafe fn load_proc_addr_inner() {
+                    let dispatcher = &DYNAMIC_DISPATCHER;
+                    let get_instance_proc_addr = dispatcher.get_instance_proc_addr.get().expect("vkGetInstanceProcAddress not supplied");
+
+                    #(#proc_addr_loader)*
+                }
+
+                pub(super) unsafe fn load_instance_inner(instance: &Instance) {
+                    let dispatcher = &DYNAMIC_DISPATCHER;
+                    let get_instance_proc_addr = dispatcher.get_instance_proc_addr.get().expect("vkGetInstanceProcAddress not supplied");
+                    let get_instance = || Some(instance.clone());
+
+                    #(#instance_loader)*
+                }
+
+                pub(super) unsafe fn load_device_inner(device: &Device) {
+                    let dispatcher = &DYNAMIC_DISPATCHER;
+                    let get_device_proc_addr = dispatcher.get_device_proc_addr.get().expect("vkGetDeviceProcAddress not supplied");
+                    let get_device = || Some(device.clone());
+
+                    #(#device_loader)*;
+                }
             }
         }
         .to_string();
@@ -370,6 +415,7 @@ impl<'a> Generator<'a> {
         // and  (https://docs.rs/bindgen/0.51.1bindgen/src/bindgen/lib.rs.html#1968)
 
         let mut cmd = std::process::Command::new("rustfmt")
+            .args(["--edition", "2021"])
             .stdin(std::process::Stdio::piped())
             .stdout(std::process::Stdio::piped())
             .spawn()?;
@@ -864,6 +910,12 @@ impl<'a> Generator<'a> {
                 param
                     .advanced_ty
                     .set(Some(self.compute_advanced_type(&param.ty)));
+            }
+
+            if let Some(param) = cmd.params.first() {
+                if matches!(param.advanced_ty.get(), Some(AdvancedType::Handle(_))) {
+                    cmd.handle.set(Some(param.vk_name))
+                }
             }
         }
 
@@ -1507,10 +1559,17 @@ impl<'a> Generator<'a> {
         })
     }
 
-    fn generate_dispatch_command(&self, cmd: &Command<'a>) -> Result<TokenStream> {
+    /// First is the field type and name, second
+    fn generate_dispatch_command(
+        &self,
+        cmd: &Command<'a>,
+        proc_addr_loader: &mut Vec<TokenStream>,
+        instance_loader: &mut Vec<TokenStream>,
+        device_loader: &mut Vec<TokenStream>,
+    ) -> Result<TokenStream> {
         let ret_type = match cmd.return_ty {
             ReturnType::Void => quote!(),
-            ReturnType::Result => quote! (-> Result),
+            ReturnType::Result => quote! (-> Status),
             ReturnType::BaseType(name) => {
                 let name = self
                     .mapping
@@ -1534,6 +1593,37 @@ impl<'a> Generator<'a> {
                 let name = format_ident!("{name}");
                 quote! (pub #name: Cell<Option<unsafe extern "system" fn(#(#params),*) #ret_type>>,)
             });
+
+        let main_name = format_ident!("{}", cmd.name);
+        let update_fallback = |loader: &mut Vec<TokenStream>, alias: &Ident| {
+            if alias == &main_name {
+                return;
+            }
+
+            loader.push(quote! (dispatcher.#main_name.set(dispatcher.#main_name.get().or(dispatcher.#alias.get()));));
+        };
+
+        for (vk_name, name) in iter::once((cmd.vk_name, cmd.name.as_str())).chain(
+            aliases
+                .iter()
+                .map(|(vk_name, alias)| (*vk_name, alias.as_str())),
+        ) {
+            let name = format_ident!("{name}");
+            let name_cstr = LitCStr::new(&CString::new(vk_name).unwrap(), Span::call_site());
+            if let Some(handle_name) = cmd.handle.get() {
+                instance_loader.push(quote! (dispatcher.#name.set(mem::transmute(get_instance_proc_addr(get_instance(), #name_cstr.as_ptr())));));
+                update_fallback(instance_loader, &name);
+
+                if handle_name != "VkInstance" && handle_name != "VkPhysicalDevice" {
+                    device_loader.push(quote! (dispatcher.#name.set(mem::transmute(get_device_proc_addr(get_device(), #name_cstr.as_ptr())));));
+                    update_fallback(device_loader, &name);
+                }
+            } else {
+                proc_addr_loader.push(quote! (dispatcher.#name.set(mem::transmute(get_instance_proc_addr(None, #name_cstr.as_ptr())));));
+                update_fallback(proc_addr_loader, &name);
+            }
+        }
+
         Ok(quote! (#(#names)*))
     }
 

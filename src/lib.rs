@@ -1,12 +1,15 @@
+pub mod dispatcher;
 pub mod enums;
 pub mod raw;
 pub mod structs;
-pub mod dispatcher;
 
 use std::cell::Cell;
+use std::ffi::c_char;
+use std::fmt::Display;
 use std::marker::PhantomData;
 use std::ptr::{self, NonNull};
 
+pub use dispatcher::*;
 pub use enums::*;
 pub use structs::*;
 
@@ -51,6 +54,121 @@ impl From<Bool32> for bool {
         }
     }
 }
+
+// TODO: this is safe but this unsafe is not necessary (can't use Default::default because it is not const...)
+static DYNAMIC_DISPATCHER: CommandsDispatcher = unsafe { std::mem::zeroed() };
+
+pub struct DynamicDispatcher;
+
+impl DynamicDispatcher {
+    pub unsafe fn load_proc_addr(
+        get_instance_proc_addr: unsafe extern "system" fn(
+            Option<raw::Instance>,
+            *const c_char,
+        ) -> *const (),
+    ) {
+        DYNAMIC_DISPATCHER
+            .get_instance_proc_addr
+            .set(Some(get_instance_proc_addr));
+        Self::load_proc_addr_inner();
+    }
+
+    pub unsafe fn load_instance(instance: &raw::Instance) {
+        Self::load_instance_inner(instance);
+    }
+
+    pub unsafe fn load_device(device: &raw::Device) {
+        Self::load_device_inner(device);
+    }
+
+    #[cfg(feature = "loaded")]
+    pub unsafe fn load_lib() -> core::result::Result<(), loaded::LoadingError> {
+        use libloading::Library;
+
+        // code from ash
+        #[cfg(windows)]
+        const LIB_PATH: &str = "vulkan-1.dll";
+
+        #[cfg(all(
+            unix,
+            not(any(target_os = "macos", target_os = "ios", target_os = "android"))
+        ))]
+        const LIB_PATH: &str = "libvulkan.so.1";
+
+        #[cfg(target_os = "android")]
+        const LIB_PATH: &str = "libvulkan.so";
+
+        #[cfg(any(target_os = "macos", target_os = "ios"))]
+        const LIB_PATH: &str = "libvulkan.dylib";
+
+        let lib = Library::new(LIB_PATH).map_err(loaded::LoadingError::LibraryLoadFailure)?;
+
+        let get_instance_proc_addr = lib
+            .get(c"vkGetInstanceProcAddr".to_bytes())
+            .map_err(loaded::LoadingError::LibraryLoadFailure)?;
+        Self::load_proc_addr(*get_instance_proc_addr);
+
+        // leak the library
+        // this is technically safe and vulkan isn't really a library that gets unloaded by a process
+        // after being loaded, might be changed later
+        std::mem::forget(lib);
+
+        Ok(())
+    }
+}
+
+#[cfg(feature = "loaded")]
+mod loaded {
+    use std::error::Error;
+    use std::fmt;
+
+    use super::*;
+
+    #[derive(Debug)]
+    #[cfg_attr(docsrs, doc(cfg(feature = "loaded")))]
+    pub enum LoadingError {
+        LibraryLoadFailure(libloading::Error),
+        MissingEntryPoint(MissingEntryPoint),
+    }
+
+    impl fmt::Display for LoadingError {
+        fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+            match self {
+                Self::LibraryLoadFailure(err) => fmt::Display::fmt(err, f),
+                Self::MissingEntryPoint(err) => fmt::Display::fmt(err, f),
+            }
+        }
+    }
+
+    impl Error for LoadingError {
+        fn source(&self) -> Option<&(dyn Error + 'static)> {
+            Some(match self {
+                Self::LibraryLoadFailure(err) => err,
+                Self::MissingEntryPoint(err) => err,
+            })
+        }
+    }
+
+    impl From<MissingEntryPoint> for LoadingError {
+        fn from(err: MissingEntryPoint) -> Self {
+            Self::MissingEntryPoint(err)
+        }
+    }
+}
+
+#[derive(Clone, Debug)]
+pub struct MissingEntryPoint;
+impl Display for MissingEntryPoint {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        write!(f, "Cannot load `vkGetInstanceProcAddr` symbol from library")
+    }
+}
+impl std::error::Error for MissingEntryPoint {}
+
+/// Result type most Vulkan Function return
+/// You are guaranteed that if a vk::Result<A> is an Err
+/// Then the status code is an error code
+pub type Result<A> = core::result::Result<A, Status>;
 
 mod private {
     /// For safety, prevent types outside this crate to implement Vulkan-specific traits

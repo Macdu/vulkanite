@@ -486,6 +486,7 @@ pub struct Command<'a> {
     pub name: String,
     pub return_ty: ReturnType<'a>,
     pub params: Vec<CommandParam<'a>>,
+    pub handle: Cell<Option<&'a str>>,
     pub aliases: RefCell<Vec<(&'a str, String)>>,
 }
 
@@ -516,6 +517,7 @@ impl<'a> TryFrom<&'a xml::Command> for Command<'a> {
             name,
             return_ty,
             params,
+            handle: Cell::new(None),
             aliases: RefCell::new(Vec::new()),
         })
     }
