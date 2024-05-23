@@ -29,5 +29,8 @@ fn main() -> Result<(), Box<dyn Error>> {
     let dispatcher = generator.generate_dispatcher()?;
     fs::write("src/dispatcher.rs", dispatcher)?;
 
+    let raw_commands = generator.generate_raw_commands()?;
+    fs::write("src/raw/commands.rs", raw_commands)?;
+
     Ok(())
 }

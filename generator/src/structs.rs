@@ -523,6 +523,7 @@ impl<'a> TryFrom<&'a xml::Command> for Command<'a> {
     }
 }
 
+#[derive(PartialEq, Eq)]
 pub enum ReturnType<'a> {
     Void,
     Result,
