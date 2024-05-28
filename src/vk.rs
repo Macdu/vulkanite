@@ -9,7 +9,6 @@ pub use dispatcher::*;
 pub use enums::*;
 pub use structs::*;
 
-
 // to remove
 type VoidPtr = Option<NonNull<()>>;
 type FuncPtr = *const ();
@@ -57,14 +56,13 @@ pub const fn make_api_version(variant: u32, major: u32, minor: u32, patch: u32) 
     assert!(major < 128);
     assert!(minor < 1024);
     assert!(patch < 4096);
-    (variant << 29) | (major << 22) | (minor << 12) | patch 
+    (variant << 29) | (major << 22) | (minor << 12) | patch
 }
 
-pub const API_VERSION_1_0 : u32 = make_api_version(0, 1, 0, 0);
-pub const API_VERSION_1_1 : u32 = make_api_version(0, 1, 1, 0);
-pub const API_VERSION_1_2 : u32 = make_api_version(0, 1, 2, 0);
-pub const API_VERSION_1_3 : u32 = make_api_version(0, 1, 3, 0);
-
+pub const API_VERSION_1_0: u32 = make_api_version(0, 1, 0, 0);
+pub const API_VERSION_1_1: u32 = make_api_version(0, 1, 1, 0);
+pub const API_VERSION_1_2: u32 = make_api_version(0, 1, 2, 0);
+pub const API_VERSION_1_3: u32 = make_api_version(0, 1, 3, 0);
 
 impl Status {
     #[inline]
@@ -108,8 +106,15 @@ impl Status {
     }
 }
 
+impl core::fmt::Display for Status {
+    fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+        <Self as core::fmt::Debug>::fmt(&self, f)
+    }
+}
+
+impl std::error::Error for Status {}
+
 /// Result type most Vulkan Function return
 /// You are guaranteed that if a vk::Result<A> is an Err
 /// Then the status code is an error code
 pub type Result<A> = core::result::Result<A, Status>;
-

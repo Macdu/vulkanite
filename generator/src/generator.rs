@@ -13,7 +13,7 @@ use quote::{format_ident, quote, ToTokens};
 use syn::{Ident, LitCStr};
 
 use crate::{
-    helpers::camel_case_to_snake_case,
+    helpers::{camel_case_to_snake_case, convert_len_case},
     structs::{
         convert_field_to_snake_case, AdvancedType, Api, CType, Command, CommandParam, Constant,
         Enum, EnumAliased, EnumFlag, EnumValue, EnumVariant, Handle, MappingEntry, MappingType,
@@ -1463,8 +1463,11 @@ impl<'a> Generator<'a> {
                         };
                         (
                             ty_inner,
-                            (my_struct.is_union || simple_fields.get(field.vk_name).is_some())
-                                .then(|| quote!(pub)),
+                            if my_struct.is_union || simple_fields.get(field.vk_name).is_some() {
+                                Some(quote!(pub))
+                            } else {
+                                Some(quote! (pub(crate)))
+                            },
                             quote! (#field_name: #default_value),
                         )
                     }
@@ -1816,7 +1819,19 @@ impl<'a> Generator<'a> {
             output_fields.remove(len_idx);
         }
 
-        if output_fields.len() > 1 || output_length.is_some() {
+        let length_mappings: HashMap<&str, &CommandParam> = vec_fields
+            .iter()
+            .filter_map(|(_, field)| {
+                let len = field.xml.len.as_ref()?;
+                cmd.params
+                    .iter()
+                    .find(|param| param.vk_name == len)
+                    .map(|param| (param.vk_name, *field))
+            })
+            .collect();
+
+        if output_fields.len() > 1 {
+            // TODO
             return Ok(quote!());
         }
 
@@ -1858,18 +1873,17 @@ impl<'a> Generator<'a> {
                     .any(|(vk_name, _)| *vk_name == param.vk_name)
                 {
                     assert!(matches!(param.ty, Type::Ptr(_)));
-                    Ok((quote!(), quote!(), quote! (#name.as_mut_ptr())))
+                    if output_length.is_some() {
+                        Ok((quote!(), quote!(), quote! (#name)))
+                    } else {
+                        Ok((quote!(), quote!(), quote! (#name.as_mut_ptr())))
+                    }
+                } else if output_length.is_some_and(|len| len.vk_name == param.vk_name) {
+                    Ok((quote!(), quote!(), quote! (#name)))
                 } else {
                     // it is the length of a vec field
-                    let (_, vec_field) = vec_fields
-                        .iter()
-                        .find(|(_, field)| {
-                            field
-                                .xml
-                                .len
-                                .as_ref()
-                                .is_some_and(|len| len == param.vk_name)
-                        })
+                    let vec_field = length_mappings
+                        .get(param.vk_name)
                         .ok_or_else(|| anyhow!("Failed to find field for {}", param.vk_name))?;
                     let vec_field_name = format_ident!("{}", vec_field.name);
                     Ok((quote!(), quote!(), quote! (#vec_field_name.len() as _)))
@@ -1910,6 +1924,24 @@ impl<'a> Generator<'a> {
                 let ret_name = self.get_ident_name(ret_type)?;
                 let field_name = format_ident!("{}", field.name);
 
+                let external_length = output_length.map(|param| format_ident!("{}", param.name));
+                let internal_length = field
+                    .xml
+                    .altlen
+                    .as_ref()
+                    .or(field.xml.len.as_ref())
+                    .filter(|_| external_length.is_none())
+                    .map(|len| {
+                        if let Some(param) = length_mappings.get(len.as_str()) {
+                            let param_name = format_ident!("{}", param.name);
+                            Ok(quote! (#param_name.len()))
+                        } else {
+                            convert_len_case(len).parse::<TokenStream>()
+                        }
+                    })
+                    .transpose()
+                    .map_err(|_| anyhow!("Failed to parse length of {}", field.vk_name))?;
+
                 let is_structure_type = self
                     .get_struct(ret_type)
                     .is_some_and(|my_struct| my_struct.s_type.is_some());
@@ -1919,24 +1951,51 @@ impl<'a> Generator<'a> {
                     .then(|| quote! (<'static>));
 
                 let mut result_quote = quote! (#ret_name #lifetime);
+                if internal_length.is_some() || external_length.is_some() {
+                    result_quote = quote! (Vec<#result_quote>)
+                }
                 if has_status {
                     result_quote = quote! (Result<#result_quote>)
                 }
                 let prev_affectation = has_status.then(|| quote! (let vk_status = ));
-                let return_result = if has_status {
-                    quote! (; vk_status.map_success(|| #field_name.assume_init()))
+                let return_cast = if let Some(internal_length) = &internal_length {
+                    quote! (#field_name.set_len(#internal_length as _); #field_name)
+                } else if external_length.is_some() {
+                    quote!(vk_vec.set_len(vk_len as _); vk_vec)
                 } else {
-                    quote! (; #field_name.assume_init())
+                    quote! (#field_name.assume_init())
+                };
+                let return_result = if has_status {
+                    quote! (; vk_status.map_success(|| {#return_cast}))
+                } else {
+                    quote! (; #return_cast)
+                };
+                let param_init = if let Some(internal_length) = &internal_length {
+                    Some(
+                        quote! (let mut #field_name = Vec::with_capacity(#internal_length as _); #prev_affectation),
+                    )
+                } else if let Some(external_length) = &external_length {
+                    let first_call_args = args_inner.clone();
+                    let map_success = has_status.then(|| quote! (.map_success(|| ())?));
+                    Some(quote! {
+                        let mut vk_len = MaybeUninit::uninit();
+                        let #external_length = vk_len.as_mut_ptr();
+                        let #field_name = ptr::null_mut();
+                        vulkan_command(#(#first_call_args),*)#map_success;
+                        let mut vk_len = vk_len.assume_init();
+                        let mut vk_vec = Vec::with_capacity(vk_len as _);
+                        let #external_length = ptr::from_mut(&mut vk_len);
+                        let #field_name = vk_vec.as_mut_ptr();
+                        #prev_affectation
+                    })
+                } else if is_structure_type {
+                    Some(quote! (let mut #field_name = #ret_name::new_zeroed(); #prev_affectation))
+                } else {
+                    Some(quote! (let mut #field_name = MaybeUninit::uninit(); #prev_affectation))
                 };
                 (
                     quote! (-> #result_quote),
-                    if is_structure_type {
-                        Some(
-                            quote! (let mut #field_name = #ret_name::new_zeroed(); #prev_affectation),
-                        )
-                    } else {
-                        Some(quote! (let mut #field_name = MaybeUninit::uninit(); #prev_affectation))
-                    },
+                    Some(param_init),
                     Some(return_result),
                 )
             }

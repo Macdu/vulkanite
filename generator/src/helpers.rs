@@ -144,7 +144,7 @@ pub(crate) fn camel_case_to_snake_case(name: &str) -> String {
         if c == '_' {
             // just for textureCompressionASTC_HDR..
             can_put_separation = true;
-            continue
+            continue;
         } else if c.is_ascii_uppercase() && can_put_separation {
             result.push('_');
             can_put_separation = false;
@@ -163,4 +163,24 @@ pub(crate) fn longuest_common_prefix<'a, 'b>(str1: &'a str, str2: &'b str) -> &'
         .take_while(|(c1, c2)| c1 == c2)
         .count();
     &str1[..prefix_size]
+}
+
+/// Convert pAllocateInfo->commandBufferCount to p_allocate_info.command_buffer_count
+pub(crate) fn convert_len_case(len: &str) -> String {
+    const LEN_TOKENS: [char; 6] = ['-', '>', ' ', '(', ')', '/'];
+    let mut parts = len
+        .split(&LEN_TOKENS)
+        .map(|part| camel_case_to_snake_case(part));
+    let tokens = len.chars().filter(|c| LEN_TOKENS.contains(c));
+    parts
+        .next()
+        .into_iter()
+        .chain(
+            parts
+                .zip(tokens)
+                .map(|(part, token)| format!("{token}{part}")),
+        )
+        .collect::<Vec<String>>()
+        .join("")
+        .replace("->", ".")
 }
