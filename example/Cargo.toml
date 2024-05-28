@@ -4,4 +4,5 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-vk-headers = { path = "../", features = ["loaded"] }
+vk-headers = { path = "../", features = ["loaded", "small-vec"] }
+smallvec = "1.13.2"

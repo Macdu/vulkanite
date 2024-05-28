@@ -7,6 +7,8 @@ use std::marker::PhantomData;
 use std::mem::MaybeUninit;
 use std::ptr::{self};
 
+use smallvec::SmallVec;
+
 // TODO: this is safe (Option<fn> being set to None is guaranteed to match memory being zero-ed)
 // but this unsafe is not necessary (can't use Default::default because it is not const...)
 pub static DYNAMIC_DISPATCHER: vk::CommandsDispatcher = unsafe { std::mem::zeroed() };
@@ -219,6 +221,59 @@ impl<'a, T: Handle> AsMut<T> for BorrowedMutHandle<'a, T> {
                 .as_mut()
                 .unwrap_unchecked()
         }
+    }
+}
+
+/// A trait implemented by types which can allocate memory for an array of given size in a contiguous memory
+/// This is used for vulkan commands returning arrays
+/// Vec<T> implements this trait as well as SmallVec<[T;N]> is the small-vec feature is enabled
+/// This trait is unsafe because no allocating a memory area of the proper size when calling
+/// allocate_with_capacity can cause undefined behavior when using this library
+pub unsafe trait DynamicArray<T: Sized> {
+    /// Returns an array with at least the given capacity available
+    /// Calling get_content_mut_ptr on an object allocated with allocate_with_capacity(capacity) should return
+    /// A contiguous properly aligned allocated region of memory which can hold capacity elements of T
+    fn allocate_with_capacity(capacity: usize) -> Self;
+
+    /// Returns a pointer to the array memory
+    fn get_content_mut_ptr(&mut self) -> *mut T;
+
+    /// Set the array length to size len
+    /// The array must have been allocated with allocate_with_capacity(capacity)
+    /// With capacity >= len and the first len elements of the array
+    /// must be well defined
+    unsafe fn resize_with_len(&mut self, len: usize);
+}
+
+unsafe impl<T: Sized> DynamicArray<T> for Vec<T> {
+    fn allocate_with_capacity(capacity: usize) -> Self {
+        Self::with_capacity(capacity)
+    }
+
+    fn get_content_mut_ptr(&mut self) -> *mut T {
+        self.as_mut_ptr()
+    }
+
+    unsafe fn resize_with_len(&mut self, len: usize) {
+        self.set_len(len)
+    }
+}
+
+#[cfg(feature = "small-vec")]
+unsafe impl<T: Sized, A> DynamicArray<T> for SmallVec<A>
+where
+    A: smallvec::Array<Item = T>,
+{
+    fn allocate_with_capacity(capacity: usize) -> Self {
+        Self::with_capacity(capacity)
+    }
+
+    fn get_content_mut_ptr(&mut self) -> *mut T {
+        self.as_mut_ptr()
+    }
+
+    unsafe fn resize_with_len(&mut self, len: usize) {
+        self.set_len(len)
     }
 }
 

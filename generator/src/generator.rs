@@ -1875,6 +1875,8 @@ impl<'a> Generator<'a> {
                     assert!(matches!(param.ty, Type::Ptr(_)));
                     if output_length.is_some() {
                         Ok((quote!(), quote!(), quote! (#name)))
+                    } else if param.xml.len.is_some() {
+                        Ok((quote!(), quote!(), quote! (#name.get_content_mut_ptr())))
                     } else {
                         Ok((quote!(), quote!(), quote! (#name.as_mut_ptr())))
                     }
@@ -1901,7 +1903,7 @@ impl<'a> Generator<'a> {
             .filter(|t| !t.is_empty());
         let args_inner = result_params.iter().map(|(_, _, z)| z);
 
-        let (ret_type, pre_call, post_call) = match cmd.return_ty {
+        let (ret_type, pre_call, post_call, ret_template) = match cmd.return_ty {
             ReturnType::BaseType(name) => {
                 let ty_name = self
                     .mapping
@@ -1911,9 +1913,9 @@ impl<'a> Generator<'a> {
                     .name
                     .clone();
                 let ty_name = format_ident!("{ty_name}");
-                (quote! (-> #ty_name), None, None)
+                (quote! (-> #ty_name), None, None, None)
             }
-            ReturnType::Result if output_fields.is_empty() => (quote! (-> Status), None, None),
+            ReturnType::Result if output_fields.is_empty() => (quote! (-> Status), None, None, None),
             _ if !output_fields.is_empty() => {
                 let has_status = cmd.return_ty == ReturnType::Result;
                 let (_, field) = output_fields[0];
@@ -1952,16 +1954,16 @@ impl<'a> Generator<'a> {
 
                 let mut result_quote = quote! (#ret_name #lifetime);
                 if internal_length.is_some() || external_length.is_some() {
-                    result_quote = quote! (Vec<#result_quote>)
+                    result_quote = quote! (R)
                 }
                 if has_status {
                     result_quote = quote! (Result<#result_quote>)
                 }
                 let prev_affectation = has_status.then(|| quote! (let vk_status = ));
                 let return_cast = if let Some(internal_length) = &internal_length {
-                    quote! (#field_name.set_len(#internal_length as _); #field_name)
+                    quote! (#field_name.resize_with_len(#internal_length as _); #field_name)
                 } else if external_length.is_some() {
-                    quote!(vk_vec.set_len(vk_len as _); vk_vec)
+                    quote!(vk_vec.resize_with_len(vk_len as _); vk_vec)
                 } else {
                     quote! (#field_name.assume_init())
                 };
@@ -1972,7 +1974,7 @@ impl<'a> Generator<'a> {
                 };
                 let param_init = if let Some(internal_length) = &internal_length {
                     Some(
-                        quote! (let mut #field_name = Vec::with_capacity(#internal_length as _); #prev_affectation),
+                        quote! (let mut #field_name = R::allocate_with_capacity(#internal_length as _); #prev_affectation),
                     )
                 } else if let Some(external_length) = &external_length {
                     let first_call_args = args_inner.clone();
@@ -1983,9 +1985,9 @@ impl<'a> Generator<'a> {
                         let #field_name = ptr::null_mut();
                         vulkan_command(#(#first_call_args),*)#map_success;
                         let mut vk_len = vk_len.assume_init();
-                        let mut vk_vec = Vec::with_capacity(vk_len as _);
+                        let mut vk_vec = R::allocate_with_capacity(vk_len as _);
                         let #external_length = ptr::from_mut(&mut vk_len);
-                        let #field_name = vk_vec.as_mut_ptr();
+                        let #field_name = vk_vec.get_content_mut_ptr();
                         #prev_affectation
                     })
                 } else if is_structure_type {
@@ -1993,20 +1995,22 @@ impl<'a> Generator<'a> {
                 } else {
                     Some(quote! (let mut #field_name = MaybeUninit::uninit(); #prev_affectation))
                 };
+                let ret_template = (internal_length.is_some() || external_length.is_some()).then(|| quote! (R: DynamicArray<#ret_name #lifetime>,));
                 (
                     quote! (-> #result_quote),
                     Some(param_init),
                     Some(return_result),
+                    ret_template
                 )
             }
-            _ => (quote!(), None, None),
+            _ => (quote!(), None, None, None),
         };
 
         let name = format_ident!("{name}");
         let doc = make_doc_link(vk_name);
         Ok(quote! {
             #doc
-            pub fn #name<#(#templates),*>(#(#args_outer,)* dispatcher: &CommandsDispatcher ) #ret_type {
+            pub fn #name<#ret_template #(#templates),*>(#(#args_outer,)* dispatcher: &CommandsDispatcher ) #ret_type {
                 let vulkan_command = dispatcher.#name.get().expect("Vulkan command not loaded.");
                 unsafe {
                     #pre_call

@@ -1,5 +1,6 @@
 use std::{error::Error, ffi::CStr};
 
+use smallvec::SmallVec;
 use vk_headers::{vk, DynamicDispatcher, DYNAMIC_DISPATCHER};
 
 fn main() -> Result<(), Box<dyn Error>> {
@@ -12,12 +13,11 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     unsafe { DynamicDispatcher::load_instance(&instance) };
 
-    let devices = vk::raw::enumerate_physical_devices(&instance, &DYNAMIC_DISPATCHER)?;
+    let devices: SmallVec<[_; 3]> =
+        vk::raw::enumerate_physical_devices(&instance, &DYNAMIC_DISPATCHER)?;
     let device = &devices[0];
     let prop = vk::raw::get_physical_device_properties(device, &DYNAMIC_DISPATCHER);
-    let name = unsafe {
-        CStr::from_ptr(prop.device_name.as_ptr())
-    };
+    let name = unsafe { CStr::from_ptr(prop.device_name.as_ptr()) };
     println!("GPU Name is {}", name.to_str()?);
     Ok(())
 }
