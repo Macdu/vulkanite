@@ -18,19 +18,19 @@ fn main() -> Result<(), Box<dyn Error>> {
     let generator = Generator::new(Api::Vulkan, &registry)?;
 
     let enums = generator.generate_enums()?;
-    fs::write("src/enums.rs", enums)?;
+    fs::write("src/vk/enums.rs", enums)?;
 
     let handles = generator.generate_handles()?;
-    fs::write("src/raw/handles.rs", handles)?;
+    fs::write("src/vk/raw/handles.rs", handles)?;
 
     let structs = generator.generate_structs()?;
-    fs::write("src/structs.rs", structs)?;
+    fs::write("src/vk/structs.rs", structs)?;
 
     let dispatcher = generator.generate_dispatcher()?;
-    fs::write("src/dispatcher.rs", dispatcher)?;
+    fs::write("src/vk/dispatcher.rs", dispatcher)?;
 
     let raw_commands = generator.generate_raw_commands()?;
-    fs::write("src/raw/commands.rs", raw_commands)?;
+    fs::write("src/vk/raw/commands.rs", raw_commands)?;
 
     Ok(())
 }

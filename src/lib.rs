@@ -1,84 +1,22 @@
-pub mod dispatcher;
-pub mod enums;
-pub mod raw;
-pub mod structs;
+pub mod vk;
 
 use std::cell::Cell;
 use std::ffi::c_char;
 use std::fmt::Display;
 use std::marker::PhantomData;
 use std::mem::MaybeUninit;
-use std::ptr::{self, NonNull};
-
-pub use dispatcher::*;
-pub use enums::*;
-pub use structs::*;
-
-// to remove
-type VoidPtr = Option<NonNull<()>>;
-type FuncPtr = *const ();
-
-#[repr(u32)]
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
-#[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkBool32.html>"]
-/// According to the Vulkan specification:
-/// - All values returned from a Vulkan implementation in a VkBool32 will be either VK_TRUE or VK_FALSE.
-/// - Applications must not pass any other values than VK_TRUE or VK_FALSE into a Vulkan implementation where a VkBool32 is expected.
-pub enum Bool32 {
-    False = 0,
-    True = 1,
-}
-
-pub const TRUE: Bool32 = Bool32::True;
-pub const FALSE: Bool32 = Bool32::True;
-
-impl Default for Bool32 {
-    fn default() -> Self {
-        Self::False
-    }
-}
-
-impl From<bool> for Bool32 {
-    fn from(value: bool) -> Self {
-        match value {
-            true => Self::True,
-            false => Self::False,
-        }
-    }
-}
-
-impl From<Bool32> for bool {
-    fn from(value: Bool32) -> bool {
-        match value {
-            Bool32::True => true,
-            Bool32::False => false,
-        }
-    }
-}
-
-pub const fn make_api_version(variant: u32, major: u32, minor: u32, patch: u32) -> u32 {
-    assert!(variant < 8);
-    assert!(major < 128);
-    assert!(minor < 1024);
-    assert!(patch < 4096);
-    (variant << 29) | (major << 22) | (minor << 12) | patch 
-}
-
-pub const API_VERSION_1_0 : u32 = make_api_version(0, 1, 0, 0);
-pub const API_VERSION_1_1 : u32 = make_api_version(0, 1, 1, 0);
-pub const API_VERSION_1_2 : u32 = make_api_version(0, 1, 2, 0);
-pub const API_VERSION_1_3 : u32 = make_api_version(0, 1, 3, 0);
+use std::ptr::{self};
 
 // TODO: this is safe (Option<fn> being set to None is guaranteed to match memory being zero-ed)
 // but this unsafe is not necessary (can't use Default::default because it is not const...)
-pub static DYNAMIC_DISPATCHER: CommandsDispatcher = unsafe { std::mem::zeroed() };
+pub static DYNAMIC_DISPATCHER: vk::CommandsDispatcher = unsafe { std::mem::zeroed() };
 
 pub struct DynamicDispatcher;
 
 impl DynamicDispatcher {
     pub unsafe fn load_proc_addr(
         get_instance_proc_addr: unsafe extern "system" fn(
-            Option<raw::Instance>,
+            Option<vk::raw::Instance>,
             *const c_char,
         ) -> *const (),
     ) {
@@ -88,11 +26,11 @@ impl DynamicDispatcher {
         Self::load_proc_addr_inner();
     }
 
-    pub unsafe fn load_instance(instance: &raw::Instance) {
+    pub unsafe fn load_instance(instance: &vk::raw::Instance) {
         Self::load_instance_inner(instance);
     }
 
-    pub unsafe fn load_device(device: &raw::Device) {
+    pub unsafe fn load_device(device: &vk::raw::Device) {
         Self::load_device_inner(device);
     }
 
@@ -180,53 +118,6 @@ impl Display for MissingEntryPoint {
 }
 impl std::error::Error for MissingEntryPoint {}
 
-impl Status {
-    #[inline]
-    pub fn is_success(self) -> bool {
-        (self as i32) >= 0
-    }
-
-    #[inline]
-    pub fn is_error(self) -> bool {
-        (self as i32) < 0
-    }
-
-    pub fn map_success<T, F>(self, f: F) -> Result<T>
-    where
-        F: FnOnce() -> T,
-    {
-        if self.is_success() {
-            Ok(f())
-        } else {
-            Err(self)
-        }
-    }
-
-    pub fn map_successes<T, F>(self, f: F) -> Result<(Self, T)>
-    where
-        F: FnOnce() -> T,
-    {
-        if self.is_success() {
-            Ok((self, f()))
-        } else {
-            Err(self)
-        }
-    }
-
-    pub fn map_always<T>(self, result: T) -> core::result::Result<(Self, T), (Self, T)> {
-        if self.is_success() {
-            Ok((self, result))
-        } else {
-            Err((self, result))
-        }
-    }
-}
-
-/// Result type most Vulkan Function return
-/// You are guaranteed that if a vk::Result<A> is an Err
-/// Then the status code is an error code
-pub type Result<A> = core::result::Result<A, Status>;
-
 mod private {
     /// For safety, prevent types outside this crate to implement Vulkan-specific traits
     pub trait Sealed {}
@@ -242,7 +133,7 @@ unsafe impl<T: Sized> Alias<T> for T {}
 /// A dispatchable or non-dispatchable Vulkan Handle
 pub trait Handle: private::Sealed + Sized {
     type InnerType;
-    const TYPE: ObjectType;
+    const TYPE: vk::ObjectType;
 
     /// Retrieve the inner content of the vulkan handle, to be used by other Vulkan librairies not using this crate
     fn as_raw(&self) -> Self::InnerType;
@@ -336,7 +227,7 @@ impl<'a, T: Handle> AsMut<T> for BorrowedMutHandle<'a, T> {
 ///     const void*            pNext;
 /// sType must always be set to STRUCTURE_TYPE
 pub unsafe trait ExtendableStructure: Default {
-    const STRUCTURE_TYPE: StructureType;
+    const STRUCTURE_TYPE: vk::StructureType;
 
     unsafe fn retrieve_next(&self) -> &Cell<*const Header> {
         unsafe {
@@ -369,7 +260,7 @@ pub unsafe trait ExtendableStructure: Default {
         unsafe {
             result
                 .as_mut_ptr()
-                .cast::<StructureType>()
+                .cast::<vk::StructureType>()
                 .write(Self::STRUCTURE_TYPE)
         };
         result
@@ -449,7 +340,7 @@ macro_rules! handle_nondispatchable {
 
 #[repr(C)]
 pub struct Header {
-    s_type: StructureType,
+    s_type: vk::StructureType,
     p_next: Cell<*const Header>,
 }
 

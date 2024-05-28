@@ -245,7 +245,7 @@ impl<'a> Generator<'a> {
             use std::num::{NonZeroUsize, NonZeroU64};
 
             use crate::{handle_dispatchable, handle_nondispatchable, vk_handle, private};
-            use crate::{Handle, ObjectType};
+            use crate::{Handle, vk::ObjectType};
 
             #(#feature_handles)*
             #(#feature_extensions)*
@@ -308,7 +308,8 @@ impl<'a> Generator<'a> {
 
         let result = quote! {
             use crate::*;
-            use crate::raw::*;
+            use crate::vk::*;
+            use crate::vk::raw::*;
             use core::slice;
             use std::ptr::{self, NonNull};
             use std::array;
@@ -367,7 +368,8 @@ impl<'a> Generator<'a> {
 
         let result = quote! {
             use crate::*;
-            use crate::raw::*;
+            use crate::vk::*;
+            use crate::vk::raw::*;
 
             use std::mem;
             use std::cell::Cell;
@@ -381,14 +383,14 @@ impl<'a> Generator<'a> {
             unsafe impl Sync for CommandsDispatcher{}
 
             impl DynamicDispatcher {
-                pub(super) unsafe fn load_proc_addr_inner() {
+                pub(crate) unsafe fn load_proc_addr_inner() {
                     let dispatcher = &DYNAMIC_DISPATCHER;
                     let get_instance_proc_addr = dispatcher.get_instance_proc_addr.get().expect("vkGetInstanceProcAddress not supplied");
 
                     #(#proc_addr_loader)*
                 }
 
-                pub(super) unsafe fn load_instance_inner(instance: &Instance) {
+                pub(crate) unsafe fn load_instance_inner(instance: &Instance) {
                     let dispatcher = &DYNAMIC_DISPATCHER;
                     let get_instance_proc_addr = dispatcher.get_instance_proc_addr.get().expect("vkGetInstanceProcAddress not supplied");
                     let get_instance = || Some(instance.clone());
@@ -396,7 +398,7 @@ impl<'a> Generator<'a> {
                     #(#instance_loader)*
                 }
 
-                pub(super) unsafe fn load_device_inner(device: &Device) {
+                pub(crate) unsafe fn load_device_inner(device: &Device) {
                     let dispatcher = &DYNAMIC_DISPATCHER;
                     let get_device_proc_addr = dispatcher.get_device_proc_addr.get().expect("vkGetDeviceProcAddress not supplied");
                     let get_device = || Some(device.clone());
@@ -459,8 +461,9 @@ impl<'a> Generator<'a> {
 
             use std::ffi::{c_int, c_void, CStr};
 
-            use super::*;
             use crate::*;
+            use crate::vk::*;
+            use crate::vk::raw::*;
 
             #(#raw_cmd_impl)*
         }
