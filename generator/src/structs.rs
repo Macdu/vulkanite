@@ -509,6 +509,7 @@ impl<'a> TryFrom<&'a xml::Command> for Command<'a> {
         let params = value
             .param
             .iter()
+            .filter(|param| param.api != Some(xml::Api::Vulkansc))
             .map(|param| CommandParam::try_from(param))
             .collect::<Result<_>>()?;
 
@@ -585,7 +586,10 @@ impl<'a> TryFrom<&'a xml::Param> for CommandParam<'a> {
 
             _ => return Err(anyhow!("Unexpected command content {content:?}")),
         };
-        let name = camel_case_to_snake_case(vk_name);
+        let mut name = camel_case_to_snake_case(vk_name);
+        if name == "type" {
+            name = "ty".to_string();
+        }
         Ok(CommandParam {
             name,
             vk_name,

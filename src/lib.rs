@@ -7,6 +7,7 @@ use std::cell::Cell;
 use std::ffi::c_char;
 use std::fmt::Display;
 use std::marker::PhantomData;
+use std::mem::MaybeUninit;
 use std::ptr::{self, NonNull};
 
 pub use dispatcher::*;
@@ -55,8 +56,22 @@ impl From<Bool32> for bool {
     }
 }
 
-// TODO: this is safe but this unsafe is not necessary (can't use Default::default because it is not const...)
-static DYNAMIC_DISPATCHER: CommandsDispatcher = unsafe { std::mem::zeroed() };
+pub const fn make_api_version(variant: u32, major: u32, minor: u32, patch: u32) -> u32 {
+    assert!(variant < 8);
+    assert!(major < 128);
+    assert!(minor < 1024);
+    assert!(patch < 4096);
+    (variant << 29) | (major << 22) | (minor << 12) | patch 
+}
+
+pub const API_VERSION_1_0 : u32 = make_api_version(0, 1, 0, 0);
+pub const API_VERSION_1_1 : u32 = make_api_version(0, 1, 1, 0);
+pub const API_VERSION_1_2 : u32 = make_api_version(0, 1, 2, 0);
+pub const API_VERSION_1_3 : u32 = make_api_version(0, 1, 3, 0);
+
+// TODO: this is safe (Option<fn> being set to None is guaranteed to match memory being zero-ed)
+// but this unsafe is not necessary (can't use Default::default because it is not const...)
+pub static DYNAMIC_DISPATCHER: CommandsDispatcher = unsafe { std::mem::zeroed() };
 
 pub struct DynamicDispatcher;
 
@@ -164,6 +179,48 @@ impl Display for MissingEntryPoint {
     }
 }
 impl std::error::Error for MissingEntryPoint {}
+
+impl Status {
+    #[inline]
+    pub fn is_success(self) -> bool {
+        (self as i32) >= 0
+    }
+
+    #[inline]
+    pub fn is_error(self) -> bool {
+        (self as i32) < 0
+    }
+
+    pub fn map_success<T, F>(self, f: F) -> Result<T>
+    where
+        F: FnOnce() -> T,
+    {
+        if self.is_success() {
+            Ok(f())
+        } else {
+            Err(self)
+        }
+    }
+
+    pub fn map_successes<T, F>(self, f: F) -> Result<(Self, T)>
+    where
+        F: FnOnce() -> T,
+    {
+        if self.is_success() {
+            Ok((self, f()))
+        } else {
+            Err(self)
+        }
+    }
+
+    pub fn map_always<T>(self, result: T) -> core::result::Result<(Self, T), (Self, T)> {
+        if self.is_success() {
+            Ok((self, result))
+        } else {
+            Err((self, result))
+        }
+    }
+}
 
 /// Result type most Vulkan Function return
 /// You are guaranteed that if a vk::Result<A> is an Err
@@ -304,6 +361,19 @@ pub unsafe trait ExtendableStructure: Default {
         other_next.set(my_next.get());
         my_next.set(ptr::from_ref(ext).cast());
     }
+
+    // Return a zero-filled structure, except the structure type being correctly set
+    fn new_zeroed() -> MaybeUninit<Self> {
+        let mut result: MaybeUninit<Self> = MaybeUninit::zeroed();
+        // SAFETY: Self is a C struct which starts with a VkStructureType field
+        unsafe {
+            result
+                .as_mut_ptr()
+                .cast::<StructureType>()
+                .write(Self::STRUCTURE_TYPE)
+        };
+        result
+    }
 }
 
 /// If an extendable structure A implements ExtendingStructure< B >
@@ -331,14 +401,17 @@ macro_rules! vk_handle {
 
             const TYPE: ObjectType = ObjectType::$obj_type;
 
+            #[inline]
             fn as_raw(&self) -> $ty {
                 self.0
             }
 
+            #[inline]
             unsafe fn from_raw(x: $ty) -> Self {
                 Self(x)
             }
 
+            #[inline]
             unsafe fn clone(&self) -> Self {
                 Self(self.0)
             }

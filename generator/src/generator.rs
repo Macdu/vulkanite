@@ -103,6 +103,7 @@ impl<'a> Generator<'a> {
                     .is_some_and(|cat| cat == "basetype" || cat == "struct" || cat == "union")
                     && ty.alias.is_none()
             })
+            .filter(|ty| ty.api != Some(xml::Api::Vulkansc))
             .map(|ty| {
                 let my_struct = Struct::try_from(ty)?;
                 let name = ty
@@ -424,8 +425,14 @@ impl<'a> Generator<'a> {
                             // generate the command for the main name and all the possible aliases
                             let aliases = cmd.aliases.borrow();
                             let raw_cmds = iter::once((cmd.vk_name, cmd.name.as_str()))
-                                .chain(aliases.iter().map(|(vk_name, name)| (*vk_name, name.as_str())))
-                                .map(|(vk_name, name)| self.generate_raw_command(cmd, vk_name, name))
+                                .chain(
+                                    aliases
+                                        .iter()
+                                        .map(|(vk_name, name)| (*vk_name, name.as_str())),
+                                )
+                                .map(|(vk_name, name)| {
+                                    self.generate_raw_command(cmd, vk_name, name)
+                                })
                                 .collect::<Result<Vec<_>>>()?;
                             Ok(quote! (#(#raw_cmds)*))
                         }),
@@ -436,13 +443,13 @@ impl<'a> Generator<'a> {
             Ok(quote! (#(#cmds)*))
         };
 
-        let dispatcher_features = self.filtered_features().flat_map(|feat| &feat.require);
-        let dispatcher_extensions = self
+        let raw_cmd_features = self.filtered_features().flat_map(|feat| &feat.require);
+        let raw_cmd_extensions = self
             .filtered_extensions()
             .flat_map(|ext: &xml::Extension| &ext.require);
 
-        let dispatcher_impl = dispatcher_features
-            .chain(dispatcher_extensions)
+        let raw_cmd_impl = raw_cmd_features
+            .chain(raw_cmd_extensions)
             .map(generate_group_commands)
             .collect::<Result<Vec<_>>>()?;
 
@@ -450,13 +457,14 @@ impl<'a> Generator<'a> {
             // TODO: remove
             #![allow(unused_unsafe)]
 
-            use std::ffi::{c_void, CStr};
+            use std::ffi::{c_int, c_void, CStr};
 
             use super::*;
             use crate::*;
 
-            #(#dispatcher_impl)*
-        }.to_string();
+            #(#raw_cmd_impl)*
+        }
+        .to_string();
 
         Self::format_result(result)
     }
@@ -973,6 +981,27 @@ impl<'a> Generator<'a> {
         Ok(())
     }
 
+    fn get_handle(&self, name: &str) -> Option<&Handle<'a>> {
+        let handle_name = match self.mapping.borrow().get(name)?.ty {
+            MappingType::Handle => name,
+            MappingType::HandleAlias(alias) => alias,
+            _ => return None,
+        };
+        self.handles.get(handle_name)
+    }
+
+    fn get_struct(&self, name: &str) -> Option<&StructStandard<'a>> {
+        let struct_name = match self.mapping.borrow().get(name)?.ty {
+            MappingType::Struct => name,
+            MappingType::AliasedStruct(alias) => alias,
+            _ => return None,
+        };
+        match self.structs.get(struct_name) {
+            Some(Struct::Standard(my_struct)) => Some(my_struct),
+            _ => None,
+        }
+    }
+
     /// Return if the type ty needs to have a lifetime parameter
     /// i.e if the type is pointer to a sized type of a struct with a lifetime
     fn compute_type_lifetime(&self, ty: &Type) -> bool {
@@ -990,10 +1019,15 @@ impl<'a> Generator<'a> {
     /// i.e if the type is a base type whose type has a lifetime
     /// Or a standard struct and one of its type requires a lifetime
     fn compute_name_lifetime(&self, name: &str) -> bool {
-        let my_struct = match self.structs.get(name) {
+        let struct_name = match self.mapping.borrow().get(name).map(|mp| mp.ty) {
+            Some(MappingType::Struct | MappingType::BaseType) => name,
+            Some(MappingType::AliasedStruct(alias)) => alias,
+            Some(MappingType::Handle | MappingType::HandleAlias(_)) => return true,
+            _ => return false,
+        };
+        let my_struct = match self.structs.get(struct_name) {
             Some(my_struct) => my_struct,
-            // if it is a handle, it always has a lifetime
-            None => return self.handles.contains_key(name),
+            None => return false,
         };
 
         if let Some(lifetime) = my_struct.lifetime() {
@@ -1448,7 +1482,8 @@ impl<'a> Generator<'a> {
                 let name = format_ident!("{}", field.name);
                 let ty = field.advanced_ty.get().unwrap();
                 let ty_name = self.generate_type_outer(&ty, field.optional, true)?;
-                let value = self.generate_type_outer_to_inner(&ty, field.optional, format_ident!("value"))?;
+                let value =
+                    self.generate_type_outer_to_inner(&ty, field.optional, format_ident!("value"))?;
                 Ok(quote! {
                     #[inline]
                     pub fn #name(&mut self, value: #ty_name) -> &mut Self {
@@ -1678,7 +1713,12 @@ impl<'a> Generator<'a> {
         Ok(quote! (#(#names)*))
     }
 
-    fn generate_raw_command(&self, cmd: &Command<'a>, vk_name: &str, name: &str) -> Result<TokenStream> {
+    fn generate_raw_command(
+        &self,
+        cmd: &Command<'a>,
+        vk_name: &str,
+        name: &str,
+    ) -> Result<TokenStream> {
         let mut output_length: Option<&CommandParam> = None;
         let mut output_fields = Vec::new();
 
@@ -1728,6 +1768,7 @@ impl<'a> Generator<'a> {
             }
 
             output_fields.push((param.vk_name, param));
+            erase_from_vec(&mut simple_fields, param.vk_name);
 
             if let Some(len) = &param.xml.len {
                 // if the length is a used provided input, there is a ->
@@ -1772,9 +1813,11 @@ impl<'a> Generator<'a> {
             output_fields.remove(len_idx);
         }
 
-        if cmd.return_ty != ReturnType::Void || !output_fields.is_empty() {
+        if output_fields.len() > 1 || output_length.is_some() {
             return Ok(quote!());
         }
+
+        assert!(output_fields.is_empty() || !matches!(cmd.return_ty, ReturnType::BaseType(_)));
 
         let result_params = cmd
             .params
@@ -1787,9 +1830,13 @@ impl<'a> Generator<'a> {
                     .iter()
                     .any(|(vk_name, _)| *vk_name == param.vk_name)
                 {
-                    let outer_type = self.generate_type_outer(&advanced_ty, param.optional, false)?;
-                    let outer_to_inner_type =
-                        self.generate_type_outer_to_inner(&advanced_ty, param.optional, name.clone())?;
+                    let outer_type =
+                        self.generate_type_outer(&advanced_ty, param.optional, false)?;
+                    let outer_to_inner_type = self.generate_type_outer_to_inner(
+                        &advanced_ty,
+                        param.optional,
+                        name.clone(),
+                    )?;
                     Ok((quote!(), quote! (#name: #outer_type), outer_to_inner_type))
                 } else if vec_fields
                     .iter()
@@ -1800,9 +1847,15 @@ impl<'a> Generator<'a> {
                         idx as u32,
                         name.clone(),
                         false,
-                        false
+                        false,
                     )?;
                     Ok((templ, quote! (#name: #outer), inner))
+                } else if output_fields
+                    .iter()
+                    .any(|(vk_name, _)| *vk_name == param.vk_name)
+                {
+                    assert!(matches!(param.ty, Type::Ptr(_)));
+                    Ok((quote!(), quote!(), quote! (#name.as_mut_ptr())))
                 } else {
                     // it is the length of a vec field
                     let (_, vec_field) = vec_fields
@@ -1831,14 +1884,72 @@ impl<'a> Generator<'a> {
             .filter(|t| !t.is_empty());
         let args_inner = result_params.iter().map(|(_, _, z)| z);
 
+        let (ret_type, pre_call, post_call) = match cmd.return_ty {
+            ReturnType::BaseType(name) => {
+                let ty_name = self
+                    .mapping
+                    .borrow()
+                    .get(name)
+                    .ok_or_else(|| anyhow!("Basetype {name} does not exist"))?
+                    .name
+                    .clone();
+                let ty_name = format_ident!("{ty_name}");
+                (quote! (-> #ty_name), None, None)
+            }
+            ReturnType::Result if output_fields.is_empty() => (quote! (-> Status), None, None),
+            _ if !output_fields.is_empty() => {
+                let has_status = cmd.return_ty == ReturnType::Result;
+                let (_, field) = output_fields[0];
+                let ret_type = match field.ty {
+                    Type::Ptr(name) => name,
+                    _ => return Err(anyhow!("Could not use return field for {name}")),
+                };
+                let ret_name = self.get_ident_name(ret_type)?;
+                let field_name = format_ident!("{}", field.name);
+
+                let is_structure_type = self
+                    .get_struct(ret_type)
+                    .is_some_and(|my_struct| my_struct.s_type.is_some());
+                let is_handle = self.get_handle(ret_type).is_some();
+
+                let lifetime = (!is_handle && self.compute_name_lifetime(ret_type))
+                    .then(|| quote! (<'static>));
+
+                let mut result_quote = quote! (#ret_name #lifetime);
+                if has_status {
+                    result_quote = quote! (Result<#result_quote>)
+                }
+                let prev_affectation = has_status.then(|| quote! (let vk_status = ));
+                let return_result = if has_status {
+                    quote! (; vk_status.map_success(|| #field_name.assume_init()))
+                } else {
+                    quote! (; #field_name.assume_init())
+                };
+                (
+                    quote! (-> #result_quote),
+                    if is_structure_type {
+                        Some(
+                            quote! (let mut #field_name = #ret_name::new_zeroed(); #prev_affectation),
+                        )
+                    } else {
+                        Some(quote! (let mut #field_name = MaybeUninit::uninit(); #prev_affectation))
+                    },
+                    Some(return_result),
+                )
+            }
+            _ => (quote!(), None, None),
+        };
+
         let name = format_ident!("{name}");
         let doc = make_doc_link(vk_name);
         Ok(quote! {
             #doc
-            pub fn #name<#(#templates),*>(#(#args_outer),* , dispatcher: &CommandsDispatcher ) {
+            pub fn #name<#(#templates),*>(#(#args_outer,)* dispatcher: &CommandsDispatcher ) #ret_type {
                 let vulkan_command = dispatcher.#name.get().expect("Vulkan command not loaded.");
                 unsafe {
+                    #pre_call
                     vulkan_command(#(#args_inner),*)
+                    #post_call
                 }
             }
         })
@@ -1850,14 +1961,6 @@ impl<'a> Generator<'a> {
         ty: &AdvancedType<'a>,
         add_lifetime: bool,
     ) -> Result<TokenStream> {
-        let get_name = |name: &'a str| {
-            self.mapping
-                .borrow()
-                .get(name)
-                .map(|entry| entry.name.clone())
-                .ok_or_else(|| anyhow!("Failed to find key {name}"))
-        };
-
         let get_lifetime = |ty: &str| {
             if add_lifetime {
                 self.compute_name_lifetime(ty).then(|| quote! (<'a>))
@@ -1871,11 +1974,11 @@ impl<'a> Generator<'a> {
             AT::Void => quote!(()),
             AT::VoidPtr => quote!(*const ()),
             AT::Enum(ty) | AT::Other(ty) => {
-                let ty_ident = format_ident!("{}", get_name(ty)?);
+                let ty_ident = self.get_ident_name(ty)?;
                 quote! (#ty_ident)
             }
             AT::Handle(ty) => {
-                let ty_ident = format_ident!("{}", get_name(ty)?);
+                let ty_ident = self.get_ident_name(ty)?;
                 quote! (Option<#ty_ident>)
             }
             AT::Func(_ty) => {
@@ -1884,16 +1987,16 @@ impl<'a> Generator<'a> {
             }
             AT::Struct(ty) => {
                 let lifetime = get_lifetime(ty);
-                let ty = format_ident!("{}", get_name(ty)?);
+                let ty = self.get_ident_name(ty)?;
                 quote! (#ty #lifetime)
             }
             AT::HandlePtr(ty) => {
-                let ty = format_ident!("{}", get_name(ty)?);
+                let ty = self.get_ident_name(ty)?;
                 quote! (*const #ty)
             }
             AT::OtherPtr(ty) => {
                 let lifetime = get_lifetime(ty);
-                let ty = format_ident!("{}", get_name(ty)?);
+                let ty = self.get_ident_name(ty)?;
                 quote! (*const #ty #lifetime)
             }
             AT::OtherDoublePtr(ty) => {
@@ -1901,33 +2004,33 @@ impl<'a> Generator<'a> {
                 let ty = if *ty == "void" {
                     quote!(())
                 } else {
-                    format_ident!("{}", get_name(ty)?).into_token_stream()
+                    self.get_ident_name(ty)?.into_token_stream()
                 };
                 quote! (*const *const #ty #lifetime)
             }
             AT::HandleArray(ty, size) => {
-                let ty: Ident = format_ident!("{}", get_name(ty)?);
-                let size: Ident = format_ident!("{}", get_name(size)?);
+                let ty: Ident = self.get_ident_name(ty)?;
+                let size: Ident = self.get_ident_name(size)?;
                 quote! ([Option<#ty>; #size as _])
             }
             AT::OtherArrayWithEnum(ty, size) => {
                 let lifetime = get_lifetime(ty);
-                let ty: Ident = format_ident!("{}", get_name(ty)?);
-                let size: Ident = format_ident!("{}", get_name(size)?);
+                let ty: Ident = self.get_ident_name(ty)?;
+                let size: Ident = self.get_ident_name(size)?;
                 quote! ([#ty #lifetime; #size as _])
             }
             AT::OtherArrayWithCst(ty, size) => {
                 let lifetime = get_lifetime(ty);
-                let ty: Ident = format_ident!("{}", get_name(ty)?);
+                let ty: Ident = self.get_ident_name(ty)?;
                 quote! ([#ty #lifetime; #size as _])
             }
             AT::OtherDoubleArray(ty, size1, size2) => {
                 let lifetime = get_lifetime(ty);
-                let ty: Ident = format_ident!("{}", get_name(ty)?);
+                let ty: Ident = self.get_ident_name(ty)?;
                 quote! ([[#ty #lifetime; #size2 as _]; #size1 as _])
             }
             AT::CharArray(size) => {
-                let size: Ident = format_ident!("{}", get_name(size)?);
+                let size: Ident = self.get_ident_name(size)?;
                 quote! ([c_char; #size as _])
             }
             AT::CString => {
@@ -1947,25 +2050,24 @@ impl<'a> Generator<'a> {
 
     /// Generate a nice representation of the type which is a lot easier to interact with
     /// For example using references instead of raw pointers
-    fn generate_type_outer(&self, ty: &AdvancedType<'a>, optional: bool, with_lifetime: bool) -> Result<TokenStream> {
-        let get_name = |name: &'a str| {
-            self.mapping
-                .borrow()
-                .get(name)
-                .map(|entry| format_ident!("{}", entry.name))
-                .ok_or_else(|| anyhow!("Failed to find key {name}"))
-        };
-        let get_lifetime = |ty: &str| (self.compute_name_lifetime(ty) && with_lifetime).then(|| quote! (<'a>));
+    fn generate_type_outer(
+        &self,
+        ty: &AdvancedType<'a>,
+        optional: bool,
+        with_lifetime: bool,
+    ) -> Result<TokenStream> {
+        let get_lifetime =
+            |ty: &str| (self.compute_name_lifetime(ty) && with_lifetime).then(|| quote! (<'a>));
         let life_a = with_lifetime.then_some(quote! ('a));
 
         let mut can_option = true;
         let result = match ty {
             AdvancedType::Handle(name) => {
-                let name = get_name(name)?;
+                let name = self.get_ident_name(name)?;
                 Ok(quote!(&#life_a #name))
             }
             AdvancedType::HandlePtr(name) => {
-                let name = get_name(name)?;
+                let name = self.get_ident_name(name)?;
                 Ok(quote! (&#life_a #name))
             }
             AdvancedType::HandleArray(_, _) => {
@@ -1973,12 +2075,12 @@ impl<'a> Generator<'a> {
             }
             AdvancedType::OtherPtr(name) => {
                 let lifetime = get_lifetime(name);
-                let name = get_name(name)?;
+                let name = self.get_ident_name(name)?;
                 Ok(quote! (&#life_a #name #lifetime))
             }
             AdvancedType::OtherDoublePtr(name) => {
                 let lifetime = get_lifetime(name);
-                let name = get_name(name)?;
+                let name = self.get_ident_name(name)?;
                 Ok(quote! (&#life_a &#life_a #name #lifetime))
             }
             AdvancedType::CString => Ok(quote!(&#life_a CStr)),
@@ -1987,7 +2089,7 @@ impl<'a> Generator<'a> {
             )),
             AdvancedType::Bitfield(name, _) => {
                 can_option = false;
-                let name = get_name(name)?;
+                let name = self.get_ident_name(name)?;
                 Ok(quote! (#name))
             }
             _ => {
@@ -2006,7 +2108,7 @@ impl<'a> Generator<'a> {
         &self,
         ty: &AdvancedType<'a>,
         optional: bool,
-        name: Ident
+        name: Ident,
     ) -> Result<TokenStream> {
         let mut add_option = false;
         let handle_ptr_option = || {
@@ -2075,16 +2177,10 @@ impl<'a> Generator<'a> {
         index: u32,
         name: Ident,
         is_assignment: bool,
-        with_lifetime: bool
+        with_lifetime: bool,
     ) -> Result<(TokenStream, TokenStream, TokenStream)> {
-        let get_name = |name: &'a str| {
-            self.mapping
-                .borrow()
-                .get(name)
-                .map(|entry| format_ident!("{}", entry.name))
-                .ok_or_else(|| anyhow!("Failed to find key {name}"))
-        };
-        let get_lifetime = |ty: &str| (with_lifetime && self.compute_name_lifetime(ty)).then(|| quote! (<'a>));
+        let get_lifetime =
+            |ty: &str| (with_lifetime && self.compute_name_lifetime(ty)).then(|| quote! (<'a>));
         let life_a = with_lifetime.then_some(quote! ('a));
         let template_ty = format_ident!("V{}", index);
         let simple_affectation = if is_assignment {
@@ -2095,7 +2191,7 @@ impl<'a> Generator<'a> {
 
         match ty {
             AdvancedType::HandlePtr(name) | AdvancedType::HandleArray(name, _) => {
-                let name = get_name(name)?;
+                let name = self.get_ident_name(name)?;
                 Ok((
                     quote! (#template_ty: Alias<#name>),
                     quote! (&#life_a [#template_ty]),
@@ -2104,8 +2200,12 @@ impl<'a> Generator<'a> {
             }
             AdvancedType::OtherPtr(name) => {
                 let lifetime = get_lifetime(name);
-                let name = get_name(name)?;
-                Ok((quote!(), quote! (&#life_a [#name #lifetime]), simple_affectation))
+                let name = self.get_ident_name(name)?;
+                Ok((
+                    quote!(),
+                    quote! (&#life_a [#name #lifetime]),
+                    simple_affectation,
+                ))
             }
             AdvancedType::VoidPtr => {
                 // binary data
@@ -2116,7 +2216,7 @@ impl<'a> Generator<'a> {
                 let ty = if ty == "void" {
                     quote!(())
                 } else {
-                    format_ident!("{}", get_name(ty)?).into_token_stream()
+                    format_ident!("{}", self.get_ident_name(ty)?).into_token_stream()
                 };
                 Ok((
                     quote!(),
@@ -2234,6 +2334,19 @@ impl<'a> Generator<'a> {
         }
 
         lines.join("\n")
+    }
+
+    fn get_mapping_name(&self, name: &str) -> Result<String> {
+        self.mapping
+            .borrow()
+            .get(name)
+            .map(|entry| entry.name.clone())
+            .ok_or_else(|| anyhow!("Failed to find key {name}"))
+    }
+
+    fn get_ident_name(&self, name: &str) -> Result<Ident> {
+        self.get_mapping_name(name)
+            .map(|name| format_ident!("{name}"))
     }
 }
 
