@@ -7,6 +7,7 @@ use std::marker::PhantomData;
 use std::mem::MaybeUninit;
 use std::ptr::{self};
 
+#[cfg(feature = "small-vec")]
 use smallvec::SmallVec;
 
 // TODO: this is safe (Option<fn> being set to None is guaranteed to match memory being zero-ed)
@@ -308,16 +309,16 @@ pub unsafe trait ExtendableStructure: Default {
         my_next.set(ptr::from_ref(ext).cast());
     }
 
-    // Return a zero-filled structure, except the structure type being correctly set
-    fn new_zeroed() -> MaybeUninit<Self> {
-        let mut result: MaybeUninit<Self> = MaybeUninit::zeroed();
-        // SAFETY: Self is a C struct which starts with a VkStructureType field
-        unsafe {
-            result
-                .as_mut_ptr()
-                .cast::<vk::StructureType>()
-                .write(Self::STRUCTURE_TYPE)
+    /// Return a unitialized structure except the structure type being correctly set
+    /// and the p_next pointer being set to null
+    fn new_uninit() -> MaybeUninit<Self> {
+        let mut result: MaybeUninit<Self> = MaybeUninit::uninit();
+        let header = Header {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
         };
+        // SAFETY: Self is a C struct which starts with the fields from Header
+        unsafe { result.as_mut_ptr().cast::<Header>().write(header) };
         result
     }
 }
@@ -400,7 +401,7 @@ pub struct Header {
 }
 
 /// Structure chain trait
-pub unsafe trait StructureChain<H>: AsRef<H> + AsMut<H>
+pub unsafe trait StructureChain<H>: AsRef<H> + AsMut<H> + Sized
 where
     H: ExtendableStructure,
 {
@@ -427,6 +428,18 @@ where
     /// all the other structures linked before the two link calls (which you probably do not want)
     /// Will panic if this structure is not part of the structure chain
     fn link<T: ExtendingStructure<H>>(&mut self);
+
+    /// Setup an uninitialized structure chain
+    /// After this call, for the structure chain to be initialized, each structure field (with the exception of the structure type
+    /// and the p_next pointer) must be initialized (usually by calling the appropriate vulkan command)
+    /// The structure type and p_next pointer of each struct are set so that a vulkan commands sees a pointer to the head
+    /// as a valid chain containing all structures
+    /// Calling setup_uninit should be enough to then call a vulkan command filling this structure chain, moreover after
+    /// the call to this vulkan command, the whole structure chain should be considered initialized
+    fn setup_uninit(chain: &mut MaybeUninit<Self>);
+
+    /// Return a mutable pointer to the head structure, which can then be passed to vulkan commands
+    fn get_uninit_head_ptr(chain: &mut MaybeUninit<Self>) -> *mut H;
 }
 
 macro_rules! make_structure_chain_type {
@@ -576,6 +589,42 @@ where
             )
         }
     }
+
+    fn setup_uninit(chain: &mut MaybeUninit<Self>) {
+        let chain_ptr = chain.as_mut_ptr();
+
+        // SAFETY: Each structure in this chain is a C struct which start with
+        // the fields from Header
+        unsafe {
+            ptr::addr_of_mut!((*chain_ptr).has_changed).write(Cell::new(false));
+
+            let mut _prev_header = Header {
+                s_type: H::STRUCTURE_TYPE,
+                p_next: Cell::new(ptr::null()),
+            };
+            let prev_ptr: *mut Header = ptr::addr_of_mut!((*chain_ptr).head).cast();
+
+            $(
+                let ptr = ptr::addr_of_mut!((*chain_ptr).$ext_name.0).cast();
+                _prev_header.p_next = Cell::new(ptr);
+                prev_ptr.write(_prev_header);
+
+                let prev_ptr = ptr;
+                let mut _prev_header = Header {
+                    s_type: $ext_ty::STRUCTURE_TYPE,
+                    p_next: Cell::new(ptr::null()),
+                };
+
+                ptr::addr_of_mut!((*chain_ptr).$ext_name.1).write(true);
+            )*
+
+            prev_ptr.write(_prev_header);
+        }
+    }
+
+    fn get_uninit_head_ptr(chain: &mut MaybeUninit<Self>) -> *mut H {
+        unsafe { ptr::addr_of_mut!((*chain.as_mut_ptr()).head).cast() }
+    }
 }
 };
 }
@@ -591,49 +640,49 @@ make_structure_chain_type! {StructureChain6, V1 => ext1, V2 => ext2, V3 => ext3,
 #[macro_export]
 macro_rules! create_structure_chain {
     ($head:ty $(,)?) => {
-        StructureChain0::<$head>::new()
+        $crate::StructureChain0::<$head>::new()
     };
     ($head:ty, $ext1:ty $(,)?) => {
-        StructureChain1::<$head, $ext1>::new()
+        $crate::StructureChain1::<$head, $ext1>::new()
     };
     ($head:ty, $ext1:ty, $ext2:ty $(,)?) => {
-        StructureChain2::<$head, $ext1, $ext2>::new()
+        $crate::StructureChain2::<$head, $ext1, $ext2>::new()
     };
     ($head:ty, $ext1:ty, $ext2:ty, $ext3:ty $(,)?) => {
-        StructureChain3::<$head, $ext1, $ext2, $ext3>::new()
+        $crate::StructureChain3::<$head, $ext1, $ext2, $ext3>::new()
     };
     ($head:ty, $ext1:ty, $ext2:ty, $ext3:ty, $ext4:ty $(,)?) => {
-        StructureChain4::<$head, $ext1, $ext2, $ext3, $ext4>::new()
+        $crate::StructureChain4::<$head, $ext1, $ext2, $ext3, $ext4>::new()
     };
     ($head:ty, $ext1:ty, $ext2:ty, $ext3:ty, $ext4:ty, $ext5:ty $(,)?) => {
-        StructureChain5::<$head, $ext1, $ext2, $ext3, $ext4, $ext5>::new()
+        $crate::StructureChain5::<$head, $ext1, $ext2, $ext3, $ext4, $ext5>::new()
     };
     ($head:ty, $ext1:ty, $ext2:ty, $ext3:ty, $ext4:ty, $ext5:ty, $ext6:ty $(,)?) => {
-        StructureChain6::<$head, $ext1, $ext2, $ext3, $ext4, $ext5, $ext6>::new()
+        $crate::StructureChain6::<$head, $ext1, $ext2, $ext3, $ext4, $ext5, $ext6>::new()
     };
 }
 
 #[macro_export]
-macro_rules! structure_chain_type {
+macro_rules! structure_chain {
     ($head:ty $(,)?) => {
-        StructureChain0<$head>
+        $crate::StructureChain0<$head>
     };
     ($head:ty, $ext1:ty $(,)?) => {
-        StructureChain1<$head, $ext1>
+        $crate::StructureChain1<$head, $ext1>
     };
     ($head:ty, $ext1:ty, $ext2:ty $(,)?) => {
-        StructureChain2<$head, $ext1, $ext2>
+        $crate::StructureChain2<$head, $ext1, $ext2>
     };
     ($head:ty, $ext1:ty, $ext2:ty, $ext3:ty $(,)?) => {
-        StructureChain3<$head, $ext1, $ext2, $ext3>
+        $crate::StructureChain3<$head, $ext1, $ext2, $ext3>
     };
     ($head:ty, $ext1:ty, $ext2:ty, $ext3:ty, $ext4:ty $(,)?) => {
-        StructureChain4<$head, $ext1, $ext2, $ext3, $ext4>
+        $crate::StructureChain4<$head, $ext1, $ext2, $ext3, $ext4>
     };
     ($head:ty, $ext1:ty, $ext2:ty, $ext3:ty, $ext4:ty, $ext5:ty $(,)?) => {
-        StructureChain5<$head, $ext1, $ext2, $ext3, $ext4, $ext5>
+        $crate::StructureChain5<$head, $ext1, $ext2, $ext3, $ext4, $ext5>
     };
     ($head:ty, $ext1:ty, $ext2:ty, $ext3:ty, $ext4:ty, $ext5:ty, $ext6:ty $(,)?) => {
-        StructureChain6<$head, $ext1, $ext2, $ext3, $ext4, $ext5, $ext6>
+        $crate::StructureChain6<$head, $ext1, $ext2, $ext3, $ext4, $ext5, $ext6>
     };
 }

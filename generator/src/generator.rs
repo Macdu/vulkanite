@@ -433,7 +433,11 @@ impl<'a> Generator<'a> {
                                         .map(|(vk_name, name)| (*vk_name, name.as_str())),
                                 )
                                 .map(|(vk_name, name)| {
-                                    self.generate_raw_command(cmd, vk_name, name)
+                                    let cmd_plain =
+                                        self.generate_raw_command(cmd, vk_name, name, false)?;
+                                    let cmd_chain =
+                                        self.generate_raw_command(cmd, vk_name, name, true)?;
+                                    Ok(quote! (#cmd_plain #cmd_chain))
                                 })
                                 .collect::<Result<Vec<_>>>()?;
                             Ok(quote! (#(#raw_cmds)*))
@@ -1724,6 +1728,7 @@ impl<'a> Generator<'a> {
         cmd: &Command<'a>,
         vk_name: &str,
         name: &str,
+        is_chain: bool,
     ) -> Result<TokenStream> {
         let mut output_length: Option<&CommandParam> = None;
         let mut output_fields = Vec::new();
@@ -1877,6 +1882,12 @@ impl<'a> Generator<'a> {
                         Ok((quote!(), quote!(), quote! (#name)))
                     } else if param.xml.len.is_some() {
                         Ok((quote!(), quote!(), quote! (#name.get_content_mut_ptr())))
+                    } else if is_chain {
+                        Ok((
+                            quote!(),
+                            quote!(),
+                            quote! (S::get_uninit_head_ptr(&mut #name)),
+                        ))
                     } else {
                         Ok((quote!(), quote!(), quote! (#name.as_mut_ptr())))
                     }
@@ -1903,6 +1914,10 @@ impl<'a> Generator<'a> {
             .filter(|t| !t.is_empty());
         let args_inner = result_params.iter().map(|(_, _, z)| z);
 
+        if output_fields.is_empty() && is_chain {
+            return Ok(quote!());
+        }
+
         let (ret_type, pre_call, post_call, ret_template) = match cmd.return_ty {
             ReturnType::BaseType(name) => {
                 let ty_name = self
@@ -1915,7 +1930,9 @@ impl<'a> Generator<'a> {
                 let ty_name = format_ident!("{ty_name}");
                 (quote! (-> #ty_name), None, None, None)
             }
-            ReturnType::Result if output_fields.is_empty() => (quote! (-> Status), None, None, None),
+            ReturnType::Result if output_fields.is_empty() => {
+                (quote! (-> Status), None, None, None)
+            }
             _ if !output_fields.is_empty() => {
                 let has_status = cmd.return_ty == ReturnType::Result;
                 let (_, field) = output_fields[0];
@@ -1949,12 +1966,23 @@ impl<'a> Generator<'a> {
                     .is_some_and(|my_struct| my_struct.s_type.is_some());
                 let is_handle = self.get_handle(ret_type).is_some();
 
+                if is_chain {
+                    if !is_structure_type {
+                        return Ok(quote!());
+                    }
+                    if internal_length.is_some() || external_length.is_some() {
+                        return Ok(quote!());
+                    }
+                }
+
                 let lifetime = (!is_handle && self.compute_name_lifetime(ret_type))
                     .then(|| quote! (<'static>));
 
                 let mut result_quote = quote! (#ret_name #lifetime);
                 if internal_length.is_some() || external_length.is_some() {
-                    result_quote = quote! (R)
+                    result_quote = quote!(R)
+                } else if is_chain {
+                    result_quote = quote!(S)
                 }
                 if has_status {
                     result_quote = quote! (Result<#result_quote>)
@@ -1990,28 +2018,43 @@ impl<'a> Generator<'a> {
                         let #field_name = vk_vec.get_content_mut_ptr();
                         #prev_affectation
                     })
+                } else if is_chain {
+                    Some(
+                        quote! (let mut #field_name = MaybeUninit::uninit(); S::setup_uninit(&mut #field_name); #prev_affectation),
+                    )
                 } else if is_structure_type {
-                    Some(quote! (let mut #field_name = #ret_name::new_zeroed(); #prev_affectation))
+                    Some(quote! (let mut #field_name = #ret_name::new_uninit(); #prev_affectation))
                 } else {
                     Some(quote! (let mut #field_name = MaybeUninit::uninit(); #prev_affectation))
                 };
-                let ret_template = (internal_length.is_some() || external_length.is_some()).then(|| quote! (R: DynamicArray<#ret_name #lifetime>,));
+                let ret_template = if internal_length.is_some() || external_length.is_some() {
+                    Some(quote! (R: DynamicArray<#ret_name #lifetime>,))
+                } else if is_chain {
+                    Some(quote! (S: StructureChain<#ret_name #lifetime> ))
+                } else {
+                    None
+                };
                 (
                     quote! (-> #result_quote),
                     Some(param_init),
                     Some(return_result),
-                    ret_template
+                    ret_template,
                 )
             }
             _ => (quote!(), None, None, None),
         };
 
-        let name = format_ident!("{name}");
+        let dispatch_name = format_ident!("{name}");
         let doc = make_doc_link(vk_name);
+        let func_name = if is_chain {
+            format_ident!("{name}_chain")
+        } else {
+            dispatch_name.clone()
+        };
         Ok(quote! {
             #doc
-            pub fn #name<#ret_template #(#templates),*>(#(#args_outer,)* dispatcher: &CommandsDispatcher ) #ret_type {
-                let vulkan_command = dispatcher.#name.get().expect("Vulkan command not loaded.");
+            pub fn #func_name<#ret_template #(#templates),*>(#(#args_outer,)* dispatcher: &CommandsDispatcher ) #ret_type {
+                let vulkan_command = dispatcher.#dispatch_name.get().expect("Vulkan command not loaded.");
                 unsafe {
                     #pre_call
                     vulkan_command(#(#args_inner),*)
