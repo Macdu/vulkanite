@@ -1,6 +1,7 @@
 pub mod dispatcher;
 pub mod enums;
 pub mod raw;
+pub mod rs;
 pub mod structs;
 
 use std::ptr::NonNull;

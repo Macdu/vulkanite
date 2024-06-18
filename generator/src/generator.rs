@@ -1,7 +1,7 @@
 use std::{
     borrow::{Borrow, Cow},
     cell::RefCell,
-    collections::{HashMap, HashSet},
+    collections::{BTreeMap, HashMap, HashSet},
     ffi::CString,
     io::Write,
     iter,
@@ -15,12 +15,18 @@ use syn::{Ident, LitCStr};
 use crate::{
     helpers::{camel_case_to_snake_case, convert_len_case},
     structs::{
-        convert_field_to_snake_case, AdvancedType, Api, CType, Command, CommandParam, Constant,
-        Enum, EnumAliased, EnumFlag, EnumValue, EnumVariant, Handle, MappingEntry, MappingType,
-        ReturnType, Struct, StructBasetype, StructField, StructStandard, Type,
+        convert_field_to_snake_case, AdvancedType, Api, CType, Command, CommandParam,
+        CommandParamsParsed, Constant, Enum, EnumAliased, EnumFlag, EnumValue, EnumVariant, Handle,
+        MappingEntry, MappingType, ReturnType, Struct, StructBasetype, StructField, StructStandard,
+        Type,
     },
     xml::{self, Require, RequireContent, RequireType},
 };
+
+#[derive(Clone, Copy)]
+pub enum GeneratedCommandType {
+    Basic,
+}
 
 pub struct Generator<'a> {
     registry: &'a xml::Registry,
@@ -206,24 +212,17 @@ impl<'a> Generator<'a> {
     pub fn generate_handles(&self) -> Result<String> {
         let listed_handles = RefCell::new(HashSet::new());
 
-        let generate_group_handle = |require: &Require| -> Result<TokenStream> {
+        let generate_group_handle = |require: &'a Require| -> Result<TokenStream> {
             let handles = require
                 .content
                 .iter()
                 .filter_map(|item| match item {
-                    RequireContent::Type(RequireType { name, .. }) => {
-                        if let Some(handle) = self.handles.get(name.as_str()) {
-                            if listed_handles.borrow_mut().insert(name.clone()) {
-                                Some(self.generate_handle(handle, name))
-                            } else {
-                                None
-                            }
-                        } else {
-                            None
-                        }
-                    }
+                    RequireContent::Type(RequireType { name, .. }) => Some(name),
                     _ => None,
                 })
+                .filter_map(|name| self.handles.get(name.as_str()).map(|handle| (name, handle)))
+                .filter(|(name, _)| listed_handles.borrow_mut().insert(*name))
+                .map(|(name, handle)| self.generate_handle(handle, name))
                 .collect::<Result<Vec<_>>>()?;
 
             Ok(quote! { #(#handles)*})
@@ -382,25 +381,22 @@ impl<'a> Generator<'a> {
             unsafe impl Send for CommandsDispatcher{}
             unsafe impl Sync for CommandsDispatcher{}
 
-            impl DynamicDispatcher {
-                pub(crate) unsafe fn load_proc_addr_inner() {
-                    let dispatcher = &DYNAMIC_DISPATCHER;
-                    let get_instance_proc_addr = dispatcher.get_instance_proc_addr.get().expect("vkGetInstanceProcAddress not supplied");
+            impl CommandsDispatcher {
+                pub unsafe fn load_proc_addr(&self, get_instance_proc_addr: unsafe extern "system" fn(Option<Instance>, *const c_char) -> FuncPtr) {
+                    self.get_instance_proc_addr.set(Some(get_instance_proc_addr));
 
                     #(#proc_addr_loader)*
                 }
 
-                pub(crate) unsafe fn load_instance_inner(instance: &Instance) {
-                    let dispatcher = &DYNAMIC_DISPATCHER;
-                    let get_instance_proc_addr = dispatcher.get_instance_proc_addr.get().expect("vkGetInstanceProcAddress not supplied");
+                pub unsafe fn load_instance(&self, instance: &Instance) {
+                    let get_instance_proc_addr = self.get_instance_proc_addr.get().expect("load_proc_addr must be called before load_instance");
                     let get_instance = || Some(instance.clone());
 
                     #(#instance_loader)*
                 }
 
-                pub(crate) unsafe fn load_device_inner(device: &Device) {
-                    let dispatcher = &DYNAMIC_DISPATCHER;
-                    let get_device_proc_addr = dispatcher.get_device_proc_addr.get().expect("vkGetDeviceProcAddress not supplied");
+                pub unsafe fn load_device(&self, device: &Device) {
+                    let get_device_proc_addr = self.get_device_proc_addr.get().expect("load_instance must be called before load_device");
                     let get_device = || Some(device.clone());
 
                     #(#device_loader)*;
@@ -424,6 +420,7 @@ impl<'a> Generator<'a> {
                         .get(cmd.name.as_str())
                         .filter(|_| listed_commands.borrow_mut().insert(&cmd.name))
                         .map(|cmd| {
+                            let cmd_params = self.parse_cmd_params(cmd)?;
                             // generate the command for the main name and all the possible aliases
                             let aliases = cmd.aliases.borrow();
                             let raw_cmds = iter::once((cmd.vk_name, cmd.name.as_str()))
@@ -433,10 +430,18 @@ impl<'a> Generator<'a> {
                                         .map(|(vk_name, name)| (*vk_name, name.as_str())),
                                 )
                                 .map(|(vk_name, name)| {
-                                    let cmd_plain =
-                                        self.generate_raw_command(cmd, vk_name, name, false)?;
-                                    let cmd_chain =
-                                        self.generate_raw_command(cmd, vk_name, name, true)?;
+                                    let cmd_plain = self.generate_raw_command(
+                                        &cmd_params,
+                                        vk_name,
+                                        name,
+                                        false,
+                                    )?;
+                                    let cmd_chain = self.generate_raw_command(
+                                        &cmd_params,
+                                        vk_name,
+                                        name,
+                                        true,
+                                    )?;
                                     Ok(quote! (#cmd_plain #cmd_chain))
                                 })
                                 .collect::<Result<Vec<_>>>()?;
@@ -467,9 +472,186 @@ impl<'a> Generator<'a> {
 
             use crate::*;
             use crate::vk::*;
-            use crate::vk::raw::*;
+            use crate::vk::raw::{self,*};
 
             #(#raw_cmd_impl)*
+        }
+        .to_string();
+
+        Self::format_result(result)
+    }
+
+    pub fn generate_advanced_commands<'b>(
+        &'b self,
+        gen_ty: GeneratedCommandType,
+    ) -> Result<String> {
+        let mut listed_cmds = HashSet::new();
+        let mut handle_cmds: HashMap<&str, BTreeMap<usize, CommandParamsParsed>> = HashMap::new();
+        let mut possible_handles = HashSet::new();
+        let mut cmd_nb = 0usize;
+
+        let mut result = Vec::new();
+
+        for req_cnt in self
+            .filtered_features()
+            .flat_map(|feat| &feat.require)
+            .flat_map(|cnt| &cnt.content)
+            .chain(
+                self.filtered_extensions()
+                    .flat_map(|ext| &ext.require)
+                    .flat_map(|cnt| &cnt.content),
+            )
+        {
+            let req_cmd = match req_cnt {
+                RequireContent::Command(req_cmd) => req_cmd,
+                RequireContent::Type(RequireType { name, .. }) => {
+                    if self.handles.contains_key(name.as_str()) {
+                        possible_handles.insert(name.as_str());
+                    }
+                    continue;
+                }
+                _ => continue,
+            };
+            let cmd = match self.commands.get(req_cmd.name.as_str()) {
+                Some(cmd) => cmd,
+                None => continue,
+            };
+            if !listed_cmds.insert(cmd.vk_name) {
+                continue;
+            }
+            let parsed_params = self.parse_cmd_params(cmd)?;
+            handle_cmds
+                .entry(parsed_params.handle)
+                .or_default()
+                .insert(cmd_nb, parsed_params);
+            cmd_nb += 1;
+        }
+
+        let is_complex_handle = |name: &str| handle_cmds.contains_key(name);
+
+        let create_methods =
+            |cmds: &BTreeMap<usize, CommandParamsParsed>| -> Result<Vec<TokenStream>> {
+                cmds.values()
+                    .map(|cmd_parsed| {
+                        let cmd = cmd_parsed.command;
+                        let all_variants = iter::once((cmd.vk_name, cmd.name.as_str()))
+                            .chain(
+                                cmd.aliases
+                                    .borrow()
+                                    .iter()
+                                    .map(|(vk_name, name)| (*vk_name, name.as_str())),
+                            )
+                            .map(|(vk_name, name)| {
+                                let cmd_simple = self.generate_advanced_command(
+                                    name,
+                                    vk_name,
+                                    cmd_parsed,
+                                    gen_ty,
+                                    false,
+                                    is_complex_handle,
+                                )?;
+                                let cmd_chain = self.generate_advanced_command(
+                                    name,
+                                    vk_name,
+                                    cmd_parsed,
+                                    gen_ty,
+                                    true,
+                                    is_complex_handle,
+                                )?;
+                                Ok(quote! (#cmd_simple #cmd_chain))
+                            })
+                            .collect::<Result<Vec<_>>>()?;
+                        Ok(quote! (#(#all_variants)*))
+                    })
+                    .collect::<Result<Vec<_>>>()
+            };
+
+        let entry_cmds = handle_cmds
+            .get("")
+            .expect("vkCreateInstance should be here");
+        let entry_methods = create_methods(entry_cmds)?;
+        result.push(quote! {
+            pub struct Entry<D: Dispatcher = DynamicDispatcher> {
+                disp: D,
+            }
+
+            impl<D: Dispatcher> Entry<D> {
+                pub fn new(disp: D) -> Self {
+                    Self {
+                        disp
+                    }
+                }
+
+                #(#entry_methods)*
+            }
+        });
+
+        for (handle_name, handle) in &self.handles {
+            if !possible_handles.contains(handle_name) {
+                continue;
+            }
+
+            if let Some(cmds) = handle_cmds.get(handle_name) {
+                let id_name = format_ident!("{}", handle.name);
+                let doc_tag = make_doc_link(handle_name);
+
+                let methods = create_methods(cmds)?;
+
+                result.push(quote! {
+                    #[repr(C)]
+                    #doc_tag
+                    pub struct #id_name<D: Dispatcher = DynamicDispatcher> {
+                        inner: raw::#id_name,
+                        disp: D,
+                    }
+
+                    impl<D: Dispatcher> Deref for #id_name<D> {
+                        type Target = raw::#id_name;
+
+                        fn deref(&self) -> &Self::Target {
+                            &self.inner
+                        }
+                    }
+
+                    impl #id_name {
+                        pub fn from_inner(handle: raw::#id_name) -> Self {
+                            Self {
+                                inner: handle,
+                                disp: DynamicDispatcher(())
+                            }
+                        }
+                    }
+
+                    impl<D: Dispatcher> #id_name<D> {
+                        pub fn from_inner_with(handle: raw::#id_name, disp: D) -> Self {
+                            Self {
+                                inner: handle,
+                                disp
+                            }
+                        }
+
+                        #(#methods)*
+                    }
+                });
+            } else {
+                for alias_name in
+                    iter::once(handle.name).chain(handle.aliases.borrow().iter().copied())
+                {
+                    let id_name = format_ident!("{alias_name}");
+                    let doc_tag = make_doc_link(&format!("Vk{alias_name}"));
+                    result.push(quote! (#doc_tag pub type #id_name = raw::#id_name;))
+                }
+            }
+        }
+
+        let result = quote! {
+            use std::{
+                ffi::{c_int, c_void, CStr},
+                ops::Deref,
+            };
+            use crate::{vk::*, Alias, Dispatcher, DynamicArray, DynamicDispatcher, StructureChainOut};
+
+            #(#result)*
         }
         .to_string();
 
@@ -1402,7 +1584,7 @@ impl<'a> Generator<'a> {
             len_field: &'b StructField<'a>,
             array_fields: Vec<&'b StructField<'a>>,
         }
-        let mut length_fields: HashMap<_, _> = HashMap::new();
+        let mut length_fields = HashMap::new();
 
         // retrieve all arrays with a len
         for field in &my_struct.fields {
@@ -1696,7 +1878,7 @@ impl<'a> Generator<'a> {
                 return;
             }
 
-            loader.push(quote! (dispatcher.#main_name.set(dispatcher.#main_name.get().or(dispatcher.#alias.get()));));
+            loader.push(quote! (self.#main_name.set(self.#main_name.get().or(self.#alias.get()));));
         };
 
         for (vk_name, name) in iter::once((cmd.vk_name, cmd.name.as_str())).chain(
@@ -1707,15 +1889,15 @@ impl<'a> Generator<'a> {
             let name = format_ident!("{name}");
             let name_cstr = LitCStr::new(&CString::new(vk_name).unwrap(), Span::call_site());
             if let Some(handle_name) = cmd.handle.get() {
-                instance_loader.push(quote! (dispatcher.#name.set(mem::transmute(get_instance_proc_addr(get_instance(), #name_cstr.as_ptr())));));
+                instance_loader.push(quote! (self.#name.set(mem::transmute(get_instance_proc_addr(get_instance(), #name_cstr.as_ptr())));));
                 update_fallback(instance_loader, &name);
 
                 if handle_name != "VkInstance" && handle_name != "VkPhysicalDevice" {
-                    device_loader.push(quote! (dispatcher.#name.set(mem::transmute(get_device_proc_addr(get_device(), #name_cstr.as_ptr())));));
+                    device_loader.push(quote! (self.#name.set(mem::transmute(get_device_proc_addr(get_device(), #name_cstr.as_ptr())));));
                     update_fallback(device_loader, &name);
                 }
             } else {
-                proc_addr_loader.push(quote! (dispatcher.#name.set(mem::transmute(get_instance_proc_addr(None, #name_cstr.as_ptr())));));
+                proc_addr_loader.push(quote! (self.#name.set(mem::transmute(get_instance_proc_addr(None, #name_cstr.as_ptr())));));
                 update_fallback(proc_addr_loader, &name);
             }
         }
@@ -1723,117 +1905,24 @@ impl<'a> Generator<'a> {
         Ok(quote! (#(#names)*))
     }
 
-    fn generate_raw_command(
-        &self,
-        cmd: &Command<'a>,
+    fn generate_raw_command<'b>(
+        &'b self,
+        parsed_cmd: &CommandParamsParsed<'a, 'b>,
         vk_name: &str,
         name: &str,
         is_chain: bool,
     ) -> Result<TokenStream> {
-        let mut output_length: Option<&CommandParam> = None;
-        let mut output_fields = Vec::new();
-
-        let mut simple_fields: Vec<_> = cmd
-            .params
-            .iter()
-            .map(|param| (param.vk_name, param))
-            .collect();
-        let mut vec_fields = Vec::new();
-
-        fn erase_from_vec<T>(vec: &mut Vec<(&str, T)>, el: &str) {
-            if let Some(pos) = vec.iter().position(|field| field.0 == el) {
-                vec.remove(pos);
-            }
-        }
-
-        // find return types
-        for param in &cmd.params {
-            let ptr_content = match param.ty {
-                Type::Ptr(name) => name,
-                _ => continue,
-            };
-
-            if param.is_const {
-                if let Some(len) = &param.xml.len {
-                    if len != "null-terminated" {
-                        erase_from_vec(&mut simple_fields, len);
-                        erase_from_vec(&mut simple_fields, param.vk_name);
-
-                        vec_fields.push((param.vk_name, param));
-                    }
-                }
-                continue;
-            }
-
-            // special types written as non-const but which still need to be considered as const
-            if [
-                "Display",
-                "IDirectFB",
-                "wl_display",
-                "xcb_connection_t",
-                "_screen_window",
-            ]
-            .contains(&ptr_content)
-            {
-                continue;
-            }
-
-            output_fields.push((param.vk_name, param));
-            erase_from_vec(&mut simple_fields, param.vk_name);
-
-            if let Some(len) = &param.xml.len {
-                // if the length is a used provided input, there is a ->
-                // if it has fixed size, a number is used
-                if len.chars().all(|c| c.is_ascii_alphabetic()) {
-                    let len_field = cmd
-                        .params
-                        .iter()
-                        .find(|other| other.vk_name == len)
-                        .ok_or_else(|| anyhow!("Failed to find param {len} for {name}"))?;
-
-                    let len_field_is_unknown =
-                        !len_field.is_const && matches!(len_field.ty, Type::Ptr(_));
-
-                    if len_field_is_unknown
-                        && output_length.is_some_and(|out_len| out_len.vk_name != len_field.vk_name)
-                    {
-                        return Err(anyhow!(
-                            "Two output lengths used in {name}: {} and {}",
-                            output_length.unwrap().vk_name,
-                            len_field.vk_name
-                        ));
-                    }
-                    if len_field_is_unknown {
-                        output_length = Some(len_field);
-                    }
-                }
-            }
-        }
-
-        if let Some(output_len) = output_length {
-            // remove it from output_field
-            let len_idx = output_fields
-                .iter()
-                .position(|el| el.1.vk_name == output_len.vk_name)
-                .ok_or_else(|| {
-                    anyhow!(
-                        "Element {} from {name} should be considered an output",
-                        output_len.vk_name
-                    )
-                })?;
-            output_fields.remove(len_idx);
-        }
-
-        let length_mappings: HashMap<&str, &CommandParam> = vec_fields
-            .iter()
-            .filter_map(|(_, field)| {
-                let len = field.xml.len.as_ref()?;
-                cmd.params
-                    .iter()
-                    .find(|param| param.vk_name == len)
-                    .map(|param| (param.vk_name, *field))
-            })
-            .collect();
+        let CommandParamsParsed {
+            output_length,
+            output_fields,
+            simple_fields,
+            vec_fields,
+            length_mappings,
+            command: cmd,
+            parsed_arg_templates,
+            parsed_args_in,
+            ..
+        } = parsed_cmd;
 
         if output_fields.len() > 1 {
             // TODO
@@ -1842,7 +1931,7 @@ impl<'a> Generator<'a> {
 
         assert!(output_fields.is_empty() || !matches!(cmd.return_ty, ReturnType::BaseType(_)));
 
-        let result_params = cmd
+        let args_inner = cmd
             .params
             .iter()
             .enumerate()
@@ -1853,66 +1942,55 @@ impl<'a> Generator<'a> {
                     .iter()
                     .any(|(vk_name, _)| *vk_name == param.vk_name)
                 {
-                    let outer_type =
-                        self.generate_type_outer(&advanced_ty, param.optional, false)?;
                     let outer_to_inner_type = self.generate_type_outer_to_inner(
                         &advanced_ty,
                         param.optional,
                         name.clone(),
                     )?;
-                    Ok((quote!(), quote! (#name: #outer_type), outer_to_inner_type))
+                    Ok(outer_to_inner_type)
                 } else if vec_fields
                     .iter()
                     .any(|(vk_name, _)| *vk_name == param.vk_name)
                 {
-                    let (templ, outer, inner) = self.generate_slice_type(
+                    let (_, _, inner) = self.generate_slice_type(
                         advanced_ty,
                         idx as u32,
                         name.clone(),
                         false,
                         false,
                     )?;
-                    Ok((templ, quote! (#name: #outer), inner))
+                    Ok(inner)
                 } else if output_fields
                     .iter()
                     .any(|(vk_name, _)| *vk_name == param.vk_name)
                 {
                     assert!(matches!(param.ty, Type::Ptr(_)));
                     if output_length.is_some() {
-                        Ok((quote!(), quote!(), quote! (#name)))
+                        Ok(quote! (#name))
                     } else if param.xml.len.is_some() {
-                        Ok((quote!(), quote!(), quote! (#name.get_content_mut_ptr())))
+                        Ok(quote! (#name.get_content_mut_ptr()))
                     } else if is_chain {
-                        Ok((
-                            quote!(),
-                            quote!(),
-                            quote! (S::get_uninit_head_ptr(&mut #name)),
+                        Ok(quote! (S::get_uninit_head_ptr(&mut #name)
                         ))
                     } else {
-                        Ok((quote!(), quote!(), quote! (#name.as_mut_ptr())))
+                        Ok(quote! (#name.as_mut_ptr()))
                     }
                 } else if output_length.is_some_and(|len| len.vk_name == param.vk_name) {
-                    Ok((quote!(), quote!(), quote! (#name)))
+                    Ok(quote! (#name))
                 } else {
                     // it is the length of a vec field
                     let vec_field = length_mappings
                         .get(param.vk_name)
                         .ok_or_else(|| anyhow!("Failed to find field for {}", param.vk_name))?;
                     let vec_field_name = format_ident!("{}", vec_field.name);
-                    Ok((quote!(), quote!(), quote! (#vec_field_name.len() as _)))
+                    Ok(quote! (#vec_field_name.len() as _))
                 }
             })
             .collect::<Result<Vec<_>>>()?;
 
-        let templates = result_params
-            .iter()
-            .map(|(x, _, _)| x)
-            .filter(|t| !t.is_empty());
-        let args_outer = result_params
-            .iter()
-            .map(|(_, y, _)| y)
-            .filter(|t| !t.is_empty());
-        let args_inner = result_params.iter().map(|(_, _, z)| z);
+        let templates = &parsed_arg_templates;
+        let args_outer_name = parsed_args_in.iter().map(|(x, _)| x);
+        let args_outer_type = parsed_args_in.iter().map(|(_, y)| y);
 
         if output_fields.is_empty() && is_chain {
             return Ok(quote!());
@@ -1920,14 +1998,7 @@ impl<'a> Generator<'a> {
 
         let (ret_type, pre_call, post_call, ret_template) = match cmd.return_ty {
             ReturnType::BaseType(name) => {
-                let ty_name = self
-                    .mapping
-                    .borrow()
-                    .get(name)
-                    .ok_or_else(|| anyhow!("Basetype {name} does not exist"))?
-                    .name
-                    .clone();
-                let ty_name = format_ident!("{ty_name}");
+                let ty_name = self.get_ident_name(name)?;
                 (quote! (-> #ty_name), None, None, None)
             }
             ReturnType::Result if output_fields.is_empty() => {
@@ -2030,7 +2101,7 @@ impl<'a> Generator<'a> {
                 let ret_template = if internal_length.is_some() || external_length.is_some() {
                     Some(quote! (R: DynamicArray<#ret_name #lifetime>,))
                 } else if is_chain {
-                    Some(quote! (S: StructureChain<#ret_name #lifetime> ))
+                    Some(quote! (S: StructureChainOut<#ret_name #lifetime> ))
                 } else {
                     None
                 };
@@ -2053,7 +2124,7 @@ impl<'a> Generator<'a> {
         };
         Ok(quote! {
             #doc
-            pub fn #func_name<#ret_template #(#templates),*>(#(#args_outer,)* dispatcher: &CommandsDispatcher ) #ret_type {
+            pub fn #func_name<#ret_template #(#templates),*>(#(#args_outer_name: #args_outer_type,)* dispatcher: &CommandsDispatcher ) #ret_type {
                 let vulkan_command = dispatcher.#dispatch_name.get().expect("Vulkan command not loaded.");
                 unsafe {
                     #pre_call
@@ -2061,6 +2132,370 @@ impl<'a> Generator<'a> {
                     #post_call
                 }
             }
+        })
+    }
+
+    fn generate_advanced_command<F>(
+        &self,
+        name: &str,
+        vk_name: &str,
+        cmd_parsed: &CommandParamsParsed,
+        gen_ty: GeneratedCommandType,
+        is_chain: bool,
+        is_complex_handle: F,
+    ) -> Result<TokenStream>
+    where
+        F: Fn(&str) -> bool,
+    {
+        let cmd = cmd_parsed.command;
+        let arg_template = &cmd_parsed.parsed_arg_templates;
+
+        if cmd_parsed.output_fields.len() > 1 {
+            return Ok(quote!());
+        }
+
+        // the first element is usually the handle, skip it
+        let nb_to_skip = if cmd_parsed.handle.is_empty() { 0 } else { 1 };
+
+        let arg_outer_name: Vec<_> = cmd_parsed
+            .parsed_args_in
+            .iter()
+            .skip(nb_to_skip)
+            .map(|(x, _)| x)
+            .collect();
+        let arg_outer_type = cmd_parsed
+            .parsed_args_in
+            .iter()
+            .skip(nb_to_skip)
+            .map(|(_, y)| y);
+
+        // remove the handle name from the function name
+        let mut new_name = name.to_string();
+        // vkGetDeviceImageMemoryRequirements and vkGetImageMemoryRequirements would resolve to the same name without the last check
+        // this is also the case for vkGetDeviceSparseImageMemoryRequirements and vkGetDeviceBufferMemoryRequirements
+        if !cmd_parsed.handle.is_empty() && !new_name.ends_with("memory_requirements") {
+            // remove the Vk prefix
+            let snake_case_handle = camel_case_to_snake_case(&cmd_parsed.handle["Vk".len()..]);
+            new_name = new_name.replace(&snake_case_handle, "");
+
+            if cmd_parsed.handle == "VkCommandBuffer" && new_name.starts_with("cmd_") {
+                new_name = new_name["cmd_".len()..].to_owned();
+            }
+            new_name = new_name.replace("__", "_");
+            if new_name.starts_with('_') {
+                new_name = new_name[1..].to_owned();
+            }
+            if new_name.ends_with('_') {
+                new_name = new_name[..(new_name.len() - 1)].to_owned();
+            }
+        }
+
+        let (fn_name, raw_fn_name) = if is_chain {
+            (
+                format_ident!("{new_name}_chain"),
+                format_ident!("{name}_chain"),
+            )
+        } else {
+            (format_ident!("{new_name}"), format_ident!("{name}"))
+        };
+
+        if cmd_parsed.output_fields.is_empty() && is_chain {
+            return Ok(quote!());
+        }
+
+        let (ret_type, ret_template, pre_call, post_call) = match cmd.return_ty {
+            ReturnType::BaseType(name) => {
+                let ty_name = self.get_ident_name(name)?;
+                (quote! (-> #ty_name), None, None, None)
+            }
+            ReturnType::Result if cmd_parsed.output_fields.is_empty() => {
+                (quote! (-> Status), None, None, None)
+            }
+            _ if !cmd_parsed.output_fields.is_empty() => {
+                let has_status = cmd.return_ty == ReturnType::Result;
+                let (_, field) = cmd_parsed.output_fields[0];
+                let ret_type = match field.ty {
+                    Type::Ptr(name) => name,
+                    _ => return Err(anyhow!("Could not use return field for {name}")),
+                };
+                let ret_name = self.get_ident_name(ret_type)?;
+                let needs_transformation = is_complex_handle(ret_type);
+
+                let is_vec = cmd_parsed.output_length.is_some()
+                    || field.xml.altlen.is_some()
+                    || field.xml.len.is_some();
+                let is_structure_type = self
+                    .get_struct(ret_type)
+                    .is_some_and(|my_struct| my_struct.s_type.is_some());
+                let is_handle = self.get_handle(ret_type).is_some();
+
+                if is_chain {
+                    if is_vec || !is_structure_type {
+                        return Ok(quote!());
+                    }
+                }
+
+                let lifetime = (!is_handle && self.compute_name_lifetime(ret_type))
+                    .then(|| quote! (<'static>));
+                let ret_param = if needs_transformation {
+                    Some(quote! (<D>))
+                } else {
+                    lifetime
+                };
+
+                let pre_call = needs_transformation.then(|| {
+                    let type_descr = is_vec.then(|| {
+                        if has_status {
+                            quote! (: Result<Vec<_>>)
+                        } else {
+                            quote! (: Vec<_>)
+                        }
+                    });
+                    quote! (let vk_result #type_descr = )
+                });
+                let post_call = needs_transformation.then(|| {
+                    match vk_name {
+                        "vkCreateInstance" => {
+                            return quote! {; vk_result.map(|instance| {
+                                let disp = self.disp.clone_with_instance(&instance);
+                                Instance::from_inner_with(instance, disp)
+                            })}
+                        }
+                        "vkCreateDevice" => {
+                            return quote! {; vk_result.map(|device| {
+                                let disp = self.disp.clone_with_device(&device);
+                                Device::from_inner_with(device, disp)
+                            })}
+                        }
+                        _ => {}
+                    };
+                    let mapping_fn = if is_vec {
+                        quote!(vk_result
+                            .into_iter()
+                            .map(|el| #ret_name::from_inner_with(el, self.disp.clone()))
+                            .collect())
+                    } else {
+                        quote!(#ret_name::from_inner_with(vk_result, self.disp.clone()))
+                    };
+                    if has_status {
+                        quote! (; vk_result.map(|vk_result| #mapping_fn))
+                    } else {
+                        quote! (; #mapping_fn)
+                    }
+                });
+
+                let mut result_quote = quote! (#ret_name #ret_param);
+                if is_vec {
+                    result_quote = quote!(R)
+                } else if is_chain {
+                    result_quote = quote!(S)
+                }
+                if has_status {
+                    result_quote = quote! (Result<#result_quote>)
+                }
+
+                let ret_template = if is_vec {
+                    Some(quote! (R: DynamicArray<#ret_name #ret_param>,))
+                } else if is_chain {
+                    Some(quote! (S: StructureChainOut<#ret_name #ret_param> ))
+                } else {
+                    None
+                };
+                (quote! (-> #result_quote), ret_template, pre_call, post_call)
+            }
+            _ => (quote!(), None, None, None),
+        };
+
+        let caller = if cmd_parsed.handle.is_empty() {
+            quote!()
+        } else if cmd.params[0].optional {
+            quote!(Some(self),)
+        } else {
+            quote!(self,)
+        };
+
+        let doc_tag = make_doc_link(vk_name);
+
+        Ok(quote! {
+            #doc_tag
+            pub fn #fn_name<#ret_template #(#arg_template),*>(&self, #(#arg_outer_name: #arg_outer_type),*) #ret_type {
+                #pre_call
+                raw::#raw_fn_name(#caller #(#arg_outer_name,)* self.disp.get_command_dispatcher())
+                #post_call
+            }
+        })
+    }
+
+    fn parse_cmd_params<'b>(&'b self, cmd: &'b Command<'a>) -> Result<CommandParamsParsed<'a, 'b>> {
+        let mut output_length: Option<&CommandParam> = None;
+        let mut output_fields = Vec::new();
+
+        let mut simple_fields: Vec<_> = cmd
+            .params
+            .iter()
+            .map(|param| (param.vk_name, param))
+            .collect();
+        let mut vec_fields = Vec::new();
+
+        fn erase_from_vec<T>(vec: &mut Vec<(&str, T)>, el: &str) {
+            if let Some(pos) = vec.iter().position(|field| field.0 == el) {
+                vec.remove(pos);
+            }
+        }
+
+        // find return types
+        for param in &cmd.params {
+            let ptr_content = match param.ty {
+                Type::Ptr(name) => name,
+                _ => continue,
+            };
+
+            if param.is_const {
+                if let Some(len) = &param.xml.len {
+                    if len != "null-terminated" {
+                        erase_from_vec(&mut simple_fields, len);
+                        erase_from_vec(&mut simple_fields, param.vk_name);
+
+                        vec_fields.push((param.vk_name, param));
+                    }
+                }
+                continue;
+            }
+
+            // special types written as non-const but which still need to be considered as const
+            if [
+                "Display",
+                "IDirectFB",
+                "wl_display",
+                "xcb_connection_t",
+                "_screen_window",
+            ]
+            .contains(&ptr_content)
+            {
+                continue;
+            }
+
+            output_fields.push((param.vk_name, param));
+            erase_from_vec(&mut simple_fields, param.vk_name);
+
+            if let Some(len) = &param.xml.len {
+                // if the length is a used provided input, there is a ->
+                // if it has fixed size, a number is used
+                if len.chars().all(|c| c.is_ascii_alphabetic()) {
+                    let len_field = cmd
+                        .params
+                        .iter()
+                        .find(|other| other.vk_name == len)
+                        .ok_or_else(|| anyhow!("Failed to find param {len} for {}", cmd.vk_name))?;
+
+                    let len_field_is_unknown =
+                        !len_field.is_const && matches!(len_field.ty, Type::Ptr(_));
+
+                    if len_field_is_unknown
+                        && output_length.is_some_and(|out_len| out_len.vk_name != len_field.vk_name)
+                    {
+                        return Err(anyhow!(
+                            "Two output lengths used in {}: {} and {}",
+                            cmd.vk_name,
+                            output_length.unwrap().vk_name,
+                            len_field.vk_name
+                        ));
+                    }
+                    if len_field_is_unknown {
+                        output_length = Some(len_field);
+                    }
+                }
+            }
+        }
+
+        if let Some(output_len) = output_length {
+            // remove it from output_field
+            let len_idx = output_fields
+                .iter()
+                .position(|el| el.1.vk_name == output_len.vk_name)
+                .ok_or_else(|| {
+                    anyhow!(
+                        "Element {} from {} should be considered an output",
+                        output_len.vk_name,
+                        cmd.vk_name,
+                    )
+                })?;
+            output_fields.remove(len_idx);
+        }
+
+        let length_mappings: HashMap<&str, &CommandParam> = vec_fields
+            .iter()
+            .filter_map(|(_, field)| {
+                let len = field.xml.len.as_ref()?;
+                cmd.params
+                    .iter()
+                    .find(|param| param.vk_name == len)
+                    .map(|param| (param.vk_name, *field))
+            })
+            .collect();
+
+        let handle = cmd
+            .params
+            .first()
+            .map(|param| match param.advanced_ty.get() {
+                Some(AdvancedType::Handle(name)) => name,
+                _ => "",
+            })
+            .unwrap_or("");
+
+        let result_params = cmd
+            .params
+            .iter()
+            .enumerate()
+            .map(|(idx, param)| {
+                let advanced_ty = param.advanced_ty.get().unwrap();
+                let name = format_ident!("{}", param.name);
+                if simple_fields
+                    .iter()
+                    .any(|(vk_name, _)| *vk_name == param.vk_name)
+                {
+                    let outer_type =
+                        self.generate_type_outer(&advanced_ty, param.optional, false)?;
+                    Ok((quote!(), (name.to_token_stream(), outer_type)))
+                } else if vec_fields
+                    .iter()
+                    .any(|(vk_name, _)| *vk_name == param.vk_name)
+                {
+                    let (templ, outer, _) = self.generate_slice_type(
+                        advanced_ty,
+                        idx as u32,
+                        name.clone(),
+                        false,
+                        false,
+                    )?;
+                    Ok((templ, (name.to_token_stream(), outer)))
+                } else {
+                    Ok((quote!(), (quote!(), quote!())))
+                }
+            })
+            .collect::<Result<Vec<_>>>()?;
+
+        let parsed_arg_templates = result_params
+            .iter()
+            .map(|(x, _)| x.clone())
+            .filter(|t| !t.is_empty())
+            .collect();
+        let parsed_args_in = result_params
+            .iter()
+            .map(|(_, y)| y.clone())
+            .filter(|(name, _)| !name.is_empty())
+            .collect();
+
+        Ok(CommandParamsParsed {
+            handle,
+            output_length,
+            output_fields,
+            simple_fields,
+            vec_fields,
+            length_mappings,
+            parsed_arg_templates,
+            parsed_args_in,
+            command: cmd,
         })
     }
 
@@ -2302,7 +2737,7 @@ impl<'a> Generator<'a> {
             AdvancedType::HandlePtr(name) | AdvancedType::HandleArray(name, _) => {
                 let name = self.get_ident_name(name)?;
                 Ok((
-                    quote! (#template_ty: Alias<#name>),
+                    quote! (#template_ty: Alias<raw::#name>),
                     quote! (&#life_a [#template_ty]),
                     simple_affectation,
                 ))

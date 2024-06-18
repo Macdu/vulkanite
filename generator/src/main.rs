@@ -1,6 +1,6 @@
 use std::{error::Error, fs, io::BufReader};
 
-use generator::Generator;
+use generator::{GeneratedCommandType, Generator};
 use quick_xml::de::from_reader;
 use structs::Api;
 use xml::Registry;
@@ -31,6 +31,9 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     let raw_commands = generator.generate_raw_commands()?;
     fs::write("src/vk/raw/commands.rs", raw_commands)?;
+
+    let basic_commands = generator.generate_advanced_commands(GeneratedCommandType::Basic)?;
+    fs::write("src/vk/rs/commands.rs", basic_commands)?;
 
     Ok(())
 }

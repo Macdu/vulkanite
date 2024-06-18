@@ -1,10 +1,10 @@
 use std::{
     borrow::Cow,
-    cell::{Cell, RefCell},
+    cell::{Cell, RefCell}, collections::HashMap,
 };
 
 use anyhow::{anyhow, Result};
-use proc_macro2::Span;
+use proc_macro2::{Span, TokenStream};
 use syn::Ident;
 
 use crate::{
@@ -704,6 +704,18 @@ pub enum MappingType<'a> {
     Command,
     CommandAlias(&'a str),
     FunctionPtr,
+}
+
+pub struct CommandParamsParsed<'a, 'b> {
+    pub handle: &'a str,
+    pub output_length: Option<&'b CommandParam<'a>>,
+    pub output_fields: Vec<(&'b str, &'b CommandParam<'a>)>,
+    pub simple_fields: Vec<(&'b str, &'b CommandParam<'a>)>,
+    pub vec_fields: Vec<(&'b str, &'b CommandParam<'a>)>,
+    pub length_mappings: HashMap<&'b str, &'b CommandParam<'a>>,
+    pub parsed_arg_templates: Vec<TokenStream>,
+    pub parsed_args_in: Vec<(TokenStream, TokenStream)>,
+    pub command: &'b Command<'a>,
 }
 
 /// Performs screaming snake case to pascal case conversion

@@ -1,8 +1,9 @@
+#[cfg(feature = "loaded")]
+mod loaded;
 pub mod vk;
 
 use std::cell::Cell;
 use std::ffi::c_char;
-use std::fmt::Display;
 use std::marker::PhantomData;
 use std::mem::MaybeUninit;
 use std::ptr::{self};
@@ -10,116 +11,68 @@ use std::ptr::{self};
 #[cfg(feature = "small-vec")]
 use smallvec::SmallVec;
 
+pub type GetInstanceProcAddrSignature =
+    unsafe extern "system" fn(Option<vk::raw::Instance>, *const c_char) -> *const ();
+
+pub trait Dispatcher: Clone {
+    fn get_command_dispatcher(&self) -> &vk::CommandsDispatcher;
+
+    unsafe fn new(get_instance_proc_addr: GetInstanceProcAddrSignature) -> Self;
+
+    #[cfg(feature = "loaded")]
+    unsafe fn new_loaded_and_lib(
+    ) -> core::result::Result<(Self, libloading::Library), loaded::LoadingError> {
+        let (proc_addr, lib) = loaded::load_proc_addr_and_lib()?;
+
+        Ok((Self::new(proc_addr), lib))
+    }
+
+    fn clone_with_instance(&self, instance: &vk::raw::Instance) -> Self;
+    fn clone_with_device(&self, device: &vk::raw::Device) -> Self;
+}
+
 // TODO: this is safe (Option<fn> being set to None is guaranteed to match memory being zero-ed)
 // but this unsafe is not necessary (can't use Default::default because it is not const...)
-pub static DYNAMIC_DISPATCHER: vk::CommandsDispatcher = unsafe { std::mem::zeroed() };
+static DYNAMIC_DISPATCHER: vk::CommandsDispatcher = unsafe { std::mem::zeroed() };
 
-pub struct DynamicDispatcher;
+#[derive(Clone)]
+pub struct DynamicDispatcher(pub(crate) ());
+
+impl Dispatcher for DynamicDispatcher {
+    fn get_command_dispatcher(&self) -> &vk::CommandsDispatcher {
+        &DYNAMIC_DISPATCHER
+    }
+
+    unsafe fn new(get_instance_proc_addr: GetInstanceProcAddrSignature) -> Self {
+        DYNAMIC_DISPATCHER.load_proc_addr(get_instance_proc_addr);
+        Self(())
+    }
+
+    fn clone_with_instance(&self, instance: &vk::raw::Instance) -> Self {
+        unsafe { DYNAMIC_DISPATCHER.load_instance(instance) };
+        Self(())
+    }
+
+    fn clone_with_device(&self, device: &vk::raw::Device) -> Self {
+        unsafe { DYNAMIC_DISPATCHER.load_device(device) };
+        Self(())
+    }
+}
 
 impl DynamicDispatcher {
-    pub unsafe fn load_proc_addr(
-        get_instance_proc_addr: unsafe extern "system" fn(
-            Option<vk::raw::Instance>,
-            *const c_char,
-        ) -> *const (),
-    ) {
-        DYNAMIC_DISPATCHER
-            .get_instance_proc_addr
-            .set(Some(get_instance_proc_addr));
-        Self::load_proc_addr_inner();
-    }
+    #[cfg(feature = "loaded")]
+    pub unsafe fn new_loaded() -> core::result::Result<Self, loaded::LoadingError> {
+        let (result, lib) = Self::new_loaded_and_lib()?;
 
-    pub unsafe fn load_instance(instance: &vk::raw::Instance) {
-        Self::load_instance_inner(instance);
-    }
-
-    pub unsafe fn load_device(device: &vk::raw::Device) {
-        Self::load_device_inner(device);
+        loaded::DYNAMIC_VULKAN_LIB.0.set(Some(lib));
+        Ok(result)
     }
 
     #[cfg(feature = "loaded")]
-    pub unsafe fn load_lib() -> core::result::Result<(), loaded::LoadingError> {
-        use libloading::Library;
-
-        // code from ash
-        #[cfg(windows)]
-        const LIB_PATH: &str = "vulkan-1.dll";
-
-        #[cfg(all(
-            unix,
-            not(any(target_os = "macos", target_os = "ios", target_os = "android"))
-        ))]
-        const LIB_PATH: &str = "libvulkan.so.1";
-
-        #[cfg(target_os = "android")]
-        const LIB_PATH: &str = "libvulkan.so";
-
-        #[cfg(any(target_os = "macos", target_os = "ios"))]
-        const LIB_PATH: &str = "libvulkan.dylib";
-
-        let lib = Library::new(LIB_PATH).map_err(loaded::LoadingError::LibraryLoadFailure)?;
-
-        let get_instance_proc_addr = lib
-            .get(c"vkGetInstanceProcAddr".to_bytes())
-            .map_err(loaded::LoadingError::LibraryLoadFailure)?;
-        Self::load_proc_addr(*get_instance_proc_addr);
-
-        // leak the library
-        // this is technically safe and vulkan isn't really a library that gets unloaded by a process
-        // after being loaded, might be changed later
-        std::mem::forget(lib);
-
-        Ok(())
+    pub unsafe fn unload() {
+        loaded::DYNAMIC_VULKAN_LIB.0.set(None);
     }
 }
-
-#[cfg(feature = "loaded")]
-mod loaded {
-    use std::error::Error;
-    use std::fmt;
-
-    use super::*;
-
-    #[derive(Debug)]
-    #[cfg_attr(docsrs, doc(cfg(feature = "loaded")))]
-    pub enum LoadingError {
-        LibraryLoadFailure(libloading::Error),
-        MissingEntryPoint(MissingEntryPoint),
-    }
-
-    impl fmt::Display for LoadingError {
-        fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-            match self {
-                Self::LibraryLoadFailure(err) => fmt::Display::fmt(err, f),
-                Self::MissingEntryPoint(err) => fmt::Display::fmt(err, f),
-            }
-        }
-    }
-
-    impl Error for LoadingError {
-        fn source(&self) -> Option<&(dyn Error + 'static)> {
-            Some(match self {
-                Self::LibraryLoadFailure(err) => err,
-                Self::MissingEntryPoint(err) => err,
-            })
-        }
-    }
-
-    impl From<MissingEntryPoint> for LoadingError {
-        fn from(err: MissingEntryPoint) -> Self {
-            Self::MissingEntryPoint(err)
-        }
-    }
-}
-
-#[derive(Clone, Debug)]
-pub struct MissingEntryPoint;
-impl Display for MissingEntryPoint {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
-        write!(f, "Cannot load `vkGetInstanceProcAddr` symbol from library")
-    }
-}
-impl std::error::Error for MissingEntryPoint {}
 
 mod private {
     /// For safety, prevent types outside this crate to implement Vulkan-specific traits
@@ -230,7 +183,7 @@ impl<'a, T: Handle> AsMut<T> for BorrowedMutHandle<'a, T> {
 /// Vec<T> implements this trait as well as SmallVec<[T;N]> is the small-vec feature is enabled
 /// This trait is unsafe because no allocating a memory area of the proper size when calling
 /// allocate_with_capacity can cause undefined behavior when using this library
-pub unsafe trait DynamicArray<T: Sized> {
+pub unsafe trait DynamicArray<T: Sized>: FromIterator<T> + IntoIterator<Item = T> {
     /// Returns an array with at least the given capacity available
     /// Calling get_content_mut_ptr on an object allocated with allocate_with_capacity(capacity) should return
     /// A contiguous properly aligned allocated region of memory which can hold capacity elements of T
@@ -317,7 +270,7 @@ pub unsafe trait ExtendableStructure: Default {
             s_type: Self::STRUCTURE_TYPE,
             p_next: Cell::new(ptr::null()),
         };
-        // SAFETY: Self is a C struct which starts with the fields from Header
+        // SAFETY: result is a C struct which starts with the fields from Header
         unsafe { result.as_mut_ptr().cast::<Header>().write(header) };
         result
     }
@@ -400,6 +353,23 @@ pub struct Header {
     p_next: Cell<*const Header>,
 }
 
+pub unsafe trait StructureChainOut<H>: Sized
+where
+    H: ExtendableStructure,
+{
+    /// Setup an uninitialized structure chain
+    /// After this call, for the structure chain to be initialized, each structure field (with the exception of the structure type
+    /// and the p_next pointer) must be initialized (usually by calling the appropriate vulkan command)
+    /// The structure type and p_next pointer of each struct are set so that a vulkan commands sees a pointer to the head
+    /// as a valid chain containing all structures
+    /// Calling setup_uninit should be enough to then call a vulkan command filling this structure chain, moreover after
+    /// the call to this vulkan command, the whole structure chain should be considered initialized
+    fn setup_uninit(chain: &mut MaybeUninit<Self>);
+
+    /// Return a mutable pointer to the head structure, which can then be passed to vulkan commands
+    fn get_uninit_head_ptr(chain: &mut MaybeUninit<Self>) -> *mut H;
+}
+
 /// Structure chain trait
 pub unsafe trait StructureChain<H>: AsRef<H> + AsMut<H> + Sized
 where
@@ -428,22 +398,10 @@ where
     /// all the other structures linked before the two link calls (which you probably do not want)
     /// Will panic if this structure is not part of the structure chain
     fn link<T: ExtendingStructure<H>>(&mut self);
-
-    /// Setup an uninitialized structure chain
-    /// After this call, for the structure chain to be initialized, each structure field (with the exception of the structure type
-    /// and the p_next pointer) must be initialized (usually by calling the appropriate vulkan command)
-    /// The structure type and p_next pointer of each struct are set so that a vulkan commands sees a pointer to the head
-    /// as a valid chain containing all structures
-    /// Calling setup_uninit should be enough to then call a vulkan command filling this structure chain, moreover after
-    /// the call to this vulkan command, the whole structure chain should be considered initialized
-    fn setup_uninit(chain: &mut MaybeUninit<Self>);
-
-    /// Return a mutable pointer to the head structure, which can then be passed to vulkan commands
-    fn get_uninit_head_ptr(chain: &mut MaybeUninit<Self>) -> *mut H;
 }
 
 macro_rules! make_structure_chain_type {
-    ($name: ident, $($ext_ty:ident => $ext_name:ident),*) => {
+    ($name: ident, $($ext_ty:ident => ($ext_nb:tt, $ext_name:ident)),*) => {
 
 pub struct $name<H, $($ext_ty),*>
 where
@@ -589,7 +547,13 @@ where
             )
         }
     }
+}
 
+unsafe impl<H, $($ext_ty),*> StructureChainOut<H> for $name<H, $($ext_ty),*>
+where
+    H: ExtendableStructure,
+    $($ext_ty: ExtendingStructure<H>),*
+{
     fn setup_uninit(chain: &mut MaybeUninit<Self>) {
         let chain_ptr = chain.as_mut_ptr();
 
@@ -626,16 +590,54 @@ where
         unsafe { ptr::addr_of_mut!((*chain.as_mut_ptr()).head).cast() }
     }
 }
+
+unsafe impl<H, $($ext_ty),*> StructureChainOut<H> for (H, $($ext_ty,)*)
+where
+    H: ExtendableStructure,
+    $($ext_ty: ExtendingStructure<H>),*
+{
+    fn setup_uninit(chain: &mut MaybeUninit<Self>) {
+        let chain_ptr = chain.as_mut_ptr();
+
+        // SAFETY: Each structure in this chain is a C struct which start with
+        // the fields from Header
+        unsafe {
+            let mut _prev_header = Header {
+                s_type: H::STRUCTURE_TYPE,
+                p_next: Cell::new(ptr::null()),
+            };
+            let prev_ptr: *mut Header = ptr::addr_of_mut!((*chain_ptr).0).cast();
+
+            $(
+                let ptr = ptr::addr_of_mut!((*chain_ptr).$ext_nb).cast();
+                _prev_header.p_next = Cell::new(ptr);
+                prev_ptr.write(_prev_header);
+
+                let prev_ptr = ptr;
+                let mut _prev_header = Header {
+                    s_type: $ext_ty::STRUCTURE_TYPE,
+                    p_next: Cell::new(ptr::null()),
+                };
+            )*
+
+            prev_ptr.write(_prev_header);
+        }
+    }
+
+    fn get_uninit_head_ptr(chain: &mut MaybeUninit<Self>) -> *mut H {
+        unsafe { ptr::addr_of_mut!((*chain.as_mut_ptr()).0).cast() }
+    }
+}
 };
 }
 
 make_structure_chain_type! {StructureChain0,}
-make_structure_chain_type! {StructureChain1, V1 => ext1}
-make_structure_chain_type! {StructureChain2, V1 => ext1, V2 => ext2}
-make_structure_chain_type! {StructureChain3, V1 => ext1, V2 => ext2, V3 => ext3}
-make_structure_chain_type! {StructureChain4, V1 => ext1, V2 => ext2, V3 => ext3, V4 => ext4}
-make_structure_chain_type! {StructureChain5, V1 => ext1, V2 => ext2, V3 => ext3, V4 => ext4, V5 => ext5}
-make_structure_chain_type! {StructureChain6, V1 => ext1, V2 => ext2, V3 => ext3, V4 => ext4, V5 => ext5, V6 => ext6}
+make_structure_chain_type! {StructureChain1, V1 => (1,ext1)}
+make_structure_chain_type! {StructureChain2, V1 => (1,ext1), V2 => (2,ext2)}
+make_structure_chain_type! {StructureChain3, V1 => (1,ext1), V2 => (2,ext2), V3 => (3,ext3)}
+make_structure_chain_type! {StructureChain4, V1 => (1,ext1), V2 => (2,ext2), V3 => (3,ext3), V4 => (4,ext4)}
+make_structure_chain_type! {StructureChain5, V1 => (1,ext1), V2 => (2,ext2), V3 => (3,ext3), V4 => (4,ext4), V5 => (5,ext5)}
+make_structure_chain_type! {StructureChain6, V1 => (1,ext1), V2 => (2,ext2), V3 => (3,ext3), V4 => (4,ext4), V5 => (5,ext5), V6 => (6,ext6) }
 
 #[macro_export]
 macro_rules! create_structure_chain {
