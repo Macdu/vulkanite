@@ -17,6 +17,9 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     let generator = Generator::new(Api::Vulkan, &registry)?;
 
+    let extensions = generator.generate_extensions()?;
+    fs::write("src/vk/extensions.rs", extensions)?;
+
     let enums = generator.generate_enums()?;
     fs::write("src/vk/enums.rs", enums)?;
 

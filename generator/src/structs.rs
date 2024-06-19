@@ -332,7 +332,7 @@ impl<'a> TryFrom<&'a xml::Type> for Struct<'a> {
                             if mem.api == Some(xml::Api::Vulkansc) {
                                 None
                             } else {
-                                Some(StructField::try_from(mem))
+                                Some(StructField::try_from(mem, &name))
                             }
                         }
                         _ => Some(Err(anyhow!("Unexpected content in {:?}", value))),
@@ -385,10 +385,8 @@ pub struct StructField<'a> {
     pub xml: &'a xml::Member,
 }
 
-impl<'a> TryFrom<&'a xml::Member> for StructField<'a> {
-    type Error = anyhow::Error;
-
-    fn try_from(value: &'a xml::Member) -> Result<Self> {
+impl<'a> StructField<'a> {
+    fn try_from(value: &'a xml::Member, struct_name: &str) -> Result<Self> {
         use xml::MemberContent as Ty;
 
         // remove comments before matching
@@ -428,7 +426,16 @@ impl<'a> TryFrom<&'a xml::Member> for StructField<'a> {
             [Ty::Type(ch), Ty::Text(sconsts), Ty::Name(name)]
                 if ch == "char" && (sconsts == "* const*" || sconsts == "* const *") =>
             {
-                (Type::CStrArr, name)
+                match (struct_name, name.as_str()) {
+                    // we have some custom types for QoL improvements
+                    ("VkInstanceCreateInfo", "ppEnabledExtensionNames") => {
+                        (Type::Ptr("InstanceExtensionName"), name)
+                    }
+                    ("VkDeviceCreateInfo", "ppEnabledExtensionNames") => {
+                        (Type::Ptr("DeviceExtensionName"), name)
+                    }
+                    _ => (Type::CStrArr, name),
+                }
             }
             // <type>VkOffset3D</type>             <name>srcOffsets</name>[2]
             [Ty::Type(ty), Ty::Name(name), Ty::Text(size)]

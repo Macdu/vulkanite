@@ -20,7 +20,7 @@ use crate::{
         MappingEntry, MappingType, ReturnType, Struct, StructBasetype, StructField, StructStandard,
         Type,
     },
-    xml::{self, Require, RequireContent, RequireType},
+    xml,
 };
 
 #[derive(Clone, Copy)]
@@ -149,6 +149,8 @@ impl<'a> Generator<'a> {
             ("void", "c_void"),
             // Custom types for QoL improvements
             ("ApiVersion", "ApiVersion"),
+            ("InstanceExtensionName", "InstanceExtensionName"),
+            ("DeviceExtensionName", "DeviceExtensionName"),
         ]
         .into_iter()
         .map(|(key, val)| {
@@ -179,6 +181,99 @@ impl<'a> Generator<'a> {
         gen.extend_commands()?;
 
         Ok(gen)
+    }
+
+    pub fn generate_extensions(&self) -> Result<String> {
+        // also bundle the header version along with all the extensions
+        let header_version = self
+            .all_types()
+            .find_map(|ty| {
+                // we want to find the following:
+                // <type api="vulkan" category="define">// Version of this file #define <name>VK_HEADER_VERSION</name> 281</type>
+                match (ty, ty.content.as_slice()) {
+                    (
+                        xml::Type {
+                            category: Some(cat),
+                            ..
+                        },
+                        [xml::TypeContent::Text(_), xml::TypeContent::Name(name), xml::TypeContent::Text(value)],
+                    ) if cat == "define" && name == "VK_HEADER_VERSION" => Some(value),
+                    _ => None,
+                }
+            })
+            .map(|v| v.parse::<u32>().ok())
+            .unwrap_or_default()
+            .ok_or_else(|| anyhow!("Failed to find VK_HEADER_VERSION"))?;
+
+        let extensions = self
+            .filtered_extensions()
+            .map(|ext| {
+                let is_device = matches!(ext.ty, Some(xml::ExtensionType::Device));
+                let (ext_class, name_class) = if is_device {
+                    (quote!(DeviceExtension), quote!(DeviceExtensionName))
+                } else {
+                    (quote!(InstanceExtension), quote!(InstanceExtensionName))
+                };
+
+                let mut req_block = ext
+                    .require
+                    .first()
+                    .ok_or_else(|| anyhow!("Extension {ext:?} should have a require block"))?
+                    .content
+                    .iter()
+                    .filter(|cnt| !matches!(cnt, xml::RequireContent::Comment(_)));
+
+                let (name_enum, spec_enum) = match (req_block.next(), req_block.next()) {
+                    (
+                        Some(xml::RequireContent::Enum(spec)),
+                        Some(xml::RequireContent::Enum(name)),
+                    ) => (name, spec),
+                    _ => return Err(anyhow!("Extension {ext:?} should start with two enums")),
+                };
+
+                if !spec_enum.name.ends_with("_SPEC_VERSION") {
+                    return Err(anyhow!("{spec_enum:?} should end with _SPEC_VERSION"));
+                }
+                if !name_enum.name.ends_with("_EXTENSION_NAME") {
+                    return Err(anyhow!("{name_enum:?} should end with _EXTENSION_NAME"));
+                }
+
+                let spec_version = spec_enum
+                    .value
+                    .as_ref()
+                    .map(|v| v.parse::<u32>().ok())
+                    .unwrap_or_default()
+                    .ok_or_else(|| anyhow!("{:?} should be an integer", spec_enum.value))?;
+                let ext_name = name_enum
+                    .value
+                    .as_ref()
+                    .map(|v| (v.len() >= 2).then(|| &v[1..(v.len() - 1)]))
+                    .unwrap_or_default()
+                    .ok_or_else(|| anyhow!("{:?} should be in quotes", name_enum.value))?;
+                let ext_name = LitCStr::new(&CString::new(ext_name).unwrap(), Span::call_site());
+
+                let ext_ident = format_ident!("{}", ext.name["VK_".len()..].to_ascii_uppercase());
+
+                Ok(quote! {
+                    pub const #ext_ident :#ext_class = #ext_class{
+                        name: unsafe {#name_class::new(#ext_name)},
+                        spec: #spec_version
+                    };
+                })
+            })
+            .collect::<Result<Vec<_>>>()?;
+
+        let result = quote! {
+            use super::{DeviceExtension, DeviceExtensionName, InstanceExtension, InstanceExtensionName, ApiVersion};
+
+            pub const HEADER_VERSION: ApiVersion = ApiVersion::new(0, 1, 3, #header_version);
+
+            #(#extensions)*
+        }
+        .to_string();
+
+        let formatted_result = Self::format_result(result)?;
+        Ok(formatted_result)
     }
 
     pub fn generate_enums(&self) -> Result<String> {
@@ -214,12 +309,12 @@ impl<'a> Generator<'a> {
     pub fn generate_handles(&self) -> Result<String> {
         let listed_handles = RefCell::new(HashSet::new());
 
-        let generate_group_handle = |require: &'a Require| -> Result<TokenStream> {
+        let generate_group_handle = |require: &'a xml::Require| -> Result<TokenStream> {
             let handles = require
                 .content
                 .iter()
                 .filter_map(|item| match item {
-                    RequireContent::Type(RequireType { name, .. }) => Some(name),
+                    xml::RequireContent::Type(xml::RequireType { name, .. }) => Some(name),
                     _ => None,
                 })
                 .filter_map(|name| self.handles.get(name.as_str()).map(|handle| (name, handle)))
@@ -263,12 +358,12 @@ impl<'a> Generator<'a> {
             ["VkBool32"],
         ));
 
-        let generate_group_struct = |require: &'a Require| -> Result<TokenStream> {
+        let generate_group_struct = |require: &'a xml::Require| -> Result<TokenStream> {
             let structs = require
                 .content
                 .iter()
                 .filter_map(|item| match item {
-                    RequireContent::Type(RequireType { name: ty_name, .. }) => self
+                    xml::RequireContent::Type(xml::RequireType { name: ty_name, .. }) => self
                         .structs
                         .get(ty_name.as_str())
                         .filter(|_| listed_structs.borrow_mut().insert(&ty_name))
@@ -333,12 +428,12 @@ impl<'a> Generator<'a> {
         let mut instance_loader = Vec::new();
         let mut device_loader = Vec::new();
 
-        let generate_group_dispatcher = |require: &'a Require| -> Result<TokenStream> {
+        let generate_group_dispatcher = |require: &'a xml::Require| -> Result<TokenStream> {
             let cmds = require
                 .content
                 .iter()
                 .filter_map(|req| match req {
-                    RequireContent::Command(cmd) => self
+                    xml::RequireContent::Command(cmd) => self
                         .commands
                         .get(cmd.name.as_str())
                         .filter(|_| listed_commands.borrow_mut().insert(&cmd.name))
@@ -412,12 +507,12 @@ impl<'a> Generator<'a> {
 
     pub fn generate_raw_commands(&self) -> Result<String> {
         let listed_commands = RefCell::new(HashSet::new());
-        let generate_group_commands = |require: &'a Require| -> Result<TokenStream> {
+        let generate_group_commands = |require: &'a xml::Require| -> Result<TokenStream> {
             let cmds = require
                 .content
                 .iter()
                 .filter_map(|req| match req {
-                    RequireContent::Command(cmd) => self
+                    xml::RequireContent::Command(cmd) => self
                         .commands
                         .get(cmd.name.as_str())
                         .filter(|_| listed_commands.borrow_mut().insert(&cmd.name))
@@ -505,8 +600,8 @@ impl<'a> Generator<'a> {
             )
         {
             let req_cmd = match req_cnt {
-                RequireContent::Command(req_cmd) => req_cmd,
-                RequireContent::Type(RequireType { name, .. }) => {
+                xml::RequireContent::Command(req_cmd) => req_cmd,
+                xml::RequireContent::Type(xml::RequireType { name, .. }) => {
                     if self.handles.contains_key(name.as_str()) {
                         possible_handles.insert(name.as_str());
                     }
@@ -1599,6 +1694,10 @@ impl<'a> Generator<'a> {
                 Some(len) => len.as_str(),
                 _ => continue,
             };
+
+            if len.ends_with(",null-terminated") {
+                len = &len[..(len.len() - ",null-terminated".len())]
+            }
 
             if len.ends_with("null-terminated") || field.xml.alt_len.is_some() {
                 // TODO: handle
@@ -2791,6 +2890,11 @@ impl<'a> Generator<'a> {
                     simple_affectation,
                 ))
             }
+            AdvancedType::CStringPtr => Ok((
+                quote!(),
+                quote!(&#life_a [*const c_char]),
+                simple_affectation,
+            )),
             _ => Err(anyhow!("Trying to get array with unexpected type")),
         }
     }

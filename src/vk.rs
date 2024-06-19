@@ -1,14 +1,20 @@
 pub mod dispatcher;
+pub mod extensions;
 pub mod enums;
 pub mod raw;
 pub mod rs;
 pub mod structs;
 
-use std::ptr::NonNull;
+use std::{
+    ffi::{c_char, CStr},
+    fmt::Debug,
+    ptr::NonNull,
+};
 
 pub use dispatcher::*;
 pub use enums::*;
 pub use structs::*;
+pub use extensions::*;
 
 // to remove
 type VoidPtr = Option<NonNull<()>>;
@@ -124,14 +130,81 @@ impl std::fmt::Debug for ApiVersion {
     }
 }
 
+macro_rules! extension_name_decl {
+    ($name:ident) => {
+        #[derive(Clone, Copy)]
+        #[repr(transparent)]
+        pub struct $name(*const c_char);
+
+        impl $name {
+            /// Safety: name must live at least as long as the resulting object
+            /// This name must also be a valid instance/device extension name
+            pub const unsafe fn new(name: &CStr) -> Self {
+                Self(name.as_ptr())
+            }
+
+            pub fn get(&self) -> &CStr {
+                unsafe { CStr::from_ptr(self.0) }
+            }
+        }
+
+        impl PartialEq for $name {
+            fn eq(&self, other: &Self) -> bool {
+                self.get() == other.get()
+            }
+        }
+
+        impl Eq for $name {}
+
+        impl PartialOrd for $name {
+            fn partial_cmp(&self, other: &Self) -> Option<std::cmp::Ordering> {
+                self.get().partial_cmp(other.get())
+            }
+        }
+
+        impl Ord for $name {
+            fn cmp(&self, other: &Self) -> std::cmp::Ordering {
+                self.get().cmp(other.get())
+            }
+        }
+
+        impl std::fmt::Debug for $name {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                self.get().fmt(f)
+            }
+        }
+
+        impl std::hash::Hash for $name {
+            fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+                self.get().hash(state)
+            }
+        }
+    };
+}
+
+extension_name_decl!(InstanceExtensionName);
+extension_name_decl!(DeviceExtensionName);
+
+#[derive(Clone, PartialEq, Debug, Hash)]
+pub struct InstanceExtension {
+    pub name: InstanceExtensionName,
+    pub spec: u32,
+}
+
+#[derive(Clone, PartialEq, Debug, Hash)]
+pub struct DeviceExtension {
+    pub name: DeviceExtensionName,
+    pub spec: u32,
+}
+
 impl Status {
     #[inline]
-    pub fn is_success(self) -> bool {
+    pub const fn is_success(self) -> bool {
         (self as i32) >= 0
     }
 
     #[inline]
-    pub fn is_error(self) -> bool {
+    pub const fn is_error(self) -> bool {
         (self as i32) < 0
     }
 
