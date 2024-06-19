@@ -5,7 +5,8 @@ pub mod vk;
 use std::cell::Cell;
 use std::ffi::c_char;
 use std::marker::PhantomData;
-use std::mem::MaybeUninit;
+use std::mem::{self, MaybeUninit};
+use std::ops::Deref;
 use std::ptr::{self};
 
 #[cfg(feature = "small-vec")]
@@ -71,6 +72,142 @@ impl DynamicDispatcher {
     #[cfg(feature = "loaded")]
     pub unsafe fn unload() {
         loaded::DYNAMIC_VULKAN_LIB.0.set(None);
+    }
+}
+
+/// See https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#memory-allocation
+pub unsafe trait Allocator: Sized + Clone {
+    /// https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/PFN_vkAllocationFunction.html
+    fn alloc(
+        &self,
+        size: usize,
+        alignment: usize,
+        allocation_scope: vk::SystemAllocationScope,
+    ) -> *mut ();
+    /// https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/PFN_vkReallocationFunction.html
+    fn realloc(
+        &self,
+        original: *mut (),
+        size: usize,
+        alignment: usize,
+        allocation_scope: vk::SystemAllocationScope,
+    ) -> *mut ();
+    /// https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/PFN_vkFreeFunction.html
+    fn free(&self, memory: *mut ());
+    /// https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/PFN_vkInternalAllocationNotification.html
+    fn on_internal_alloc(
+        &self,
+        size: usize,
+        allocation_type: vk::InternalAllocationType,
+        allocation_scope: vk::SystemAllocationScope,
+    );
+    /// https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/PFN_vkInternalFreeNotification.html
+    fn on_internal_free(
+        &self,
+        size: usize,
+        allocation_type: vk::InternalAllocationType,
+        allocation_scope: vk::SystemAllocationScope,
+    );
+
+    extern "system" fn pfn_allocation(
+        user_data: *mut (),
+        size: usize,
+        alignment: usize,
+        allocation_scope: vk::SystemAllocationScope,
+    ) -> *mut () {
+        let allocator: &Self = unsafe { &*user_data.cast() };
+        allocator.alloc(size, alignment, allocation_scope)
+    }
+
+    extern "system" fn pfn_reallocation(
+        user_data: *mut (),
+        original: *mut (),
+        size: usize,
+        alignment: usize,
+        allocation_scope: vk::SystemAllocationScope,
+    ) -> *mut () {
+        let allocator: &Self = unsafe { &*user_data.cast() };
+        allocator.realloc(original, size, alignment, allocation_scope)
+    }
+
+    extern "system" fn pfn_free(user_data: *mut (), memory: *mut ()) {
+        let allocator: &Self = unsafe { &*user_data.cast() };
+        allocator.free(memory)
+    }
+
+    extern "system" fn pfn_internal_allocation(
+        user_data: *mut (),
+        size: usize,
+        allocation_type: vk::InternalAllocationType,
+        allocation_scope: vk::SystemAllocationScope,
+    ) {
+        let allocator: &Self = unsafe { &*user_data.cast() };
+        allocator.on_internal_alloc(size, allocation_type, allocation_scope)
+    }
+
+    extern "system" fn pfn_internal_free(
+        user_data: *mut (),
+        size: usize,
+        allocation_type: vk::InternalAllocationType,
+        allocation_scope: vk::SystemAllocationScope,
+    ) {
+        let allocator: &Self = unsafe { &*user_data.cast() };
+        allocator.on_internal_free(size, allocation_type, allocation_scope)
+    }
+
+    /// SAFETY:
+    /// When re-implementing this function and using the provided pfn_* functions, you must ensure that the user_data value is a reference
+    /// to self that lives as long as the allocation callback
+    /// Moreover, as stated in https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkAllocationCallbacks.html
+    /// pfn_internal_allocation and pfn_internal_free can only either be both None or be both Some
+    fn get_allocation_callbacks(&self) -> Option<vk::AllocationCallbacks> {
+        Some(vk::AllocationCallbacks {
+            p_user_data: (self as *const Self).cast(),
+            pfn_allocation: Self::pfn_allocation as *const (),
+            pfn_reallocation: Self::pfn_reallocation as *const (),
+            pfn_free: Self::pfn_free as *const (),
+            pfn_internal_allocation: Self::pfn_internal_allocation as *const (),
+            pfn_internal_free: Self::pfn_free as *const (),
+        })
+    }
+}
+
+/// The default vulkan allocator, Using this allocator will let Vulkan use the default allocator
+/// It is the same as specifying NULL (on C) or None (on Ash) every time the parameter pAllocator is required
+#[derive(Clone)]
+pub struct DefaultAllocator;
+
+unsafe impl Allocator for DefaultAllocator {
+    fn alloc(&self, _: usize, _: usize, _: vk::SystemAllocationScope) -> *mut () {
+        ptr::null_mut()
+    }
+
+    fn realloc(&self, _: *mut (), _: usize, _: usize, _: vk::SystemAllocationScope) -> *mut () {
+        ptr::null_mut()
+    }
+
+    fn free(&self, _: *mut ()) {}
+
+    fn on_internal_alloc(
+        &self,
+        _: usize,
+        _: vk::InternalAllocationType,
+        _: vk::SystemAllocationScope,
+    ) {
+    }
+
+    fn on_internal_free(
+        &self,
+        _: usize,
+        _: vk::InternalAllocationType,
+        _: vk::SystemAllocationScope,
+    ) {
+    }
+
+    #[inline(always)]
+    /// By returning None, we ask Vulkan to use its default allocator
+    fn get_allocation_callbacks(&self) -> Option<vk::AllocationCallbacks> {
+        None
     }
 }
 
@@ -183,7 +320,7 @@ impl<'a, T: Handle> AsMut<T> for BorrowedMutHandle<'a, T> {
 /// Vec<T> implements this trait as well as SmallVec<[T;N]> is the small-vec feature is enabled
 /// This trait is unsafe because no allocating a memory area of the proper size when calling
 /// allocate_with_capacity can cause undefined behavior when using this library
-pub unsafe trait DynamicArray<T: Sized>: FromIterator<T> + IntoIterator<Item = T> {
+pub unsafe trait DynamicArray<T: Sized>: IntoIterator<Item = T> {
     /// Returns an array with at least the given capacity available
     /// Calling get_content_mut_ptr on an object allocated with allocate_with_capacity(capacity) should return
     /// A contiguous properly aligned allocated region of memory which can hold capacity elements of T
@@ -199,6 +336,12 @@ pub unsafe trait DynamicArray<T: Sized>: FromIterator<T> + IntoIterator<Item = T
     unsafe fn resize_with_len(&mut self, len: usize);
 }
 
+/// When using advanced commands, we must be able to provide a dynamic array for both the type and the underlying type
+/// This trait allows given a type T with a dynamic array to get a dynamic array for another type S
+pub trait AdvancedDynamicArray<T: Sized, S: Sized>: DynamicArray<T> + FromIterator<T> {
+    type InnerArrayType: DynamicArray<S>;
+}
+
 unsafe impl<T: Sized> DynamicArray<T> for Vec<T> {
     fn allocate_with_capacity(capacity: usize) -> Self {
         Self::with_capacity(capacity)
@@ -211,6 +354,10 @@ unsafe impl<T: Sized> DynamicArray<T> for Vec<T> {
     unsafe fn resize_with_len(&mut self, len: usize) {
         self.set_len(len)
     }
+}
+
+impl<T: Sized, S: Sized> AdvancedDynamicArray<T, S> for Vec<T> {
+    type InnerArrayType = Vec<S>;
 }
 
 #[cfg(feature = "small-vec")]
@@ -229,6 +376,11 @@ where
     unsafe fn resize_with_len(&mut self, len: usize) {
         self.set_len(len)
     }
+}
+
+#[cfg(feature = "small-vec")]
+impl<T: Sized, S: Sized, const N: usize> AdvancedDynamicArray<T, S> for SmallVec<[T; N]> {
+    type InnerArrayType = SmallVec<[S; N]>;
 }
 
 /// A trait implemented by Vulkan C structs whose first 2 fields are:

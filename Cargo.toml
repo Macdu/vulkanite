@@ -7,7 +7,7 @@ edition = "2021"
 [dependencies]
 bitflags = "2.5.0"
 libloading = { version = "0.8.3", optional = true }
-smallvec = { version = "1.13.2", optional = true }
+smallvec = { version = "1.13.2", optional = true, features = ["const_generics"] }
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 

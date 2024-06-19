@@ -571,14 +571,16 @@ impl<'a> Generator<'a> {
             .expect("vkCreateInstance should be here");
         let entry_methods = create_methods(entry_cmds)?;
         result.push(quote! {
-            pub struct Entry<D: Dispatcher = DynamicDispatcher> {
+            pub struct Entry<D: Dispatcher = DynamicDispatcher, A: Allocator = DefaultAllocator> {
                 disp: D,
+                alloc: A,
             }
 
-            impl<D: Dispatcher> Entry<D> {
-                pub fn new(disp: D) -> Self {
+            impl<D: Dispatcher, A: Allocator> Entry<D, A> {
+                pub fn new(disp: D, alloc: A) -> Self {
                     Self {
-                        disp
+                        disp,
+                        alloc,
                     }
                 }
 
@@ -600,12 +602,13 @@ impl<'a> Generator<'a> {
                 result.push(quote! {
                     #[repr(C)]
                     #doc_tag
-                    pub struct #id_name<D: Dispatcher = DynamicDispatcher> {
+                    pub struct #id_name<D: Dispatcher = DynamicDispatcher, A: Allocator = DefaultAllocator> {
                         inner: raw::#id_name,
                         disp: D,
+                        alloc: A,
                     }
 
-                    impl<D: Dispatcher> Deref for #id_name<D> {
+                    impl<D: Dispatcher, A: Allocator> Deref for #id_name<D,A> {
                         type Target = raw::#id_name;
 
                         fn deref(&self) -> &Self::Target {
@@ -617,16 +620,18 @@ impl<'a> Generator<'a> {
                         pub fn from_inner(handle: raw::#id_name) -> Self {
                             Self {
                                 inner: handle,
-                                disp: DynamicDispatcher(())
+                                disp: DynamicDispatcher(()),
+                                alloc: DefaultAllocator,
                             }
                         }
                     }
 
-                    impl<D: Dispatcher> #id_name<D> {
-                        pub fn from_inner_with(handle: raw::#id_name, disp: D) -> Self {
+                    impl<D: Dispatcher, A: Allocator> #id_name<D, A> {
+                        pub fn from_inner_with(handle: raw::#id_name, disp: D, alloc: A) -> Self {
                             Self {
                                 inner: handle,
-                                disp
+                                disp,
+                                alloc,
                             }
                         }
 
@@ -649,7 +654,7 @@ impl<'a> Generator<'a> {
                 ffi::{c_int, c_void, CStr},
                 ops::Deref,
             };
-            use crate::{vk::*, Alias, Dispatcher, DynamicArray, DynamicDispatcher, StructureChainOut};
+            use crate::{vk::*, Alias, Allocator, AdvancedDynamicArray, DefaultAllocator, Dispatcher, DynamicArray, DynamicDispatcher, StructureChainOut};
 
             #(#result)*
         }
@@ -2157,16 +2162,27 @@ impl<'a> Generator<'a> {
         // the first element is usually the handle, skip it
         let nb_to_skip = if cmd_parsed.handle.is_empty() { 0 } else { 1 };
 
+        // the user does not have to specify his own allocator
+        let has_allocator = cmd_parsed
+            .parsed_args_in
+            .last()
+            .is_some_and(|(name, _)| name.to_string() == "p_allocator");
+
+        let nb_to_take =
+            cmd_parsed.parsed_args_in.len() - nb_to_skip - if has_allocator { 1 } else { 0 };
+
         let arg_outer_name: Vec<_> = cmd_parsed
             .parsed_args_in
             .iter()
             .skip(nb_to_skip)
+            .take(nb_to_take)
             .map(|(x, _)| x)
             .collect();
         let arg_outer_type = cmd_parsed
             .parsed_args_in
             .iter()
             .skip(nb_to_skip)
+            .take(nb_to_take)
             .map(|(_, y)| y);
 
         // remove the handle name from the function name
@@ -2238,7 +2254,7 @@ impl<'a> Generator<'a> {
                 let lifetime = (!is_handle && self.compute_name_lifetime(ret_type))
                     .then(|| quote! (<'static>));
                 let ret_param = if needs_transformation {
-                    Some(quote! (<D>))
+                    Some(quote! (<D,A>))
                 } else {
                     lifetime
                 };
@@ -2246,9 +2262,9 @@ impl<'a> Generator<'a> {
                 let pre_call = needs_transformation.then(|| {
                     let type_descr = is_vec.then(|| {
                         if has_status {
-                            quote! (: Result<Vec<_>>)
+                            quote! (: Result<R::InnerArrayType>)
                         } else {
-                            quote! (: Vec<_>)
+                            quote! (: R::InnerArrayType)
                         }
                     });
                     quote! (let vk_result #type_descr = )
@@ -2258,13 +2274,13 @@ impl<'a> Generator<'a> {
                         "vkCreateInstance" => {
                             return quote! {; vk_result.map(|instance| {
                                 let disp = self.disp.clone_with_instance(&instance);
-                                Instance::from_inner_with(instance, disp)
+                                Instance::from_inner_with(instance, disp, self.alloc.clone())
                             })}
                         }
                         "vkCreateDevice" => {
                             return quote! {; vk_result.map(|device| {
                                 let disp = self.disp.clone_with_device(&device);
-                                Device::from_inner_with(device, disp)
+                                Device::from_inner_with(device, disp, self.alloc.clone())
                             })}
                         }
                         _ => {}
@@ -2272,10 +2288,10 @@ impl<'a> Generator<'a> {
                     let mapping_fn = if is_vec {
                         quote!(vk_result
                             .into_iter()
-                            .map(|el| #ret_name::from_inner_with(el, self.disp.clone()))
+                            .map(|el| #ret_name::from_inner_with(el, self.disp.clone(), self.alloc.clone()))
                             .collect())
                     } else {
-                        quote!(#ret_name::from_inner_with(vk_result, self.disp.clone()))
+                        quote!(#ret_name::from_inner_with(vk_result, self.disp.clone(), self.alloc.clone()))
                     };
                     if has_status {
                         quote! (; vk_result.map(|vk_result| #mapping_fn))
@@ -2294,7 +2310,9 @@ impl<'a> Generator<'a> {
                     result_quote = quote! (Result<#result_quote>)
                 }
 
-                let ret_template = if is_vec {
+                let ret_template = if is_vec && needs_transformation {
+                    Some(quote! (R: AdvancedDynamicArray<#ret_name #ret_param, raw::#ret_name>,))
+                } else if is_vec {
                     Some(quote! (R: DynamicArray<#ret_name #ret_param>,))
                 } else if is_chain {
                     Some(quote! (S: StructureChainOut<#ret_name #ret_param> ))
@@ -2313,6 +2331,8 @@ impl<'a> Generator<'a> {
         } else {
             quote!(self,)
         };
+        let allocator_param =
+            has_allocator.then(|| quote!(self.alloc.get_allocation_callbacks().as_ref(),));
 
         let doc_tag = make_doc_link(vk_name);
 
@@ -2320,7 +2340,7 @@ impl<'a> Generator<'a> {
             #doc_tag
             pub fn #fn_name<#ret_template #(#arg_template),*>(&self, #(#arg_outer_name: #arg_outer_type),*) #ret_type {
                 #pre_call
-                raw::#raw_fn_name(#caller #(#arg_outer_name,)* self.disp.get_command_dispatcher())
+                raw::#raw_fn_name(#caller #(#arg_outer_name,)* #allocator_param self.disp.get_command_dispatcher())
                 #post_call
             }
         })
@@ -2526,8 +2546,7 @@ impl<'a> Generator<'a> {
                 quote! (Option<#ty_ident>)
             }
             AT::Func(_ty) => {
-                //TODO
-                quote!(Option<NonNull<()>>)
+                quote!(*const ())
             }
             AT::Struct(ty) => {
                 let lifetime = get_lifetime(ty);
@@ -2781,11 +2800,11 @@ impl<'a> Generator<'a> {
             | AdvancedType::HandlePtr(_)
             | AdvancedType::OtherPtr(_)
             | AdvancedType::OtherDoublePtr(_)
+            | AdvancedType::Func(_)
             | AdvancedType::CStringPtr
             | AdvancedType::CString => Ok(quote!(ptr::null())),
             AdvancedType::Handle(_)
             | AdvancedType::HandleArray(_, _)
-            | AdvancedType::Func(_)
             | AdvancedType::Struct(_)
             | AdvancedType::OtherDoubleArray(_, _, _) => Ok(quote!(Default::default())),
             AdvancedType::Other(name) => {
