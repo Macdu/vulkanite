@@ -52,18 +52,77 @@ impl From<Bool32> for bool {
     }
 }
 
-pub const fn make_api_version(variant: u32, major: u32, minor: u32, patch: u32) -> u32 {
-    assert!(variant < 8);
-    assert!(major < 128);
-    assert!(minor < 1024);
-    assert!(patch < 4096);
-    (variant << 29) | (major << 22) | (minor << 12) | patch
+/// API Version used by Vulkan
+#[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[repr(transparent)]
+pub struct ApiVersion(u32);
+
+impl From<u32> for ApiVersion {
+    fn from(value: u32) -> Self {
+        Self(value)
+    }
 }
 
-pub const API_VERSION_1_0: u32 = make_api_version(0, 1, 0, 0);
-pub const API_VERSION_1_1: u32 = make_api_version(0, 1, 1, 0);
-pub const API_VERSION_1_2: u32 = make_api_version(0, 1, 2, 0);
-pub const API_VERSION_1_3: u32 = make_api_version(0, 1, 3, 0);
+impl Into<u32> for ApiVersion {
+    fn into(self) -> u32 {
+        self.0
+    }
+}
+
+impl ApiVersion {
+    pub const fn new(variant: u32, major: u32, minor: u32, patch: u32) -> Self {
+        assert!(variant < 8);
+        assert!(major < 128);
+        assert!(minor < 1024);
+        assert!(patch < 4096);
+        Self((variant << 29) | (major << 22) | (minor << 12) | patch)
+    }
+
+    pub const fn variant(self) -> u32 {
+        self.0 >> 29
+    }
+
+    pub const fn major(self) -> u32 {
+        (self.0 >> 22) & 0x7F
+    }
+
+    pub const fn minor(self) -> u32 {
+        (self.0 >> 12) & 0x3FF
+    }
+
+    pub const fn patch(self) -> u32 {
+        self.0 & 0xFFF
+    }
+}
+
+pub const API_VERSION_1_0: ApiVersion = ApiVersion::new(0, 1, 0, 0);
+pub const API_VERSION_1_1: ApiVersion = ApiVersion::new(0, 1, 1, 0);
+pub const API_VERSION_1_2: ApiVersion = ApiVersion::new(0, 1, 2, 0);
+pub const API_VERSION_1_3: ApiVersion = ApiVersion::new(0, 1, 3, 0);
+
+impl Default for ApiVersion {
+    /// According to the doc, using an api version of 0 (default) is the same as using API_VERSION_1_0
+    fn default() -> Self {
+        API_VERSION_1_0
+    }
+}
+
+impl std::fmt::Display for ApiVersion {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{}.{}.{}", self.major(), self.minor(), self.patch())
+    }
+}
+
+impl std::fmt::Debug for ApiVersion {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("ApiVersion")
+            .field("variant", &self.variant())
+            .field("major", &self.major())
+            .field("minor", &self.minor())
+            .field("patch", &self.patch())
+            .finish()
+    }
+}
 
 impl Status {
     #[inline]

@@ -1,6 +1,7 @@
 use std::{
     borrow::Cow,
-    cell::{Cell, RefCell}, collections::HashMap,
+    cell::{Cell, RefCell},
+    collections::HashMap,
 };
 
 use anyhow::{anyhow, Result};
@@ -400,7 +401,11 @@ impl<'a> TryFrom<&'a xml::Member> for StructField<'a> {
 
         let (ty, vk_name) = match &content[..] {
             // <type>int32_t</type>        <name>x</name>
-            [Ty::Type(ty), Ty::Name(name)] => (Type::Path(ty), name),
+            [Ty::Type(ty), Ty::Name(name)] => match name.as_str() {
+                // we have some custom types for QoL improvements
+                "apiVersion" => (Type::Path("ApiVersion"), name),
+                _ => (Type::Path(ty), name),
+            },
             // <type>char</type>           <name>deviceName</name>[<enum>VK_MAX_PHYSICAL_DEVICE_NAME_SIZE</enum>]
             [Ty::Type(ty), Ty::Name(name), Ty::Text(op), Ty::Enum(size), Ty::Text(cl)]
                 if op == "[" && cl == "]" =>

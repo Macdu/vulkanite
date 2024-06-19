@@ -147,6 +147,8 @@ impl<'a> Generator<'a> {
             ("float", "f32"),
             ("double", "f64"),
             ("void", "c_void"),
+            // Custom types for QoL improvements
+            ("ApiVersion", "ApiVersion"),
         ]
         .into_iter()
         .map(|(key, val)| {
@@ -1975,7 +1977,7 @@ impl<'a> Generator<'a> {
                     } else if param.xml.len.is_some() {
                         Ok(quote! (#name.get_content_mut_ptr()))
                     } else if is_chain {
-                        Ok(quote! (S::get_uninit_head_ptr(&mut #name)
+                        Ok(quote! (S::get_uninit_head_ptr(#name.as_mut_ptr())
                         ))
                     } else {
                         Ok(quote! (#name.as_mut_ptr()))
@@ -2068,6 +2070,8 @@ impl<'a> Generator<'a> {
                     quote! (#field_name.resize_with_len(#internal_length as _); #field_name)
                 } else if external_length.is_some() {
                     quote!(vk_vec.resize_with_len(vk_len as _); vk_vec)
+                } else if is_chain {
+                    quote! (S::setup_cleanup(#field_name.as_mut_ptr());#field_name.assume_init())
                 } else {
                     quote! (#field_name.assume_init())
                 };

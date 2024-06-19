@@ -6,7 +6,6 @@ use std::cell::Cell;
 use std::ffi::c_char;
 use std::marker::PhantomData;
 use std::mem::{self, MaybeUninit};
-use std::ops::Deref;
 use std::ptr::{self};
 
 #[cfg(feature = "small-vec")]
@@ -391,13 +390,7 @@ pub unsafe trait ExtendableStructure: Default {
     const STRUCTURE_TYPE: vk::StructureType;
 
     unsafe fn retrieve_next(&self) -> &Cell<*const Header> {
-        unsafe {
-            &ptr::from_ref(self)
-                .cast::<Header>()
-                .as_ref()
-                .unwrap_unchecked()
-                .p_next
-        }
+        unsafe { &mem::transmute::<_, &Header>(self).p_next }
     }
 
     /// Assuming the current structure chain is the following:
@@ -519,7 +512,16 @@ where
     fn setup_uninit(chain: &mut MaybeUninit<Self>);
 
     /// Return a mutable pointer to the head structure, which can then be passed to vulkan commands
-    fn get_uninit_head_ptr(chain: &mut MaybeUninit<Self>) -> *mut H;
+    fn get_uninit_head_ptr(chain: *mut Self) -> *mut H;
+
+    /// Function to call after a vulkan function initialized this structure to make sure there is no dangling pointer
+    /// or anything which could cause undefined behavior
+    fn setup_cleanup(chain: *mut Self) {
+        // Clearing the dangling pointer from the head should be enough
+        // A user should not be able to use the p_next pointer from the chain structure without unsafe code
+        let head = Self::get_uninit_head_ptr(chain).cast::<Header>();
+        unsafe { ptr::addr_of_mut!((*head).p_next).write(Cell::new(ptr::null())) };
+    }
 }
 
 /// Structure chain trait
@@ -738,8 +740,8 @@ where
         }
     }
 
-    fn get_uninit_head_ptr(chain: &mut MaybeUninit<Self>) -> *mut H {
-        unsafe { ptr::addr_of_mut!((*chain.as_mut_ptr()).head).cast() }
+    fn get_uninit_head_ptr(chain: *mut Self) -> *mut H {
+        unsafe { ptr::addr_of_mut!((*chain).head).cast() }
     }
 }
 
@@ -776,8 +778,8 @@ where
         }
     }
 
-    fn get_uninit_head_ptr(chain: &mut MaybeUninit<Self>) -> *mut H {
-        unsafe { ptr::addr_of_mut!((*chain.as_mut_ptr()).0).cast() }
+    fn get_uninit_head_ptr(chain: *mut Self) -> *mut H {
+        unsafe { ptr::addr_of_mut!((*chain).0).cast() }
     }
 }
 };
