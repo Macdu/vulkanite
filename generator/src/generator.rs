@@ -147,11 +147,9 @@ impl<'a> Generator<'a> {
             ("float", "f32"),
             ("double", "f64"),
             ("void", "c_void"),
-
             // Types from external headers
             ("Window", "u32"),
             ("xcb_window_t", "u32"),
-
             // Custom types for QoL improvements
             ("ApiVersion", "ApiVersion"),
             ("InstanceExtensionName", "InstanceExtensionName"),
@@ -532,19 +530,7 @@ impl<'a> Generator<'a> {
                                         .map(|(vk_name, name)| (*vk_name, name.as_str())),
                                 )
                                 .map(|(vk_name, name)| {
-                                    let cmd_plain = self.generate_raw_command(
-                                        &cmd_params,
-                                        vk_name,
-                                        name,
-                                        false,
-                                    )?;
-                                    let cmd_chain = self.generate_raw_command(
-                                        &cmd_params,
-                                        vk_name,
-                                        name,
-                                        true,
-                                    )?;
-                                    Ok(quote! (#cmd_plain #cmd_chain))
+                                    self.generate_raw_command(&cmd_params, vk_name, name)
                                 })
                                 .collect::<Result<Vec<_>>>()?;
                             Ok(quote! (#(#raw_cmds)*))
@@ -644,23 +630,13 @@ impl<'a> Generator<'a> {
                                     .map(|(vk_name, name)| (*vk_name, name.as_str())),
                             )
                             .map(|(vk_name, name)| {
-                                let cmd_simple = self.generate_advanced_command(
+                                self.generate_advanced_command(
                                     name,
                                     vk_name,
                                     cmd_parsed,
                                     gen_ty,
-                                    false,
                                     is_complex_handle,
-                                )?;
-                                let cmd_chain = self.generate_advanced_command(
-                                    name,
-                                    vk_name,
-                                    cmd_parsed,
-                                    gen_ty,
-                                    true,
-                                    is_complex_handle,
-                                )?;
-                                Ok(quote! (#cmd_simple #cmd_chain))
+                                )
                             })
                             .collect::<Result<Vec<_>>>()?;
                         Ok(quote! (#(#all_variants)*))
@@ -1756,12 +1732,12 @@ impl<'a> Generator<'a> {
                 let (ty_name, vis, default_impl) = match field.vk_name {
                     "sType" if my_struct.s_type.is_some() => (
                         quote!(StructureType),
-                        None,
+                        quote! (pub(crate)),
                         quote! {#field_name: Self::STRUCTURE_TYPE},
                     ),
                     "pNext" if my_struct.s_type.is_some() => (
                         quote!(Cell<*const Header>),
-                        None,
+                        quote! (pub(crate)),
                         quote! {p_next: Cell::new(ptr::null())},
                     ),
                     _ => {
@@ -1777,9 +1753,9 @@ impl<'a> Generator<'a> {
                         (
                             ty_inner,
                             if my_struct.is_union || simple_fields.get(field.vk_name).is_some() {
-                                Some(quote!(pub))
+                                quote!(pub)
                             } else {
-                                Some(quote! (pub(crate)))
+                                quote! (pub(crate))
                             },
                             quote! (#field_name: #default_value),
                         )
@@ -2037,7 +2013,6 @@ impl<'a> Generator<'a> {
         parsed_cmd: &CommandParamsParsed<'a, 'b>,
         vk_name: &str,
         name: &str,
-        is_chain: bool,
     ) -> Result<TokenStream> {
         let CommandParamsParsed {
             output_length,
@@ -2091,14 +2066,19 @@ impl<'a> Generator<'a> {
                     .iter()
                     .any(|(vk_name, _)| *vk_name == param.vk_name)
                 {
-                    assert!(matches!(param.ty, Type::Ptr(_)));
+                    let param_name = match param.ty {
+                        Type::Ptr(name) => name,
+                        _ => return Err(anyhow!("Param {} should be a pointer", param.vk_name)),
+                    };
+                    let is_structure_type = self
+                        .get_struct(param_name)
+                        .is_some_and(|my_struct| my_struct.s_type.is_some());
                     if output_length.is_some() {
                         Ok(quote! (#name))
                     } else if param.xml.len.is_some() {
                         Ok(quote! (#name.get_content_mut_ptr()))
-                    } else if is_chain {
-                        Ok(quote! (S::get_uninit_head_ptr(#name.as_mut_ptr())
-                        ))
+                    } else if is_structure_type {
+                        Ok(quote! (S::get_uninit_head_ptr(#name.as_mut_ptr())))
                     } else {
                         Ok(quote! (#name.as_mut_ptr()))
                     }
@@ -2118,10 +2098,6 @@ impl<'a> Generator<'a> {
         let templates = &parsed_arg_templates;
         let args_outer_name = parsed_args_in.iter().map(|(x, _)| x);
         let args_outer_type = parsed_args_in.iter().map(|(_, y)| y);
-
-        if output_fields.is_empty() && is_chain {
-            return Ok(quote!());
-        }
 
         let (ret_type, pre_call, post_call, ret_template) = match cmd.return_ty {
             ReturnType::BaseType(name) => {
@@ -2164,22 +2140,13 @@ impl<'a> Generator<'a> {
                     .is_some_and(|my_struct| my_struct.s_type.is_some());
                 let is_handle = self.get_handle(ret_type).is_some();
 
-                if is_chain {
-                    if !is_structure_type {
-                        return Ok(quote!());
-                    }
-                    if internal_length.is_some() || external_length.is_some() {
-                        return Ok(quote!());
-                    }
-                }
-
                 let lifetime = (!is_handle && self.compute_name_lifetime(ret_type))
                     .then(|| quote! (<'static>));
 
                 let mut result_quote = quote! (#ret_name #lifetime);
                 if internal_length.is_some() || external_length.is_some() {
                     result_quote = quote!(R)
-                } else if is_chain {
+                } else if is_structure_type {
                     result_quote = quote!(S)
                 }
                 if has_status {
@@ -2190,7 +2157,7 @@ impl<'a> Generator<'a> {
                     quote! (#field_name.resize_with_len(#internal_length as _); #field_name)
                 } else if external_length.is_some() {
                     quote!(vk_vec.resize_with_len(vk_len as _); vk_vec)
-                } else if is_chain {
+                } else if is_structure_type {
                     quote! (S::setup_cleanup(#field_name.as_mut_ptr());#field_name.assume_init())
                 } else {
                     quote! (#field_name.assume_init())
@@ -2218,18 +2185,16 @@ impl<'a> Generator<'a> {
                         let #field_name = vk_vec.get_content_mut_ptr();
                         #prev_affectation
                     })
-                } else if is_chain {
+                } else if is_structure_type {
                     Some(
                         quote! (let mut #field_name = MaybeUninit::uninit(); S::setup_uninit(&mut #field_name); #prev_affectation),
                     )
-                } else if is_structure_type {
-                    Some(quote! (let mut #field_name = #ret_name::new_uninit(); #prev_affectation))
                 } else {
                     Some(quote! (let mut #field_name = MaybeUninit::uninit(); #prev_affectation))
                 };
                 let ret_template = if internal_length.is_some() || external_length.is_some() {
                     Some(quote! (R: DynamicArray<#ret_name #lifetime>,))
-                } else if is_chain {
+                } else if is_structure_type {
                     Some(quote! (S: StructureChainOut<#ret_name #lifetime> ))
                 } else {
                     None
@@ -2244,17 +2209,12 @@ impl<'a> Generator<'a> {
             _ => (quote!(), None, None, None),
         };
 
-        let dispatch_name = format_ident!("{name}");
+        let func_name = format_ident!("{name}");
         let doc = make_doc_link(vk_name);
-        let func_name = if is_chain {
-            format_ident!("{name}_chain")
-        } else {
-            dispatch_name.clone()
-        };
         Ok(quote! {
             #doc
             pub fn #func_name<#ret_template #(#templates),*>(#(#args_outer_name: #args_outer_type,)* dispatcher: &CommandsDispatcher ) #ret_type {
-                let vulkan_command = dispatcher.#dispatch_name.get().expect("Vulkan command not loaded.");
+                let vulkan_command = dispatcher.#func_name.get().expect("Vulkan command not loaded.");
                 unsafe {
                     #pre_call
                     vulkan_command(#(#args_inner),*)
@@ -2270,7 +2230,6 @@ impl<'a> Generator<'a> {
         vk_name: &str,
         cmd_parsed: &CommandParamsParsed,
         gen_ty: GeneratedCommandType,
-        is_chain: bool,
         is_complex_handle: F,
     ) -> Result<TokenStream>
     where
@@ -2330,18 +2289,8 @@ impl<'a> Generator<'a> {
             }
         }
 
-        let (fn_name, raw_fn_name) = if is_chain {
-            (
-                format_ident!("{new_name}_chain"),
-                format_ident!("{name}_chain"),
-            )
-        } else {
-            (format_ident!("{new_name}"), format_ident!("{name}"))
-        };
-
-        if cmd_parsed.output_fields.is_empty() && is_chain {
-            return Ok(quote!());
-        }
+        let fn_name = format_ident!("{new_name}");
+        let raw_fn_name = format_ident!("{name}");
 
         let (ret_type, ret_template, pre_call, post_call) = match cmd.return_ty {
             ReturnType::BaseType(name) => {
@@ -2368,12 +2317,6 @@ impl<'a> Generator<'a> {
                     .get_struct(ret_type)
                     .is_some_and(|my_struct| my_struct.s_type.is_some());
                 let is_handle = self.get_handle(ret_type).is_some();
-
-                if is_chain {
-                    if is_vec || !is_structure_type {
-                        return Ok(quote!());
-                    }
-                }
 
                 let lifetime = (!is_handle && self.compute_name_lifetime(ret_type))
                     .then(|| quote! (<'static>));
@@ -2427,7 +2370,7 @@ impl<'a> Generator<'a> {
                 let mut result_quote = quote! (#ret_name #ret_param);
                 if is_vec {
                     result_quote = quote!(R)
-                } else if is_chain {
+                } else if is_structure_type {
                     result_quote = quote!(S)
                 }
                 if has_status {
@@ -2438,7 +2381,7 @@ impl<'a> Generator<'a> {
                     Some(quote! (R: AdvancedDynamicArray<#ret_name #ret_param, raw::#ret_name>,))
                 } else if is_vec {
                     Some(quote! (R: DynamicArray<#ret_name #ret_param>,))
-                } else if is_chain {
+                } else if is_structure_type {
                     Some(quote! (S: StructureChainOut<#ret_name #ret_param> ))
                 } else {
                     None

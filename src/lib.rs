@@ -556,6 +556,26 @@ where
     fn link<T: ExtendingStructure<H>>(&mut self);
 }
 
+unsafe impl<H: ExtendableStructure> StructureChainOut<H> for H {
+    fn setup_uninit(chain: &mut MaybeUninit<Self>) {
+        // SAFETY: H is a C struct which starts with Header
+        unsafe {
+            chain.as_mut_ptr().cast::<Header>().write(Header {
+                s_type: Self::STRUCTURE_TYPE,
+                p_next: Cell::new(ptr::null()),
+            })
+        }
+    }
+
+    fn get_uninit_head_ptr(chain: *mut Self) -> *mut H {
+        chain
+    }
+
+    fn setup_cleanup(_: *mut Self) {
+        // self.s_type is already empty, nothing to be done here
+    }
+}
+
 macro_rules! make_structure_chain_type {
     ($name: ident, $($ext_ty:ident => ($ext_nb:tt, $ext_name:ident)),*) => {
 

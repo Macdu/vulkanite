@@ -16,7 +16,7 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     let devices: SmallVec<[vk::rs::PhysicalDevice; 3]> = instance.enumerate_physical_devices()?;
     let device = &devices[0];
-    let (_, vk11_props): (_, vk::PhysicalDeviceVulkan11Properties) = device.get_properties2_chain();
+    let (_, vk11_props): (_, vk::PhysicalDeviceVulkan11Properties) = device.get_properties2();
     println!("Subgroup size is {}", vk11_props.subgroup_size);
     Ok(())
 }
