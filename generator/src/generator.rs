@@ -147,6 +147,11 @@ impl<'a> Generator<'a> {
             ("float", "f32"),
             ("double", "f64"),
             ("void", "c_void"),
+
+            // Types from external headers
+            ("Window", "u32"),
+            ("xcb_window_t", "u32"),
+
             // Custom types for QoL improvements
             ("ApiVersion", "ApiVersion"),
             ("InstanceExtensionName", "InstanceExtensionName"),
@@ -681,6 +686,14 @@ impl<'a> Generator<'a> {
                     }
                 }
 
+                pub fn get_dispatcher(&self) -> &D {
+                    &self.disp
+                }
+
+                pub fn get_allocator(&self) -> &A {
+                    &self.alloc
+                }
+
                 #(#entry_methods)*
             }
         });
@@ -730,6 +743,14 @@ impl<'a> Generator<'a> {
                                 disp,
                                 alloc,
                             }
+                        }
+
+                        pub fn get_dispatcher(&self) -> &D {
+                            &self.disp
+                        }
+
+                        pub fn get_allocator(&self) -> &A {
+                            &self.alloc
                         }
 
                         #(#methods)*
@@ -1784,7 +1805,7 @@ impl<'a> Generator<'a> {
                     self.generate_type_outer_to_inner(&ty, field.optional, format_ident!("value"))?;
                 Ok(quote! {
                     #[inline]
-                    pub fn #name(&mut self, value: #ty_name) -> &mut Self {
+                    pub fn #name(mut self, value: #ty_name) -> Self {
                         self.#name = #value;
                         self
                     }
@@ -1827,7 +1848,7 @@ impl<'a> Generator<'a> {
                 let attr = ty_tokens.iter().map(|(_,_,z)| z);
                 Ok(quote! {
                     #[inline]
-                    pub fn #setter_name<#(#template_arg),*>(&mut self, #(#field_names: #slice_ty),*) -> &mut Self {
+                    pub fn #setter_name<#(#template_arg),*>(mut self, #(#field_names: #slice_ty),*) -> Self {
                         #(#attr;)*
                         self.#length_name = #first_field_name.len() as _;
                         self

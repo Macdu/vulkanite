@@ -1,6 +1,8 @@
 #[cfg(feature = "loaded")]
 mod loaded;
 pub mod vk;
+#[cfg(feature = "raw-window-handle")]
+pub mod window;
 
 use std::cell::Cell;
 use std::ffi::c_char;
@@ -8,7 +10,7 @@ use std::marker::PhantomData;
 use std::mem::{self, MaybeUninit};
 use std::ptr::{self};
 
-#[cfg(feature = "small-vec")]
+#[cfg(feature = "smallvec")]
 use smallvec::SmallVec;
 
 pub type GetInstanceProcAddrSignature =
@@ -359,7 +361,7 @@ impl<T: Sized, S: Sized> AdvancedDynamicArray<T, S> for Vec<T> {
     type InnerArrayType = Vec<S>;
 }
 
-#[cfg(feature = "small-vec")]
+#[cfg(feature = "smallvec")]
 unsafe impl<T: Sized, A> DynamicArray<T> for SmallVec<A>
 where
     A: smallvec::Array<Item = T>,
@@ -377,7 +379,7 @@ where
     }
 }
 
-#[cfg(feature = "small-vec")]
+#[cfg(feature = "smallvec")]
 impl<T: Sized, S: Sized, const N: usize> AdvancedDynamicArray<T, S> for SmallVec<[T; N]> {
     type InnerArrayType = SmallVec<[S; N]>;
 }
