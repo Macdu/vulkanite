@@ -154,6 +154,10 @@ impl<'a> Generator<'a> {
             ("ApiVersion", "ApiVersion"),
             ("InstanceExtensionName", "InstanceExtensionName"),
             ("DeviceExtensionName", "DeviceExtensionName"),
+            (
+                "DebugUtilsMessengerCallbackEXT",
+                "DebugUtilsMessengerCallbackEXT",
+            ),
         ]
         .into_iter()
         .map(|(key, val)| {
@@ -1260,8 +1264,8 @@ impl<'a> Generator<'a> {
             }
 
             if let Some(param) = cmd.params.first() {
-                if matches!(param.advanced_ty.get(), Some(AdvancedType::Handle(_))) {
-                    cmd.handle.set(Some(param.vk_name))
+                if let Some(AdvancedType::Handle(handle)) = param.advanced_ty.get() {
+                    cmd.handle.set(Some(handle))
                 }
             }
         }
@@ -1673,6 +1677,7 @@ impl<'a> Generator<'a> {
         let mapping = self.mapping.borrow();
         let all_fields: HashMap<_, _> = my_struct.fields.iter().map(|f| (f.vk_name, f)).collect();
         let mut simple_fields = all_fields.clone();
+        let mut char_arr_fields = Vec::new();
         if my_struct.s_type.is_some() {
             // remove preemptively s_type and p_next
             simple_fields.remove("sType");
@@ -1692,11 +1697,20 @@ impl<'a> Generator<'a> {
                 _ => continue,
             };
 
+            if len == "null-terminated" {
+                if let Some(AdvancedType::CharArray(size)) = field.advanced_ty.get() {
+                    simple_fields.remove(field.vk_name);
+                    char_arr_fields.push((field, size));
+                }
+                continue;
+            }
+
             if len.ends_with(",null-terminated") {
+                // just ask for an array of const char* for the time being
                 len = &len[..(len.len() - ",null-terminated".len())]
             }
 
-            if len.ends_with("null-terminated") || field.xml.alt_len.is_some() {
+            if field.xml.alt_len.is_some() {
                 // TODO: handle
                 simple_fields.remove(field.vk_name);
                 continue;
@@ -1709,7 +1723,7 @@ impl<'a> Generator<'a> {
 
             let len_field = *all_fields
                 .get(len)
-                .ok_or_else(|| anyhow!("Failed to find length field {len}"))?;
+                .ok_or_else(|| anyhow!("Failed to find length field {len} for {struct_vk_name}"))?;
 
             simple_fields.remove(field.vk_name);
             simple_fields.remove(len_field.vk_name);
@@ -1768,14 +1782,10 @@ impl<'a> Generator<'a> {
         let (fields, default_impl): (Vec<_>, Vec<_>) = iter.into_iter().unzip();
 
         let simple_accessors = simple_fields
-            .iter()
+            .into_iter()
             .map(|(_, field)| {
-                if field.vk_name == "sType" {
-                    return Ok(quote!());
-                }
-
                 let name = format_ident!("{}", field.name);
-                let fn_name = if field.name.starts_with("p_"){
+                let fn_name = if field.name.starts_with("p_") {
                     &field.name[2..]
                 } else if field.name.starts_with("pp_") {
                     &field.name[3..]
@@ -1797,8 +1807,26 @@ impl<'a> Generator<'a> {
             })
             .collect::<Result<Vec<_>>>()?;
 
+        let char_arr_setters = char_arr_fields.into_iter().map(|(field, size)| {
+            let name = format_ident!("{}", field.name);
+            let fn_name = format_ident!("get_{}", field.name);
+            let size_cst = format_ident!("{}", &size["VK_".len()..]);
+
+            quote! {
+                pub fn #fn_name(&self) -> &CStr {
+                    CStr::from_bytes_until_nul(
+                        unsafe {
+                            mem::transmute::<_, &[u8; #size_cst as _]>(&self.#name)
+                        }
+                        .as_slice(),
+                    )
+                    .unwrap()
+                }
+            }
+        });
+
         let array_accessors = length_fields
-            .iter()
+            .into_iter()
             .map(|(_, length_field)| {
                 if my_struct.return_only {
                     // TODO: still add getters
@@ -1940,6 +1968,7 @@ impl<'a> Generator<'a> {
 
             impl #lifetime #name #lifetime {
                 #(#simple_accessors)*
+                #(#char_arr_setters)*
                 #(#array_accessors)*
                 #p_next_impl
             }
@@ -2237,7 +2266,7 @@ impl<'a> Generator<'a> {
         name: &str,
         vk_name: &str,
         cmd_parsed: &CommandParamsParsed,
-        gen_ty: GeneratedCommandType,
+        _gen_ty: GeneratedCommandType,
         is_complex_handle: F,
     ) -> Result<TokenStream>
     where

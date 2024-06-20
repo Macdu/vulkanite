@@ -212,6 +212,16 @@ unsafe impl Allocator for DefaultAllocator {
     }
 }
 
+#[macro_export]
+macro_rules! flagbits {
+    ( $enum:ident ::{ $($variant:ident)|+ } ) => {
+        $($enum::$variant)|+
+    };
+    ( vk :: $enum:ident ::{ $($variant:ident)|+ } ) => {
+        $(vk::$enum::$variant)|+
+    }
+}
+
 mod private {
     /// For safety, prevent types outside this crate to implement Vulkan-specific traits
     pub trait Sealed {}

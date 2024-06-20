@@ -12,7 +12,7 @@ use crate::vk;
 compile_error!("Feature raw-window-metal should be enabled along raw-window-handle when compiling on MacOS/iOS");
 
 pub fn enumerate_required_extensions(
-    display_handle: RawDisplayHandle,
+    display_handle: &RawDisplayHandle,
 ) -> vk::Result<&'static [vk::InstanceExtensionName]> {
     let extensions = match display_handle {
         RawDisplayHandle::Windows(_) => &[vk::KHR_SURFACE.name, vk::KHR_WIN32_SURFACE.name],
@@ -41,8 +41,8 @@ pub mod raw {
         instance: &vk::raw::Instance,
         allocator: Option<&vk::AllocationCallbacks>,
         dispatcher: &vk::CommandsDispatcher,
-        display_handle: RawDisplayHandle,
-        window_handle: RawWindowHandle,
+        display_handle: &RawDisplayHandle,
+        window_handle: &RawWindowHandle,
     ) -> vk::Result<vk::raw::SurfaceKHR> {
         match (display_handle, window_handle) {
             (RawDisplayHandle::Windows(_), RawWindowHandle::Win32(window)) => {
@@ -140,8 +140,8 @@ pub mod rs {
 
     pub fn create_surface<D: Dispatcher, A: Allocator>(
         instance: &vk::rs::Instance<D, A>,
-        display_handle: RawDisplayHandle,
-        window_handle: RawWindowHandle,
+        display_handle: &RawDisplayHandle,
+        window_handle: &RawWindowHandle,
     ) -> vk::Result<vk::rs::SurfaceKHR> {
         super::raw::create_surface(
             instance,

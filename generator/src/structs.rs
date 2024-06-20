@@ -399,9 +399,12 @@ impl<'a> StructField<'a> {
 
         let (ty, vk_name) = match &content[..] {
             // <type>int32_t</type>        <name>x</name>
-            [Ty::Type(ty), Ty::Name(name)] => match name.as_str() {
+            [Ty::Type(ty), Ty::Name(name)] => match (ty.as_str(), name.as_str()) {
                 // we have some custom types for QoL improvements
-                "apiVersion" => (Type::Path("ApiVersion"), name),
+                (_, "apiVersion") => (Type::Path("ApiVersion"), name),
+                ("PFN_vkDebugUtilsMessengerCallbackEXT", _) => {
+                    (Type::Path("DebugUtilsMessengerCallbackEXT"), name)
+                }
                 _ => (Type::Path(ty), name),
             },
             // <type>char</type>           <name>deviceName</name>[<enum>VK_MAX_PHYSICAL_DEVICE_NAME_SIZE</enum>]
