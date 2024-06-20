@@ -1775,13 +1775,21 @@ impl<'a> Generator<'a> {
                 }
 
                 let name = format_ident!("{}", field.name);
+                let fn_name = if field.name.starts_with("p_"){
+                    &field.name[2..]
+                } else if field.name.starts_with("pp_") {
+                    &field.name[3..]
+                } else {
+                    &field.name
+                };
+                let fn_name = format_ident!("{fn_name}");
                 let ty = field.advanced_ty.get().unwrap();
                 let ty_name = self.generate_type_outer(&ty, field.optional, true)?;
                 let value =
                     self.generate_type_outer_to_inner(&ty, field.optional, format_ident!("value"))?;
                 Ok(quote! {
                     #[inline]
-                    pub fn #name(mut self, value: #ty_name) -> Self {
+                    pub fn #fn_name(mut self, value: #ty_name) -> Self {
                         self.#name = #value;
                         self
                     }
