@@ -1,22 +1,18 @@
+pub mod custom;
 pub mod dispatcher;
-pub mod extensions;
 pub mod enums;
+pub mod extensions;
 pub mod raw;
 pub mod rs;
 pub mod structs;
-pub mod custom;
 
-use std::{
-    ffi::{c_char, CStr},
-    fmt::Debug,
-    ptr::NonNull,
-};
+use std::ffi::CStr;
 
+pub use custom::*;
 pub use dispatcher::*;
 pub use enums::*;
-pub use structs::*;
 pub use extensions::*;
-pub use custom::*;
+pub use structs::*;
 
 impl Status {
     #[inline]
@@ -69,6 +65,6 @@ impl core::fmt::Display for Status {
 impl std::error::Error for Status {}
 
 /// Result type most Vulkan Function return
-/// You are guaranteed that if a vk::Result<A> is an Err
+/// You are guaranteed when calling a vulkan function that if a vk::Result<A> is an Err
 /// Then the status code is an error code
 pub type Result<A> = core::result::Result<A, Status>;

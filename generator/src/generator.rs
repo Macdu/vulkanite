@@ -23,7 +23,7 @@ use crate::{
     xml,
 };
 
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy,PartialEq, Eq)]
 pub enum GeneratedCommandType {
     Basic,
 }
@@ -688,6 +688,9 @@ impl<'a> Generator<'a> {
                 let doc_tag = make_doc_link(handle_name);
 
                 let methods = create_methods(cmds)?;
+                let alias_impl = (gen_ty == GeneratedCommandType::Basic).then(|| quote! {
+                    unsafe impl Alias<raw::#id_name> for #id_name {}
+                });
 
                 result.push(quote! {
                     #[repr(C)]
@@ -697,6 +700,8 @@ impl<'a> Generator<'a> {
                         disp: D,
                         alloc: A,
                     }
+
+                    #alias_impl
 
                     impl<D: Dispatcher, A: Allocator> Deref for #id_name<D,A> {
                         type Target = raw::#id_name;
@@ -1711,7 +1716,7 @@ impl<'a> Generator<'a> {
             }
 
             if field.xml.alt_len.is_some() {
-                // TODO: handle
+                // handled with specific code (only concern 5 structs so far)
                 simple_fields.remove(field.vk_name);
                 continue;
             }
@@ -1737,6 +1742,29 @@ impl<'a> Generator<'a> {
                 .array_fields
                 .push(field);
         }
+
+        for (_, field_with_len) in &length_fields {
+            if field_with_len
+                    .array_fields
+                    .iter()
+                    .all(|field| field.optional)
+            {
+                // if all slice fields are optional, we must give the option to set the length alone
+                // (for example descriptorCount in VkDescriptorSetLayoutBinding )
+                simple_fields.insert(&field_with_len.len_field.vk_name, field_with_len.len_field);
+            }
+        }
+
+        // remove length parameter associated with altlen fields
+        match struct_vk_name {
+            "VkShaderModuleCreateInfo" => {
+                simple_fields.remove("codeSize");
+            }
+            "VkPipelineMultisampleStateCreateInfo" => {
+                simple_fields.remove("rasterizationSamples");
+            }
+            _ => (),
+        };
 
         let iter = my_struct
             .fields
@@ -1825,6 +1853,37 @@ impl<'a> Generator<'a> {
             }
         });
 
+        // Some functions which are not worth fully automatically generating
+        let custom_accessors = match struct_vk_name {
+            "VkShaderModuleCreateInfo" => quote! {
+                #[inline]
+                pub fn code(mut self, value: &'a [u32]) -> Self {
+                    self.p_code = value.as_ptr();
+                    self.code_size = value.len() * 4;
+                    self
+                }
+            },
+            "VkPipelineMultisampleStateCreateInfo" => quote! {
+                #[inline]
+                pub fn rasterization_samples_with_mask(mut self, samples: SampleCountFlags, mask: Option<&'a [u32]>) -> Self {
+                    let count = samples.bits();
+                    assert!(count.is_power_of_two());
+                    assert!(mask.is_none() || mask.is_some_and(|arr| arr.len() as u32 == (count + 31) / 32));
+                    self.rasterization_samples = samples;
+                    self.p_sample_mask = mask.map(|arr| arr.as_ptr()).unwrap_or(ptr::null());
+                    self
+                }
+            },
+            "VkAccelerationStructureVersionInfoKHR" | "VkMicromapVersionInfoEXT" => quote! {
+                #[inline]
+                pub fn version_data(mut self, value: &'a [u8; (2*UUID_SIZE) as _]) -> Self {
+                    self.p_version_data = value.as_ptr();
+                    self
+                }
+            },
+            _ => quote!(),
+        };
+
         let array_accessors = length_fields
             .into_iter()
             .map(|(_, length_field)| {
@@ -1848,13 +1907,21 @@ impl<'a> Generator<'a> {
                 let setter_name = format_ident!("{}", var_name);
                 //let getter_name = format_ident!("get_{}", field.name[2..]);
                 let length_name = format_ident!("{}", length_field.len_field.name);
+                // a slice of size 0 can be seen as a none, no need for options if there is just one field
+                let can_be_optional = length_field.array_fields.len() > 1;
                 let ty_tokens = length_field.array_fields.iter().enumerate().map(|(idx, field)|{
-                    self.generate_slice_type(field.advanced_ty.get().unwrap(), idx as u32, format_ident!("{}", field.name), true, true)
+                    self.generate_slice_type(field.advanced_ty.get().unwrap(), idx as u32, format_ident!("{}", field.name), true, true, can_be_optional && field.optional)
                 }).collect::<Result<Vec<_>>>()?;
                 let field_names = length_field.array_fields.iter().map(|field| {
                     format_ident!("{}",field.name)
                 }).collect::<Vec<_>>();
-                let first_field_name = &field_names[0];
+                let len_value = if let Some((idx,_)) = length_field.array_fields.iter().enumerate().find(|(_,field)| !can_be_optional || !field.optional) {
+                    let used_field = &field_names[idx];
+                    quote! (#used_field.len() as _)
+                } else {
+                    let first_field = &field_names[0];
+                    quote! (#first_field.map(|p| p.len()).unwrap_or_default() as _)
+                };
                 let template_arg = ty_tokens.iter().map(|(x,_,_)| x).filter(|x| !x.is_empty());
                 let slice_ty = ty_tokens.iter().map(|(_,y,_)| y);
                 let attr = ty_tokens.iter().map(|(_,_,z)| z);
@@ -1862,7 +1929,7 @@ impl<'a> Generator<'a> {
                     #[inline]
                     pub fn #setter_name<#(#template_arg),*>(mut self, #(#field_names: #slice_ty),*) -> Self {
                         #(#attr;)*
-                        self.#length_name = #first_field_name.len() as _;
+                        self.#length_name = #len_value;
                         self
                     }
                 })
@@ -1917,6 +1984,18 @@ impl<'a> Generator<'a> {
             })
             .collect::<Result<Vec<_>>>()?;
 
+        // For the time being, do not try to implement clone on structs with unions inside
+        let has_field_union = my_struct
+            .fields
+            .iter()
+            .any(|field| match field.advanced_ty.get() {
+                Some(AdvancedType::Struct(ty_name)) => {
+                    self.get_struct(ty_name).is_some_and(|st| st.is_union)
+                }
+                _ => false,
+            });
+        let derives = (!has_lifetime && !has_field_union).then(|| quote! (#[derive(Clone)]));
+
         if my_struct.is_union {
             // union are much more lightweight
             // we should have wrapper around them (as they are unsafe)
@@ -1947,6 +2026,7 @@ impl<'a> Generator<'a> {
 
         Ok(quote! {
             #[repr(C)]
+            #derives
             #doc_tag
             pub struct #name #lifetime {
                 #(#fields)*
@@ -1969,6 +2049,7 @@ impl<'a> Generator<'a> {
             impl #lifetime #name #lifetime {
                 #(#simple_accessors)*
                 #(#char_arr_setters)*
+                #custom_accessors
                 #(#array_accessors)*
                 #p_next_impl
             }
@@ -2097,6 +2178,7 @@ impl<'a> Generator<'a> {
                         name.clone(),
                         false,
                         false,
+                        param.optional,
                     )?;
                     Ok(inner)
                 } else if output_fields
@@ -2550,6 +2632,9 @@ impl<'a> Generator<'a> {
         let length_mappings: HashMap<&str, &CommandParam> = vec_fields
             .iter()
             .filter_map(|(_, field)| {
+                if field.optional {
+                    return None;
+                }
                 let len = field.xml.len.as_ref()?;
                 cmd.params
                     .iter()
@@ -2591,6 +2676,7 @@ impl<'a> Generator<'a> {
                         name.clone(),
                         false,
                         false,
+                        param.optional,
                     )?;
                     Ok((templ, (name.to_token_stream(), outer)))
                 } else {
@@ -2845,15 +2931,27 @@ impl<'a> Generator<'a> {
         name: Ident,
         is_assignment: bool,
         with_lifetime: bool,
+        is_optional: bool,
     ) -> Result<(TokenStream, TokenStream, TokenStream)> {
         let get_lifetime =
             |ty: &str| (with_lifetime && self.compute_name_lifetime(ty)).then(|| quote! (<'a>));
         let life_a = with_lifetime.then_some(quote! ('a));
         let template_ty = format_ident!("V{}", index);
-        let simple_affectation = if is_assignment {
-            quote! (self.#name = ptr::from_ref(#name).cast())
+        let mut simple_affectation = if is_optional {
+            quote! (#name.map(|p| p.as_ptr().cast()).unwrap_or(ptr::null()))
         } else {
-            quote! (ptr::from_ref(#name).cast())
+            quote! (#name.as_ptr().cast())
+        };
+        if is_assignment {
+            simple_affectation = quote! (self.#name = #simple_affectation)
+        };
+
+        let wrap_ty = |ty: TokenStream| {
+            if is_optional {
+                quote! (Option<#ty>)
+            } else {
+                ty
+            }
         };
 
         match ty {
@@ -2861,7 +2959,7 @@ impl<'a> Generator<'a> {
                 let name = self.get_ident_name(name)?;
                 Ok((
                     quote! (#template_ty: Alias<raw::#name>),
-                    quote! (&#life_a [#template_ty]),
+                    wrap_ty(quote! (&#life_a [#template_ty])),
                     simple_affectation,
                 ))
             }
@@ -2870,13 +2968,13 @@ impl<'a> Generator<'a> {
                 let name = self.get_ident_name(name)?;
                 Ok((
                     quote!(),
-                    quote! (&#life_a [#name #lifetime]),
+                    wrap_ty(quote! (&#life_a [#name #lifetime])),
                     simple_affectation,
                 ))
             }
             AdvancedType::VoidPtr => {
                 // binary data
-                Ok((quote!(), quote!(&#life_a [u8]), simple_affectation))
+                Ok((quote!(), wrap_ty(quote!(&#life_a [u8])), simple_affectation))
             }
             AdvancedType::OtherDoublePtr(ty) => {
                 let lifetime = get_lifetime(ty);
@@ -2887,13 +2985,13 @@ impl<'a> Generator<'a> {
                 };
                 Ok((
                     quote!(),
-                    quote! (&#life_a [&#life_a #ty #lifetime]),
+                    wrap_ty(quote! (&#life_a [&#life_a #ty #lifetime])),
                     simple_affectation,
                 ))
             }
             AdvancedType::CStringPtr => Ok((
                 quote!(),
-                quote!(&#life_a [*const c_char]),
+                wrap_ty(quote!(&#life_a [*const c_char])),
                 simple_affectation,
             )),
             _ => Err(anyhow!("Trying to get array with unexpected type")),
