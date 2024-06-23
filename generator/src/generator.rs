@@ -23,7 +23,7 @@ use crate::{
     xml,
 };
 
-#[derive(Clone, Copy,PartialEq, Eq)]
+#[derive(Clone, Copy, PartialEq, Eq)]
 pub enum GeneratedCommandType {
     Basic,
 }
@@ -559,6 +559,7 @@ impl<'a> Generator<'a> {
         let result = quote! {
             // TODO: remove
             #![allow(unused_unsafe)]
+            #![allow(unused_mut)]
 
             use std::ffi::{c_int, c_void, CStr};
 
@@ -688,8 +689,10 @@ impl<'a> Generator<'a> {
                 let doc_tag = make_doc_link(handle_name);
 
                 let methods = create_methods(cmds)?;
-                let alias_impl = (gen_ty == GeneratedCommandType::Basic).then(|| quote! {
-                    unsafe impl Alias<raw::#id_name> for #id_name {}
+                let alias_impl = (gen_ty == GeneratedCommandType::Basic).then(|| {
+                    quote! {
+                        unsafe impl Alias<raw::#id_name> for #id_name {}
+                    }
                 });
 
                 result.push(quote! {
@@ -1745,9 +1748,9 @@ impl<'a> Generator<'a> {
 
         for (_, field_with_len) in &length_fields {
             if field_with_len
-                    .array_fields
-                    .iter()
-                    .all(|field| field.optional)
+                .array_fields
+                .iter()
+                .all(|field| field.optional)
             {
                 // if all slice fields are optional, we must give the option to set the length alone
                 // (for example descriptorCount in VkDescriptorSetLayoutBinding )
@@ -2068,7 +2071,7 @@ impl<'a> Generator<'a> {
     ) -> Result<TokenStream> {
         let ret_type = match cmd.return_ty {
             ReturnType::Void => quote!(),
-            ReturnType::Result => quote! (-> Status),
+            ReturnType::Result { .. } => quote! (-> Status),
             ReturnType::BaseType(name) => {
                 let name = self
                     .mapping
@@ -2218,16 +2221,29 @@ impl<'a> Generator<'a> {
         let args_outer_name = parsed_args_in.iter().map(|(x, _)| x);
         let args_outer_type = parsed_args_in.iter().map(|(_, y)| y);
 
-        let (ret_type, pre_call, post_call, ret_template) = match cmd.return_ty {
+        let (ret_type, pre_call, post_call, ret_template, inner_call) = match cmd.return_ty {
             ReturnType::BaseType(name) => {
                 let ty_name = self.get_ident_name(name)?;
-                (quote! (-> #ty_name), None, None, None)
+                (quote! (-> #ty_name), None, None, None, None)
             }
-            ReturnType::Result if output_fields.is_empty() => {
-                (quote! (-> Status), None, None, None)
-            }
+            ReturnType::Result { nb_successes, .. } if output_fields.is_empty() => (
+                if nb_successes > 1 {
+                    quote! (-> Result<Status>)
+                } else {
+                    quote! (-> Result<()>)
+                },
+                None,
+                if nb_successes > 1 {
+                    Some(quote! (.into_result()))
+                } else {
+                    Some(quote! (.map_success(|| ())))
+                },
+                None,
+                None,
+            ),
             _ if !output_fields.is_empty() => {
-                let has_status = cmd.return_ty == ReturnType::Result;
+                let has_status = matches!(cmd.return_ty, ReturnType::Result { .. });
+                let has_many_successes = matches!(cmd.return_ty, ReturnType::Result { nb_successes, .. } if nb_successes > 1);
                 let (_, field) = output_fields[0];
                 let ret_type = match field.ty {
                     Type::Ptr(name) => name,
@@ -2269,6 +2285,9 @@ impl<'a> Generator<'a> {
                     result_quote = quote!(S)
                 }
                 if has_status {
+                    if has_many_successes {
+                        result_quote = quote! ((Status, #result_quote))
+                    }
                     result_quote = quote! (Result<#result_quote>)
                 }
                 let prev_affectation = has_status.then(|| quote! (let vk_status = ));
@@ -2281,14 +2300,14 @@ impl<'a> Generator<'a> {
                 } else {
                     quote! (#field_name.assume_init())
                 };
-                let return_result = if has_status {
-                    quote! (; vk_status.map_success(|| {#return_cast}))
-                } else {
-                    quote! (; #return_cast)
+                let return_result = match (has_status, has_many_successes) {
+                    (true, true) => quote! (; vk_status.map_successes(|| {#return_cast})),
+                    (true, false) => quote! (; vk_status.map_success(|| {#return_cast})),
+                    _ => quote! (; #return_cast),
                 };
                 let param_init = if let Some(internal_length) = &internal_length {
                     Some(
-                        quote! (let mut #field_name = R::allocate_with_capacity(#internal_length as _); #prev_affectation),
+                        quote! (let mut #field_name = R::create_with_capacity(#internal_length as _); #prev_affectation),
                     )
                 } else if let Some(external_length) = &external_length {
                     let first_call_args = args_inner.clone();
@@ -2299,9 +2318,9 @@ impl<'a> Generator<'a> {
                         let #field_name = ptr::null_mut();
                         vulkan_command(#(#first_call_args),*)#map_success;
                         let mut vk_len = vk_len.assume_init();
-                        let mut vk_vec = R::allocate_with_capacity(vk_len as _);
-                        let #external_length = ptr::from_mut(&mut vk_len);
-                        let #field_name = vk_vec.get_content_mut_ptr();
+                        let mut vk_vec = R::create_with_capacity(vk_len as _);
+                        let mut #external_length = ptr::from_mut(&mut vk_len);
+                        let mut #field_name = vk_vec.get_content_mut_ptr();
                         #prev_affectation
                     })
                 } else if is_structure_type {
@@ -2318,15 +2337,36 @@ impl<'a> Generator<'a> {
                 } else {
                     None
                 };
+                let inner_call = match (&cmd.return_ty, external_length) {
+                    (ReturnType::Result { has_incomplete, .. }, Some(external_length))
+                        if *has_incomplete =>
+                    {
+                        Some(quote! {
+                            loop {
+                                let status = vulkan_command(#(#args_inner),*);
+                                if status != Status::Incomplete {
+                                    break status;
+                                }
+                                vk_vec.update_with_capacity(vk_len as _);
+                                #external_length = ptr::from_mut(&mut vk_len);
+                                #field_name = vk_vec.get_content_mut_ptr();
+                            }
+                        })
+                    }
+                    _ => None,
+                };
                 (
                     quote! (-> #result_quote),
                     Some(param_init),
                     Some(return_result),
                     ret_template,
+                    inner_call,
                 )
             }
-            _ => (quote!(), None, None, None),
+            _ => (quote!(), None, None, None, None),
         };
+
+        let inner_call = inner_call.unwrap_or_else(|| quote! (vulkan_command(#(#args_inner),*)));
 
         let func_name = format_ident!("{name}");
         let doc = make_doc_link(vk_name);
@@ -2336,7 +2376,7 @@ impl<'a> Generator<'a> {
                 let vulkan_command = dispatcher.#func_name.get().expect("Vulkan command not loaded.");
                 unsafe {
                     #pre_call
-                    vulkan_command(#(#args_inner),*)
+                    #inner_call
                     #post_call
                 }
             }
@@ -2416,11 +2456,19 @@ impl<'a> Generator<'a> {
                 let ty_name = self.get_ident_name(name)?;
                 (quote! (-> #ty_name), None, None, None)
             }
-            ReturnType::Result if cmd_parsed.output_fields.is_empty() => {
-                (quote! (-> Status), None, None, None)
-            }
+            ReturnType::Result { nb_successes, .. } if cmd_parsed.output_fields.is_empty() => (
+                if nb_successes > 1 {
+                    quote! (-> Result<Status>)
+                } else {
+                    quote! (-> Result<()>)
+                },
+                None,
+                None,
+                None,
+            ),
             _ if !cmd_parsed.output_fields.is_empty() => {
-                let has_status = cmd.return_ty == ReturnType::Result;
+                let has_status = matches!(cmd.return_ty, ReturnType::Result { .. });
+                let has_many_successes = matches!(cmd.return_ty, ReturnType::Result { nb_successes, .. } if nb_successes > 1);
                 let (_, field) = cmd_parsed.output_fields[0];
                 let ret_type = match field.ty {
                     Type::Ptr(name) => name,
@@ -2448,7 +2496,11 @@ impl<'a> Generator<'a> {
                 let pre_call = needs_transformation.then(|| {
                     let type_descr = is_vec.then(|| {
                         if has_status {
-                            quote! (: Result<R::InnerArrayType>)
+                            if has_many_successes {
+                                quote! (: Result<(Status, R::InnerArrayType)>)
+                            } else {
+                                quote! (: Result<R::InnerArrayType>)
+                            }
                         } else {
                             quote! (: R::InnerArrayType)
                         }
@@ -2480,7 +2532,12 @@ impl<'a> Generator<'a> {
                         quote!(#ret_name::from_inner_with(vk_result, self.disp.clone(), self.alloc.clone()))
                     };
                     if has_status {
-                        quote! (; vk_result.map(|vk_result| #mapping_fn))
+                        if has_many_successes {
+                            quote! (; vk_result.map(|(status, vk_result)| (status, #mapping_fn)))
+                        } else {
+                            quote! (; vk_result.map(|vk_result| #mapping_fn))
+                        }
+                        
                     } else {
                         quote! (; #mapping_fn)
                     }
@@ -2493,6 +2550,9 @@ impl<'a> Generator<'a> {
                     result_quote = quote!(S)
                 }
                 if has_status {
+                    if has_many_successes {
+                        result_quote = quote! ((Status, #result_quote))
+                    }
                     result_quote = quote! (Result<#result_quote>)
                 }
 

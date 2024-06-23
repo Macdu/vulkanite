@@ -425,8 +425,10 @@ impl VulkanApplication {
             .render_pass(Some(&render_pass))
             .subpass(0);
 
-        let mut pipeline: SmallVec<[_; 1]> =
+        let (status, mut pipeline): (_, SmallVec<[_; 1]>) =
             device.create_graphics_pipelines(None, slice::from_ref(&pipeline_info))?;
+        // Status can technically be vk::Status::PipelineCompileRequired
+        assert!(status == vk::Status::Success);
 
         Ok((
             [vertex_module, fragment_module],
@@ -479,13 +481,11 @@ impl VulkanApplication {
         cmd_buffer: &vk::rs::CommandBuffer,
         image_idx: usize,
     ) -> Result<()> {
-        cmd_buffer.reset(Default::default()).map_success(|| ())?;
-        cmd_buffer
-            .begin(
-                &vk::CommandBufferBeginInfo::default()
-                    .flags(vk::CommandBufferUsageFlags::OneTimeSubmit),
-            )
-            .map_success(|| ())?;
+        cmd_buffer.reset(Default::default())?;
+        cmd_buffer.begin(
+            &vk::CommandBufferBeginInfo::default()
+                .flags(vk::CommandBufferUsageFlags::OneTimeSubmit),
+        )?;
 
         let clear_value = vk::ClearValue {
             color: ManuallyDrop::new(vk::ClearColorValue {
@@ -529,7 +529,7 @@ impl VulkanApplication {
         cmd_buffer.draw(3, 1, 0, 0);
         cmd_buffer.end_render_pass();
 
-        cmd_buffer.end().map_success(|| ())?;
+        cmd_buffer.end()?;
         Ok(())
     }
 
@@ -541,55 +541,50 @@ impl VulkanApplication {
         let image_available = &self.image_available[curr_index];
 
         self.device
-            .wait_for_fences(slice::from_ref(fence), vk::TRUE, u64::MAX)
-            .map_success(|| ())?;
+            .wait_for_fences(slice::from_ref(fence), vk::TRUE, u64::MAX)?;
 
-        self.device
-            .reset_fences(slice::from_ref(fence))
-            .map_success(|| ())?;
-        let image_idx = self.device.acquire_next_image_khr(
+        self.device.reset_fences(slice::from_ref(fence))?;
+        let (status, image_idx) = self.device.acquire_next_image_khr(
             &self.swapchain_objects.swapchain,
             u64::MAX,
             Some(image_available),
             None,
-        )? as usize;
+        )?;
+        let image_idx = image_idx as usize;
+        assert!(status == vk::Status::Success || status == vk::Status::SuboptimalKHR);
 
         let render_finished = &self.render_finished[curr_index];
 
         let cmd_buffer = &self.cmd_buffers[image_idx];
         self.record_command_buffer(cmd_buffer, image_idx)?;
 
-        self.queue
-            .submit(
-                &[vk::SubmitInfo::default()
-                    .wait_semaphore(
-                        slice::from_ref(image_available),
-                        Some(&[vk::PipelineStageFlags::ColorAttachmentOutput]),
-                    )
-                    .command_buffers(slice::from_ref(cmd_buffer))
-                    .signal_semaphores(slice::from_ref(render_finished))],
-                Some(fence),
-            )
-            .map_success(|| ())?;
+        self.queue.submit(
+            &[vk::SubmitInfo::default()
+                .wait_semaphore(
+                    slice::from_ref(image_available),
+                    Some(&[vk::PipelineStageFlags::ColorAttachmentOutput]),
+                )
+                .command_buffers(slice::from_ref(cmd_buffer))
+                .signal_semaphores(slice::from_ref(render_finished))],
+            Some(fence),
+        )?;
 
-        self.queue
-            .present_khr(
-                &vk::PresentInfoKHR::default()
-                    .wait_semaphores(slice::from_ref(render_finished))
-                    .swapchain(
-                        slice::from_ref(&self.swapchain_objects.swapchain),
-                        &[image_idx as u32],
-                        None,
-                    ),
-            )
-            .map_success(|| ())?;
+        self.queue.present_khr(
+            &vk::PresentInfoKHR::default()
+                .wait_semaphores(slice::from_ref(render_finished))
+                .swapchain(
+                    slice::from_ref(&self.swapchain_objects.swapchain),
+                    &[image_idx as u32],
+                    None,
+                ),
+        )?;
         Ok(())
     }
 }
 
 impl Drop for VulkanApplication {
     fn drop(&mut self) {
-        self.device.wait_idle().map_success(|| ()).unwrap();
+        self.device.wait_idle().unwrap();
 
         self.swapchain_objects.destroy(&self.device);
 

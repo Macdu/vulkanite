@@ -515,7 +515,16 @@ impl<'a> TryFrom<&'a xml::Command> for Command<'a> {
             .ok_or_else(|| anyhow!("Command {value:?} does not have a proto"))?;
         let return_ty = match proto.ty.as_str() {
             "void" => ReturnType::Void,
-            "VkResult" => ReturnType::Result,
+            "VkResult" => {
+                let nb_errors = value.error_codes.len() as u32;
+                let has_incomplete = value.success_codes.contains(&String::from("VK_INCOMPLETE"));
+                let nb_successes = value.success_codes.len() as u32 - (has_incomplete as u32);
+                ReturnType::Result {
+                    nb_successes,
+                    nb_errors,
+                    has_incomplete,
+                }
+            }
             _ => ReturnType::BaseType(&proto.ty),
         };
         assert!(proto.name.starts_with("vk"));
@@ -542,7 +551,11 @@ impl<'a> TryFrom<&'a xml::Command> for Command<'a> {
 #[derive(PartialEq, Eq)]
 pub enum ReturnType<'a> {
     Void,
-    Result,
+    Result {
+        nb_successes: u32,
+        nb_errors: u32,
+        has_incomplete: bool,
+    },
     BaseType(&'a str),
 }
 

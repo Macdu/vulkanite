@@ -54,6 +54,14 @@ impl Status {
             Err((self, result))
         }
     }
+
+    pub fn into_result(self) -> Result<Self> {
+        if self.is_success() {
+            Ok(self)
+        } else {
+            Err(self)
+        }
+    }
 }
 
 impl core::fmt::Display for Status {

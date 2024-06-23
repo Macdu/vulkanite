@@ -293,12 +293,7 @@ impl<'a, T: Handle> AsRef<T> for BorrowedHandle<'a, T> {
         // SAFETY: BorrowedHandle<T> and T have the same internal representation
         // Moreover, the reference will only live as long as the borrowed handle
         // (it cannot live as long as the original one as we are not tracking it location)
-        unsafe {
-            ptr::from_ref(&self.value)
-                .cast::<T>()
-                .as_ref()
-                .unwrap_unchecked()
-        }
+        unsafe { mem::transmute(self) }
     }
 }
 
@@ -317,12 +312,7 @@ unsafe impl<'a, T: Handle> Alias<T> for BorrowedMutHandle<'a, T> {}
 impl<'a, T: Handle> AsMut<T> for BorrowedMutHandle<'a, T> {
     fn as_mut(&mut self) -> &mut T {
         // SAFETY: Same as [BorrowedHandle::AsRef]
-        unsafe {
-            ptr::from_mut(&mut self.value)
-                .cast::<T>()
-                .as_mut()
-                .unwrap_unchecked()
-        }
+        unsafe { mem::transmute(self) }
     }
 }
 
@@ -335,7 +325,12 @@ pub unsafe trait DynamicArray<T: Sized>: IntoIterator<Item = T> {
     /// Returns an array with at least the given capacity available
     /// Calling get_content_mut_ptr on an object allocated with allocate_with_capacity(capacity) should return
     /// A contiguous properly aligned allocated region of memory which can hold capacity elements of T
-    fn allocate_with_capacity(capacity: usize) -> Self;
+    fn create_with_capacity(capacity: usize) -> Self;
+
+    /// Called after creation (in the case where a Vulkan command returns VK_INCOMPLETE)
+    /// The new capacity should be strictly greater than the current one
+    /// You can assume the length of the vector is 0 when calling this function
+    fn update_with_capacity(&mut self, new_capacity: usize);
 
     /// Returns a pointer to the array memory
     fn get_content_mut_ptr(&mut self) -> *mut T;
@@ -354,8 +349,14 @@ pub trait AdvancedDynamicArray<T: Sized, S: Sized>: DynamicArray<T> + FromIterat
 }
 
 unsafe impl<T: Sized> DynamicArray<T> for Vec<T> {
-    fn allocate_with_capacity(capacity: usize) -> Self {
+    fn create_with_capacity(capacity: usize) -> Self {
         Self::with_capacity(capacity)
+    }
+
+    fn update_with_capacity(&mut self, new_capacity: usize) {
+        // we assume the length is 0, otherwise the appropriate value would be
+        // (with underflow checking) new_capacity - self.len()
+        self.reserve(new_capacity)
     }
 
     fn get_content_mut_ptr(&mut self) -> *mut T {
@@ -376,8 +377,12 @@ unsafe impl<T: Sized, A> DynamicArray<T> for SmallVec<A>
 where
     A: smallvec::Array<Item = T>,
 {
-    fn allocate_with_capacity(capacity: usize) -> Self {
+    fn create_with_capacity(capacity: usize) -> Self {
         Self::with_capacity(capacity)
+    }
+
+    fn update_with_capacity(&mut self, new_capacity: usize) {
+        self.reserve(new_capacity)
     }
 
     fn get_content_mut_ptr(&mut self) -> *mut T {
