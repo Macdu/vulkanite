@@ -879,3 +879,39 @@ macro_rules! structure_chain {
         $crate::StructureChain6<$head, $ext1, $ext2, $ext3, $ext4, $ext5, $ext6>
     };
 }
+
+/// Includes a file as a reference to a u32 array.
+/// This macro is really similar to rust macro [include_bytes], the main difference is that data is provided as a u32 array instead of a u8 array
+/// As a consequence the data is 4-byte aligned. Moreover, if the file included has not a size which is a multiple of 4 bytes, it will cause a compile-time error
+/// The main purpose of this macro in this library is to embed spirv code in a program, as include_bytes! requires at least an additional copy and can easily be misused for this case
+///
+/// The file is located relative to the current file (similarly to how modules are found). The provided path is interpreted in a platform-specific way at compile time. So, for instance, an invocation with a Windows path containing backslashes \ would not compile correctly on Unix.
+///
+/// This macro will yield an expression of type &'static \[u32; N\] which is the contents of the file.
+/// This macro is inspired by https://users.rust-lang.org/t/can-i-conveniently-compile-bytes-into-a-rust-program-with-a-specific-alignment/24049
+/// # Example
+/// ```
+/// let vertex_shader = include_spirv!("vert.spirv");
+/// let vertex_module = device.create_shader_module(
+///     &vk::ShaderModuleCreateInfo::default().code(vertex_shader),
+/// )?;
+/// ```
+#[macro_export]
+macro_rules! include_spirv {
+    ($path:literal) => {{
+        #[repr(align(4))]
+        struct AlignedStruct<Bytes: ?Sized> {
+            bytes: Bytes
+        }
+
+        static ALIGNED: &'static AlignedStruct<[u8]> = {
+            let bytes = include_bytes!($path);
+            assert!(bytes.len() % 4 == 0, concat!("The file ", $path, " must have a size which is a multiple of 4 bytes"));
+            &AlignedStruct{
+                bytes: *bytes
+            }
+        };
+
+        unsafe { std::slice::from_raw_parts(ALIGNED.bytes.as_ptr() as *const u32, ALIGNED.bytes.len() / 4) }
+    }};
+}

@@ -5,7 +5,7 @@ use anyhow::{anyhow, Result};
 use raw_window_handle::{HasDisplayHandle, HasWindowHandle, RawDisplayHandle};
 use smallvec::{smallvec, SmallVec};
 use vk_headers::{
-    flagbits,
+    flagbits, include_spirv,
     vk::{self, PipelineVertexInputStateCreateInfo},
     window, DefaultAllocator, DynamicDispatcher,
 };
@@ -347,7 +347,7 @@ impl VulkanApplication {
                fragColor = colors[gl_VertexIndex];
            }
         */
-        let vertex_shader_code = include_bytes!("vert.spv");
+        let vertex_shader_code = include_spirv!("vert.spv");
         /*
            Compiled with glslangValidator -V ./shader.frag
 
@@ -360,19 +360,14 @@ impl VulkanApplication {
                outColor = vec4(fragColor, 1.0);
            }
         */
-        let fragment_shader_code = include_bytes!("frag.spv");
+        let fragment_shader_code = include_spirv!("frag.spv");
 
-        let create_module = |code: &'static [u8]| {
-            // not the most efficient way, but it works
-            let aligned_code: Vec<u32> = code
-                .chunks(4)
-                .map(|chunk| u32::from_ne_bytes(chunk.try_into().unwrap()))
-                .collect();
-            device.create_shader_module(&vk::ShaderModuleCreateInfo::default().code(&aligned_code))
-        };
-
-        let vertex_module = create_module(vertex_shader_code)?;
-        let fragment_module = create_module(fragment_shader_code)?;
+        let vertex_module = device.create_shader_module(
+            &vk::ShaderModuleCreateInfo::default().code(vertex_shader_code),
+        )?;
+        let fragment_module = device.create_shader_module(
+            &vk::ShaderModuleCreateInfo::default().code(fragment_shader_code),
+        )?;
 
         let shaders = [
             vk::PipelineShaderStageCreateInfo::default()
