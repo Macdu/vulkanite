@@ -1,11 +1,11 @@
 //! Some custom Vulkan types which are implemented as Quality-Of-Life improvements over the existing ones
-use std::ffi::CStr;
-use std::{ffi::c_char, ptr::NonNull};
+use std::ffi::c_char;
+use std::ffi::{c_void, CStr};
 
 use crate::vk;
 
 // to remove
-pub(crate) type VoidPtr = Option<NonNull<()>>;
+pub(crate) type VoidPtr = *const c_void;
 pub(crate) type FuncPtr = *const ();
 
 #[repr(u32)]

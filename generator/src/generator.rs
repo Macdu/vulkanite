@@ -151,6 +151,7 @@ impl<'a> Generator<'a> {
             ("Window", "u32"),
             ("xcb_window_t", "u32"),
             // Custom types for QoL improvements
+            ("VoidPtr", "VoidPtr"),
             ("ApiVersion", "ApiVersion"),
             ("InstanceExtensionName", "InstanceExtensionName"),
             ("DeviceExtensionName", "DeviceExtensionName"),
@@ -413,11 +414,10 @@ impl<'a> Generator<'a> {
             use crate::*;
             use crate::vk::*;
             use crate::vk::raw::*;
-            use core::slice;
-            use std::ptr::{self, NonNull};
+            use std::ptr;
             use std::array;
             use std::marker::PhantomData;
-            use std::ffi::{c_char, c_int};
+            use std::ffi::{c_char, c_int, c_void};
             use std::mem::ManuallyDrop;
 
             #(#struct_features)*
@@ -476,7 +476,7 @@ impl<'a> Generator<'a> {
 
             use std::mem;
             use std::cell::Cell;
-            use std::ffi::{c_char, c_int};
+            use std::ffi::{c_char, c_int, c_void};
 
             #[derive(Default, Clone)]
             pub struct CommandsDispatcher {
@@ -561,7 +561,7 @@ impl<'a> Generator<'a> {
             #![allow(unused_unsafe)]
             #![allow(unused_mut)]
 
-            use std::ffi::{c_int, c_void, CStr};
+            use std::ffi::{c_int, CStr};
 
             use crate::*;
             use crate::vk::*;
@@ -757,7 +757,7 @@ impl<'a> Generator<'a> {
 
         let result = quote! {
             use std::{
-                ffi::{c_int, c_void, CStr},
+                ffi::{c_int, CStr},
                 ops::Deref,
             };
             use crate::{vk::*, Alias, Allocator, AdvancedDynamicArray, DefaultAllocator, Dispatcher, DynamicArray, DynamicDispatcher, StructureChainOut};
@@ -1379,6 +1379,7 @@ impl<'a> Generator<'a> {
                 Some(MappingType::Handle | MappingType::HandleAlias(_)) => AT::Handle(name),
                 Some(MappingType::Enum | MappingType::AliasedEnum(_)) => AT::Enum(name),
                 Some(MappingType::FunctionPtr) => AT::Func(name),
+                Some(MappingType::BaseType) if *name == "VoidPtr" => AT::VoidPtr,
                 _ => AT::Other(name),
             },
             Type::Ptr(name) => {
@@ -1388,6 +1389,8 @@ impl<'a> Generator<'a> {
                     AT::HandlePtr(name)
                 } else if *name == "char" {
                     AT::CString
+                } else if *name == "void" {
+                    AT::VoidPtr
                 } else {
                     AT::OtherPtr(name)
                 }
@@ -2190,6 +2193,7 @@ impl<'a> Generator<'a> {
                 {
                     let param_name = match param.ty {
                         Type::Ptr(name) => name,
+                        Type::DoublePtr("void") => "VoidPtr",
                         _ => return Err(anyhow!("Param {} should be a pointer", param.vk_name)),
                     };
                     let is_structure_type = self
@@ -2247,6 +2251,7 @@ impl<'a> Generator<'a> {
                 let (_, field) = output_fields[0];
                 let ret_type = match field.ty {
                     Type::Ptr(name) => name,
+                    Type::DoublePtr("void") => "VoidPtr",
                     _ => return Err(anyhow!("Could not use return field for {name}")),
                 };
                 let ret_name = self.get_ident_name(ret_type)?;
@@ -2472,6 +2477,7 @@ impl<'a> Generator<'a> {
                 let (_, field) = cmd_parsed.output_fields[0];
                 let ret_type = match field.ty {
                     Type::Ptr(name) => name,
+                    Type::DoublePtr("void") => "VoidPtr",
                     _ => return Err(anyhow!("Could not use return field for {name}")),
                 };
                 let ret_name = self.get_ident_name(ret_type)?;
@@ -2613,6 +2619,7 @@ impl<'a> Generator<'a> {
         for param in &cmd.params {
             let ptr_content = match param.ty {
                 Type::Ptr(name) => name,
+                Type::DoublePtr("void") => "VoidPtr",
                 _ => continue,
             };
 
@@ -2785,8 +2792,8 @@ impl<'a> Generator<'a> {
 
         type AT<'a> = AdvancedType<'a>;
         let result = match ty {
-            AT::Void => quote!(()),
-            AT::VoidPtr => quote!(*const ()),
+            AT::Void => quote!(c_void),
+            AT::VoidPtr => quote!(VoidPtr),
             AT::Enum(ty) | AT::Other(ty) => {
                 let ty_ident = self.get_ident_name(ty)?;
                 quote! (#ty_ident)
@@ -2796,7 +2803,7 @@ impl<'a> Generator<'a> {
                 quote! (Option<#ty_ident>)
             }
             AT::Func(_ty) => {
-                quote!(*const ())
+                quote!(FuncPtr)
             }
             AT::Struct(ty) => {
                 let lifetime = get_lifetime(ty);
@@ -2815,7 +2822,7 @@ impl<'a> Generator<'a> {
             AT::OtherDoublePtr(ty) => {
                 let lifetime = get_lifetime(ty);
                 let ty = if *ty == "void" {
-                    quote!(())
+                    quote!(c_void)
                 } else {
                     self.get_ident_name(ty)?.into_token_stream()
                 };
@@ -3076,9 +3083,9 @@ impl<'a> Generator<'a> {
             | AdvancedType::OtherDoubleArray(_, _, _) => Ok(quote!(Default::default())),
             AdvancedType::Other(name) => {
                 // We can't use default if the basetype is the alias of a pointer
-                self.structs
+                let is_struct_voidptr = self.structs
                     .get(name)
-                    .filter(|my_struct| {
+                    .is_some_and(|my_struct| {
                         matches!(
                             my_struct,
                             Struct::BaseType(StructBasetype {
@@ -3086,11 +3093,18 @@ impl<'a> Generator<'a> {
                                 ..
                             })
                         )
-                    })
-                    .map_or_else(
-                        || Ok(quote!(Default::default())),
-                        |_| Ok(quote!(ptr::null())),
-                    )
+                    });
+
+                // imported structs are not in self.structs, but we also need to check for them
+                let is_imported_voidptr = self.mapping.borrow().get(name).is_some_and(|entry| 
+                    matches!((entry.ty, entry.name.as_str()), (MappingType::BaseType, "VoidPtr"))
+                );
+
+                if is_struct_voidptr || is_imported_voidptr {
+                    Ok(quote! (ptr::null()))
+                } else {
+                    Ok(quote! (Default::default()))
+                }
             }
             AdvancedType::Enum(name) => {
                 // There is no default for regular enums

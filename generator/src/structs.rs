@@ -169,6 +169,7 @@ impl<'a> TryFrom<&'a xml::Enum> for Constant<'a> {
 pub struct Handle<'a> {
     pub name: &'a str,
     pub is_dispatchable: bool,
+    #[allow(dead_code)]
     pub parent: Option<&'a str>,
     pub object_type: &'a str,
     pub aliases: RefCell<Vec<&'a str>>,
@@ -730,7 +731,7 @@ pub enum MappingType<'a> {
     Struct,
     AliasedStruct(&'a str),
     Command,
-    CommandAlias(&'a str),
+    CommandAlias(#[allow(dead_code)] &'a str),
     FunctionPtr,
 }
 
