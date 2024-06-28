@@ -345,11 +345,13 @@ impl<'a> Generator<'a> {
             .collect::<Result<Vec<_>>>()?;
 
         let result = quote! {
+            use crate::private;
+            use crate::{vk::ObjectType, Handle};
+            
             use core::fmt;
-            use std::num::{NonZeroUsize, NonZeroU64};
-
-            use crate::{handle_dispatchable, handle_nondispatchable, vk_handle, private};
-            use crate::{Handle, vk::ObjectType};
+            use std::num::{NonZeroU64, NonZeroUsize};
+            
+            include! {"handles-def.rs"}
 
             #(#feature_handles)*
             #(#feature_extensions)*
@@ -1675,7 +1677,7 @@ impl<'a> Generator<'a> {
             .collect::<Vec<_>>();
 
         Ok(quote! {
-            #dispatch_macro !{#name, #object_type, #doc_tag}
+            #dispatch_macro !{#name, #object_type, #doc_tag, #vk_name}
             #(#aliases)*
         })
     }
@@ -3217,7 +3219,11 @@ fn get_doc_url(item_name: &str) -> String {
 
 fn make_doc_link(item_name: &str) -> TokenStream {
     let doc_name = get_doc_url(item_name);
-    quote! (#[doc = #doc_name])
+    let alias_name = item_name
+        .to_ascii_lowercase()
+        .starts_with("vk")
+        .then(|| quote! (#[doc(alias = #item_name)]));
+    quote! (#[doc = #doc_name] #alias_name)
 }
 
 fn make_doc_link_inner(item_name: &str) -> TokenStream {

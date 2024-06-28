@@ -1,4 +1,4 @@
-use std::{error::Error, fs, io::BufReader};
+use std::{error::Error, fs, io::BufReader, path::PathBuf};
 
 use generator::{GeneratedCommandType, Generator};
 use quick_xml::de::from_reader;
@@ -17,26 +17,29 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     let generator = Generator::new(Api::Vulkan, &registry)?;
 
+    let main_crate_name = "vk-headers";
+    let crate_vk = PathBuf::from(&format!("{main_crate_name}/src/vk"));
+
     let extensions = generator.generate_extensions()?;
-    fs::write("src/vk/extensions.rs", extensions)?;
+    fs::write(crate_vk.join("extensions.rs"), extensions)?;
 
     let enums = generator.generate_enums()?;
-    fs::write("src/vk/enums.rs", enums)?;
+    fs::write(crate_vk.join("enums.rs"), enums)?;
 
     let handles = generator.generate_handles()?;
-    fs::write("src/vk/raw/handles.rs", handles)?;
+    fs::write(crate_vk.join("raw/handles.rs"), handles)?;
 
     let structs = generator.generate_structs()?;
-    fs::write("src/vk/structs.rs", structs)?;
+    fs::write(crate_vk.join("structs.rs"), structs)?;
 
     let dispatcher = generator.generate_dispatcher()?;
-    fs::write("src/vk/dispatcher.rs", dispatcher)?;
+    fs::write(crate_vk.join("dispatcher.rs"), dispatcher)?;
 
     let raw_commands = generator.generate_raw_commands()?;
-    fs::write("src/vk/raw/commands.rs", raw_commands)?;
+    fs::write(crate_vk.join("raw/commands.rs"), raw_commands)?;
 
     let basic_commands = generator.generate_advanced_commands(GeneratedCommandType::Basic)?;
-    fs::write("src/vk/rs/commands.rs", basic_commands)?;
+    fs::write(crate_vk.join("rs/commands.rs"), basic_commands)?;
 
     Ok(())
 }
