@@ -7,7 +7,7 @@ use smallvec::{smallvec, SmallVec};
 use vk_headers::{
     flagbits, include_spirv,
     vk::{self, PipelineVertexInputStateCreateInfo},
-    window, DefaultAllocator, DynamicDispatcher,
+    window, DefaultAllocator, Dispatcher, DynamicDispatcher,
 };
 use winit::{
     application::ApplicationHandler,

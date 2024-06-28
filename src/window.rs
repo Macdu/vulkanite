@@ -1,4 +1,5 @@
-//! Functions that provide interop with the raw-window-handle crate
+//! Functions that provide interop with the raw-window-handle crate.
+//! 
 //! These are largely inspired from the ash-window crate
 
 use raw_window_handle::RawDisplayHandle;
@@ -11,6 +12,11 @@ use crate::vk;
 ))]
 compile_error!("Feature raw-window-metal should be enabled along raw-window-handle when compiling on MacOS/iOS");
 
+/// Given a raw display handle, return a list of instance extensions that must be available and specified
+/// when creating a vulkan instance in order to create a surface on the current device
+/// The surface extension [vk::KHR_SURFACE] is always included if the returned value is not an error
+/// In case creating a swapchain is not supported given the display handle, the error [vk::Status::ErrorExtensionNotPresent]
+/// will be returned
 pub fn enumerate_required_extensions(
     display_handle: &RawDisplayHandle,
 ) -> vk::Result<&'static [vk::InstanceExtensionName]> {
@@ -37,6 +43,9 @@ pub mod raw {
 
     use crate::vk;
 
+    /// Given an instance, a display handle and a window handle, create a surface associated with 
+    /// the instance from these handles. Note that the underlying display/window must live at least
+    /// as long as the surface
     pub fn create_surface(
         instance: &vk::raw::Instance,
         allocator: Option<&vk::AllocationCallbacks>,
@@ -138,6 +147,7 @@ pub mod rs {
 
     use crate::{vk, Allocator, Dispatcher};
 
+    /// See [crate::window::raw::create_surface]
     pub fn create_surface<D: Dispatcher, A: Allocator>(
         instance: &vk::rs::Instance<D, A>,
         display_handle: &RawDisplayHandle,

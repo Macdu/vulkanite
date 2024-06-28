@@ -1,3 +1,153 @@
+//! Unofficial bindings for the Vulkan Graphics API
+//!
+//! The goal is to provide a nice and safer way to use Vulkan with Rust
+//! while having in most cases no overhead.
+//!
+//! These bindings try to replicate an experience similar to using the official Vulkan C++ bindings on Rust
+//! which makes it differ from the popular Vulkan crate ash.
+//!
+//! # Features
+//! ## Safety
+//! Vulkan handles can be mostly be seen as references to Vulkan object. As such, using this crate, Vulkan handles **cannot be NULL**
+//! (there is no vk::NULL_HANDLE value), being given a handle means you can assume it is not null and valid.
+//! All vulkan functions which take as parameters handles which can be null now instead take as parameter an [`Option<Handle>`].
+//!
+//! Concerning command safety, I decided to take an approach similar to the `cxx` crate: guarantee safety at the boundary between rust and Vulkan API/driver code (likely written in C). These bindings also try to ensure that anything that can be checked to be according to the Vulkan Specification while being mostly cost-free / ran at compile time is done this way.
+//!
+//! When using the Vulkan API, driver code will be called which is possibly proprietary and on which you have no control. Even if you completely follow the Vulkan Specification and have no validation error, you might still get some surprise segfault when running your program on some GPUs/drivers (I speak from experience). As such the first solution would be to make every vulkan command or function calling a vulkan command unsafe, but this is from my point of view counter-productive. I chose to keep most Vulkan commands safe. The exceptions are destroy commands for which you must ensure everything created by what you are about to destroyed have already been destroyed.
+//!
+//! Note that these bindings assume the driver implementation complies, at least minimally, with the Vulkan Specification. In particular if the driver returns a completely unkown `VkStatus` code (which is not allowed by the specification), this
+//! will lead to undefined behavior in the rust code.
+//!
+//! ## Smart handles
+//! Similar to the C++ bindings, this binding groups vulkan commands by the handle which 'executes' it. Therefore the owing code on ash:
+//! ```
+//! unsafe {
+//!     device.begin_command_buffer(
+//!         &vk::CommandBufferBeginInfo::default()
+//!             .flags(vk::CommandBufferUsageFlags::ONE_TIME_SUBMIT)
+//!     )
+//!     ...
+//!     swapchain_khr.queue_present_khr(queue, &present_info)?;
+//! }
+//! ```
+//! becomes:
+//! ```
+//! cmd_buffer.begin(
+//!     &vk::CommandBufferBeginInfo::default()
+//!        .flags(vk::CommandBufferUsageFlags::OneTimeSubmit)
+//! )?;
+//!
+//! queue.present_khr(&present_info)?;
+//! ```
+//!
+//! ## Result
+//! The Vulkan `VkResult` enum as been rename as [vk::Status] (this is the only enum/structure whose name is different ared to the C bindings).
+//! Instead [`vk::Result<A>`] is defined as [Result<A, vk::Status>] and all Vulkan commands which return a Result in the inal specification instead
+//! return a [vk::Result] now:
+//! ```
+//! let device = instance.create_device(&device_info)?;
+//! ```
+//! Moreover, if a Vulkan command can return multiple success codes, the status will be part of the result:
+//! ```
+//! let (status, image_idx) = self.device.acquire_next_image_khr(
+//!    &self.swapchain_objects.swapchain,
+//!    u64::MAX,
+//!    Some(semaphore),
+//!    None, // not signaling any fence
+//! )?;
+//! if status == vk::Status::vk::Status::SuboptimalKHR {
+//!     ...
+//! }
+//! ```
+//!
+//! ## Slices
+//! Every vulkan command or structure that takes as input a length along a raw pointer now takes as input a slice.
+//! If a length is used for multiple raw pointers, the matching slices must be entered together and it is checked
+//! that they have the same length.
+//! ```
+//! impl CommandBuffer {
+//!     pub fn set_viewport(&self, first_viewport: u32, viewports: &[Viewport]);
+//! }
+//!
+//! cmd_buffer.set_viewport(0, &[vk::Viewport{..}, vk::Viewport[..]])
+//!
+//! let color_attachment = vec![...];
+//! let resolve_attachment = vec![...];
+//! let subpass_description = vk::SubpassDescription::default()
+//!     // the resolve attachment field is optional for SubpassDescription
+//!     // but if it is supplied it must have the same length as color_attachment
+//!     .color_attachment(&color_attachment, Some(&resolve_attachment))
+//!     ....;
+//! ```
+//!
+//! ## Arrays as command outputs
+//! For Vulkan commands that return an array (a length pointer and data pointer), it is instead possible
+//! to use as output any structure implementing the [DynamicArray] (and [AdvancedDynamicArray] for the case of
+//! smart handles). This is the case of [Vec]:
+//! ```
+//! let surface_formats : Vec<_> = physical_device.get_surface_formats_khr(Some(surface))?;
+//! ```
+//! The reason `: Vec<_>` has to be added is when using the `small-vec` feature, it is possible to do the following:
+//! ```
+//! // won't make any heap allocation if you have less than 3 GPUs
+//! let physical_devices: SmallVec<[_; 3]> = instance.enumerate_physical_devices()?;
+//! ```
+//! Note that the case of [vk::Status::Incomplete] is handled by the implementation: you can assume [vk::Status::Incomplete]
+//! is never returned
+//!
+//! ## Structure chain as command outputs
+//! In case a vulkan command returns a structure that can be extended, a tuple can be used to specify which structure to ieve:
+//! ```
+//! let (vk_props, vk11_props) : (_, vk::PhysicalDeviceVulkan11Properties) = physical_device.get_properties2();
+//! println!("Max supported API is {}, Subgroup size is {}", vk_props.properties.api_version,  vk11_props.subgroup_size);
+//! ```
+//! In case you don't want to use a structure chain, you have the 2 following choices (the type cannot be deduced explicitely in the default case):
+//! ```
+//! let vk_props: vk::PhysicalDeviceProperties2 = physical_device.get_properties2();
+//! let (vk_props,) = physical_device.get_properties2();
+//! ```
+//!
+//! Note that the structure chain integrity is checked as compile time: the following code will lead to a compile error ::PhysicalDeviceVulkan11Features] cannot
+//! be used in a structure chain whose head is [vk::PhysicalDeviceFeatures]):
+//! ```
+//! let (_, _) : (_, vk::PhysicalDeviceVulkan11Features) = physical_device.get_properties2();
+//! ```
+//! This compile-time check applies also to the next part:
+//!
+//! ## Structure chain as command inputs
+//! The first possible way to build a structure chain is to use `structure.push_next(&mut next_structure)`. There are also iple
+//! macros provided to do the same in a way similar to the C++ bindings:
+//!
+//! ```
+//! let mut device_info = vk_headers::structure_chain!(
+//!     vk::DeviceCreateInfo::default()
+//!         .queue_create_infos(slice::from_ref(&queue_info))
+//!         .enabled_features(Some(&features))
+//!         .enabled_extension(&required_extensions),
+//!     vk::PhysicalDeviceShaderObjectFeaturesEXT::default().shader_object(vk::TRUE)
+//! );
+//!
+//! if does_not_support_extension {
+//!     device_info.unlink::<vk::PhysicalDeviceShaderObjectFeaturesEXT>()
+//! }
+//!
+//! if does_not_support_feature {
+//!     device_info.get_mut::<vk::PhysicalDeviceShaderObjectFeaturesEXT>().shader_object(vk::FALSE);
+//! }
+//!
+//! let device = physical_device.create_device(device_info.as_ref())?;
+//! ```
+//!
+//! # MSRV
+//! The current MSRV for this crate is Rust 1.76 (C-String literals are heavily used). It is not planned to increase
+//! this version anytime soon and if this happens a reasonable (at least 6 months old) MSRV will be chosen.
+//!
+//! Note that these bindings are still a Work-In-Process, the public API may see breaking changes if this improves
+//! safety or how nice to use the code is.
+//!
+//! Please be aware that this crate should not be considered production ready yet.
+
 #[cfg(feature = "loaded")]
 mod loaded;
 pub mod vk;
@@ -13,14 +163,41 @@ use std::ptr::{self};
 #[cfg(feature = "smallvec")]
 use smallvec::SmallVec;
 
+/// <https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/PFN_vkGetInstanceProcAddr.html>
+/// Entry point of the vulkan library, this is used to retrieve Vulkan functions
+/// This function can be retrieved by loading the library using [Dispatcher::new_loaded], using your own library
+/// loading code or some external libraries provide it like SDL with `SDL_Vulkan_GetVkGetInstanceProcAddr`
 pub type GetInstanceProcAddrSignature =
     unsafe extern "system" fn(Option<vk::raw::Instance>, *const c_char) -> *const ();
 
+/// Dispatcher type used to hold the [vk::CommandsDispatcher] object
+/// The dispatcher type loads once all the vulkan commands that can be used then is used
+/// every time a vulkan command is called.
+/// It is initialized by calling [Dispatcher::new] with the [GetInstanceProcAddrSignature] entry point
+/// Or when the `loaded` feature is enabled by calling [Dispatcher::new_loaded] which will load the library
+/// There are two Dispatcher implementation provided:
+/// - [DynamicDispatcher]: Store the commands in static memory, this allows for a cost-free command retrieval
+/// but requires only at most one instance and one device to exist at any time. If this is not the case use the following implementation
+/// - [MultiDispatcher]: Allocate the commands storage on the heap and reference count it. This allows for any number of vulkan
+/// devices and instances to co-exist with their own dispatch table but incurs a small overhead cost (smart handles need to store an additional pointer
+/// and arc cloning needs to be done each time a new smart handle is created)
 pub trait Dispatcher: Clone {
+    /// Return the associated [vk::CommandsDispatcher] with this Dispatcher
+    /// You can then use the command table to call any command that has been loaded or load new commands
     fn get_command_dispatcher(&self) -> &vk::CommandsDispatcher;
 
+    /// Create a new dispatcher given the get_instance_proc_addr entry point
+    /// this will load basic (non-instance and non-device dependent) commands
+    /// # Safety
+    /// `get_instance_proc_addr` must behave as expected (for any input it should either return [ptr::null()]
+    /// or a pointer to a function with the expected parameters and return value)
     unsafe fn new(get_instance_proc_addr: GetInstanceProcAddrSignature) -> Self;
 
+    /// Internal function used to load a library and return the dispatcher along with a library object which ensures the llibrary
+    /// is kept loaded while the object is alive
+    /// # Safety
+    /// The [libloading::Library] object must be dropped only after Vulkan is done being used (all objects have been unitialized and no
+    /// vulkan command is called after)
     #[cfg(feature = "loaded")]
     unsafe fn new_loaded_and_lib(
     ) -> core::result::Result<(Self, libloading::Library), loaded::LoadingError> {
@@ -31,12 +208,30 @@ pub trait Dispatcher: Clone {
 
     fn clone_with_instance(&self, instance: &vk::raw::Instance) -> Self;
     fn clone_with_device(&self, device: &vk::raw::Device) -> Self;
+
+    /// Create a loads the Vulkan library, retrieve the entry point from it and initialize the dispatcher using it*
+    /// This will return an error if the vulkan library or its entry point cannot be found
+    /// This function is unsafe because it needs to assume that the Vulkan library being loaded follows the Vulkan specification
+    /// Library unloading depends on the implementation, for [MultiDispatcher] it happends as soon as all dispatcher are dropped.
+    /// While for [DynamicDispatcher] one should call [DynamicDispatcher::unload()]
+    #[cfg(feature = "loaded")]
+    unsafe fn new_loaded() -> core::result::Result<Self, loaded::LoadingError>;
 }
 
 // TODO: this is safe (Option<fn> being set to None is guaranteed to match memory being zero-ed)
 // but this unsafe is not necessary (can't use Default::default because it is not const...)
 static DYNAMIC_DISPATCHER: vk::CommandsDispatcher = unsafe { std::mem::zeroed() };
 
+/// Dynamic dispatcher
+/// Dispatcher implementation loading commands in static memory. This is a cost-free abstraction
+/// assuming you follow the safety rule below.
+/// Cloning this object is free (the object has size 0 and the clone function is empty) and it never
+/// makes any heap allocation. Use this dispatcher if you can.
+///
+/// # Safety
+/// Using a dynamic dispatcher means that at any point, only at most one vulkan instance
+/// and at most one vulkan device exists. This is the case for most Vulkan program but if you cannot
+/// guarantee it, use [MultiDispatcher] instead
 #[derive(Clone)]
 pub struct DynamicDispatcher(pub(crate) ());
 
@@ -59,33 +254,110 @@ impl Dispatcher for DynamicDispatcher {
         unsafe { DYNAMIC_DISPATCHER.load_device(device) };
         Self(())
     }
-}
 
-impl DynamicDispatcher {
     #[cfg(feature = "loaded")]
-    pub unsafe fn new_loaded() -> core::result::Result<Self, loaded::LoadingError> {
+    unsafe fn new_loaded() -> core::result::Result<Self, loaded::LoadingError> {
         let (result, lib) = Self::new_loaded_and_lib()?;
 
         loaded::DYNAMIC_VULKAN_LIB.0.set(Some(lib));
         Ok(result)
     }
+}
 
-    #[cfg(feature = "loaded")]
+#[cfg(feature = "loaded")]
+impl DynamicDispatcher {
+    /// Unloads the loaded library
+    /// # Safety:
+    /// Only call this function if the dispatcher was loaded with [Dispatcher::new_loaded].
+    /// Only call this function after all vulkan handles have been freed/destroyed
+    /// You cannot call any vulkan command before creating a new dispatcher.
     pub unsafe fn unload() {
         loaded::DYNAMIC_VULKAN_LIB.0.set(None);
     }
 }
 
-/// See https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#memory-allocation
+struct DispatcherWithLib {
+    dispatcher: vk::CommandsDispatcher,
+    #[cfg(feature = "loaded")]
+    library: Option<std::sync::Arc<libloading::Library>>,
+}
+
+/// MultiDispatcher
+/// Dispatcher implementation which stores vulkan commands on the heap using smart pointers
+/// This adds a small overhead:
+/// - Smart Vulkan handles must store an additional pointer
+/// - Creating/dropping smart Vulkan Handles has the additional cost of cloning/dropping a [std::sync::Arc]
+/// If you only use at most one vulkan instance and one device at any given time, you should use [DynamicDispatcher] instead
+/// When the `loaded` feature is enabled and the dispatcher is loaded with [MultiDispatcher::new_loaded],
+/// The vulkan library will be unloaded as soon as all dispatchers are dropped
+#[derive(Clone)]
+pub struct MultiDispatcher(std::sync::Arc<DispatcherWithLib>);
+
+impl Dispatcher for MultiDispatcher {
+    fn get_command_dispatcher(&self) -> &vk::CommandsDispatcher {
+        &self.0.dispatcher
+    }
+
+    unsafe fn new(get_instance_proc_addr: GetInstanceProcAddrSignature) -> Self {
+        let dispatcher = vk::CommandsDispatcher::default();
+        dispatcher.load_proc_addr(get_instance_proc_addr);
+        Self(std::sync::Arc::new(DispatcherWithLib {
+            dispatcher,
+            #[cfg(feature = "loaded")]
+            library: None,
+        }))
+    }
+
+    fn clone_with_instance(&self, instance: &vk::raw::Instance) -> Self {
+        let dispatcher = self.0.dispatcher.clone();
+        unsafe { dispatcher.load_instance(instance) };
+        Self(std::sync::Arc::new(DispatcherWithLib {
+            dispatcher,
+            #[cfg(feature = "loaded")]
+            library: self.0.library.clone(),
+        }))
+    }
+
+    fn clone_with_device(&self, device: &vk::raw::Device) -> Self {
+        let dispatcher = self.0.dispatcher.clone();
+        unsafe { dispatcher.load_device(device) };
+        Self(std::sync::Arc::new(DispatcherWithLib {
+            dispatcher,
+            #[cfg(feature = "loaded")]
+            library: self.0.library.clone(),
+        }))
+    }
+
+    #[cfg(feature = "loaded")]
+    unsafe fn new_loaded() -> core::result::Result<Self, loaded::LoadingError> {
+        let (mut result, lib) = Self::new_loaded_and_lib()?;
+
+        // result holds the only reference to the inner dispatcher
+        // so unwrap will never fail
+        let library = std::sync::Arc::new(lib);
+        std::sync::Arc::get_mut(&mut result.0).unwrap().library = Some(library);
+        Ok(result)
+    }
+}
+
+/// See <https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#memory-allocation>
+/// Cost-free allocator implementation for Vulkan
+/// Vulkan allows a custom memory allocator to be specified for host allocations
+/// Note that the vulkan implementation is not required to use this allocator (for example it might have to allocate
+/// memory with execute permissions), but you will at least receive the [Allocator::on_internal_alloc] and [Allocator::on_internal_free]
+/// notifications
+/// # Safety
+/// The implementations of alloc/realloc/free must satisfy an allocator behavior and the requirements of the specification
+/// If for some reason you choose the re-implement the pfn_* functions, they also need to follow the specification
 pub unsafe trait Allocator: Sized + Clone {
-    /// https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/PFN_vkAllocationFunction.html
+    /// <https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/PFN_vkAllocationFunction.html>
     fn alloc(
         &self,
         size: usize,
         alignment: usize,
         allocation_scope: vk::SystemAllocationScope,
     ) -> *mut ();
-    /// https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/PFN_vkReallocationFunction.html
+    /// <https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/PFN_vkReallocationFunction.html>
     fn realloc(
         &self,
         original: *mut (),
@@ -93,16 +365,16 @@ pub unsafe trait Allocator: Sized + Clone {
         alignment: usize,
         allocation_scope: vk::SystemAllocationScope,
     ) -> *mut ();
-    /// https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/PFN_vkFreeFunction.html
+    /// <https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/PFN_vkFreeFunction.html>
     fn free(&self, memory: *mut ());
-    /// https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/PFN_vkInternalAllocationNotification.html
+    /// <https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/PFN_vkInternalAllocationNotification.html>
     fn on_internal_alloc(
         &self,
         size: usize,
         allocation_type: vk::InternalAllocationType,
         allocation_scope: vk::SystemAllocationScope,
     );
-    /// https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/PFN_vkInternalFreeNotification.html
+    /// <https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/PFN_vkInternalFreeNotification.html>
     fn on_internal_free(
         &self,
         size: usize,
@@ -159,7 +431,7 @@ pub unsafe trait Allocator: Sized + Clone {
     /// SAFETY:
     /// When re-implementing this function and using the provided pfn_* functions, you must ensure that the user_data value is a reference
     /// to self that lives as long as the allocation callback
-    /// Moreover, as stated in https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkAllocationCallbacks.html
+    /// Moreover, as stated in <https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkAllocationCallbacks.html>
     /// pfn_internal_allocation and pfn_internal_free can only either be both None or be both Some
     fn get_allocation_callbacks(&self) -> Option<vk::AllocationCallbacks> {
         Some(vk::AllocationCallbacks {
@@ -212,6 +484,14 @@ unsafe impl Allocator for DefaultAllocator {
     }
 }
 
+/// Quality-Of-Life macro to create bitflags with multiple flags.
+/// # Example
+/// ```
+/// let debug_info = vk::DebugUtilsMessengerCreateInfoEXT::default()
+///     .message_severity(
+///         flagbits!(vk::DebugUtilsMessageSeverityFlagsEXT::{Info | Warning | Error}),
+///     );
+/// ```
 #[macro_export]
 macro_rules! flagbits {
     ( $enum:ident ::{ $($variant:ident)|+ } ) => {
@@ -227,7 +507,7 @@ mod private {
     pub trait Sealed {}
 }
 
-/// If A implements Alias<B>, this means A and B have exactly the same memory representation
+/// If A implements [`Alias<B>`], this means A and B have exactly the same memory representation
 /// Thus transmuting from A to B is safe
 pub unsafe trait Alias<T: Sized>: Sized {}
 
@@ -248,7 +528,7 @@ pub trait Handle: private::Sealed + Sized {
     /// - The handle must live at least as long as the object being created
     unsafe fn from_raw(x: Self::InnerType) -> Self;
 
-    /// Same as [`from_raw`] but allows for types that can be zero (usize or u64 depending on the handle)
+    /// Same as [Handle::from_raw] but allows for types that can be zero (usize or u64 depending on the handle)
     /// Will fail if x is null/zero
     unsafe fn try_from_raw<T>(x: T) -> Option<Self>
     where
@@ -257,6 +537,10 @@ pub trait Handle: private::Sealed + Sized {
         Self::InnerType::try_from(x).ok().map(|t| Self::from_raw(t))
     }
 
+    /// Return a representation of &self
+    /// The advantage is that BorrowedHandle<'a, Self> has internally the exact same memory
+    /// representation as the raw handle it represents and therefore should be used when a deref is not enough
+    /// like for vulkan commands that require arrays of handles
     fn borrow<'a>(&'a self) -> BorrowedHandle<'a, Self> {
         BorrowedHandle {
             value: self.as_raw(),
@@ -264,6 +548,7 @@ pub trait Handle: private::Sealed + Sized {
         }
     }
 
+    /// See [Handle::borrow]
     fn borrow_mut<'a>(&'a mut self) -> BorrowedMutHandle<'a, Self> {
         BorrowedMutHandle {
             value: self.as_raw(),
@@ -318,7 +603,7 @@ impl<'a, T: Handle> AsMut<T> for BorrowedMutHandle<'a, T> {
 
 /// A trait implemented by types which can allocate memory for an array of given size in a contiguous memory
 /// This is used for vulkan commands returning arrays
-/// Vec<T> implements this trait as well as SmallVec<[T;N]> is the small-vec feature is enabled
+/// [`Vec<T>`] implements this trait as well as [SmallVec] is the small-vec feature is enabled
 /// This trait is unsafe because no allocating a memory area of the proper size when calling
 /// allocate_with_capacity can cause undefined behavior when using this library
 pub unsafe trait DynamicArray<T: Sized>: IntoIterator<Item = T> {
@@ -515,6 +800,8 @@ pub struct Header {
     p_next: Cell<*const Header>,
 }
 
+/// Represent an object that can be used as the return value of a vulkan function that outputs a structure chain
+/// It must therefore internally represent what vulkan recognizes as a structure chain
 pub unsafe trait StructureChainOut<H>: Sized
 where
     H: ExtendableStructure,
@@ -546,11 +833,6 @@ pub unsafe trait StructureChain<H>: AsRef<H> + AsMut<H> + Sized
 where
     H: ExtendableStructure,
 {
-    /// Create a new structure chain, the head is created with the default constructor
-    /// If the extension types can be known at this times (not a dynamic structure chain),
-    /// they are also created with their default constructor and pushed
-    fn new() -> Self;
-
     /// Return a mutable reference to the given structure
     /// Will panic if this structure is not part of the structure chain
     fn get_mut<T: ExtendingStructure<H>>(&mut self) -> &mut T;
@@ -594,6 +876,7 @@ unsafe impl<H: ExtendableStructure> StructureChainOut<H> for H {
 macro_rules! make_structure_chain_type {
     ($name: ident, $($ext_ty:ident => ($ext_nb:tt, $ext_name:ident)),*) => {
 
+#[doc(hidden)]
 pub struct $name<H, $($ext_ty),*>
 where
     H: ExtendableStructure,
@@ -608,6 +891,14 @@ impl<H, $($ext_ty),*>  $name<H, $($ext_ty),*>
 where
     H: ExtendableStructure,
     $($ext_ty: ExtendingStructure<H>),* {
+
+        pub fn new(head: H, $($ext_name: $ext_ty),*) -> Self {
+            Self {
+                head,
+                $($ext_name: ($ext_name, true),)*
+                has_changed: Cell::new(true),
+            }
+        }
 
         fn perform_linking(&self) {
             self.has_changed.set(false);
@@ -646,33 +937,33 @@ impl<H, $($ext_ty),*> AsMut<H> for $name<H, $($ext_ty),*>
             }
     }
 
-unsafe impl<H, $($ext_ty),*> StructureChain<H> for $name<H, $($ext_ty),*>
+impl<H, $($ext_ty),*> Default for $name<H, $($ext_ty),*>
 where
     H: ExtendableStructure,
     $($ext_ty: ExtendingStructure<H>),*
 {
-    fn new() -> Self {
+    fn default() -> Self {
         Self {
             head: Default::default(),
             $($ext_name: (Default::default(), true),)*
             has_changed: Cell::new(true),
         }
     }
+}
 
+unsafe impl<H, $($ext_ty),*> StructureChain<H> for $name<H, $($ext_ty),*>
+where
+    H: ExtendableStructure,
+    $($ext_ty: ExtendingStructure<H>),*
+{
     fn get_mut<T: ExtendingStructure<H>>(&mut self) -> &mut T {
         if H::STRUCTURE_TYPE == T::STRUCTURE_TYPE {
             unsafe {
-                ptr::from_mut(AsMut::<H>::as_mut(self))
-                    .cast::<T>()
-                    .as_mut()
-                    .unwrap_unchecked()
+                mem::transmute(self)
             }
         } $(else if $ext_ty::STRUCTURE_TYPE == T::STRUCTURE_TYPE {
             unsafe {
-                ptr::from_mut(&mut self.$ext_name)
-                    .cast::<T>()
-                    .as_mut()
-                    .unwrap_unchecked()
+                mem::transmute(self)
             }
         })* else {
             panic!(
@@ -685,17 +976,11 @@ where
     fn get<T: ExtendingStructure<H>>(&self) -> &T {
         if H::STRUCTURE_TYPE == T::STRUCTURE_TYPE {
             unsafe {
-                ptr::from_ref(AsRef::<H>::as_ref(self))
-                    .cast::<T>()
-                    .as_ref()
-                    .unwrap_unchecked()
+                mem::transmute(self)
             }
         } $(else if $ext_ty::STRUCTURE_TYPE == T::STRUCTURE_TYPE {
             unsafe {
-                ptr::from_ref(&self.$ext_name)
-                    .cast::<T>()
-                    .as_ref()
-                    .unwrap_unchecked()
+                mem::transmute(self)
             }
         })* else {
             panic!(
@@ -833,50 +1118,50 @@ make_structure_chain_type! {StructureChain6, V1 => (1,ext1), V2 => (2,ext2), V3 
 #[macro_export]
 macro_rules! create_structure_chain {
     ($head:ty $(,)?) => {
-        $crate::StructureChain0::<$head>::new()
+        $crate::StructureChain0::<$head>::default()
     };
     ($head:ty, $ext1:ty $(,)?) => {
-        $crate::StructureChain1::<$head, $ext1>::new()
+        $crate::StructureChain1::<$head, $ext1>::default()
     };
     ($head:ty, $ext1:ty, $ext2:ty $(,)?) => {
-        $crate::StructureChain2::<$head, $ext1, $ext2>::new()
+        $crate::StructureChain2::<$head, $ext1, $ext2>::default()
     };
     ($head:ty, $ext1:ty, $ext2:ty, $ext3:ty $(,)?) => {
-        $crate::StructureChain3::<$head, $ext1, $ext2, $ext3>::new()
+        $crate::StructureChain3::<$head, $ext1, $ext2, $ext3>::default()
     };
     ($head:ty, $ext1:ty, $ext2:ty, $ext3:ty, $ext4:ty $(,)?) => {
-        $crate::StructureChain4::<$head, $ext1, $ext2, $ext3, $ext4>::new()
+        $crate::StructureChain4::<$head, $ext1, $ext2, $ext3, $ext4>::default()
     };
     ($head:ty, $ext1:ty, $ext2:ty, $ext3:ty, $ext4:ty, $ext5:ty $(,)?) => {
-        $crate::StructureChain5::<$head, $ext1, $ext2, $ext3, $ext4, $ext5>::new()
+        $crate::StructureChain5::<$head, $ext1, $ext2, $ext3, $ext4, $ext5>::default()
     };
     ($head:ty, $ext1:ty, $ext2:ty, $ext3:ty, $ext4:ty, $ext5:ty, $ext6:ty $(,)?) => {
-        $crate::StructureChain6::<$head, $ext1, $ext2, $ext3, $ext4, $ext5, $ext6>::new()
+        $crate::StructureChain6::<$head, $ext1, $ext2, $ext3, $ext4, $ext5, $ext6>::default()
     };
 }
 
 #[macro_export]
 macro_rules! structure_chain {
-    ($head:ty $(,)?) => {
-        $crate::StructureChain0<$head>
+    ($head:expr) => {
+        $crate::StructureChain0::new($head)
     };
-    ($head:ty, $ext1:ty $(,)?) => {
-        $crate::StructureChain1<$head, $ext1>
+    ($head:expr, $ext1:expr $(,)?) => {
+        $crate::StructureChain1::new($head, $ext1)
     };
-    ($head:ty, $ext1:ty, $ext2:ty $(,)?) => {
-        $crate::StructureChain2<$head, $ext1, $ext2>
+    ($head:pat, $ext1:pat, $ext2:pat $(,)?) => {
+        $crate::StructureChain2::new($head, $ext1, $ext2)
     };
-    ($head:ty, $ext1:ty, $ext2:ty, $ext3:ty $(,)?) => {
-        $crate::StructureChain3<$head, $ext1, $ext2, $ext3>
+    ($head:pat, $ext1:pat, $ext2:pat, $ext3:pat $(,)?) => {
+        $crate::StructureChain3::new($head, $ext1, $ext2, $ext3)
     };
-    ($head:ty, $ext1:ty, $ext2:ty, $ext3:ty, $ext4:ty $(,)?) => {
-        $crate::StructureChain4<$head, $ext1, $ext2, $ext3, $ext4>
+    ($head:pat, $ext1:pat, $ext2:pat, $ext3:pat, $ext4:pat $(,)?) => {
+        $crate::StructureChain4::new($head, $ext1, $ext2, $ext3, $ext4)
     };
-    ($head:ty, $ext1:ty, $ext2:ty, $ext3:ty, $ext4:ty, $ext5:ty $(,)?) => {
-        $crate::StructureChain5<$head, $ext1, $ext2, $ext3, $ext4, $ext5>
+    ($head:pat, $ext1:pat, $ext2:pat, $ext3:pat, $ext4:pat, $ext5:pat $(,)?) => {
+        $crate::StructureChain5::new($head, $ext1, $ext2, $ext3, $ext4, $ext5)
     };
-    ($head:ty, $ext1:ty, $ext2:ty, $ext3:ty, $ext4:ty, $ext5:ty, $ext6:ty $(,)?) => {
-        $crate::StructureChain6<$head, $ext1, $ext2, $ext3, $ext4, $ext5, $ext6>
+    ($head:pat, $ext1:pat, $ext2:pat, $ext3:pat, $ext4:pat, $ext5:pat, $ext6:pat $(,)?) => {
+        $crate::StructureChain6::new($head, $ext1, $ext2, $ext3, $ext4, $ext5, $ext6)
     };
 }
 
@@ -888,7 +1173,7 @@ macro_rules! structure_chain {
 /// The file is located relative to the current file (similarly to how modules are found). The provided path is interpreted in a platform-specific way at compile time. So, for instance, an invocation with a Windows path containing backslashes \ would not compile correctly on Unix.
 ///
 /// This macro will yield an expression of type &'static \[u32; N\] which is the contents of the file.
-/// This macro is inspired by https://users.rust-lang.org/t/can-i-conveniently-compile-bytes-into-a-rust-program-with-a-specific-alignment/24049
+/// This macro is inspired by <https://users.rust-lang.org/t/can-i-conveniently-compile-bytes-into-a-rust-program-with-a-specific-alignment/24049>
 /// # Example
 /// ```
 /// let vertex_shader = include_spirv!("vert.spirv");
@@ -901,17 +1186,27 @@ macro_rules! include_spirv {
     ($path:literal) => {{
         #[repr(align(4))]
         struct AlignedStruct<Bytes: ?Sized> {
-            bytes: Bytes
+            bytes: Bytes,
         }
 
         static ALIGNED: &'static AlignedStruct<[u8]> = {
             let bytes = include_bytes!($path);
-            assert!(bytes.len() % 4 == 0, concat!("The file ", $path, " must have a size which is a multiple of 4 bytes"));
-            &AlignedStruct{
-                bytes: *bytes
-            }
+            assert!(
+                bytes.len() % 4 == 0,
+                concat!(
+                    "The file ",
+                    $path,
+                    " must have a size which is a multiple of 4 bytes"
+                )
+            );
+            &AlignedStruct { bytes: *bytes }
         };
 
-        unsafe { std::slice::from_raw_parts(ALIGNED.bytes.as_ptr() as *const u32, ALIGNED.bytes.len() / 4) }
+        unsafe {
+            std::slice::from_raw_parts(
+                ALIGNED.bytes.as_ptr() as *const u32,
+                ALIGNED.bytes.len() / 4,
+            )
+        }
     }};
 }

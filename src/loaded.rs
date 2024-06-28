@@ -49,6 +49,7 @@ impl Display for MissingEntryPoint {
 }
 impl std::error::Error for MissingEntryPoint {}
 
+/// Safety: do not drop Library before the entry point
 pub(super) unsafe fn load_proc_addr_and_lib() -> Result<(GetInstanceProcAddrSignature, Library), LoadingError>
 {
     // code from ash
