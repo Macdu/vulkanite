@@ -2377,9 +2377,10 @@ impl<'a> Generator<'a> {
 
         let func_name = format_ident!("{name}");
         let doc = make_doc_link(vk_name);
+        let unsafe_tag = name.starts_with("destroy").then(|| quote! (unsafe));
         Ok(quote! {
             #doc
-            pub fn #func_name<#ret_template #(#templates),*>(#(#args_outer_name: #args_outer_type,)* dispatcher: &CommandsDispatcher ) #ret_type {
+            pub #unsafe_tag fn #func_name<#ret_template #(#templates),*>(#(#args_outer_name: #args_outer_type,)* dispatcher: &CommandsDispatcher ) #ret_type {
                 let vulkan_command = dispatcher.#func_name.get().expect("Vulkan command not loaded.");
                 unsafe {
                     #pre_call
@@ -2589,10 +2590,11 @@ impl<'a> Generator<'a> {
             has_allocator.then(|| quote!(self.alloc.get_allocation_callbacks().as_ref(),));
 
         let doc_tag = make_doc_link(vk_name);
+        let unsafe_tag = name.starts_with("destroy").then(|| quote! (unsafe));
 
         Ok(quote! {
             #doc_tag
-            pub fn #fn_name<#ret_template #(#arg_template),*>(&self, #(#arg_outer_name: #arg_outer_type),*) #ret_type {
+            pub #unsafe_tag fn #fn_name<#ret_template #(#arg_template),*>(&self, #(#arg_outer_name: #arg_outer_type),*) #ret_type {
                 #pre_call
                 raw::#raw_fn_name(#caller #(#arg_outer_name,)* #allocator_param self.disp.get_command_dispatcher())
                 #post_call

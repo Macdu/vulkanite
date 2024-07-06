@@ -583,34 +583,36 @@ impl Drop for VulkanApplication {
 
         self.swapchain_objects.destroy(&self.device);
 
-        self.device.destroy_pipeline(Some(&self.pipeline));
-        self.device
-            .destroy_pipeline_layout(Some(&self.pipeline_layout));
-        for module in &self.shader_modules {
-            self.device.destroy_shader_module(Some(module));
+        unsafe {
+            self.device.destroy_pipeline(Some(&self.pipeline));
+            self.device
+                .destroy_pipeline_layout(Some(&self.pipeline_layout));
+            for module in &self.shader_modules {
+                self.device.destroy_shader_module(Some(module));
+            }
+            self.device.destroy_render_pass(Some(&self.render_pass));
+            self.device.destroy_command_pool(Some(&self.command_pool));
+
+            for fence in &self.fences {
+                self.device.destroy_fence(Some(fence));
+            }
+            for semaphore in self
+                .image_available
+                .iter()
+                .chain(self.render_finished.iter())
+            {
+                self.device.destroy_semaphore(Some(&semaphore));
+            }
+
+            self.device.destroy();
+
+            self.instance
+                .destroy_debug_utils_messenger_ext(self.debug_messenger.as_ref());
+            self.instance.destroy_surface_khr(Some(&self.surface));
+
+            self.instance.destroy();
+            DynamicDispatcher::unload();
         }
-        self.device.destroy_render_pass(Some(&self.render_pass));
-        self.device.destroy_command_pool(Some(&self.command_pool));
-
-        for fence in &self.fences {
-            self.device.destroy_fence(Some(fence));
-        }
-        for semaphore in self
-            .image_available
-            .iter()
-            .chain(self.render_finished.iter())
-        {
-            self.device.destroy_semaphore(Some(&semaphore));
-        }
-
-        self.device.destroy();
-
-        self.instance
-            .destroy_debug_utils_messenger_ext(self.debug_messenger.as_ref());
-        self.instance.destroy_surface_khr(Some(&self.surface));
-
-        self.instance.destroy();
-        unsafe { DynamicDispatcher::unload() }
     }
 }
 
@@ -743,12 +745,14 @@ impl SwapchainObjects {
     }
 
     fn destroy(&mut self, device: &vk::rs::Device) {
-        for framebuffer in &self.framebuffers {
-            device.destroy_framebuffer(Some(framebuffer));
+        unsafe {
+            for framebuffer in &self.framebuffers {
+                device.destroy_framebuffer(Some(framebuffer));
+            }
+            for view in &self.swapchain_views {
+                device.destroy_image_view(Some(view));
+            }
+            device.destroy_swapchain_khr(Some(&self.swapchain));
         }
-        for view in &self.swapchain_views {
-            device.destroy_image_view(Some(view));
-        }
-        device.destroy_swapchain_khr(Some(&self.swapchain));
     }
 }
