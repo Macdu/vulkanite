@@ -4,7 +4,7 @@ use std::{collections::HashSet, error::Error, ffi::CStr, mem::ManuallyDrop};
 use anyhow::{anyhow, Result};
 use raw_window_handle::{HasDisplayHandle, HasWindowHandle, RawDisplayHandle};
 use smallvec::{smallvec, SmallVec};
-use vk_headers::{
+use vulkanite::{
     flagbits, include_spirv,
     vk::{self, PipelineVertexInputStateCreateInfo},
     window, DefaultAllocator, Dispatcher, DynamicDispatcher,

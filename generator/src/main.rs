@@ -17,7 +17,7 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     let generator = Generator::new(Api::Vulkan, &registry)?;
 
-    let main_crate_name = "vk-headers";
+    let main_crate_name = "vulkanite";
     let crate_vk = PathBuf::from(&format!("{main_crate_name}/src/vk"));
 
     let extensions = generator.generate_extensions()?;

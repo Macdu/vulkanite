@@ -70,7 +70,7 @@
 //!     pub fn set_viewport(&self, first_viewport: u32, viewports: &[Viewport]);
 //! }
 //!
-//! cmd_buffer.set_viewport(0, &[vk::Viewport{..}, vk::Viewport[..]])
+//! cmd_buffer.set_viewport(0, &[vk::Viewport{..}, vk::Viewport{..}])
 //!
 //! let color_attachment = vec![...];
 //! let resolve_attachment = vec![...];
