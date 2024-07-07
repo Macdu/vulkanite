@@ -90,7 +90,7 @@ fn generate_struct<'a>(
 ) -> Result<TokenStream> {
     let mapping = gen.mapping.borrow();
     let all_fields: HashMap<_, _> = my_struct.fields.iter().map(|f| (f.vk_name, f)).collect();
-    let mut simple_fields = all_fields.clone();
+    let mut simple_fields: HashSet<_> = all_fields.keys().cloned().collect();
     let mut char_arr_fields = Vec::new();
     if my_struct.s_type.is_some() {
         // remove preemptively s_type and p_next
@@ -160,7 +160,7 @@ fn generate_struct<'a>(
         {
             // if all slice fields are optional, we must give the option to set the length alone
             // (for example descriptorCount in VkDescriptorSetLayoutBinding )
-            simple_fields.insert(&field_with_len.len_field.vk_name, field_with_len.len_field);
+            simple_fields.insert(field_with_len.len_field.vk_name);
         }
     }
 
@@ -215,9 +215,11 @@ fn generate_struct<'a>(
 
     let (fields, default_impl): (Vec<_>, Vec<_>) = iter.into_iter().unzip();
 
-    let simple_accessors = simple_fields
-        .into_iter()
-        .map(|(_, field)| {
+    let simple_accessors = my_struct
+        .fields
+        .iter()
+        .filter(|field| simple_fields.contains(field.vk_name))
+        .map(|field| {
             let name = format_ident!("{}", field.name);
             let fn_name = if field.name.starts_with("p_") {
                 &field.name[2..]
@@ -290,9 +292,11 @@ fn generate_struct<'a>(
         _ => quote!(),
     };
 
-    let array_accessors = length_fields
-        .into_iter()
-        .map(|(_, length_field)| {
+    let array_accessors = my_struct
+        .fields
+        .iter()
+        .filter_map(|field| length_fields.get(field.vk_name))
+        .map(|length_field| {
             if my_struct.return_only {
                 // TODO: still add getters
                 return Ok(quote! ());

@@ -14,8 +14,9 @@ pub fn generate<'a, 'b>(
     gen_ty: GeneratedCommandType,
 ) -> Result<String> {
     let mut listed_cmds = HashSet::new();
+    let mut listed_handles = HashSet::new();
     let mut handle_cmds: HashMap<&str, BTreeMap<usize, CommandParamsParsed>> = HashMap::new();
-    let mut possible_handles = HashSet::new();
+    let mut handles_order = Vec::new();
     let mut cmd_nb = 0usize;
 
     let mut result = Vec::new();
@@ -33,8 +34,10 @@ pub fn generate<'a, 'b>(
         let req_cmd = match req_cnt {
             xml::RequireContent::Command(req_cmd) => req_cmd,
             xml::RequireContent::Type(xml::RequireType { name, .. }) => {
-                if gen.handles.contains_key(name.as_str()) {
-                    possible_handles.insert(name.as_str());
+                if let Some(handle) = gen.handles.get(name.as_str()) {
+                    if listed_handles.insert(name.as_str()) {
+                        handles_order.push((name.as_str(), handle));
+                    }
                 }
                 continue;
             }
@@ -115,11 +118,7 @@ pub fn generate<'a, 'b>(
         }
     });
 
-    for (handle_name, handle) in &gen.handles {
-        if !possible_handles.contains(handle_name) {
-            continue;
-        }
-
+    for (handle_name, handle) in handles_order {
         if let Some(cmds) = handle_cmds.get(handle_name) {
             let id_name = format_ident!("{}", handle.name);
             let doc_tag = make_doc_link(handle_name);
