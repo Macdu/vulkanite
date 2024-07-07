@@ -193,12 +193,10 @@ fn generate_struct<'a>(
                 ),
                 _ => {
                     let default_value = gen.generate_default(&field.advanced_ty.get().unwrap())?;
-                    let ty_inner =
+                    let mut ty_inner =
                         gen.generate_type_inner(&field.advanced_ty.get().unwrap(), true)?;
-                    let ty_inner = if my_struct.is_union {
-                        quote! (ManuallyDrop<#ty_inner>)
-                    } else {
-                        ty_inner
+                    if my_struct.is_union && gen.compute_type_lifetime(&field.ty) {
+                        ty_inner = quote! (ManuallyDrop<#ty_inner>)
                     };
                     (
                         ty_inner,
@@ -392,17 +390,8 @@ fn generate_struct<'a>(
         })
         .collect::<Result<Vec<_>>>()?;
 
-    // For the time being, do not try to implement clone on structs with unions inside
-    let has_field_union = my_struct
-        .fields
-        .iter()
-        .any(|field| match field.advanced_ty.get() {
-            Some(AdvancedType::Struct(ty_name)) => {
-                gen.get_struct(ty_name).is_some_and(|st| st.is_union)
-            }
-            _ => false,
-        });
-    let derives = (!has_lifetime && !has_field_union).then(|| quote! (#[derive(Clone)]));
+    // for the time being, do not implement clone for types with a lifetime
+    let derives = (!has_lifetime).then(|| quote! (#[derive(Clone, Copy)]));
 
     if my_struct.is_union {
         // union are much more lightweight
@@ -411,9 +400,14 @@ fn generate_struct<'a>(
         // For the default implementation, take the first field and use its default value
         let first_field = my_struct.fields.first().unwrap();
         let first_field_name = format_ident!("{}", first_field.name);
-        let first_field_default = gen.generate_default(&first_field.advanced_ty.get().unwrap())?;
+        let mut first_field_default =
+            gen.generate_default(&first_field.advanced_ty.get().unwrap())?;
+        if gen.compute_type_lifetime(&first_field.ty) {
+            first_field_default = quote! (ManuallyDrop::new(#first_field_default))
+        }
         return Ok(quote! {
             #[repr(C)]
+            #derives
             #doc_tag
             pub union #name #lifetime {
                 #(#fields)*
@@ -422,7 +416,7 @@ fn generate_struct<'a>(
             impl #lifetime Default for #name #lifetime {
                 fn default() -> Self {
                     Self {
-                        #first_field_name: ManuallyDrop::new(#first_field_default),
+                        #first_field_name: #first_field_default,
                     }
                 }
             }

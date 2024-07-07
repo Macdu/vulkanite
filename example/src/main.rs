@@ -1,5 +1,5 @@
 use core::slice;
-use std::{collections::HashSet, error::Error, ffi::CStr, mem::ManuallyDrop};
+use std::{collections::HashSet, error::Error, ffi::CStr};
 
 use anyhow::{anyhow, Result};
 use raw_window_handle::{HasDisplayHandle, HasWindowHandle, RawDisplayHandle};
@@ -483,9 +483,9 @@ impl VulkanApplication {
         )?;
 
         let clear_value = vk::ClearValue {
-            color: ManuallyDrop::new(vk::ClearColorValue {
-                float32: ManuallyDrop::new([0.0f32, 0.0f32, 0.0f32, 1.0f32]),
-            }),
+            color: vk::ClearColorValue {
+                float32: [0.0f32, 0.0f32, 0.0f32, 1.0f32],
+            },
         };
 
         let extent = &self.swapchain_objects.extent;
