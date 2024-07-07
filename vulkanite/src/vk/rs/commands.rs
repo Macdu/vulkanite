@@ -6958,11 +6958,11 @@ impl<D: Dispatcher, A: Allocator> CommandBuffer<D, A> {
     #[doc(alias = "vkCmdSetRenderingInputAttachmentIndicesKHR")]
     pub fn set_rendering_input_attachment_indices_khr(
         &self,
-        p_location_info: &RenderingInputAttachmentIndexInfoKHR,
+        p_input_attachment_index_info: &RenderingInputAttachmentIndexInfoKHR,
     ) {
         raw::cmd_set_rendering_input_attachment_indices_khr(
             self,
-            p_location_info,
+            p_input_attachment_index_info,
             self.disp.get_command_dispatcher(),
         )
     }

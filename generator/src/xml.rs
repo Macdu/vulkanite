@@ -227,6 +227,7 @@ pub struct Enums {
 pub enum EnumsType {
     Bitmask,
     Enum,
+    Constants,
 }
 
 #[derive(Deserialize, Debug)]

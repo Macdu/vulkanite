@@ -1,7 +1,7 @@
 use super::{
     ApiVersion, DeviceExtension, DeviceExtensionName, InstanceExtension, InstanceExtensionName,
 };
-pub const HEADER_VERSION: ApiVersion = ApiVersion::new(0, 1, 3, 281u32);
+pub const HEADER_VERSION: ApiVersion = ApiVersion::new(0, 1, 3, 289u32);
 pub const KHR_SURFACE: InstanceExtension = InstanceExtension {
     name: unsafe { InstanceExtensionName::new(c"VK_KHR_surface") },
     spec: 25u32,
@@ -958,7 +958,7 @@ pub const NV_LOW_LATENCY: DeviceExtension = DeviceExtension {
 };
 pub const EXT_METAL_OBJECTS: DeviceExtension = DeviceExtension {
     name: unsafe { DeviceExtensionName::new(c"VK_EXT_metal_objects") },
-    spec: 1u32,
+    spec: 2u32,
 };
 pub const KHR_SYNCHRONIZATION2: DeviceExtension = DeviceExtension {
     name: unsafe { DeviceExtensionName::new(c"VK_KHR_synchronization2") },
@@ -1226,7 +1226,7 @@ pub const ARM_RENDER_PASS_STRIPED: DeviceExtension = DeviceExtension {
 };
 pub const QCOM_FRAGMENT_DENSITY_MAP_OFFSET: DeviceExtension = DeviceExtension {
     name: unsafe { DeviceExtensionName::new(c"VK_QCOM_fragment_density_map_offset") },
-    spec: 1u32,
+    spec: 2u32,
 };
 pub const NV_COPY_MEMORY_INDIRECT: DeviceExtension = DeviceExtension {
     name: unsafe { DeviceExtensionName::new(c"VK_NV_copy_memory_indirect") },
@@ -1294,7 +1294,7 @@ pub const NV_OPTICAL_FLOW: DeviceExtension = DeviceExtension {
 };
 pub const EXT_LEGACY_DITHERING: DeviceExtension = DeviceExtension {
     name: unsafe { DeviceExtensionName::new(c"VK_EXT_legacy_dithering") },
-    spec: 1u32,
+    spec: 2u32,
 };
 pub const EXT_PIPELINE_PROTECTED_ACCESS: DeviceExtension = DeviceExtension {
     name: unsafe { DeviceExtensionName::new(c"VK_EXT_pipeline_protected_access") },
@@ -1338,6 +1338,10 @@ pub const NV_EXTENDED_SPARSE_ADDRESS_SPACE: DeviceExtension = DeviceExtension {
 };
 pub const EXT_MUTABLE_DESCRIPTOR_TYPE: DeviceExtension = DeviceExtension {
     name: unsafe { DeviceExtensionName::new(c"VK_EXT_mutable_descriptor_type") },
+    spec: 1u32,
+};
+pub const EXT_LEGACY_VERTEX_ATTRIBUTES: DeviceExtension = DeviceExtension {
+    name: unsafe { DeviceExtensionName::new(c"VK_EXT_legacy_vertex_attributes") },
     spec: 1u32,
 };
 pub const EXT_LAYER_SETTINGS: InstanceExtension = InstanceExtension {
@@ -1440,11 +1444,27 @@ pub const NV_RAW_ACCESS_CHAINS: DeviceExtension = DeviceExtension {
     name: unsafe { DeviceExtensionName::new(c"VK_NV_raw_access_chains") },
     spec: 1u32,
 };
+pub const KHR_SHADER_RELAXED_EXTENDED_INSTRUCTION: DeviceExtension = DeviceExtension {
+    name: unsafe { DeviceExtensionName::new(c"VK_KHR_shader_relaxed_extended_instruction") },
+    spec: 1u32,
+};
+pub const KHR_MAINTENANCE7: DeviceExtension = DeviceExtension {
+    name: unsafe { DeviceExtensionName::new(c"VK_KHR_maintenance7") },
+    spec: 1u32,
+};
 pub const NV_SHADER_ATOMIC_FLOAT16_VECTOR: DeviceExtension = DeviceExtension {
     name: unsafe { DeviceExtensionName::new(c"VK_NV_shader_atomic_float16_vector") },
     spec: 1u32,
 };
+pub const EXT_SHADER_REPLICATED_COMPOSITES: DeviceExtension = DeviceExtension {
+    name: unsafe { DeviceExtensionName::new(c"VK_EXT_shader_replicated_composites") },
+    spec: 1u32,
+};
 pub const NV_RAY_TRACING_VALIDATION: DeviceExtension = DeviceExtension {
     name: unsafe { DeviceExtensionName::new(c"VK_NV_ray_tracing_validation") },
+    spec: 1u32,
+};
+pub const MESA_IMAGE_ALIGNMENT_CONTROL: DeviceExtension = DeviceExtension {
+    name: unsafe { DeviceExtensionName::new(c"VK_MESA_image_alignment_control") },
     spec: 1u32,
 };

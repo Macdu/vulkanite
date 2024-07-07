@@ -820,6 +820,8 @@ pub enum StructureType {
     PhysicalDeviceExtendedSparseAddressSpacePropertiesNV = 1000492001,
     PhysicalDeviceMutableDescriptorTypeFeaturesEXT = 1000351000,
     MutableDescriptorTypeCreateInfoEXT = 1000351002,
+    PhysicalDeviceLegacyVertexAttributesFeaturesEXT = 1000495000,
+    PhysicalDeviceLegacyVertexAttributesPropertiesEXT = 1000495001,
     LayerSettingsCreateInfoEXT = 1000496000,
     PhysicalDeviceShaderCoreBuiltinsFeaturesARM = 1000497000,
     PhysicalDeviceShaderCoreBuiltinsPropertiesARM = 1000497001,
@@ -877,8 +879,18 @@ pub enum StructureType {
     BindDescriptorBufferEmbeddedSamplersInfoEXT = 1000545008,
     PhysicalDeviceDescriptorPoolOverallocationFeaturesNV = 1000546000,
     PhysicalDeviceRawAccessChainsFeaturesNV = 1000555000,
+    PhysicalDeviceShaderRelaxedExtendedInstructionFeaturesKHR = 1000558000,
+    PhysicalDeviceMaintenance7FeaturesKHR = 1000562000,
+    PhysicalDeviceMaintenance7PropertiesKHR = 1000562001,
+    PhysicalDeviceLayeredApiPropertiesListKHR = 1000562002,
+    PhysicalDeviceLayeredApiPropertiesKHR = 1000562003,
+    PhysicalDeviceLayeredApiVulkanPropertiesKHR = 1000562004,
     PhysicalDeviceShaderAtomicFloat16VectorFeaturesNV = 1000563000,
+    PhysicalDeviceShaderReplicatedCompositesFeaturesEXT = 1000564000,
     PhysicalDeviceRayTracingValidationFeaturesNV = 1000568000,
+    PhysicalDeviceImageAlignmentControlFeaturesMESA = 1000575000,
+    PhysicalDeviceImageAlignmentControlPropertiesMESA = 1000575001,
+    ImageAlignmentControlCreateInfoMESA = 1000575002,
 }
 #[allow(non_upper_case_globals)]
 impl StructureType {
@@ -1255,6 +1267,7 @@ impl ObjectType {
 #[doc(alias = "VkVendorId")]
 #[repr(u32)]
 pub enum VendorId {
+    Khronos = 0x10000,
     VIV = 0x10001,
     VSI = 0x10002,
     Kazan = 0x10003,
@@ -1515,7 +1528,7 @@ pub enum Format {
     Pvrtc14BppSrgbBlockIMG = 1000054005,
     Pvrtc22BppSrgbBlockIMG = 1000054006,
     Pvrtc24BppSrgbBlockIMG = 1000054007,
-    R16G16S105NV = 1000464000,
+    R16G16Sfixed5NV = 1000464000,
     A1B5G5R5UnormPack16KHR = 1000470000,
     A8UnormKHR = 1000470001,
 }
@@ -1591,6 +1604,7 @@ impl Format {
     pub const G16B16R162Plane444UnormEXT: Self = Self::G16B16R162Plane444Unorm;
     pub const A4R4G4B4UnormPack16EXT: Self = Self::A4R4G4B4UnormPack16;
     pub const A4B4G4R4UnormPack16EXT: Self = Self::A4B4G4R4UnormPack16;
+    pub const R16G16S105NV: Self = Self::R16G16Sfixed5NV;
 }
 bitflags! {
     #[derive(Default)] 
@@ -2900,7 +2914,11 @@ bitflags! {
 pub enum SubpassContents {
     Inline = 0,
     SecondaryCommandBuffers = 1,
-    InlineAndSecondaryCommandBuffersEXT = 1000451000,
+    InlineAndSecondaryCommandBuffersKHR = 1000451000,
+}
+#[allow(non_upper_case_globals)]
+impl SubpassContents {
+    pub const InlineAndSecondaryCommandBuffersEXT: Self = Self::InlineAndSecondaryCommandBuffersKHR;
 }
 bitflags! {
     #[derive(Default)] 
@@ -3271,7 +3289,8 @@ pub enum DriverId {
     MesaDozen = 23,
     MesaNvk = 24,
     ImaginationOpenSourceMESA = 25,
-    MesaAgxv = 26,
+    MesaHoneykrisp = 26,
+    Reserved27 = 27,
 }
 #[allow(non_upper_case_globals)]
 impl DriverId {
@@ -3630,8 +3649,9 @@ bitflags! {
         const SuspendingKHR = Self::Suspending.bits();
         const Resuming = 1u32 << 2;
         const ResumingKHR = Self::Resuming.bits();
-        const ContentsInlineEXT = 1u32 << 4;
+        const ContentsInlineEXT = Self::ContentsInlineKHR.bits();
         const EnableLegacyDitheringEXT = 1u32 << 3;
+        const ContentsInlineKHR = 1u32 << 4;
     }
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkRenderingFlagBitsKHR.html>"]
@@ -5115,6 +5135,7 @@ bitflags! {
         const DisableOptimization = 1u64 << 0;
         const AllowDerivatives = 1u64 << 1;
         const Derivative = 1u64 << 2;
+        const EnableLegacyDitheringEXT = 1u64 << 34;
         const ViewIndexFromDeviceIndex = 1u64 << 3;
         const DispatchBase = 1u64 << 4;
         const DeferCompileNV = 1u64 << 5;
@@ -5373,3 +5394,14 @@ impl TimeDomainKHR {
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkTimeDomainEXT.html>"]
 #[doc(alias = "VkTimeDomainEXT")]
 pub type TimeDomainEXT = TimeDomainKHR;
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceLayeredApiKHR.html>"]
+#[doc(alias = "VkPhysicalDeviceLayeredApiKHR")]
+#[repr(u32)]
+pub enum PhysicalDeviceLayeredApiKHR {
+    Vulkan = 0,
+    D3D12 = 1,
+    Metal = 2,
+    Opengl = 3,
+    Opengles = 4,
+}

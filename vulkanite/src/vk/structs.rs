@@ -31368,6 +31368,8 @@ unsafe impl<'a> ExtendableStructure for ValidationFeaturesEXT<'a> {
 unsafe impl<'a> Send for ValidationFeaturesEXT<'a> {}
 unsafe impl<'a> Sync for ValidationFeaturesEXT<'a> {}
 unsafe impl<'a, 'b> ExtendingStructure<InstanceCreateInfo<'b>> for ValidationFeaturesEXT<'a> {}
+unsafe impl<'a, 'b> ExtendingStructure<ShaderModuleCreateInfo<'b>> for ValidationFeaturesEXT<'a> {}
+unsafe impl<'a, 'b> ExtendingStructure<ShaderCreateInfoEXT<'b>> for ValidationFeaturesEXT<'a> {}
 impl<'a> Default for ValidationFeaturesEXT<'a> {
     fn default() -> Self {
         Self {
@@ -47986,6 +47988,88 @@ impl<'a> MutableDescriptorTypeCreateInfoEXT<'a> {
 }
 pub type MutableDescriptorTypeCreateInfoVALVE<'a> = MutableDescriptorTypeCreateInfoEXT<'a>;
 #[repr(C)]
+#[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceLegacyVertexAttributesFeaturesEXT.html>"]
+#[doc(alias = "VkPhysicalDeviceLegacyVertexAttributesFeaturesEXT")]
+pub struct PhysicalDeviceLegacyVertexAttributesFeaturesEXT<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub legacy_vertex_attributes: Bool32,
+    phantom: PhantomData<&'a ()>,
+}
+unsafe impl<'a> ExtendableStructure for PhysicalDeviceLegacyVertexAttributesFeaturesEXT<'a> {
+    const STRUCTURE_TYPE: StructureType =
+        StructureType::PhysicalDeviceLegacyVertexAttributesFeaturesEXT;
+}
+unsafe impl<'a> Send for PhysicalDeviceLegacyVertexAttributesFeaturesEXT<'a> {}
+unsafe impl<'a> Sync for PhysicalDeviceLegacyVertexAttributesFeaturesEXT<'a> {}
+unsafe impl<'a, 'b> ExtendingStructure<PhysicalDeviceFeatures2<'b>>
+    for PhysicalDeviceLegacyVertexAttributesFeaturesEXT<'a>
+{
+}
+unsafe impl<'a, 'b> ExtendingStructure<DeviceCreateInfo<'b>>
+    for PhysicalDeviceLegacyVertexAttributesFeaturesEXT<'a>
+{
+}
+impl<'a> Default for PhysicalDeviceLegacyVertexAttributesFeaturesEXT<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            legacy_vertex_attributes: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+impl<'a> PhysicalDeviceLegacyVertexAttributesFeaturesEXT<'a> {
+    #[inline]
+    pub fn legacy_vertex_attributes(mut self, value: Bool32) -> Self {
+        self.legacy_vertex_attributes = value;
+        self
+    }
+    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
+        unsafe { self.push_next_unchecked(ext) }
+    }
+}
+#[repr(C)]
+#[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceLegacyVertexAttributesPropertiesEXT.html>"]
+#[doc(alias = "VkPhysicalDeviceLegacyVertexAttributesPropertiesEXT")]
+pub struct PhysicalDeviceLegacyVertexAttributesPropertiesEXT<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub native_unaligned_performance: Bool32,
+    phantom: PhantomData<&'a ()>,
+}
+unsafe impl<'a> ExtendableStructure for PhysicalDeviceLegacyVertexAttributesPropertiesEXT<'a> {
+    const STRUCTURE_TYPE: StructureType =
+        StructureType::PhysicalDeviceLegacyVertexAttributesPropertiesEXT;
+}
+unsafe impl<'a> Send for PhysicalDeviceLegacyVertexAttributesPropertiesEXT<'a> {}
+unsafe impl<'a> Sync for PhysicalDeviceLegacyVertexAttributesPropertiesEXT<'a> {}
+unsafe impl<'a, 'b> ExtendingStructure<PhysicalDeviceProperties2<'b>>
+    for PhysicalDeviceLegacyVertexAttributesPropertiesEXT<'a>
+{
+}
+impl<'a> Default for PhysicalDeviceLegacyVertexAttributesPropertiesEXT<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            native_unaligned_performance: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+impl<'a> PhysicalDeviceLegacyVertexAttributesPropertiesEXT<'a> {
+    #[inline]
+    pub fn native_unaligned_performance(mut self, value: Bool32) -> Self {
+        self.native_unaligned_performance = value;
+        self
+    }
+    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
+        unsafe { self.push_next_unchecked(ext) }
+    }
+}
+#[repr(C)]
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkLayerSettingsCreateInfoEXT.html>"]
 #[doc(alias = "VkLayerSettingsCreateInfoEXT")]
 pub struct LayerSettingsCreateInfoEXT<'a> {
@@ -50824,6 +50908,332 @@ impl<'a> PhysicalDeviceRawAccessChainsFeaturesNV<'a> {
     }
 }
 #[repr(C)]
+#[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceShaderRelaxedExtendedInstructionFeaturesKHR.html>"]
+#[doc(alias = "VkPhysicalDeviceShaderRelaxedExtendedInstructionFeaturesKHR")]
+pub struct PhysicalDeviceShaderRelaxedExtendedInstructionFeaturesKHR<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub shader_relaxed_extended_instruction: Bool32,
+    phantom: PhantomData<&'a ()>,
+}
+unsafe impl<'a> ExtendableStructure
+    for PhysicalDeviceShaderRelaxedExtendedInstructionFeaturesKHR<'a>
+{
+    const STRUCTURE_TYPE: StructureType =
+        StructureType::PhysicalDeviceShaderRelaxedExtendedInstructionFeaturesKHR;
+}
+unsafe impl<'a> Send for PhysicalDeviceShaderRelaxedExtendedInstructionFeaturesKHR<'a> {}
+unsafe impl<'a> Sync for PhysicalDeviceShaderRelaxedExtendedInstructionFeaturesKHR<'a> {}
+unsafe impl<'a, 'b> ExtendingStructure<PhysicalDeviceFeatures2<'b>>
+    for PhysicalDeviceShaderRelaxedExtendedInstructionFeaturesKHR<'a>
+{
+}
+unsafe impl<'a, 'b> ExtendingStructure<DeviceCreateInfo<'b>>
+    for PhysicalDeviceShaderRelaxedExtendedInstructionFeaturesKHR<'a>
+{
+}
+impl<'a> Default for PhysicalDeviceShaderRelaxedExtendedInstructionFeaturesKHR<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            shader_relaxed_extended_instruction: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+impl<'a> PhysicalDeviceShaderRelaxedExtendedInstructionFeaturesKHR<'a> {
+    #[inline]
+    pub fn shader_relaxed_extended_instruction(mut self, value: Bool32) -> Self {
+        self.shader_relaxed_extended_instruction = value;
+        self
+    }
+    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
+        unsafe { self.push_next_unchecked(ext) }
+    }
+}
+#[repr(C)]
+#[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceMaintenance7FeaturesKHR.html>"]
+#[doc(alias = "VkPhysicalDeviceMaintenance7FeaturesKHR")]
+pub struct PhysicalDeviceMaintenance7FeaturesKHR<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub maintenance7: Bool32,
+    phantom: PhantomData<&'a ()>,
+}
+unsafe impl<'a> ExtendableStructure for PhysicalDeviceMaintenance7FeaturesKHR<'a> {
+    const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceMaintenance7FeaturesKHR;
+}
+unsafe impl<'a> Send for PhysicalDeviceMaintenance7FeaturesKHR<'a> {}
+unsafe impl<'a> Sync for PhysicalDeviceMaintenance7FeaturesKHR<'a> {}
+unsafe impl<'a, 'b> ExtendingStructure<PhysicalDeviceFeatures2<'b>>
+    for PhysicalDeviceMaintenance7FeaturesKHR<'a>
+{
+}
+unsafe impl<'a, 'b> ExtendingStructure<DeviceCreateInfo<'b>>
+    for PhysicalDeviceMaintenance7FeaturesKHR<'a>
+{
+}
+impl<'a> Default for PhysicalDeviceMaintenance7FeaturesKHR<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            maintenance7: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+impl<'a> PhysicalDeviceMaintenance7FeaturesKHR<'a> {
+    #[inline]
+    pub fn maintenance7(mut self, value: Bool32) -> Self {
+        self.maintenance7 = value;
+        self
+    }
+    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
+        unsafe { self.push_next_unchecked(ext) }
+    }
+}
+#[repr(C)]
+#[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceMaintenance7PropertiesKHR.html>"]
+#[doc(alias = "VkPhysicalDeviceMaintenance7PropertiesKHR")]
+pub struct PhysicalDeviceMaintenance7PropertiesKHR<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub robust_fragment_shading_rate_attachment_access: Bool32,
+    pub separate_depth_stencil_attachment_access: Bool32,
+    pub max_descriptor_set_total_uniform_buffers_dynamic: u32,
+    pub max_descriptor_set_total_storage_buffers_dynamic: u32,
+    pub max_descriptor_set_total_buffers_dynamic: u32,
+    pub max_descriptor_set_update_after_bind_total_uniform_buffers_dynamic: u32,
+    pub max_descriptor_set_update_after_bind_total_storage_buffers_dynamic: u32,
+    pub max_descriptor_set_update_after_bind_total_buffers_dynamic: u32,
+    phantom: PhantomData<&'a ()>,
+}
+unsafe impl<'a> ExtendableStructure for PhysicalDeviceMaintenance7PropertiesKHR<'a> {
+    const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceMaintenance7PropertiesKHR;
+}
+unsafe impl<'a> Send for PhysicalDeviceMaintenance7PropertiesKHR<'a> {}
+unsafe impl<'a> Sync for PhysicalDeviceMaintenance7PropertiesKHR<'a> {}
+unsafe impl<'a, 'b> ExtendingStructure<PhysicalDeviceProperties2<'b>>
+    for PhysicalDeviceMaintenance7PropertiesKHR<'a>
+{
+}
+impl<'a> Default for PhysicalDeviceMaintenance7PropertiesKHR<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            robust_fragment_shading_rate_attachment_access: Default::default(),
+            separate_depth_stencil_attachment_access: Default::default(),
+            max_descriptor_set_total_uniform_buffers_dynamic: Default::default(),
+            max_descriptor_set_total_storage_buffers_dynamic: Default::default(),
+            max_descriptor_set_total_buffers_dynamic: Default::default(),
+            max_descriptor_set_update_after_bind_total_uniform_buffers_dynamic: Default::default(),
+            max_descriptor_set_update_after_bind_total_storage_buffers_dynamic: Default::default(),
+            max_descriptor_set_update_after_bind_total_buffers_dynamic: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+impl<'a> PhysicalDeviceMaintenance7PropertiesKHR<'a> {
+    #[inline]
+    pub fn robust_fragment_shading_rate_attachment_access(mut self, value: Bool32) -> Self {
+        self.robust_fragment_shading_rate_attachment_access = value;
+        self
+    }
+    #[inline]
+    pub fn separate_depth_stencil_attachment_access(mut self, value: Bool32) -> Self {
+        self.separate_depth_stencil_attachment_access = value;
+        self
+    }
+    #[inline]
+    pub fn max_descriptor_set_total_uniform_buffers_dynamic(mut self, value: u32) -> Self {
+        self.max_descriptor_set_total_uniform_buffers_dynamic = value;
+        self
+    }
+    #[inline]
+    pub fn max_descriptor_set_total_storage_buffers_dynamic(mut self, value: u32) -> Self {
+        self.max_descriptor_set_total_storage_buffers_dynamic = value;
+        self
+    }
+    #[inline]
+    pub fn max_descriptor_set_total_buffers_dynamic(mut self, value: u32) -> Self {
+        self.max_descriptor_set_total_buffers_dynamic = value;
+        self
+    }
+    #[inline]
+    pub fn max_descriptor_set_update_after_bind_total_uniform_buffers_dynamic(
+        mut self,
+        value: u32,
+    ) -> Self {
+        self.max_descriptor_set_update_after_bind_total_uniform_buffers_dynamic = value;
+        self
+    }
+    #[inline]
+    pub fn max_descriptor_set_update_after_bind_total_storage_buffers_dynamic(
+        mut self,
+        value: u32,
+    ) -> Self {
+        self.max_descriptor_set_update_after_bind_total_storage_buffers_dynamic = value;
+        self
+    }
+    #[inline]
+    pub fn max_descriptor_set_update_after_bind_total_buffers_dynamic(
+        mut self,
+        value: u32,
+    ) -> Self {
+        self.max_descriptor_set_update_after_bind_total_buffers_dynamic = value;
+        self
+    }
+    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
+        unsafe { self.push_next_unchecked(ext) }
+    }
+}
+#[repr(C)]
+#[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceLayeredApiPropertiesListKHR.html>"]
+#[doc(alias = "VkPhysicalDeviceLayeredApiPropertiesListKHR")]
+pub struct PhysicalDeviceLayeredApiPropertiesListKHR<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub layered_api_count: u32,
+    pub(crate) p_layered_apis: *const PhysicalDeviceLayeredApiPropertiesKHR<'a>,
+    phantom: PhantomData<&'a ()>,
+}
+unsafe impl<'a> ExtendableStructure for PhysicalDeviceLayeredApiPropertiesListKHR<'a> {
+    const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceLayeredApiPropertiesListKHR;
+}
+unsafe impl<'a> Send for PhysicalDeviceLayeredApiPropertiesListKHR<'a> {}
+unsafe impl<'a> Sync for PhysicalDeviceLayeredApiPropertiesListKHR<'a> {}
+unsafe impl<'a, 'b> ExtendingStructure<PhysicalDeviceProperties2<'b>>
+    for PhysicalDeviceLayeredApiPropertiesListKHR<'a>
+{
+}
+impl<'a> Default for PhysicalDeviceLayeredApiPropertiesListKHR<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            layered_api_count: Default::default(),
+            p_layered_apis: ptr::null(),
+            phantom: PhantomData,
+        }
+    }
+}
+impl<'a> PhysicalDeviceLayeredApiPropertiesListKHR<'a> {
+    #[inline]
+    pub fn layered_api_count(mut self, value: u32) -> Self {
+        self.layered_api_count = value;
+        self
+    }
+    #[inline]
+    pub fn layered_apis(
+        mut self,
+        p_layered_apis: &'a [PhysicalDeviceLayeredApiPropertiesKHR<'a>],
+    ) -> Self {
+        self.p_layered_apis = p_layered_apis.as_ptr().cast();
+        self.layered_api_count = p_layered_apis.len() as _;
+        self
+    }
+    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
+        unsafe { self.push_next_unchecked(ext) }
+    }
+}
+#[repr(C)]
+#[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceLayeredApiPropertiesKHR.html>"]
+#[doc(alias = "VkPhysicalDeviceLayeredApiPropertiesKHR")]
+pub struct PhysicalDeviceLayeredApiPropertiesKHR<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub vendor_id: u32,
+    pub device_id: u32,
+    pub layered_api: PhysicalDeviceLayeredApiKHR,
+    pub device_name: [c_char; MAX_PHYSICAL_DEVICE_NAME_SIZE as _],
+    phantom: PhantomData<&'a ()>,
+}
+unsafe impl<'a> ExtendableStructure for PhysicalDeviceLayeredApiPropertiesKHR<'a> {
+    const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceLayeredApiPropertiesKHR;
+}
+unsafe impl<'a> Send for PhysicalDeviceLayeredApiPropertiesKHR<'a> {}
+unsafe impl<'a> Sync for PhysicalDeviceLayeredApiPropertiesKHR<'a> {}
+impl<'a> Default for PhysicalDeviceLayeredApiPropertiesKHR<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            vendor_id: Default::default(),
+            device_id: Default::default(),
+            layered_api: PhysicalDeviceLayeredApiKHR::Vulkan,
+            device_name: array::from_fn(|_| Default::default()),
+            phantom: PhantomData,
+        }
+    }
+}
+impl<'a> PhysicalDeviceLayeredApiPropertiesKHR<'a> {
+    #[inline]
+    pub fn vendor_id(mut self, value: u32) -> Self {
+        self.vendor_id = value;
+        self
+    }
+    #[inline]
+    pub fn device_id(mut self, value: u32) -> Self {
+        self.device_id = value;
+        self
+    }
+    #[inline]
+    pub fn layered_api(mut self, value: PhysicalDeviceLayeredApiKHR) -> Self {
+        self.layered_api = value;
+        self
+    }
+    #[inline]
+    pub fn device_name(mut self, value: [c_char; MAX_PHYSICAL_DEVICE_NAME_SIZE as _]) -> Self {
+        self.device_name = value;
+        self
+    }
+    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
+        unsafe { self.push_next_unchecked(ext) }
+    }
+}
+#[repr(C)]
+#[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceLayeredApiVulkanPropertiesKHR.html>"]
+#[doc(alias = "VkPhysicalDeviceLayeredApiVulkanPropertiesKHR")]
+pub struct PhysicalDeviceLayeredApiVulkanPropertiesKHR<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub properties: PhysicalDeviceProperties2<'a>,
+    phantom: PhantomData<&'a ()>,
+}
+unsafe impl<'a> ExtendableStructure for PhysicalDeviceLayeredApiVulkanPropertiesKHR<'a> {
+    const STRUCTURE_TYPE: StructureType =
+        StructureType::PhysicalDeviceLayeredApiVulkanPropertiesKHR;
+}
+unsafe impl<'a> Send for PhysicalDeviceLayeredApiVulkanPropertiesKHR<'a> {}
+unsafe impl<'a> Sync for PhysicalDeviceLayeredApiVulkanPropertiesKHR<'a> {}
+unsafe impl<'a, 'b> ExtendingStructure<PhysicalDeviceLayeredApiPropertiesKHR<'b>>
+    for PhysicalDeviceLayeredApiVulkanPropertiesKHR<'a>
+{
+}
+impl<'a> Default for PhysicalDeviceLayeredApiVulkanPropertiesKHR<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            properties: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+impl<'a> PhysicalDeviceLayeredApiVulkanPropertiesKHR<'a> {
+    #[inline]
+    pub fn properties(mut self, value: PhysicalDeviceProperties2<'a>) -> Self {
+        self.properties = value;
+        self
+    }
+    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
+        unsafe { self.push_next_unchecked(ext) }
+    }
+}
+#[repr(C)]
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceShaderAtomicFloat16VectorFeaturesNV.html>"]
 #[doc(alias = "VkPhysicalDeviceShaderAtomicFloat16VectorFeaturesNV")]
 pub struct PhysicalDeviceShaderAtomicFloat16VectorFeaturesNV<'a> {
@@ -50867,6 +51277,49 @@ impl<'a> PhysicalDeviceShaderAtomicFloat16VectorFeaturesNV<'a> {
     }
 }
 #[repr(C)]
+#[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceShaderReplicatedCompositesFeaturesEXT.html>"]
+#[doc(alias = "VkPhysicalDeviceShaderReplicatedCompositesFeaturesEXT")]
+pub struct PhysicalDeviceShaderReplicatedCompositesFeaturesEXT<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub shader_replicated_composites: Bool32,
+    phantom: PhantomData<&'a ()>,
+}
+unsafe impl<'a> ExtendableStructure for PhysicalDeviceShaderReplicatedCompositesFeaturesEXT<'a> {
+    const STRUCTURE_TYPE: StructureType =
+        StructureType::PhysicalDeviceShaderReplicatedCompositesFeaturesEXT;
+}
+unsafe impl<'a> Send for PhysicalDeviceShaderReplicatedCompositesFeaturesEXT<'a> {}
+unsafe impl<'a> Sync for PhysicalDeviceShaderReplicatedCompositesFeaturesEXT<'a> {}
+unsafe impl<'a, 'b> ExtendingStructure<PhysicalDeviceFeatures2<'b>>
+    for PhysicalDeviceShaderReplicatedCompositesFeaturesEXT<'a>
+{
+}
+unsafe impl<'a, 'b> ExtendingStructure<DeviceCreateInfo<'b>>
+    for PhysicalDeviceShaderReplicatedCompositesFeaturesEXT<'a>
+{
+}
+impl<'a> Default for PhysicalDeviceShaderReplicatedCompositesFeaturesEXT<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            shader_replicated_composites: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+impl<'a> PhysicalDeviceShaderReplicatedCompositesFeaturesEXT<'a> {
+    #[inline]
+    pub fn shader_replicated_composites(mut self, value: Bool32) -> Self {
+        self.shader_replicated_composites = value;
+        self
+    }
+    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
+        unsafe { self.push_next_unchecked(ext) }
+    }
+}
+#[repr(C)]
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceRayTracingValidationFeaturesNV.html>"]
 #[doc(alias = "VkPhysicalDeviceRayTracingValidationFeaturesNV")]
 pub struct PhysicalDeviceRayTracingValidationFeaturesNV<'a> {
@@ -50903,6 +51356,126 @@ impl<'a> PhysicalDeviceRayTracingValidationFeaturesNV<'a> {
     #[inline]
     pub fn ray_tracing_validation(mut self, value: Bool32) -> Self {
         self.ray_tracing_validation = value;
+        self
+    }
+    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
+        unsafe { self.push_next_unchecked(ext) }
+    }
+}
+#[repr(C)]
+#[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceImageAlignmentControlFeaturesMESA.html>"]
+#[doc(alias = "VkPhysicalDeviceImageAlignmentControlFeaturesMESA")]
+pub struct PhysicalDeviceImageAlignmentControlFeaturesMESA<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub image_alignment_control: Bool32,
+    phantom: PhantomData<&'a ()>,
+}
+unsafe impl<'a> ExtendableStructure for PhysicalDeviceImageAlignmentControlFeaturesMESA<'a> {
+    const STRUCTURE_TYPE: StructureType =
+        StructureType::PhysicalDeviceImageAlignmentControlFeaturesMESA;
+}
+unsafe impl<'a> Send for PhysicalDeviceImageAlignmentControlFeaturesMESA<'a> {}
+unsafe impl<'a> Sync for PhysicalDeviceImageAlignmentControlFeaturesMESA<'a> {}
+unsafe impl<'a, 'b> ExtendingStructure<PhysicalDeviceFeatures2<'b>>
+    for PhysicalDeviceImageAlignmentControlFeaturesMESA<'a>
+{
+}
+unsafe impl<'a, 'b> ExtendingStructure<DeviceCreateInfo<'b>>
+    for PhysicalDeviceImageAlignmentControlFeaturesMESA<'a>
+{
+}
+impl<'a> Default for PhysicalDeviceImageAlignmentControlFeaturesMESA<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            image_alignment_control: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+impl<'a> PhysicalDeviceImageAlignmentControlFeaturesMESA<'a> {
+    #[inline]
+    pub fn image_alignment_control(mut self, value: Bool32) -> Self {
+        self.image_alignment_control = value;
+        self
+    }
+    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
+        unsafe { self.push_next_unchecked(ext) }
+    }
+}
+#[repr(C)]
+#[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceImageAlignmentControlPropertiesMESA.html>"]
+#[doc(alias = "VkPhysicalDeviceImageAlignmentControlPropertiesMESA")]
+pub struct PhysicalDeviceImageAlignmentControlPropertiesMESA<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub supported_image_alignment_mask: u32,
+    phantom: PhantomData<&'a ()>,
+}
+unsafe impl<'a> ExtendableStructure for PhysicalDeviceImageAlignmentControlPropertiesMESA<'a> {
+    const STRUCTURE_TYPE: StructureType =
+        StructureType::PhysicalDeviceImageAlignmentControlPropertiesMESA;
+}
+unsafe impl<'a> Send for PhysicalDeviceImageAlignmentControlPropertiesMESA<'a> {}
+unsafe impl<'a> Sync for PhysicalDeviceImageAlignmentControlPropertiesMESA<'a> {}
+unsafe impl<'a, 'b> ExtendingStructure<PhysicalDeviceProperties2<'b>>
+    for PhysicalDeviceImageAlignmentControlPropertiesMESA<'a>
+{
+}
+impl<'a> Default for PhysicalDeviceImageAlignmentControlPropertiesMESA<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            supported_image_alignment_mask: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+impl<'a> PhysicalDeviceImageAlignmentControlPropertiesMESA<'a> {
+    #[inline]
+    pub fn supported_image_alignment_mask(mut self, value: u32) -> Self {
+        self.supported_image_alignment_mask = value;
+        self
+    }
+    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
+        unsafe { self.push_next_unchecked(ext) }
+    }
+}
+#[repr(C)]
+#[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkImageAlignmentControlCreateInfoMESA.html>"]
+#[doc(alias = "VkImageAlignmentControlCreateInfoMESA")]
+pub struct ImageAlignmentControlCreateInfoMESA<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub maximum_requested_alignment: u32,
+    phantom: PhantomData<&'a ()>,
+}
+unsafe impl<'a> ExtendableStructure for ImageAlignmentControlCreateInfoMESA<'a> {
+    const STRUCTURE_TYPE: StructureType = StructureType::ImageAlignmentControlCreateInfoMESA;
+}
+unsafe impl<'a> Send for ImageAlignmentControlCreateInfoMESA<'a> {}
+unsafe impl<'a> Sync for ImageAlignmentControlCreateInfoMESA<'a> {}
+unsafe impl<'a, 'b> ExtendingStructure<ImageCreateInfo<'b>>
+    for ImageAlignmentControlCreateInfoMESA<'a>
+{
+}
+impl<'a> Default for ImageAlignmentControlCreateInfoMESA<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            maximum_requested_alignment: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+impl<'a> ImageAlignmentControlCreateInfoMESA<'a> {
+    #[inline]
+    pub fn maximum_requested_alignment(mut self, value: u32) -> Self {
+        self.maximum_requested_alignment = value;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {

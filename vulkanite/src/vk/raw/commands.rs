@@ -10901,7 +10901,7 @@ pub fn cmd_set_rendering_attachment_locations_khr(
 #[doc(alias = "vkCmdSetRenderingInputAttachmentIndicesKHR")]
 pub fn cmd_set_rendering_input_attachment_indices_khr(
     command_buffer: &CommandBuffer,
-    p_location_info: &RenderingInputAttachmentIndexInfoKHR,
+    p_input_attachment_index_info: &RenderingInputAttachmentIndexInfoKHR,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
@@ -10911,7 +10911,7 @@ pub fn cmd_set_rendering_input_attachment_indices_khr(
     unsafe {
         vulkan_command(
             Some(unsafe { command_buffer.clone() }),
-            ptr::from_ref(p_location_info),
+            ptr::from_ref(p_input_attachment_index_info),
         )
     }
 }
