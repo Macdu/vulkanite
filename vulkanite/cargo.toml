@@ -6,6 +6,7 @@ authors = ["Macdu <Macdu@users.noreply.github.com>"]
 description = "Vulkan bindings for Rust"
 license = "MIT OR Apache-2.0"
 readme = "../README.md"
+repository = "https://github.com/Macdu/vulkanite"
 keywords = ["gamedev", "graphics", "vulkan", "bindings"]
 categories = [
     "api-bindings",
