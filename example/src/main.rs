@@ -488,14 +488,14 @@ impl VulkanApplication {
             },
         };
 
-        let extent = &self.swapchain_objects.extent;
+        let extent = self.swapchain_objects.extent;
         cmd_buffer.begin_render_pass(
             &vk::RenderPassBeginInfo::default()
                 .render_pass(&self.render_pass)
                 .framebuffer(&self.swapchain_objects.framebuffers[image_idx])
                 .render_area(vk::Rect2D {
                     offset: vk::Offset2D::default(),
-                    extent: extent.clone(),
+                    extent,
                 })
                 .clear_values(&[clear_value]),
             vk::SubpassContents::Inline,
@@ -517,7 +517,7 @@ impl VulkanApplication {
             0,
             &[vk::Rect2D {
                 offset: vk::Offset2D::default(),
-                extent: extent.clone(),
+                extent,
             }],
         );
 
