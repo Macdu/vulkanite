@@ -509,10 +509,10 @@ mod private {
 
 /// If A implements [`Alias<B>`], this means A and B have exactly the same memory representation
 /// Thus transmuting from A to B is safe
-pub unsafe trait Alias<T: Sized>: Sized {}
+pub unsafe trait Alias<T>: Sized {}
 
 /// T has always the same memory representation as itself
-unsafe impl<T: Sized> Alias<T> for T {}
+unsafe impl<T> Alias<T> for T {}
 
 /// A dispatchable or non-dispatchable Vulkan Handle
 pub trait Handle: private::Sealed + Sized {
@@ -606,7 +606,7 @@ impl<'a, T: Handle> AsMut<T> for BorrowedMutHandle<'a, T> {
 /// [`Vec<T>`] implements this trait as well as [SmallVec] is the small-vec feature is enabled
 /// This trait is unsafe because no allocating a memory area of the proper size when calling
 /// allocate_with_capacity can cause undefined behavior when using this library
-pub unsafe trait DynamicArray<T: Sized>: IntoIterator<Item = T> {
+pub unsafe trait DynamicArray<T>: IntoIterator<Item = T> {
     /// Returns an array with at least the given capacity available
     /// Calling get_content_mut_ptr on an object allocated with allocate_with_capacity(capacity) should return
     /// A contiguous properly aligned allocated region of memory which can hold capacity elements of T
@@ -629,11 +629,11 @@ pub unsafe trait DynamicArray<T: Sized>: IntoIterator<Item = T> {
 
 /// When using advanced commands, we must be able to provide a dynamic array for both the type and the underlying type
 /// This trait allows given a type T with a dynamic array to get a dynamic array for another type S
-pub trait AdvancedDynamicArray<T: Sized, S: Sized>: DynamicArray<T> + FromIterator<T> {
+pub trait AdvancedDynamicArray<T, S>: DynamicArray<T> + FromIterator<T> {
     type InnerArrayType: DynamicArray<S>;
 }
 
-unsafe impl<T: Sized> DynamicArray<T> for Vec<T> {
+unsafe impl<T> DynamicArray<T> for Vec<T> {
     fn create_with_capacity(capacity: usize) -> Self {
         Self::with_capacity(capacity)
     }
@@ -653,12 +653,12 @@ unsafe impl<T: Sized> DynamicArray<T> for Vec<T> {
     }
 }
 
-impl<T: Sized, S: Sized> AdvancedDynamicArray<T, S> for Vec<T> {
+impl<T, S> AdvancedDynamicArray<T, S> for Vec<T> {
     type InnerArrayType = Vec<S>;
 }
 
 #[cfg(feature = "smallvec")]
-unsafe impl<T: Sized, A> DynamicArray<T> for SmallVec<A>
+unsafe impl<T, A> DynamicArray<T> for SmallVec<A>
 where
     A: smallvec::Array<Item = T>,
 {
@@ -680,7 +680,7 @@ where
 }
 
 #[cfg(feature = "smallvec")]
-impl<T: Sized, S: Sized, const N: usize> AdvancedDynamicArray<T, S> for SmallVec<[T; N]> {
+impl<T, S, const N: usize> AdvancedDynamicArray<T, S> for SmallVec<[T; N]> {
     type InnerArrayType = SmallVec<[S; N]>;
 }
 
