@@ -44,14 +44,12 @@ macro_rules! vk_handle {
     };
 }
 
-#[macro_export]
 macro_rules! handle_dispatchable {
     ($name:ident, $obj_type:ident, $doc_tag:meta, $vk_name:literal) => {
         vk_handle! {$name, $obj_type, $doc_tag, $vk_name, NonZeroUsize}
     };
 }
 
-#[macro_export]
 macro_rules! handle_nondispatchable {
     ($name:ident, $obj_type:ident, $doc_tag:meta, $vk_name:literal) => {
         vk_handle! {$name, $obj_type, $doc_tag, $vk_name, NonZeroU64}
