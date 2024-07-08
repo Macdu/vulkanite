@@ -195,7 +195,7 @@ pub fn generate<'a, 'b>(
             ffi::{c_int, CStr},
             ops::Deref,
         };
-        use crate::{vk::*, Alias, Allocator, AdvancedDynamicArray, DefaultAllocator, Dispatcher, DynamicArray, DynamicDispatcher, StructureChainOut};
+        use crate::{vk::*, Alias, Allocator, AdvancedDynamicArray, AsSlice, DefaultAllocator, Dispatcher, DynamicArray, DynamicDispatcher, StructureChainOut};
 
         #(#result)*
     }
@@ -404,10 +404,11 @@ where
 
     let doc_tag = make_doc_link(vk_name);
     let unsafe_tag = name.starts_with("destroy").then(|| quote! (unsafe));
+    let lifetime = (!cmd_parsed.vec_fields.is_empty()).then(|| quote! ('a, ));
 
     Ok(quote! {
         #doc_tag
-        pub #unsafe_tag fn #fn_name<#ret_template #(#arg_template),*>(&self, #(#arg_outer_name: #arg_outer_type),*) #ret_type {
+        pub #unsafe_tag fn #fn_name<#lifetime #ret_template #(#arg_template),*>(&self, #(#arg_outer_name: #arg_outer_type),*) #ret_type {
             #pre_call
             raw::#raw_fn_name(#caller #(#arg_outer_name,)* #allocator_param self.disp.get_command_dispatcher())
             #post_call

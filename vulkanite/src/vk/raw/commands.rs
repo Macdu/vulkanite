@@ -482,9 +482,9 @@ pub fn get_device_queue(
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkQueueSubmit.html>"]
 #[doc(alias = "vkQueueSubmit")]
-pub fn queue_submit(
+pub fn queue_submit<'a>(
     queue: &Queue,
-    p_submits: &[SubmitInfo],
+    p_submits: impl AsSlice<'a, SubmitInfo<'a>>,
     fence: Option<&Fence>,
     dispatcher: &CommandsDispatcher,
 ) -> Result<()> {
@@ -495,8 +495,8 @@ pub fn queue_submit(
     unsafe {
         vulkan_command(
             Some(unsafe { queue.clone() }),
-            p_submits.len() as _,
-            p_submits.as_ptr().cast(),
+            p_submits.as_slice().len() as _,
+            p_submits.as_slice().as_ptr().cast(),
             fence.map(|v| unsafe { v.clone() }),
         )
         .map_success(|| ())
@@ -606,9 +606,9 @@ pub fn unmap_memory(device: &Device, memory: &DeviceMemory, dispatcher: &Command
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkFlushMappedMemoryRanges.html>"]
 #[doc(alias = "vkFlushMappedMemoryRanges")]
-pub fn flush_mapped_memory_ranges(
+pub fn flush_mapped_memory_ranges<'a>(
     device: &Device,
-    p_memory_ranges: &[MappedMemoryRange],
+    p_memory_ranges: impl AsSlice<'a, MappedMemoryRange<'a>>,
     dispatcher: &CommandsDispatcher,
 ) -> Result<()> {
     let vulkan_command = dispatcher
@@ -618,17 +618,17 @@ pub fn flush_mapped_memory_ranges(
     unsafe {
         vulkan_command(
             Some(unsafe { device.clone() }),
-            p_memory_ranges.len() as _,
-            p_memory_ranges.as_ptr().cast(),
+            p_memory_ranges.as_slice().len() as _,
+            p_memory_ranges.as_slice().as_ptr().cast(),
         )
         .map_success(|| ())
     }
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkInvalidateMappedMemoryRanges.html>"]
 #[doc(alias = "vkInvalidateMappedMemoryRanges")]
-pub fn invalidate_mapped_memory_ranges(
+pub fn invalidate_mapped_memory_ranges<'a>(
     device: &Device,
-    p_memory_ranges: &[MappedMemoryRange],
+    p_memory_ranges: impl AsSlice<'a, MappedMemoryRange<'a>>,
     dispatcher: &CommandsDispatcher,
 ) -> Result<()> {
     let vulkan_command = dispatcher
@@ -638,8 +638,8 @@ pub fn invalidate_mapped_memory_ranges(
     unsafe {
         vulkan_command(
             Some(unsafe { device.clone() }),
-            p_memory_ranges.len() as _,
-            p_memory_ranges.as_ptr().cast(),
+            p_memory_ranges.as_slice().len() as _,
+            p_memory_ranges.as_slice().as_ptr().cast(),
         )
         .map_success(|| ())
     }
@@ -839,9 +839,9 @@ pub fn get_physical_device_sparse_image_format_properties<
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkQueueBindSparse.html>"]
 #[doc(alias = "vkQueueBindSparse")]
-pub fn queue_bind_sparse(
+pub fn queue_bind_sparse<'a>(
     queue: &Queue,
-    p_bind_info: &[BindSparseInfo],
+    p_bind_info: impl AsSlice<'a, BindSparseInfo<'a>>,
     fence: Option<&Fence>,
     dispatcher: &CommandsDispatcher,
 ) -> Result<()> {
@@ -852,8 +852,8 @@ pub fn queue_bind_sparse(
     unsafe {
         vulkan_command(
             Some(unsafe { queue.clone() }),
-            p_bind_info.len() as _,
-            p_bind_info.as_ptr().cast(),
+            p_bind_info.as_slice().len() as _,
+            p_bind_info.as_slice().as_ptr().cast(),
             fence.map(|v| unsafe { v.clone() }),
         )
         .map_success(|| ())
@@ -904,9 +904,9 @@ pub unsafe fn destroy_fence(
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkResetFences.html>"]
 #[doc(alias = "vkResetFences")]
-pub fn reset_fences<V2: Alias<raw::Fence>>(
+pub fn reset_fences<'a, V2: Alias<raw::Fence> + 'a>(
     device: &Device,
-    p_fences: &[V2],
+    p_fences: impl AsSlice<'a, V2>,
     dispatcher: &CommandsDispatcher,
 ) -> Result<()> {
     let vulkan_command = dispatcher
@@ -916,8 +916,8 @@ pub fn reset_fences<V2: Alias<raw::Fence>>(
     unsafe {
         vulkan_command(
             Some(unsafe { device.clone() }),
-            p_fences.len() as _,
-            p_fences.as_ptr().cast(),
+            p_fences.as_slice().len() as _,
+            p_fences.as_slice().as_ptr().cast(),
         )
         .map_success(|| ())
     }
@@ -943,9 +943,9 @@ pub fn get_fence_status(
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkWaitForFences.html>"]
 #[doc(alias = "vkWaitForFences")]
-pub fn wait_for_fences<V2: Alias<raw::Fence>>(
+pub fn wait_for_fences<'a, V2: Alias<raw::Fence> + 'a>(
     device: &Device,
-    p_fences: &[V2],
+    p_fences: impl AsSlice<'a, V2>,
     wait_all: impl Into<Bool32>,
     timeout: u64,
     dispatcher: &CommandsDispatcher,
@@ -957,8 +957,8 @@ pub fn wait_for_fences<V2: Alias<raw::Fence>>(
     unsafe {
         vulkan_command(
             Some(unsafe { device.clone() }),
-            p_fences.len() as _,
-            p_fences.as_ptr().cast(),
+            p_fences.as_slice().len() as _,
+            p_fences.as_slice().as_ptr().cast(),
             wait_all.into(),
             timeout,
         )
@@ -1480,10 +1480,10 @@ pub fn get_pipeline_cache_data(
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkMergePipelineCaches.html>"]
 #[doc(alias = "vkMergePipelineCaches")]
-pub fn merge_pipeline_caches<V3: Alias<raw::PipelineCache>>(
+pub fn merge_pipeline_caches<'a, V3: Alias<raw::PipelineCache> + 'a>(
     device: &Device,
     dst_cache: &PipelineCache,
-    p_src_caches: &[V3],
+    p_src_caches: impl AsSlice<'a, V3>,
     dispatcher: &CommandsDispatcher,
 ) -> Result<()> {
     let vulkan_command = dispatcher
@@ -1494,18 +1494,18 @@ pub fn merge_pipeline_caches<V3: Alias<raw::PipelineCache>>(
         vulkan_command(
             Some(unsafe { device.clone() }),
             Some(unsafe { dst_cache.clone() }),
-            p_src_caches.len() as _,
-            p_src_caches.as_ptr().cast(),
+            p_src_caches.as_slice().len() as _,
+            p_src_caches.as_slice().as_ptr().cast(),
         )
         .map_success(|| ())
     }
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCreateGraphicsPipelines.html>"]
 #[doc(alias = "vkCreateGraphicsPipelines")]
-pub fn create_graphics_pipelines<R: DynamicArray<Pipeline>>(
+pub fn create_graphics_pipelines<'a, R: DynamicArray<Pipeline>>(
     device: &Device,
     pipeline_cache: Option<&PipelineCache>,
-    p_create_infos: &[GraphicsPipelineCreateInfo],
+    p_create_infos: impl AsSlice<'a, GraphicsPipelineCreateInfo<'a>>,
     p_allocator: Option<&AllocationCallbacks>,
     dispatcher: &CommandsDispatcher,
 ) -> Result<(Status, R)> {
@@ -1514,27 +1514,27 @@ pub fn create_graphics_pipelines<R: DynamicArray<Pipeline>>(
         .get()
         .expect("Vulkan command not loaded.");
     unsafe {
-        let mut p_pipelines = R::create_with_capacity(p_create_infos.len() as _);
+        let mut p_pipelines = R::create_with_capacity(p_create_infos.as_slice().len() as _);
         let vk_status = vulkan_command(
             Some(unsafe { device.clone() }),
             pipeline_cache.map(|v| unsafe { v.clone() }),
-            p_create_infos.len() as _,
-            p_create_infos.as_ptr().cast(),
+            p_create_infos.as_slice().len() as _,
+            p_create_infos.as_slice().as_ptr().cast(),
             p_allocator.map(|v| ptr::from_ref(v)).unwrap_or(ptr::null()),
             p_pipelines.get_content_mut_ptr(),
         );
         vk_status.map_successes(|| {
-            p_pipelines.resize_with_len(p_create_infos.len() as _);
+            p_pipelines.resize_with_len(p_create_infos.as_slice().len() as _);
             p_pipelines
         })
     }
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCreateComputePipelines.html>"]
 #[doc(alias = "vkCreateComputePipelines")]
-pub fn create_compute_pipelines<R: DynamicArray<Pipeline>>(
+pub fn create_compute_pipelines<'a, R: DynamicArray<Pipeline>>(
     device: &Device,
     pipeline_cache: Option<&PipelineCache>,
-    p_create_infos: &[ComputePipelineCreateInfo],
+    p_create_infos: impl AsSlice<'a, ComputePipelineCreateInfo<'a>>,
     p_allocator: Option<&AllocationCallbacks>,
     dispatcher: &CommandsDispatcher,
 ) -> Result<(Status, R)> {
@@ -1543,17 +1543,17 @@ pub fn create_compute_pipelines<R: DynamicArray<Pipeline>>(
         .get()
         .expect("Vulkan command not loaded.");
     unsafe {
-        let mut p_pipelines = R::create_with_capacity(p_create_infos.len() as _);
+        let mut p_pipelines = R::create_with_capacity(p_create_infos.as_slice().len() as _);
         let vk_status = vulkan_command(
             Some(unsafe { device.clone() }),
             pipeline_cache.map(|v| unsafe { v.clone() }),
-            p_create_infos.len() as _,
-            p_create_infos.as_ptr().cast(),
+            p_create_infos.as_slice().len() as _,
+            p_create_infos.as_slice().as_ptr().cast(),
             p_allocator.map(|v| ptr::from_ref(v)).unwrap_or(ptr::null()),
             p_pipelines.get_content_mut_ptr(),
         );
         vk_status.map_successes(|| {
-            p_pipelines.resize_with_len(p_create_infos.len() as _);
+            p_pipelines.resize_with_len(p_create_infos.as_slice().len() as _);
             p_pipelines
         })
     }
@@ -1798,10 +1798,10 @@ pub fn allocate_descriptor_sets<R: DynamicArray<DescriptorSet>>(
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkFreeDescriptorSets.html>"]
 #[doc(alias = "vkFreeDescriptorSets")]
-pub fn free_descriptor_sets<V3: Alias<raw::DescriptorSet>>(
+pub fn free_descriptor_sets<'a, V3: Alias<raw::DescriptorSet> + 'a>(
     device: &Device,
     descriptor_pool: &DescriptorPool,
-    p_descriptor_sets: &[V3],
+    p_descriptor_sets: impl AsSlice<'a, V3>,
     dispatcher: &CommandsDispatcher,
 ) -> Result<()> {
     let vulkan_command = dispatcher
@@ -1812,18 +1812,18 @@ pub fn free_descriptor_sets<V3: Alias<raw::DescriptorSet>>(
         vulkan_command(
             Some(unsafe { device.clone() }),
             Some(unsafe { descriptor_pool.clone() }),
-            p_descriptor_sets.len() as _,
-            p_descriptor_sets.as_ptr().cast(),
+            p_descriptor_sets.as_slice().len() as _,
+            p_descriptor_sets.as_slice().as_ptr().cast(),
         )
         .map_success(|| ())
     }
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkUpdateDescriptorSets.html>"]
 #[doc(alias = "vkUpdateDescriptorSets")]
-pub fn update_descriptor_sets(
+pub fn update_descriptor_sets<'a>(
     device: &Device,
-    p_descriptor_writes: &[WriteDescriptorSet],
-    p_descriptor_copies: &[CopyDescriptorSet],
+    p_descriptor_writes: impl AsSlice<'a, WriteDescriptorSet<'a>>,
+    p_descriptor_copies: impl AsSlice<'a, CopyDescriptorSet<'a>>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
@@ -1833,10 +1833,10 @@ pub fn update_descriptor_sets(
     unsafe {
         vulkan_command(
             Some(unsafe { device.clone() }),
-            p_descriptor_writes.len() as _,
-            p_descriptor_writes.as_ptr().cast(),
-            p_descriptor_copies.len() as _,
-            p_descriptor_copies.as_ptr().cast(),
+            p_descriptor_writes.as_slice().len() as _,
+            p_descriptor_writes.as_slice().as_ptr().cast(),
+            p_descriptor_copies.as_slice().len() as _,
+            p_descriptor_copies.as_slice().as_ptr().cast(),
         )
     }
 }
@@ -2038,10 +2038,10 @@ pub fn allocate_command_buffers<R: DynamicArray<CommandBuffer>>(
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkFreeCommandBuffers.html>"]
 #[doc(alias = "vkFreeCommandBuffers")]
-pub fn free_command_buffers<V3: Alias<raw::CommandBuffer>>(
+pub fn free_command_buffers<'a, V3: Alias<raw::CommandBuffer> + 'a>(
     device: &Device,
     command_pool: &CommandPool,
-    p_command_buffers: &[V3],
+    p_command_buffers: impl AsSlice<'a, V3>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
@@ -2052,8 +2052,8 @@ pub fn free_command_buffers<V3: Alias<raw::CommandBuffer>>(
         vulkan_command(
             Some(unsafe { device.clone() }),
             Some(unsafe { command_pool.clone() }),
-            p_command_buffers.len() as _,
-            p_command_buffers.as_ptr().cast(),
+            p_command_buffers.as_slice().len() as _,
+            p_command_buffers.as_slice().as_ptr().cast(),
         )
     }
 }
@@ -2123,10 +2123,10 @@ pub fn cmd_bind_pipeline(
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetViewport.html>"]
 #[doc(alias = "vkCmdSetViewport")]
-pub fn cmd_set_viewport(
+pub fn cmd_set_viewport<'a>(
     command_buffer: &CommandBuffer,
     first_viewport: u32,
-    p_viewports: &[Viewport],
+    p_viewports: impl AsSlice<'a, Viewport>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
@@ -2137,17 +2137,17 @@ pub fn cmd_set_viewport(
         vulkan_command(
             Some(unsafe { command_buffer.clone() }),
             first_viewport,
-            p_viewports.len() as _,
-            p_viewports.as_ptr().cast(),
+            p_viewports.as_slice().len() as _,
+            p_viewports.as_slice().as_ptr().cast(),
         )
     }
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetScissor.html>"]
 #[doc(alias = "vkCmdSetScissor")]
-pub fn cmd_set_scissor(
+pub fn cmd_set_scissor<'a>(
     command_buffer: &CommandBuffer,
     first_scissor: u32,
-    p_scissors: &[Rect2D],
+    p_scissors: impl AsSlice<'a, Rect2D>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
@@ -2158,8 +2158,8 @@ pub fn cmd_set_scissor(
         vulkan_command(
             Some(unsafe { command_buffer.clone() }),
             first_scissor,
-            p_scissors.len() as _,
-            p_scissors.as_ptr().cast(),
+            p_scissors.as_slice().len() as _,
+            p_scissors.as_slice().as_ptr().cast(),
         )
     }
 }
@@ -2293,13 +2293,13 @@ pub fn cmd_set_stencil_reference(
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdBindDescriptorSets.html>"]
 #[doc(alias = "vkCmdBindDescriptorSets")]
-pub fn cmd_bind_descriptor_sets<V5: Alias<raw::DescriptorSet>>(
+pub fn cmd_bind_descriptor_sets<'a, V5: Alias<raw::DescriptorSet> + 'a>(
     command_buffer: &CommandBuffer,
     pipeline_bind_point: PipelineBindPoint,
     layout: &PipelineLayout,
     first_set: u32,
-    p_descriptor_sets: &[V5],
-    p_dynamic_offsets: &[u32],
+    p_descriptor_sets: impl AsSlice<'a, V5>,
+    p_dynamic_offsets: impl AsSlice<'a, u32>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
@@ -2312,10 +2312,10 @@ pub fn cmd_bind_descriptor_sets<V5: Alias<raw::DescriptorSet>>(
             pipeline_bind_point,
             Some(unsafe { layout.clone() }),
             first_set,
-            p_descriptor_sets.len() as _,
-            p_descriptor_sets.as_ptr().cast(),
-            p_dynamic_offsets.len() as _,
-            p_dynamic_offsets.as_ptr().cast(),
+            p_descriptor_sets.as_slice().len() as _,
+            p_descriptor_sets.as_slice().as_ptr().cast(),
+            p_dynamic_offsets.as_slice().len() as _,
+            p_dynamic_offsets.as_slice().as_ptr().cast(),
         )
     }
 }
@@ -2343,11 +2343,11 @@ pub fn cmd_bind_index_buffer(
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdBindVertexBuffers.html>"]
 #[doc(alias = "vkCmdBindVertexBuffers")]
-pub fn cmd_bind_vertex_buffers<V3: Alias<raw::Buffer>>(
+pub fn cmd_bind_vertex_buffers<'a, V3: Alias<raw::Buffer> + 'a>(
     command_buffer: &CommandBuffer,
     first_binding: u32,
-    p_buffers: &[V3],
-    p_offsets: &[DeviceSize],
+    p_buffers: impl AsSlice<'a, V3>,
+    p_offsets: impl AsSlice<'a, DeviceSize>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
@@ -2358,9 +2358,9 @@ pub fn cmd_bind_vertex_buffers<V3: Alias<raw::Buffer>>(
         vulkan_command(
             Some(unsafe { command_buffer.clone() }),
             first_binding,
-            p_offsets.len() as _,
-            p_buffers.as_ptr().cast(),
-            p_offsets.as_ptr().cast(),
+            p_offsets.as_slice().len() as _,
+            p_buffers.as_slice().as_ptr().cast(),
+            p_offsets.as_slice().as_ptr().cast(),
         )
     }
 }
@@ -2506,11 +2506,11 @@ pub fn cmd_dispatch_indirect(
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdCopyBuffer.html>"]
 #[doc(alias = "vkCmdCopyBuffer")]
-pub fn cmd_copy_buffer(
+pub fn cmd_copy_buffer<'a>(
     command_buffer: &CommandBuffer,
     src_buffer: &Buffer,
     dst_buffer: &Buffer,
-    p_regions: &[BufferCopy],
+    p_regions: impl AsSlice<'a, BufferCopy>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
@@ -2522,20 +2522,20 @@ pub fn cmd_copy_buffer(
             Some(unsafe { command_buffer.clone() }),
             Some(unsafe { src_buffer.clone() }),
             Some(unsafe { dst_buffer.clone() }),
-            p_regions.len() as _,
-            p_regions.as_ptr().cast(),
+            p_regions.as_slice().len() as _,
+            p_regions.as_slice().as_ptr().cast(),
         )
     }
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdCopyImage.html>"]
 #[doc(alias = "vkCmdCopyImage")]
-pub fn cmd_copy_image(
+pub fn cmd_copy_image<'a>(
     command_buffer: &CommandBuffer,
     src_image: &Image,
     src_image_layout: ImageLayout,
     dst_image: &Image,
     dst_image_layout: ImageLayout,
-    p_regions: &[ImageCopy],
+    p_regions: impl AsSlice<'a, ImageCopy>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
@@ -2549,20 +2549,20 @@ pub fn cmd_copy_image(
             src_image_layout,
             Some(unsafe { dst_image.clone() }),
             dst_image_layout,
-            p_regions.len() as _,
-            p_regions.as_ptr().cast(),
+            p_regions.as_slice().len() as _,
+            p_regions.as_slice().as_ptr().cast(),
         )
     }
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdBlitImage.html>"]
 #[doc(alias = "vkCmdBlitImage")]
-pub fn cmd_blit_image(
+pub fn cmd_blit_image<'a>(
     command_buffer: &CommandBuffer,
     src_image: &Image,
     src_image_layout: ImageLayout,
     dst_image: &Image,
     dst_image_layout: ImageLayout,
-    p_regions: &[ImageBlit],
+    p_regions: impl AsSlice<'a, ImageBlit>,
     filter: Filter,
     dispatcher: &CommandsDispatcher,
 ) {
@@ -2577,20 +2577,20 @@ pub fn cmd_blit_image(
             src_image_layout,
             Some(unsafe { dst_image.clone() }),
             dst_image_layout,
-            p_regions.len() as _,
-            p_regions.as_ptr().cast(),
+            p_regions.as_slice().len() as _,
+            p_regions.as_slice().as_ptr().cast(),
             filter,
         )
     }
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdCopyBufferToImage.html>"]
 #[doc(alias = "vkCmdCopyBufferToImage")]
-pub fn cmd_copy_buffer_to_image(
+pub fn cmd_copy_buffer_to_image<'a>(
     command_buffer: &CommandBuffer,
     src_buffer: &Buffer,
     dst_image: &Image,
     dst_image_layout: ImageLayout,
-    p_regions: &[BufferImageCopy],
+    p_regions: impl AsSlice<'a, BufferImageCopy>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
@@ -2603,19 +2603,19 @@ pub fn cmd_copy_buffer_to_image(
             Some(unsafe { src_buffer.clone() }),
             Some(unsafe { dst_image.clone() }),
             dst_image_layout,
-            p_regions.len() as _,
-            p_regions.as_ptr().cast(),
+            p_regions.as_slice().len() as _,
+            p_regions.as_slice().as_ptr().cast(),
         )
     }
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdCopyImageToBuffer.html>"]
 #[doc(alias = "vkCmdCopyImageToBuffer")]
-pub fn cmd_copy_image_to_buffer(
+pub fn cmd_copy_image_to_buffer<'a>(
     command_buffer: &CommandBuffer,
     src_image: &Image,
     src_image_layout: ImageLayout,
     dst_buffer: &Buffer,
-    p_regions: &[BufferImageCopy],
+    p_regions: impl AsSlice<'a, BufferImageCopy>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
@@ -2628,8 +2628,8 @@ pub fn cmd_copy_image_to_buffer(
             Some(unsafe { src_image.clone() }),
             src_image_layout,
             Some(unsafe { dst_buffer.clone() }),
-            p_regions.len() as _,
-            p_regions.as_ptr().cast(),
+            p_regions.as_slice().len() as _,
+            p_regions.as_slice().as_ptr().cast(),
         )
     }
 }
@@ -2683,12 +2683,12 @@ pub fn cmd_fill_buffer(
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdClearColorImage.html>"]
 #[doc(alias = "vkCmdClearColorImage")]
-pub fn cmd_clear_color_image(
+pub fn cmd_clear_color_image<'a>(
     command_buffer: &CommandBuffer,
     image: &Image,
     image_layout: ImageLayout,
     p_color: &ClearColorValue,
-    p_ranges: &[ImageSubresourceRange],
+    p_ranges: impl AsSlice<'a, ImageSubresourceRange>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
@@ -2701,19 +2701,19 @@ pub fn cmd_clear_color_image(
             Some(unsafe { image.clone() }),
             image_layout,
             ptr::from_ref(p_color),
-            p_ranges.len() as _,
-            p_ranges.as_ptr().cast(),
+            p_ranges.as_slice().len() as _,
+            p_ranges.as_slice().as_ptr().cast(),
         )
     }
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdClearDepthStencilImage.html>"]
 #[doc(alias = "vkCmdClearDepthStencilImage")]
-pub fn cmd_clear_depth_stencil_image(
+pub fn cmd_clear_depth_stencil_image<'a>(
     command_buffer: &CommandBuffer,
     image: &Image,
     image_layout: ImageLayout,
     p_depth_stencil: &ClearDepthStencilValue,
-    p_ranges: &[ImageSubresourceRange],
+    p_ranges: impl AsSlice<'a, ImageSubresourceRange>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
@@ -2726,17 +2726,17 @@ pub fn cmd_clear_depth_stencil_image(
             Some(unsafe { image.clone() }),
             image_layout,
             ptr::from_ref(p_depth_stencil),
-            p_ranges.len() as _,
-            p_ranges.as_ptr().cast(),
+            p_ranges.as_slice().len() as _,
+            p_ranges.as_slice().as_ptr().cast(),
         )
     }
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdClearAttachments.html>"]
 #[doc(alias = "vkCmdClearAttachments")]
-pub fn cmd_clear_attachments(
+pub fn cmd_clear_attachments<'a>(
     command_buffer: &CommandBuffer,
-    p_attachments: &[ClearAttachment],
-    p_rects: &[ClearRect],
+    p_attachments: impl AsSlice<'a, ClearAttachment>,
+    p_rects: impl AsSlice<'a, ClearRect>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
@@ -2746,22 +2746,22 @@ pub fn cmd_clear_attachments(
     unsafe {
         vulkan_command(
             Some(unsafe { command_buffer.clone() }),
-            p_attachments.len() as _,
-            p_attachments.as_ptr().cast(),
-            p_rects.len() as _,
-            p_rects.as_ptr().cast(),
+            p_attachments.as_slice().len() as _,
+            p_attachments.as_slice().as_ptr().cast(),
+            p_rects.as_slice().len() as _,
+            p_rects.as_slice().as_ptr().cast(),
         )
     }
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdResolveImage.html>"]
 #[doc(alias = "vkCmdResolveImage")]
-pub fn cmd_resolve_image(
+pub fn cmd_resolve_image<'a>(
     command_buffer: &CommandBuffer,
     src_image: &Image,
     src_image_layout: ImageLayout,
     dst_image: &Image,
     dst_image_layout: ImageLayout,
-    p_regions: &[ImageResolve],
+    p_regions: impl AsSlice<'a, ImageResolve>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
@@ -2775,8 +2775,8 @@ pub fn cmd_resolve_image(
             src_image_layout,
             Some(unsafe { dst_image.clone() }),
             dst_image_layout,
-            p_regions.len() as _,
-            p_regions.as_ptr().cast(),
+            p_regions.as_slice().len() as _,
+            p_regions.as_slice().as_ptr().cast(),
         )
     }
 }
@@ -2822,14 +2822,14 @@ pub fn cmd_reset_event(
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdWaitEvents.html>"]
 #[doc(alias = "vkCmdWaitEvents")]
-pub fn cmd_wait_events<V2: Alias<raw::Event>>(
+pub fn cmd_wait_events<'a, V2: Alias<raw::Event> + 'a>(
     command_buffer: &CommandBuffer,
-    p_events: &[V2],
+    p_events: impl AsSlice<'a, V2>,
     src_stage_mask: PipelineStageFlags,
     dst_stage_mask: PipelineStageFlags,
-    p_memory_barriers: &[MemoryBarrier],
-    p_buffer_memory_barriers: &[BufferMemoryBarrier],
-    p_image_memory_barriers: &[ImageMemoryBarrier],
+    p_memory_barriers: impl AsSlice<'a, MemoryBarrier<'a>>,
+    p_buffer_memory_barriers: impl AsSlice<'a, BufferMemoryBarrier<'a>>,
+    p_image_memory_barriers: impl AsSlice<'a, ImageMemoryBarrier<'a>>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
@@ -2839,29 +2839,29 @@ pub fn cmd_wait_events<V2: Alias<raw::Event>>(
     unsafe {
         vulkan_command(
             Some(unsafe { command_buffer.clone() }),
-            p_events.len() as _,
-            p_events.as_ptr().cast(),
+            p_events.as_slice().len() as _,
+            p_events.as_slice().as_ptr().cast(),
             src_stage_mask,
             dst_stage_mask,
-            p_memory_barriers.len() as _,
-            p_memory_barriers.as_ptr().cast(),
-            p_buffer_memory_barriers.len() as _,
-            p_buffer_memory_barriers.as_ptr().cast(),
-            p_image_memory_barriers.len() as _,
-            p_image_memory_barriers.as_ptr().cast(),
+            p_memory_barriers.as_slice().len() as _,
+            p_memory_barriers.as_slice().as_ptr().cast(),
+            p_buffer_memory_barriers.as_slice().len() as _,
+            p_buffer_memory_barriers.as_slice().as_ptr().cast(),
+            p_image_memory_barriers.as_slice().len() as _,
+            p_image_memory_barriers.as_slice().as_ptr().cast(),
         )
     }
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdPipelineBarrier.html>"]
 #[doc(alias = "vkCmdPipelineBarrier")]
-pub fn cmd_pipeline_barrier(
+pub fn cmd_pipeline_barrier<'a>(
     command_buffer: &CommandBuffer,
     src_stage_mask: PipelineStageFlags,
     dst_stage_mask: PipelineStageFlags,
     dependency_flags: DependencyFlags,
-    p_memory_barriers: &[MemoryBarrier],
-    p_buffer_memory_barriers: &[BufferMemoryBarrier],
-    p_image_memory_barriers: &[ImageMemoryBarrier],
+    p_memory_barriers: impl AsSlice<'a, MemoryBarrier<'a>>,
+    p_buffer_memory_barriers: impl AsSlice<'a, BufferMemoryBarrier<'a>>,
+    p_image_memory_barriers: impl AsSlice<'a, ImageMemoryBarrier<'a>>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
@@ -2874,12 +2874,12 @@ pub fn cmd_pipeline_barrier(
             src_stage_mask,
             dst_stage_mask,
             dependency_flags,
-            p_memory_barriers.len() as _,
-            p_memory_barriers.as_ptr().cast(),
-            p_buffer_memory_barriers.len() as _,
-            p_buffer_memory_barriers.as_ptr().cast(),
-            p_image_memory_barriers.len() as _,
-            p_image_memory_barriers.as_ptr().cast(),
+            p_memory_barriers.as_slice().len() as _,
+            p_memory_barriers.as_slice().as_ptr().cast(),
+            p_buffer_memory_barriers.as_slice().len() as _,
+            p_buffer_memory_barriers.as_slice().as_ptr().cast(),
+            p_image_memory_barriers.as_slice().len() as _,
+            p_image_memory_barriers.as_slice().as_ptr().cast(),
         )
     }
 }
@@ -3069,9 +3069,9 @@ pub fn cmd_end_render_pass(command_buffer: &CommandBuffer, dispatcher: &Commands
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdExecuteCommands.html>"]
 #[doc(alias = "vkCmdExecuteCommands")]
-pub fn cmd_execute_commands<V2: Alias<raw::CommandBuffer>>(
+pub fn cmd_execute_commands<'a, V2: Alias<raw::CommandBuffer> + 'a>(
     command_buffer: &CommandBuffer,
-    p_command_buffers: &[V2],
+    p_command_buffers: impl AsSlice<'a, V2>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
@@ -3081,8 +3081,8 @@ pub fn cmd_execute_commands<V2: Alias<raw::CommandBuffer>>(
     unsafe {
         vulkan_command(
             Some(unsafe { command_buffer.clone() }),
-            p_command_buffers.len() as _,
-            p_command_buffers.as_ptr().cast(),
+            p_command_buffers.as_slice().len() as _,
+            p_command_buffers.as_slice().as_ptr().cast(),
         )
     }
 }
@@ -3101,9 +3101,9 @@ pub fn enumerate_instance_version(dispatcher: &CommandsDispatcher) -> Result<u32
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkBindBufferMemory2.html>"]
 #[doc(alias = "vkBindBufferMemory2")]
-pub fn bind_buffer_memory2(
+pub fn bind_buffer_memory2<'a>(
     device: &Device,
-    p_bind_infos: &[BindBufferMemoryInfo],
+    p_bind_infos: impl AsSlice<'a, BindBufferMemoryInfo<'a>>,
     dispatcher: &CommandsDispatcher,
 ) -> Result<()> {
     let vulkan_command = dispatcher
@@ -3113,17 +3113,17 @@ pub fn bind_buffer_memory2(
     unsafe {
         vulkan_command(
             Some(unsafe { device.clone() }),
-            p_bind_infos.len() as _,
-            p_bind_infos.as_ptr().cast(),
+            p_bind_infos.as_slice().len() as _,
+            p_bind_infos.as_slice().as_ptr().cast(),
         )
         .map_success(|| ())
     }
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkBindBufferMemory2KHR.html>"]
 #[doc(alias = "vkBindBufferMemory2KHR")]
-pub fn bind_buffer_memory2_khr(
+pub fn bind_buffer_memory2_khr<'a>(
     device: &Device,
-    p_bind_infos: &[BindBufferMemoryInfo],
+    p_bind_infos: impl AsSlice<'a, BindBufferMemoryInfo<'a>>,
     dispatcher: &CommandsDispatcher,
 ) -> Result<()> {
     let vulkan_command = dispatcher
@@ -3133,17 +3133,17 @@ pub fn bind_buffer_memory2_khr(
     unsafe {
         vulkan_command(
             Some(unsafe { device.clone() }),
-            p_bind_infos.len() as _,
-            p_bind_infos.as_ptr().cast(),
+            p_bind_infos.as_slice().len() as _,
+            p_bind_infos.as_slice().as_ptr().cast(),
         )
         .map_success(|| ())
     }
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkBindImageMemory2.html>"]
 #[doc(alias = "vkBindImageMemory2")]
-pub fn bind_image_memory2(
+pub fn bind_image_memory2<'a>(
     device: &Device,
-    p_bind_infos: &[BindImageMemoryInfo],
+    p_bind_infos: impl AsSlice<'a, BindImageMemoryInfo<'a>>,
     dispatcher: &CommandsDispatcher,
 ) -> Result<()> {
     let vulkan_command = dispatcher
@@ -3153,17 +3153,17 @@ pub fn bind_image_memory2(
     unsafe {
         vulkan_command(
             Some(unsafe { device.clone() }),
-            p_bind_infos.len() as _,
-            p_bind_infos.as_ptr().cast(),
+            p_bind_infos.as_slice().len() as _,
+            p_bind_infos.as_slice().as_ptr().cast(),
         )
         .map_success(|| ())
     }
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkBindImageMemory2KHR.html>"]
 #[doc(alias = "vkBindImageMemory2KHR")]
-pub fn bind_image_memory2_khr(
+pub fn bind_image_memory2_khr<'a>(
     device: &Device,
-    p_bind_infos: &[BindImageMemoryInfo],
+    p_bind_infos: impl AsSlice<'a, BindImageMemoryInfo<'a>>,
     dispatcher: &CommandsDispatcher,
 ) -> Result<()> {
     let vulkan_command = dispatcher
@@ -3173,8 +3173,8 @@ pub fn bind_image_memory2_khr(
     unsafe {
         vulkan_command(
             Some(unsafe { device.clone() }),
-            p_bind_infos.len() as _,
-            p_bind_infos.as_ptr().cast(),
+            p_bind_infos.as_slice().len() as _,
+            p_bind_infos.as_slice().as_ptr().cast(),
         )
         .map_success(|| ())
     }
@@ -5363,10 +5363,10 @@ pub fn cmd_reset_event2_khr(
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdWaitEvents2.html>"]
 #[doc(alias = "vkCmdWaitEvents2")]
-pub fn cmd_wait_events2<V2: Alias<raw::Event>>(
+pub fn cmd_wait_events2<'a, V2: Alias<raw::Event> + 'a>(
     command_buffer: &CommandBuffer,
-    p_events: &[V2],
-    p_dependency_infos: &[DependencyInfo],
+    p_events: impl AsSlice<'a, V2>,
+    p_dependency_infos: impl AsSlice<'a, DependencyInfo<'a>>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
@@ -5376,18 +5376,18 @@ pub fn cmd_wait_events2<V2: Alias<raw::Event>>(
     unsafe {
         vulkan_command(
             Some(unsafe { command_buffer.clone() }),
-            p_dependency_infos.len() as _,
-            p_events.as_ptr().cast(),
-            p_dependency_infos.as_ptr().cast(),
+            p_dependency_infos.as_slice().len() as _,
+            p_events.as_slice().as_ptr().cast(),
+            p_dependency_infos.as_slice().as_ptr().cast(),
         )
     }
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdWaitEvents2KHR.html>"]
 #[doc(alias = "vkCmdWaitEvents2KHR")]
-pub fn cmd_wait_events2_khr<V2: Alias<raw::Event>>(
+pub fn cmd_wait_events2_khr<'a, V2: Alias<raw::Event> + 'a>(
     command_buffer: &CommandBuffer,
-    p_events: &[V2],
-    p_dependency_infos: &[DependencyInfo],
+    p_events: impl AsSlice<'a, V2>,
+    p_dependency_infos: impl AsSlice<'a, DependencyInfo<'a>>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
@@ -5397,9 +5397,9 @@ pub fn cmd_wait_events2_khr<V2: Alias<raw::Event>>(
     unsafe {
         vulkan_command(
             Some(unsafe { command_buffer.clone() }),
-            p_dependency_infos.len() as _,
-            p_events.as_ptr().cast(),
-            p_dependency_infos.as_ptr().cast(),
+            p_dependency_infos.as_slice().len() as _,
+            p_events.as_slice().as_ptr().cast(),
+            p_dependency_infos.as_slice().as_ptr().cast(),
         )
     }
 }
@@ -5485,9 +5485,9 @@ pub fn cmd_write_timestamp2_khr(
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkQueueSubmit2.html>"]
 #[doc(alias = "vkQueueSubmit2")]
-pub fn queue_submit2(
+pub fn queue_submit2<'a>(
     queue: &Queue,
-    p_submits: &[SubmitInfo2],
+    p_submits: impl AsSlice<'a, SubmitInfo2<'a>>,
     fence: Option<&Fence>,
     dispatcher: &CommandsDispatcher,
 ) -> Result<()> {
@@ -5498,8 +5498,8 @@ pub fn queue_submit2(
     unsafe {
         vulkan_command(
             Some(unsafe { queue.clone() }),
-            p_submits.len() as _,
-            p_submits.as_ptr().cast(),
+            p_submits.as_slice().len() as _,
+            p_submits.as_slice().as_ptr().cast(),
             fence.map(|v| unsafe { v.clone() }),
         )
         .map_success(|| ())
@@ -5507,9 +5507,9 @@ pub fn queue_submit2(
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkQueueSubmit2KHR.html>"]
 #[doc(alias = "vkQueueSubmit2KHR")]
-pub fn queue_submit2_khr(
+pub fn queue_submit2_khr<'a>(
     queue: &Queue,
-    p_submits: &[SubmitInfo2],
+    p_submits: impl AsSlice<'a, SubmitInfo2<'a>>,
     fence: Option<&Fence>,
     dispatcher: &CommandsDispatcher,
 ) -> Result<()> {
@@ -5520,8 +5520,8 @@ pub fn queue_submit2_khr(
     unsafe {
         vulkan_command(
             Some(unsafe { queue.clone() }),
-            p_submits.len() as _,
-            p_submits.as_ptr().cast(),
+            p_submits.as_slice().len() as _,
+            p_submits.as_slice().as_ptr().cast(),
             fence.map(|v| unsafe { v.clone() }),
         )
         .map_success(|| ())
@@ -5877,9 +5877,9 @@ pub fn cmd_set_primitive_topology_ext(
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetViewportWithCount.html>"]
 #[doc(alias = "vkCmdSetViewportWithCount")]
-pub fn cmd_set_viewport_with_count(
+pub fn cmd_set_viewport_with_count<'a>(
     command_buffer: &CommandBuffer,
-    p_viewports: &[Viewport],
+    p_viewports: impl AsSlice<'a, Viewport>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
@@ -5889,16 +5889,16 @@ pub fn cmd_set_viewport_with_count(
     unsafe {
         vulkan_command(
             Some(unsafe { command_buffer.clone() }),
-            p_viewports.len() as _,
-            p_viewports.as_ptr().cast(),
+            p_viewports.as_slice().len() as _,
+            p_viewports.as_slice().as_ptr().cast(),
         )
     }
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetViewportWithCountEXT.html>"]
 #[doc(alias = "vkCmdSetViewportWithCountEXT")]
-pub fn cmd_set_viewport_with_count_ext(
+pub fn cmd_set_viewport_with_count_ext<'a>(
     command_buffer: &CommandBuffer,
-    p_viewports: &[Viewport],
+    p_viewports: impl AsSlice<'a, Viewport>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
@@ -5908,16 +5908,16 @@ pub fn cmd_set_viewport_with_count_ext(
     unsafe {
         vulkan_command(
             Some(unsafe { command_buffer.clone() }),
-            p_viewports.len() as _,
-            p_viewports.as_ptr().cast(),
+            p_viewports.as_slice().len() as _,
+            p_viewports.as_slice().as_ptr().cast(),
         )
     }
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetScissorWithCount.html>"]
 #[doc(alias = "vkCmdSetScissorWithCount")]
-pub fn cmd_set_scissor_with_count(
+pub fn cmd_set_scissor_with_count<'a>(
     command_buffer: &CommandBuffer,
-    p_scissors: &[Rect2D],
+    p_scissors: impl AsSlice<'a, Rect2D>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
@@ -5927,16 +5927,16 @@ pub fn cmd_set_scissor_with_count(
     unsafe {
         vulkan_command(
             Some(unsafe { command_buffer.clone() }),
-            p_scissors.len() as _,
-            p_scissors.as_ptr().cast(),
+            p_scissors.as_slice().len() as _,
+            p_scissors.as_slice().as_ptr().cast(),
         )
     }
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetScissorWithCountEXT.html>"]
 #[doc(alias = "vkCmdSetScissorWithCountEXT")]
-pub fn cmd_set_scissor_with_count_ext(
+pub fn cmd_set_scissor_with_count_ext<'a>(
     command_buffer: &CommandBuffer,
-    p_scissors: &[Rect2D],
+    p_scissors: impl AsSlice<'a, Rect2D>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
@@ -5946,20 +5946,20 @@ pub fn cmd_set_scissor_with_count_ext(
     unsafe {
         vulkan_command(
             Some(unsafe { command_buffer.clone() }),
-            p_scissors.len() as _,
-            p_scissors.as_ptr().cast(),
+            p_scissors.as_slice().len() as _,
+            p_scissors.as_slice().as_ptr().cast(),
         )
     }
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdBindVertexBuffers2.html>"]
 #[doc(alias = "vkCmdBindVertexBuffers2")]
-pub fn cmd_bind_vertex_buffers2<V3: Alias<raw::Buffer>>(
+pub fn cmd_bind_vertex_buffers2<'a, V3: Alias<raw::Buffer> + 'a>(
     command_buffer: &CommandBuffer,
     first_binding: u32,
-    p_buffers: &[V3],
-    p_offsets: &[DeviceSize],
-    p_sizes: Option<&[DeviceSize]>,
-    p_strides: Option<&[DeviceSize]>,
+    p_buffers: impl AsSlice<'a, V3>,
+    p_offsets: impl AsSlice<'a, DeviceSize>,
+    p_sizes: Option<impl AsSlice<'a, DeviceSize>>,
+    p_strides: Option<impl AsSlice<'a, DeviceSize>>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
@@ -5970,23 +5970,27 @@ pub fn cmd_bind_vertex_buffers2<V3: Alias<raw::Buffer>>(
         vulkan_command(
             Some(unsafe { command_buffer.clone() }),
             first_binding,
-            p_offsets.len() as _,
-            p_buffers.as_ptr().cast(),
-            p_offsets.as_ptr().cast(),
-            p_sizes.map(|p| p.as_ptr().cast()).unwrap_or(ptr::null()),
-            p_strides.map(|p| p.as_ptr().cast()).unwrap_or(ptr::null()),
+            p_offsets.as_slice().len() as _,
+            p_buffers.as_slice().as_ptr().cast(),
+            p_offsets.as_slice().as_ptr().cast(),
+            p_sizes
+                .map(|p| p.as_slice().as_ptr().cast())
+                .unwrap_or(ptr::null()),
+            p_strides
+                .map(|p| p.as_slice().as_ptr().cast())
+                .unwrap_or(ptr::null()),
         )
     }
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdBindVertexBuffers2EXT.html>"]
 #[doc(alias = "vkCmdBindVertexBuffers2EXT")]
-pub fn cmd_bind_vertex_buffers2_ext<V3: Alias<raw::Buffer>>(
+pub fn cmd_bind_vertex_buffers2_ext<'a, V3: Alias<raw::Buffer> + 'a>(
     command_buffer: &CommandBuffer,
     first_binding: u32,
-    p_buffers: &[V3],
-    p_offsets: &[DeviceSize],
-    p_sizes: Option<&[DeviceSize]>,
-    p_strides: Option<&[DeviceSize]>,
+    p_buffers: impl AsSlice<'a, V3>,
+    p_offsets: impl AsSlice<'a, DeviceSize>,
+    p_sizes: Option<impl AsSlice<'a, DeviceSize>>,
+    p_strides: Option<impl AsSlice<'a, DeviceSize>>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
@@ -5997,11 +6001,15 @@ pub fn cmd_bind_vertex_buffers2_ext<V3: Alias<raw::Buffer>>(
         vulkan_command(
             Some(unsafe { command_buffer.clone() }),
             first_binding,
-            p_offsets.len() as _,
-            p_buffers.as_ptr().cast(),
-            p_offsets.as_ptr().cast(),
-            p_sizes.map(|p| p.as_ptr().cast()).unwrap_or(ptr::null()),
-            p_strides.map(|p| p.as_ptr().cast()).unwrap_or(ptr::null()),
+            p_offsets.as_slice().len() as _,
+            p_buffers.as_slice().as_ptr().cast(),
+            p_offsets.as_slice().as_ptr().cast(),
+            p_sizes
+                .map(|p| p.as_slice().as_ptr().cast())
+                .unwrap_or(ptr::null()),
+            p_strides
+                .map(|p| p.as_slice().as_ptr().cast())
+                .unwrap_or(ptr::null()),
         )
     }
 }
@@ -7164,9 +7172,9 @@ pub fn create_display_plane_surface_khr(
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCreateSharedSwapchainsKHR.html>"]
 #[doc(alias = "vkCreateSharedSwapchainsKHR")]
-pub fn create_shared_swapchains_khr<R: DynamicArray<SwapchainKHR>>(
+pub fn create_shared_swapchains_khr<'a, R: DynamicArray<SwapchainKHR>>(
     device: &Device,
-    p_create_infos: &[SwapchainCreateInfoKHR],
+    p_create_infos: impl AsSlice<'a, SwapchainCreateInfoKHR<'a>>,
     p_allocator: Option<&AllocationCallbacks>,
     dispatcher: &CommandsDispatcher,
 ) -> Result<R> {
@@ -7175,16 +7183,16 @@ pub fn create_shared_swapchains_khr<R: DynamicArray<SwapchainKHR>>(
         .get()
         .expect("Vulkan command not loaded.");
     unsafe {
-        let mut p_swapchains = R::create_with_capacity(p_create_infos.len() as _);
+        let mut p_swapchains = R::create_with_capacity(p_create_infos.as_slice().len() as _);
         let vk_status = vulkan_command(
             Some(unsafe { device.clone() }),
-            p_create_infos.len() as _,
-            p_create_infos.as_ptr().cast(),
+            p_create_infos.as_slice().len() as _,
+            p_create_infos.as_slice().as_ptr().cast(),
             p_allocator.map(|v| ptr::from_ref(v)).unwrap_or(ptr::null()),
             p_swapchains.get_content_mut_ptr(),
         );
         vk_status.map_success(|| {
-            p_swapchains.resize_with_len(p_create_infos.len() as _);
+            p_swapchains.resize_with_len(p_create_infos.as_slice().len() as _);
             p_swapchains
         })
     }
@@ -7533,12 +7541,12 @@ pub fn cmd_debug_marker_insert_ext(
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdBindTransformFeedbackBuffersEXT.html>"]
 #[doc(alias = "vkCmdBindTransformFeedbackBuffersEXT")]
-pub fn cmd_bind_transform_feedback_buffers_ext<V3: Alias<raw::Buffer>>(
+pub fn cmd_bind_transform_feedback_buffers_ext<'a, V3: Alias<raw::Buffer> + 'a>(
     command_buffer: &CommandBuffer,
     first_binding: u32,
-    p_buffers: &[V3],
-    p_offsets: &[DeviceSize],
-    p_sizes: Option<&[DeviceSize]>,
+    p_buffers: impl AsSlice<'a, V3>,
+    p_offsets: impl AsSlice<'a, DeviceSize>,
+    p_sizes: Option<impl AsSlice<'a, DeviceSize>>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
@@ -7549,20 +7557,22 @@ pub fn cmd_bind_transform_feedback_buffers_ext<V3: Alias<raw::Buffer>>(
         vulkan_command(
             Some(unsafe { command_buffer.clone() }),
             first_binding,
-            p_offsets.len() as _,
-            p_buffers.as_ptr().cast(),
-            p_offsets.as_ptr().cast(),
-            p_sizes.map(|p| p.as_ptr().cast()).unwrap_or(ptr::null()),
+            p_offsets.as_slice().len() as _,
+            p_buffers.as_slice().as_ptr().cast(),
+            p_offsets.as_slice().as_ptr().cast(),
+            p_sizes
+                .map(|p| p.as_slice().as_ptr().cast())
+                .unwrap_or(ptr::null()),
         )
     }
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdBeginTransformFeedbackEXT.html>"]
 #[doc(alias = "vkCmdBeginTransformFeedbackEXT")]
-pub fn cmd_begin_transform_feedback_ext<V3: Alias<raw::Buffer>>(
+pub fn cmd_begin_transform_feedback_ext<'a, V3: Alias<raw::Buffer> + 'a>(
     command_buffer: &CommandBuffer,
     first_counter_buffer: u32,
-    p_counter_buffers: &[V3],
-    p_counter_buffer_offsets: Option<&[DeviceSize]>,
+    p_counter_buffers: impl AsSlice<'a, V3>,
+    p_counter_buffer_offsets: Option<impl AsSlice<'a, DeviceSize>>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
@@ -7573,21 +7583,21 @@ pub fn cmd_begin_transform_feedback_ext<V3: Alias<raw::Buffer>>(
         vulkan_command(
             Some(unsafe { command_buffer.clone() }),
             first_counter_buffer,
-            p_counter_buffers.len() as _,
-            p_counter_buffers.as_ptr().cast(),
+            p_counter_buffers.as_slice().len() as _,
+            p_counter_buffers.as_slice().as_ptr().cast(),
             p_counter_buffer_offsets
-                .map(|p| p.as_ptr().cast())
+                .map(|p| p.as_slice().as_ptr().cast())
                 .unwrap_or(ptr::null()),
         )
     }
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdEndTransformFeedbackEXT.html>"]
 #[doc(alias = "vkCmdEndTransformFeedbackEXT")]
-pub fn cmd_end_transform_feedback_ext<V3: Alias<raw::Buffer>>(
+pub fn cmd_end_transform_feedback_ext<'a, V3: Alias<raw::Buffer> + 'a>(
     command_buffer: &CommandBuffer,
     first_counter_buffer: u32,
-    p_counter_buffers: &[V3],
-    p_counter_buffer_offsets: Option<&[DeviceSize]>,
+    p_counter_buffers: impl AsSlice<'a, V3>,
+    p_counter_buffer_offsets: Option<impl AsSlice<'a, DeviceSize>>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
@@ -7598,10 +7608,10 @@ pub fn cmd_end_transform_feedback_ext<V3: Alias<raw::Buffer>>(
         vulkan_command(
             Some(unsafe { command_buffer.clone() }),
             first_counter_buffer,
-            p_counter_buffers.len() as _,
-            p_counter_buffers.as_ptr().cast(),
+            p_counter_buffers.as_slice().len() as _,
+            p_counter_buffers.as_slice().as_ptr().cast(),
             p_counter_buffer_offsets
-                .map(|p| p.as_ptr().cast())
+                .map(|p| p.as_slice().as_ptr().cast())
                 .unwrap_or(ptr::null()),
         )
     }
@@ -8129,12 +8139,12 @@ pub fn get_semaphore_fd_khr(
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdPushDescriptorSetKHR.html>"]
 #[doc(alias = "vkCmdPushDescriptorSetKHR")]
-pub fn cmd_push_descriptor_set_khr(
+pub fn cmd_push_descriptor_set_khr<'a>(
     command_buffer: &CommandBuffer,
     pipeline_bind_point: PipelineBindPoint,
     layout: &PipelineLayout,
     set: u32,
-    p_descriptor_writes: &[WriteDescriptorSet],
+    p_descriptor_writes: impl AsSlice<'a, WriteDescriptorSet<'a>>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
@@ -8147,8 +8157,8 @@ pub fn cmd_push_descriptor_set_khr(
             pipeline_bind_point,
             Some(unsafe { layout.clone() }),
             set,
-            p_descriptor_writes.len() as _,
-            p_descriptor_writes.as_ptr().cast(),
+            p_descriptor_writes.as_slice().len() as _,
+            p_descriptor_writes.as_slice().as_ptr().cast(),
         )
     }
 }
@@ -8208,10 +8218,10 @@ pub fn cmd_end_conditional_rendering_ext(
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetViewportWScalingNV.html>"]
 #[doc(alias = "vkCmdSetViewportWScalingNV")]
-pub fn cmd_set_viewport_wscaling_nv(
+pub fn cmd_set_viewport_wscaling_nv<'a>(
     command_buffer: &CommandBuffer,
     first_viewport: u32,
-    p_viewport_wscalings: &[ViewportWScalingNV],
+    p_viewport_wscalings: impl AsSlice<'a, ViewportWScalingNV>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
@@ -8222,8 +8232,8 @@ pub fn cmd_set_viewport_wscaling_nv(
         vulkan_command(
             Some(unsafe { command_buffer.clone() }),
             first_viewport,
-            p_viewport_wscalings.len() as _,
-            p_viewport_wscalings.as_ptr().cast(),
+            p_viewport_wscalings.as_slice().len() as _,
+            p_viewport_wscalings.as_slice().as_ptr().cast(),
         )
     }
 }
@@ -8478,10 +8488,10 @@ pub fn get_past_presentation_timing_google<R: DynamicArray<PastPresentationTimin
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetDiscardRectangleEXT.html>"]
 #[doc(alias = "vkCmdSetDiscardRectangleEXT")]
-pub fn cmd_set_discard_rectangle_ext(
+pub fn cmd_set_discard_rectangle_ext<'a>(
     command_buffer: &CommandBuffer,
     first_discard_rectangle: u32,
-    p_discard_rectangles: &[Rect2D],
+    p_discard_rectangles: impl AsSlice<'a, Rect2D>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
@@ -8492,8 +8502,8 @@ pub fn cmd_set_discard_rectangle_ext(
         vulkan_command(
             Some(unsafe { command_buffer.clone() }),
             first_discard_rectangle,
-            p_discard_rectangles.len() as _,
-            p_discard_rectangles.as_ptr().cast(),
+            p_discard_rectangles.as_slice().len() as _,
+            p_discard_rectangles.as_slice().as_ptr().cast(),
         )
     }
 }
@@ -8535,10 +8545,10 @@ pub fn cmd_set_discard_rectangle_mode_ext(
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkSetHdrMetadataEXT.html>"]
 #[doc(alias = "vkSetHdrMetadataEXT")]
-pub fn set_hdr_metadata_ext<V2: Alias<raw::SwapchainKHR>>(
+pub fn set_hdr_metadata_ext<'a, V2: Alias<raw::SwapchainKHR> + 'a>(
     device: &Device,
-    p_swapchains: &[V2],
-    p_metadata: &[HdrMetadataEXT],
+    p_swapchains: impl AsSlice<'a, V2>,
+    p_metadata: impl AsSlice<'a, HdrMetadataEXT<'a>>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
@@ -8548,9 +8558,9 @@ pub fn set_hdr_metadata_ext<V2: Alias<raw::SwapchainKHR>>(
     unsafe {
         vulkan_command(
             Some(unsafe { device.clone() }),
-            p_metadata.len() as _,
-            p_swapchains.as_ptr().cast(),
-            p_metadata.as_ptr().cast(),
+            p_metadata.as_slice().len() as _,
+            p_swapchains.as_slice().as_ptr().cast(),
+            p_metadata.as_slice().as_ptr().cast(),
         )
     }
 }
@@ -9210,10 +9220,10 @@ pub fn get_memory_android_hardware_buffer_android(
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCreateExecutionGraphPipelinesAMDX.html>"]
 #[doc(alias = "vkCreateExecutionGraphPipelinesAMDX")]
-pub fn create_execution_graph_pipelines_amdx<R: DynamicArray<Pipeline>>(
+pub fn create_execution_graph_pipelines_amdx<'a, R: DynamicArray<Pipeline>>(
     device: &Device,
     pipeline_cache: Option<&PipelineCache>,
-    p_create_infos: &[ExecutionGraphPipelineCreateInfoAMDX],
+    p_create_infos: impl AsSlice<'a, ExecutionGraphPipelineCreateInfoAMDX<'a>>,
     p_allocator: Option<&AllocationCallbacks>,
     dispatcher: &CommandsDispatcher,
 ) -> Result<(Status, R)> {
@@ -9222,17 +9232,17 @@ pub fn create_execution_graph_pipelines_amdx<R: DynamicArray<Pipeline>>(
         .get()
         .expect("Vulkan command not loaded.");
     unsafe {
-        let mut p_pipelines = R::create_with_capacity(p_create_infos.len() as _);
+        let mut p_pipelines = R::create_with_capacity(p_create_infos.as_slice().len() as _);
         let vk_status = vulkan_command(
             Some(unsafe { device.clone() }),
             pipeline_cache.map(|v| unsafe { v.clone() }),
-            p_create_infos.len() as _,
-            p_create_infos.as_ptr().cast(),
+            p_create_infos.as_slice().len() as _,
+            p_create_infos.as_slice().as_ptr().cast(),
             p_allocator.map(|v| ptr::from_ref(v)).unwrap_or(ptr::null()),
             p_pipelines.get_content_mut_ptr(),
         );
         vk_status.map_successes(|| {
-            p_pipelines.resize_with_len(p_create_infos.len() as _);
+            p_pipelines.resize_with_len(p_create_infos.as_slice().len() as _);
             p_pipelines
         })
     }
@@ -9442,9 +9452,9 @@ pub unsafe fn destroy_acceleration_structure_khr(
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdBuildAccelerationStructuresKHR.html>"]
 #[doc(alias = "vkCmdBuildAccelerationStructuresKHR")]
-pub fn cmd_build_acceleration_structures_khr(
+pub fn cmd_build_acceleration_structures_khr<'a>(
     command_buffer: &CommandBuffer,
-    p_infos: &[AccelerationStructureBuildGeometryInfoKHR],
+    p_infos: impl AsSlice<'a, AccelerationStructureBuildGeometryInfoKHR<'a>>,
     pp_build_range_infos: &&AccelerationStructureBuildRangeInfoKHR,
     dispatcher: &CommandsDispatcher,
 ) {
@@ -9455,19 +9465,19 @@ pub fn cmd_build_acceleration_structures_khr(
     unsafe {
         vulkan_command(
             Some(unsafe { command_buffer.clone() }),
-            p_infos.len() as _,
-            p_infos.as_ptr().cast(),
+            p_infos.as_slice().len() as _,
+            p_infos.as_slice().as_ptr().cast(),
             ptr::from_ref(pp_build_range_infos).cast(),
         )
     }
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdBuildAccelerationStructuresIndirectKHR.html>"]
 #[doc(alias = "vkCmdBuildAccelerationStructuresIndirectKHR")]
-pub fn cmd_build_acceleration_structures_indirect_khr(
+pub fn cmd_build_acceleration_structures_indirect_khr<'a>(
     command_buffer: &CommandBuffer,
-    p_infos: &[AccelerationStructureBuildGeometryInfoKHR],
-    p_indirect_device_addresses: &[DeviceAddress],
-    p_indirect_strides: &[u32],
+    p_infos: impl AsSlice<'a, AccelerationStructureBuildGeometryInfoKHR<'a>>,
+    p_indirect_device_addresses: impl AsSlice<'a, DeviceAddress>,
+    p_indirect_strides: impl AsSlice<'a, u32>,
     pp_max_primitive_counts: &&u32,
     dispatcher: &CommandsDispatcher,
 ) {
@@ -9478,20 +9488,20 @@ pub fn cmd_build_acceleration_structures_indirect_khr(
     unsafe {
         vulkan_command(
             Some(unsafe { command_buffer.clone() }),
-            p_indirect_strides.len() as _,
-            p_infos.as_ptr().cast(),
-            p_indirect_device_addresses.as_ptr().cast(),
-            p_indirect_strides.as_ptr().cast(),
+            p_indirect_strides.as_slice().len() as _,
+            p_infos.as_slice().as_ptr().cast(),
+            p_indirect_device_addresses.as_slice().as_ptr().cast(),
+            p_indirect_strides.as_slice().as_ptr().cast(),
             ptr::from_ref(pp_max_primitive_counts).cast(),
         )
     }
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkBuildAccelerationStructuresKHR.html>"]
 #[doc(alias = "vkBuildAccelerationStructuresKHR")]
-pub fn build_acceleration_structures_khr(
+pub fn build_acceleration_structures_khr<'a>(
     device: &Device,
     deferred_operation: Option<&DeferredOperationKHR>,
-    p_infos: &[AccelerationStructureBuildGeometryInfoKHR],
+    p_infos: impl AsSlice<'a, AccelerationStructureBuildGeometryInfoKHR<'a>>,
     pp_build_range_infos: &&AccelerationStructureBuildRangeInfoKHR,
     dispatcher: &CommandsDispatcher,
 ) -> Result<Status> {
@@ -9503,8 +9513,8 @@ pub fn build_acceleration_structures_khr(
         vulkan_command(
             Some(unsafe { device.clone() }),
             deferred_operation.map(|v| unsafe { v.clone() }),
-            p_infos.len() as _,
-            p_infos.as_ptr().cast(),
+            p_infos.as_slice().len() as _,
+            p_infos.as_slice().as_ptr().cast(),
             ptr::from_ref(pp_build_range_infos).cast(),
         )
         .into_result()
@@ -9575,9 +9585,12 @@ pub fn copy_memory_to_acceleration_structure_khr(
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkWriteAccelerationStructuresPropertiesKHR.html>"]
 #[doc(alias = "vkWriteAccelerationStructuresPropertiesKHR")]
-pub fn write_acceleration_structures_properties_khr<V2: Alias<raw::AccelerationStructureKHR>>(
+pub fn write_acceleration_structures_properties_khr<
+    'a,
+    V2: Alias<raw::AccelerationStructureKHR> + 'a,
+>(
     device: &Device,
-    p_acceleration_structures: &[V2],
+    p_acceleration_structures: impl AsSlice<'a, V2>,
     query_type: QueryType,
     data_size: usize,
     p_data: VoidPtr,
@@ -9591,8 +9604,8 @@ pub fn write_acceleration_structures_properties_khr<V2: Alias<raw::AccelerationS
     unsafe {
         vulkan_command(
             Some(unsafe { device.clone() }),
-            p_acceleration_structures.len() as _,
-            p_acceleration_structures.as_ptr().cast(),
+            p_acceleration_structures.as_slice().len() as _,
+            p_acceleration_structures.as_slice().as_ptr().cast(),
             query_type,
             data_size,
             p_data,
@@ -9671,10 +9684,11 @@ pub fn get_acceleration_structure_device_address_khr(
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdWriteAccelerationStructuresPropertiesKHR.html>"]
 #[doc(alias = "vkCmdWriteAccelerationStructuresPropertiesKHR")]
 pub fn cmd_write_acceleration_structures_properties_khr<
-    V2: Alias<raw::AccelerationStructureKHR>,
+    'a,
+    V2: Alias<raw::AccelerationStructureKHR> + 'a,
 >(
     command_buffer: &CommandBuffer,
-    p_acceleration_structures: &[V2],
+    p_acceleration_structures: impl AsSlice<'a, V2>,
     query_type: QueryType,
     query_pool: &QueryPool,
     first_query: u32,
@@ -9687,8 +9701,8 @@ pub fn cmd_write_acceleration_structures_properties_khr<
     unsafe {
         vulkan_command(
             Some(unsafe { command_buffer.clone() }),
-            p_acceleration_structures.len() as _,
-            p_acceleration_structures.as_ptr().cast(),
+            p_acceleration_structures.as_slice().len() as _,
+            p_acceleration_structures.as_slice().as_ptr().cast(),
             query_type,
             Some(unsafe { query_pool.clone() }),
             first_query,
@@ -9719,12 +9733,13 @@ pub fn get_device_acceleration_structure_compatibility_khr(
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetAccelerationStructureBuildSizesKHR.html>"]
 #[doc(alias = "vkGetAccelerationStructureBuildSizesKHR")]
 pub fn get_acceleration_structure_build_sizes_khr<
+    'a,
     S: StructureChainOut<AccelerationStructureBuildSizesInfoKHR<'static>>,
 >(
     device: &Device,
     build_type: AccelerationStructureBuildTypeKHR,
     p_build_info: &AccelerationStructureBuildGeometryInfoKHR,
-    p_max_primitive_counts: Option<&[u32]>,
+    p_max_primitive_counts: Option<impl AsSlice<'a, u32>>,
     dispatcher: &CommandsDispatcher,
 ) -> S {
     let vulkan_command = dispatcher
@@ -9739,7 +9754,7 @@ pub fn get_acceleration_structure_build_sizes_khr<
             build_type,
             ptr::from_ref(p_build_info),
             p_max_primitive_counts
-                .map(|p| p.as_ptr().cast())
+                .map(|p| p.as_slice().as_ptr().cast())
                 .unwrap_or(ptr::null()),
             S::get_uninit_head_ptr(p_size_info.as_mut_ptr()),
         );
@@ -9779,11 +9794,11 @@ pub fn cmd_trace_rays_khr(
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCreateRayTracingPipelinesKHR.html>"]
 #[doc(alias = "vkCreateRayTracingPipelinesKHR")]
-pub fn create_ray_tracing_pipelines_khr<R: DynamicArray<Pipeline>>(
+pub fn create_ray_tracing_pipelines_khr<'a, R: DynamicArray<Pipeline>>(
     device: &Device,
     deferred_operation: Option<&DeferredOperationKHR>,
     pipeline_cache: Option<&PipelineCache>,
-    p_create_infos: &[RayTracingPipelineCreateInfoKHR],
+    p_create_infos: impl AsSlice<'a, RayTracingPipelineCreateInfoKHR<'a>>,
     p_allocator: Option<&AllocationCallbacks>,
     dispatcher: &CommandsDispatcher,
 ) -> Result<(Status, R)> {
@@ -9792,18 +9807,18 @@ pub fn create_ray_tracing_pipelines_khr<R: DynamicArray<Pipeline>>(
         .get()
         .expect("Vulkan command not loaded.");
     unsafe {
-        let mut p_pipelines = R::create_with_capacity(p_create_infos.len() as _);
+        let mut p_pipelines = R::create_with_capacity(p_create_infos.as_slice().len() as _);
         let vk_status = vulkan_command(
             Some(unsafe { device.clone() }),
             deferred_operation.map(|v| unsafe { v.clone() }),
             pipeline_cache.map(|v| unsafe { v.clone() }),
-            p_create_infos.len() as _,
-            p_create_infos.as_ptr().cast(),
+            p_create_infos.as_slice().len() as _,
+            p_create_infos.as_slice().as_ptr().cast(),
             p_allocator.map(|v| ptr::from_ref(v)).unwrap_or(ptr::null()),
             p_pipelines.get_content_mut_ptr(),
         );
         vk_status.map_successes(|| {
-            p_pipelines.resize_with_len(p_create_infos.len() as _);
+            p_pipelines.resize_with_len(p_create_infos.as_slice().len() as _);
             p_pipelines
         })
     }
@@ -10022,10 +10037,10 @@ pub unsafe fn destroy_validation_cache_ext(
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkMergeValidationCachesEXT.html>"]
 #[doc(alias = "vkMergeValidationCachesEXT")]
-pub fn merge_validation_caches_ext<V3: Alias<raw::ValidationCacheEXT>>(
+pub fn merge_validation_caches_ext<'a, V3: Alias<raw::ValidationCacheEXT> + 'a>(
     device: &Device,
     dst_cache: &ValidationCacheEXT,
-    p_src_caches: &[V3],
+    p_src_caches: impl AsSlice<'a, V3>,
     dispatcher: &CommandsDispatcher,
 ) -> Result<()> {
     let vulkan_command = dispatcher
@@ -10036,8 +10051,8 @@ pub fn merge_validation_caches_ext<V3: Alias<raw::ValidationCacheEXT>>(
         vulkan_command(
             Some(unsafe { device.clone() }),
             Some(unsafe { dst_cache.clone() }),
-            p_src_caches.len() as _,
-            p_src_caches.as_ptr().cast(),
+            p_src_caches.as_slice().len() as _,
+            p_src_caches.as_slice().as_ptr().cast(),
         )
         .map_success(|| ())
     }
@@ -10087,10 +10102,10 @@ pub fn cmd_bind_shading_rate_image_nv(
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetViewportShadingRatePaletteNV.html>"]
 #[doc(alias = "vkCmdSetViewportShadingRatePaletteNV")]
-pub fn cmd_set_viewport_shading_rate_palette_nv(
+pub fn cmd_set_viewport_shading_rate_palette_nv<'a>(
     command_buffer: &CommandBuffer,
     first_viewport: u32,
-    p_shading_rate_palettes: &[ShadingRatePaletteNV],
+    p_shading_rate_palettes: impl AsSlice<'a, ShadingRatePaletteNV<'a>>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
@@ -10101,17 +10116,17 @@ pub fn cmd_set_viewport_shading_rate_palette_nv(
         vulkan_command(
             Some(unsafe { command_buffer.clone() }),
             first_viewport,
-            p_shading_rate_palettes.len() as _,
-            p_shading_rate_palettes.as_ptr().cast(),
+            p_shading_rate_palettes.as_slice().len() as _,
+            p_shading_rate_palettes.as_slice().as_ptr().cast(),
         )
     }
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetCoarseSampleOrderNV.html>"]
 #[doc(alias = "vkCmdSetCoarseSampleOrderNV")]
-pub fn cmd_set_coarse_sample_order_nv(
+pub fn cmd_set_coarse_sample_order_nv<'a>(
     command_buffer: &CommandBuffer,
     sample_order_type: CoarseSampleOrderTypeNV,
-    p_custom_sample_orders: &[CoarseSampleOrderCustomNV],
+    p_custom_sample_orders: impl AsSlice<'a, CoarseSampleOrderCustomNV<'a>>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
@@ -10122,8 +10137,8 @@ pub fn cmd_set_coarse_sample_order_nv(
         vulkan_command(
             Some(unsafe { command_buffer.clone() }),
             sample_order_type,
-            p_custom_sample_orders.len() as _,
-            p_custom_sample_orders.as_ptr().cast(),
+            p_custom_sample_orders.as_slice().len() as _,
+            p_custom_sample_orders.as_slice().as_ptr().cast(),
         )
     }
 }
@@ -10197,9 +10212,9 @@ pub fn get_acceleration_structure_memory_requirements_nv<
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkBindAccelerationStructureMemoryNV.html>"]
 #[doc(alias = "vkBindAccelerationStructureMemoryNV")]
-pub fn bind_acceleration_structure_memory_nv(
+pub fn bind_acceleration_structure_memory_nv<'a>(
     device: &Device,
-    p_bind_infos: &[BindAccelerationStructureMemoryInfoNV],
+    p_bind_infos: impl AsSlice<'a, BindAccelerationStructureMemoryInfoNV<'a>>,
     dispatcher: &CommandsDispatcher,
 ) -> Result<()> {
     let vulkan_command = dispatcher
@@ -10209,8 +10224,8 @@ pub fn bind_acceleration_structure_memory_nv(
     unsafe {
         vulkan_command(
             Some(unsafe { device.clone() }),
-            p_bind_infos.len() as _,
-            p_bind_infos.as_ptr().cast(),
+            p_bind_infos.as_slice().len() as _,
+            p_bind_infos.as_slice().as_ptr().cast(),
         )
         .map_success(|| ())
     }
@@ -10315,10 +10330,10 @@ pub fn cmd_trace_rays_nv(
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCreateRayTracingPipelinesNV.html>"]
 #[doc(alias = "vkCreateRayTracingPipelinesNV")]
-pub fn create_ray_tracing_pipelines_nv<R: DynamicArray<Pipeline>>(
+pub fn create_ray_tracing_pipelines_nv<'a, R: DynamicArray<Pipeline>>(
     device: &Device,
     pipeline_cache: Option<&PipelineCache>,
-    p_create_infos: &[RayTracingPipelineCreateInfoNV],
+    p_create_infos: impl AsSlice<'a, RayTracingPipelineCreateInfoNV<'a>>,
     p_allocator: Option<&AllocationCallbacks>,
     dispatcher: &CommandsDispatcher,
 ) -> Result<(Status, R)> {
@@ -10327,17 +10342,17 @@ pub fn create_ray_tracing_pipelines_nv<R: DynamicArray<Pipeline>>(
         .get()
         .expect("Vulkan command not loaded.");
     unsafe {
-        let mut p_pipelines = R::create_with_capacity(p_create_infos.len() as _);
+        let mut p_pipelines = R::create_with_capacity(p_create_infos.as_slice().len() as _);
         let vk_status = vulkan_command(
             Some(unsafe { device.clone() }),
             pipeline_cache.map(|v| unsafe { v.clone() }),
-            p_create_infos.len() as _,
-            p_create_infos.as_ptr().cast(),
+            p_create_infos.as_slice().len() as _,
+            p_create_infos.as_slice().as_ptr().cast(),
             p_allocator.map(|v| ptr::from_ref(v)).unwrap_or(ptr::null()),
             p_pipelines.get_content_mut_ptr(),
         );
         vk_status.map_successes(|| {
-            p_pipelines.resize_with_len(p_create_infos.len() as _);
+            p_pipelines.resize_with_len(p_create_infos.as_slice().len() as _);
             p_pipelines
         })
     }
@@ -10367,9 +10382,12 @@ pub fn get_acceleration_structure_handle_nv(
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdWriteAccelerationStructuresPropertiesNV.html>"]
 #[doc(alias = "vkCmdWriteAccelerationStructuresPropertiesNV")]
-pub fn cmd_write_acceleration_structures_properties_nv<V2: Alias<raw::AccelerationStructureNV>>(
+pub fn cmd_write_acceleration_structures_properties_nv<
+    'a,
+    V2: Alias<raw::AccelerationStructureNV> + 'a,
+>(
     command_buffer: &CommandBuffer,
-    p_acceleration_structures: &[V2],
+    p_acceleration_structures: impl AsSlice<'a, V2>,
     query_type: QueryType,
     query_pool: &QueryPool,
     first_query: u32,
@@ -10382,8 +10400,8 @@ pub fn cmd_write_acceleration_structures_properties_nv<V2: Alias<raw::Accelerati
     unsafe {
         vulkan_command(
             Some(unsafe { command_buffer.clone() }),
-            p_acceleration_structures.len() as _,
-            p_acceleration_structures.as_ptr().cast(),
+            p_acceleration_structures.as_slice().len() as _,
+            p_acceleration_structures.as_slice().as_ptr().cast(),
             query_type,
             Some(unsafe { query_pool.clone() }),
             first_query,
@@ -10538,10 +10556,10 @@ pub fn cmd_draw_mesh_tasks_indirect_count_nv(
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetExclusiveScissorEnableNV.html>"]
 #[doc(alias = "vkCmdSetExclusiveScissorEnableNV")]
-pub fn cmd_set_exclusive_scissor_enable_nv(
+pub fn cmd_set_exclusive_scissor_enable_nv<'a>(
     command_buffer: &CommandBuffer,
     first_exclusive_scissor: u32,
-    p_exclusive_scissor_enables: &[Bool32],
+    p_exclusive_scissor_enables: impl AsSlice<'a, Bool32>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
@@ -10552,17 +10570,17 @@ pub fn cmd_set_exclusive_scissor_enable_nv(
         vulkan_command(
             Some(unsafe { command_buffer.clone() }),
             first_exclusive_scissor,
-            p_exclusive_scissor_enables.len() as _,
-            p_exclusive_scissor_enables.as_ptr().cast(),
+            p_exclusive_scissor_enables.as_slice().len() as _,
+            p_exclusive_scissor_enables.as_slice().as_ptr().cast(),
         )
     }
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetExclusiveScissorNV.html>"]
 #[doc(alias = "vkCmdSetExclusiveScissorNV")]
-pub fn cmd_set_exclusive_scissor_nv(
+pub fn cmd_set_exclusive_scissor_nv<'a>(
     command_buffer: &CommandBuffer,
     first_exclusive_scissor: u32,
-    p_exclusive_scissors: &[Rect2D],
+    p_exclusive_scissors: impl AsSlice<'a, Rect2D>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
@@ -10573,8 +10591,8 @@ pub fn cmd_set_exclusive_scissor_nv(
         vulkan_command(
             Some(unsafe { command_buffer.clone() }),
             first_exclusive_scissor,
-            p_exclusive_scissors.len() as _,
-            p_exclusive_scissors.as_ptr().cast(),
+            p_exclusive_scissors.as_slice().len() as _,
+            p_exclusive_scissors.as_slice().as_ptr().cast(),
         )
     }
 }
@@ -11496,9 +11514,9 @@ pub fn copy_image_to_image_ext(
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkTransitionImageLayoutEXT.html>"]
 #[doc(alias = "vkTransitionImageLayoutEXT")]
-pub fn transition_image_layout_ext(
+pub fn transition_image_layout_ext<'a>(
     device: &Device,
-    p_transitions: &[HostImageLayoutTransitionInfoEXT],
+    p_transitions: impl AsSlice<'a, HostImageLayoutTransitionInfoEXT<'a>>,
     dispatcher: &CommandsDispatcher,
 ) -> Result<()> {
     let vulkan_command = dispatcher
@@ -11508,8 +11526,8 @@ pub fn transition_image_layout_ext(
     unsafe {
         vulkan_command(
             Some(unsafe { device.clone() }),
-            p_transitions.len() as _,
-            p_transitions.as_ptr().cast(),
+            p_transitions.as_slice().len() as _,
+            p_transitions.as_slice().as_ptr().cast(),
         )
         .map_success(|| ())
     }
@@ -12035,9 +12053,9 @@ pub fn get_descriptor_ext(
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdBindDescriptorBuffersEXT.html>"]
 #[doc(alias = "vkCmdBindDescriptorBuffersEXT")]
-pub fn cmd_bind_descriptor_buffers_ext(
+pub fn cmd_bind_descriptor_buffers_ext<'a>(
     command_buffer: &CommandBuffer,
-    p_binding_infos: &[DescriptorBufferBindingInfoEXT],
+    p_binding_infos: impl AsSlice<'a, DescriptorBufferBindingInfoEXT<'a>>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
@@ -12047,20 +12065,20 @@ pub fn cmd_bind_descriptor_buffers_ext(
     unsafe {
         vulkan_command(
             Some(unsafe { command_buffer.clone() }),
-            p_binding_infos.len() as _,
-            p_binding_infos.as_ptr().cast(),
+            p_binding_infos.as_slice().len() as _,
+            p_binding_infos.as_slice().as_ptr().cast(),
         )
     }
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetDescriptorBufferOffsetsEXT.html>"]
 #[doc(alias = "vkCmdSetDescriptorBufferOffsetsEXT")]
-pub fn cmd_set_descriptor_buffer_offsets_ext(
+pub fn cmd_set_descriptor_buffer_offsets_ext<'a>(
     command_buffer: &CommandBuffer,
     pipeline_bind_point: PipelineBindPoint,
     layout: &PipelineLayout,
     first_set: u32,
-    p_buffer_indices: &[u32],
-    p_offsets: &[DeviceSize],
+    p_buffer_indices: impl AsSlice<'a, u32>,
+    p_offsets: impl AsSlice<'a, DeviceSize>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
@@ -12073,9 +12091,9 @@ pub fn cmd_set_descriptor_buffer_offsets_ext(
             pipeline_bind_point,
             Some(unsafe { layout.clone() }),
             first_set,
-            p_offsets.len() as _,
-            p_buffer_indices.as_ptr().cast(),
-            p_offsets.as_ptr().cast(),
+            p_offsets.as_slice().len() as _,
+            p_buffer_indices.as_slice().as_ptr().cast(),
+            p_offsets.as_slice().as_ptr().cast(),
         )
     }
 }
@@ -12385,10 +12403,10 @@ pub fn get_physical_device_direct_fbpresentation_support_ext(
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetVertexInputEXT.html>"]
 #[doc(alias = "vkCmdSetVertexInputEXT")]
-pub fn cmd_set_vertex_input_ext(
+pub fn cmd_set_vertex_input_ext<'a>(
     command_buffer: &CommandBuffer,
-    p_vertex_binding_descriptions: &[VertexInputBindingDescription2EXT],
-    p_vertex_attribute_descriptions: &[VertexInputAttributeDescription2EXT],
+    p_vertex_binding_descriptions: impl AsSlice<'a, VertexInputBindingDescription2EXT<'a>>,
+    p_vertex_attribute_descriptions: impl AsSlice<'a, VertexInputAttributeDescription2EXT<'a>>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
@@ -12398,10 +12416,10 @@ pub fn cmd_set_vertex_input_ext(
     unsafe {
         vulkan_command(
             Some(unsafe { command_buffer.clone() }),
-            p_vertex_binding_descriptions.len() as _,
-            p_vertex_binding_descriptions.as_ptr().cast(),
-            p_vertex_attribute_descriptions.len() as _,
-            p_vertex_attribute_descriptions.as_ptr().cast(),
+            p_vertex_binding_descriptions.as_slice().len() as _,
+            p_vertex_binding_descriptions.as_slice().as_ptr().cast(),
+            p_vertex_attribute_descriptions.as_slice().len() as _,
+            p_vertex_attribute_descriptions.as_slice().as_ptr().cast(),
         )
     }
 }
@@ -12778,9 +12796,9 @@ pub fn get_physical_device_screen_presentation_support_qnx(
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetColorWriteEnableEXT.html>"]
 #[doc(alias = "vkCmdSetColorWriteEnableEXT")]
-pub fn cmd_set_color_write_enable_ext(
+pub fn cmd_set_color_write_enable_ext<'a>(
     command_buffer: &CommandBuffer,
-    p_color_write_enables: &[Bool32],
+    p_color_write_enables: impl AsSlice<'a, Bool32>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
@@ -12790,8 +12808,8 @@ pub fn cmd_set_color_write_enable_ext(
     unsafe {
         vulkan_command(
             Some(unsafe { command_buffer.clone() }),
-            p_color_write_enables.len() as _,
-            p_color_write_enables.as_ptr().cast(),
+            p_color_write_enables.as_slice().len() as _,
+            p_color_write_enables.as_slice().as_ptr().cast(),
         )
     }
 }
@@ -12815,9 +12833,9 @@ pub fn cmd_trace_rays_indirect2_khr(
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdDrawMultiEXT.html>"]
 #[doc(alias = "vkCmdDrawMultiEXT")]
-pub fn cmd_draw_multi_ext(
+pub fn cmd_draw_multi_ext<'a>(
     command_buffer: &CommandBuffer,
-    p_vertex_info: &[MultiDrawInfoEXT],
+    p_vertex_info: impl AsSlice<'a, MultiDrawInfoEXT>,
     instance_count: u32,
     first_instance: u32,
     stride: u32,
@@ -12830,8 +12848,8 @@ pub fn cmd_draw_multi_ext(
     unsafe {
         vulkan_command(
             Some(unsafe { command_buffer.clone() }),
-            p_vertex_info.len() as _,
-            p_vertex_info.as_ptr().cast(),
+            p_vertex_info.as_slice().len() as _,
+            p_vertex_info.as_slice().as_ptr().cast(),
             instance_count,
             first_instance,
             stride,
@@ -12840,9 +12858,9 @@ pub fn cmd_draw_multi_ext(
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdDrawMultiIndexedEXT.html>"]
 #[doc(alias = "vkCmdDrawMultiIndexedEXT")]
-pub fn cmd_draw_multi_indexed_ext(
+pub fn cmd_draw_multi_indexed_ext<'a>(
     command_buffer: &CommandBuffer,
-    p_index_info: &[MultiDrawIndexedInfoEXT],
+    p_index_info: impl AsSlice<'a, MultiDrawIndexedInfoEXT>,
     instance_count: u32,
     first_instance: u32,
     stride: u32,
@@ -12856,8 +12874,8 @@ pub fn cmd_draw_multi_indexed_ext(
     unsafe {
         vulkan_command(
             Some(unsafe { command_buffer.clone() }),
-            p_index_info.len() as _,
-            p_index_info.as_ptr().cast(),
+            p_index_info.as_slice().len() as _,
+            p_index_info.as_slice().as_ptr().cast(),
             instance_count,
             first_instance,
             stride,
@@ -12912,9 +12930,9 @@ pub unsafe fn destroy_micromap_ext(
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdBuildMicromapsEXT.html>"]
 #[doc(alias = "vkCmdBuildMicromapsEXT")]
-pub fn cmd_build_micromaps_ext(
+pub fn cmd_build_micromaps_ext<'a>(
     command_buffer: &CommandBuffer,
-    p_infos: &[MicromapBuildInfoEXT],
+    p_infos: impl AsSlice<'a, MicromapBuildInfoEXT<'a>>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
@@ -12924,17 +12942,17 @@ pub fn cmd_build_micromaps_ext(
     unsafe {
         vulkan_command(
             Some(unsafe { command_buffer.clone() }),
-            p_infos.len() as _,
-            p_infos.as_ptr().cast(),
+            p_infos.as_slice().len() as _,
+            p_infos.as_slice().as_ptr().cast(),
         )
     }
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkBuildMicromapsEXT.html>"]
 #[doc(alias = "vkBuildMicromapsEXT")]
-pub fn build_micromaps_ext(
+pub fn build_micromaps_ext<'a>(
     device: &Device,
     deferred_operation: Option<&DeferredOperationKHR>,
-    p_infos: &[MicromapBuildInfoEXT],
+    p_infos: impl AsSlice<'a, MicromapBuildInfoEXT<'a>>,
     dispatcher: &CommandsDispatcher,
 ) -> Result<Status> {
     let vulkan_command = dispatcher
@@ -12945,8 +12963,8 @@ pub fn build_micromaps_ext(
         vulkan_command(
             Some(unsafe { device.clone() }),
             deferred_operation.map(|v| unsafe { v.clone() }),
-            p_infos.len() as _,
-            p_infos.as_ptr().cast(),
+            p_infos.as_slice().len() as _,
+            p_infos.as_slice().as_ptr().cast(),
         )
         .into_result()
     }
@@ -13016,9 +13034,9 @@ pub fn copy_memory_to_micromap_ext(
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkWriteMicromapsPropertiesEXT.html>"]
 #[doc(alias = "vkWriteMicromapsPropertiesEXT")]
-pub fn write_micromaps_properties_ext<V2: Alias<raw::MicromapEXT>>(
+pub fn write_micromaps_properties_ext<'a, V2: Alias<raw::MicromapEXT> + 'a>(
     device: &Device,
-    p_micromaps: &[V2],
+    p_micromaps: impl AsSlice<'a, V2>,
     query_type: QueryType,
     data_size: usize,
     p_data: VoidPtr,
@@ -13032,8 +13050,8 @@ pub fn write_micromaps_properties_ext<V2: Alias<raw::MicromapEXT>>(
     unsafe {
         vulkan_command(
             Some(unsafe { device.clone() }),
-            p_micromaps.len() as _,
-            p_micromaps.as_ptr().cast(),
+            p_micromaps.as_slice().len() as _,
+            p_micromaps.as_slice().as_ptr().cast(),
             query_type,
             data_size,
             p_data,
@@ -13098,9 +13116,9 @@ pub fn cmd_copy_memory_to_micromap_ext(
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdWriteMicromapsPropertiesEXT.html>"]
 #[doc(alias = "vkCmdWriteMicromapsPropertiesEXT")]
-pub fn cmd_write_micromaps_properties_ext<V2: Alias<raw::MicromapEXT>>(
+pub fn cmd_write_micromaps_properties_ext<'a, V2: Alias<raw::MicromapEXT> + 'a>(
     command_buffer: &CommandBuffer,
-    p_micromaps: &[V2],
+    p_micromaps: impl AsSlice<'a, V2>,
     query_type: QueryType,
     query_pool: &QueryPool,
     first_query: u32,
@@ -13113,8 +13131,8 @@ pub fn cmd_write_micromaps_properties_ext<V2: Alias<raw::MicromapEXT>>(
     unsafe {
         vulkan_command(
             Some(unsafe { command_buffer.clone() }),
-            p_micromaps.len() as _,
-            p_micromaps.as_ptr().cast(),
+            p_micromaps.as_slice().len() as _,
+            p_micromaps.as_slice().as_ptr().cast(),
             query_type,
             Some(unsafe { query_pool.clone() }),
             first_query,
@@ -13299,13 +13317,13 @@ pub fn cmd_copy_memory_indirect_nv(
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdCopyMemoryToImageIndirectNV.html>"]
 #[doc(alias = "vkCmdCopyMemoryToImageIndirectNV")]
-pub fn cmd_copy_memory_to_image_indirect_nv(
+pub fn cmd_copy_memory_to_image_indirect_nv<'a>(
     command_buffer: &CommandBuffer,
     copy_buffer_address: DeviceAddress,
     stride: u32,
     dst_image: &Image,
     dst_image_layout: ImageLayout,
-    p_image_subresources: &[ImageSubresourceLayers],
+    p_image_subresources: impl AsSlice<'a, ImageSubresourceLayers>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
@@ -13316,19 +13334,19 @@ pub fn cmd_copy_memory_to_image_indirect_nv(
         vulkan_command(
             Some(unsafe { command_buffer.clone() }),
             copy_buffer_address,
-            p_image_subresources.len() as _,
+            p_image_subresources.as_slice().len() as _,
             stride,
             Some(unsafe { dst_image.clone() }),
             dst_image_layout,
-            p_image_subresources.as_ptr().cast(),
+            p_image_subresources.as_slice().as_ptr().cast(),
         )
     }
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdDecompressMemoryNV.html>"]
 #[doc(alias = "vkCmdDecompressMemoryNV")]
-pub fn cmd_decompress_memory_nv(
+pub fn cmd_decompress_memory_nv<'a>(
     command_buffer: &CommandBuffer,
-    p_decompress_memory_regions: &[DecompressMemoryRegionNV],
+    p_decompress_memory_regions: impl AsSlice<'a, DecompressMemoryRegionNV>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
@@ -13338,8 +13356,8 @@ pub fn cmd_decompress_memory_nv(
     unsafe {
         vulkan_command(
             Some(unsafe { command_buffer.clone() }),
-            p_decompress_memory_regions.len() as _,
-            p_decompress_memory_regions.as_ptr().cast(),
+            p_decompress_memory_regions.as_slice().len() as _,
+            p_decompress_memory_regions.as_slice().as_ptr().cast(),
         )
     }
 }
@@ -13474,10 +13492,10 @@ pub fn cmd_set_rasterization_samples_ext(
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetSampleMaskEXT.html>"]
 #[doc(alias = "vkCmdSetSampleMaskEXT")]
-pub fn cmd_set_sample_mask_ext(
+pub fn cmd_set_sample_mask_ext<'a>(
     command_buffer: &CommandBuffer,
     samples: SampleCountFlags,
-    p_sample_mask: &[SampleMask],
+    p_sample_mask: impl AsSlice<'a, SampleMask>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
@@ -13488,7 +13506,7 @@ pub fn cmd_set_sample_mask_ext(
         vulkan_command(
             Some(unsafe { command_buffer.clone() }),
             samples,
-            p_sample_mask.as_ptr().cast(),
+            p_sample_mask.as_slice().as_ptr().cast(),
         )
     }
 }
@@ -13548,10 +13566,10 @@ pub fn cmd_set_logic_op_enable_ext(
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetColorBlendEnableEXT.html>"]
 #[doc(alias = "vkCmdSetColorBlendEnableEXT")]
-pub fn cmd_set_color_blend_enable_ext(
+pub fn cmd_set_color_blend_enable_ext<'a>(
     command_buffer: &CommandBuffer,
     first_attachment: u32,
-    p_color_blend_enables: &[Bool32],
+    p_color_blend_enables: impl AsSlice<'a, Bool32>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
@@ -13562,17 +13580,17 @@ pub fn cmd_set_color_blend_enable_ext(
         vulkan_command(
             Some(unsafe { command_buffer.clone() }),
             first_attachment,
-            p_color_blend_enables.len() as _,
-            p_color_blend_enables.as_ptr().cast(),
+            p_color_blend_enables.as_slice().len() as _,
+            p_color_blend_enables.as_slice().as_ptr().cast(),
         )
     }
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetColorBlendEquationEXT.html>"]
 #[doc(alias = "vkCmdSetColorBlendEquationEXT")]
-pub fn cmd_set_color_blend_equation_ext(
+pub fn cmd_set_color_blend_equation_ext<'a>(
     command_buffer: &CommandBuffer,
     first_attachment: u32,
-    p_color_blend_equations: &[ColorBlendEquationEXT],
+    p_color_blend_equations: impl AsSlice<'a, ColorBlendEquationEXT>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
@@ -13583,17 +13601,17 @@ pub fn cmd_set_color_blend_equation_ext(
         vulkan_command(
             Some(unsafe { command_buffer.clone() }),
             first_attachment,
-            p_color_blend_equations.len() as _,
-            p_color_blend_equations.as_ptr().cast(),
+            p_color_blend_equations.as_slice().len() as _,
+            p_color_blend_equations.as_slice().as_ptr().cast(),
         )
     }
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetColorWriteMaskEXT.html>"]
 #[doc(alias = "vkCmdSetColorWriteMaskEXT")]
-pub fn cmd_set_color_write_mask_ext(
+pub fn cmd_set_color_write_mask_ext<'a>(
     command_buffer: &CommandBuffer,
     first_attachment: u32,
-    p_color_write_masks: &[ColorComponentFlags],
+    p_color_write_masks: impl AsSlice<'a, ColorComponentFlags>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
@@ -13604,8 +13622,8 @@ pub fn cmd_set_color_write_mask_ext(
         vulkan_command(
             Some(unsafe { command_buffer.clone() }),
             first_attachment,
-            p_color_write_masks.len() as _,
-            p_color_write_masks.as_ptr().cast(),
+            p_color_write_masks.as_slice().len() as _,
+            p_color_write_masks.as_slice().as_ptr().cast(),
         )
     }
 }
@@ -13714,10 +13732,10 @@ pub fn cmd_set_sample_locations_enable_ext(
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetColorBlendAdvancedEXT.html>"]
 #[doc(alias = "vkCmdSetColorBlendAdvancedEXT")]
-pub fn cmd_set_color_blend_advanced_ext(
+pub fn cmd_set_color_blend_advanced_ext<'a>(
     command_buffer: &CommandBuffer,
     first_attachment: u32,
-    p_color_blend_advanced: &[ColorBlendAdvancedEXT],
+    p_color_blend_advanced: impl AsSlice<'a, ColorBlendAdvancedEXT>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
@@ -13728,8 +13746,8 @@ pub fn cmd_set_color_blend_advanced_ext(
         vulkan_command(
             Some(unsafe { command_buffer.clone() }),
             first_attachment,
-            p_color_blend_advanced.len() as _,
-            p_color_blend_advanced.as_ptr().cast(),
+            p_color_blend_advanced.as_slice().len() as _,
+            p_color_blend_advanced.as_slice().as_ptr().cast(),
         )
     }
 }
@@ -13825,10 +13843,10 @@ pub fn cmd_set_viewport_wscaling_enable_nv(
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetViewportSwizzleNV.html>"]
 #[doc(alias = "vkCmdSetViewportSwizzleNV")]
-pub fn cmd_set_viewport_swizzle_nv(
+pub fn cmd_set_viewport_swizzle_nv<'a>(
     command_buffer: &CommandBuffer,
     first_viewport: u32,
-    p_viewport_swizzles: &[ViewportSwizzleNV],
+    p_viewport_swizzles: impl AsSlice<'a, ViewportSwizzleNV>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
@@ -13839,8 +13857,8 @@ pub fn cmd_set_viewport_swizzle_nv(
         vulkan_command(
             Some(unsafe { command_buffer.clone() }),
             first_viewport,
-            p_viewport_swizzles.len() as _,
-            p_viewport_swizzles.as_ptr().cast(),
+            p_viewport_swizzles.as_slice().len() as _,
+            p_viewport_swizzles.as_slice().as_ptr().cast(),
         )
     }
 }
@@ -13918,9 +13936,9 @@ pub fn cmd_set_coverage_modulation_table_enable_nv(
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetCoverageModulationTableNV.html>"]
 #[doc(alias = "vkCmdSetCoverageModulationTableNV")]
-pub fn cmd_set_coverage_modulation_table_nv(
+pub fn cmd_set_coverage_modulation_table_nv<'a>(
     command_buffer: &CommandBuffer,
-    p_coverage_modulation_table: &[f32],
+    p_coverage_modulation_table: impl AsSlice<'a, f32>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
@@ -13930,8 +13948,8 @@ pub fn cmd_set_coverage_modulation_table_nv(
     unsafe {
         vulkan_command(
             Some(unsafe { command_buffer.clone() }),
-            p_coverage_modulation_table.len() as _,
-            p_coverage_modulation_table.as_ptr().cast(),
+            p_coverage_modulation_table.as_slice().len() as _,
+            p_coverage_modulation_table.as_slice().as_ptr().cast(),
         )
     }
 }
@@ -14297,9 +14315,9 @@ pub fn get_image_subresource_layout2_ext<S: StructureChainOut<SubresourceLayout2
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCreateShadersEXT.html>"]
 #[doc(alias = "vkCreateShadersEXT")]
-pub fn create_shaders_ext<R: DynamicArray<ShaderEXT>>(
+pub fn create_shaders_ext<'a, R: DynamicArray<ShaderEXT>>(
     device: &Device,
-    p_create_infos: &[ShaderCreateInfoEXT],
+    p_create_infos: impl AsSlice<'a, ShaderCreateInfoEXT<'a>>,
     p_allocator: Option<&AllocationCallbacks>,
     dispatcher: &CommandsDispatcher,
 ) -> Result<(Status, R)> {
@@ -14308,16 +14326,16 @@ pub fn create_shaders_ext<R: DynamicArray<ShaderEXT>>(
         .get()
         .expect("Vulkan command not loaded.");
     unsafe {
-        let mut p_shaders = R::create_with_capacity(p_create_infos.len() as _);
+        let mut p_shaders = R::create_with_capacity(p_create_infos.as_slice().len() as _);
         let vk_status = vulkan_command(
             Some(unsafe { device.clone() }),
-            p_create_infos.len() as _,
-            p_create_infos.as_ptr().cast(),
+            p_create_infos.as_slice().len() as _,
+            p_create_infos.as_slice().as_ptr().cast(),
             p_allocator.map(|v| ptr::from_ref(v)).unwrap_or(ptr::null()),
             p_shaders.get_content_mut_ptr(),
         );
         vk_status.map_successes(|| {
-            p_shaders.resize_with_len(p_create_infos.len() as _);
+            p_shaders.resize_with_len(p_create_infos.as_slice().len() as _);
             p_shaders
         })
     }
@@ -14367,10 +14385,10 @@ pub fn get_shader_binary_data_ext(
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdBindShadersEXT.html>"]
 #[doc(alias = "vkCmdBindShadersEXT")]
-pub fn cmd_bind_shaders_ext<V3: Alias<raw::ShaderEXT>>(
+pub fn cmd_bind_shaders_ext<'a, V3: Alias<raw::ShaderEXT> + 'a>(
     command_buffer: &CommandBuffer,
-    p_stages: &[ShaderStageFlags],
-    p_shaders: &[V3],
+    p_stages: impl AsSlice<'a, ShaderStageFlags>,
+    p_shaders: impl AsSlice<'a, V3>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
@@ -14380,9 +14398,9 @@ pub fn cmd_bind_shaders_ext<V3: Alias<raw::ShaderEXT>>(
     unsafe {
         vulkan_command(
             Some(unsafe { command_buffer.clone() }),
-            p_shaders.len() as _,
-            p_stages.as_ptr().cast(),
-            p_shaders.as_ptr().cast(),
+            p_shaders.as_slice().len() as _,
+            p_stages.as_slice().as_ptr().cast(),
+            p_shaders.as_slice().as_ptr().cast(),
         )
     }
 }

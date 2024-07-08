@@ -1,4 +1,3 @@
-use core::slice;
 use std::{collections::HashSet, error::Error, ffi::CStr};
 
 use anyhow::{anyhow, Result};
@@ -169,7 +168,9 @@ impl VulkanApplication {
         // enable VK_EXT_debug_utils only if the validation layer is enabled
         let mut enabled_extensions =
             Vec::from(window::enumerate_required_extensions(display_handle)?);
-        enabled_extensions.push(vk::EXT_DEBUG_UTILS.name);
+        if has_validation {
+            enabled_extensions.push(vk::EXT_DEBUG_UTILS.name);
+        }
 
         let app_info = vk::ApplicationInfo::default()
             .application_name(Some(c"Hello Triangle"))
@@ -178,7 +179,7 @@ impl VulkanApplication {
 
         let instance_info = vk::InstanceCreateInfo::default()
             .application_info(Some(&app_info))
-            .enabled_extension(enabled_extensions.as_slice())
+            .enabled_extension(&enabled_extensions)
             .enabled_layer(enabled_layers.as_slice());
 
         let instance = entry.create_instance(&instance_info)?;
@@ -256,10 +257,10 @@ impl VulkanApplication {
         let queue_prio = 1.0f32;
         let queue_info = vk::DeviceQueueCreateInfo::default()
             .queue_family_index(queue_family as u32)
-            .queue_priorities(slice::from_ref(&queue_prio));
+            .queue_priorities(&queue_prio);
 
         let device_info = vk::DeviceCreateInfo::default()
-            .queue_create_infos(slice::from_ref(&queue_info))
+            .queue_create_infos(&queue_info)
             .enabled_features(Some(&features))
             .enabled_extension(&required_extensions);
 
@@ -302,13 +303,13 @@ impl VulkanApplication {
 
         let subpass = vk::SubpassDescription::default()
             .pipeline_bind_point(vk::PipelineBindPoint::Graphics)
-            .color_attachment(slice::from_ref(&color_ref), None);
+            .color_attachment(&color_ref, None::<()>);
 
         let render_pass = device.create_render_pass(
             &vk::RenderPassCreateInfo::default()
-                .attachments(slice::from_ref(&color_attachment))
-                .subpasses(slice::from_ref(&subpass))
-                .dependencies(slice::from_ref(&subpass_dependency)),
+                .attachments(&color_attachment)
+                .subpasses(&subpass)
+                .dependencies(&subpass_dependency),
         )?;
 
         Ok(render_pass)
@@ -401,8 +402,8 @@ impl VulkanApplication {
             .rasterization_samples_with_mask(vk::SampleCountFlags::Count1, None);
         let blending_attach = vk::PipelineColorBlendAttachmentState::default()
             .color_write_mask(vk::ColorComponentFlags::all());
-        let blending = vk::PipelineColorBlendStateCreateInfo::default()
-            .attachments(slice::from_ref(&blending_attach));
+        let blending =
+            vk::PipelineColorBlendStateCreateInfo::default().attachments(&blending_attach);
 
         let pipeline_layout =
             device.create_pipeline_layout(&vk::PipelineLayoutCreateInfo::default())?;
@@ -421,7 +422,7 @@ impl VulkanApplication {
             .subpass(0);
 
         let (status, mut pipeline): (_, SmallVec<[_; 1]>) =
-            device.create_graphics_pipelines(None, slice::from_ref(&pipeline_info))?;
+            device.create_graphics_pipelines(None, &pipeline_info)?;
         // Status can technically be vk::Status::PipelineCompileRequired
         assert!(status == vk::Status::Success);
 
@@ -535,10 +536,9 @@ impl VulkanApplication {
         let fence = &self.fences[curr_index];
         let image_available = &self.image_available[curr_index];
 
-        self.device
-            .wait_for_fences(slice::from_ref(fence), true, u64::MAX)?;
+        self.device.wait_for_fences(fence, true, u64::MAX)?;
 
-        self.device.reset_fences(slice::from_ref(fence))?;
+        self.device.reset_fences(fence)?;
         let (status, image_idx) = self.device.acquire_next_image_khr(
             &self.swapchain_objects.swapchain,
             u64::MAX,
@@ -556,21 +556,21 @@ impl VulkanApplication {
         self.queue.submit(
             &[vk::SubmitInfo::default()
                 .wait_semaphore(
-                    slice::from_ref(image_available),
+                    image_available,
                     Some(&[vk::PipelineStageFlags::ColorAttachmentOutput]),
                 )
-                .command_buffers(slice::from_ref(cmd_buffer))
-                .signal_semaphores(slice::from_ref(render_finished))],
+                .command_buffers(cmd_buffer)
+                .signal_semaphores(render_finished)],
             Some(fence),
         )?;
 
         self.queue.present_khr(
             &vk::PresentInfoKHR::default()
-                .wait_semaphores(slice::from_ref(render_finished))
+                .wait_semaphores(render_finished)
                 .swapchain(
-                    slice::from_ref(&self.swapchain_objects.swapchain),
+                    &self.swapchain_objects.swapchain,
                     &[image_idx as u32],
-                    None,
+                    None::<()>,
                 ),
         )?;
         Ok(())
@@ -734,7 +734,7 @@ impl SwapchainObjects {
                 device.create_framebuffer(
                     &vk::FramebufferCreateInfo::default()
                         .render_pass(render_pass)
-                        .attachments(slice::from_ref(view))
+                        .attachments(view)
                         .width(self.extent.width)
                         .height(self.extent.height)
                         .layers(1),

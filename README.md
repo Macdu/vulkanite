@@ -124,7 +124,7 @@ macros provided to do the same in a way similar to the C++ bindings:
 ```rust
 let mut device_info = vk_headers::structure_chain!(
     vk::DeviceCreateInfo::default()
-        .queue_create_infos(slice::from_ref(&queue_info))
+        .queue_create_infos(&queue_info)
         .enabled_features(Some(&features))
         .enabled_extension(&required_extensions),
     vk::PhysicalDeviceShaderObjectFeaturesEXT::default().shader_object(true)
@@ -148,6 +148,6 @@ this version anytime soon and if this happens a reasonable (at least 6 months ol
 Note that these bindings are still a Work-In-Process, the public API may see breaking changes if this improves
 safety or how nice to use the code is.
 
-Please be aware that this crate should not be considered production ready yet.
+Please be aware that this crate should not be considered production ready yet, breaking changes are to be expected in the future versions.
 
 <!-- cargo-rdme end -->

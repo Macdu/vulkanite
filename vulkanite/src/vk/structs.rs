@@ -878,18 +878,21 @@ impl<'a> InstanceCreateInfo<'a> {
         self
     }
     #[inline]
-    pub fn enabled_layer(mut self, pp_enabled_layer_names: &'a [*const c_char]) -> Self {
-        self.pp_enabled_layer_names = pp_enabled_layer_names.as_ptr().cast();
-        self.enabled_layer_count = pp_enabled_layer_names.len() as _;
+    pub fn enabled_layer(
+        mut self,
+        pp_enabled_layer_names: impl AsSlice<'a, *const c_char>,
+    ) -> Self {
+        self.pp_enabled_layer_names = pp_enabled_layer_names.as_slice().as_ptr().cast();
+        self.enabled_layer_count = pp_enabled_layer_names.as_slice().len() as _;
         self
     }
     #[inline]
     pub fn enabled_extension(
         mut self,
-        pp_enabled_extension_names: &'a [InstanceExtensionName],
+        pp_enabled_extension_names: impl AsSlice<'a, InstanceExtensionName>,
     ) -> Self {
-        self.pp_enabled_extension_names = pp_enabled_extension_names.as_ptr().cast();
-        self.enabled_extension_count = pp_enabled_extension_names.len() as _;
+        self.pp_enabled_extension_names = pp_enabled_extension_names.as_slice().as_ptr().cast();
+        self.enabled_extension_count = pp_enabled_extension_names.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -2377,25 +2380,28 @@ impl<'a> DeviceCreateInfo<'a> {
     #[inline]
     pub fn queue_create_infos(
         mut self,
-        p_queue_create_infos: &'a [DeviceQueueCreateInfo<'a>],
+        p_queue_create_infos: impl AsSlice<'a, DeviceQueueCreateInfo<'a>>,
     ) -> Self {
-        self.p_queue_create_infos = p_queue_create_infos.as_ptr().cast();
-        self.queue_create_info_count = p_queue_create_infos.len() as _;
+        self.p_queue_create_infos = p_queue_create_infos.as_slice().as_ptr().cast();
+        self.queue_create_info_count = p_queue_create_infos.as_slice().len() as _;
         self
     }
     #[inline]
-    pub fn enabled_layer(mut self, pp_enabled_layer_names: &'a [*const c_char]) -> Self {
-        self.pp_enabled_layer_names = pp_enabled_layer_names.as_ptr().cast();
-        self.enabled_layer_count = pp_enabled_layer_names.len() as _;
+    pub fn enabled_layer(
+        mut self,
+        pp_enabled_layer_names: impl AsSlice<'a, *const c_char>,
+    ) -> Self {
+        self.pp_enabled_layer_names = pp_enabled_layer_names.as_slice().as_ptr().cast();
+        self.enabled_layer_count = pp_enabled_layer_names.as_slice().len() as _;
         self
     }
     #[inline]
     pub fn enabled_extension(
         mut self,
-        pp_enabled_extension_names: &'a [DeviceExtensionName],
+        pp_enabled_extension_names: impl AsSlice<'a, DeviceExtensionName>,
     ) -> Self {
-        self.pp_enabled_extension_names = pp_enabled_extension_names.as_ptr().cast();
-        self.enabled_extension_count = pp_enabled_extension_names.len() as _;
+        self.pp_enabled_extension_names = pp_enabled_extension_names.as_slice().as_ptr().cast();
+        self.enabled_extension_count = pp_enabled_extension_names.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -2444,9 +2450,9 @@ impl<'a> DeviceQueueCreateInfo<'a> {
         self
     }
     #[inline]
-    pub fn queue_priorities(mut self, p_queue_priorities: &'a [f32]) -> Self {
-        self.p_queue_priorities = p_queue_priorities.as_ptr().cast();
-        self.queue_count = p_queue_priorities.len() as _;
+    pub fn queue_priorities(mut self, p_queue_priorities: impl AsSlice<'a, f32>) -> Self {
+        self.p_queue_priorities = p_queue_priorities.as_slice().as_ptr().cast();
+        self.queue_count = p_queue_priorities.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -2573,34 +2579,34 @@ impl<'a> Default for SubmitInfo<'a> {
 }
 impl<'a> SubmitInfo<'a> {
     #[inline]
-    pub fn wait_semaphore<V0: Alias<raw::Semaphore>>(
+    pub fn wait_semaphore<V0: Alias<raw::Semaphore> + 'a>(
         mut self,
-        p_wait_semaphores: &'a [V0],
-        p_wait_dst_stage_mask: Option<&'a [PipelineStageFlags]>,
+        p_wait_semaphores: impl AsSlice<'a, V0>,
+        p_wait_dst_stage_mask: Option<impl AsSlice<'a, PipelineStageFlags>>,
     ) -> Self {
-        self.p_wait_semaphores = p_wait_semaphores.as_ptr().cast();
+        self.p_wait_semaphores = p_wait_semaphores.as_slice().as_ptr().cast();
         self.p_wait_dst_stage_mask = p_wait_dst_stage_mask
-            .map(|p| p.as_ptr().cast())
+            .map(|p| p.as_slice().as_ptr().cast())
             .unwrap_or(ptr::null());
-        self.wait_semaphore_count = p_wait_semaphores.len() as _;
+        self.wait_semaphore_count = p_wait_semaphores.as_slice().len() as _;
         self
     }
     #[inline]
-    pub fn command_buffers<V0: Alias<raw::CommandBuffer>>(
+    pub fn command_buffers<V0: Alias<raw::CommandBuffer> + 'a>(
         mut self,
-        p_command_buffers: &'a [V0],
+        p_command_buffers: impl AsSlice<'a, V0>,
     ) -> Self {
-        self.p_command_buffers = p_command_buffers.as_ptr().cast();
-        self.command_buffer_count = p_command_buffers.len() as _;
+        self.p_command_buffers = p_command_buffers.as_slice().as_ptr().cast();
+        self.command_buffer_count = p_command_buffers.as_slice().len() as _;
         self
     }
     #[inline]
-    pub fn signal_semaphores<V0: Alias<raw::Semaphore>>(
+    pub fn signal_semaphores<V0: Alias<raw::Semaphore> + 'a>(
         mut self,
-        p_signal_semaphores: &'a [V0],
+        p_signal_semaphores: impl AsSlice<'a, V0>,
     ) -> Self {
-        self.p_signal_semaphores = p_signal_semaphores.as_ptr().cast();
-        self.signal_semaphore_count = p_signal_semaphores.len() as _;
+        self.p_signal_semaphores = p_signal_semaphores.as_slice().as_ptr().cast();
+        self.signal_semaphore_count = p_signal_semaphores.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -2777,42 +2783,48 @@ impl<'a> Default for BindSparseInfo<'a> {
 }
 impl<'a> BindSparseInfo<'a> {
     #[inline]
-    pub fn wait_semaphores<V0: Alias<raw::Semaphore>>(
+    pub fn wait_semaphores<V0: Alias<raw::Semaphore> + 'a>(
         mut self,
-        p_wait_semaphores: &'a [V0],
+        p_wait_semaphores: impl AsSlice<'a, V0>,
     ) -> Self {
-        self.p_wait_semaphores = p_wait_semaphores.as_ptr().cast();
-        self.wait_semaphore_count = p_wait_semaphores.len() as _;
+        self.p_wait_semaphores = p_wait_semaphores.as_slice().as_ptr().cast();
+        self.wait_semaphore_count = p_wait_semaphores.as_slice().len() as _;
         self
     }
     #[inline]
-    pub fn buffer_binds(mut self, p_buffer_binds: &'a [SparseBufferMemoryBindInfo<'a>]) -> Self {
-        self.p_buffer_binds = p_buffer_binds.as_ptr().cast();
-        self.buffer_bind_count = p_buffer_binds.len() as _;
+    pub fn buffer_binds(
+        mut self,
+        p_buffer_binds: impl AsSlice<'a, SparseBufferMemoryBindInfo<'a>>,
+    ) -> Self {
+        self.p_buffer_binds = p_buffer_binds.as_slice().as_ptr().cast();
+        self.buffer_bind_count = p_buffer_binds.as_slice().len() as _;
         self
     }
     #[inline]
     pub fn image_opaque_binds(
         mut self,
-        p_image_opaque_binds: &'a [SparseImageOpaqueMemoryBindInfo<'a>],
+        p_image_opaque_binds: impl AsSlice<'a, SparseImageOpaqueMemoryBindInfo<'a>>,
     ) -> Self {
-        self.p_image_opaque_binds = p_image_opaque_binds.as_ptr().cast();
-        self.image_opaque_bind_count = p_image_opaque_binds.len() as _;
+        self.p_image_opaque_binds = p_image_opaque_binds.as_slice().as_ptr().cast();
+        self.image_opaque_bind_count = p_image_opaque_binds.as_slice().len() as _;
         self
     }
     #[inline]
-    pub fn image_binds(mut self, p_image_binds: &'a [SparseImageMemoryBindInfo<'a>]) -> Self {
-        self.p_image_binds = p_image_binds.as_ptr().cast();
-        self.image_bind_count = p_image_binds.len() as _;
-        self
-    }
-    #[inline]
-    pub fn signal_semaphores<V0: Alias<raw::Semaphore>>(
+    pub fn image_binds(
         mut self,
-        p_signal_semaphores: &'a [V0],
+        p_image_binds: impl AsSlice<'a, SparseImageMemoryBindInfo<'a>>,
     ) -> Self {
-        self.p_signal_semaphores = p_signal_semaphores.as_ptr().cast();
-        self.signal_semaphore_count = p_signal_semaphores.len() as _;
+        self.p_image_binds = p_image_binds.as_slice().as_ptr().cast();
+        self.image_bind_count = p_image_binds.as_slice().len() as _;
+        self
+    }
+    #[inline]
+    pub fn signal_semaphores<V0: Alias<raw::Semaphore> + 'a>(
+        mut self,
+        p_signal_semaphores: impl AsSlice<'a, V0>,
+    ) -> Self {
+        self.p_signal_semaphores = p_signal_semaphores.as_slice().as_ptr().cast();
+        self.signal_semaphore_count = p_signal_semaphores.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -2884,9 +2896,9 @@ impl<'a> SparseBufferMemoryBindInfo<'a> {
         self
     }
     #[inline]
-    pub fn binds(mut self, p_binds: &'a [SparseMemoryBind<'a>]) -> Self {
-        self.p_binds = p_binds.as_ptr().cast();
-        self.bind_count = p_binds.len() as _;
+    pub fn binds(mut self, p_binds: impl AsSlice<'a, SparseMemoryBind<'a>>) -> Self {
+        self.p_binds = p_binds.as_slice().as_ptr().cast();
+        self.bind_count = p_binds.as_slice().len() as _;
         self
     }
 }
@@ -3014,9 +3026,9 @@ impl<'a> SparseImageMemoryBindInfo<'a> {
         self
     }
     #[inline]
-    pub fn binds(mut self, p_binds: &'a [SparseImageMemoryBind<'a>]) -> Self {
-        self.p_binds = p_binds.as_ptr().cast();
-        self.bind_count = p_binds.len() as _;
+    pub fn binds(mut self, p_binds: impl AsSlice<'a, SparseImageMemoryBind<'a>>) -> Self {
+        self.p_binds = p_binds.as_slice().as_ptr().cast();
+        self.bind_count = p_binds.as_slice().len() as _;
         self
     }
 }
@@ -3099,9 +3111,9 @@ impl<'a> SparseImageOpaqueMemoryBindInfo<'a> {
         self
     }
     #[inline]
-    pub fn binds(mut self, p_binds: &'a [SparseMemoryBind<'a>]) -> Self {
-        self.p_binds = p_binds.as_ptr().cast();
-        self.bind_count = p_binds.len() as _;
+    pub fn binds(mut self, p_binds: impl AsSlice<'a, SparseMemoryBind<'a>>) -> Self {
+        self.p_binds = p_binds.as_slice().as_ptr().cast();
+        self.bind_count = p_binds.as_slice().len() as _;
         self
     }
 }
@@ -3370,9 +3382,9 @@ impl<'a> BufferCreateInfo<'a> {
         self
     }
     #[inline]
-    pub fn queue_family_indices(mut self, p_queue_family_indices: &'a [u32]) -> Self {
-        self.p_queue_family_indices = p_queue_family_indices.as_ptr().cast();
-        self.queue_family_index_count = p_queue_family_indices.len() as _;
+    pub fn queue_family_indices(mut self, p_queue_family_indices: impl AsSlice<'a, u32>) -> Self {
+        self.p_queue_family_indices = p_queue_family_indices.as_slice().as_ptr().cast();
+        self.queue_family_index_count = p_queue_family_indices.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -3546,9 +3558,9 @@ impl<'a> ImageCreateInfo<'a> {
         self
     }
     #[inline]
-    pub fn queue_family_indices(mut self, p_queue_family_indices: &'a [u32]) -> Self {
-        self.p_queue_family_indices = p_queue_family_indices.as_ptr().cast();
-        self.queue_family_index_count = p_queue_family_indices.len() as _;
+    pub fn queue_family_indices(mut self, p_queue_family_indices: impl AsSlice<'a, u32>) -> Self {
+        self.p_queue_family_indices = p_queue_family_indices.as_slice().as_ptr().cast();
+        self.queue_family_index_count = p_queue_family_indices.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -3853,9 +3865,9 @@ impl<'a> PipelineCacheCreateInfo<'a> {
         self
     }
     #[inline]
-    pub fn initial_data(mut self, p_initial_data: &'a [u8]) -> Self {
-        self.p_initial_data = p_initial_data.as_ptr().cast();
-        self.initial_data_size = p_initial_data.len() as _;
+    pub fn initial_data(mut self, p_initial_data: impl AsSlice<'a, u8>) -> Self {
+        self.p_initial_data = p_initial_data.as_slice().as_ptr().cast();
+        self.initial_data_size = p_initial_data.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -4086,9 +4098,9 @@ impl<'a> GraphicsPipelineCreateInfo<'a> {
         self
     }
     #[inline]
-    pub fn stages(mut self, p_stages: &'a [PipelineShaderStageCreateInfo<'a>]) -> Self {
-        self.p_stages = p_stages.as_ptr().cast();
-        self.stage_count = p_stages.len() as _;
+    pub fn stages(mut self, p_stages: impl AsSlice<'a, PipelineShaderStageCreateInfo<'a>>) -> Self {
+        self.p_stages = p_stages.as_slice().as_ptr().cast();
+        self.stage_count = p_stages.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -4228,9 +4240,12 @@ impl<'a> PipelineColorBlendStateCreateInfo<'a> {
         self
     }
     #[inline]
-    pub fn attachments(mut self, p_attachments: &'a [PipelineColorBlendAttachmentState]) -> Self {
-        self.p_attachments = p_attachments.as_ptr().cast();
-        self.attachment_count = p_attachments.len() as _;
+    pub fn attachments(
+        mut self,
+        p_attachments: impl AsSlice<'a, PipelineColorBlendAttachmentState>,
+    ) -> Self {
+        self.p_attachments = p_attachments.as_slice().as_ptr().cast();
+        self.attachment_count = p_attachments.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -4369,9 +4384,9 @@ impl<'a> PipelineDynamicStateCreateInfo<'a> {
         self
     }
     #[inline]
-    pub fn dynamic_states(mut self, p_dynamic_states: &'a [DynamicState]) -> Self {
-        self.p_dynamic_states = p_dynamic_states.as_ptr().cast();
-        self.dynamic_state_count = p_dynamic_states.len() as _;
+    pub fn dynamic_states(mut self, p_dynamic_states: impl AsSlice<'a, DynamicState>) -> Self {
+        self.p_dynamic_states = p_dynamic_states.as_slice().as_ptr().cast();
+        self.dynamic_state_count = p_dynamic_states.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -4753,19 +4768,22 @@ impl<'a> PipelineVertexInputStateCreateInfo<'a> {
     #[inline]
     pub fn vertex_binding_descriptions(
         mut self,
-        p_vertex_binding_descriptions: &'a [VertexInputBindingDescription],
+        p_vertex_binding_descriptions: impl AsSlice<'a, VertexInputBindingDescription>,
     ) -> Self {
-        self.p_vertex_binding_descriptions = p_vertex_binding_descriptions.as_ptr().cast();
-        self.vertex_binding_description_count = p_vertex_binding_descriptions.len() as _;
+        self.p_vertex_binding_descriptions =
+            p_vertex_binding_descriptions.as_slice().as_ptr().cast();
+        self.vertex_binding_description_count = p_vertex_binding_descriptions.as_slice().len() as _;
         self
     }
     #[inline]
     pub fn vertex_attribute_descriptions(
         mut self,
-        p_vertex_attribute_descriptions: &'a [VertexInputAttributeDescription],
+        p_vertex_attribute_descriptions: impl AsSlice<'a, VertexInputAttributeDescription>,
     ) -> Self {
-        self.p_vertex_attribute_descriptions = p_vertex_attribute_descriptions.as_ptr().cast();
-        self.vertex_attribute_description_count = p_vertex_attribute_descriptions.len() as _;
+        self.p_vertex_attribute_descriptions =
+            p_vertex_attribute_descriptions.as_slice().as_ptr().cast();
+        self.vertex_attribute_description_count =
+            p_vertex_attribute_descriptions.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -4821,15 +4839,15 @@ impl<'a> PipelineViewportStateCreateInfo<'a> {
         self
     }
     #[inline]
-    pub fn viewports(mut self, p_viewports: &'a [Viewport]) -> Self {
-        self.p_viewports = p_viewports.as_ptr().cast();
-        self.viewport_count = p_viewports.len() as _;
+    pub fn viewports(mut self, p_viewports: impl AsSlice<'a, Viewport>) -> Self {
+        self.p_viewports = p_viewports.as_slice().as_ptr().cast();
+        self.viewport_count = p_viewports.as_slice().len() as _;
         self
     }
     #[inline]
-    pub fn scissors(mut self, p_scissors: &'a [Rect2D]) -> Self {
-        self.p_scissors = p_scissors.as_ptr().cast();
-        self.scissor_count = p_scissors.len() as _;
+    pub fn scissors(mut self, p_scissors: impl AsSlice<'a, Rect2D>) -> Self {
+        self.p_scissors = p_scissors.as_slice().as_ptr().cast();
+        self.scissor_count = p_scissors.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -4864,15 +4882,15 @@ impl<'a> Default for SpecializationInfo<'a> {
 }
 impl<'a> SpecializationInfo<'a> {
     #[inline]
-    pub fn map_entries(mut self, p_map_entries: &'a [SpecializationMapEntry]) -> Self {
-        self.p_map_entries = p_map_entries.as_ptr().cast();
-        self.map_entry_count = p_map_entries.len() as _;
+    pub fn map_entries(mut self, p_map_entries: impl AsSlice<'a, SpecializationMapEntry>) -> Self {
+        self.p_map_entries = p_map_entries.as_slice().as_ptr().cast();
+        self.map_entry_count = p_map_entries.as_slice().len() as _;
         self
     }
     #[inline]
-    pub fn data(mut self, p_data: &'a [u8]) -> Self {
-        self.p_data = p_data.as_ptr().cast();
-        self.data_size = p_data.len() as _;
+    pub fn data(mut self, p_data: impl AsSlice<'a, u8>) -> Self {
+        self.p_data = p_data.as_slice().as_ptr().cast();
+        self.data_size = p_data.as_slice().len() as _;
         self
     }
 }
@@ -5182,18 +5200,21 @@ impl<'a> PipelineLayoutCreateInfo<'a> {
         self
     }
     #[inline]
-    pub fn set_layouts<V0: Alias<raw::DescriptorSetLayout>>(
+    pub fn set_layouts<V0: Alias<raw::DescriptorSetLayout> + 'a>(
         mut self,
-        p_set_layouts: &'a [V0],
+        p_set_layouts: impl AsSlice<'a, V0>,
     ) -> Self {
-        self.p_set_layouts = p_set_layouts.as_ptr().cast();
-        self.set_layout_count = p_set_layouts.len() as _;
+        self.p_set_layouts = p_set_layouts.as_slice().as_ptr().cast();
+        self.set_layout_count = p_set_layouts.as_slice().len() as _;
         self
     }
     #[inline]
-    pub fn push_constant_ranges(mut self, p_push_constant_ranges: &'a [PushConstantRange]) -> Self {
-        self.p_push_constant_ranges = p_push_constant_ranges.as_ptr().cast();
-        self.push_constant_range_count = p_push_constant_ranges.len() as _;
+    pub fn push_constant_ranges(
+        mut self,
+        p_push_constant_ranges: impl AsSlice<'a, PushConstantRange>,
+    ) -> Self {
+        self.p_push_constant_ranges = p_push_constant_ranges.as_slice().as_ptr().cast();
+        self.push_constant_range_count = p_push_constant_ranges.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -5570,9 +5591,9 @@ impl<'a> DescriptorPoolCreateInfo<'a> {
         self
     }
     #[inline]
-    pub fn pool_sizes(mut self, p_pool_sizes: &'a [DescriptorPoolSize]) -> Self {
-        self.p_pool_sizes = p_pool_sizes.as_ptr().cast();
-        self.pool_size_count = p_pool_sizes.len() as _;
+    pub fn pool_sizes(mut self, p_pool_sizes: impl AsSlice<'a, DescriptorPoolSize>) -> Self {
+        self.p_pool_sizes = p_pool_sizes.as_slice().as_ptr().cast();
+        self.pool_size_count = p_pool_sizes.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -5644,12 +5665,12 @@ impl<'a> DescriptorSetAllocateInfo<'a> {
         self
     }
     #[inline]
-    pub fn set_layouts<V0: Alias<raw::DescriptorSetLayout>>(
+    pub fn set_layouts<V0: Alias<raw::DescriptorSetLayout> + 'a>(
         mut self,
-        p_set_layouts: &'a [V0],
+        p_set_layouts: impl AsSlice<'a, V0>,
     ) -> Self {
-        self.p_set_layouts = p_set_layouts.as_ptr().cast();
-        self.descriptor_set_count = p_set_layouts.len() as _;
+        self.p_set_layouts = p_set_layouts.as_slice().as_ptr().cast();
+        self.descriptor_set_count = p_set_layouts.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -5703,12 +5724,12 @@ impl<'a> DescriptorSetLayoutBinding<'a> {
         self
     }
     #[inline]
-    pub fn immutable_samplers<V0: Alias<raw::Sampler>>(
+    pub fn immutable_samplers<V0: Alias<raw::Sampler> + 'a>(
         mut self,
-        p_immutable_samplers: &'a [V0],
+        p_immutable_samplers: impl AsSlice<'a, V0>,
     ) -> Self {
-        self.p_immutable_samplers = p_immutable_samplers.as_ptr().cast();
-        self.descriptor_count = p_immutable_samplers.len() as _;
+        self.p_immutable_samplers = p_immutable_samplers.as_slice().as_ptr().cast();
+        self.descriptor_count = p_immutable_samplers.as_slice().len() as _;
         self
     }
 }
@@ -5747,9 +5768,12 @@ impl<'a> DescriptorSetLayoutCreateInfo<'a> {
         self
     }
     #[inline]
-    pub fn bindings(mut self, p_bindings: &'a [DescriptorSetLayoutBinding<'a>]) -> Self {
-        self.p_bindings = p_bindings.as_ptr().cast();
-        self.binding_count = p_bindings.len() as _;
+    pub fn bindings(
+        mut self,
+        p_bindings: impl AsSlice<'a, DescriptorSetLayoutBinding<'a>>,
+    ) -> Self {
+        self.p_bindings = p_bindings.as_slice().as_ptr().cast();
+        self.binding_count = p_bindings.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -5816,16 +5840,16 @@ impl<'a> WriteDescriptorSet<'a> {
         self
     }
     #[inline]
-    pub fn descriptor<V2: Alias<raw::BufferView>>(
+    pub fn descriptor<V2: Alias<raw::BufferView> + 'a>(
         mut self,
-        p_image_info: &'a [DescriptorImageInfo<'a>],
-        p_buffer_info: &'a [DescriptorBufferInfo<'a>],
-        p_texel_buffer_view: &'a [V2],
+        p_image_info: impl AsSlice<'a, DescriptorImageInfo<'a>>,
+        p_buffer_info: impl AsSlice<'a, DescriptorBufferInfo<'a>>,
+        p_texel_buffer_view: impl AsSlice<'a, V2>,
     ) -> Self {
-        self.p_image_info = p_image_info.as_ptr().cast();
-        self.p_buffer_info = p_buffer_info.as_ptr().cast();
-        self.p_texel_buffer_view = p_texel_buffer_view.as_ptr().cast();
-        self.descriptor_count = p_image_info.len() as _;
+        self.p_image_info = p_image_info.as_slice().as_ptr().cast();
+        self.p_buffer_info = p_buffer_info.as_slice().as_ptr().cast();
+        self.p_texel_buffer_view = p_texel_buffer_view.as_slice().as_ptr().cast();
+        self.descriptor_count = p_image_info.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -6004,9 +6028,12 @@ impl<'a> FramebufferCreateInfo<'a> {
         self
     }
     #[inline]
-    pub fn attachments<V0: Alias<raw::ImageView>>(mut self, p_attachments: &'a [V0]) -> Self {
-        self.p_attachments = p_attachments.as_ptr().cast();
-        self.attachment_count = p_attachments.len() as _;
+    pub fn attachments<V0: Alias<raw::ImageView> + 'a>(
+        mut self,
+        p_attachments: impl AsSlice<'a, V0>,
+    ) -> Self {
+        self.p_attachments = p_attachments.as_slice().as_ptr().cast();
+        self.attachment_count = p_attachments.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -6056,21 +6083,21 @@ impl<'a> RenderPassCreateInfo<'a> {
         self
     }
     #[inline]
-    pub fn attachments(mut self, p_attachments: &'a [AttachmentDescription]) -> Self {
-        self.p_attachments = p_attachments.as_ptr().cast();
-        self.attachment_count = p_attachments.len() as _;
+    pub fn attachments(mut self, p_attachments: impl AsSlice<'a, AttachmentDescription>) -> Self {
+        self.p_attachments = p_attachments.as_slice().as_ptr().cast();
+        self.attachment_count = p_attachments.as_slice().len() as _;
         self
     }
     #[inline]
-    pub fn subpasses(mut self, p_subpasses: &'a [SubpassDescription<'a>]) -> Self {
-        self.p_subpasses = p_subpasses.as_ptr().cast();
-        self.subpass_count = p_subpasses.len() as _;
+    pub fn subpasses(mut self, p_subpasses: impl AsSlice<'a, SubpassDescription<'a>>) -> Self {
+        self.p_subpasses = p_subpasses.as_slice().as_ptr().cast();
+        self.subpass_count = p_subpasses.as_slice().len() as _;
         self
     }
     #[inline]
-    pub fn dependencies(mut self, p_dependencies: &'a [SubpassDependency]) -> Self {
-        self.p_dependencies = p_dependencies.as_ptr().cast();
-        self.dependency_count = p_dependencies.len() as _;
+    pub fn dependencies(mut self, p_dependencies: impl AsSlice<'a, SubpassDependency>) -> Self {
+        self.p_dependencies = p_dependencies.as_slice().as_ptr().cast();
+        self.dependency_count = p_dependencies.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -6194,28 +6221,31 @@ impl<'a> SubpassDescription<'a> {
         self
     }
     #[inline]
-    pub fn input_attachments(mut self, p_input_attachments: &'a [AttachmentReference]) -> Self {
-        self.p_input_attachments = p_input_attachments.as_ptr().cast();
-        self.input_attachment_count = p_input_attachments.len() as _;
+    pub fn input_attachments(
+        mut self,
+        p_input_attachments: impl AsSlice<'a, AttachmentReference>,
+    ) -> Self {
+        self.p_input_attachments = p_input_attachments.as_slice().as_ptr().cast();
+        self.input_attachment_count = p_input_attachments.as_slice().len() as _;
         self
     }
     #[inline]
     pub fn color_attachment(
         mut self,
-        p_color_attachments: &'a [AttachmentReference],
-        p_resolve_attachments: Option<&'a [AttachmentReference]>,
+        p_color_attachments: impl AsSlice<'a, AttachmentReference>,
+        p_resolve_attachments: Option<impl AsSlice<'a, AttachmentReference>>,
     ) -> Self {
-        self.p_color_attachments = p_color_attachments.as_ptr().cast();
+        self.p_color_attachments = p_color_attachments.as_slice().as_ptr().cast();
         self.p_resolve_attachments = p_resolve_attachments
-            .map(|p| p.as_ptr().cast())
+            .map(|p| p.as_slice().as_ptr().cast())
             .unwrap_or(ptr::null());
-        self.color_attachment_count = p_color_attachments.len() as _;
+        self.color_attachment_count = p_color_attachments.as_slice().len() as _;
         self
     }
     #[inline]
-    pub fn preserve_attachments(mut self, p_preserve_attachments: &'a [u32]) -> Self {
-        self.p_preserve_attachments = p_preserve_attachments.as_ptr().cast();
-        self.preserve_attachment_count = p_preserve_attachments.len() as _;
+    pub fn preserve_attachments(mut self, p_preserve_attachments: impl AsSlice<'a, u32>) -> Self {
+        self.p_preserve_attachments = p_preserve_attachments.as_slice().as_ptr().cast();
+        self.preserve_attachment_count = p_preserve_attachments.as_slice().len() as _;
         self
     }
 }
@@ -6887,9 +6917,9 @@ impl<'a> RenderPassBeginInfo<'a> {
         self
     }
     #[inline]
-    pub fn clear_values(mut self, p_clear_values: &'a [ClearValue]) -> Self {
-        self.p_clear_values = p_clear_values.as_ptr().cast();
-        self.clear_value_count = p_clear_values.len() as _;
+    pub fn clear_values(mut self, p_clear_values: impl AsSlice<'a, ClearValue>) -> Self {
+        self.p_clear_values = p_clear_values.as_slice().as_ptr().cast();
+        self.clear_value_count = p_clear_values.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -7289,9 +7319,9 @@ impl<'a> DeviceGroupRenderPassBeginInfo<'a> {
         self
     }
     #[inline]
-    pub fn device_render_areas(mut self, p_device_render_areas: &'a [Rect2D]) -> Self {
-        self.p_device_render_areas = p_device_render_areas.as_ptr().cast();
-        self.device_render_area_count = p_device_render_areas.len() as _;
+    pub fn device_render_areas(mut self, p_device_render_areas: impl AsSlice<'a, Rect2D>) -> Self {
+        self.p_device_render_areas = p_device_render_areas.as_slice().as_ptr().cast();
+        self.device_render_area_count = p_device_render_areas.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -7377,25 +7407,31 @@ impl<'a> DeviceGroupSubmitInfo<'a> {
     #[inline]
     pub fn wait_semaphore_device_indices(
         mut self,
-        p_wait_semaphore_device_indices: &'a [u32],
+        p_wait_semaphore_device_indices: impl AsSlice<'a, u32>,
     ) -> Self {
-        self.p_wait_semaphore_device_indices = p_wait_semaphore_device_indices.as_ptr().cast();
-        self.wait_semaphore_count = p_wait_semaphore_device_indices.len() as _;
+        self.p_wait_semaphore_device_indices =
+            p_wait_semaphore_device_indices.as_slice().as_ptr().cast();
+        self.wait_semaphore_count = p_wait_semaphore_device_indices.as_slice().len() as _;
         self
     }
     #[inline]
-    pub fn command_buffer_device_masks(mut self, p_command_buffer_device_masks: &'a [u32]) -> Self {
-        self.p_command_buffer_device_masks = p_command_buffer_device_masks.as_ptr().cast();
-        self.command_buffer_count = p_command_buffer_device_masks.len() as _;
+    pub fn command_buffer_device_masks(
+        mut self,
+        p_command_buffer_device_masks: impl AsSlice<'a, u32>,
+    ) -> Self {
+        self.p_command_buffer_device_masks =
+            p_command_buffer_device_masks.as_slice().as_ptr().cast();
+        self.command_buffer_count = p_command_buffer_device_masks.as_slice().len() as _;
         self
     }
     #[inline]
     pub fn signal_semaphore_device_indices(
         mut self,
-        p_signal_semaphore_device_indices: &'a [u32],
+        p_signal_semaphore_device_indices: impl AsSlice<'a, u32>,
     ) -> Self {
-        self.p_signal_semaphore_device_indices = p_signal_semaphore_device_indices.as_ptr().cast();
-        self.signal_semaphore_count = p_signal_semaphore_device_indices.len() as _;
+        self.p_signal_semaphore_device_indices =
+            p_signal_semaphore_device_indices.as_slice().as_ptr().cast();
+        self.signal_semaphore_count = p_signal_semaphore_device_indices.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -7478,9 +7514,9 @@ impl<'a> Default for BindBufferMemoryDeviceGroupInfo<'a> {
 }
 impl<'a> BindBufferMemoryDeviceGroupInfo<'a> {
     #[inline]
-    pub fn device_indices(mut self, p_device_indices: &'a [u32]) -> Self {
-        self.p_device_indices = p_device_indices.as_ptr().cast();
-        self.device_index_count = p_device_indices.len() as _;
+    pub fn device_indices(mut self, p_device_indices: impl AsSlice<'a, u32>) -> Self {
+        self.p_device_indices = p_device_indices.as_slice().as_ptr().cast();
+        self.device_index_count = p_device_indices.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -7524,18 +7560,19 @@ impl<'a> Default for BindImageMemoryDeviceGroupInfo<'a> {
 }
 impl<'a> BindImageMemoryDeviceGroupInfo<'a> {
     #[inline]
-    pub fn device_indices(mut self, p_device_indices: &'a [u32]) -> Self {
-        self.p_device_indices = p_device_indices.as_ptr().cast();
-        self.device_index_count = p_device_indices.len() as _;
+    pub fn device_indices(mut self, p_device_indices: impl AsSlice<'a, u32>) -> Self {
+        self.p_device_indices = p_device_indices.as_slice().as_ptr().cast();
+        self.device_index_count = p_device_indices.as_slice().len() as _;
         self
     }
     #[inline]
     pub fn split_instance_bind_regions(
         mut self,
-        p_split_instance_bind_regions: &'a [Rect2D],
+        p_split_instance_bind_regions: impl AsSlice<'a, Rect2D>,
     ) -> Self {
-        self.p_split_instance_bind_regions = p_split_instance_bind_regions.as_ptr().cast();
-        self.split_instance_bind_region_count = p_split_instance_bind_regions.len() as _;
+        self.p_split_instance_bind_regions =
+            p_split_instance_bind_regions.as_slice().as_ptr().cast();
+        self.split_instance_bind_region_count = p_split_instance_bind_regions.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -7611,12 +7648,12 @@ impl<'a> Default for DeviceGroupDeviceCreateInfo<'a> {
 }
 impl<'a> DeviceGroupDeviceCreateInfo<'a> {
     #[inline]
-    pub fn physical_devices<V0: Alias<raw::PhysicalDevice>>(
+    pub fn physical_devices<V0: Alias<raw::PhysicalDevice> + 'a>(
         mut self,
-        p_physical_devices: &'a [V0],
+        p_physical_devices: impl AsSlice<'a, V0>,
     ) -> Self {
-        self.p_physical_devices = p_physical_devices.as_ptr().cast();
-        self.physical_device_count = p_physical_devices.len() as _;
+        self.p_physical_devices = p_physical_devices.as_slice().as_ptr().cast();
+        self.physical_device_count = p_physical_devices.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -8244,10 +8281,10 @@ impl<'a> RenderPassInputAttachmentAspectCreateInfo<'a> {
     #[inline]
     pub fn aspect_references(
         mut self,
-        p_aspect_references: &'a [InputAttachmentAspectReference],
+        p_aspect_references: impl AsSlice<'a, InputAttachmentAspectReference>,
     ) -> Self {
-        self.p_aspect_references = p_aspect_references.as_ptr().cast();
-        self.aspect_reference_count = p_aspect_references.len() as _;
+        self.p_aspect_references = p_aspect_references.as_slice().as_ptr().cast();
+        self.aspect_reference_count = p_aspect_references.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -8411,21 +8448,21 @@ impl<'a> Default for RenderPassMultiviewCreateInfo<'a> {
 }
 impl<'a> RenderPassMultiviewCreateInfo<'a> {
     #[inline]
-    pub fn view_masks(mut self, p_view_masks: &'a [u32]) -> Self {
-        self.p_view_masks = p_view_masks.as_ptr().cast();
-        self.subpass_count = p_view_masks.len() as _;
+    pub fn view_masks(mut self, p_view_masks: impl AsSlice<'a, u32>) -> Self {
+        self.p_view_masks = p_view_masks.as_slice().as_ptr().cast();
+        self.subpass_count = p_view_masks.as_slice().len() as _;
         self
     }
     #[inline]
-    pub fn view_offsets(mut self, p_view_offsets: &'a [i32]) -> Self {
-        self.p_view_offsets = p_view_offsets.as_ptr().cast();
-        self.dependency_count = p_view_offsets.len() as _;
+    pub fn view_offsets(mut self, p_view_offsets: impl AsSlice<'a, i32>) -> Self {
+        self.p_view_offsets = p_view_offsets.as_slice().as_ptr().cast();
+        self.dependency_count = p_view_offsets.as_slice().len() as _;
         self
     }
     #[inline]
-    pub fn correlation_masks(mut self, p_correlation_masks: &'a [u32]) -> Self {
-        self.p_correlation_masks = p_correlation_masks.as_ptr().cast();
-        self.correlation_mask_count = p_correlation_masks.len() as _;
+    pub fn correlation_masks(mut self, p_correlation_masks: impl AsSlice<'a, u32>) -> Self {
+        self.p_correlation_masks = p_correlation_masks.as_slice().as_ptr().cast();
+        self.correlation_mask_count = p_correlation_masks.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -9164,10 +9201,10 @@ impl<'a> DescriptorUpdateTemplateCreateInfo<'a> {
     #[inline]
     pub fn descriptor_update_entries(
         mut self,
-        p_descriptor_update_entries: &'a [DescriptorUpdateTemplateEntry],
+        p_descriptor_update_entries: impl AsSlice<'a, DescriptorUpdateTemplateEntry>,
     ) -> Self {
-        self.p_descriptor_update_entries = p_descriptor_update_entries.as_ptr().cast();
-        self.descriptor_update_entry_count = p_descriptor_update_entries.len() as _;
+        self.p_descriptor_update_entries = p_descriptor_update_entries.as_slice().as_ptr().cast();
+        self.descriptor_update_entry_count = p_descriptor_update_entries.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -11069,9 +11106,9 @@ impl<'a> Default for ImageFormatListCreateInfo<'a> {
 }
 impl<'a> ImageFormatListCreateInfo<'a> {
     #[inline]
-    pub fn view_formats(mut self, p_view_formats: &'a [Format]) -> Self {
-        self.p_view_formats = p_view_formats.as_ptr().cast();
-        self.view_format_count = p_view_formats.len() as _;
+    pub fn view_formats(mut self, p_view_formats: impl AsSlice<'a, Format>) -> Self {
+        self.p_view_formats = p_view_formats.as_slice().as_ptr().cast();
+        self.view_format_count = p_view_formats.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -11126,27 +11163,33 @@ impl<'a> RenderPassCreateInfo2<'a> {
         self
     }
     #[inline]
-    pub fn attachments(mut self, p_attachments: &'a [AttachmentDescription2<'a>]) -> Self {
-        self.p_attachments = p_attachments.as_ptr().cast();
-        self.attachment_count = p_attachments.len() as _;
+    pub fn attachments(
+        mut self,
+        p_attachments: impl AsSlice<'a, AttachmentDescription2<'a>>,
+    ) -> Self {
+        self.p_attachments = p_attachments.as_slice().as_ptr().cast();
+        self.attachment_count = p_attachments.as_slice().len() as _;
         self
     }
     #[inline]
-    pub fn subpasses(mut self, p_subpasses: &'a [SubpassDescription2<'a>]) -> Self {
-        self.p_subpasses = p_subpasses.as_ptr().cast();
-        self.subpass_count = p_subpasses.len() as _;
+    pub fn subpasses(mut self, p_subpasses: impl AsSlice<'a, SubpassDescription2<'a>>) -> Self {
+        self.p_subpasses = p_subpasses.as_slice().as_ptr().cast();
+        self.subpass_count = p_subpasses.as_slice().len() as _;
         self
     }
     #[inline]
-    pub fn dependencies(mut self, p_dependencies: &'a [SubpassDependency2<'a>]) -> Self {
-        self.p_dependencies = p_dependencies.as_ptr().cast();
-        self.dependency_count = p_dependencies.len() as _;
+    pub fn dependencies(
+        mut self,
+        p_dependencies: impl AsSlice<'a, SubpassDependency2<'a>>,
+    ) -> Self {
+        self.p_dependencies = p_dependencies.as_slice().as_ptr().cast();
+        self.dependency_count = p_dependencies.as_slice().len() as _;
         self
     }
     #[inline]
-    pub fn correlated_view_masks(mut self, p_correlated_view_masks: &'a [u32]) -> Self {
-        self.p_correlated_view_masks = p_correlated_view_masks.as_ptr().cast();
-        self.correlated_view_mask_count = p_correlated_view_masks.len() as _;
+    pub fn correlated_view_masks(mut self, p_correlated_view_masks: impl AsSlice<'a, u32>) -> Self {
+        self.p_correlated_view_masks = p_correlated_view_masks.as_slice().as_ptr().cast();
+        self.correlated_view_mask_count = p_correlated_view_masks.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -11362,29 +11405,29 @@ impl<'a> SubpassDescription2<'a> {
     #[inline]
     pub fn input_attachments(
         mut self,
-        p_input_attachments: &'a [AttachmentReference2<'a>],
+        p_input_attachments: impl AsSlice<'a, AttachmentReference2<'a>>,
     ) -> Self {
-        self.p_input_attachments = p_input_attachments.as_ptr().cast();
-        self.input_attachment_count = p_input_attachments.len() as _;
+        self.p_input_attachments = p_input_attachments.as_slice().as_ptr().cast();
+        self.input_attachment_count = p_input_attachments.as_slice().len() as _;
         self
     }
     #[inline]
     pub fn color_attachment(
         mut self,
-        p_color_attachments: &'a [AttachmentReference2<'a>],
-        p_resolve_attachments: Option<&'a [AttachmentReference2<'a>]>,
+        p_color_attachments: impl AsSlice<'a, AttachmentReference2<'a>>,
+        p_resolve_attachments: Option<impl AsSlice<'a, AttachmentReference2<'a>>>,
     ) -> Self {
-        self.p_color_attachments = p_color_attachments.as_ptr().cast();
+        self.p_color_attachments = p_color_attachments.as_slice().as_ptr().cast();
         self.p_resolve_attachments = p_resolve_attachments
-            .map(|p| p.as_ptr().cast())
+            .map(|p| p.as_slice().as_ptr().cast())
             .unwrap_or(ptr::null());
-        self.color_attachment_count = p_color_attachments.len() as _;
+        self.color_attachment_count = p_color_attachments.as_slice().len() as _;
         self
     }
     #[inline]
-    pub fn preserve_attachments(mut self, p_preserve_attachments: &'a [u32]) -> Self {
-        self.p_preserve_attachments = p_preserve_attachments.as_ptr().cast();
-        self.preserve_attachment_count = p_preserve_attachments.len() as _;
+    pub fn preserve_attachments(mut self, p_preserve_attachments: impl AsSlice<'a, u32>) -> Self {
+        self.p_preserve_attachments = p_preserve_attachments.as_slice().as_ptr().cast();
+        self.preserve_attachment_count = p_preserve_attachments.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -11996,9 +12039,12 @@ impl<'a> DescriptorSetLayoutBindingFlagsCreateInfo<'a> {
         self
     }
     #[inline]
-    pub fn binding_flags(mut self, p_binding_flags: &'a [DescriptorBindingFlags]) -> Self {
-        self.p_binding_flags = p_binding_flags.as_ptr().cast();
-        self.binding_count = p_binding_flags.len() as _;
+    pub fn binding_flags(
+        mut self,
+        p_binding_flags: impl AsSlice<'a, DescriptorBindingFlags>,
+    ) -> Self {
+        self.p_binding_flags = p_binding_flags.as_slice().as_ptr().cast();
+        self.binding_count = p_binding_flags.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -12495,9 +12541,9 @@ impl<'a> Default for DescriptorSetVariableDescriptorCountAllocateInfo<'a> {
 }
 impl<'a> DescriptorSetVariableDescriptorCountAllocateInfo<'a> {
     #[inline]
-    pub fn descriptor_counts(mut self, p_descriptor_counts: &'a [u32]) -> Self {
-        self.p_descriptor_counts = p_descriptor_counts.as_ptr().cast();
-        self.descriptor_set_count = p_descriptor_counts.len() as _;
+    pub fn descriptor_counts(mut self, p_descriptor_counts: impl AsSlice<'a, u32>) -> Self {
+        self.p_descriptor_counts = p_descriptor_counts.as_slice().as_ptr().cast();
+        self.descriptor_set_count = p_descriptor_counts.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -12976,10 +13022,10 @@ impl<'a> FramebufferAttachmentsCreateInfo<'a> {
     #[inline]
     pub fn attachment_image_infos(
         mut self,
-        p_attachment_image_infos: &'a [FramebufferAttachmentImageInfo<'a>],
+        p_attachment_image_infos: impl AsSlice<'a, FramebufferAttachmentImageInfo<'a>>,
     ) -> Self {
-        self.p_attachment_image_infos = p_attachment_image_infos.as_ptr().cast();
-        self.attachment_image_info_count = p_attachment_image_infos.len() as _;
+        self.p_attachment_image_infos = p_attachment_image_infos.as_slice().as_ptr().cast();
+        self.attachment_image_info_count = p_attachment_image_infos.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -13050,9 +13096,9 @@ impl<'a> FramebufferAttachmentImageInfo<'a> {
         self
     }
     #[inline]
-    pub fn view_formats(mut self, p_view_formats: &'a [Format]) -> Self {
-        self.p_view_formats = p_view_formats.as_ptr().cast();
-        self.view_format_count = p_view_formats.len() as _;
+    pub fn view_formats(mut self, p_view_formats: impl AsSlice<'a, Format>) -> Self {
+        self.p_view_formats = p_view_formats.as_slice().as_ptr().cast();
+        self.view_format_count = p_view_formats.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -13092,9 +13138,12 @@ impl<'a> Default for RenderPassAttachmentBeginInfo<'a> {
 }
 impl<'a> RenderPassAttachmentBeginInfo<'a> {
     #[inline]
-    pub fn attachments<V0: Alias<raw::ImageView>>(mut self, p_attachments: &'a [V0]) -> Self {
-        self.p_attachments = p_attachments.as_ptr().cast();
-        self.attachment_count = p_attachments.len() as _;
+    pub fn attachments<V0: Alias<raw::ImageView> + 'a>(
+        mut self,
+        p_attachments: impl AsSlice<'a, V0>,
+    ) -> Self {
+        self.p_attachments = p_attachments.as_slice().as_ptr().cast();
+        self.attachment_count = p_attachments.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -13540,15 +13589,18 @@ impl<'a> TimelineSemaphoreSubmitInfo<'a> {
         self
     }
     #[inline]
-    pub fn wait_semaphore_values(mut self, p_wait_semaphore_values: &'a [u64]) -> Self {
-        self.p_wait_semaphore_values = p_wait_semaphore_values.as_ptr().cast();
-        self.wait_semaphore_value_count = p_wait_semaphore_values.len() as _;
+    pub fn wait_semaphore_values(mut self, p_wait_semaphore_values: impl AsSlice<'a, u64>) -> Self {
+        self.p_wait_semaphore_values = p_wait_semaphore_values.as_slice().as_ptr().cast();
+        self.wait_semaphore_value_count = p_wait_semaphore_values.as_slice().len() as _;
         self
     }
     #[inline]
-    pub fn signal_semaphore_values(mut self, p_signal_semaphore_values: &'a [u64]) -> Self {
-        self.p_signal_semaphore_values = p_signal_semaphore_values.as_ptr().cast();
-        self.signal_semaphore_value_count = p_signal_semaphore_values.len() as _;
+    pub fn signal_semaphore_values(
+        mut self,
+        p_signal_semaphore_values: impl AsSlice<'a, u64>,
+    ) -> Self {
+        self.p_signal_semaphore_values = p_signal_semaphore_values.as_slice().as_ptr().cast();
+        self.signal_semaphore_value_count = p_signal_semaphore_values.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -13593,14 +13645,14 @@ impl<'a> SemaphoreWaitInfo<'a> {
         self
     }
     #[inline]
-    pub fn semaphore<V0: Alias<raw::Semaphore>>(
+    pub fn semaphore<V0: Alias<raw::Semaphore> + 'a>(
         mut self,
-        p_semaphores: &'a [V0],
-        p_values: &'a [u64],
+        p_semaphores: impl AsSlice<'a, V0>,
+        p_values: impl AsSlice<'a, u64>,
     ) -> Self {
-        self.p_semaphores = p_semaphores.as_ptr().cast();
-        self.p_values = p_values.as_ptr().cast();
-        self.semaphore_count = p_semaphores.len() as _;
+        self.p_semaphores = p_semaphores.as_slice().as_ptr().cast();
+        self.p_values = p_values.as_slice().as_ptr().cast();
+        self.semaphore_count = p_semaphores.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -14463,12 +14515,14 @@ impl<'a> PipelineCreationFeedbackCreateInfo<'a> {
     #[inline]
     pub fn pipeline_stage_creation_feedbacks(
         mut self,
-        p_pipeline_stage_creation_feedbacks: &'a [PipelineCreationFeedback],
+        p_pipeline_stage_creation_feedbacks: impl AsSlice<'a, PipelineCreationFeedback>,
     ) -> Self {
-        self.p_pipeline_stage_creation_feedbacks =
-            p_pipeline_stage_creation_feedbacks.as_ptr().cast();
+        self.p_pipeline_stage_creation_feedbacks = p_pipeline_stage_creation_feedbacks
+            .as_slice()
+            .as_ptr()
+            .cast();
         self.pipeline_stage_creation_feedback_count =
-            p_pipeline_stage_creation_feedbacks.len() as _;
+            p_pipeline_stage_creation_feedbacks.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -15116,27 +15170,30 @@ impl<'a> DependencyInfo<'a> {
         self
     }
     #[inline]
-    pub fn memory_barriers(mut self, p_memory_barriers: &'a [MemoryBarrier2<'a>]) -> Self {
-        self.p_memory_barriers = p_memory_barriers.as_ptr().cast();
-        self.memory_barrier_count = p_memory_barriers.len() as _;
+    pub fn memory_barriers(
+        mut self,
+        p_memory_barriers: impl AsSlice<'a, MemoryBarrier2<'a>>,
+    ) -> Self {
+        self.p_memory_barriers = p_memory_barriers.as_slice().as_ptr().cast();
+        self.memory_barrier_count = p_memory_barriers.as_slice().len() as _;
         self
     }
     #[inline]
     pub fn buffer_memory_barriers(
         mut self,
-        p_buffer_memory_barriers: &'a [BufferMemoryBarrier2<'a>],
+        p_buffer_memory_barriers: impl AsSlice<'a, BufferMemoryBarrier2<'a>>,
     ) -> Self {
-        self.p_buffer_memory_barriers = p_buffer_memory_barriers.as_ptr().cast();
-        self.buffer_memory_barrier_count = p_buffer_memory_barriers.len() as _;
+        self.p_buffer_memory_barriers = p_buffer_memory_barriers.as_slice().as_ptr().cast();
+        self.buffer_memory_barrier_count = p_buffer_memory_barriers.as_slice().len() as _;
         self
     }
     #[inline]
     pub fn image_memory_barriers(
         mut self,
-        p_image_memory_barriers: &'a [ImageMemoryBarrier2<'a>],
+        p_image_memory_barriers: impl AsSlice<'a, ImageMemoryBarrier2<'a>>,
     ) -> Self {
-        self.p_image_memory_barriers = p_image_memory_barriers.as_ptr().cast();
-        self.image_memory_barrier_count = p_image_memory_barriers.len() as _;
+        self.p_image_memory_barriers = p_image_memory_barriers.as_slice().as_ptr().cast();
+        self.image_memory_barrier_count = p_image_memory_barriers.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -15189,28 +15246,28 @@ impl<'a> SubmitInfo2<'a> {
     #[inline]
     pub fn wait_semaphore_infos(
         mut self,
-        p_wait_semaphore_infos: &'a [SemaphoreSubmitInfo<'a>],
+        p_wait_semaphore_infos: impl AsSlice<'a, SemaphoreSubmitInfo<'a>>,
     ) -> Self {
-        self.p_wait_semaphore_infos = p_wait_semaphore_infos.as_ptr().cast();
-        self.wait_semaphore_info_count = p_wait_semaphore_infos.len() as _;
+        self.p_wait_semaphore_infos = p_wait_semaphore_infos.as_slice().as_ptr().cast();
+        self.wait_semaphore_info_count = p_wait_semaphore_infos.as_slice().len() as _;
         self
     }
     #[inline]
     pub fn command_buffer_infos(
         mut self,
-        p_command_buffer_infos: &'a [CommandBufferSubmitInfo<'a>],
+        p_command_buffer_infos: impl AsSlice<'a, CommandBufferSubmitInfo<'a>>,
     ) -> Self {
-        self.p_command_buffer_infos = p_command_buffer_infos.as_ptr().cast();
-        self.command_buffer_info_count = p_command_buffer_infos.len() as _;
+        self.p_command_buffer_infos = p_command_buffer_infos.as_slice().as_ptr().cast();
+        self.command_buffer_info_count = p_command_buffer_infos.as_slice().len() as _;
         self
     }
     #[inline]
     pub fn signal_semaphore_infos(
         mut self,
-        p_signal_semaphore_infos: &'a [SemaphoreSubmitInfo<'a>],
+        p_signal_semaphore_infos: impl AsSlice<'a, SemaphoreSubmitInfo<'a>>,
     ) -> Self {
-        self.p_signal_semaphore_infos = p_signal_semaphore_infos.as_ptr().cast();
-        self.signal_semaphore_info_count = p_signal_semaphore_infos.len() as _;
+        self.p_signal_semaphore_infos = p_signal_semaphore_infos.as_slice().as_ptr().cast();
+        self.signal_semaphore_info_count = p_signal_semaphore_infos.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -15489,9 +15546,9 @@ impl<'a> CopyBufferInfo2<'a> {
         self
     }
     #[inline]
-    pub fn regions(mut self, p_regions: &'a [BufferCopy2<'a>]) -> Self {
-        self.p_regions = p_regions.as_ptr().cast();
-        self.region_count = p_regions.len() as _;
+    pub fn regions(mut self, p_regions: impl AsSlice<'a, BufferCopy2<'a>>) -> Self {
+        self.p_regions = p_regions.as_slice().as_ptr().cast();
+        self.region_count = p_regions.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -15555,9 +15612,9 @@ impl<'a> CopyImageInfo2<'a> {
         self
     }
     #[inline]
-    pub fn regions(mut self, p_regions: &'a [ImageCopy2<'a>]) -> Self {
-        self.p_regions = p_regions.as_ptr().cast();
-        self.region_count = p_regions.len() as _;
+    pub fn regions(mut self, p_regions: impl AsSlice<'a, ImageCopy2<'a>>) -> Self {
+        self.p_regions = p_regions.as_slice().as_ptr().cast();
+        self.region_count = p_regions.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -15614,9 +15671,9 @@ impl<'a> CopyBufferToImageInfo2<'a> {
         self
     }
     #[inline]
-    pub fn regions(mut self, p_regions: &'a [BufferImageCopy2<'a>]) -> Self {
-        self.p_regions = p_regions.as_ptr().cast();
-        self.region_count = p_regions.len() as _;
+    pub fn regions(mut self, p_regions: impl AsSlice<'a, BufferImageCopy2<'a>>) -> Self {
+        self.p_regions = p_regions.as_slice().as_ptr().cast();
+        self.region_count = p_regions.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -15673,9 +15730,9 @@ impl<'a> CopyImageToBufferInfo2<'a> {
         self
     }
     #[inline]
-    pub fn regions(mut self, p_regions: &'a [BufferImageCopy2<'a>]) -> Self {
-        self.p_regions = p_regions.as_ptr().cast();
-        self.region_count = p_regions.len() as _;
+    pub fn regions(mut self, p_regions: impl AsSlice<'a, BufferImageCopy2<'a>>) -> Self {
+        self.p_regions = p_regions.as_slice().as_ptr().cast();
+        self.region_count = p_regions.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -15746,9 +15803,9 @@ impl<'a> BlitImageInfo2<'a> {
         self
     }
     #[inline]
-    pub fn regions(mut self, p_regions: &'a [ImageBlit2<'a>]) -> Self {
-        self.p_regions = p_regions.as_ptr().cast();
-        self.region_count = p_regions.len() as _;
+    pub fn regions(mut self, p_regions: impl AsSlice<'a, ImageBlit2<'a>>) -> Self {
+        self.p_regions = p_regions.as_slice().as_ptr().cast();
+        self.region_count = p_regions.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -15812,9 +15869,9 @@ impl<'a> ResolveImageInfo2<'a> {
         self
     }
     #[inline]
-    pub fn regions(mut self, p_regions: &'a [ImageResolve2<'a>]) -> Self {
-        self.p_regions = p_regions.as_ptr().cast();
-        self.region_count = p_regions.len() as _;
+    pub fn regions(mut self, p_regions: impl AsSlice<'a, ImageResolve2<'a>>) -> Self {
+        self.p_regions = p_regions.as_slice().as_ptr().cast();
+        self.region_count = p_regions.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -16443,9 +16500,9 @@ impl<'a> Default for WriteDescriptorSetInlineUniformBlock<'a> {
 }
 impl<'a> WriteDescriptorSetInlineUniformBlock<'a> {
     #[inline]
-    pub fn data(mut self, p_data: &'a [u8]) -> Self {
-        self.p_data = p_data.as_ptr().cast();
-        self.data_size = p_data.len() as _;
+    pub fn data(mut self, p_data: impl AsSlice<'a, u8>) -> Self {
+        self.p_data = p_data.as_slice().as_ptr().cast();
+        self.data_size = p_data.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -16610,10 +16667,10 @@ impl<'a> RenderingInfo<'a> {
     #[inline]
     pub fn color_attachments(
         mut self,
-        p_color_attachments: &'a [RenderingAttachmentInfo<'a>],
+        p_color_attachments: impl AsSlice<'a, RenderingAttachmentInfo<'a>>,
     ) -> Self {
-        self.p_color_attachments = p_color_attachments.as_ptr().cast();
-        self.color_attachment_count = p_color_attachments.len() as _;
+        self.p_color_attachments = p_color_attachments.as_slice().as_ptr().cast();
+        self.color_attachment_count = p_color_attachments.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -16758,9 +16815,12 @@ impl<'a> PipelineRenderingCreateInfo<'a> {
         self
     }
     #[inline]
-    pub fn color_attachment_formats(mut self, p_color_attachment_formats: &'a [Format]) -> Self {
-        self.p_color_attachment_formats = p_color_attachment_formats.as_ptr().cast();
-        self.color_attachment_count = p_color_attachment_formats.len() as _;
+    pub fn color_attachment_formats(
+        mut self,
+        p_color_attachment_formats: impl AsSlice<'a, Format>,
+    ) -> Self {
+        self.p_color_attachment_formats = p_color_attachment_formats.as_slice().as_ptr().cast();
+        self.color_attachment_count = p_color_attachment_formats.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -16878,9 +16938,12 @@ impl<'a> CommandBufferInheritanceRenderingInfo<'a> {
         self
     }
     #[inline]
-    pub fn color_attachment_formats(mut self, p_color_attachment_formats: &'a [Format]) -> Self {
-        self.p_color_attachment_formats = p_color_attachment_formats.as_ptr().cast();
-        self.color_attachment_count = p_color_attachment_formats.len() as _;
+    pub fn color_attachment_formats(
+        mut self,
+        p_color_attachment_formats: impl AsSlice<'a, Format>,
+    ) -> Self {
+        self.p_color_attachment_formats = p_color_attachment_formats.as_slice().as_ptr().cast();
+        self.color_attachment_count = p_color_attachment_formats.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -17756,9 +17819,9 @@ impl<'a> SwapchainCreateInfoKHR<'a> {
         self
     }
     #[inline]
-    pub fn queue_family_indices(mut self, p_queue_family_indices: &'a [u32]) -> Self {
-        self.p_queue_family_indices = p_queue_family_indices.as_ptr().cast();
-        self.queue_family_index_count = p_queue_family_indices.len() as _;
+    pub fn queue_family_indices(mut self, p_queue_family_indices: impl AsSlice<'a, u32>) -> Self {
+        self.p_queue_family_indices = p_queue_family_indices.as_slice().as_ptr().cast();
+        self.queue_family_index_count = p_queue_family_indices.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -17801,25 +17864,27 @@ impl<'a> Default for PresentInfoKHR<'a> {
 }
 impl<'a> PresentInfoKHR<'a> {
     #[inline]
-    pub fn wait_semaphores<V0: Alias<raw::Semaphore>>(
+    pub fn wait_semaphores<V0: Alias<raw::Semaphore> + 'a>(
         mut self,
-        p_wait_semaphores: &'a [V0],
+        p_wait_semaphores: impl AsSlice<'a, V0>,
     ) -> Self {
-        self.p_wait_semaphores = p_wait_semaphores.as_ptr().cast();
-        self.wait_semaphore_count = p_wait_semaphores.len() as _;
+        self.p_wait_semaphores = p_wait_semaphores.as_slice().as_ptr().cast();
+        self.wait_semaphore_count = p_wait_semaphores.as_slice().len() as _;
         self
     }
     #[inline]
-    pub fn swapchain<V0: Alias<raw::SwapchainKHR>>(
+    pub fn swapchain<V0: Alias<raw::SwapchainKHR> + 'a>(
         mut self,
-        p_swapchains: &'a [V0],
-        p_image_indices: &'a [u32],
-        p_results: Option<&'a [Status]>,
+        p_swapchains: impl AsSlice<'a, V0>,
+        p_image_indices: impl AsSlice<'a, u32>,
+        p_results: Option<impl AsSlice<'a, Status>>,
     ) -> Self {
-        self.p_swapchains = p_swapchains.as_ptr().cast();
-        self.p_image_indices = p_image_indices.as_ptr().cast();
-        self.p_results = p_results.map(|p| p.as_ptr().cast()).unwrap_or(ptr::null());
-        self.swapchain_count = p_swapchains.len() as _;
+        self.p_swapchains = p_swapchains.as_slice().as_ptr().cast();
+        self.p_image_indices = p_image_indices.as_slice().as_ptr().cast();
+        self.p_results = p_results
+            .map(|p| p.as_slice().as_ptr().cast())
+            .unwrap_or(ptr::null());
+        self.swapchain_count = p_swapchains.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -18045,9 +18110,9 @@ impl<'a> DeviceGroupPresentInfoKHR<'a> {
         self
     }
     #[inline]
-    pub fn device_masks(mut self, p_device_masks: &'a [u32]) -> Self {
-        self.p_device_masks = p_device_masks.as_ptr().cast();
-        self.swapchain_count = p_device_masks.len() as _;
+    pub fn device_masks(mut self, p_device_masks: impl AsSlice<'a, u32>) -> Self {
+        self.p_device_masks = p_device_masks.as_slice().as_ptr().cast();
+        self.swapchain_count = p_device_masks.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -18925,9 +18990,9 @@ impl<'a> DebugMarkerObjectTagInfoEXT<'a> {
         self
     }
     #[inline]
-    pub fn tag(mut self, p_tag: &'a [u8]) -> Self {
-        self.p_tag = p_tag.as_ptr().cast();
-        self.tag_size = p_tag.len() as _;
+    pub fn tag(mut self, p_tag: impl AsSlice<'a, u8>) -> Self {
+        self.p_tag = p_tag.as_slice().as_ptr().cast();
+        self.tag_size = p_tag.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -19324,9 +19389,9 @@ impl<'a> Default for CuModuleCreateInfoNVX<'a> {
 }
 impl<'a> CuModuleCreateInfoNVX<'a> {
     #[inline]
-    pub fn data(mut self, p_data: &'a [u8]) -> Self {
-        self.p_data = p_data.as_ptr().cast();
-        self.data_size = p_data.len() as _;
+    pub fn data(mut self, p_data: impl AsSlice<'a, u8>) -> Self {
+        self.p_data = p_data.as_slice().as_ptr().cast();
+        self.data_size = p_data.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -19462,15 +19527,15 @@ impl<'a> CuLaunchInfoNVX<'a> {
         self
     }
     #[inline]
-    pub fn params(mut self, p_params: &'a [&'a ()]) -> Self {
-        self.p_params = p_params.as_ptr().cast();
-        self.param_count = p_params.len() as _;
+    pub fn params(mut self, p_params: impl AsSlice<'a, &'a ()>) -> Self {
+        self.p_params = p_params.as_slice().as_ptr().cast();
+        self.param_count = p_params.as_slice().len() as _;
         self
     }
     #[inline]
-    pub fn extras(mut self, p_extras: &'a [&'a ()]) -> Self {
-        self.p_extras = p_extras.as_ptr().cast();
-        self.extra_count = p_extras.len() as _;
+    pub fn extras(mut self, p_extras: impl AsSlice<'a, &'a ()>) -> Self {
+        self.p_extras = p_extras.as_slice().as_ptr().cast();
+        self.extra_count = p_extras.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -19864,10 +19929,10 @@ impl<'a> AttachmentSampleCountInfoAMD<'a> {
     #[inline]
     pub fn color_attachment_samples(
         mut self,
-        p_color_attachment_samples: &'a [SampleCountFlags],
+        p_color_attachment_samples: impl AsSlice<'a, SampleCountFlags>,
     ) -> Self {
-        self.p_color_attachment_samples = p_color_attachment_samples.as_ptr().cast();
-        self.color_attachment_count = p_color_attachment_samples.len() as _;
+        self.p_color_attachment_samples = p_color_attachment_samples.as_slice().as_ptr().cast();
+        self.color_attachment_count = p_color_attachment_samples.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -20264,27 +20329,28 @@ impl<'a> Default for Win32KeyedMutexAcquireReleaseInfoNV<'a> {
 }
 impl<'a> Win32KeyedMutexAcquireReleaseInfoNV<'a> {
     #[inline]
-    pub fn acquire<V0: Alias<raw::DeviceMemory>>(
+    pub fn acquire<V0: Alias<raw::DeviceMemory> + 'a>(
         mut self,
-        p_acquire_syncs: &'a [V0],
-        p_acquire_keys: &'a [u64],
-        p_acquire_timeout_milliseconds: &'a [u32],
+        p_acquire_syncs: impl AsSlice<'a, V0>,
+        p_acquire_keys: impl AsSlice<'a, u64>,
+        p_acquire_timeout_milliseconds: impl AsSlice<'a, u32>,
     ) -> Self {
-        self.p_acquire_syncs = p_acquire_syncs.as_ptr().cast();
-        self.p_acquire_keys = p_acquire_keys.as_ptr().cast();
-        self.p_acquire_timeout_milliseconds = p_acquire_timeout_milliseconds.as_ptr().cast();
-        self.acquire_count = p_acquire_syncs.len() as _;
+        self.p_acquire_syncs = p_acquire_syncs.as_slice().as_ptr().cast();
+        self.p_acquire_keys = p_acquire_keys.as_slice().as_ptr().cast();
+        self.p_acquire_timeout_milliseconds =
+            p_acquire_timeout_milliseconds.as_slice().as_ptr().cast();
+        self.acquire_count = p_acquire_syncs.as_slice().len() as _;
         self
     }
     #[inline]
-    pub fn release<V0: Alias<raw::DeviceMemory>>(
+    pub fn release<V0: Alias<raw::DeviceMemory> + 'a>(
         mut self,
-        p_release_syncs: &'a [V0],
-        p_release_keys: &'a [u64],
+        p_release_syncs: impl AsSlice<'a, V0>,
+        p_release_keys: impl AsSlice<'a, u64>,
     ) -> Self {
-        self.p_release_syncs = p_release_syncs.as_ptr().cast();
-        self.p_release_keys = p_release_keys.as_ptr().cast();
-        self.release_count = p_release_syncs.len() as _;
+        self.p_release_syncs = p_release_syncs.as_slice().as_ptr().cast();
+        self.p_release_keys = p_release_keys.as_slice().as_ptr().cast();
+        self.release_count = p_release_syncs.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -20322,10 +20388,10 @@ impl<'a> ValidationFlagsEXT<'a> {
     #[inline]
     pub fn disabled_validation_checks(
         mut self,
-        p_disabled_validation_checks: &'a [ValidationCheckEXT],
+        p_disabled_validation_checks: impl AsSlice<'a, ValidationCheckEXT>,
     ) -> Self {
-        self.p_disabled_validation_checks = p_disabled_validation_checks.as_ptr().cast();
-        self.disabled_validation_check_count = p_disabled_validation_checks.len() as _;
+        self.p_disabled_validation_checks = p_disabled_validation_checks.as_slice().as_ptr().cast();
+        self.disabled_validation_check_count = p_disabled_validation_checks.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -20975,27 +21041,27 @@ impl<'a> Default for Win32KeyedMutexAcquireReleaseInfoKHR<'a> {
 }
 impl<'a> Win32KeyedMutexAcquireReleaseInfoKHR<'a> {
     #[inline]
-    pub fn acquire<V0: Alias<raw::DeviceMemory>>(
+    pub fn acquire<V0: Alias<raw::DeviceMemory> + 'a>(
         mut self,
-        p_acquire_syncs: &'a [V0],
-        p_acquire_keys: &'a [u64],
-        p_acquire_timeouts: &'a [u32],
+        p_acquire_syncs: impl AsSlice<'a, V0>,
+        p_acquire_keys: impl AsSlice<'a, u64>,
+        p_acquire_timeouts: impl AsSlice<'a, u32>,
     ) -> Self {
-        self.p_acquire_syncs = p_acquire_syncs.as_ptr().cast();
-        self.p_acquire_keys = p_acquire_keys.as_ptr().cast();
-        self.p_acquire_timeouts = p_acquire_timeouts.as_ptr().cast();
-        self.acquire_count = p_acquire_syncs.len() as _;
+        self.p_acquire_syncs = p_acquire_syncs.as_slice().as_ptr().cast();
+        self.p_acquire_keys = p_acquire_keys.as_slice().as_ptr().cast();
+        self.p_acquire_timeouts = p_acquire_timeouts.as_slice().as_ptr().cast();
+        self.acquire_count = p_acquire_syncs.as_slice().len() as _;
         self
     }
     #[inline]
-    pub fn release<V0: Alias<raw::DeviceMemory>>(
+    pub fn release<V0: Alias<raw::DeviceMemory> + 'a>(
         mut self,
-        p_release_syncs: &'a [V0],
-        p_release_keys: &'a [u64],
+        p_release_syncs: impl AsSlice<'a, V0>,
+        p_release_keys: impl AsSlice<'a, u64>,
     ) -> Self {
-        self.p_release_syncs = p_release_syncs.as_ptr().cast();
-        self.p_release_keys = p_release_keys.as_ptr().cast();
-        self.release_count = p_release_syncs.len() as _;
+        self.p_release_syncs = p_release_syncs.as_slice().as_ptr().cast();
+        self.p_release_keys = p_release_keys.as_slice().as_ptr().cast();
+        self.release_count = p_release_syncs.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -21159,15 +21225,18 @@ impl<'a> D3D12FenceSubmitInfoKHR<'a> {
         self
     }
     #[inline]
-    pub fn wait_semaphore_values(mut self, p_wait_semaphore_values: &'a [u64]) -> Self {
-        self.p_wait_semaphore_values = p_wait_semaphore_values.as_ptr().cast();
-        self.wait_semaphore_values_count = p_wait_semaphore_values.len() as _;
+    pub fn wait_semaphore_values(mut self, p_wait_semaphore_values: impl AsSlice<'a, u64>) -> Self {
+        self.p_wait_semaphore_values = p_wait_semaphore_values.as_slice().as_ptr().cast();
+        self.wait_semaphore_values_count = p_wait_semaphore_values.as_slice().len() as _;
         self
     }
     #[inline]
-    pub fn signal_semaphore_values(mut self, p_signal_semaphore_values: &'a [u64]) -> Self {
-        self.p_signal_semaphore_values = p_signal_semaphore_values.as_ptr().cast();
-        self.signal_semaphore_values_count = p_signal_semaphore_values.len() as _;
+    pub fn signal_semaphore_values(
+        mut self,
+        p_signal_semaphore_values: impl AsSlice<'a, u64>,
+    ) -> Self {
+        self.p_signal_semaphore_values = p_signal_semaphore_values.as_slice().as_ptr().cast();
+        self.signal_semaphore_values_count = p_signal_semaphore_values.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -21520,9 +21589,9 @@ impl<'a> PresentRegionsKHR<'a> {
         self
     }
     #[inline]
-    pub fn regions(mut self, p_regions: &'a [PresentRegionKHR<'a>]) -> Self {
-        self.p_regions = p_regions.as_ptr().cast();
-        self.swapchain_count = p_regions.len() as _;
+    pub fn regions(mut self, p_regions: impl AsSlice<'a, PresentRegionKHR<'a>>) -> Self {
+        self.p_regions = p_regions.as_slice().as_ptr().cast();
+        self.swapchain_count = p_regions.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -21555,9 +21624,9 @@ impl<'a> PresentRegionKHR<'a> {
         self
     }
     #[inline]
-    pub fn rectangles(mut self, p_rectangles: &'a [RectLayerKHR]) -> Self {
-        self.p_rectangles = p_rectangles.as_ptr().cast();
-        self.rectangle_count = p_rectangles.len() as _;
+    pub fn rectangles(mut self, p_rectangles: impl AsSlice<'a, RectLayerKHR>) -> Self {
+        self.p_rectangles = p_rectangles.as_slice().as_ptr().cast();
+        self.rectangle_count = p_rectangles.as_slice().len() as _;
         self
     }
 }
@@ -21672,9 +21741,12 @@ impl<'a> PipelineViewportWScalingStateCreateInfoNV<'a> {
         self
     }
     #[inline]
-    pub fn viewport_wscalings(mut self, p_viewport_wscalings: &'a [ViewportWScalingNV]) -> Self {
-        self.p_viewport_wscalings = p_viewport_wscalings.as_ptr().cast();
-        self.viewport_count = p_viewport_wscalings.len() as _;
+    pub fn viewport_wscalings(
+        mut self,
+        p_viewport_wscalings: impl AsSlice<'a, ViewportWScalingNV>,
+    ) -> Self {
+        self.p_viewport_wscalings = p_viewport_wscalings.as_slice().as_ptr().cast();
+        self.viewport_count = p_viewport_wscalings.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -22033,9 +22105,9 @@ impl<'a> PresentTimesInfoGOOGLE<'a> {
         self
     }
     #[inline]
-    pub fn times(mut self, p_times: &'a [PresentTimeGOOGLE]) -> Self {
-        self.p_times = p_times.as_ptr().cast();
-        self.swapchain_count = p_times.len() as _;
+    pub fn times(mut self, p_times: impl AsSlice<'a, PresentTimeGOOGLE>) -> Self {
+        self.p_times = p_times.as_slice().as_ptr().cast();
+        self.swapchain_count = p_times.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -22194,9 +22266,12 @@ impl<'a> PipelineViewportSwizzleStateCreateInfoNV<'a> {
         self
     }
     #[inline]
-    pub fn viewport_swizzles(mut self, p_viewport_swizzles: &'a [ViewportSwizzleNV]) -> Self {
-        self.p_viewport_swizzles = p_viewport_swizzles.as_ptr().cast();
-        self.viewport_count = p_viewport_swizzles.len() as _;
+    pub fn viewport_swizzles(
+        mut self,
+        p_viewport_swizzles: impl AsSlice<'a, ViewportSwizzleNV>,
+    ) -> Self {
+        self.p_viewport_swizzles = p_viewport_swizzles.as_slice().as_ptr().cast();
+        self.viewport_count = p_viewport_swizzles.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -22288,9 +22363,9 @@ impl<'a> PipelineDiscardRectangleStateCreateInfoEXT<'a> {
         self
     }
     #[inline]
-    pub fn discard_rectangles(mut self, p_discard_rectangles: &'a [Rect2D]) -> Self {
-        self.p_discard_rectangles = p_discard_rectangles.as_ptr().cast();
-        self.discard_rectangle_count = p_discard_rectangles.len() as _;
+    pub fn discard_rectangles(mut self, p_discard_rectangles: impl AsSlice<'a, Rect2D>) -> Self {
+        self.p_discard_rectangles = p_discard_rectangles.as_slice().as_ptr().cast();
+        self.discard_rectangle_count = p_discard_rectangles.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -23226,9 +23301,9 @@ impl<'a> QueryPoolPerformanceCreateInfoKHR<'a> {
         self
     }
     #[inline]
-    pub fn counter_indices(mut self, p_counter_indices: &'a [u32]) -> Self {
-        self.p_counter_indices = p_counter_indices.as_ptr().cast();
-        self.counter_index_count = p_counter_indices.len() as _;
+    pub fn counter_indices(mut self, p_counter_indices: impl AsSlice<'a, u32>) -> Self {
+        self.p_counter_indices = p_counter_indices.as_slice().as_ptr().cast();
+        self.counter_index_count = p_counter_indices.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -23835,21 +23910,27 @@ impl<'a> DebugUtilsMessengerCallbackDataEXT<'a> {
         self
     }
     #[inline]
-    pub fn queue_labels(mut self, p_queue_labels: &'a [DebugUtilsLabelEXT<'a>]) -> Self {
-        self.p_queue_labels = p_queue_labels.as_ptr().cast();
-        self.queue_label_count = p_queue_labels.len() as _;
+    pub fn queue_labels(
+        mut self,
+        p_queue_labels: impl AsSlice<'a, DebugUtilsLabelEXT<'a>>,
+    ) -> Self {
+        self.p_queue_labels = p_queue_labels.as_slice().as_ptr().cast();
+        self.queue_label_count = p_queue_labels.as_slice().len() as _;
         self
     }
     #[inline]
-    pub fn cmd_buf_labels(mut self, p_cmd_buf_labels: &'a [DebugUtilsLabelEXT<'a>]) -> Self {
-        self.p_cmd_buf_labels = p_cmd_buf_labels.as_ptr().cast();
-        self.cmd_buf_label_count = p_cmd_buf_labels.len() as _;
+    pub fn cmd_buf_labels(
+        mut self,
+        p_cmd_buf_labels: impl AsSlice<'a, DebugUtilsLabelEXT<'a>>,
+    ) -> Self {
+        self.p_cmd_buf_labels = p_cmd_buf_labels.as_slice().as_ptr().cast();
+        self.cmd_buf_label_count = p_cmd_buf_labels.as_slice().len() as _;
         self
     }
     #[inline]
-    pub fn objects(mut self, p_objects: &'a [DebugUtilsObjectNameInfoEXT<'a>]) -> Self {
-        self.p_objects = p_objects.as_ptr().cast();
-        self.object_count = p_objects.len() as _;
+    pub fn objects(mut self, p_objects: impl AsSlice<'a, DebugUtilsObjectNameInfoEXT<'a>>) -> Self {
+        self.p_objects = p_objects.as_slice().as_ptr().cast();
+        self.object_count = p_objects.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -24023,9 +24104,9 @@ impl<'a> DebugUtilsObjectTagInfoEXT<'a> {
         self
     }
     #[inline]
-    pub fn tag(mut self, p_tag: &'a [u8]) -> Self {
-        self.p_tag = p_tag.as_ptr().cast();
-        self.tag_size = p_tag.len() as _;
+    pub fn tag(mut self, p_tag: impl AsSlice<'a, u8>) -> Self {
+        self.p_tag = p_tag.as_slice().as_ptr().cast();
+        self.tag_size = p_tag.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -24619,9 +24700,9 @@ impl<'a> ExecutionGraphPipelineCreateInfoAMDX<'a> {
         self
     }
     #[inline]
-    pub fn stages(mut self, p_stages: &'a [PipelineShaderStageCreateInfo<'a>]) -> Self {
-        self.p_stages = p_stages.as_ptr().cast();
-        self.stage_count = p_stages.len() as _;
+    pub fn stages(mut self, p_stages: impl AsSlice<'a, PipelineShaderStageCreateInfo<'a>>) -> Self {
+        self.p_stages = p_stages.as_slice().as_ptr().cast();
+        self.stage_count = p_stages.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -24843,9 +24924,12 @@ impl<'a> SampleLocationsInfoEXT<'a> {
         self
     }
     #[inline]
-    pub fn sample_locations(mut self, p_sample_locations: &'a [SampleLocationEXT]) -> Self {
-        self.p_sample_locations = p_sample_locations.as_ptr().cast();
-        self.sample_locations_count = p_sample_locations.len() as _;
+    pub fn sample_locations(
+        mut self,
+        p_sample_locations: impl AsSlice<'a, SampleLocationEXT>,
+    ) -> Self {
+        self.p_sample_locations = p_sample_locations.as_slice().as_ptr().cast();
+        self.sample_locations_count = p_sample_locations.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -24952,21 +25036,25 @@ impl<'a> RenderPassSampleLocationsBeginInfoEXT<'a> {
     #[inline]
     pub fn attachment_initial_sample_locations(
         mut self,
-        p_attachment_initial_sample_locations: &'a [AttachmentSampleLocationsEXT<'a>],
+        p_attachment_initial_sample_locations: impl AsSlice<'a, AttachmentSampleLocationsEXT<'a>>,
     ) -> Self {
-        self.p_attachment_initial_sample_locations =
-            p_attachment_initial_sample_locations.as_ptr().cast();
+        self.p_attachment_initial_sample_locations = p_attachment_initial_sample_locations
+            .as_slice()
+            .as_ptr()
+            .cast();
         self.attachment_initial_sample_locations_count =
-            p_attachment_initial_sample_locations.len() as _;
+            p_attachment_initial_sample_locations.as_slice().len() as _;
         self
     }
     #[inline]
     pub fn post_subpass_sample_locations(
         mut self,
-        p_post_subpass_sample_locations: &'a [SubpassSampleLocationsEXT<'a>],
+        p_post_subpass_sample_locations: impl AsSlice<'a, SubpassSampleLocationsEXT<'a>>,
     ) -> Self {
-        self.p_post_subpass_sample_locations = p_post_subpass_sample_locations.as_ptr().cast();
-        self.post_subpass_sample_locations_count = p_post_subpass_sample_locations.len() as _;
+        self.p_post_subpass_sample_locations =
+            p_post_subpass_sample_locations.as_slice().as_ptr().cast();
+        self.post_subpass_sample_locations_count =
+            p_post_subpass_sample_locations.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -25659,16 +25747,16 @@ impl<'a> AccelerationStructureBuildGeometryInfoKHR<'a> {
     #[inline]
     pub fn geometry(
         mut self,
-        p_geometries: Option<&'a [AccelerationStructureGeometryKHR<'a>]>,
-        pp_geometries: Option<&'a [&'a AccelerationStructureGeometryKHR<'a>]>,
+        p_geometries: Option<impl AsSlice<'a, AccelerationStructureGeometryKHR<'a>>>,
+        pp_geometries: Option<impl AsSlice<'a, &'a AccelerationStructureGeometryKHR<'a>>>,
     ) -> Self {
         self.p_geometries = p_geometries
-            .map(|p| p.as_ptr().cast())
+            .map(|p| p.as_slice().as_ptr().cast())
             .unwrap_or(ptr::null());
         self.pp_geometries = pp_geometries
-            .map(|p| p.as_ptr().cast())
+            .map(|p| p.as_slice().as_ptr().cast())
             .unwrap_or(ptr::null());
-        self.geometry_count = p_geometries.map(|p| p.len()).unwrap_or_default() as _;
+        self.geometry_count = p_geometries.map(|p| p.as_slice().len()).unwrap_or_default() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -25987,12 +26075,12 @@ impl<'a> WriteDescriptorSetAccelerationStructureKHR<'a> {
         self
     }
     #[inline]
-    pub fn acceleration_structures<V0: Alias<raw::AccelerationStructureKHR>>(
+    pub fn acceleration_structures<V0: Alias<raw::AccelerationStructureKHR> + 'a>(
         mut self,
-        p_acceleration_structures: &'a [V0],
+        p_acceleration_structures: impl AsSlice<'a, V0>,
     ) -> Self {
-        self.p_acceleration_structures = p_acceleration_structures.as_ptr().cast();
-        self.acceleration_structure_count = p_acceleration_structures.len() as _;
+        self.p_acceleration_structures = p_acceleration_structures.as_slice().as_ptr().cast();
+        self.acceleration_structure_count = p_acceleration_structures.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -26587,15 +26675,18 @@ impl<'a> RayTracingPipelineCreateInfoKHR<'a> {
         self
     }
     #[inline]
-    pub fn stages(mut self, p_stages: &'a [PipelineShaderStageCreateInfo<'a>]) -> Self {
-        self.p_stages = p_stages.as_ptr().cast();
-        self.stage_count = p_stages.len() as _;
+    pub fn stages(mut self, p_stages: impl AsSlice<'a, PipelineShaderStageCreateInfo<'a>>) -> Self {
+        self.p_stages = p_stages.as_slice().as_ptr().cast();
+        self.stage_count = p_stages.as_slice().len() as _;
         self
     }
     #[inline]
-    pub fn groups(mut self, p_groups: &'a [RayTracingShaderGroupCreateInfoKHR<'a>]) -> Self {
-        self.p_groups = p_groups.as_ptr().cast();
-        self.group_count = p_groups.len() as _;
+    pub fn groups(
+        mut self,
+        p_groups: impl AsSlice<'a, RayTracingShaderGroupCreateInfoKHR<'a>>,
+    ) -> Self {
+        self.p_groups = p_groups.as_slice().as_ptr().cast();
+        self.group_count = p_groups.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -26983,9 +27074,12 @@ impl<'a> PipelineCoverageModulationStateCreateInfoNV<'a> {
         self
     }
     #[inline]
-    pub fn coverage_modulation_table(mut self, p_coverage_modulation_table: &'a [f32]) -> Self {
-        self.p_coverage_modulation_table = p_coverage_modulation_table.as_ptr().cast();
-        self.coverage_modulation_table_count = p_coverage_modulation_table.len() as _;
+    pub fn coverage_modulation_table(
+        mut self,
+        p_coverage_modulation_table: impl AsSlice<'a, f32>,
+    ) -> Self {
+        self.p_coverage_modulation_table = p_coverage_modulation_table.as_slice().as_ptr().cast();
+        self.coverage_modulation_table_count = p_coverage_modulation_table.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -27203,9 +27297,9 @@ impl<'a> PhysicalDeviceImageDrmFormatModifierInfoEXT<'a> {
         self
     }
     #[inline]
-    pub fn queue_family_indices(mut self, p_queue_family_indices: &'a [u32]) -> Self {
-        self.p_queue_family_indices = p_queue_family_indices.as_ptr().cast();
-        self.queue_family_index_count = p_queue_family_indices.len() as _;
+    pub fn queue_family_indices(mut self, p_queue_family_indices: impl AsSlice<'a, u32>) -> Self {
+        self.p_queue_family_indices = p_queue_family_indices.as_slice().as_ptr().cast();
+        self.queue_family_index_count = p_queue_family_indices.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -27244,9 +27338,9 @@ impl<'a> Default for ImageDrmFormatModifierListCreateInfoEXT<'a> {
 }
 impl<'a> ImageDrmFormatModifierListCreateInfoEXT<'a> {
     #[inline]
-    pub fn drm_format_modifiers(mut self, p_drm_format_modifiers: &'a [u64]) -> Self {
-        self.p_drm_format_modifiers = p_drm_format_modifiers.as_ptr().cast();
-        self.drm_format_modifier_count = p_drm_format_modifiers.len() as _;
+    pub fn drm_format_modifiers(mut self, p_drm_format_modifiers: impl AsSlice<'a, u64>) -> Self {
+        self.p_drm_format_modifiers = p_drm_format_modifiers.as_slice().as_ptr().cast();
+        self.drm_format_modifier_count = p_drm_format_modifiers.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -27293,9 +27387,9 @@ impl<'a> ImageDrmFormatModifierExplicitCreateInfoEXT<'a> {
         self
     }
     #[inline]
-    pub fn plane_layouts(mut self, p_plane_layouts: &'a [SubresourceLayout]) -> Self {
-        self.p_plane_layouts = p_plane_layouts.as_ptr().cast();
-        self.drm_format_modifier_plane_count = p_plane_layouts.len() as _;
+    pub fn plane_layouts(mut self, p_plane_layouts: impl AsSlice<'a, SubresourceLayout>) -> Self {
+        self.p_plane_layouts = p_plane_layouts.as_slice().as_ptr().cast();
+        self.drm_format_modifier_plane_count = p_plane_layouts.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -27448,9 +27542,9 @@ impl<'a> ValidationCacheCreateInfoEXT<'a> {
         self
     }
     #[inline]
-    pub fn initial_data(mut self, p_initial_data: &'a [u8]) -> Self {
-        self.p_initial_data = p_initial_data.as_ptr().cast();
-        self.initial_data_size = p_initial_data.len() as _;
+    pub fn initial_data(mut self, p_initial_data: impl AsSlice<'a, u8>) -> Self {
+        self.p_initial_data = p_initial_data.as_slice().as_ptr().cast();
+        self.initial_data_size = p_initial_data.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -27701,10 +27795,12 @@ impl<'a> ShadingRatePaletteNV<'a> {
     #[inline]
     pub fn shading_rate_palette_entries(
         mut self,
-        p_shading_rate_palette_entries: &'a [ShadingRatePaletteEntryNV],
+        p_shading_rate_palette_entries: impl AsSlice<'a, ShadingRatePaletteEntryNV>,
     ) -> Self {
-        self.p_shading_rate_palette_entries = p_shading_rate_palette_entries.as_ptr().cast();
-        self.shading_rate_palette_entry_count = p_shading_rate_palette_entries.len() as _;
+        self.p_shading_rate_palette_entries =
+            p_shading_rate_palette_entries.as_slice().as_ptr().cast();
+        self.shading_rate_palette_entry_count =
+            p_shading_rate_palette_entries.as_slice().len() as _;
         self
     }
 }
@@ -27750,10 +27846,10 @@ impl<'a> PipelineViewportShadingRateImageStateCreateInfoNV<'a> {
     #[inline]
     pub fn shading_rate_palettes(
         mut self,
-        p_shading_rate_palettes: &'a [ShadingRatePaletteNV<'a>],
+        p_shading_rate_palettes: impl AsSlice<'a, ShadingRatePaletteNV<'a>>,
     ) -> Self {
-        self.p_shading_rate_palettes = p_shading_rate_palettes.as_ptr().cast();
-        self.viewport_count = p_shading_rate_palettes.len() as _;
+        self.p_shading_rate_palettes = p_shading_rate_palettes.as_slice().as_ptr().cast();
+        self.viewport_count = p_shading_rate_palettes.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -27933,9 +28029,12 @@ impl<'a> CoarseSampleOrderCustomNV<'a> {
         self
     }
     #[inline]
-    pub fn sample_locations(mut self, p_sample_locations: &'a [CoarseSampleLocationNV]) -> Self {
-        self.p_sample_locations = p_sample_locations.as_ptr().cast();
-        self.sample_location_count = p_sample_locations.len() as _;
+    pub fn sample_locations(
+        mut self,
+        p_sample_locations: impl AsSlice<'a, CoarseSampleLocationNV>,
+    ) -> Self {
+        self.p_sample_locations = p_sample_locations.as_slice().as_ptr().cast();
+        self.sample_location_count = p_sample_locations.as_slice().len() as _;
         self
     }
 }
@@ -27981,10 +28080,10 @@ impl<'a> PipelineViewportCoarseSampleOrderStateCreateInfoNV<'a> {
     #[inline]
     pub fn custom_sample_orders(
         mut self,
-        p_custom_sample_orders: &'a [CoarseSampleOrderCustomNV<'a>],
+        p_custom_sample_orders: impl AsSlice<'a, CoarseSampleOrderCustomNV<'a>>,
     ) -> Self {
-        self.p_custom_sample_orders = p_custom_sample_orders.as_ptr().cast();
-        self.custom_sample_order_count = p_custom_sample_orders.len() as _;
+        self.p_custom_sample_orders = p_custom_sample_orders.as_slice().as_ptr().cast();
+        self.custom_sample_order_count = p_custom_sample_orders.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -28120,15 +28219,18 @@ impl<'a> RayTracingPipelineCreateInfoNV<'a> {
         self
     }
     #[inline]
-    pub fn stages(mut self, p_stages: &'a [PipelineShaderStageCreateInfo<'a>]) -> Self {
-        self.p_stages = p_stages.as_ptr().cast();
-        self.stage_count = p_stages.len() as _;
+    pub fn stages(mut self, p_stages: impl AsSlice<'a, PipelineShaderStageCreateInfo<'a>>) -> Self {
+        self.p_stages = p_stages.as_slice().as_ptr().cast();
+        self.stage_count = p_stages.as_slice().len() as _;
         self
     }
     #[inline]
-    pub fn groups(mut self, p_groups: &'a [RayTracingShaderGroupCreateInfoNV<'a>]) -> Self {
-        self.p_groups = p_groups.as_ptr().cast();
-        self.group_count = p_groups.len() as _;
+    pub fn groups(
+        mut self,
+        p_groups: impl AsSlice<'a, RayTracingShaderGroupCreateInfoNV<'a>>,
+    ) -> Self {
+        self.p_groups = p_groups.as_slice().as_ptr().cast();
+        self.group_count = p_groups.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -28422,9 +28524,9 @@ impl<'a> AccelerationStructureInfoNV<'a> {
         self
     }
     #[inline]
-    pub fn geometries(mut self, p_geometries: &'a [GeometryNV<'a>]) -> Self {
-        self.p_geometries = p_geometries.as_ptr().cast();
-        self.geometry_count = p_geometries.len() as _;
+    pub fn geometries(mut self, p_geometries: impl AsSlice<'a, GeometryNV<'a>>) -> Self {
+        self.p_geometries = p_geometries.as_slice().as_ptr().cast();
+        self.geometry_count = p_geometries.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -28521,9 +28623,9 @@ impl<'a> BindAccelerationStructureMemoryInfoNV<'a> {
         self
     }
     #[inline]
-    pub fn device_indices(mut self, p_device_indices: &'a [u32]) -> Self {
-        self.p_device_indices = p_device_indices.as_ptr().cast();
-        self.device_index_count = p_device_indices.len() as _;
+    pub fn device_indices(mut self, p_device_indices: impl AsSlice<'a, u32>) -> Self {
+        self.p_device_indices = p_device_indices.as_slice().as_ptr().cast();
+        self.device_index_count = p_device_indices.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -28567,12 +28669,12 @@ impl<'a> WriteDescriptorSetAccelerationStructureNV<'a> {
         self
     }
     #[inline]
-    pub fn acceleration_structures<V0: Alias<raw::AccelerationStructureNV>>(
+    pub fn acceleration_structures<V0: Alias<raw::AccelerationStructureNV> + 'a>(
         mut self,
-        p_acceleration_structures: &'a [V0],
+        p_acceleration_structures: impl AsSlice<'a, V0>,
     ) -> Self {
-        self.p_acceleration_structures = p_acceleration_structures.as_ptr().cast();
-        self.acceleration_structure_count = p_acceleration_structures.len() as _;
+        self.p_acceleration_structures = p_acceleration_structures.as_slice().as_ptr().cast();
+        self.acceleration_structure_count = p_acceleration_structures.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -29775,9 +29877,9 @@ impl<'a> Default for PipelineViewportExclusiveScissorStateCreateInfoNV<'a> {
 }
 impl<'a> PipelineViewportExclusiveScissorStateCreateInfoNV<'a> {
     #[inline]
-    pub fn exclusive_scissors(mut self, p_exclusive_scissors: &'a [Rect2D]) -> Self {
-        self.p_exclusive_scissors = p_exclusive_scissors.as_ptr().cast();
-        self.exclusive_scissor_count = p_exclusive_scissors.len() as _;
+    pub fn exclusive_scissors(mut self, p_exclusive_scissors: impl AsSlice<'a, Rect2D>) -> Self {
+        self.p_exclusive_scissors = p_exclusive_scissors.as_slice().as_ptr().cast();
+        self.exclusive_scissor_count = p_exclusive_scissors.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -31130,9 +31232,12 @@ impl<'a> Default for RenderingAttachmentLocationInfoKHR<'a> {
 }
 impl<'a> RenderingAttachmentLocationInfoKHR<'a> {
     #[inline]
-    pub fn color_attachment_locations(mut self, p_color_attachment_locations: &'a [u32]) -> Self {
-        self.p_color_attachment_locations = p_color_attachment_locations.as_ptr().cast();
-        self.color_attachment_count = p_color_attachment_locations.len() as _;
+    pub fn color_attachment_locations(
+        mut self,
+        p_color_attachment_locations: impl AsSlice<'a, u32>,
+    ) -> Self {
+        self.p_color_attachment_locations = p_color_attachment_locations.as_slice().as_ptr().cast();
+        self.color_attachment_count = p_color_attachment_locations.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -31198,10 +31303,11 @@ impl<'a> RenderingInputAttachmentIndexInfoKHR<'a> {
     #[inline]
     pub fn color_attachment_input_indices(
         mut self,
-        p_color_attachment_input_indices: &'a [u32],
+        p_color_attachment_input_indices: impl AsSlice<'a, u32>,
     ) -> Self {
-        self.p_color_attachment_input_indices = p_color_attachment_input_indices.as_ptr().cast();
-        self.color_attachment_count = p_color_attachment_input_indices.len() as _;
+        self.p_color_attachment_input_indices =
+            p_color_attachment_input_indices.as_slice().as_ptr().cast();
+        self.color_attachment_count = p_color_attachment_input_indices.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -31642,19 +31748,22 @@ impl<'a> ValidationFeaturesEXT<'a> {
     #[inline]
     pub fn enabled_validation_features(
         mut self,
-        p_enabled_validation_features: &'a [ValidationFeatureEnableEXT],
+        p_enabled_validation_features: impl AsSlice<'a, ValidationFeatureEnableEXT>,
     ) -> Self {
-        self.p_enabled_validation_features = p_enabled_validation_features.as_ptr().cast();
-        self.enabled_validation_feature_count = p_enabled_validation_features.len() as _;
+        self.p_enabled_validation_features =
+            p_enabled_validation_features.as_slice().as_ptr().cast();
+        self.enabled_validation_feature_count = p_enabled_validation_features.as_slice().len() as _;
         self
     }
     #[inline]
     pub fn disabled_validation_features(
         mut self,
-        p_disabled_validation_features: &'a [ValidationFeatureDisableEXT],
+        p_disabled_validation_features: impl AsSlice<'a, ValidationFeatureDisableEXT>,
     ) -> Self {
-        self.p_disabled_validation_features = p_disabled_validation_features.as_ptr().cast();
-        self.disabled_validation_feature_count = p_disabled_validation_features.len() as _;
+        self.p_disabled_validation_features =
+            p_disabled_validation_features.as_slice().as_ptr().cast();
+        self.disabled_validation_feature_count =
+            p_disabled_validation_features.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -32988,15 +33097,15 @@ impl<'a> PhysicalDeviceHostImageCopyPropertiesEXT<'a> {
         self
     }
     #[inline]
-    pub fn copy_src_layouts(mut self, p_copy_src_layouts: &'a [ImageLayout]) -> Self {
-        self.p_copy_src_layouts = p_copy_src_layouts.as_ptr().cast();
-        self.copy_src_layout_count = p_copy_src_layouts.len() as _;
+    pub fn copy_src_layouts(mut self, p_copy_src_layouts: impl AsSlice<'a, ImageLayout>) -> Self {
+        self.p_copy_src_layouts = p_copy_src_layouts.as_slice().as_ptr().cast();
+        self.copy_src_layout_count = p_copy_src_layouts.as_slice().len() as _;
         self
     }
     #[inline]
-    pub fn copy_dst_layouts(mut self, p_copy_dst_layouts: &'a [ImageLayout]) -> Self {
-        self.p_copy_dst_layouts = p_copy_dst_layouts.as_ptr().cast();
-        self.copy_dst_layout_count = p_copy_dst_layouts.len() as _;
+    pub fn copy_dst_layouts(mut self, p_copy_dst_layouts: impl AsSlice<'a, ImageLayout>) -> Self {
+        self.p_copy_dst_layouts = p_copy_dst_layouts.as_slice().as_ptr().cast();
+        self.copy_dst_layout_count = p_copy_dst_layouts.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -33190,9 +33299,9 @@ impl<'a> CopyMemoryToImageInfoEXT<'a> {
         self
     }
     #[inline]
-    pub fn regions(mut self, p_regions: &'a [MemoryToImageCopyEXT<'a>]) -> Self {
-        self.p_regions = p_regions.as_ptr().cast();
-        self.region_count = p_regions.len() as _;
+    pub fn regions(mut self, p_regions: impl AsSlice<'a, MemoryToImageCopyEXT<'a>>) -> Self {
+        self.p_regions = p_regions.as_slice().as_ptr().cast();
+        self.region_count = p_regions.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -33248,9 +33357,9 @@ impl<'a> CopyImageToMemoryInfoEXT<'a> {
         self
     }
     #[inline]
-    pub fn regions(mut self, p_regions: &'a [ImageToMemoryCopyEXT<'a>]) -> Self {
-        self.p_regions = p_regions.as_ptr().cast();
-        self.region_count = p_regions.len() as _;
+    pub fn regions(mut self, p_regions: impl AsSlice<'a, ImageToMemoryCopyEXT<'a>>) -> Self {
+        self.p_regions = p_regions.as_slice().as_ptr().cast();
+        self.region_count = p_regions.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -33320,9 +33429,9 @@ impl<'a> CopyImageToImageInfoEXT<'a> {
         self
     }
     #[inline]
-    pub fn regions(mut self, p_regions: &'a [ImageCopy2<'a>]) -> Self {
-        self.p_regions = p_regions.as_ptr().cast();
-        self.region_count = p_regions.len() as _;
+    pub fn regions(mut self, p_regions: impl AsSlice<'a, ImageCopy2<'a>>) -> Self {
+        self.p_regions = p_regions.as_slice().as_ptr().cast();
+        self.region_count = p_regions.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -33953,9 +34062,9 @@ impl<'a> SurfacePresentModeCompatibilityEXT<'a> {
         self
     }
     #[inline]
-    pub fn present_modes(mut self, p_present_modes: &'a [PresentModeKHR]) -> Self {
-        self.p_present_modes = p_present_modes.as_ptr().cast();
-        self.present_mode_count = p_present_modes.len() as _;
+    pub fn present_modes(mut self, p_present_modes: impl AsSlice<'a, PresentModeKHR>) -> Self {
+        self.p_present_modes = p_present_modes.as_slice().as_ptr().cast();
+        self.present_mode_count = p_present_modes.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -34034,9 +34143,9 @@ impl<'a> Default for SwapchainPresentFenceInfoEXT<'a> {
 }
 impl<'a> SwapchainPresentFenceInfoEXT<'a> {
     #[inline]
-    pub fn fences<V0: Alias<raw::Fence>>(mut self, p_fences: &'a [V0]) -> Self {
-        self.p_fences = p_fences.as_ptr().cast();
-        self.swapchain_count = p_fences.len() as _;
+    pub fn fences<V0: Alias<raw::Fence> + 'a>(mut self, p_fences: impl AsSlice<'a, V0>) -> Self {
+        self.p_fences = p_fences.as_slice().as_ptr().cast();
+        self.swapchain_count = p_fences.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -34075,9 +34184,9 @@ impl<'a> Default for SwapchainPresentModesCreateInfoEXT<'a> {
 }
 impl<'a> SwapchainPresentModesCreateInfoEXT<'a> {
     #[inline]
-    pub fn present_modes(mut self, p_present_modes: &'a [PresentModeKHR]) -> Self {
-        self.p_present_modes = p_present_modes.as_ptr().cast();
-        self.present_mode_count = p_present_modes.len() as _;
+    pub fn present_modes(mut self, p_present_modes: impl AsSlice<'a, PresentModeKHR>) -> Self {
+        self.p_present_modes = p_present_modes.as_slice().as_ptr().cast();
+        self.present_mode_count = p_present_modes.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -34113,9 +34222,9 @@ impl<'a> Default for SwapchainPresentModeInfoEXT<'a> {
 }
 impl<'a> SwapchainPresentModeInfoEXT<'a> {
     #[inline]
-    pub fn present_modes(mut self, p_present_modes: &'a [PresentModeKHR]) -> Self {
-        self.p_present_modes = p_present_modes.as_ptr().cast();
-        self.swapchain_count = p_present_modes.len() as _;
+    pub fn present_modes(mut self, p_present_modes: impl AsSlice<'a, PresentModeKHR>) -> Self {
+        self.p_present_modes = p_present_modes.as_slice().as_ptr().cast();
+        self.swapchain_count = p_present_modes.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -34209,9 +34318,9 @@ impl<'a> ReleaseSwapchainImagesInfoEXT<'a> {
         self
     }
     #[inline]
-    pub fn image_indices(mut self, p_image_indices: &'a [u32]) -> Self {
-        self.p_image_indices = p_image_indices.as_ptr().cast();
-        self.image_index_count = p_image_indices.len() as _;
+    pub fn image_indices(mut self, p_image_indices: impl AsSlice<'a, u32>) -> Self {
+        self.p_image_indices = p_image_indices.as_slice().as_ptr().cast();
+        self.image_index_count = p_image_indices.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -34404,9 +34513,9 @@ impl<'a> GraphicsShaderGroupCreateInfoNV<'a> {
         self
     }
     #[inline]
-    pub fn stages(mut self, p_stages: &'a [PipelineShaderStageCreateInfo<'a>]) -> Self {
-        self.p_stages = p_stages.as_ptr().cast();
-        self.stage_count = p_stages.len() as _;
+    pub fn stages(mut self, p_stages: impl AsSlice<'a, PipelineShaderStageCreateInfo<'a>>) -> Self {
+        self.p_stages = p_stages.as_slice().as_ptr().cast();
+        self.stage_count = p_stages.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -34449,15 +34558,21 @@ impl<'a> Default for GraphicsPipelineShaderGroupsCreateInfoNV<'a> {
 }
 impl<'a> GraphicsPipelineShaderGroupsCreateInfoNV<'a> {
     #[inline]
-    pub fn groups(mut self, p_groups: &'a [GraphicsShaderGroupCreateInfoNV<'a>]) -> Self {
-        self.p_groups = p_groups.as_ptr().cast();
-        self.group_count = p_groups.len() as _;
+    pub fn groups(
+        mut self,
+        p_groups: impl AsSlice<'a, GraphicsShaderGroupCreateInfoNV<'a>>,
+    ) -> Self {
+        self.p_groups = p_groups.as_slice().as_ptr().cast();
+        self.group_count = p_groups.as_slice().len() as _;
         self
     }
     #[inline]
-    pub fn pipelines<V0: Alias<raw::Pipeline>>(mut self, p_pipelines: &'a [V0]) -> Self {
-        self.p_pipelines = p_pipelines.as_ptr().cast();
-        self.pipeline_count = p_pipelines.len() as _;
+    pub fn pipelines<V0: Alias<raw::Pipeline> + 'a>(
+        mut self,
+        p_pipelines: impl AsSlice<'a, V0>,
+    ) -> Self {
+        self.p_pipelines = p_pipelines.as_slice().as_ptr().cast();
+        self.pipeline_count = p_pipelines.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -34717,12 +34832,12 @@ impl<'a> IndirectCommandsLayoutTokenNV<'a> {
     #[inline]
     pub fn index_type(
         mut self,
-        p_index_types: &'a [IndexType],
-        p_index_type_values: &'a [u32],
+        p_index_types: impl AsSlice<'a, IndexType>,
+        p_index_type_values: impl AsSlice<'a, u32>,
     ) -> Self {
-        self.p_index_types = p_index_types.as_ptr().cast();
-        self.p_index_type_values = p_index_type_values.as_ptr().cast();
-        self.index_type_count = p_index_types.len() as _;
+        self.p_index_types = p_index_types.as_slice().as_ptr().cast();
+        self.p_index_type_values = p_index_type_values.as_slice().as_ptr().cast();
+        self.index_type_count = p_index_types.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -34775,15 +34890,15 @@ impl<'a> IndirectCommandsLayoutCreateInfoNV<'a> {
         self
     }
     #[inline]
-    pub fn tokens(mut self, p_tokens: &'a [IndirectCommandsLayoutTokenNV<'a>]) -> Self {
-        self.p_tokens = p_tokens.as_ptr().cast();
-        self.token_count = p_tokens.len() as _;
+    pub fn tokens(mut self, p_tokens: impl AsSlice<'a, IndirectCommandsLayoutTokenNV<'a>>) -> Self {
+        self.p_tokens = p_tokens.as_slice().as_ptr().cast();
+        self.token_count = p_tokens.as_slice().len() as _;
         self
     }
     #[inline]
-    pub fn stream_strides(mut self, p_stream_strides: &'a [u32]) -> Self {
-        self.p_stream_strides = p_stream_strides.as_ptr().cast();
-        self.stream_count = p_stream_strides.len() as _;
+    pub fn stream_strides(mut self, p_stream_strides: impl AsSlice<'a, u32>) -> Self {
+        self.p_stream_strides = p_stream_strides.as_slice().as_ptr().cast();
+        self.stream_count = p_stream_strides.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -34895,9 +35010,9 @@ impl<'a> GeneratedCommandsInfoNV<'a> {
         self
     }
     #[inline]
-    pub fn streams(mut self, p_streams: &'a [IndirectCommandsStreamNV<'a>]) -> Self {
-        self.p_streams = p_streams.as_ptr().cast();
-        self.stream_count = p_streams.len() as _;
+    pub fn streams(mut self, p_streams: impl AsSlice<'a, IndirectCommandsStreamNV<'a>>) -> Self {
+        self.p_streams = p_streams.as_slice().as_ptr().cast();
+        self.stream_count = p_streams.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -35782,9 +35897,12 @@ impl<'a> Default for PipelineLibraryCreateInfoKHR<'a> {
 }
 impl<'a> PipelineLibraryCreateInfoKHR<'a> {
     #[inline]
-    pub fn libraries<V0: Alias<raw::Pipeline>>(mut self, p_libraries: &'a [V0]) -> Self {
-        self.p_libraries = p_libraries.as_ptr().cast();
-        self.library_count = p_libraries.len() as _;
+    pub fn libraries<V0: Alias<raw::Pipeline> + 'a>(
+        mut self,
+        p_libraries: impl AsSlice<'a, V0>,
+    ) -> Self {
+        self.p_libraries = p_libraries.as_slice().as_ptr().cast();
+        self.library_count = p_libraries.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -35943,9 +36061,9 @@ impl<'a> PresentIdKHR<'a> {
         self
     }
     #[inline]
-    pub fn present_ids(mut self, p_present_ids: &'a [u64]) -> Self {
-        self.p_present_ids = p_present_ids.as_ptr().cast();
-        self.swapchain_count = p_present_ids.len() as _;
+    pub fn present_ids(mut self, p_present_ids: impl AsSlice<'a, u64>) -> Self {
+        self.p_present_ids = p_present_ids.as_slice().as_ptr().cast();
+        self.swapchain_count = p_present_ids.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -36102,9 +36220,9 @@ impl<'a> Default for CudaModuleCreateInfoNV<'a> {
 }
 impl<'a> CudaModuleCreateInfoNV<'a> {
     #[inline]
-    pub fn data(mut self, p_data: &'a [u8]) -> Self {
-        self.p_data = p_data.as_ptr().cast();
-        self.data_size = p_data.len() as _;
+    pub fn data(mut self, p_data: impl AsSlice<'a, u8>) -> Self {
+        self.p_data = p_data.as_slice().as_ptr().cast();
+        self.data_size = p_data.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -36240,15 +36358,15 @@ impl<'a> CudaLaunchInfoNV<'a> {
         self
     }
     #[inline]
-    pub fn params(mut self, p_params: &'a [&'a ()]) -> Self {
-        self.p_params = p_params.as_ptr().cast();
-        self.param_count = p_params.len() as _;
+    pub fn params(mut self, p_params: impl AsSlice<'a, &'a ()>) -> Self {
+        self.p_params = p_params.as_slice().as_ptr().cast();
+        self.param_count = p_params.as_slice().len() as _;
         self
     }
     #[inline]
-    pub fn extras(mut self, p_extras: &'a [&'a ()]) -> Self {
-        self.p_extras = p_extras.as_ptr().cast();
-        self.extra_count = p_extras.len() as _;
+    pub fn extras(mut self, p_extras: impl AsSlice<'a, &'a ()>) -> Self {
+        self.p_extras = p_extras.as_slice().as_ptr().cast();
+        self.extra_count = p_extras.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -39381,10 +39499,10 @@ impl<'a> ImageCompressionControlEXT<'a> {
     #[inline]
     pub fn fixed_rate_flags(
         mut self,
-        p_fixed_rate_flags: &'a [ImageCompressionFixedRateFlagsEXT],
+        p_fixed_rate_flags: impl AsSlice<'a, ImageCompressionFixedRateFlagsEXT>,
     ) -> Self {
-        self.p_fixed_rate_flags = p_fixed_rate_flags.as_ptr().cast();
-        self.compression_control_plane_count = p_fixed_rate_flags.len() as _;
+        self.p_fixed_rate_flags = p_fixed_rate_flags.as_slice().as_ptr().cast();
+        self.compression_control_plane_count = p_fixed_rate_flags.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -41032,10 +41150,10 @@ impl<'a> ImageConstraintsInfoFUCHSIA<'a> {
     #[inline]
     pub fn format_constraints(
         mut self,
-        p_format_constraints: &'a [ImageFormatConstraintsInfoFUCHSIA<'a>],
+        p_format_constraints: impl AsSlice<'a, ImageFormatConstraintsInfoFUCHSIA<'a>>,
     ) -> Self {
-        self.p_format_constraints = p_format_constraints.as_ptr().cast();
-        self.format_constraints_count = p_format_constraints.len() as _;
+        self.p_format_constraints = p_format_constraints.as_slice().as_ptr().cast();
+        self.format_constraints_count = p_format_constraints.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -41098,9 +41216,12 @@ impl<'a> ImageFormatConstraintsInfoFUCHSIA<'a> {
         self
     }
     #[inline]
-    pub fn color_spaces(mut self, p_color_spaces: &'a [SysmemColorSpaceFUCHSIA<'a>]) -> Self {
-        self.p_color_spaces = p_color_spaces.as_ptr().cast();
-        self.color_space_count = p_color_spaces.len() as _;
+    pub fn color_spaces(
+        mut self,
+        p_color_spaces: impl AsSlice<'a, SysmemColorSpaceFUCHSIA<'a>>,
+    ) -> Self {
+        self.p_color_spaces = p_color_spaces.as_slice().as_ptr().cast();
+        self.color_space_count = p_color_spaces.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -41618,21 +41739,21 @@ impl<'a> FrameBoundaryEXT<'a> {
         self
     }
     #[inline]
-    pub fn images<V0: Alias<raw::Image>>(mut self, p_images: &'a [V0]) -> Self {
-        self.p_images = p_images.as_ptr().cast();
-        self.image_count = p_images.len() as _;
+    pub fn images<V0: Alias<raw::Image> + 'a>(mut self, p_images: impl AsSlice<'a, V0>) -> Self {
+        self.p_images = p_images.as_slice().as_ptr().cast();
+        self.image_count = p_images.as_slice().len() as _;
         self
     }
     #[inline]
-    pub fn buffers<V0: Alias<raw::Buffer>>(mut self, p_buffers: &'a [V0]) -> Self {
-        self.p_buffers = p_buffers.as_ptr().cast();
-        self.buffer_count = p_buffers.len() as _;
+    pub fn buffers<V0: Alias<raw::Buffer> + 'a>(mut self, p_buffers: impl AsSlice<'a, V0>) -> Self {
+        self.p_buffers = p_buffers.as_slice().as_ptr().cast();
+        self.buffer_count = p_buffers.as_slice().len() as _;
         self
     }
     #[inline]
-    pub fn tag(mut self, p_tag: &'a [u8]) -> Self {
-        self.p_tag = p_tag.as_ptr().cast();
-        self.tag_size = p_tag.len() as _;
+    pub fn tag(mut self, p_tag: impl AsSlice<'a, u8>) -> Self {
+        self.p_tag = p_tag.as_slice().as_ptr().cast();
+        self.tag_size = p_tag.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -41956,9 +42077,9 @@ impl<'a> Default for PipelineColorWriteCreateInfoEXT<'a> {
 }
 impl<'a> PipelineColorWriteCreateInfoEXT<'a> {
     #[inline]
-    pub fn color_write_enables(mut self, p_color_write_enables: &'a [Bool32]) -> Self {
-        self.p_color_write_enables = p_color_write_enables.as_ptr().cast();
-        self.attachment_count = p_color_write_enables.len() as _;
+    pub fn color_write_enables(mut self, p_color_write_enables: impl AsSlice<'a, Bool32>) -> Self {
+        self.p_color_write_enables = p_color_write_enables.as_slice().as_ptr().cast();
+        self.attachment_count = p_color_write_enables.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -42675,16 +42796,18 @@ impl<'a> MicromapBuildInfoEXT<'a> {
     #[inline]
     pub fn usage_counts(
         mut self,
-        p_usage_counts: Option<&'a [MicromapUsageEXT]>,
-        pp_usage_counts: Option<&'a [&'a MicromapUsageEXT]>,
+        p_usage_counts: Option<impl AsSlice<'a, MicromapUsageEXT>>,
+        pp_usage_counts: Option<impl AsSlice<'a, &'a MicromapUsageEXT>>,
     ) -> Self {
         self.p_usage_counts = p_usage_counts
-            .map(|p| p.as_ptr().cast())
+            .map(|p| p.as_slice().as_ptr().cast())
             .unwrap_or(ptr::null());
         self.pp_usage_counts = pp_usage_counts
-            .map(|p| p.as_ptr().cast())
+            .map(|p| p.as_slice().as_ptr().cast())
             .unwrap_or(ptr::null());
-        self.usage_counts_count = p_usage_counts.map(|p| p.len()).unwrap_or_default() as _;
+        self.usage_counts_count = p_usage_counts
+            .map(|p| p.as_slice().len())
+            .unwrap_or_default() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -43201,16 +43324,18 @@ impl<'a> AccelerationStructureTrianglesOpacityMicromapEXT<'a> {
     #[inline]
     pub fn usage_counts(
         mut self,
-        p_usage_counts: Option<&'a [MicromapUsageEXT]>,
-        pp_usage_counts: Option<&'a [&'a MicromapUsageEXT]>,
+        p_usage_counts: Option<impl AsSlice<'a, MicromapUsageEXT>>,
+        pp_usage_counts: Option<impl AsSlice<'a, &'a MicromapUsageEXT>>,
     ) -> Self {
         self.p_usage_counts = p_usage_counts
-            .map(|p| p.as_ptr().cast())
+            .map(|p| p.as_slice().as_ptr().cast())
             .unwrap_or(ptr::null());
         self.pp_usage_counts = pp_usage_counts
-            .map(|p| p.as_ptr().cast())
+            .map(|p| p.as_slice().as_ptr().cast())
             .unwrap_or(ptr::null());
-        self.usage_counts_count = p_usage_counts.map(|p| p.len()).unwrap_or_default() as _;
+        self.usage_counts_count = p_usage_counts
+            .map(|p| p.as_slice().len())
+            .unwrap_or_default() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -43475,16 +43600,18 @@ impl<'a> AccelerationStructureTrianglesDisplacementMicromapNV<'a> {
     #[inline]
     pub fn usage_counts(
         mut self,
-        p_usage_counts: Option<&'a [MicromapUsageEXT]>,
-        pp_usage_counts: Option<&'a [&'a MicromapUsageEXT]>,
+        p_usage_counts: Option<impl AsSlice<'a, MicromapUsageEXT>>,
+        pp_usage_counts: Option<impl AsSlice<'a, &'a MicromapUsageEXT>>,
     ) -> Self {
         self.p_usage_counts = p_usage_counts
-            .map(|p| p.as_ptr().cast())
+            .map(|p| p.as_slice().as_ptr().cast())
             .unwrap_or(ptr::null());
         self.pp_usage_counts = pp_usage_counts
-            .map(|p| p.as_ptr().cast())
+            .map(|p| p.as_slice().as_ptr().cast())
             .unwrap_or(ptr::null());
-        self.usage_counts_count = p_usage_counts.map(|p| p.len()).unwrap_or_default() as _;
+        self.usage_counts_count = p_usage_counts
+            .map(|p| p.as_slice().len())
+            .unwrap_or_default() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -44424,9 +44551,12 @@ impl<'a> Default for RenderPassStripeBeginInfoARM<'a> {
 }
 impl<'a> RenderPassStripeBeginInfoARM<'a> {
     #[inline]
-    pub fn stripe_infos(mut self, p_stripe_infos: &'a [RenderPassStripeInfoARM<'a>]) -> Self {
-        self.p_stripe_infos = p_stripe_infos.as_ptr().cast();
-        self.stripe_info_count = p_stripe_infos.len() as _;
+    pub fn stripe_infos(
+        mut self,
+        p_stripe_infos: impl AsSlice<'a, RenderPassStripeInfoARM<'a>>,
+    ) -> Self {
+        self.p_stripe_infos = p_stripe_infos.as_slice().as_ptr().cast();
+        self.stripe_info_count = p_stripe_infos.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -44501,10 +44631,10 @@ impl<'a> RenderPassStripeSubmitInfoARM<'a> {
     #[inline]
     pub fn stripe_semaphore_infos(
         mut self,
-        p_stripe_semaphore_infos: &'a [SemaphoreSubmitInfo<'a>],
+        p_stripe_semaphore_infos: impl AsSlice<'a, SemaphoreSubmitInfo<'a>>,
     ) -> Self {
-        self.p_stripe_semaphore_infos = p_stripe_semaphore_infos.as_ptr().cast();
-        self.stripe_semaphore_info_count = p_stripe_semaphore_infos.len() as _;
+        self.p_stripe_semaphore_infos = p_stripe_semaphore_infos.as_slice().as_ptr().cast();
+        self.stripe_semaphore_info_count = p_stripe_semaphore_infos.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -44625,9 +44755,12 @@ impl<'a> Default for SubpassFragmentDensityMapOffsetEndInfoQCOM<'a> {
 }
 impl<'a> SubpassFragmentDensityMapOffsetEndInfoQCOM<'a> {
     #[inline]
-    pub fn fragment_density_offsets(mut self, p_fragment_density_offsets: &'a [Offset2D]) -> Self {
-        self.p_fragment_density_offsets = p_fragment_density_offsets.as_ptr().cast();
-        self.fragment_density_offset_count = p_fragment_density_offsets.len() as _;
+    pub fn fragment_density_offsets(
+        mut self,
+        p_fragment_density_offsets: impl AsSlice<'a, Offset2D>,
+    ) -> Self {
+        self.p_fragment_density_offsets = p_fragment_density_offsets.as_slice().as_ptr().cast();
+        self.fragment_density_offset_count = p_fragment_density_offsets.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -46335,9 +46468,12 @@ impl<'a> DirectDriverLoadingListLUNARG<'a> {
         self
     }
     #[inline]
-    pub fn drivers(mut self, p_drivers: &'a [DirectDriverLoadingInfoLUNARG<'a>]) -> Self {
-        self.p_drivers = p_drivers.as_ptr().cast();
-        self.driver_count = p_drivers.len() as _;
+    pub fn drivers(
+        mut self,
+        p_drivers: impl AsSlice<'a, DirectDriverLoadingInfoLUNARG<'a>>,
+    ) -> Self {
+        self.p_drivers = p_drivers.as_slice().as_ptr().cast();
+        self.driver_count = p_drivers.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -46459,9 +46595,9 @@ impl<'a> Default for PipelineShaderStageModuleIdentifierCreateInfoEXT<'a> {
 }
 impl<'a> PipelineShaderStageModuleIdentifierCreateInfoEXT<'a> {
     #[inline]
-    pub fn identifier(mut self, p_identifier: &'a [u8]) -> Self {
-        self.p_identifier = p_identifier.as_ptr().cast();
-        self.identifier_size = p_identifier.len() as _;
+    pub fn identifier(mut self, p_identifier: impl AsSlice<'a, u8>) -> Self {
+        self.p_identifier = p_identifier.as_slice().as_ptr().cast();
+        self.identifier_size = p_identifier.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -46963,9 +47099,9 @@ impl<'a> OpticalFlowExecuteInfoNV<'a> {
         self
     }
     #[inline]
-    pub fn regions(mut self, p_regions: &'a [Rect2D]) -> Self {
-        self.p_regions = p_regions.as_ptr().cast();
-        self.region_count = p_regions.len() as _;
+    pub fn regions(mut self, p_regions: impl AsSlice<'a, Rect2D>) -> Self {
+        self.p_regions = p_regions.as_slice().as_ptr().cast();
+        self.region_count = p_regions.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -47368,9 +47504,12 @@ impl<'a> RenderingAreaInfoKHR<'a> {
         self
     }
     #[inline]
-    pub fn color_attachment_formats(mut self, p_color_attachment_formats: &'a [Format]) -> Self {
-        self.p_color_attachment_formats = p_color_attachment_formats.as_ptr().cast();
-        self.color_attachment_count = p_color_attachment_formats.len() as _;
+    pub fn color_attachment_formats(
+        mut self,
+        p_color_attachment_formats: impl AsSlice<'a, Format>,
+    ) -> Self {
+        self.p_color_attachment_formats = p_color_attachment_formats.as_slice().as_ptr().cast();
+        self.color_attachment_count = p_color_attachment_formats.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -47806,24 +47945,27 @@ impl<'a> ShaderCreateInfoEXT<'a> {
         self
     }
     #[inline]
-    pub fn code(mut self, p_code: &'a [u8]) -> Self {
-        self.p_code = p_code.as_ptr().cast();
-        self.code_size = p_code.len() as _;
+    pub fn code(mut self, p_code: impl AsSlice<'a, u8>) -> Self {
+        self.p_code = p_code.as_slice().as_ptr().cast();
+        self.code_size = p_code.as_slice().len() as _;
         self
     }
     #[inline]
-    pub fn set_layouts<V0: Alias<raw::DescriptorSetLayout>>(
+    pub fn set_layouts<V0: Alias<raw::DescriptorSetLayout> + 'a>(
         mut self,
-        p_set_layouts: &'a [V0],
+        p_set_layouts: impl AsSlice<'a, V0>,
     ) -> Self {
-        self.p_set_layouts = p_set_layouts.as_ptr().cast();
-        self.set_layout_count = p_set_layouts.len() as _;
+        self.p_set_layouts = p_set_layouts.as_slice().as_ptr().cast();
+        self.set_layout_count = p_set_layouts.as_slice().len() as _;
         self
     }
     #[inline]
-    pub fn push_constant_ranges(mut self, p_push_constant_ranges: &'a [PushConstantRange]) -> Self {
-        self.p_push_constant_ranges = p_push_constant_ranges.as_ptr().cast();
-        self.push_constant_range_count = p_push_constant_ranges.len() as _;
+    pub fn push_constant_ranges(
+        mut self,
+        p_push_constant_ranges: impl AsSlice<'a, PushConstantRange>,
+    ) -> Self {
+        self.p_push_constant_ranges = p_push_constant_ranges.as_slice().as_ptr().cast();
+        self.push_constant_range_count = p_push_constant_ranges.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -48294,9 +48436,12 @@ impl<'a> Default for MutableDescriptorTypeListEXT<'a> {
 }
 impl<'a> MutableDescriptorTypeListEXT<'a> {
     #[inline]
-    pub fn descriptor_types(mut self, p_descriptor_types: &'a [DescriptorType]) -> Self {
-        self.p_descriptor_types = p_descriptor_types.as_ptr().cast();
-        self.descriptor_type_count = p_descriptor_types.len() as _;
+    pub fn descriptor_types(
+        mut self,
+        p_descriptor_types: impl AsSlice<'a, DescriptorType>,
+    ) -> Self {
+        self.p_descriptor_types = p_descriptor_types.as_slice().as_ptr().cast();
+        self.descriptor_type_count = p_descriptor_types.as_slice().len() as _;
         self
     }
 }
@@ -48339,10 +48484,12 @@ impl<'a> MutableDescriptorTypeCreateInfoEXT<'a> {
     #[inline]
     pub fn mutable_descriptor_type_lists(
         mut self,
-        p_mutable_descriptor_type_lists: &'a [MutableDescriptorTypeListEXT<'a>],
+        p_mutable_descriptor_type_lists: impl AsSlice<'a, MutableDescriptorTypeListEXT<'a>>,
     ) -> Self {
-        self.p_mutable_descriptor_type_lists = p_mutable_descriptor_type_lists.as_ptr().cast();
-        self.mutable_descriptor_type_list_count = p_mutable_descriptor_type_lists.len() as _;
+        self.p_mutable_descriptor_type_lists =
+            p_mutable_descriptor_type_lists.as_slice().as_ptr().cast();
+        self.mutable_descriptor_type_list_count =
+            p_mutable_descriptor_type_lists.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -48461,9 +48608,9 @@ impl<'a> Default for LayerSettingsCreateInfoEXT<'a> {
 }
 impl<'a> LayerSettingsCreateInfoEXT<'a> {
     #[inline]
-    pub fn settings(mut self, p_settings: &'a [LayerSettingEXT<'a>]) -> Self {
-        self.p_settings = p_settings.as_ptr().cast();
-        self.setting_count = p_settings.len() as _;
+    pub fn settings(mut self, p_settings: impl AsSlice<'a, LayerSettingEXT<'a>>) -> Self {
+        self.p_settings = p_settings.as_slice().as_ptr().cast();
+        self.setting_count = p_settings.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -48512,9 +48659,9 @@ impl<'a> LayerSettingEXT<'a> {
         self
     }
     #[inline]
-    pub fn values(mut self, p_values: &'a [u8]) -> Self {
-        self.p_values = p_values.as_ptr().cast();
-        self.value_count = p_values.len() as _;
+    pub fn values(mut self, p_values: impl AsSlice<'a, u8>) -> Self {
+        self.p_values = p_values.as_slice().as_ptr().cast();
+        self.value_count = p_values.as_slice().len() as _;
         self
     }
 }
@@ -48865,9 +49012,9 @@ impl<'a> GetLatencyMarkerInfoNV<'a> {
         self
     }
     #[inline]
-    pub fn timings(mut self, p_timings: &'a [LatencyTimingsFrameReportNV<'a>]) -> Self {
-        self.p_timings = p_timings.as_ptr().cast();
-        self.timing_count = p_timings.len() as _;
+    pub fn timings(mut self, p_timings: impl AsSlice<'a, LatencyTimingsFrameReportNV<'a>>) -> Self {
+        self.p_timings = p_timings.as_slice().as_ptr().cast();
+        self.timing_count = p_timings.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -49144,9 +49291,9 @@ impl<'a> LatencySurfaceCapabilitiesNV<'a> {
         self
     }
     #[inline]
-    pub fn present_modes(mut self, p_present_modes: &'a [PresentModeKHR]) -> Self {
-        self.p_present_modes = p_present_modes.as_ptr().cast();
-        self.present_mode_count = p_present_modes.len() as _;
+    pub fn present_modes(mut self, p_present_modes: impl AsSlice<'a, PresentModeKHR>) -> Self {
+        self.p_present_modes = p_present_modes.as_slice().as_ptr().cast();
+        self.present_mode_count = p_present_modes.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -49411,9 +49558,12 @@ impl<'a> Default for MultiviewPerViewRenderAreasRenderPassBeginInfoQCOM<'a> {
 }
 impl<'a> MultiviewPerViewRenderAreasRenderPassBeginInfoQCOM<'a> {
     #[inline]
-    pub fn per_view_render_areas(mut self, p_per_view_render_areas: &'a [Rect2D]) -> Self {
-        self.p_per_view_render_areas = p_per_view_render_areas.as_ptr().cast();
-        self.per_view_render_area_count = p_per_view_render_areas.len() as _;
+    pub fn per_view_render_areas(
+        mut self,
+        p_per_view_render_areas: impl AsSlice<'a, Rect2D>,
+    ) -> Self {
+        self.p_per_view_render_areas = p_per_view_render_areas.as_slice().as_ptr().cast();
+        self.per_view_render_area_count = p_per_view_render_areas.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -49998,10 +50148,10 @@ impl<'a> PipelineVertexInputDivisorStateCreateInfoKHR<'a> {
     #[inline]
     pub fn vertex_binding_divisors(
         mut self,
-        p_vertex_binding_divisors: &'a [VertexInputBindingDivisorDescriptionKHR],
+        p_vertex_binding_divisors: impl AsSlice<'a, VertexInputBindingDivisorDescriptionKHR>,
     ) -> Self {
-        self.p_vertex_binding_divisors = p_vertex_binding_divisors.as_ptr().cast();
-        self.vertex_binding_divisor_count = p_vertex_binding_divisors.len() as _;
+        self.p_vertex_binding_divisors = p_vertex_binding_divisors.as_slice().as_ptr().cast();
+        self.vertex_binding_divisor_count = p_vertex_binding_divisors.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -50886,18 +51036,18 @@ impl<'a> BindDescriptorSetsInfoKHR<'a> {
         self
     }
     #[inline]
-    pub fn descriptor_sets<V0: Alias<raw::DescriptorSet>>(
+    pub fn descriptor_sets<V0: Alias<raw::DescriptorSet> + 'a>(
         mut self,
-        p_descriptor_sets: &'a [V0],
+        p_descriptor_sets: impl AsSlice<'a, V0>,
     ) -> Self {
-        self.p_descriptor_sets = p_descriptor_sets.as_ptr().cast();
-        self.descriptor_set_count = p_descriptor_sets.len() as _;
+        self.p_descriptor_sets = p_descriptor_sets.as_slice().as_ptr().cast();
+        self.descriptor_set_count = p_descriptor_sets.as_slice().len() as _;
         self
     }
     #[inline]
-    pub fn dynamic_offsets(mut self, p_dynamic_offsets: &'a [u32]) -> Self {
-        self.p_dynamic_offsets = p_dynamic_offsets.as_ptr().cast();
-        self.dynamic_offset_count = p_dynamic_offsets.len() as _;
+    pub fn dynamic_offsets(mut self, p_dynamic_offsets: impl AsSlice<'a, u32>) -> Self {
+        self.p_dynamic_offsets = p_dynamic_offsets.as_slice().as_ptr().cast();
+        self.dynamic_offset_count = p_dynamic_offsets.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -50953,9 +51103,9 @@ impl<'a> PushConstantsInfoKHR<'a> {
         self
     }
     #[inline]
-    pub fn values(mut self, p_values: &'a [u8]) -> Self {
-        self.p_values = p_values.as_ptr().cast();
-        self.size = p_values.len() as _;
+    pub fn values(mut self, p_values: impl AsSlice<'a, u8>) -> Self {
+        self.p_values = p_values.as_slice().as_ptr().cast();
+        self.size = p_values.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -51011,9 +51161,12 @@ impl<'a> PushDescriptorSetInfoKHR<'a> {
         self
     }
     #[inline]
-    pub fn descriptor_writes(mut self, p_descriptor_writes: &'a [WriteDescriptorSet<'a>]) -> Self {
-        self.p_descriptor_writes = p_descriptor_writes.as_ptr().cast();
-        self.descriptor_write_count = p_descriptor_writes.len() as _;
+    pub fn descriptor_writes(
+        mut self,
+        p_descriptor_writes: impl AsSlice<'a, WriteDescriptorSet<'a>>,
+    ) -> Self {
+        self.p_descriptor_writes = p_descriptor_writes.as_slice().as_ptr().cast();
+        self.descriptor_write_count = p_descriptor_writes.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -51126,10 +51279,14 @@ impl<'a> SetDescriptorBufferOffsetsInfoEXT<'a> {
         self
     }
     #[inline]
-    pub fn set(mut self, p_buffer_indices: &'a [u32], p_offsets: &'a [DeviceSize]) -> Self {
-        self.p_buffer_indices = p_buffer_indices.as_ptr().cast();
-        self.p_offsets = p_offsets.as_ptr().cast();
-        self.set_count = p_buffer_indices.len() as _;
+    pub fn set(
+        mut self,
+        p_buffer_indices: impl AsSlice<'a, u32>,
+        p_offsets: impl AsSlice<'a, DeviceSize>,
+    ) -> Self {
+        self.p_buffer_indices = p_buffer_indices.as_slice().as_ptr().cast();
+        self.p_offsets = p_offsets.as_slice().as_ptr().cast();
+        self.set_count = p_buffer_indices.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -51495,10 +51652,10 @@ impl<'a> PhysicalDeviceLayeredApiPropertiesListKHR<'a> {
     #[inline]
     pub fn layered_apis(
         mut self,
-        p_layered_apis: &'a [PhysicalDeviceLayeredApiPropertiesKHR<'a>],
+        p_layered_apis: impl AsSlice<'a, PhysicalDeviceLayeredApiPropertiesKHR<'a>>,
     ) -> Self {
-        self.p_layered_apis = p_layered_apis.as_ptr().cast();
-        self.layered_api_count = p_layered_apis.len() as _;
+        self.p_layered_apis = p_layered_apis.as_slice().as_ptr().cast();
+        self.layered_api_count = p_layered_apis.as_slice().len() as _;
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {

@@ -122,7 +122,7 @@
 //! ```
 //! let mut device_info = vk_headers::structure_chain!(
 //!     vk::DeviceCreateInfo::default()
-//!         .queue_create_infos(slice::from_ref(&queue_info))
+//!         .queue_create_infos(&queue_info)
 //!         .enabled_features(Some(&features))
 //!         .enabled_extension(&required_extensions),
 //!     vk::PhysicalDeviceShaderObjectFeaturesEXT::default().shader_object(true)
@@ -146,7 +146,7 @@
 //! Note that these bindings are still a Work-In-Process, the public API may see breaking changes if this improves
 //! safety or how nice to use the code is.
 //!
-//! Please be aware that this crate should not be considered production ready yet.
+//! Please be aware that this crate should not be considered production ready yet, breaking changes are to be expected in the future versions.
 
 #[cfg(feature = "loaded")]
 mod loaded;
@@ -599,89 +599,6 @@ impl<'a, T: Handle> AsMut<T> for BorrowedMutHandle<'a, T> {
         // SAFETY: Same as [BorrowedHandle::AsRef]
         unsafe { mem::transmute(self) }
     }
-}
-
-/// A trait implemented by types which can allocate memory for an array of given size in a contiguous memory
-/// This is used for vulkan commands returning arrays
-/// [`Vec<T>`] implements this trait as well as [SmallVec] is the small-vec feature is enabled
-/// This trait is unsafe because no allocating a memory area of the proper size when calling
-/// allocate_with_capacity can cause undefined behavior when using this library
-pub unsafe trait DynamicArray<T>: IntoIterator<Item = T> {
-    /// Returns an array with at least the given capacity available
-    /// Calling get_content_mut_ptr on an object allocated with allocate_with_capacity(capacity) should return
-    /// A contiguous properly aligned allocated region of memory which can hold capacity elements of T
-    fn create_with_capacity(capacity: usize) -> Self;
-
-    /// Called after creation (in the case where a Vulkan command returns VK_INCOMPLETE)
-    /// The new capacity should be strictly greater than the current one
-    /// You can assume the length of the vector is 0 when calling this function
-    fn update_with_capacity(&mut self, new_capacity: usize);
-
-    /// Returns a pointer to the array memory
-    fn get_content_mut_ptr(&mut self) -> *mut T;
-
-    /// Set the array length to size len
-    /// The array must have been allocated with allocate_with_capacity(capacity)
-    /// With capacity >= len and the first len elements of the array
-    /// must be well defined
-    unsafe fn resize_with_len(&mut self, len: usize);
-}
-
-/// When using advanced commands, we must be able to provide a dynamic array for both the type and the underlying type
-/// This trait allows given a type T with a dynamic array to get a dynamic array for another type S
-pub trait AdvancedDynamicArray<T, S>: DynamicArray<T> + FromIterator<T> {
-    type InnerArrayType: DynamicArray<S>;
-}
-
-unsafe impl<T> DynamicArray<T> for Vec<T> {
-    fn create_with_capacity(capacity: usize) -> Self {
-        Self::with_capacity(capacity)
-    }
-
-    fn update_with_capacity(&mut self, new_capacity: usize) {
-        // we assume the length is 0, otherwise the appropriate value would be
-        // (with underflow checking) new_capacity - self.len()
-        self.reserve(new_capacity)
-    }
-
-    fn get_content_mut_ptr(&mut self) -> *mut T {
-        self.as_mut_ptr()
-    }
-
-    unsafe fn resize_with_len(&mut self, len: usize) {
-        self.set_len(len)
-    }
-}
-
-impl<T, S> AdvancedDynamicArray<T, S> for Vec<T> {
-    type InnerArrayType = Vec<S>;
-}
-
-#[cfg(feature = "smallvec")]
-unsafe impl<T, A> DynamicArray<T> for SmallVec<A>
-where
-    A: smallvec::Array<Item = T>,
-{
-    fn create_with_capacity(capacity: usize) -> Self {
-        Self::with_capacity(capacity)
-    }
-
-    fn update_with_capacity(&mut self, new_capacity: usize) {
-        self.reserve(new_capacity)
-    }
-
-    fn get_content_mut_ptr(&mut self) -> *mut T {
-        self.as_mut_ptr()
-    }
-
-    unsafe fn resize_with_len(&mut self, len: usize) {
-        self.set_len(len)
-    }
-}
-
-#[cfg(feature = "smallvec")]
-impl<T, S, const N: usize> AdvancedDynamicArray<T, S> for SmallVec<[T; N]> {
-    type InnerArrayType = SmallVec<[S; N]>;
 }
 
 /// A trait implemented by Vulkan C structs whose first 2 fields are:
@@ -1149,4 +1066,164 @@ macro_rules! include_spirv {
             )
         }
     }};
+}
+
+/// A trait implemented by types which can allocate memory for an array of given size in a contiguous memory
+/// This is used for vulkan commands returning arrays
+/// [`Vec<T>`] implements this trait as well as [SmallVec] is the small-vec feature is enabled
+/// This trait is unsafe because no allocating a memory area of the proper size when calling
+/// allocate_with_capacity can cause undefined behavior when using this library
+pub unsafe trait DynamicArray<T>: IntoIterator<Item = T> {
+    /// Returns an array with at least the given capacity available
+    /// Calling get_content_mut_ptr on an object allocated with allocate_with_capacity(capacity) should return
+    /// A contiguous properly aligned allocated region of memory which can hold capacity elements of T
+    fn create_with_capacity(capacity: usize) -> Self;
+
+    /// Called after creation (in the case where a Vulkan command returns VK_INCOMPLETE)
+    /// The new capacity should be strictly greater than the current one
+    /// You can assume the length of the vector is 0 when calling this function
+    fn update_with_capacity(&mut self, new_capacity: usize);
+
+    /// Returns a pointer to the array memory
+    fn get_content_mut_ptr(&mut self) -> *mut T;
+
+    /// Set the array length to size len
+    /// The array must have been allocated with allocate_with_capacity(capacity)
+    /// With capacity >= len and the first len elements of the array
+    /// must be well defined
+    unsafe fn resize_with_len(&mut self, len: usize);
+}
+
+/// When using advanced commands, we must be able to provide a dynamic array for both the type and the underlying type
+/// This trait allows given a type T with a dynamic array to get a dynamic array for another type S
+pub trait AdvancedDynamicArray<T, S>: DynamicArray<T> + FromIterator<T> {
+    type InnerArrayType: DynamicArray<S>;
+}
+
+unsafe impl<T> DynamicArray<T> for Vec<T> {
+    fn create_with_capacity(capacity: usize) -> Self {
+        Self::with_capacity(capacity)
+    }
+
+    fn update_with_capacity(&mut self, new_capacity: usize) {
+        // we assume the length is 0, otherwise the appropriate value would be
+        // (with underflow checking) new_capacity - self.len()
+        self.reserve(new_capacity)
+    }
+
+    fn get_content_mut_ptr(&mut self) -> *mut T {
+        self.as_mut_ptr()
+    }
+
+    unsafe fn resize_with_len(&mut self, len: usize) {
+        self.set_len(len)
+    }
+}
+
+impl<T, S> AdvancedDynamicArray<T, S> for Vec<T> {
+    type InnerArrayType = Vec<S>;
+}
+
+#[cfg(feature = "smallvec")]
+unsafe impl<T, A> DynamicArray<T> for SmallVec<A>
+where
+    A: smallvec::Array<Item = T>,
+{
+    fn create_with_capacity(capacity: usize) -> Self {
+        Self::with_capacity(capacity)
+    }
+
+    fn update_with_capacity(&mut self, new_capacity: usize) {
+        self.reserve(new_capacity)
+    }
+
+    fn get_content_mut_ptr(&mut self) -> *mut T {
+        self.as_mut_ptr()
+    }
+
+    unsafe fn resize_with_len(&mut self, len: usize) {
+        self.set_len(len)
+    }
+}
+
+#[cfg(feature = "smallvec")]
+impl<T, S, const N: usize> AdvancedDynamicArray<T, S> for SmallVec<[T; N]> {
+    type InnerArrayType = SmallVec<[S; N]>;
+}
+
+/// Custom type which represents types that can be seen as slices
+/// This is especially useful for this crate as there are multiple commands/structs
+/// which accept slices but for which one would usually only supply one element
+/// using [std::slice::from_ref]. 
+/// 
+/// With this trait, all of these `from_ref` calls
+/// are avoided. There is also an implementation for [`Option<&T>`]
+pub trait AsSlice<'a, T>: Copy {
+    fn as_slice(self) -> &'a [T];
+}
+
+impl<'a, T> AsSlice<'a, T> for &'a [T] {
+    fn as_slice(self) -> &'a [T] {
+        self
+    }
+}
+
+impl<'a, T, const N: usize> AsSlice<'a, T> for &'a [T; N] {
+    fn as_slice(self) -> &'a [T] {
+        self
+    }
+}
+
+impl<'a, T> AsSlice<'a, T> for &'a T {
+    fn as_slice(self) -> &'a [T] {
+        std::slice::from_ref(self)
+    }
+}
+
+impl<'a, T> AsSlice<'a, T> for &'a Option<T> {
+    fn as_slice(self) -> &'a [T] {
+        self.as_slice()
+    }
+}
+
+impl<'a, T> AsSlice<'a, T> for Option<&'a T> {
+    fn as_slice(self) -> &'a [T] {
+        self.map_or(&[], std::slice::from_ref)
+    }
+}
+
+impl<'a, T> AsSlice<'a, T> for &'a Vec<T> {
+    fn as_slice(self) -> &'a [T] {
+        self.as_slice()
+    }
+}
+
+impl<'a, T> AsSlice<'a, T> for &'a Box<T> {
+    fn as_slice(self) -> &'a [T] {
+        std::slice::from_ref(self)
+    }
+}
+
+/// Implement the AsSlice trait for `()``, some vulkan commands/structs take as parameter `Option<impl AsSlice<...>>`
+/// With this type, if you want to to give as parameter None (the compiler cannot infer the type, although this is not useful)
+/// you can use [`None::<()>`] (instead of `None::<&vk::AttachmentReference>` for example):
+/// 
+/// # Example
+/// 
+/// ```
+/// let subpass = vk::SubpassDescription::default()
+///     .pipeline_bind_point(vk::PipelineBindPoint::Graphics)
+///     .color_attachment(&color_ref, None::<()>);
+/// ```
+impl<'a,T> AsSlice<'a,T> for () {
+    fn as_slice(self) -> &'a [T] {
+        &[]
+    }
+}
+
+#[cfg(feature = "smallvec")]
+impl<'a, T, const N: usize> AsSlice<'a, T> for &'a SmallVec<[T; N]> {
+    fn as_slice(self) -> &'a [T] {
+        self.as_slice()
+    }
 }

@@ -123,7 +123,6 @@ fn generate_raw_command<'a, 'b>(
                     idx as u32,
                     name.clone(),
                     false,
-                    false,
                     param.optional,
                 )?;
                 Ok(inner)
@@ -156,7 +155,7 @@ fn generate_raw_command<'a, 'b>(
                     .get(param.vk_name)
                     .ok_or_else(|| anyhow!("Failed to find field for {}", param.vk_name))?;
                 let vec_field_name = format_ident!("{}", vec_field.name);
-                Ok(quote! (#vec_field_name.len() as _))
+                Ok(quote! (#vec_field_name.as_slice().len() as _))
             }
         })
         .collect::<Result<Vec<_>>>()?;
@@ -207,7 +206,7 @@ fn generate_raw_command<'a, 'b>(
                 .map(|len| {
                     if let Some(param) = length_mappings.get(len.as_str()) {
                         let param_name = format_ident!("{}", param.name);
-                        Ok(quote! (#param_name.len()))
+                        Ok(quote! (#param_name.as_slice().len()))
                     } else {
                         convert_len_case(len).parse::<TokenStream>()
                     }
@@ -316,9 +315,10 @@ fn generate_raw_command<'a, 'b>(
     let func_name = format_ident!("{name}");
     let doc = make_doc_link(vk_name);
     let unsafe_tag = name.starts_with("destroy").then(|| quote!(unsafe));
+    let lifetime = (!vec_fields.is_empty()).then(|| quote! ('a, ));
     Ok(quote! {
         #doc
-        pub #unsafe_tag fn #func_name<#ret_template #(#templates),*>(#(#args_outer_name: #args_outer_type,)* dispatcher: &CommandsDispatcher ) #ret_type {
+        pub #unsafe_tag fn #func_name<#lifetime #ret_template #(#templates),*>(#(#args_outer_name: #args_outer_type,)* dispatcher: &CommandsDispatcher ) #ret_type {
             let vulkan_command = dispatcher.#func_name.get().expect("Vulkan command not loaded.");
             unsafe {
                 #pre_call

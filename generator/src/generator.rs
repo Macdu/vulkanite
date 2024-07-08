@@ -1050,7 +1050,6 @@ impl<'a> Generator<'a> {
                         idx as u32,
                         name.clone(),
                         false,
-                        false,
                         param.optional,
                     )?;
                     Ok((templ, (name.to_token_stream(), outer)))
@@ -1311,17 +1310,14 @@ impl<'a> Generator<'a> {
         index: u32,
         name: Ident,
         is_assignment: bool,
-        with_lifetime: bool,
         is_optional: bool,
     ) -> Result<(TokenStream, TokenStream, TokenStream)> {
-        let get_lifetime =
-            |ty: &str| (with_lifetime && self.compute_name_lifetime(ty)).then(|| quote! (<'a>));
-        let life_a = with_lifetime.then_some(quote! ('a));
+        let get_lifetime = |ty: &str| self.compute_name_lifetime(ty).then(|| quote! (<'a>));
         let template_ty = format_ident!("V{}", index);
         let mut simple_affectation = if is_optional {
-            quote! (#name.map(|p| p.as_ptr().cast()).unwrap_or(ptr::null()))
+            quote! (#name.map(|p| p.as_slice().as_ptr().cast()).unwrap_or(ptr::null()))
         } else {
-            quote! (#name.as_ptr().cast())
+            quote! (#name.as_slice().as_ptr().cast())
         };
         if is_assignment {
             simple_affectation = quote! (self.#name = #simple_affectation)
@@ -1339,8 +1335,8 @@ impl<'a> Generator<'a> {
             AdvancedType::HandlePtr(name) | AdvancedType::HandleArray(name, _) => {
                 let name = self.get_ident_name(name)?;
                 Ok((
-                    quote! (#template_ty: Alias<raw::#name>),
-                    wrap_ty(quote! (&#life_a [#template_ty])),
+                    quote! (#template_ty: Alias<raw::#name> + 'a),
+                    wrap_ty(quote! (impl AsSlice<'a, #template_ty>)),
                     simple_affectation,
                 ))
             }
@@ -1349,13 +1345,17 @@ impl<'a> Generator<'a> {
                 let name = self.get_ident_name(name)?;
                 Ok((
                     quote!(),
-                    wrap_ty(quote! (&#life_a [#name #lifetime])),
+                    wrap_ty(quote! (impl AsSlice<'a,#name #lifetime>)),
                     simple_affectation,
                 ))
             }
             AdvancedType::VoidPtr => {
                 // binary data
-                Ok((quote!(), wrap_ty(quote!(&#life_a [u8])), simple_affectation))
+                Ok((
+                    quote!(),
+                    wrap_ty(quote!(impl AsSlice<'a, u8>)),
+                    simple_affectation,
+                ))
             }
             AdvancedType::OtherDoublePtr(ty) => {
                 let lifetime = get_lifetime(ty);
@@ -1366,13 +1366,13 @@ impl<'a> Generator<'a> {
                 };
                 Ok((
                     quote!(),
-                    wrap_ty(quote! (&#life_a [&#life_a #ty #lifetime])),
+                    wrap_ty(quote! (impl AsSlice<'a, &'a #ty #lifetime>)),
                     simple_affectation,
                 ))
             }
             AdvancedType::CStringPtr => Ok((
                 quote!(),
-                wrap_ty(quote!(&#life_a [*const c_char])),
+                wrap_ty(quote!(impl AsSlice<'a, *const c_char>)),
                 simple_affectation,
             )),
             _ => Err(anyhow!("Trying to get array with unexpected type")),

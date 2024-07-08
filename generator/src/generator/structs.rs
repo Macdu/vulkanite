@@ -320,17 +320,17 @@ fn generate_struct<'a>(
             // a slice of size 0 can be seen as a none, no need for options if there is just one field
             let can_be_optional = length_field.array_fields.len() > 1;
             let ty_tokens = length_field.array_fields.iter().enumerate().map(|(idx, field)|{
-                gen.generate_slice_type(field.advanced_ty.get().unwrap(), idx as u32, format_ident!("{}", field.name), true, true, can_be_optional && field.optional)
+                gen.generate_slice_type(field.advanced_ty.get().unwrap(), idx as u32, format_ident!("{}", field.name), true, can_be_optional && field.optional)
             }).collect::<Result<Vec<_>>>()?;
             let field_names = length_field.array_fields.iter().map(|field| {
                 format_ident!("{}",field.name)
             }).collect::<Vec<_>>();
             let len_value = if let Some((idx,_)) = length_field.array_fields.iter().enumerate().find(|(_,field)| !can_be_optional || !field.optional) {
                 let used_field = &field_names[idx];
-                quote! (#used_field.len() as _)
+                quote! (#used_field.as_slice().len() as _)
             } else {
                 let first_field = &field_names[0];
-                quote! (#first_field.map(|p| p.len()).unwrap_or_default() as _)
+                quote! (#first_field.map(|p| p.as_slice().len()).unwrap_or_default() as _)
             };
             let template_arg = ty_tokens.iter().map(|(x,_,_)| x).filter(|x| !x.is_empty());
             let slice_ty = ty_tokens.iter().map(|(_,y,_)| y);
