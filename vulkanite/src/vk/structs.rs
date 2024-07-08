@@ -1082,278 +1082,284 @@ impl Default for PhysicalDeviceFeatures {
 }
 impl PhysicalDeviceFeatures {
     #[inline]
-    pub fn robust_buffer_access(mut self, value: Bool32) -> Self {
-        self.robust_buffer_access = value;
+    pub fn robust_buffer_access(mut self, value: impl Into<Bool32>) -> Self {
+        self.robust_buffer_access = value.into();
         self
     }
     #[inline]
-    pub fn full_draw_index_uint32(mut self, value: Bool32) -> Self {
-        self.full_draw_index_uint32 = value;
+    pub fn full_draw_index_uint32(mut self, value: impl Into<Bool32>) -> Self {
+        self.full_draw_index_uint32 = value.into();
         self
     }
     #[inline]
-    pub fn image_cube_array(mut self, value: Bool32) -> Self {
-        self.image_cube_array = value;
+    pub fn image_cube_array(mut self, value: impl Into<Bool32>) -> Self {
+        self.image_cube_array = value.into();
         self
     }
     #[inline]
-    pub fn independent_blend(mut self, value: Bool32) -> Self {
-        self.independent_blend = value;
+    pub fn independent_blend(mut self, value: impl Into<Bool32>) -> Self {
+        self.independent_blend = value.into();
         self
     }
     #[inline]
-    pub fn geometry_shader(mut self, value: Bool32) -> Self {
-        self.geometry_shader = value;
+    pub fn geometry_shader(mut self, value: impl Into<Bool32>) -> Self {
+        self.geometry_shader = value.into();
         self
     }
     #[inline]
-    pub fn tessellation_shader(mut self, value: Bool32) -> Self {
-        self.tessellation_shader = value;
+    pub fn tessellation_shader(mut self, value: impl Into<Bool32>) -> Self {
+        self.tessellation_shader = value.into();
         self
     }
     #[inline]
-    pub fn sample_rate_shading(mut self, value: Bool32) -> Self {
-        self.sample_rate_shading = value;
+    pub fn sample_rate_shading(mut self, value: impl Into<Bool32>) -> Self {
+        self.sample_rate_shading = value.into();
         self
     }
     #[inline]
-    pub fn dual_src_blend(mut self, value: Bool32) -> Self {
-        self.dual_src_blend = value;
+    pub fn dual_src_blend(mut self, value: impl Into<Bool32>) -> Self {
+        self.dual_src_blend = value.into();
         self
     }
     #[inline]
-    pub fn logic_op(mut self, value: Bool32) -> Self {
-        self.logic_op = value;
+    pub fn logic_op(mut self, value: impl Into<Bool32>) -> Self {
+        self.logic_op = value.into();
         self
     }
     #[inline]
-    pub fn multi_draw_indirect(mut self, value: Bool32) -> Self {
-        self.multi_draw_indirect = value;
+    pub fn multi_draw_indirect(mut self, value: impl Into<Bool32>) -> Self {
+        self.multi_draw_indirect = value.into();
         self
     }
     #[inline]
-    pub fn draw_indirect_first_instance(mut self, value: Bool32) -> Self {
-        self.draw_indirect_first_instance = value;
+    pub fn draw_indirect_first_instance(mut self, value: impl Into<Bool32>) -> Self {
+        self.draw_indirect_first_instance = value.into();
         self
     }
     #[inline]
-    pub fn depth_clamp(mut self, value: Bool32) -> Self {
-        self.depth_clamp = value;
+    pub fn depth_clamp(mut self, value: impl Into<Bool32>) -> Self {
+        self.depth_clamp = value.into();
         self
     }
     #[inline]
-    pub fn depth_bias_clamp(mut self, value: Bool32) -> Self {
-        self.depth_bias_clamp = value;
+    pub fn depth_bias_clamp(mut self, value: impl Into<Bool32>) -> Self {
+        self.depth_bias_clamp = value.into();
         self
     }
     #[inline]
-    pub fn fill_mode_non_solid(mut self, value: Bool32) -> Self {
-        self.fill_mode_non_solid = value;
+    pub fn fill_mode_non_solid(mut self, value: impl Into<Bool32>) -> Self {
+        self.fill_mode_non_solid = value.into();
         self
     }
     #[inline]
-    pub fn depth_bounds(mut self, value: Bool32) -> Self {
-        self.depth_bounds = value;
+    pub fn depth_bounds(mut self, value: impl Into<Bool32>) -> Self {
+        self.depth_bounds = value.into();
         self
     }
     #[inline]
-    pub fn wide_lines(mut self, value: Bool32) -> Self {
-        self.wide_lines = value;
+    pub fn wide_lines(mut self, value: impl Into<Bool32>) -> Self {
+        self.wide_lines = value.into();
         self
     }
     #[inline]
-    pub fn large_points(mut self, value: Bool32) -> Self {
-        self.large_points = value;
+    pub fn large_points(mut self, value: impl Into<Bool32>) -> Self {
+        self.large_points = value.into();
         self
     }
     #[inline]
-    pub fn alpha_to_one(mut self, value: Bool32) -> Self {
-        self.alpha_to_one = value;
+    pub fn alpha_to_one(mut self, value: impl Into<Bool32>) -> Self {
+        self.alpha_to_one = value.into();
         self
     }
     #[inline]
-    pub fn multi_viewport(mut self, value: Bool32) -> Self {
-        self.multi_viewport = value;
+    pub fn multi_viewport(mut self, value: impl Into<Bool32>) -> Self {
+        self.multi_viewport = value.into();
         self
     }
     #[inline]
-    pub fn sampler_anisotropy(mut self, value: Bool32) -> Self {
-        self.sampler_anisotropy = value;
+    pub fn sampler_anisotropy(mut self, value: impl Into<Bool32>) -> Self {
+        self.sampler_anisotropy = value.into();
         self
     }
     #[inline]
-    pub fn texture_compression_etc2(mut self, value: Bool32) -> Self {
-        self.texture_compression_etc2 = value;
+    pub fn texture_compression_etc2(mut self, value: impl Into<Bool32>) -> Self {
+        self.texture_compression_etc2 = value.into();
         self
     }
     #[inline]
-    pub fn texture_compression_astc_ldr(mut self, value: Bool32) -> Self {
-        self.texture_compression_astc_ldr = value;
+    pub fn texture_compression_astc_ldr(mut self, value: impl Into<Bool32>) -> Self {
+        self.texture_compression_astc_ldr = value.into();
         self
     }
     #[inline]
-    pub fn texture_compression_bc(mut self, value: Bool32) -> Self {
-        self.texture_compression_bc = value;
+    pub fn texture_compression_bc(mut self, value: impl Into<Bool32>) -> Self {
+        self.texture_compression_bc = value.into();
         self
     }
     #[inline]
-    pub fn occlusion_query_precise(mut self, value: Bool32) -> Self {
-        self.occlusion_query_precise = value;
+    pub fn occlusion_query_precise(mut self, value: impl Into<Bool32>) -> Self {
+        self.occlusion_query_precise = value.into();
         self
     }
     #[inline]
-    pub fn pipeline_statistics_query(mut self, value: Bool32) -> Self {
-        self.pipeline_statistics_query = value;
+    pub fn pipeline_statistics_query(mut self, value: impl Into<Bool32>) -> Self {
+        self.pipeline_statistics_query = value.into();
         self
     }
     #[inline]
-    pub fn vertex_pipeline_stores_and_atomics(mut self, value: Bool32) -> Self {
-        self.vertex_pipeline_stores_and_atomics = value;
+    pub fn vertex_pipeline_stores_and_atomics(mut self, value: impl Into<Bool32>) -> Self {
+        self.vertex_pipeline_stores_and_atomics = value.into();
         self
     }
     #[inline]
-    pub fn fragment_stores_and_atomics(mut self, value: Bool32) -> Self {
-        self.fragment_stores_and_atomics = value;
+    pub fn fragment_stores_and_atomics(mut self, value: impl Into<Bool32>) -> Self {
+        self.fragment_stores_and_atomics = value.into();
         self
     }
     #[inline]
-    pub fn shader_tessellation_and_geometry_point_size(mut self, value: Bool32) -> Self {
-        self.shader_tessellation_and_geometry_point_size = value;
+    pub fn shader_tessellation_and_geometry_point_size(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_tessellation_and_geometry_point_size = value.into();
         self
     }
     #[inline]
-    pub fn shader_image_gather_extended(mut self, value: Bool32) -> Self {
-        self.shader_image_gather_extended = value;
+    pub fn shader_image_gather_extended(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_image_gather_extended = value.into();
         self
     }
     #[inline]
-    pub fn shader_storage_image_extended_formats(mut self, value: Bool32) -> Self {
-        self.shader_storage_image_extended_formats = value;
+    pub fn shader_storage_image_extended_formats(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_storage_image_extended_formats = value.into();
         self
     }
     #[inline]
-    pub fn shader_storage_image_multisample(mut self, value: Bool32) -> Self {
-        self.shader_storage_image_multisample = value;
+    pub fn shader_storage_image_multisample(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_storage_image_multisample = value.into();
         self
     }
     #[inline]
-    pub fn shader_storage_image_read_without_format(mut self, value: Bool32) -> Self {
-        self.shader_storage_image_read_without_format = value;
+    pub fn shader_storage_image_read_without_format(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_storage_image_read_without_format = value.into();
         self
     }
     #[inline]
-    pub fn shader_storage_image_write_without_format(mut self, value: Bool32) -> Self {
-        self.shader_storage_image_write_without_format = value;
+    pub fn shader_storage_image_write_without_format(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_storage_image_write_without_format = value.into();
         self
     }
     #[inline]
-    pub fn shader_uniform_buffer_array_dynamic_indexing(mut self, value: Bool32) -> Self {
-        self.shader_uniform_buffer_array_dynamic_indexing = value;
+    pub fn shader_uniform_buffer_array_dynamic_indexing(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.shader_uniform_buffer_array_dynamic_indexing = value.into();
         self
     }
     #[inline]
-    pub fn shader_sampled_image_array_dynamic_indexing(mut self, value: Bool32) -> Self {
-        self.shader_sampled_image_array_dynamic_indexing = value;
+    pub fn shader_sampled_image_array_dynamic_indexing(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_sampled_image_array_dynamic_indexing = value.into();
         self
     }
     #[inline]
-    pub fn shader_storage_buffer_array_dynamic_indexing(mut self, value: Bool32) -> Self {
-        self.shader_storage_buffer_array_dynamic_indexing = value;
+    pub fn shader_storage_buffer_array_dynamic_indexing(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.shader_storage_buffer_array_dynamic_indexing = value.into();
         self
     }
     #[inline]
-    pub fn shader_storage_image_array_dynamic_indexing(mut self, value: Bool32) -> Self {
-        self.shader_storage_image_array_dynamic_indexing = value;
+    pub fn shader_storage_image_array_dynamic_indexing(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_storage_image_array_dynamic_indexing = value.into();
         self
     }
     #[inline]
-    pub fn shader_clip_distance(mut self, value: Bool32) -> Self {
-        self.shader_clip_distance = value;
+    pub fn shader_clip_distance(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_clip_distance = value.into();
         self
     }
     #[inline]
-    pub fn shader_cull_distance(mut self, value: Bool32) -> Self {
-        self.shader_cull_distance = value;
+    pub fn shader_cull_distance(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_cull_distance = value.into();
         self
     }
     #[inline]
-    pub fn shader_float64(mut self, value: Bool32) -> Self {
-        self.shader_float64 = value;
+    pub fn shader_float64(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_float64 = value.into();
         self
     }
     #[inline]
-    pub fn shader_int64(mut self, value: Bool32) -> Self {
-        self.shader_int64 = value;
+    pub fn shader_int64(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_int64 = value.into();
         self
     }
     #[inline]
-    pub fn shader_int16(mut self, value: Bool32) -> Self {
-        self.shader_int16 = value;
+    pub fn shader_int16(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_int16 = value.into();
         self
     }
     #[inline]
-    pub fn shader_resource_residency(mut self, value: Bool32) -> Self {
-        self.shader_resource_residency = value;
+    pub fn shader_resource_residency(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_resource_residency = value.into();
         self
     }
     #[inline]
-    pub fn shader_resource_min_lod(mut self, value: Bool32) -> Self {
-        self.shader_resource_min_lod = value;
+    pub fn shader_resource_min_lod(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_resource_min_lod = value.into();
         self
     }
     #[inline]
-    pub fn sparse_binding(mut self, value: Bool32) -> Self {
-        self.sparse_binding = value;
+    pub fn sparse_binding(mut self, value: impl Into<Bool32>) -> Self {
+        self.sparse_binding = value.into();
         self
     }
     #[inline]
-    pub fn sparse_residency_buffer(mut self, value: Bool32) -> Self {
-        self.sparse_residency_buffer = value;
+    pub fn sparse_residency_buffer(mut self, value: impl Into<Bool32>) -> Self {
+        self.sparse_residency_buffer = value.into();
         self
     }
     #[inline]
-    pub fn sparse_residency_image2_d(mut self, value: Bool32) -> Self {
-        self.sparse_residency_image2_d = value;
+    pub fn sparse_residency_image2_d(mut self, value: impl Into<Bool32>) -> Self {
+        self.sparse_residency_image2_d = value.into();
         self
     }
     #[inline]
-    pub fn sparse_residency_image3_d(mut self, value: Bool32) -> Self {
-        self.sparse_residency_image3_d = value;
+    pub fn sparse_residency_image3_d(mut self, value: impl Into<Bool32>) -> Self {
+        self.sparse_residency_image3_d = value.into();
         self
     }
     #[inline]
-    pub fn sparse_residency2_samples(mut self, value: Bool32) -> Self {
-        self.sparse_residency2_samples = value;
+    pub fn sparse_residency2_samples(mut self, value: impl Into<Bool32>) -> Self {
+        self.sparse_residency2_samples = value.into();
         self
     }
     #[inline]
-    pub fn sparse_residency4_samples(mut self, value: Bool32) -> Self {
-        self.sparse_residency4_samples = value;
+    pub fn sparse_residency4_samples(mut self, value: impl Into<Bool32>) -> Self {
+        self.sparse_residency4_samples = value.into();
         self
     }
     #[inline]
-    pub fn sparse_residency8_samples(mut self, value: Bool32) -> Self {
-        self.sparse_residency8_samples = value;
+    pub fn sparse_residency8_samples(mut self, value: impl Into<Bool32>) -> Self {
+        self.sparse_residency8_samples = value.into();
         self
     }
     #[inline]
-    pub fn sparse_residency16_samples(mut self, value: Bool32) -> Self {
-        self.sparse_residency16_samples = value;
+    pub fn sparse_residency16_samples(mut self, value: impl Into<Bool32>) -> Self {
+        self.sparse_residency16_samples = value.into();
         self
     }
     #[inline]
-    pub fn sparse_residency_aliased(mut self, value: Bool32) -> Self {
-        self.sparse_residency_aliased = value;
+    pub fn sparse_residency_aliased(mut self, value: impl Into<Bool32>) -> Self {
+        self.sparse_residency_aliased = value.into();
         self
     }
     #[inline]
-    pub fn variable_multisample_rate(mut self, value: Bool32) -> Self {
-        self.variable_multisample_rate = value;
+    pub fn variable_multisample_rate(mut self, value: impl Into<Bool32>) -> Self {
+        self.variable_multisample_rate = value.into();
         self
     }
     #[inline]
-    pub fn inherited_queries(mut self, value: Bool32) -> Self {
-        self.inherited_queries = value;
+    pub fn inherited_queries(mut self, value: impl Into<Bool32>) -> Self {
+        self.inherited_queries = value.into();
         self
     }
 }
@@ -2040,8 +2046,8 @@ impl PhysicalDeviceLimits {
         self
     }
     #[inline]
-    pub fn timestamp_compute_and_graphics(mut self, value: Bool32) -> Self {
-        self.timestamp_compute_and_graphics = value;
+    pub fn timestamp_compute_and_graphics(mut self, value: impl Into<Bool32>) -> Self {
+        self.timestamp_compute_and_graphics = value.into();
         self
     }
     #[inline]
@@ -2090,13 +2096,13 @@ impl PhysicalDeviceLimits {
         self
     }
     #[inline]
-    pub fn strict_lines(mut self, value: Bool32) -> Self {
-        self.strict_lines = value;
+    pub fn strict_lines(mut self, value: impl Into<Bool32>) -> Self {
+        self.strict_lines = value.into();
         self
     }
     #[inline]
-    pub fn standard_sample_locations(mut self, value: Bool32) -> Self {
-        self.standard_sample_locations = value;
+    pub fn standard_sample_locations(mut self, value: impl Into<Bool32>) -> Self {
+        self.standard_sample_locations = value.into();
         self
     }
     #[inline]
@@ -2247,28 +2253,31 @@ impl Default for PhysicalDeviceSparseProperties {
 }
 impl PhysicalDeviceSparseProperties {
     #[inline]
-    pub fn residency_standard2_dblock_shape(mut self, value: Bool32) -> Self {
-        self.residency_standard2_dblock_shape = value;
+    pub fn residency_standard2_dblock_shape(mut self, value: impl Into<Bool32>) -> Self {
+        self.residency_standard2_dblock_shape = value.into();
         self
     }
     #[inline]
-    pub fn residency_standard2_dmultisample_block_shape(mut self, value: Bool32) -> Self {
-        self.residency_standard2_dmultisample_block_shape = value;
+    pub fn residency_standard2_dmultisample_block_shape(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.residency_standard2_dmultisample_block_shape = value.into();
         self
     }
     #[inline]
-    pub fn residency_standard3_dblock_shape(mut self, value: Bool32) -> Self {
-        self.residency_standard3_dblock_shape = value;
+    pub fn residency_standard3_dblock_shape(mut self, value: impl Into<Bool32>) -> Self {
+        self.residency_standard3_dblock_shape = value.into();
         self
     }
     #[inline]
-    pub fn residency_aligned_mip_size(mut self, value: Bool32) -> Self {
-        self.residency_aligned_mip_size = value;
+    pub fn residency_aligned_mip_size(mut self, value: impl Into<Bool32>) -> Self {
+        self.residency_aligned_mip_size = value.into();
         self
     }
     #[inline]
-    pub fn residency_non_resident_strict(mut self, value: Bool32) -> Self {
-        self.residency_non_resident_strict = value;
+    pub fn residency_non_resident_strict(mut self, value: impl Into<Bool32>) -> Self {
+        self.residency_non_resident_strict = value.into();
         self
     }
 }
@@ -4118,8 +4127,8 @@ impl Default for PipelineColorBlendAttachmentState {
 }
 impl PipelineColorBlendAttachmentState {
     #[inline]
-    pub fn blend_enable(mut self, value: Bool32) -> Self {
-        self.blend_enable = value;
+    pub fn blend_enable(mut self, value: impl Into<Bool32>) -> Self {
+        self.blend_enable = value.into();
         self
     }
     #[inline]
@@ -4199,8 +4208,8 @@ impl<'a> PipelineColorBlendStateCreateInfo<'a> {
         self
     }
     #[inline]
-    pub fn logic_op_enable(mut self, value: Bool32) -> Self {
-        self.logic_op_enable = value;
+    pub fn logic_op_enable(mut self, value: impl Into<Bool32>) -> Self {
+        self.logic_op_enable = value.into();
         self
     }
     #[inline]
@@ -4277,13 +4286,13 @@ impl<'a> PipelineDepthStencilStateCreateInfo<'a> {
         self
     }
     #[inline]
-    pub fn depth_test_enable(mut self, value: Bool32) -> Self {
-        self.depth_test_enable = value;
+    pub fn depth_test_enable(mut self, value: impl Into<Bool32>) -> Self {
+        self.depth_test_enable = value.into();
         self
     }
     #[inline]
-    pub fn depth_write_enable(mut self, value: Bool32) -> Self {
-        self.depth_write_enable = value;
+    pub fn depth_write_enable(mut self, value: impl Into<Bool32>) -> Self {
+        self.depth_write_enable = value.into();
         self
     }
     #[inline]
@@ -4292,13 +4301,13 @@ impl<'a> PipelineDepthStencilStateCreateInfo<'a> {
         self
     }
     #[inline]
-    pub fn depth_bounds_test_enable(mut self, value: Bool32) -> Self {
-        self.depth_bounds_test_enable = value;
+    pub fn depth_bounds_test_enable(mut self, value: impl Into<Bool32>) -> Self {
+        self.depth_bounds_test_enable = value.into();
         self
     }
     #[inline]
-    pub fn stencil_test_enable(mut self, value: Bool32) -> Self {
-        self.stencil_test_enable = value;
+    pub fn stencil_test_enable(mut self, value: impl Into<Bool32>) -> Self {
+        self.stencil_test_enable = value.into();
         self
     }
     #[inline]
@@ -4409,8 +4418,8 @@ impl<'a> PipelineInputAssemblyStateCreateInfo<'a> {
         self
     }
     #[inline]
-    pub fn primitive_restart_enable(mut self, value: Bool32) -> Self {
-        self.primitive_restart_enable = value;
+    pub fn primitive_restart_enable(mut self, value: impl Into<Bool32>) -> Self {
+        self.primitive_restart_enable = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -4460,8 +4469,8 @@ impl<'a> PipelineMultisampleStateCreateInfo<'a> {
         self
     }
     #[inline]
-    pub fn sample_shading_enable(mut self, value: Bool32) -> Self {
-        self.sample_shading_enable = value;
+    pub fn sample_shading_enable(mut self, value: impl Into<Bool32>) -> Self {
+        self.sample_shading_enable = value.into();
         self
     }
     #[inline]
@@ -4470,13 +4479,13 @@ impl<'a> PipelineMultisampleStateCreateInfo<'a> {
         self
     }
     #[inline]
-    pub fn alpha_to_coverage_enable(mut self, value: Bool32) -> Self {
-        self.alpha_to_coverage_enable = value;
+    pub fn alpha_to_coverage_enable(mut self, value: impl Into<Bool32>) -> Self {
+        self.alpha_to_coverage_enable = value.into();
         self
     }
     #[inline]
-    pub fn alpha_to_one_enable(mut self, value: Bool32) -> Self {
-        self.alpha_to_one_enable = value;
+    pub fn alpha_to_one_enable(mut self, value: impl Into<Bool32>) -> Self {
+        self.alpha_to_one_enable = value.into();
         self
     }
     #[inline]
@@ -4547,13 +4556,13 @@ impl<'a> PipelineRasterizationStateCreateInfo<'a> {
         self
     }
     #[inline]
-    pub fn depth_clamp_enable(mut self, value: Bool32) -> Self {
-        self.depth_clamp_enable = value;
+    pub fn depth_clamp_enable(mut self, value: impl Into<Bool32>) -> Self {
+        self.depth_clamp_enable = value.into();
         self
     }
     #[inline]
-    pub fn rasterizer_discard_enable(mut self, value: Bool32) -> Self {
-        self.rasterizer_discard_enable = value;
+    pub fn rasterizer_discard_enable(mut self, value: impl Into<Bool32>) -> Self {
+        self.rasterizer_discard_enable = value.into();
         self
     }
     #[inline]
@@ -4572,8 +4581,8 @@ impl<'a> PipelineRasterizationStateCreateInfo<'a> {
         self
     }
     #[inline]
-    pub fn depth_bias_enable(mut self, value: Bool32) -> Self {
-        self.depth_bias_enable = value;
+    pub fn depth_bias_enable(mut self, value: impl Into<Bool32>) -> Self {
+        self.depth_bias_enable = value.into();
         self
     }
     #[inline]
@@ -5324,8 +5333,8 @@ impl<'a> SamplerCreateInfo<'a> {
         self
     }
     #[inline]
-    pub fn anisotropy_enable(mut self, value: Bool32) -> Self {
-        self.anisotropy_enable = value;
+    pub fn anisotropy_enable(mut self, value: impl Into<Bool32>) -> Self {
+        self.anisotropy_enable = value.into();
         self
     }
     #[inline]
@@ -5334,8 +5343,8 @@ impl<'a> SamplerCreateInfo<'a> {
         self
     }
     #[inline]
-    pub fn compare_enable(mut self, value: Bool32) -> Self {
-        self.compare_enable = value;
+    pub fn compare_enable(mut self, value: impl Into<Bool32>) -> Self {
+        self.compare_enable = value.into();
         self
     }
     #[inline]
@@ -5359,8 +5368,8 @@ impl<'a> SamplerCreateInfo<'a> {
         self
     }
     #[inline]
-    pub fn unnormalized_coordinates(mut self, value: Bool32) -> Self {
-        self.unnormalized_coordinates = value;
+    pub fn unnormalized_coordinates(mut self, value: impl Into<Bool32>) -> Self {
+        self.unnormalized_coordinates = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -6391,8 +6400,8 @@ impl<'a> CommandBufferInheritanceInfo<'a> {
         self
     }
     #[inline]
-    pub fn occlusion_query_enable(mut self, value: Bool32) -> Self {
-        self.occlusion_query_enable = value;
+    pub fn occlusion_query_enable(mut self, value: impl Into<Bool32>) -> Self {
+        self.occlusion_query_enable = value.into();
         self
     }
     #[inline]
@@ -6938,8 +6947,8 @@ impl<'a> PhysicalDeviceSubgroupProperties<'a> {
         self
     }
     #[inline]
-    pub fn quad_operations_in_all_stages(mut self, value: Bool32) -> Self {
-        self.quad_operations_in_all_stages = value;
+    pub fn quad_operations_in_all_stages(mut self, value: impl Into<Bool32>) -> Self {
+        self.quad_operations_in_all_stages = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -7084,23 +7093,23 @@ impl<'a> Default for PhysicalDevice16BitStorageFeatures<'a> {
 }
 impl<'a> PhysicalDevice16BitStorageFeatures<'a> {
     #[inline]
-    pub fn storage_buffer16_bit_access(mut self, value: Bool32) -> Self {
-        self.storage_buffer16_bit_access = value;
+    pub fn storage_buffer16_bit_access(mut self, value: impl Into<Bool32>) -> Self {
+        self.storage_buffer16_bit_access = value.into();
         self
     }
     #[inline]
-    pub fn uniform_and_storage_buffer16_bit_access(mut self, value: Bool32) -> Self {
-        self.uniform_and_storage_buffer16_bit_access = value;
+    pub fn uniform_and_storage_buffer16_bit_access(mut self, value: impl Into<Bool32>) -> Self {
+        self.uniform_and_storage_buffer16_bit_access = value.into();
         self
     }
     #[inline]
-    pub fn storage_push_constant16(mut self, value: Bool32) -> Self {
-        self.storage_push_constant16 = value;
+    pub fn storage_push_constant16(mut self, value: impl Into<Bool32>) -> Self {
+        self.storage_push_constant16 = value.into();
         self
     }
     #[inline]
-    pub fn storage_input_output16(mut self, value: Bool32) -> Self {
-        self.storage_input_output16 = value;
+    pub fn storage_input_output16(mut self, value: impl Into<Bool32>) -> Self {
+        self.storage_input_output16 = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -7140,13 +7149,13 @@ impl<'a> Default for MemoryDedicatedRequirements<'a> {
 }
 impl<'a> MemoryDedicatedRequirements<'a> {
     #[inline]
-    pub fn prefers_dedicated_allocation(mut self, value: Bool32) -> Self {
-        self.prefers_dedicated_allocation = value;
+    pub fn prefers_dedicated_allocation(mut self, value: impl Into<Bool32>) -> Self {
+        self.prefers_dedicated_allocation = value.into();
         self
     }
     #[inline]
-    pub fn requires_dedicated_allocation(mut self, value: Bool32) -> Self {
-        self.requires_dedicated_allocation = value;
+    pub fn requires_dedicated_allocation(mut self, value: impl Into<Bool32>) -> Self {
+        self.requires_dedicated_allocation = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -7564,8 +7573,8 @@ impl<'a> Default for PhysicalDeviceGroupProperties<'a> {
 }
 impl<'a> PhysicalDeviceGroupProperties<'a> {
     #[inline]
-    pub fn subset_allocation(mut self, value: Bool32) -> Self {
-        self.subset_allocation = value;
+    pub fn subset_allocation(mut self, value: impl Into<Bool32>) -> Self {
+        self.subset_allocation = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -8462,18 +8471,18 @@ impl<'a> Default for PhysicalDeviceMultiviewFeatures<'a> {
 }
 impl<'a> PhysicalDeviceMultiviewFeatures<'a> {
     #[inline]
-    pub fn multiview(mut self, value: Bool32) -> Self {
-        self.multiview = value;
+    pub fn multiview(mut self, value: impl Into<Bool32>) -> Self {
+        self.multiview = value.into();
         self
     }
     #[inline]
-    pub fn multiview_geometry_shader(mut self, value: Bool32) -> Self {
-        self.multiview_geometry_shader = value;
+    pub fn multiview_geometry_shader(mut self, value: impl Into<Bool32>) -> Self {
+        self.multiview_geometry_shader = value.into();
         self
     }
     #[inline]
-    pub fn multiview_tessellation_shader(mut self, value: Bool32) -> Self {
-        self.multiview_tessellation_shader = value;
+    pub fn multiview_tessellation_shader(mut self, value: impl Into<Bool32>) -> Self {
+        self.multiview_tessellation_shader = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -8563,13 +8572,13 @@ impl<'a> Default for PhysicalDeviceVariablePointersFeatures<'a> {
 }
 impl<'a> PhysicalDeviceVariablePointersFeatures<'a> {
     #[inline]
-    pub fn variable_pointers_storage_buffer(mut self, value: Bool32) -> Self {
-        self.variable_pointers_storage_buffer = value;
+    pub fn variable_pointers_storage_buffer(mut self, value: impl Into<Bool32>) -> Self {
+        self.variable_pointers_storage_buffer = value.into();
         self
     }
     #[inline]
-    pub fn variable_pointers(mut self, value: Bool32) -> Self {
-        self.variable_pointers = value;
+    pub fn variable_pointers(mut self, value: impl Into<Bool32>) -> Self {
+        self.variable_pointers = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -8613,8 +8622,8 @@ impl<'a> Default for PhysicalDeviceProtectedMemoryFeatures<'a> {
 }
 impl<'a> PhysicalDeviceProtectedMemoryFeatures<'a> {
     #[inline]
-    pub fn protected_memory(mut self, value: Bool32) -> Self {
-        self.protected_memory = value;
+    pub fn protected_memory(mut self, value: impl Into<Bool32>) -> Self {
+        self.protected_memory = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -8651,8 +8660,8 @@ impl<'a> Default for PhysicalDeviceProtectedMemoryProperties<'a> {
 }
 impl<'a> PhysicalDeviceProtectedMemoryProperties<'a> {
     #[inline]
-    pub fn protected_no_fault(mut self, value: Bool32) -> Self {
-        self.protected_no_fault = value;
+    pub fn protected_no_fault(mut self, value: impl Into<Bool32>) -> Self {
+        self.protected_no_fault = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -8734,8 +8743,8 @@ impl<'a> Default for ProtectedSubmitInfo<'a> {
 }
 impl<'a> ProtectedSubmitInfo<'a> {
     #[inline]
-    pub fn protected_submit(mut self, value: Bool32) -> Self {
-        self.protected_submit = value;
+    pub fn protected_submit(mut self, value: impl Into<Bool32>) -> Self {
+        self.protected_submit = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -8817,8 +8826,8 @@ impl<'a> SamplerYcbcrConversionCreateInfo<'a> {
         self
     }
     #[inline]
-    pub fn force_explicit_reconstruction(mut self, value: Bool32) -> Self {
-        self.force_explicit_reconstruction = value;
+    pub fn force_explicit_reconstruction(mut self, value: impl Into<Bool32>) -> Self {
+        self.force_explicit_reconstruction = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -8973,8 +8982,8 @@ impl<'a> Default for PhysicalDeviceSamplerYcbcrConversionFeatures<'a> {
 }
 impl<'a> PhysicalDeviceSamplerYcbcrConversionFeatures<'a> {
     #[inline]
-    pub fn sampler_ycbcr_conversion(mut self, value: Bool32) -> Self {
-        self.sampler_ycbcr_conversion = value;
+    pub fn sampler_ycbcr_conversion(mut self, value: impl Into<Bool32>) -> Self {
+        self.sampler_ycbcr_conversion = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -9427,8 +9436,8 @@ impl<'a> PhysicalDeviceIDProperties<'a> {
         self
     }
     #[inline]
-    pub fn device_luidvalid(mut self, value: Bool32) -> Self {
-        self.device_luidvalid = value;
+    pub fn device_luidvalid(mut self, value: impl Into<Bool32>) -> Self {
+        self.device_luidvalid = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -9865,8 +9874,8 @@ impl<'a> Default for DescriptorSetLayoutSupport<'a> {
 }
 impl<'a> DescriptorSetLayoutSupport<'a> {
     #[inline]
-    pub fn supported(mut self, value: Bool32) -> Self {
-        self.supported = value;
+    pub fn supported(mut self, value: impl Into<Bool32>) -> Self {
+        self.supported = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -9908,8 +9917,8 @@ impl<'a> Default for PhysicalDeviceShaderDrawParametersFeatures<'a> {
 }
 impl<'a> PhysicalDeviceShaderDrawParametersFeatures<'a> {
     #[inline]
-    pub fn shader_draw_parameters(mut self, value: Bool32) -> Self {
-        self.shader_draw_parameters = value;
+    pub fn shader_draw_parameters(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_draw_parameters = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -9974,63 +9983,63 @@ impl<'a> Default for PhysicalDeviceVulkan11Features<'a> {
 }
 impl<'a> PhysicalDeviceVulkan11Features<'a> {
     #[inline]
-    pub fn storage_buffer16_bit_access(mut self, value: Bool32) -> Self {
-        self.storage_buffer16_bit_access = value;
+    pub fn storage_buffer16_bit_access(mut self, value: impl Into<Bool32>) -> Self {
+        self.storage_buffer16_bit_access = value.into();
         self
     }
     #[inline]
-    pub fn uniform_and_storage_buffer16_bit_access(mut self, value: Bool32) -> Self {
-        self.uniform_and_storage_buffer16_bit_access = value;
+    pub fn uniform_and_storage_buffer16_bit_access(mut self, value: impl Into<Bool32>) -> Self {
+        self.uniform_and_storage_buffer16_bit_access = value.into();
         self
     }
     #[inline]
-    pub fn storage_push_constant16(mut self, value: Bool32) -> Self {
-        self.storage_push_constant16 = value;
+    pub fn storage_push_constant16(mut self, value: impl Into<Bool32>) -> Self {
+        self.storage_push_constant16 = value.into();
         self
     }
     #[inline]
-    pub fn storage_input_output16(mut self, value: Bool32) -> Self {
-        self.storage_input_output16 = value;
+    pub fn storage_input_output16(mut self, value: impl Into<Bool32>) -> Self {
+        self.storage_input_output16 = value.into();
         self
     }
     #[inline]
-    pub fn multiview(mut self, value: Bool32) -> Self {
-        self.multiview = value;
+    pub fn multiview(mut self, value: impl Into<Bool32>) -> Self {
+        self.multiview = value.into();
         self
     }
     #[inline]
-    pub fn multiview_geometry_shader(mut self, value: Bool32) -> Self {
-        self.multiview_geometry_shader = value;
+    pub fn multiview_geometry_shader(mut self, value: impl Into<Bool32>) -> Self {
+        self.multiview_geometry_shader = value.into();
         self
     }
     #[inline]
-    pub fn multiview_tessellation_shader(mut self, value: Bool32) -> Self {
-        self.multiview_tessellation_shader = value;
+    pub fn multiview_tessellation_shader(mut self, value: impl Into<Bool32>) -> Self {
+        self.multiview_tessellation_shader = value.into();
         self
     }
     #[inline]
-    pub fn variable_pointers_storage_buffer(mut self, value: Bool32) -> Self {
-        self.variable_pointers_storage_buffer = value;
+    pub fn variable_pointers_storage_buffer(mut self, value: impl Into<Bool32>) -> Self {
+        self.variable_pointers_storage_buffer = value.into();
         self
     }
     #[inline]
-    pub fn variable_pointers(mut self, value: Bool32) -> Self {
-        self.variable_pointers = value;
+    pub fn variable_pointers(mut self, value: impl Into<Bool32>) -> Self {
+        self.variable_pointers = value.into();
         self
     }
     #[inline]
-    pub fn protected_memory(mut self, value: Bool32) -> Self {
-        self.protected_memory = value;
+    pub fn protected_memory(mut self, value: impl Into<Bool32>) -> Self {
+        self.protected_memory = value.into();
         self
     }
     #[inline]
-    pub fn sampler_ycbcr_conversion(mut self, value: Bool32) -> Self {
-        self.sampler_ycbcr_conversion = value;
+    pub fn sampler_ycbcr_conversion(mut self, value: impl Into<Bool32>) -> Self {
+        self.sampler_ycbcr_conversion = value.into();
         self
     }
     #[inline]
-    pub fn shader_draw_parameters(mut self, value: Bool32) -> Self {
-        self.shader_draw_parameters = value;
+    pub fn shader_draw_parameters(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_draw_parameters = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -10115,8 +10124,8 @@ impl<'a> PhysicalDeviceVulkan11Properties<'a> {
         self
     }
     #[inline]
-    pub fn device_luidvalid(mut self, value: Bool32) -> Self {
-        self.device_luidvalid = value;
+    pub fn device_luidvalid(mut self, value: impl Into<Bool32>) -> Self {
+        self.device_luidvalid = value.into();
         self
     }
     #[inline]
@@ -10135,8 +10144,8 @@ impl<'a> PhysicalDeviceVulkan11Properties<'a> {
         self
     }
     #[inline]
-    pub fn subgroup_quad_operations_in_all_stages(mut self, value: Bool32) -> Self {
-        self.subgroup_quad_operations_in_all_stages = value;
+    pub fn subgroup_quad_operations_in_all_stages(mut self, value: impl Into<Bool32>) -> Self {
+        self.subgroup_quad_operations_in_all_stages = value.into();
         self
     }
     #[inline]
@@ -10155,8 +10164,8 @@ impl<'a> PhysicalDeviceVulkan11Properties<'a> {
         self
     }
     #[inline]
-    pub fn protected_no_fault(mut self, value: Bool32) -> Self {
-        self.protected_no_fault = value;
+    pub fn protected_no_fault(mut self, value: impl Into<Bool32>) -> Self {
+        self.protected_no_fault = value.into();
         self
     }
     #[inline]
@@ -10299,244 +10308,295 @@ impl<'a> Default for PhysicalDeviceVulkan12Features<'a> {
 }
 impl<'a> PhysicalDeviceVulkan12Features<'a> {
     #[inline]
-    pub fn sampler_mirror_clamp_to_edge(mut self, value: Bool32) -> Self {
-        self.sampler_mirror_clamp_to_edge = value;
+    pub fn sampler_mirror_clamp_to_edge(mut self, value: impl Into<Bool32>) -> Self {
+        self.sampler_mirror_clamp_to_edge = value.into();
         self
     }
     #[inline]
-    pub fn draw_indirect_count(mut self, value: Bool32) -> Self {
-        self.draw_indirect_count = value;
+    pub fn draw_indirect_count(mut self, value: impl Into<Bool32>) -> Self {
+        self.draw_indirect_count = value.into();
         self
     }
     #[inline]
-    pub fn storage_buffer8_bit_access(mut self, value: Bool32) -> Self {
-        self.storage_buffer8_bit_access = value;
+    pub fn storage_buffer8_bit_access(mut self, value: impl Into<Bool32>) -> Self {
+        self.storage_buffer8_bit_access = value.into();
         self
     }
     #[inline]
-    pub fn uniform_and_storage_buffer8_bit_access(mut self, value: Bool32) -> Self {
-        self.uniform_and_storage_buffer8_bit_access = value;
+    pub fn uniform_and_storage_buffer8_bit_access(mut self, value: impl Into<Bool32>) -> Self {
+        self.uniform_and_storage_buffer8_bit_access = value.into();
         self
     }
     #[inline]
-    pub fn storage_push_constant8(mut self, value: Bool32) -> Self {
-        self.storage_push_constant8 = value;
+    pub fn storage_push_constant8(mut self, value: impl Into<Bool32>) -> Self {
+        self.storage_push_constant8 = value.into();
         self
     }
     #[inline]
-    pub fn shader_buffer_int64_atomics(mut self, value: Bool32) -> Self {
-        self.shader_buffer_int64_atomics = value;
+    pub fn shader_buffer_int64_atomics(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_buffer_int64_atomics = value.into();
         self
     }
     #[inline]
-    pub fn shader_shared_int64_atomics(mut self, value: Bool32) -> Self {
-        self.shader_shared_int64_atomics = value;
+    pub fn shader_shared_int64_atomics(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_shared_int64_atomics = value.into();
         self
     }
     #[inline]
-    pub fn shader_float16(mut self, value: Bool32) -> Self {
-        self.shader_float16 = value;
+    pub fn shader_float16(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_float16 = value.into();
         self
     }
     #[inline]
-    pub fn shader_int8(mut self, value: Bool32) -> Self {
-        self.shader_int8 = value;
+    pub fn shader_int8(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_int8 = value.into();
         self
     }
     #[inline]
-    pub fn descriptor_indexing(mut self, value: Bool32) -> Self {
-        self.descriptor_indexing = value;
+    pub fn descriptor_indexing(mut self, value: impl Into<Bool32>) -> Self {
+        self.descriptor_indexing = value.into();
         self
     }
     #[inline]
-    pub fn shader_input_attachment_array_dynamic_indexing(mut self, value: Bool32) -> Self {
-        self.shader_input_attachment_array_dynamic_indexing = value;
+    pub fn shader_input_attachment_array_dynamic_indexing(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.shader_input_attachment_array_dynamic_indexing = value.into();
         self
     }
     #[inline]
-    pub fn shader_uniform_texel_buffer_array_dynamic_indexing(mut self, value: Bool32) -> Self {
-        self.shader_uniform_texel_buffer_array_dynamic_indexing = value;
+    pub fn shader_uniform_texel_buffer_array_dynamic_indexing(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.shader_uniform_texel_buffer_array_dynamic_indexing = value.into();
         self
     }
     #[inline]
-    pub fn shader_storage_texel_buffer_array_dynamic_indexing(mut self, value: Bool32) -> Self {
-        self.shader_storage_texel_buffer_array_dynamic_indexing = value;
+    pub fn shader_storage_texel_buffer_array_dynamic_indexing(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.shader_storage_texel_buffer_array_dynamic_indexing = value.into();
         self
     }
     #[inline]
-    pub fn shader_uniform_buffer_array_non_uniform_indexing(mut self, value: Bool32) -> Self {
-        self.shader_uniform_buffer_array_non_uniform_indexing = value;
+    pub fn shader_uniform_buffer_array_non_uniform_indexing(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.shader_uniform_buffer_array_non_uniform_indexing = value.into();
         self
     }
     #[inline]
-    pub fn shader_sampled_image_array_non_uniform_indexing(mut self, value: Bool32) -> Self {
-        self.shader_sampled_image_array_non_uniform_indexing = value;
+    pub fn shader_sampled_image_array_non_uniform_indexing(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.shader_sampled_image_array_non_uniform_indexing = value.into();
         self
     }
     #[inline]
-    pub fn shader_storage_buffer_array_non_uniform_indexing(mut self, value: Bool32) -> Self {
-        self.shader_storage_buffer_array_non_uniform_indexing = value;
+    pub fn shader_storage_buffer_array_non_uniform_indexing(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.shader_storage_buffer_array_non_uniform_indexing = value.into();
         self
     }
     #[inline]
-    pub fn shader_storage_image_array_non_uniform_indexing(mut self, value: Bool32) -> Self {
-        self.shader_storage_image_array_non_uniform_indexing = value;
+    pub fn shader_storage_image_array_non_uniform_indexing(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.shader_storage_image_array_non_uniform_indexing = value.into();
         self
     }
     #[inline]
-    pub fn shader_input_attachment_array_non_uniform_indexing(mut self, value: Bool32) -> Self {
-        self.shader_input_attachment_array_non_uniform_indexing = value;
+    pub fn shader_input_attachment_array_non_uniform_indexing(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.shader_input_attachment_array_non_uniform_indexing = value.into();
         self
     }
     #[inline]
-    pub fn shader_uniform_texel_buffer_array_non_uniform_indexing(mut self, value: Bool32) -> Self {
-        self.shader_uniform_texel_buffer_array_non_uniform_indexing = value;
+    pub fn shader_uniform_texel_buffer_array_non_uniform_indexing(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.shader_uniform_texel_buffer_array_non_uniform_indexing = value.into();
         self
     }
     #[inline]
-    pub fn shader_storage_texel_buffer_array_non_uniform_indexing(mut self, value: Bool32) -> Self {
-        self.shader_storage_texel_buffer_array_non_uniform_indexing = value;
+    pub fn shader_storage_texel_buffer_array_non_uniform_indexing(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.shader_storage_texel_buffer_array_non_uniform_indexing = value.into();
         self
     }
     #[inline]
-    pub fn descriptor_binding_uniform_buffer_update_after_bind(mut self, value: Bool32) -> Self {
-        self.descriptor_binding_uniform_buffer_update_after_bind = value;
+    pub fn descriptor_binding_uniform_buffer_update_after_bind(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.descriptor_binding_uniform_buffer_update_after_bind = value.into();
         self
     }
     #[inline]
-    pub fn descriptor_binding_sampled_image_update_after_bind(mut self, value: Bool32) -> Self {
-        self.descriptor_binding_sampled_image_update_after_bind = value;
+    pub fn descriptor_binding_sampled_image_update_after_bind(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.descriptor_binding_sampled_image_update_after_bind = value.into();
         self
     }
     #[inline]
-    pub fn descriptor_binding_storage_image_update_after_bind(mut self, value: Bool32) -> Self {
-        self.descriptor_binding_storage_image_update_after_bind = value;
+    pub fn descriptor_binding_storage_image_update_after_bind(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.descriptor_binding_storage_image_update_after_bind = value.into();
         self
     }
     #[inline]
-    pub fn descriptor_binding_storage_buffer_update_after_bind(mut self, value: Bool32) -> Self {
-        self.descriptor_binding_storage_buffer_update_after_bind = value;
+    pub fn descriptor_binding_storage_buffer_update_after_bind(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.descriptor_binding_storage_buffer_update_after_bind = value.into();
         self
     }
     #[inline]
     pub fn descriptor_binding_uniform_texel_buffer_update_after_bind(
         mut self,
-        value: Bool32,
+        value: impl Into<Bool32>,
     ) -> Self {
-        self.descriptor_binding_uniform_texel_buffer_update_after_bind = value;
+        self.descriptor_binding_uniform_texel_buffer_update_after_bind = value.into();
         self
     }
     #[inline]
     pub fn descriptor_binding_storage_texel_buffer_update_after_bind(
         mut self,
-        value: Bool32,
+        value: impl Into<Bool32>,
     ) -> Self {
-        self.descriptor_binding_storage_texel_buffer_update_after_bind = value;
+        self.descriptor_binding_storage_texel_buffer_update_after_bind = value.into();
         self
     }
     #[inline]
-    pub fn descriptor_binding_update_unused_while_pending(mut self, value: Bool32) -> Self {
-        self.descriptor_binding_update_unused_while_pending = value;
+    pub fn descriptor_binding_update_unused_while_pending(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.descriptor_binding_update_unused_while_pending = value.into();
         self
     }
     #[inline]
-    pub fn descriptor_binding_partially_bound(mut self, value: Bool32) -> Self {
-        self.descriptor_binding_partially_bound = value;
+    pub fn descriptor_binding_partially_bound(mut self, value: impl Into<Bool32>) -> Self {
+        self.descriptor_binding_partially_bound = value.into();
         self
     }
     #[inline]
-    pub fn descriptor_binding_variable_descriptor_count(mut self, value: Bool32) -> Self {
-        self.descriptor_binding_variable_descriptor_count = value;
+    pub fn descriptor_binding_variable_descriptor_count(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.descriptor_binding_variable_descriptor_count = value.into();
         self
     }
     #[inline]
-    pub fn runtime_descriptor_array(mut self, value: Bool32) -> Self {
-        self.runtime_descriptor_array = value;
+    pub fn runtime_descriptor_array(mut self, value: impl Into<Bool32>) -> Self {
+        self.runtime_descriptor_array = value.into();
         self
     }
     #[inline]
-    pub fn sampler_filter_minmax(mut self, value: Bool32) -> Self {
-        self.sampler_filter_minmax = value;
+    pub fn sampler_filter_minmax(mut self, value: impl Into<Bool32>) -> Self {
+        self.sampler_filter_minmax = value.into();
         self
     }
     #[inline]
-    pub fn scalar_block_layout(mut self, value: Bool32) -> Self {
-        self.scalar_block_layout = value;
+    pub fn scalar_block_layout(mut self, value: impl Into<Bool32>) -> Self {
+        self.scalar_block_layout = value.into();
         self
     }
     #[inline]
-    pub fn imageless_framebuffer(mut self, value: Bool32) -> Self {
-        self.imageless_framebuffer = value;
+    pub fn imageless_framebuffer(mut self, value: impl Into<Bool32>) -> Self {
+        self.imageless_framebuffer = value.into();
         self
     }
     #[inline]
-    pub fn uniform_buffer_standard_layout(mut self, value: Bool32) -> Self {
-        self.uniform_buffer_standard_layout = value;
+    pub fn uniform_buffer_standard_layout(mut self, value: impl Into<Bool32>) -> Self {
+        self.uniform_buffer_standard_layout = value.into();
         self
     }
     #[inline]
-    pub fn shader_subgroup_extended_types(mut self, value: Bool32) -> Self {
-        self.shader_subgroup_extended_types = value;
+    pub fn shader_subgroup_extended_types(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_subgroup_extended_types = value.into();
         self
     }
     #[inline]
-    pub fn separate_depth_stencil_layouts(mut self, value: Bool32) -> Self {
-        self.separate_depth_stencil_layouts = value;
+    pub fn separate_depth_stencil_layouts(mut self, value: impl Into<Bool32>) -> Self {
+        self.separate_depth_stencil_layouts = value.into();
         self
     }
     #[inline]
-    pub fn host_query_reset(mut self, value: Bool32) -> Self {
-        self.host_query_reset = value;
+    pub fn host_query_reset(mut self, value: impl Into<Bool32>) -> Self {
+        self.host_query_reset = value.into();
         self
     }
     #[inline]
-    pub fn timeline_semaphore(mut self, value: Bool32) -> Self {
-        self.timeline_semaphore = value;
+    pub fn timeline_semaphore(mut self, value: impl Into<Bool32>) -> Self {
+        self.timeline_semaphore = value.into();
         self
     }
     #[inline]
-    pub fn buffer_device_address(mut self, value: Bool32) -> Self {
-        self.buffer_device_address = value;
+    pub fn buffer_device_address(mut self, value: impl Into<Bool32>) -> Self {
+        self.buffer_device_address = value.into();
         self
     }
     #[inline]
-    pub fn buffer_device_address_capture_replay(mut self, value: Bool32) -> Self {
-        self.buffer_device_address_capture_replay = value;
+    pub fn buffer_device_address_capture_replay(mut self, value: impl Into<Bool32>) -> Self {
+        self.buffer_device_address_capture_replay = value.into();
         self
     }
     #[inline]
-    pub fn buffer_device_address_multi_device(mut self, value: Bool32) -> Self {
-        self.buffer_device_address_multi_device = value;
+    pub fn buffer_device_address_multi_device(mut self, value: impl Into<Bool32>) -> Self {
+        self.buffer_device_address_multi_device = value.into();
         self
     }
     #[inline]
-    pub fn vulkan_memory_model(mut self, value: Bool32) -> Self {
-        self.vulkan_memory_model = value;
+    pub fn vulkan_memory_model(mut self, value: impl Into<Bool32>) -> Self {
+        self.vulkan_memory_model = value.into();
         self
     }
     #[inline]
-    pub fn vulkan_memory_model_device_scope(mut self, value: Bool32) -> Self {
-        self.vulkan_memory_model_device_scope = value;
+    pub fn vulkan_memory_model_device_scope(mut self, value: impl Into<Bool32>) -> Self {
+        self.vulkan_memory_model_device_scope = value.into();
         self
     }
     #[inline]
-    pub fn vulkan_memory_model_availability_visibility_chains(mut self, value: Bool32) -> Self {
-        self.vulkan_memory_model_availability_visibility_chains = value;
+    pub fn vulkan_memory_model_availability_visibility_chains(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.vulkan_memory_model_availability_visibility_chains = value.into();
         self
     }
     #[inline]
-    pub fn shader_output_viewport_index(mut self, value: Bool32) -> Self {
-        self.shader_output_viewport_index = value;
+    pub fn shader_output_viewport_index(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_output_viewport_index = value.into();
         self
     }
     #[inline]
-    pub fn shader_output_layer(mut self, value: Bool32) -> Self {
-        self.shader_output_layer = value;
+    pub fn shader_output_layer(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_output_layer = value.into();
         self
     }
     #[inline]
-    pub fn subgroup_broadcast_dynamic_id(mut self, value: Bool32) -> Self {
-        self.subgroup_broadcast_dynamic_id = value;
+    pub fn subgroup_broadcast_dynamic_id(mut self, value: impl Into<Bool32>) -> Self {
+        self.subgroup_broadcast_dynamic_id = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -10695,78 +10755,78 @@ impl<'a> PhysicalDeviceVulkan12Properties<'a> {
         self
     }
     #[inline]
-    pub fn shader_signed_zero_inf_nan_preserve_float16(mut self, value: Bool32) -> Self {
-        self.shader_signed_zero_inf_nan_preserve_float16 = value;
+    pub fn shader_signed_zero_inf_nan_preserve_float16(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_signed_zero_inf_nan_preserve_float16 = value.into();
         self
     }
     #[inline]
-    pub fn shader_signed_zero_inf_nan_preserve_float32(mut self, value: Bool32) -> Self {
-        self.shader_signed_zero_inf_nan_preserve_float32 = value;
+    pub fn shader_signed_zero_inf_nan_preserve_float32(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_signed_zero_inf_nan_preserve_float32 = value.into();
         self
     }
     #[inline]
-    pub fn shader_signed_zero_inf_nan_preserve_float64(mut self, value: Bool32) -> Self {
-        self.shader_signed_zero_inf_nan_preserve_float64 = value;
+    pub fn shader_signed_zero_inf_nan_preserve_float64(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_signed_zero_inf_nan_preserve_float64 = value.into();
         self
     }
     #[inline]
-    pub fn shader_denorm_preserve_float16(mut self, value: Bool32) -> Self {
-        self.shader_denorm_preserve_float16 = value;
+    pub fn shader_denorm_preserve_float16(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_denorm_preserve_float16 = value.into();
         self
     }
     #[inline]
-    pub fn shader_denorm_preserve_float32(mut self, value: Bool32) -> Self {
-        self.shader_denorm_preserve_float32 = value;
+    pub fn shader_denorm_preserve_float32(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_denorm_preserve_float32 = value.into();
         self
     }
     #[inline]
-    pub fn shader_denorm_preserve_float64(mut self, value: Bool32) -> Self {
-        self.shader_denorm_preserve_float64 = value;
+    pub fn shader_denorm_preserve_float64(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_denorm_preserve_float64 = value.into();
         self
     }
     #[inline]
-    pub fn shader_denorm_flush_to_zero_float16(mut self, value: Bool32) -> Self {
-        self.shader_denorm_flush_to_zero_float16 = value;
+    pub fn shader_denorm_flush_to_zero_float16(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_denorm_flush_to_zero_float16 = value.into();
         self
     }
     #[inline]
-    pub fn shader_denorm_flush_to_zero_float32(mut self, value: Bool32) -> Self {
-        self.shader_denorm_flush_to_zero_float32 = value;
+    pub fn shader_denorm_flush_to_zero_float32(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_denorm_flush_to_zero_float32 = value.into();
         self
     }
     #[inline]
-    pub fn shader_denorm_flush_to_zero_float64(mut self, value: Bool32) -> Self {
-        self.shader_denorm_flush_to_zero_float64 = value;
+    pub fn shader_denorm_flush_to_zero_float64(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_denorm_flush_to_zero_float64 = value.into();
         self
     }
     #[inline]
-    pub fn shader_rounding_mode_rtefloat16(mut self, value: Bool32) -> Self {
-        self.shader_rounding_mode_rtefloat16 = value;
+    pub fn shader_rounding_mode_rtefloat16(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_rounding_mode_rtefloat16 = value.into();
         self
     }
     #[inline]
-    pub fn shader_rounding_mode_rtefloat32(mut self, value: Bool32) -> Self {
-        self.shader_rounding_mode_rtefloat32 = value;
+    pub fn shader_rounding_mode_rtefloat32(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_rounding_mode_rtefloat32 = value.into();
         self
     }
     #[inline]
-    pub fn shader_rounding_mode_rtefloat64(mut self, value: Bool32) -> Self {
-        self.shader_rounding_mode_rtefloat64 = value;
+    pub fn shader_rounding_mode_rtefloat64(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_rounding_mode_rtefloat64 = value.into();
         self
     }
     #[inline]
-    pub fn shader_rounding_mode_rtzfloat16(mut self, value: Bool32) -> Self {
-        self.shader_rounding_mode_rtzfloat16 = value;
+    pub fn shader_rounding_mode_rtzfloat16(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_rounding_mode_rtzfloat16 = value.into();
         self
     }
     #[inline]
-    pub fn shader_rounding_mode_rtzfloat32(mut self, value: Bool32) -> Self {
-        self.shader_rounding_mode_rtzfloat32 = value;
+    pub fn shader_rounding_mode_rtzfloat32(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_rounding_mode_rtzfloat32 = value.into();
         self
     }
     #[inline]
-    pub fn shader_rounding_mode_rtzfloat64(mut self, value: Bool32) -> Self {
-        self.shader_rounding_mode_rtzfloat64 = value;
+    pub fn shader_rounding_mode_rtzfloat64(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_rounding_mode_rtzfloat64 = value.into();
         self
     }
     #[inline]
@@ -10777,45 +10837,51 @@ impl<'a> PhysicalDeviceVulkan12Properties<'a> {
     #[inline]
     pub fn shader_uniform_buffer_array_non_uniform_indexing_native(
         mut self,
-        value: Bool32,
+        value: impl Into<Bool32>,
     ) -> Self {
-        self.shader_uniform_buffer_array_non_uniform_indexing_native = value;
+        self.shader_uniform_buffer_array_non_uniform_indexing_native = value.into();
         self
     }
     #[inline]
-    pub fn shader_sampled_image_array_non_uniform_indexing_native(mut self, value: Bool32) -> Self {
-        self.shader_sampled_image_array_non_uniform_indexing_native = value;
+    pub fn shader_sampled_image_array_non_uniform_indexing_native(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.shader_sampled_image_array_non_uniform_indexing_native = value.into();
         self
     }
     #[inline]
     pub fn shader_storage_buffer_array_non_uniform_indexing_native(
         mut self,
-        value: Bool32,
+        value: impl Into<Bool32>,
     ) -> Self {
-        self.shader_storage_buffer_array_non_uniform_indexing_native = value;
+        self.shader_storage_buffer_array_non_uniform_indexing_native = value.into();
         self
     }
     #[inline]
-    pub fn shader_storage_image_array_non_uniform_indexing_native(mut self, value: Bool32) -> Self {
-        self.shader_storage_image_array_non_uniform_indexing_native = value;
+    pub fn shader_storage_image_array_non_uniform_indexing_native(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.shader_storage_image_array_non_uniform_indexing_native = value.into();
         self
     }
     #[inline]
     pub fn shader_input_attachment_array_non_uniform_indexing_native(
         mut self,
-        value: Bool32,
+        value: impl Into<Bool32>,
     ) -> Self {
-        self.shader_input_attachment_array_non_uniform_indexing_native = value;
+        self.shader_input_attachment_array_non_uniform_indexing_native = value.into();
         self
     }
     #[inline]
-    pub fn robust_buffer_access_update_after_bind(mut self, value: Bool32) -> Self {
-        self.robust_buffer_access_update_after_bind = value;
+    pub fn robust_buffer_access_update_after_bind(mut self, value: impl Into<Bool32>) -> Self {
+        self.robust_buffer_access_update_after_bind = value.into();
         self
     }
     #[inline]
-    pub fn quad_divergent_implicit_lod(mut self, value: Bool32) -> Self {
-        self.quad_divergent_implicit_lod = value;
+    pub fn quad_divergent_implicit_lod(mut self, value: impl Into<Bool32>) -> Self {
+        self.quad_divergent_implicit_lod = value.into();
         self
     }
     #[inline]
@@ -10919,23 +10985,23 @@ impl<'a> PhysicalDeviceVulkan12Properties<'a> {
         self
     }
     #[inline]
-    pub fn independent_resolve_none(mut self, value: Bool32) -> Self {
-        self.independent_resolve_none = value;
+    pub fn independent_resolve_none(mut self, value: impl Into<Bool32>) -> Self {
+        self.independent_resolve_none = value.into();
         self
     }
     #[inline]
-    pub fn independent_resolve(mut self, value: Bool32) -> Self {
-        self.independent_resolve = value;
+    pub fn independent_resolve(mut self, value: impl Into<Bool32>) -> Self {
+        self.independent_resolve = value.into();
         self
     }
     #[inline]
-    pub fn filter_minmax_single_component_formats(mut self, value: Bool32) -> Self {
-        self.filter_minmax_single_component_formats = value;
+    pub fn filter_minmax_single_component_formats(mut self, value: impl Into<Bool32>) -> Self {
+        self.filter_minmax_single_component_formats = value.into();
         self
     }
     #[inline]
-    pub fn filter_minmax_image_component_mapping(mut self, value: Bool32) -> Self {
-        self.filter_minmax_image_component_mapping = value;
+    pub fn filter_minmax_image_component_mapping(mut self, value: impl Into<Bool32>) -> Self {
+        self.filter_minmax_image_component_mapping = value.into();
         self
     }
     #[inline]
@@ -11511,18 +11577,18 @@ impl<'a> Default for PhysicalDevice8BitStorageFeatures<'a> {
 }
 impl<'a> PhysicalDevice8BitStorageFeatures<'a> {
     #[inline]
-    pub fn storage_buffer8_bit_access(mut self, value: Bool32) -> Self {
-        self.storage_buffer8_bit_access = value;
+    pub fn storage_buffer8_bit_access(mut self, value: impl Into<Bool32>) -> Self {
+        self.storage_buffer8_bit_access = value.into();
         self
     }
     #[inline]
-    pub fn uniform_and_storage_buffer8_bit_access(mut self, value: Bool32) -> Self {
-        self.uniform_and_storage_buffer8_bit_access = value;
+    pub fn uniform_and_storage_buffer8_bit_access(mut self, value: impl Into<Bool32>) -> Self {
+        self.uniform_and_storage_buffer8_bit_access = value.into();
         self
     }
     #[inline]
-    pub fn storage_push_constant8(mut self, value: Bool32) -> Self {
-        self.storage_push_constant8 = value;
+    pub fn storage_push_constant8(mut self, value: impl Into<Bool32>) -> Self {
+        self.storage_push_constant8 = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -11675,13 +11741,13 @@ impl<'a> Default for PhysicalDeviceShaderAtomicInt64Features<'a> {
 }
 impl<'a> PhysicalDeviceShaderAtomicInt64Features<'a> {
     #[inline]
-    pub fn shader_buffer_int64_atomics(mut self, value: Bool32) -> Self {
-        self.shader_buffer_int64_atomics = value;
+    pub fn shader_buffer_int64_atomics(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_buffer_int64_atomics = value.into();
         self
     }
     #[inline]
-    pub fn shader_shared_int64_atomics(mut self, value: Bool32) -> Self {
-        self.shader_shared_int64_atomics = value;
+    pub fn shader_shared_int64_atomics(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_shared_int64_atomics = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -11726,13 +11792,13 @@ impl<'a> Default for PhysicalDeviceShaderFloat16Int8Features<'a> {
 }
 impl<'a> PhysicalDeviceShaderFloat16Int8Features<'a> {
     #[inline]
-    pub fn shader_float16(mut self, value: Bool32) -> Self {
-        self.shader_float16 = value;
+    pub fn shader_float16(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_float16 = value.into();
         self
     }
     #[inline]
-    pub fn shader_int8(mut self, value: Bool32) -> Self {
-        self.shader_int8 = value;
+    pub fn shader_int8(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_int8 = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -11814,78 +11880,78 @@ impl<'a> PhysicalDeviceFloatControlsProperties<'a> {
         self
     }
     #[inline]
-    pub fn shader_signed_zero_inf_nan_preserve_float16(mut self, value: Bool32) -> Self {
-        self.shader_signed_zero_inf_nan_preserve_float16 = value;
+    pub fn shader_signed_zero_inf_nan_preserve_float16(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_signed_zero_inf_nan_preserve_float16 = value.into();
         self
     }
     #[inline]
-    pub fn shader_signed_zero_inf_nan_preserve_float32(mut self, value: Bool32) -> Self {
-        self.shader_signed_zero_inf_nan_preserve_float32 = value;
+    pub fn shader_signed_zero_inf_nan_preserve_float32(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_signed_zero_inf_nan_preserve_float32 = value.into();
         self
     }
     #[inline]
-    pub fn shader_signed_zero_inf_nan_preserve_float64(mut self, value: Bool32) -> Self {
-        self.shader_signed_zero_inf_nan_preserve_float64 = value;
+    pub fn shader_signed_zero_inf_nan_preserve_float64(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_signed_zero_inf_nan_preserve_float64 = value.into();
         self
     }
     #[inline]
-    pub fn shader_denorm_preserve_float16(mut self, value: Bool32) -> Self {
-        self.shader_denorm_preserve_float16 = value;
+    pub fn shader_denorm_preserve_float16(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_denorm_preserve_float16 = value.into();
         self
     }
     #[inline]
-    pub fn shader_denorm_preserve_float32(mut self, value: Bool32) -> Self {
-        self.shader_denorm_preserve_float32 = value;
+    pub fn shader_denorm_preserve_float32(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_denorm_preserve_float32 = value.into();
         self
     }
     #[inline]
-    pub fn shader_denorm_preserve_float64(mut self, value: Bool32) -> Self {
-        self.shader_denorm_preserve_float64 = value;
+    pub fn shader_denorm_preserve_float64(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_denorm_preserve_float64 = value.into();
         self
     }
     #[inline]
-    pub fn shader_denorm_flush_to_zero_float16(mut self, value: Bool32) -> Self {
-        self.shader_denorm_flush_to_zero_float16 = value;
+    pub fn shader_denorm_flush_to_zero_float16(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_denorm_flush_to_zero_float16 = value.into();
         self
     }
     #[inline]
-    pub fn shader_denorm_flush_to_zero_float32(mut self, value: Bool32) -> Self {
-        self.shader_denorm_flush_to_zero_float32 = value;
+    pub fn shader_denorm_flush_to_zero_float32(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_denorm_flush_to_zero_float32 = value.into();
         self
     }
     #[inline]
-    pub fn shader_denorm_flush_to_zero_float64(mut self, value: Bool32) -> Self {
-        self.shader_denorm_flush_to_zero_float64 = value;
+    pub fn shader_denorm_flush_to_zero_float64(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_denorm_flush_to_zero_float64 = value.into();
         self
     }
     #[inline]
-    pub fn shader_rounding_mode_rtefloat16(mut self, value: Bool32) -> Self {
-        self.shader_rounding_mode_rtefloat16 = value;
+    pub fn shader_rounding_mode_rtefloat16(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_rounding_mode_rtefloat16 = value.into();
         self
     }
     #[inline]
-    pub fn shader_rounding_mode_rtefloat32(mut self, value: Bool32) -> Self {
-        self.shader_rounding_mode_rtefloat32 = value;
+    pub fn shader_rounding_mode_rtefloat32(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_rounding_mode_rtefloat32 = value.into();
         self
     }
     #[inline]
-    pub fn shader_rounding_mode_rtefloat64(mut self, value: Bool32) -> Self {
-        self.shader_rounding_mode_rtefloat64 = value;
+    pub fn shader_rounding_mode_rtefloat64(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_rounding_mode_rtefloat64 = value.into();
         self
     }
     #[inline]
-    pub fn shader_rounding_mode_rtzfloat16(mut self, value: Bool32) -> Self {
-        self.shader_rounding_mode_rtzfloat16 = value;
+    pub fn shader_rounding_mode_rtzfloat16(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_rounding_mode_rtzfloat16 = value.into();
         self
     }
     #[inline]
-    pub fn shader_rounding_mode_rtzfloat32(mut self, value: Bool32) -> Self {
-        self.shader_rounding_mode_rtzfloat32 = value;
+    pub fn shader_rounding_mode_rtzfloat32(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_rounding_mode_rtzfloat32 = value.into();
         self
     }
     #[inline]
-    pub fn shader_rounding_mode_rtzfloat64(mut self, value: Bool32) -> Self {
-        self.shader_rounding_mode_rtzfloat64 = value;
+    pub fn shader_rounding_mode_rtzfloat64(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_rounding_mode_rtzfloat64 = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -12013,109 +12079,157 @@ impl<'a> Default for PhysicalDeviceDescriptorIndexingFeatures<'a> {
 }
 impl<'a> PhysicalDeviceDescriptorIndexingFeatures<'a> {
     #[inline]
-    pub fn shader_input_attachment_array_dynamic_indexing(mut self, value: Bool32) -> Self {
-        self.shader_input_attachment_array_dynamic_indexing = value;
+    pub fn shader_input_attachment_array_dynamic_indexing(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.shader_input_attachment_array_dynamic_indexing = value.into();
         self
     }
     #[inline]
-    pub fn shader_uniform_texel_buffer_array_dynamic_indexing(mut self, value: Bool32) -> Self {
-        self.shader_uniform_texel_buffer_array_dynamic_indexing = value;
+    pub fn shader_uniform_texel_buffer_array_dynamic_indexing(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.shader_uniform_texel_buffer_array_dynamic_indexing = value.into();
         self
     }
     #[inline]
-    pub fn shader_storage_texel_buffer_array_dynamic_indexing(mut self, value: Bool32) -> Self {
-        self.shader_storage_texel_buffer_array_dynamic_indexing = value;
+    pub fn shader_storage_texel_buffer_array_dynamic_indexing(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.shader_storage_texel_buffer_array_dynamic_indexing = value.into();
         self
     }
     #[inline]
-    pub fn shader_uniform_buffer_array_non_uniform_indexing(mut self, value: Bool32) -> Self {
-        self.shader_uniform_buffer_array_non_uniform_indexing = value;
+    pub fn shader_uniform_buffer_array_non_uniform_indexing(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.shader_uniform_buffer_array_non_uniform_indexing = value.into();
         self
     }
     #[inline]
-    pub fn shader_sampled_image_array_non_uniform_indexing(mut self, value: Bool32) -> Self {
-        self.shader_sampled_image_array_non_uniform_indexing = value;
+    pub fn shader_sampled_image_array_non_uniform_indexing(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.shader_sampled_image_array_non_uniform_indexing = value.into();
         self
     }
     #[inline]
-    pub fn shader_storage_buffer_array_non_uniform_indexing(mut self, value: Bool32) -> Self {
-        self.shader_storage_buffer_array_non_uniform_indexing = value;
+    pub fn shader_storage_buffer_array_non_uniform_indexing(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.shader_storage_buffer_array_non_uniform_indexing = value.into();
         self
     }
     #[inline]
-    pub fn shader_storage_image_array_non_uniform_indexing(mut self, value: Bool32) -> Self {
-        self.shader_storage_image_array_non_uniform_indexing = value;
+    pub fn shader_storage_image_array_non_uniform_indexing(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.shader_storage_image_array_non_uniform_indexing = value.into();
         self
     }
     #[inline]
-    pub fn shader_input_attachment_array_non_uniform_indexing(mut self, value: Bool32) -> Self {
-        self.shader_input_attachment_array_non_uniform_indexing = value;
+    pub fn shader_input_attachment_array_non_uniform_indexing(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.shader_input_attachment_array_non_uniform_indexing = value.into();
         self
     }
     #[inline]
-    pub fn shader_uniform_texel_buffer_array_non_uniform_indexing(mut self, value: Bool32) -> Self {
-        self.shader_uniform_texel_buffer_array_non_uniform_indexing = value;
+    pub fn shader_uniform_texel_buffer_array_non_uniform_indexing(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.shader_uniform_texel_buffer_array_non_uniform_indexing = value.into();
         self
     }
     #[inline]
-    pub fn shader_storage_texel_buffer_array_non_uniform_indexing(mut self, value: Bool32) -> Self {
-        self.shader_storage_texel_buffer_array_non_uniform_indexing = value;
+    pub fn shader_storage_texel_buffer_array_non_uniform_indexing(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.shader_storage_texel_buffer_array_non_uniform_indexing = value.into();
         self
     }
     #[inline]
-    pub fn descriptor_binding_uniform_buffer_update_after_bind(mut self, value: Bool32) -> Self {
-        self.descriptor_binding_uniform_buffer_update_after_bind = value;
+    pub fn descriptor_binding_uniform_buffer_update_after_bind(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.descriptor_binding_uniform_buffer_update_after_bind = value.into();
         self
     }
     #[inline]
-    pub fn descriptor_binding_sampled_image_update_after_bind(mut self, value: Bool32) -> Self {
-        self.descriptor_binding_sampled_image_update_after_bind = value;
+    pub fn descriptor_binding_sampled_image_update_after_bind(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.descriptor_binding_sampled_image_update_after_bind = value.into();
         self
     }
     #[inline]
-    pub fn descriptor_binding_storage_image_update_after_bind(mut self, value: Bool32) -> Self {
-        self.descriptor_binding_storage_image_update_after_bind = value;
+    pub fn descriptor_binding_storage_image_update_after_bind(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.descriptor_binding_storage_image_update_after_bind = value.into();
         self
     }
     #[inline]
-    pub fn descriptor_binding_storage_buffer_update_after_bind(mut self, value: Bool32) -> Self {
-        self.descriptor_binding_storage_buffer_update_after_bind = value;
+    pub fn descriptor_binding_storage_buffer_update_after_bind(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.descriptor_binding_storage_buffer_update_after_bind = value.into();
         self
     }
     #[inline]
     pub fn descriptor_binding_uniform_texel_buffer_update_after_bind(
         mut self,
-        value: Bool32,
+        value: impl Into<Bool32>,
     ) -> Self {
-        self.descriptor_binding_uniform_texel_buffer_update_after_bind = value;
+        self.descriptor_binding_uniform_texel_buffer_update_after_bind = value.into();
         self
     }
     #[inline]
     pub fn descriptor_binding_storage_texel_buffer_update_after_bind(
         mut self,
-        value: Bool32,
+        value: impl Into<Bool32>,
     ) -> Self {
-        self.descriptor_binding_storage_texel_buffer_update_after_bind = value;
+        self.descriptor_binding_storage_texel_buffer_update_after_bind = value.into();
         self
     }
     #[inline]
-    pub fn descriptor_binding_update_unused_while_pending(mut self, value: Bool32) -> Self {
-        self.descriptor_binding_update_unused_while_pending = value;
+    pub fn descriptor_binding_update_unused_while_pending(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.descriptor_binding_update_unused_while_pending = value.into();
         self
     }
     #[inline]
-    pub fn descriptor_binding_partially_bound(mut self, value: Bool32) -> Self {
-        self.descriptor_binding_partially_bound = value;
+    pub fn descriptor_binding_partially_bound(mut self, value: impl Into<Bool32>) -> Self {
+        self.descriptor_binding_partially_bound = value.into();
         self
     }
     #[inline]
-    pub fn descriptor_binding_variable_descriptor_count(mut self, value: Bool32) -> Self {
-        self.descriptor_binding_variable_descriptor_count = value;
+    pub fn descriptor_binding_variable_descriptor_count(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.descriptor_binding_variable_descriptor_count = value.into();
         self
     }
     #[inline]
-    pub fn runtime_descriptor_array(mut self, value: Bool32) -> Self {
-        self.runtime_descriptor_array = value;
+    pub fn runtime_descriptor_array(mut self, value: impl Into<Bool32>) -> Self {
+        self.runtime_descriptor_array = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -12205,45 +12319,51 @@ impl<'a> PhysicalDeviceDescriptorIndexingProperties<'a> {
     #[inline]
     pub fn shader_uniform_buffer_array_non_uniform_indexing_native(
         mut self,
-        value: Bool32,
+        value: impl Into<Bool32>,
     ) -> Self {
-        self.shader_uniform_buffer_array_non_uniform_indexing_native = value;
+        self.shader_uniform_buffer_array_non_uniform_indexing_native = value.into();
         self
     }
     #[inline]
-    pub fn shader_sampled_image_array_non_uniform_indexing_native(mut self, value: Bool32) -> Self {
-        self.shader_sampled_image_array_non_uniform_indexing_native = value;
+    pub fn shader_sampled_image_array_non_uniform_indexing_native(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.shader_sampled_image_array_non_uniform_indexing_native = value.into();
         self
     }
     #[inline]
     pub fn shader_storage_buffer_array_non_uniform_indexing_native(
         mut self,
-        value: Bool32,
+        value: impl Into<Bool32>,
     ) -> Self {
-        self.shader_storage_buffer_array_non_uniform_indexing_native = value;
+        self.shader_storage_buffer_array_non_uniform_indexing_native = value.into();
         self
     }
     #[inline]
-    pub fn shader_storage_image_array_non_uniform_indexing_native(mut self, value: Bool32) -> Self {
-        self.shader_storage_image_array_non_uniform_indexing_native = value;
+    pub fn shader_storage_image_array_non_uniform_indexing_native(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.shader_storage_image_array_non_uniform_indexing_native = value.into();
         self
     }
     #[inline]
     pub fn shader_input_attachment_array_non_uniform_indexing_native(
         mut self,
-        value: Bool32,
+        value: impl Into<Bool32>,
     ) -> Self {
-        self.shader_input_attachment_array_non_uniform_indexing_native = value;
+        self.shader_input_attachment_array_non_uniform_indexing_native = value.into();
         self
     }
     #[inline]
-    pub fn robust_buffer_access_update_after_bind(mut self, value: Bool32) -> Self {
-        self.robust_buffer_access_update_after_bind = value;
+    pub fn robust_buffer_access_update_after_bind(mut self, value: impl Into<Bool32>) -> Self {
+        self.robust_buffer_access_update_after_bind = value.into();
         self
     }
     #[inline]
-    pub fn quad_divergent_implicit_lod(mut self, value: Bool32) -> Self {
-        self.quad_divergent_implicit_lod = value;
+    pub fn quad_divergent_implicit_lod(mut self, value: impl Into<Bool32>) -> Self {
+        self.quad_divergent_implicit_lod = value.into();
         self
     }
     #[inline]
@@ -12531,13 +12651,13 @@ impl<'a> PhysicalDeviceDepthStencilResolveProperties<'a> {
         self
     }
     #[inline]
-    pub fn independent_resolve_none(mut self, value: Bool32) -> Self {
-        self.independent_resolve_none = value;
+    pub fn independent_resolve_none(mut self, value: impl Into<Bool32>) -> Self {
+        self.independent_resolve_none = value.into();
         self
     }
     #[inline]
-    pub fn independent_resolve(mut self, value: Bool32) -> Self {
-        self.independent_resolve = value;
+    pub fn independent_resolve(mut self, value: impl Into<Bool32>) -> Self {
+        self.independent_resolve = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -12580,8 +12700,8 @@ impl<'a> Default for PhysicalDeviceScalarBlockLayoutFeatures<'a> {
 }
 impl<'a> PhysicalDeviceScalarBlockLayoutFeatures<'a> {
     #[inline]
-    pub fn scalar_block_layout(mut self, value: Bool32) -> Self {
-        self.scalar_block_layout = value;
+    pub fn scalar_block_layout(mut self, value: impl Into<Bool32>) -> Self {
+        self.scalar_block_layout = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -12702,13 +12822,13 @@ impl<'a> Default for PhysicalDeviceSamplerFilterMinmaxProperties<'a> {
 }
 impl<'a> PhysicalDeviceSamplerFilterMinmaxProperties<'a> {
     #[inline]
-    pub fn filter_minmax_single_component_formats(mut self, value: Bool32) -> Self {
-        self.filter_minmax_single_component_formats = value;
+    pub fn filter_minmax_single_component_formats(mut self, value: impl Into<Bool32>) -> Self {
+        self.filter_minmax_single_component_formats = value.into();
         self
     }
     #[inline]
-    pub fn filter_minmax_image_component_mapping(mut self, value: Bool32) -> Self {
-        self.filter_minmax_image_component_mapping = value;
+    pub fn filter_minmax_image_component_mapping(mut self, value: impl Into<Bool32>) -> Self {
+        self.filter_minmax_image_component_mapping = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -12755,18 +12875,21 @@ impl<'a> Default for PhysicalDeviceVulkanMemoryModelFeatures<'a> {
 }
 impl<'a> PhysicalDeviceVulkanMemoryModelFeatures<'a> {
     #[inline]
-    pub fn vulkan_memory_model(mut self, value: Bool32) -> Self {
-        self.vulkan_memory_model = value;
+    pub fn vulkan_memory_model(mut self, value: impl Into<Bool32>) -> Self {
+        self.vulkan_memory_model = value.into();
         self
     }
     #[inline]
-    pub fn vulkan_memory_model_device_scope(mut self, value: Bool32) -> Self {
-        self.vulkan_memory_model_device_scope = value;
+    pub fn vulkan_memory_model_device_scope(mut self, value: impl Into<Bool32>) -> Self {
+        self.vulkan_memory_model_device_scope = value.into();
         self
     }
     #[inline]
-    pub fn vulkan_memory_model_availability_visibility_chains(mut self, value: Bool32) -> Self {
-        self.vulkan_memory_model_availability_visibility_chains = value;
+    pub fn vulkan_memory_model_availability_visibility_chains(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.vulkan_memory_model_availability_visibility_chains = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -12809,8 +12932,8 @@ impl<'a> Default for PhysicalDeviceImagelessFramebufferFeatures<'a> {
 }
 impl<'a> PhysicalDeviceImagelessFramebufferFeatures<'a> {
     #[inline]
-    pub fn imageless_framebuffer(mut self, value: Bool32) -> Self {
-        self.imageless_framebuffer = value;
+    pub fn imageless_framebuffer(mut self, value: impl Into<Bool32>) -> Self {
+        self.imageless_framebuffer = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -13014,8 +13137,8 @@ impl<'a> Default for PhysicalDeviceUniformBufferStandardLayoutFeatures<'a> {
 }
 impl<'a> PhysicalDeviceUniformBufferStandardLayoutFeatures<'a> {
     #[inline]
-    pub fn uniform_buffer_standard_layout(mut self, value: Bool32) -> Self {
-        self.uniform_buffer_standard_layout = value;
+    pub fn uniform_buffer_standard_layout(mut self, value: impl Into<Bool32>) -> Self {
+        self.uniform_buffer_standard_layout = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -13059,8 +13182,8 @@ impl<'a> Default for PhysicalDeviceShaderSubgroupExtendedTypesFeatures<'a> {
 }
 impl<'a> PhysicalDeviceShaderSubgroupExtendedTypesFeatures<'a> {
     #[inline]
-    pub fn shader_subgroup_extended_types(mut self, value: Bool32) -> Self {
-        self.shader_subgroup_extended_types = value;
+    pub fn shader_subgroup_extended_types(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_subgroup_extended_types = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -13104,8 +13227,8 @@ impl<'a> Default for PhysicalDeviceSeparateDepthStencilLayoutsFeatures<'a> {
 }
 impl<'a> PhysicalDeviceSeparateDepthStencilLayoutsFeatures<'a> {
     #[inline]
-    pub fn separate_depth_stencil_layouts(mut self, value: Bool32) -> Self {
-        self.separate_depth_stencil_layouts = value;
+    pub fn separate_depth_stencil_layouts(mut self, value: impl Into<Bool32>) -> Self {
+        self.separate_depth_stencil_layouts = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -13233,8 +13356,8 @@ impl<'a> Default for PhysicalDeviceHostQueryResetFeatures<'a> {
 }
 impl<'a> PhysicalDeviceHostQueryResetFeatures<'a> {
     #[inline]
-    pub fn host_query_reset(mut self, value: Bool32) -> Self {
-        self.host_query_reset = value;
+    pub fn host_query_reset(mut self, value: impl Into<Bool32>) -> Self {
+        self.host_query_reset = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -13276,8 +13399,8 @@ impl<'a> Default for PhysicalDeviceTimelineSemaphoreFeatures<'a> {
 }
 impl<'a> PhysicalDeviceTimelineSemaphoreFeatures<'a> {
     #[inline]
-    pub fn timeline_semaphore(mut self, value: Bool32) -> Self {
-        self.timeline_semaphore = value;
+    pub fn timeline_semaphore(mut self, value: impl Into<Bool32>) -> Self {
+        self.timeline_semaphore = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -13565,18 +13688,18 @@ impl<'a> Default for PhysicalDeviceBufferDeviceAddressFeatures<'a> {
 }
 impl<'a> PhysicalDeviceBufferDeviceAddressFeatures<'a> {
     #[inline]
-    pub fn buffer_device_address(mut self, value: Bool32) -> Self {
-        self.buffer_device_address = value;
+    pub fn buffer_device_address(mut self, value: impl Into<Bool32>) -> Self {
+        self.buffer_device_address = value.into();
         self
     }
     #[inline]
-    pub fn buffer_device_address_capture_replay(mut self, value: Bool32) -> Self {
-        self.buffer_device_address_capture_replay = value;
+    pub fn buffer_device_address_capture_replay(mut self, value: impl Into<Bool32>) -> Self {
+        self.buffer_device_address_capture_replay = value.into();
         self
     }
     #[inline]
-    pub fn buffer_device_address_multi_device(mut self, value: Bool32) -> Self {
-        self.buffer_device_address_multi_device = value;
+    pub fn buffer_device_address_multi_device(mut self, value: impl Into<Bool32>) -> Self {
+        self.buffer_device_address_multi_device = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -13799,81 +13922,81 @@ impl<'a> Default for PhysicalDeviceVulkan13Features<'a> {
 }
 impl<'a> PhysicalDeviceVulkan13Features<'a> {
     #[inline]
-    pub fn robust_image_access(mut self, value: Bool32) -> Self {
-        self.robust_image_access = value;
+    pub fn robust_image_access(mut self, value: impl Into<Bool32>) -> Self {
+        self.robust_image_access = value.into();
         self
     }
     #[inline]
-    pub fn inline_uniform_block(mut self, value: Bool32) -> Self {
-        self.inline_uniform_block = value;
+    pub fn inline_uniform_block(mut self, value: impl Into<Bool32>) -> Self {
+        self.inline_uniform_block = value.into();
         self
     }
     #[inline]
     pub fn descriptor_binding_inline_uniform_block_update_after_bind(
         mut self,
-        value: Bool32,
+        value: impl Into<Bool32>,
     ) -> Self {
-        self.descriptor_binding_inline_uniform_block_update_after_bind = value;
+        self.descriptor_binding_inline_uniform_block_update_after_bind = value.into();
         self
     }
     #[inline]
-    pub fn pipeline_creation_cache_control(mut self, value: Bool32) -> Self {
-        self.pipeline_creation_cache_control = value;
+    pub fn pipeline_creation_cache_control(mut self, value: impl Into<Bool32>) -> Self {
+        self.pipeline_creation_cache_control = value.into();
         self
     }
     #[inline]
-    pub fn private_data(mut self, value: Bool32) -> Self {
-        self.private_data = value;
+    pub fn private_data(mut self, value: impl Into<Bool32>) -> Self {
+        self.private_data = value.into();
         self
     }
     #[inline]
-    pub fn shader_demote_to_helper_invocation(mut self, value: Bool32) -> Self {
-        self.shader_demote_to_helper_invocation = value;
+    pub fn shader_demote_to_helper_invocation(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_demote_to_helper_invocation = value.into();
         self
     }
     #[inline]
-    pub fn shader_terminate_invocation(mut self, value: Bool32) -> Self {
-        self.shader_terminate_invocation = value;
+    pub fn shader_terminate_invocation(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_terminate_invocation = value.into();
         self
     }
     #[inline]
-    pub fn subgroup_size_control(mut self, value: Bool32) -> Self {
-        self.subgroup_size_control = value;
+    pub fn subgroup_size_control(mut self, value: impl Into<Bool32>) -> Self {
+        self.subgroup_size_control = value.into();
         self
     }
     #[inline]
-    pub fn compute_full_subgroups(mut self, value: Bool32) -> Self {
-        self.compute_full_subgroups = value;
+    pub fn compute_full_subgroups(mut self, value: impl Into<Bool32>) -> Self {
+        self.compute_full_subgroups = value.into();
         self
     }
     #[inline]
-    pub fn synchronization2(mut self, value: Bool32) -> Self {
-        self.synchronization2 = value;
+    pub fn synchronization2(mut self, value: impl Into<Bool32>) -> Self {
+        self.synchronization2 = value.into();
         self
     }
     #[inline]
-    pub fn texture_compression_astc_hdr(mut self, value: Bool32) -> Self {
-        self.texture_compression_astc_hdr = value;
+    pub fn texture_compression_astc_hdr(mut self, value: impl Into<Bool32>) -> Self {
+        self.texture_compression_astc_hdr = value.into();
         self
     }
     #[inline]
-    pub fn shader_zero_initialize_workgroup_memory(mut self, value: Bool32) -> Self {
-        self.shader_zero_initialize_workgroup_memory = value;
+    pub fn shader_zero_initialize_workgroup_memory(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_zero_initialize_workgroup_memory = value.into();
         self
     }
     #[inline]
-    pub fn dynamic_rendering(mut self, value: Bool32) -> Self {
-        self.dynamic_rendering = value;
+    pub fn dynamic_rendering(mut self, value: impl Into<Bool32>) -> Self {
+        self.dynamic_rendering = value.into();
         self
     }
     #[inline]
-    pub fn shader_integer_dot_product(mut self, value: Bool32) -> Self {
-        self.shader_integer_dot_product = value;
+    pub fn shader_integer_dot_product(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_integer_dot_product = value.into();
         self
     }
     #[inline]
-    pub fn maintenance4(mut self, value: Bool32) -> Self {
-        self.maintenance4 = value;
+    pub fn maintenance4(mut self, value: impl Into<Bool32>) -> Self {
+        self.maintenance4 = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -14006,201 +14129,246 @@ impl<'a> PhysicalDeviceVulkan13Properties<'a> {
         self
     }
     #[inline]
-    pub fn integer_dot_product8_bit_unsigned_accelerated(mut self, value: Bool32) -> Self {
-        self.integer_dot_product8_bit_unsigned_accelerated = value;
+    pub fn integer_dot_product8_bit_unsigned_accelerated(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.integer_dot_product8_bit_unsigned_accelerated = value.into();
         self
     }
     #[inline]
-    pub fn integer_dot_product8_bit_signed_accelerated(mut self, value: Bool32) -> Self {
-        self.integer_dot_product8_bit_signed_accelerated = value;
+    pub fn integer_dot_product8_bit_signed_accelerated(mut self, value: impl Into<Bool32>) -> Self {
+        self.integer_dot_product8_bit_signed_accelerated = value.into();
         self
     }
     #[inline]
-    pub fn integer_dot_product8_bit_mixed_signedness_accelerated(mut self, value: Bool32) -> Self {
-        self.integer_dot_product8_bit_mixed_signedness_accelerated = value;
+    pub fn integer_dot_product8_bit_mixed_signedness_accelerated(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.integer_dot_product8_bit_mixed_signedness_accelerated = value.into();
         self
     }
     #[inline]
-    pub fn integer_dot_product4x8_bit_packed_unsigned_accelerated(mut self, value: Bool32) -> Self {
-        self.integer_dot_product4x8_bit_packed_unsigned_accelerated = value;
+    pub fn integer_dot_product4x8_bit_packed_unsigned_accelerated(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.integer_dot_product4x8_bit_packed_unsigned_accelerated = value.into();
         self
     }
     #[inline]
-    pub fn integer_dot_product4x8_bit_packed_signed_accelerated(mut self, value: Bool32) -> Self {
-        self.integer_dot_product4x8_bit_packed_signed_accelerated = value;
+    pub fn integer_dot_product4x8_bit_packed_signed_accelerated(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.integer_dot_product4x8_bit_packed_signed_accelerated = value.into();
         self
     }
     #[inline]
     pub fn integer_dot_product4x8_bit_packed_mixed_signedness_accelerated(
         mut self,
-        value: Bool32,
+        value: impl Into<Bool32>,
     ) -> Self {
-        self.integer_dot_product4x8_bit_packed_mixed_signedness_accelerated = value;
+        self.integer_dot_product4x8_bit_packed_mixed_signedness_accelerated = value.into();
         self
     }
     #[inline]
-    pub fn integer_dot_product16_bit_unsigned_accelerated(mut self, value: Bool32) -> Self {
-        self.integer_dot_product16_bit_unsigned_accelerated = value;
+    pub fn integer_dot_product16_bit_unsigned_accelerated(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.integer_dot_product16_bit_unsigned_accelerated = value.into();
         self
     }
     #[inline]
-    pub fn integer_dot_product16_bit_signed_accelerated(mut self, value: Bool32) -> Self {
-        self.integer_dot_product16_bit_signed_accelerated = value;
+    pub fn integer_dot_product16_bit_signed_accelerated(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.integer_dot_product16_bit_signed_accelerated = value.into();
         self
     }
     #[inline]
-    pub fn integer_dot_product16_bit_mixed_signedness_accelerated(mut self, value: Bool32) -> Self {
-        self.integer_dot_product16_bit_mixed_signedness_accelerated = value;
+    pub fn integer_dot_product16_bit_mixed_signedness_accelerated(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.integer_dot_product16_bit_mixed_signedness_accelerated = value.into();
         self
     }
     #[inline]
-    pub fn integer_dot_product32_bit_unsigned_accelerated(mut self, value: Bool32) -> Self {
-        self.integer_dot_product32_bit_unsigned_accelerated = value;
+    pub fn integer_dot_product32_bit_unsigned_accelerated(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.integer_dot_product32_bit_unsigned_accelerated = value.into();
         self
     }
     #[inline]
-    pub fn integer_dot_product32_bit_signed_accelerated(mut self, value: Bool32) -> Self {
-        self.integer_dot_product32_bit_signed_accelerated = value;
+    pub fn integer_dot_product32_bit_signed_accelerated(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.integer_dot_product32_bit_signed_accelerated = value.into();
         self
     }
     #[inline]
-    pub fn integer_dot_product32_bit_mixed_signedness_accelerated(mut self, value: Bool32) -> Self {
-        self.integer_dot_product32_bit_mixed_signedness_accelerated = value;
+    pub fn integer_dot_product32_bit_mixed_signedness_accelerated(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.integer_dot_product32_bit_mixed_signedness_accelerated = value.into();
         self
     }
     #[inline]
-    pub fn integer_dot_product64_bit_unsigned_accelerated(mut self, value: Bool32) -> Self {
-        self.integer_dot_product64_bit_unsigned_accelerated = value;
+    pub fn integer_dot_product64_bit_unsigned_accelerated(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.integer_dot_product64_bit_unsigned_accelerated = value.into();
         self
     }
     #[inline]
-    pub fn integer_dot_product64_bit_signed_accelerated(mut self, value: Bool32) -> Self {
-        self.integer_dot_product64_bit_signed_accelerated = value;
+    pub fn integer_dot_product64_bit_signed_accelerated(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.integer_dot_product64_bit_signed_accelerated = value.into();
         self
     }
     #[inline]
-    pub fn integer_dot_product64_bit_mixed_signedness_accelerated(mut self, value: Bool32) -> Self {
-        self.integer_dot_product64_bit_mixed_signedness_accelerated = value;
+    pub fn integer_dot_product64_bit_mixed_signedness_accelerated(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.integer_dot_product64_bit_mixed_signedness_accelerated = value.into();
         self
     }
     #[inline]
     pub fn integer_dot_product_accumulating_saturating8_bit_unsigned_accelerated(
         mut self,
-        value: Bool32,
+        value: impl Into<Bool32>,
     ) -> Self {
-        self.integer_dot_product_accumulating_saturating8_bit_unsigned_accelerated = value;
+        self.integer_dot_product_accumulating_saturating8_bit_unsigned_accelerated = value.into();
         self
     }
     #[inline]
     pub fn integer_dot_product_accumulating_saturating8_bit_signed_accelerated(
         mut self,
-        value: Bool32,
+        value: impl Into<Bool32>,
     ) -> Self {
-        self.integer_dot_product_accumulating_saturating8_bit_signed_accelerated = value;
+        self.integer_dot_product_accumulating_saturating8_bit_signed_accelerated = value.into();
         self
     }
     #[inline]
     pub fn integer_dot_product_accumulating_saturating8_bit_mixed_signedness_accelerated(
         mut self,
-        value: Bool32,
+        value: impl Into<Bool32>,
     ) -> Self {
-        self.integer_dot_product_accumulating_saturating8_bit_mixed_signedness_accelerated = value;
+        self.integer_dot_product_accumulating_saturating8_bit_mixed_signedness_accelerated =
+            value.into();
         self
     }
     #[inline]
     pub fn integer_dot_product_accumulating_saturating4x8_bit_packed_unsigned_accelerated(
         mut self,
-        value: Bool32,
+        value: impl Into<Bool32>,
     ) -> Self {
-        self.integer_dot_product_accumulating_saturating4x8_bit_packed_unsigned_accelerated = value;
+        self.integer_dot_product_accumulating_saturating4x8_bit_packed_unsigned_accelerated =
+            value.into();
         self
     }
     #[inline]
     pub fn integer_dot_product_accumulating_saturating4x8_bit_packed_signed_accelerated(
         mut self,
-        value: Bool32,
+        value: impl Into<Bool32>,
     ) -> Self {
-        self.integer_dot_product_accumulating_saturating4x8_bit_packed_signed_accelerated = value;
+        self.integer_dot_product_accumulating_saturating4x8_bit_packed_signed_accelerated =
+            value.into();
         self
     }
     #[inline]
     pub fn integer_dot_product_accumulating_saturating4x8_bit_packed_mixed_signedness_accelerated(
         mut self,
-        value: Bool32,
+        value: impl Into<Bool32>,
     ) -> Self {
-        self . integer_dot_product_accumulating_saturating4x8_bit_packed_mixed_signedness_accelerated = value ;
+        self . integer_dot_product_accumulating_saturating4x8_bit_packed_mixed_signedness_accelerated = value . into () ;
         self
     }
     #[inline]
     pub fn integer_dot_product_accumulating_saturating16_bit_unsigned_accelerated(
         mut self,
-        value: Bool32,
+        value: impl Into<Bool32>,
     ) -> Self {
-        self.integer_dot_product_accumulating_saturating16_bit_unsigned_accelerated = value;
+        self.integer_dot_product_accumulating_saturating16_bit_unsigned_accelerated = value.into();
         self
     }
     #[inline]
     pub fn integer_dot_product_accumulating_saturating16_bit_signed_accelerated(
         mut self,
-        value: Bool32,
+        value: impl Into<Bool32>,
     ) -> Self {
-        self.integer_dot_product_accumulating_saturating16_bit_signed_accelerated = value;
+        self.integer_dot_product_accumulating_saturating16_bit_signed_accelerated = value.into();
         self
     }
     #[inline]
     pub fn integer_dot_product_accumulating_saturating16_bit_mixed_signedness_accelerated(
         mut self,
-        value: Bool32,
+        value: impl Into<Bool32>,
     ) -> Self {
-        self.integer_dot_product_accumulating_saturating16_bit_mixed_signedness_accelerated = value;
+        self.integer_dot_product_accumulating_saturating16_bit_mixed_signedness_accelerated =
+            value.into();
         self
     }
     #[inline]
     pub fn integer_dot_product_accumulating_saturating32_bit_unsigned_accelerated(
         mut self,
-        value: Bool32,
+        value: impl Into<Bool32>,
     ) -> Self {
-        self.integer_dot_product_accumulating_saturating32_bit_unsigned_accelerated = value;
+        self.integer_dot_product_accumulating_saturating32_bit_unsigned_accelerated = value.into();
         self
     }
     #[inline]
     pub fn integer_dot_product_accumulating_saturating32_bit_signed_accelerated(
         mut self,
-        value: Bool32,
+        value: impl Into<Bool32>,
     ) -> Self {
-        self.integer_dot_product_accumulating_saturating32_bit_signed_accelerated = value;
+        self.integer_dot_product_accumulating_saturating32_bit_signed_accelerated = value.into();
         self
     }
     #[inline]
     pub fn integer_dot_product_accumulating_saturating32_bit_mixed_signedness_accelerated(
         mut self,
-        value: Bool32,
+        value: impl Into<Bool32>,
     ) -> Self {
-        self.integer_dot_product_accumulating_saturating32_bit_mixed_signedness_accelerated = value;
+        self.integer_dot_product_accumulating_saturating32_bit_mixed_signedness_accelerated =
+            value.into();
         self
     }
     #[inline]
     pub fn integer_dot_product_accumulating_saturating64_bit_unsigned_accelerated(
         mut self,
-        value: Bool32,
+        value: impl Into<Bool32>,
     ) -> Self {
-        self.integer_dot_product_accumulating_saturating64_bit_unsigned_accelerated = value;
+        self.integer_dot_product_accumulating_saturating64_bit_unsigned_accelerated = value.into();
         self
     }
     #[inline]
     pub fn integer_dot_product_accumulating_saturating64_bit_signed_accelerated(
         mut self,
-        value: Bool32,
+        value: impl Into<Bool32>,
     ) -> Self {
-        self.integer_dot_product_accumulating_saturating64_bit_signed_accelerated = value;
+        self.integer_dot_product_accumulating_saturating64_bit_signed_accelerated = value.into();
         self
     }
     #[inline]
     pub fn integer_dot_product_accumulating_saturating64_bit_mixed_signedness_accelerated(
         mut self,
-        value: Bool32,
+        value: impl Into<Bool32>,
     ) -> Self {
-        self.integer_dot_product_accumulating_saturating64_bit_mixed_signedness_accelerated = value;
+        self.integer_dot_product_accumulating_saturating64_bit_mixed_signedness_accelerated =
+            value.into();
         self
     }
     #[inline]
@@ -14209,8 +14377,11 @@ impl<'a> PhysicalDeviceVulkan13Properties<'a> {
         self
     }
     #[inline]
-    pub fn storage_texel_buffer_offset_single_texel_alignment(mut self, value: Bool32) -> Self {
-        self.storage_texel_buffer_offset_single_texel_alignment = value;
+    pub fn storage_texel_buffer_offset_single_texel_alignment(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.storage_texel_buffer_offset_single_texel_alignment = value.into();
         self
     }
     #[inline]
@@ -14219,8 +14390,11 @@ impl<'a> PhysicalDeviceVulkan13Properties<'a> {
         self
     }
     #[inline]
-    pub fn uniform_texel_buffer_offset_single_texel_alignment(mut self, value: Bool32) -> Self {
-        self.uniform_texel_buffer_offset_single_texel_alignment = value;
+    pub fn uniform_texel_buffer_offset_single_texel_alignment(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.uniform_texel_buffer_offset_single_texel_alignment = value.into();
         self
     }
     #[inline]
@@ -14368,8 +14542,8 @@ impl<'a> Default for PhysicalDeviceShaderTerminateInvocationFeatures<'a> {
 }
 impl<'a> PhysicalDeviceShaderTerminateInvocationFeatures<'a> {
     #[inline]
-    pub fn shader_terminate_invocation(mut self, value: Bool32) -> Self {
-        self.shader_terminate_invocation = value;
+    pub fn shader_terminate_invocation(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_terminate_invocation = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -14484,8 +14658,8 @@ impl<'a> Default for PhysicalDeviceShaderDemoteToHelperInvocationFeatures<'a> {
 }
 impl<'a> PhysicalDeviceShaderDemoteToHelperInvocationFeatures<'a> {
     #[inline]
-    pub fn shader_demote_to_helper_invocation(mut self, value: Bool32) -> Self {
-        self.shader_demote_to_helper_invocation = value;
+    pub fn shader_demote_to_helper_invocation(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_demote_to_helper_invocation = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -14528,8 +14702,8 @@ impl<'a> Default for PhysicalDevicePrivateDataFeatures<'a> {
 }
 impl<'a> PhysicalDevicePrivateDataFeatures<'a> {
     #[inline]
-    pub fn private_data(mut self, value: Bool32) -> Self {
-        self.private_data = value;
+    pub fn private_data(mut self, value: impl Into<Bool32>) -> Self {
+        self.private_data = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -14643,8 +14817,8 @@ impl<'a> Default for PhysicalDevicePipelineCreationCacheControlFeatures<'a> {
 }
 impl<'a> PhysicalDevicePipelineCreationCacheControlFeatures<'a> {
     #[inline]
-    pub fn pipeline_creation_cache_control(mut self, value: Bool32) -> Self {
-        self.pipeline_creation_cache_control = value;
+    pub fn pipeline_creation_cache_control(mut self, value: impl Into<Bool32>) -> Self {
+        self.pipeline_creation_cache_control = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -15176,8 +15350,8 @@ impl<'a> Default for PhysicalDeviceSynchronization2Features<'a> {
 }
 impl<'a> PhysicalDeviceSynchronization2Features<'a> {
     #[inline]
-    pub fn synchronization2(mut self, value: Bool32) -> Self {
-        self.synchronization2 = value;
+    pub fn synchronization2(mut self, value: impl Into<Bool32>) -> Self {
+        self.synchronization2 = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -15220,8 +15394,8 @@ impl<'a> Default for PhysicalDeviceZeroInitializeWorkgroupMemoryFeatures<'a> {
 }
 impl<'a> PhysicalDeviceZeroInitializeWorkgroupMemoryFeatures<'a> {
     #[inline]
-    pub fn shader_zero_initialize_workgroup_memory(mut self, value: Bool32) -> Self {
-        self.shader_zero_initialize_workgroup_memory = value;
+    pub fn shader_zero_initialize_workgroup_memory(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_zero_initialize_workgroup_memory = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -15264,8 +15438,8 @@ impl<'a> Default for PhysicalDeviceImageRobustnessFeatures<'a> {
 }
 impl<'a> PhysicalDeviceImageRobustnessFeatures<'a> {
     #[inline]
-    pub fn robust_image_access(mut self, value: Bool32) -> Self {
-        self.robust_image_access = value;
+    pub fn robust_image_access(mut self, value: impl Into<Bool32>) -> Self {
+        self.robust_image_access = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -15985,13 +16159,13 @@ impl<'a> Default for PhysicalDeviceSubgroupSizeControlFeatures<'a> {
 }
 impl<'a> PhysicalDeviceSubgroupSizeControlFeatures<'a> {
     #[inline]
-    pub fn subgroup_size_control(mut self, value: Bool32) -> Self {
-        self.subgroup_size_control = value;
+    pub fn subgroup_size_control(mut self, value: impl Into<Bool32>) -> Self {
+        self.subgroup_size_control = value.into();
         self
     }
     #[inline]
-    pub fn compute_full_subgroups(mut self, value: Bool32) -> Self {
-        self.compute_full_subgroups = value;
+    pub fn compute_full_subgroups(mut self, value: impl Into<Bool32>) -> Self {
+        self.compute_full_subgroups = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -16145,16 +16319,16 @@ impl<'a> Default for PhysicalDeviceInlineUniformBlockFeatures<'a> {
 }
 impl<'a> PhysicalDeviceInlineUniformBlockFeatures<'a> {
     #[inline]
-    pub fn inline_uniform_block(mut self, value: Bool32) -> Self {
-        self.inline_uniform_block = value;
+    pub fn inline_uniform_block(mut self, value: impl Into<Bool32>) -> Self {
+        self.inline_uniform_block = value.into();
         self
     }
     #[inline]
     pub fn descriptor_binding_inline_uniform_block_update_after_bind(
         mut self,
-        value: Bool32,
+        value: impl Into<Bool32>,
     ) -> Self {
-        self.descriptor_binding_inline_uniform_block_update_after_bind = value;
+        self.descriptor_binding_inline_uniform_block_update_after_bind = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -16354,8 +16528,8 @@ impl<'a> Default for PhysicalDeviceTextureCompressionASTCHDRFeatures<'a> {
 }
 impl<'a> PhysicalDeviceTextureCompressionASTCHDRFeatures<'a> {
     #[inline]
-    pub fn texture_compression_astc_hdr(mut self, value: Bool32) -> Self {
-        self.texture_compression_astc_hdr = value;
+    pub fn texture_compression_astc_hdr(mut self, value: impl Into<Bool32>) -> Self {
+        self.texture_compression_astc_hdr = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -16628,8 +16802,8 @@ impl<'a> Default for PhysicalDeviceDynamicRenderingFeatures<'a> {
 }
 impl<'a> PhysicalDeviceDynamicRenderingFeatures<'a> {
     #[inline]
-    pub fn dynamic_rendering(mut self, value: Bool32) -> Self {
-        self.dynamic_rendering = value;
+    pub fn dynamic_rendering(mut self, value: impl Into<Bool32>) -> Self {
+        self.dynamic_rendering = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -16749,8 +16923,8 @@ impl<'a> Default for PhysicalDeviceShaderIntegerDotProductFeatures<'a> {
 }
 impl<'a> PhysicalDeviceShaderIntegerDotProductFeatures<'a> {
     #[inline]
-    pub fn shader_integer_dot_product(mut self, value: Bool32) -> Self {
-        self.shader_integer_dot_product = value;
+    pub fn shader_integer_dot_product(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_integer_dot_product = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -16815,201 +16989,246 @@ impl<'a> Default for PhysicalDeviceShaderIntegerDotProductProperties<'a> {
 }
 impl<'a> PhysicalDeviceShaderIntegerDotProductProperties<'a> {
     #[inline]
-    pub fn integer_dot_product8_bit_unsigned_accelerated(mut self, value: Bool32) -> Self {
-        self.integer_dot_product8_bit_unsigned_accelerated = value;
+    pub fn integer_dot_product8_bit_unsigned_accelerated(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.integer_dot_product8_bit_unsigned_accelerated = value.into();
         self
     }
     #[inline]
-    pub fn integer_dot_product8_bit_signed_accelerated(mut self, value: Bool32) -> Self {
-        self.integer_dot_product8_bit_signed_accelerated = value;
+    pub fn integer_dot_product8_bit_signed_accelerated(mut self, value: impl Into<Bool32>) -> Self {
+        self.integer_dot_product8_bit_signed_accelerated = value.into();
         self
     }
     #[inline]
-    pub fn integer_dot_product8_bit_mixed_signedness_accelerated(mut self, value: Bool32) -> Self {
-        self.integer_dot_product8_bit_mixed_signedness_accelerated = value;
+    pub fn integer_dot_product8_bit_mixed_signedness_accelerated(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.integer_dot_product8_bit_mixed_signedness_accelerated = value.into();
         self
     }
     #[inline]
-    pub fn integer_dot_product4x8_bit_packed_unsigned_accelerated(mut self, value: Bool32) -> Self {
-        self.integer_dot_product4x8_bit_packed_unsigned_accelerated = value;
+    pub fn integer_dot_product4x8_bit_packed_unsigned_accelerated(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.integer_dot_product4x8_bit_packed_unsigned_accelerated = value.into();
         self
     }
     #[inline]
-    pub fn integer_dot_product4x8_bit_packed_signed_accelerated(mut self, value: Bool32) -> Self {
-        self.integer_dot_product4x8_bit_packed_signed_accelerated = value;
+    pub fn integer_dot_product4x8_bit_packed_signed_accelerated(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.integer_dot_product4x8_bit_packed_signed_accelerated = value.into();
         self
     }
     #[inline]
     pub fn integer_dot_product4x8_bit_packed_mixed_signedness_accelerated(
         mut self,
-        value: Bool32,
+        value: impl Into<Bool32>,
     ) -> Self {
-        self.integer_dot_product4x8_bit_packed_mixed_signedness_accelerated = value;
+        self.integer_dot_product4x8_bit_packed_mixed_signedness_accelerated = value.into();
         self
     }
     #[inline]
-    pub fn integer_dot_product16_bit_unsigned_accelerated(mut self, value: Bool32) -> Self {
-        self.integer_dot_product16_bit_unsigned_accelerated = value;
+    pub fn integer_dot_product16_bit_unsigned_accelerated(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.integer_dot_product16_bit_unsigned_accelerated = value.into();
         self
     }
     #[inline]
-    pub fn integer_dot_product16_bit_signed_accelerated(mut self, value: Bool32) -> Self {
-        self.integer_dot_product16_bit_signed_accelerated = value;
+    pub fn integer_dot_product16_bit_signed_accelerated(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.integer_dot_product16_bit_signed_accelerated = value.into();
         self
     }
     #[inline]
-    pub fn integer_dot_product16_bit_mixed_signedness_accelerated(mut self, value: Bool32) -> Self {
-        self.integer_dot_product16_bit_mixed_signedness_accelerated = value;
+    pub fn integer_dot_product16_bit_mixed_signedness_accelerated(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.integer_dot_product16_bit_mixed_signedness_accelerated = value.into();
         self
     }
     #[inline]
-    pub fn integer_dot_product32_bit_unsigned_accelerated(mut self, value: Bool32) -> Self {
-        self.integer_dot_product32_bit_unsigned_accelerated = value;
+    pub fn integer_dot_product32_bit_unsigned_accelerated(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.integer_dot_product32_bit_unsigned_accelerated = value.into();
         self
     }
     #[inline]
-    pub fn integer_dot_product32_bit_signed_accelerated(mut self, value: Bool32) -> Self {
-        self.integer_dot_product32_bit_signed_accelerated = value;
+    pub fn integer_dot_product32_bit_signed_accelerated(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.integer_dot_product32_bit_signed_accelerated = value.into();
         self
     }
     #[inline]
-    pub fn integer_dot_product32_bit_mixed_signedness_accelerated(mut self, value: Bool32) -> Self {
-        self.integer_dot_product32_bit_mixed_signedness_accelerated = value;
+    pub fn integer_dot_product32_bit_mixed_signedness_accelerated(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.integer_dot_product32_bit_mixed_signedness_accelerated = value.into();
         self
     }
     #[inline]
-    pub fn integer_dot_product64_bit_unsigned_accelerated(mut self, value: Bool32) -> Self {
-        self.integer_dot_product64_bit_unsigned_accelerated = value;
+    pub fn integer_dot_product64_bit_unsigned_accelerated(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.integer_dot_product64_bit_unsigned_accelerated = value.into();
         self
     }
     #[inline]
-    pub fn integer_dot_product64_bit_signed_accelerated(mut self, value: Bool32) -> Self {
-        self.integer_dot_product64_bit_signed_accelerated = value;
+    pub fn integer_dot_product64_bit_signed_accelerated(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.integer_dot_product64_bit_signed_accelerated = value.into();
         self
     }
     #[inline]
-    pub fn integer_dot_product64_bit_mixed_signedness_accelerated(mut self, value: Bool32) -> Self {
-        self.integer_dot_product64_bit_mixed_signedness_accelerated = value;
+    pub fn integer_dot_product64_bit_mixed_signedness_accelerated(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.integer_dot_product64_bit_mixed_signedness_accelerated = value.into();
         self
     }
     #[inline]
     pub fn integer_dot_product_accumulating_saturating8_bit_unsigned_accelerated(
         mut self,
-        value: Bool32,
+        value: impl Into<Bool32>,
     ) -> Self {
-        self.integer_dot_product_accumulating_saturating8_bit_unsigned_accelerated = value;
+        self.integer_dot_product_accumulating_saturating8_bit_unsigned_accelerated = value.into();
         self
     }
     #[inline]
     pub fn integer_dot_product_accumulating_saturating8_bit_signed_accelerated(
         mut self,
-        value: Bool32,
+        value: impl Into<Bool32>,
     ) -> Self {
-        self.integer_dot_product_accumulating_saturating8_bit_signed_accelerated = value;
+        self.integer_dot_product_accumulating_saturating8_bit_signed_accelerated = value.into();
         self
     }
     #[inline]
     pub fn integer_dot_product_accumulating_saturating8_bit_mixed_signedness_accelerated(
         mut self,
-        value: Bool32,
+        value: impl Into<Bool32>,
     ) -> Self {
-        self.integer_dot_product_accumulating_saturating8_bit_mixed_signedness_accelerated = value;
+        self.integer_dot_product_accumulating_saturating8_bit_mixed_signedness_accelerated =
+            value.into();
         self
     }
     #[inline]
     pub fn integer_dot_product_accumulating_saturating4x8_bit_packed_unsigned_accelerated(
         mut self,
-        value: Bool32,
+        value: impl Into<Bool32>,
     ) -> Self {
-        self.integer_dot_product_accumulating_saturating4x8_bit_packed_unsigned_accelerated = value;
+        self.integer_dot_product_accumulating_saturating4x8_bit_packed_unsigned_accelerated =
+            value.into();
         self
     }
     #[inline]
     pub fn integer_dot_product_accumulating_saturating4x8_bit_packed_signed_accelerated(
         mut self,
-        value: Bool32,
+        value: impl Into<Bool32>,
     ) -> Self {
-        self.integer_dot_product_accumulating_saturating4x8_bit_packed_signed_accelerated = value;
+        self.integer_dot_product_accumulating_saturating4x8_bit_packed_signed_accelerated =
+            value.into();
         self
     }
     #[inline]
     pub fn integer_dot_product_accumulating_saturating4x8_bit_packed_mixed_signedness_accelerated(
         mut self,
-        value: Bool32,
+        value: impl Into<Bool32>,
     ) -> Self {
-        self . integer_dot_product_accumulating_saturating4x8_bit_packed_mixed_signedness_accelerated = value ;
+        self . integer_dot_product_accumulating_saturating4x8_bit_packed_mixed_signedness_accelerated = value . into () ;
         self
     }
     #[inline]
     pub fn integer_dot_product_accumulating_saturating16_bit_unsigned_accelerated(
         mut self,
-        value: Bool32,
+        value: impl Into<Bool32>,
     ) -> Self {
-        self.integer_dot_product_accumulating_saturating16_bit_unsigned_accelerated = value;
+        self.integer_dot_product_accumulating_saturating16_bit_unsigned_accelerated = value.into();
         self
     }
     #[inline]
     pub fn integer_dot_product_accumulating_saturating16_bit_signed_accelerated(
         mut self,
-        value: Bool32,
+        value: impl Into<Bool32>,
     ) -> Self {
-        self.integer_dot_product_accumulating_saturating16_bit_signed_accelerated = value;
+        self.integer_dot_product_accumulating_saturating16_bit_signed_accelerated = value.into();
         self
     }
     #[inline]
     pub fn integer_dot_product_accumulating_saturating16_bit_mixed_signedness_accelerated(
         mut self,
-        value: Bool32,
+        value: impl Into<Bool32>,
     ) -> Self {
-        self.integer_dot_product_accumulating_saturating16_bit_mixed_signedness_accelerated = value;
+        self.integer_dot_product_accumulating_saturating16_bit_mixed_signedness_accelerated =
+            value.into();
         self
     }
     #[inline]
     pub fn integer_dot_product_accumulating_saturating32_bit_unsigned_accelerated(
         mut self,
-        value: Bool32,
+        value: impl Into<Bool32>,
     ) -> Self {
-        self.integer_dot_product_accumulating_saturating32_bit_unsigned_accelerated = value;
+        self.integer_dot_product_accumulating_saturating32_bit_unsigned_accelerated = value.into();
         self
     }
     #[inline]
     pub fn integer_dot_product_accumulating_saturating32_bit_signed_accelerated(
         mut self,
-        value: Bool32,
+        value: impl Into<Bool32>,
     ) -> Self {
-        self.integer_dot_product_accumulating_saturating32_bit_signed_accelerated = value;
+        self.integer_dot_product_accumulating_saturating32_bit_signed_accelerated = value.into();
         self
     }
     #[inline]
     pub fn integer_dot_product_accumulating_saturating32_bit_mixed_signedness_accelerated(
         mut self,
-        value: Bool32,
+        value: impl Into<Bool32>,
     ) -> Self {
-        self.integer_dot_product_accumulating_saturating32_bit_mixed_signedness_accelerated = value;
+        self.integer_dot_product_accumulating_saturating32_bit_mixed_signedness_accelerated =
+            value.into();
         self
     }
     #[inline]
     pub fn integer_dot_product_accumulating_saturating64_bit_unsigned_accelerated(
         mut self,
-        value: Bool32,
+        value: impl Into<Bool32>,
     ) -> Self {
-        self.integer_dot_product_accumulating_saturating64_bit_unsigned_accelerated = value;
+        self.integer_dot_product_accumulating_saturating64_bit_unsigned_accelerated = value.into();
         self
     }
     #[inline]
     pub fn integer_dot_product_accumulating_saturating64_bit_signed_accelerated(
         mut self,
-        value: Bool32,
+        value: impl Into<Bool32>,
     ) -> Self {
-        self.integer_dot_product_accumulating_saturating64_bit_signed_accelerated = value;
+        self.integer_dot_product_accumulating_saturating64_bit_signed_accelerated = value.into();
         self
     }
     #[inline]
     pub fn integer_dot_product_accumulating_saturating64_bit_mixed_signedness_accelerated(
         mut self,
-        value: Bool32,
+        value: impl Into<Bool32>,
     ) -> Self {
-        self.integer_dot_product_accumulating_saturating64_bit_mixed_signedness_accelerated = value;
+        self.integer_dot_product_accumulating_saturating64_bit_mixed_signedness_accelerated =
+            value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -17060,8 +17279,11 @@ impl<'a> PhysicalDeviceTexelBufferAlignmentProperties<'a> {
         self
     }
     #[inline]
-    pub fn storage_texel_buffer_offset_single_texel_alignment(mut self, value: Bool32) -> Self {
-        self.storage_texel_buffer_offset_single_texel_alignment = value;
+    pub fn storage_texel_buffer_offset_single_texel_alignment(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.storage_texel_buffer_offset_single_texel_alignment = value.into();
         self
     }
     #[inline]
@@ -17070,8 +17292,11 @@ impl<'a> PhysicalDeviceTexelBufferAlignmentProperties<'a> {
         self
     }
     #[inline]
-    pub fn uniform_texel_buffer_offset_single_texel_alignment(mut self, value: Bool32) -> Self {
-        self.uniform_texel_buffer_offset_single_texel_alignment = value;
+    pub fn uniform_texel_buffer_offset_single_texel_alignment(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.uniform_texel_buffer_offset_single_texel_alignment = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -17164,8 +17389,8 @@ impl<'a> Default for PhysicalDeviceMaintenance4Features<'a> {
 }
 impl<'a> PhysicalDeviceMaintenance4Features<'a> {
     #[inline]
-    pub fn maintenance4(mut self, value: Bool32) -> Self {
-        self.maintenance4 = value;
+    pub fn maintenance4(mut self, value: impl Into<Bool32>) -> Self {
+        self.maintenance4 = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -17521,8 +17746,8 @@ impl<'a> SwapchainCreateInfoKHR<'a> {
         self
     }
     #[inline]
-    pub fn clipped(mut self, value: Bool32) -> Self {
-        self.clipped = value;
+    pub fn clipped(mut self, value: impl Into<Bool32>) -> Self {
+        self.clipped = value.into();
         self
     }
     #[inline]
@@ -18135,13 +18360,13 @@ impl<'a> DisplayPropertiesKHR<'a> {
         self
     }
     #[inline]
-    pub fn plane_reorder_possible(mut self, value: Bool32) -> Self {
-        self.plane_reorder_possible = value;
+    pub fn plane_reorder_possible(mut self, value: impl Into<Bool32>) -> Self {
+        self.plane_reorder_possible = value.into();
         self
     }
     #[inline]
-    pub fn persistent_content(mut self, value: Bool32) -> Self {
-        self.persistent_content = value;
+    pub fn persistent_content(mut self, value: impl Into<Bool32>) -> Self {
+        self.persistent_content = value.into();
         self
     }
 }
@@ -18269,8 +18494,8 @@ impl<'a> DisplayPresentInfoKHR<'a> {
         self
     }
     #[inline]
-    pub fn persistent(mut self, value: Bool32) -> Self {
-        self.persistent = value;
+    pub fn persistent(mut self, value: impl Into<Bool32>) -> Self {
+        self.persistent = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -18780,8 +19005,8 @@ impl<'a> Default for DedicatedAllocationImageCreateInfoNV<'a> {
 }
 impl<'a> DedicatedAllocationImageCreateInfoNV<'a> {
     #[inline]
-    pub fn dedicated_allocation(mut self, value: Bool32) -> Self {
-        self.dedicated_allocation = value;
+    pub fn dedicated_allocation(mut self, value: impl Into<Bool32>) -> Self {
+        self.dedicated_allocation = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -18818,8 +19043,8 @@ impl<'a> Default for DedicatedAllocationBufferCreateInfoNV<'a> {
 }
 impl<'a> DedicatedAllocationBufferCreateInfoNV<'a> {
     #[inline]
-    pub fn dedicated_allocation(mut self, value: Bool32) -> Self {
-        self.dedicated_allocation = value;
+    pub fn dedicated_allocation(mut self, value: impl Into<Bool32>) -> Self {
+        self.dedicated_allocation = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -18907,13 +19132,13 @@ impl<'a> Default for PhysicalDeviceTransformFeedbackFeaturesEXT<'a> {
 }
 impl<'a> PhysicalDeviceTransformFeedbackFeaturesEXT<'a> {
     #[inline]
-    pub fn transform_feedback(mut self, value: Bool32) -> Self {
-        self.transform_feedback = value;
+    pub fn transform_feedback(mut self, value: impl Into<Bool32>) -> Self {
+        self.transform_feedback = value.into();
         self
     }
     #[inline]
-    pub fn geometry_streams(mut self, value: Bool32) -> Self {
-        self.geometry_streams = value;
+    pub fn geometry_streams(mut self, value: impl Into<Bool32>) -> Self {
+        self.geometry_streams = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -18999,23 +19224,26 @@ impl<'a> PhysicalDeviceTransformFeedbackPropertiesEXT<'a> {
         self
     }
     #[inline]
-    pub fn transform_feedback_queries(mut self, value: Bool32) -> Self {
-        self.transform_feedback_queries = value;
+    pub fn transform_feedback_queries(mut self, value: impl Into<Bool32>) -> Self {
+        self.transform_feedback_queries = value.into();
         self
     }
     #[inline]
-    pub fn transform_feedback_streams_lines_triangles(mut self, value: Bool32) -> Self {
-        self.transform_feedback_streams_lines_triangles = value;
+    pub fn transform_feedback_streams_lines_triangles(mut self, value: impl Into<Bool32>) -> Self {
+        self.transform_feedback_streams_lines_triangles = value.into();
         self
     }
     #[inline]
-    pub fn transform_feedback_rasterization_stream_select(mut self, value: Bool32) -> Self {
-        self.transform_feedback_rasterization_stream_select = value;
+    pub fn transform_feedback_rasterization_stream_select(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.transform_feedback_rasterization_stream_select = value.into();
         self
     }
     #[inline]
-    pub fn transform_feedback_draw(mut self, value: Bool32) -> Self {
-        self.transform_feedback_draw = value;
+    pub fn transform_feedback_draw(mut self, value: impl Into<Bool32>) -> Self {
+        self.transform_feedback_draw = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -19368,8 +19596,8 @@ impl<'a> Default for TextureLODGatherFormatPropertiesAMD<'a> {
 }
 impl<'a> TextureLODGatherFormatPropertiesAMD<'a> {
     #[inline]
-    pub fn supports_texture_gather_lodbias_amd(mut self, value: Bool32) -> Self {
-        self.supports_texture_gather_lodbias_amd = value;
+    pub fn supports_texture_gather_lodbias_amd(mut self, value: impl Into<Bool32>) -> Self {
+        self.supports_texture_gather_lodbias_amd = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -19687,13 +19915,13 @@ impl<'a> Default for MultiviewPerViewAttributesInfoNVX<'a> {
 }
 impl<'a> MultiviewPerViewAttributesInfoNVX<'a> {
     #[inline]
-    pub fn per_view_attributes(mut self, value: Bool32) -> Self {
-        self.per_view_attributes = value;
+    pub fn per_view_attributes(mut self, value: impl Into<Bool32>) -> Self {
+        self.per_view_attributes = value.into();
         self
     }
     #[inline]
-    pub fn per_view_attributes_position_xonly(mut self, value: Bool32) -> Self {
-        self.per_view_attributes_position_xonly = value;
+    pub fn per_view_attributes_position_xonly(mut self, value: impl Into<Bool32>) -> Self {
+        self.per_view_attributes_position_xonly = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -19775,8 +20003,8 @@ impl<'a> Default for PhysicalDeviceCornerSampledImageFeaturesNV<'a> {
 }
 impl<'a> PhysicalDeviceCornerSampledImageFeaturesNV<'a> {
     #[inline]
-    pub fn corner_sampled_image(mut self, value: Bool32) -> Self {
-        self.corner_sampled_image = value;
+    pub fn corner_sampled_image(mut self, value: impl Into<Bool32>) -> Self {
+        self.corner_sampled_image = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -20214,8 +20442,8 @@ impl<'a> Default for PhysicalDeviceASTCDecodeFeaturesEXT<'a> {
 }
 impl<'a> PhysicalDeviceASTCDecodeFeaturesEXT<'a> {
     #[inline]
-    pub fn decode_mode_shared_exponent(mut self, value: Bool32) -> Self {
-        self.decode_mode_shared_exponent = value;
+    pub fn decode_mode_shared_exponent(mut self, value: impl Into<Bool32>) -> Self {
+        self.decode_mode_shared_exponent = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -20257,8 +20485,8 @@ impl<'a> Default for PhysicalDevicePipelineRobustnessFeaturesEXT<'a> {
 }
 impl<'a> PhysicalDevicePipelineRobustnessFeaturesEXT<'a> {
     #[inline]
-    pub fn pipeline_robustness(mut self, value: Bool32) -> Self {
-        self.pipeline_robustness = value;
+    pub fn pipeline_robustness(mut self, value: impl Into<Bool32>) -> Self {
+        self.pipeline_robustness = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -21206,13 +21434,13 @@ impl<'a> Default for PhysicalDeviceConditionalRenderingFeaturesEXT<'a> {
 }
 impl<'a> PhysicalDeviceConditionalRenderingFeaturesEXT<'a> {
     #[inline]
-    pub fn conditional_rendering(mut self, value: Bool32) -> Self {
-        self.conditional_rendering = value;
+    pub fn conditional_rendering(mut self, value: impl Into<Bool32>) -> Self {
+        self.conditional_rendering = value.into();
         self
     }
     #[inline]
-    pub fn inherited_conditional_rendering(mut self, value: Bool32) -> Self {
-        self.inherited_conditional_rendering = value;
+    pub fn inherited_conditional_rendering(mut self, value: impl Into<Bool32>) -> Self {
+        self.inherited_conditional_rendering = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -21250,8 +21478,8 @@ impl<'a> Default for CommandBufferInheritanceConditionalRenderingInfoEXT<'a> {
 }
 impl<'a> CommandBufferInheritanceConditionalRenderingInfoEXT<'a> {
     #[inline]
-    pub fn conditional_rendering_enable(mut self, value: Bool32) -> Self {
-        self.conditional_rendering_enable = value;
+    pub fn conditional_rendering_enable(mut self, value: impl Into<Bool32>) -> Self {
+        self.conditional_rendering_enable = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -21434,8 +21662,8 @@ impl<'a> Default for PipelineViewportWScalingStateCreateInfoNV<'a> {
 }
 impl<'a> PipelineViewportWScalingStateCreateInfoNV<'a> {
     #[inline]
-    pub fn viewport_wscaling_enable(mut self, value: Bool32) -> Self {
-        self.viewport_wscaling_enable = value;
+    pub fn viewport_wscaling_enable(mut self, value: impl Into<Bool32>) -> Self {
+        self.viewport_wscaling_enable = value.into();
         self
     }
     #[inline]
@@ -21875,8 +22103,8 @@ impl<'a> Default for PhysicalDeviceMultiviewPerViewAttributesPropertiesNVX<'a> {
 }
 impl<'a> PhysicalDeviceMultiviewPerViewAttributesPropertiesNVX<'a> {
     #[inline]
-    pub fn per_view_position_all_components(mut self, value: Bool32) -> Self {
-        self.per_view_position_all_components = value;
+    pub fn per_view_position_all_components(mut self, value: impl Into<Bool32>) -> Self {
+        self.per_view_position_all_components = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -22131,33 +22359,39 @@ impl<'a> PhysicalDeviceConservativeRasterizationPropertiesEXT<'a> {
         self
     }
     #[inline]
-    pub fn primitive_underestimation(mut self, value: Bool32) -> Self {
-        self.primitive_underestimation = value;
+    pub fn primitive_underestimation(mut self, value: impl Into<Bool32>) -> Self {
+        self.primitive_underestimation = value.into();
         self
     }
     #[inline]
-    pub fn conservative_point_and_line_rasterization(mut self, value: Bool32) -> Self {
-        self.conservative_point_and_line_rasterization = value;
+    pub fn conservative_point_and_line_rasterization(mut self, value: impl Into<Bool32>) -> Self {
+        self.conservative_point_and_line_rasterization = value.into();
         self
     }
     #[inline]
-    pub fn degenerate_triangles_rasterized(mut self, value: Bool32) -> Self {
-        self.degenerate_triangles_rasterized = value;
+    pub fn degenerate_triangles_rasterized(mut self, value: impl Into<Bool32>) -> Self {
+        self.degenerate_triangles_rasterized = value.into();
         self
     }
     #[inline]
-    pub fn degenerate_lines_rasterized(mut self, value: Bool32) -> Self {
-        self.degenerate_lines_rasterized = value;
+    pub fn degenerate_lines_rasterized(mut self, value: impl Into<Bool32>) -> Self {
+        self.degenerate_lines_rasterized = value.into();
         self
     }
     #[inline]
-    pub fn fully_covered_fragment_shader_input_variable(mut self, value: Bool32) -> Self {
-        self.fully_covered_fragment_shader_input_variable = value;
+    pub fn fully_covered_fragment_shader_input_variable(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.fully_covered_fragment_shader_input_variable = value.into();
         self
     }
     #[inline]
-    pub fn conservative_rasterization_post_depth_coverage(mut self, value: Bool32) -> Self {
-        self.conservative_rasterization_post_depth_coverage = value;
+    pub fn conservative_rasterization_post_depth_coverage(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.conservative_rasterization_post_depth_coverage = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -22254,8 +22488,8 @@ impl<'a> Default for PhysicalDeviceDepthClipEnableFeaturesEXT<'a> {
 }
 impl<'a> PhysicalDeviceDepthClipEnableFeaturesEXT<'a> {
     #[inline]
-    pub fn depth_clip_enable(mut self, value: Bool32) -> Self {
-        self.depth_clip_enable = value;
+    pub fn depth_clip_enable(mut self, value: impl Into<Bool32>) -> Self {
+        self.depth_clip_enable = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -22300,8 +22534,8 @@ impl<'a> PipelineRasterizationDepthClipStateCreateInfoEXT<'a> {
         self
     }
     #[inline]
-    pub fn depth_clip_enable(mut self, value: Bool32) -> Self {
-        self.depth_clip_enable = value;
+    pub fn depth_clip_enable(mut self, value: impl Into<Bool32>) -> Self {
+        self.depth_clip_enable = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -22456,8 +22690,8 @@ impl<'a> Default for PhysicalDeviceRelaxedLineRasterizationFeaturesIMG<'a> {
 }
 impl<'a> PhysicalDeviceRelaxedLineRasterizationFeaturesIMG<'a> {
     #[inline]
-    pub fn relaxed_line_rasterization(mut self, value: Bool32) -> Self {
-        self.relaxed_line_rasterization = value;
+    pub fn relaxed_line_rasterization(mut self, value: impl Into<Bool32>) -> Self {
+        self.relaxed_line_rasterization = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -22786,13 +23020,13 @@ impl<'a> Default for PhysicalDevicePerformanceQueryFeaturesKHR<'a> {
 }
 impl<'a> PhysicalDevicePerformanceQueryFeaturesKHR<'a> {
     #[inline]
-    pub fn performance_counter_query_pools(mut self, value: Bool32) -> Self {
-        self.performance_counter_query_pools = value;
+    pub fn performance_counter_query_pools(mut self, value: impl Into<Bool32>) -> Self {
+        self.performance_counter_query_pools = value.into();
         self
     }
     #[inline]
-    pub fn performance_counter_multiple_query_pools(mut self, value: Bool32) -> Self {
-        self.performance_counter_multiple_query_pools = value;
+    pub fn performance_counter_multiple_query_pools(mut self, value: impl Into<Bool32>) -> Self {
+        self.performance_counter_multiple_query_pools = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -22830,8 +23064,8 @@ impl<'a> Default for PhysicalDevicePerformanceQueryPropertiesKHR<'a> {
 }
 impl<'a> PhysicalDevicePerformanceQueryPropertiesKHR<'a> {
     #[inline]
-    pub fn allow_command_buffer_query_copies(mut self, value: Bool32) -> Self {
-        self.allow_command_buffer_query_copies = value;
+    pub fn allow_command_buffer_query_copies(mut self, value: impl Into<Bool32>) -> Self {
+        self.allow_command_buffer_query_copies = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -24209,8 +24443,8 @@ impl<'a> Default for PhysicalDeviceShaderEnqueueFeaturesAMDX<'a> {
 }
 impl<'a> PhysicalDeviceShaderEnqueueFeaturesAMDX<'a> {
     #[inline]
-    pub fn shader_enqueue(mut self, value: Bool32) -> Self {
-        self.shader_enqueue = value;
+    pub fn shader_enqueue(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_enqueue = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -24771,8 +25005,8 @@ impl<'a> Default for PipelineSampleLocationsStateCreateInfoEXT<'a> {
 }
 impl<'a> PipelineSampleLocationsStateCreateInfoEXT<'a> {
     #[inline]
-    pub fn sample_locations_enable(mut self, value: Bool32) -> Self {
-        self.sample_locations_enable = value;
+    pub fn sample_locations_enable(mut self, value: impl Into<Bool32>) -> Self {
+        self.sample_locations_enable = value.into();
         self
     }
     #[inline]
@@ -24842,8 +25076,8 @@ impl<'a> PhysicalDeviceSampleLocationsPropertiesEXT<'a> {
         self
     }
     #[inline]
-    pub fn variable_sample_locations(mut self, value: Bool32) -> Self {
-        self.variable_sample_locations = value;
+    pub fn variable_sample_locations(mut self, value: impl Into<Bool32>) -> Self {
+        self.variable_sample_locations = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -24919,8 +25153,8 @@ impl<'a> Default for PhysicalDeviceBlendOperationAdvancedFeaturesEXT<'a> {
 }
 impl<'a> PhysicalDeviceBlendOperationAdvancedFeaturesEXT<'a> {
     #[inline]
-    pub fn advanced_blend_coherent_operations(mut self, value: Bool32) -> Self {
-        self.advanced_blend_coherent_operations = value;
+    pub fn advanced_blend_coherent_operations(mut self, value: impl Into<Bool32>) -> Self {
+        self.advanced_blend_coherent_operations = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -24973,28 +25207,28 @@ impl<'a> PhysicalDeviceBlendOperationAdvancedPropertiesEXT<'a> {
         self
     }
     #[inline]
-    pub fn advanced_blend_independent_blend(mut self, value: Bool32) -> Self {
-        self.advanced_blend_independent_blend = value;
+    pub fn advanced_blend_independent_blend(mut self, value: impl Into<Bool32>) -> Self {
+        self.advanced_blend_independent_blend = value.into();
         self
     }
     #[inline]
-    pub fn advanced_blend_non_premultiplied_src_color(mut self, value: Bool32) -> Self {
-        self.advanced_blend_non_premultiplied_src_color = value;
+    pub fn advanced_blend_non_premultiplied_src_color(mut self, value: impl Into<Bool32>) -> Self {
+        self.advanced_blend_non_premultiplied_src_color = value.into();
         self
     }
     #[inline]
-    pub fn advanced_blend_non_premultiplied_dst_color(mut self, value: Bool32) -> Self {
-        self.advanced_blend_non_premultiplied_dst_color = value;
+    pub fn advanced_blend_non_premultiplied_dst_color(mut self, value: impl Into<Bool32>) -> Self {
+        self.advanced_blend_non_premultiplied_dst_color = value.into();
         self
     }
     #[inline]
-    pub fn advanced_blend_correlated_overlap(mut self, value: Bool32) -> Self {
-        self.advanced_blend_correlated_overlap = value;
+    pub fn advanced_blend_correlated_overlap(mut self, value: impl Into<Bool32>) -> Self {
+        self.advanced_blend_correlated_overlap = value.into();
         self
     }
     #[inline]
-    pub fn advanced_blend_all_operations(mut self, value: Bool32) -> Self {
-        self.advanced_blend_all_operations = value;
+    pub fn advanced_blend_all_operations(mut self, value: impl Into<Bool32>) -> Self {
+        self.advanced_blend_all_operations = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -25036,13 +25270,13 @@ impl<'a> Default for PipelineColorBlendAdvancedStateCreateInfoEXT<'a> {
 }
 impl<'a> PipelineColorBlendAdvancedStateCreateInfoEXT<'a> {
     #[inline]
-    pub fn src_premultiplied(mut self, value: Bool32) -> Self {
-        self.src_premultiplied = value;
+    pub fn src_premultiplied(mut self, value: impl Into<Bool32>) -> Self {
+        self.src_premultiplied = value.into();
         self
     }
     #[inline]
-    pub fn dst_premultiplied(mut self, value: Bool32) -> Self {
-        self.dst_premultiplied = value;
+    pub fn dst_premultiplied(mut self, value: impl Into<Bool32>) -> Self {
+        self.dst_premultiplied = value.into();
         self
     }
     #[inline]
@@ -25093,8 +25327,8 @@ impl<'a> PipelineCoverageToColorStateCreateInfoNV<'a> {
         self
     }
     #[inline]
-    pub fn coverage_to_color_enable(mut self, value: Bool32) -> Self {
-        self.coverage_to_color_enable = value;
+    pub fn coverage_to_color_enable(mut self, value: impl Into<Bool32>) -> Self {
+        self.coverage_to_color_enable = value.into();
         self
     }
     #[inline]
@@ -25571,8 +25805,8 @@ impl<'a> Default for AccelerationStructureGeometryInstancesDataKHR<'a> {
 }
 impl<'a> AccelerationStructureGeometryInstancesDataKHR<'a> {
     #[inline]
-    pub fn array_of_pointers(mut self, value: Bool32) -> Self {
-        self.array_of_pointers = value;
+    pub fn array_of_pointers(mut self, value: impl Into<Bool32>) -> Self {
+        self.array_of_pointers = value.into();
         self
     }
     #[inline]
@@ -25808,31 +26042,31 @@ impl<'a> Default for PhysicalDeviceAccelerationStructureFeaturesKHR<'a> {
 }
 impl<'a> PhysicalDeviceAccelerationStructureFeaturesKHR<'a> {
     #[inline]
-    pub fn acceleration_structure(mut self, value: Bool32) -> Self {
-        self.acceleration_structure = value;
+    pub fn acceleration_structure(mut self, value: impl Into<Bool32>) -> Self {
+        self.acceleration_structure = value.into();
         self
     }
     #[inline]
-    pub fn acceleration_structure_capture_replay(mut self, value: Bool32) -> Self {
-        self.acceleration_structure_capture_replay = value;
+    pub fn acceleration_structure_capture_replay(mut self, value: impl Into<Bool32>) -> Self {
+        self.acceleration_structure_capture_replay = value.into();
         self
     }
     #[inline]
-    pub fn acceleration_structure_indirect_build(mut self, value: Bool32) -> Self {
-        self.acceleration_structure_indirect_build = value;
+    pub fn acceleration_structure_indirect_build(mut self, value: impl Into<Bool32>) -> Self {
+        self.acceleration_structure_indirect_build = value.into();
         self
     }
     #[inline]
-    pub fn acceleration_structure_host_commands(mut self, value: Bool32) -> Self {
-        self.acceleration_structure_host_commands = value;
+    pub fn acceleration_structure_host_commands(mut self, value: impl Into<Bool32>) -> Self {
+        self.acceleration_structure_host_commands = value.into();
         self
     }
     #[inline]
     pub fn descriptor_binding_acceleration_structure_update_after_bind(
         mut self,
-        value: Bool32,
+        value: impl Into<Bool32>,
     ) -> Self {
-        self.descriptor_binding_acceleration_structure_update_after_bind = value;
+        self.descriptor_binding_acceleration_structure_update_after_bind = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -26411,34 +26645,34 @@ impl<'a> Default for PhysicalDeviceRayTracingPipelineFeaturesKHR<'a> {
 }
 impl<'a> PhysicalDeviceRayTracingPipelineFeaturesKHR<'a> {
     #[inline]
-    pub fn ray_tracing_pipeline(mut self, value: Bool32) -> Self {
-        self.ray_tracing_pipeline = value;
+    pub fn ray_tracing_pipeline(mut self, value: impl Into<Bool32>) -> Self {
+        self.ray_tracing_pipeline = value.into();
         self
     }
     #[inline]
     pub fn ray_tracing_pipeline_shader_group_handle_capture_replay(
         mut self,
-        value: Bool32,
+        value: impl Into<Bool32>,
     ) -> Self {
-        self.ray_tracing_pipeline_shader_group_handle_capture_replay = value;
+        self.ray_tracing_pipeline_shader_group_handle_capture_replay = value.into();
         self
     }
     #[inline]
     pub fn ray_tracing_pipeline_shader_group_handle_capture_replay_mixed(
         mut self,
-        value: Bool32,
+        value: impl Into<Bool32>,
     ) -> Self {
-        self.ray_tracing_pipeline_shader_group_handle_capture_replay_mixed = value;
+        self.ray_tracing_pipeline_shader_group_handle_capture_replay_mixed = value.into();
         self
     }
     #[inline]
-    pub fn ray_tracing_pipeline_trace_rays_indirect(mut self, value: Bool32) -> Self {
-        self.ray_tracing_pipeline_trace_rays_indirect = value;
+    pub fn ray_tracing_pipeline_trace_rays_indirect(mut self, value: impl Into<Bool32>) -> Self {
+        self.ray_tracing_pipeline_trace_rays_indirect = value.into();
         self
     }
     #[inline]
-    pub fn ray_traversal_primitive_culling(mut self, value: Bool32) -> Self {
-        self.ray_traversal_primitive_culling = value;
+    pub fn ray_traversal_primitive_culling(mut self, value: impl Into<Bool32>) -> Self {
+        self.ray_traversal_primitive_culling = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -26682,8 +26916,8 @@ impl<'a> Default for PhysicalDeviceRayQueryFeaturesKHR<'a> {
 }
 impl<'a> PhysicalDeviceRayQueryFeaturesKHR<'a> {
     #[inline]
-    pub fn ray_query(mut self, value: Bool32) -> Self {
-        self.ray_query = value;
+    pub fn ray_query(mut self, value: impl Into<Bool32>) -> Self {
+        self.ray_query = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -26739,8 +26973,8 @@ impl<'a> PipelineCoverageModulationStateCreateInfoNV<'a> {
         self
     }
     #[inline]
-    pub fn coverage_modulation_table_enable(mut self, value: Bool32) -> Self {
-        self.coverage_modulation_table_enable = value;
+    pub fn coverage_modulation_table_enable(mut self, value: impl Into<Bool32>) -> Self {
+        self.coverage_modulation_table_enable = value.into();
         self
     }
     #[inline]
@@ -26837,8 +27071,8 @@ impl<'a> Default for PhysicalDeviceShaderSMBuiltinsFeaturesNV<'a> {
 }
 impl<'a> PhysicalDeviceShaderSMBuiltinsFeaturesNV<'a> {
     #[inline]
-    pub fn shader_smbuiltins(mut self, value: Bool32) -> Self {
-        self.shader_smbuiltins = value;
+    pub fn shader_smbuiltins(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_smbuiltins = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -27327,78 +27561,78 @@ impl<'a> Default for PhysicalDevicePortabilitySubsetFeaturesKHR<'a> {
 }
 impl<'a> PhysicalDevicePortabilitySubsetFeaturesKHR<'a> {
     #[inline]
-    pub fn constant_alpha_color_blend_factors(mut self, value: Bool32) -> Self {
-        self.constant_alpha_color_blend_factors = value;
+    pub fn constant_alpha_color_blend_factors(mut self, value: impl Into<Bool32>) -> Self {
+        self.constant_alpha_color_blend_factors = value.into();
         self
     }
     #[inline]
-    pub fn events(mut self, value: Bool32) -> Self {
-        self.events = value;
+    pub fn events(mut self, value: impl Into<Bool32>) -> Self {
+        self.events = value.into();
         self
     }
     #[inline]
-    pub fn image_view_format_reinterpretation(mut self, value: Bool32) -> Self {
-        self.image_view_format_reinterpretation = value;
+    pub fn image_view_format_reinterpretation(mut self, value: impl Into<Bool32>) -> Self {
+        self.image_view_format_reinterpretation = value.into();
         self
     }
     #[inline]
-    pub fn image_view_format_swizzle(mut self, value: Bool32) -> Self {
-        self.image_view_format_swizzle = value;
+    pub fn image_view_format_swizzle(mut self, value: impl Into<Bool32>) -> Self {
+        self.image_view_format_swizzle = value.into();
         self
     }
     #[inline]
-    pub fn image_view2_don3_dimage(mut self, value: Bool32) -> Self {
-        self.image_view2_don3_dimage = value;
+    pub fn image_view2_don3_dimage(mut self, value: impl Into<Bool32>) -> Self {
+        self.image_view2_don3_dimage = value.into();
         self
     }
     #[inline]
-    pub fn multisample_array_image(mut self, value: Bool32) -> Self {
-        self.multisample_array_image = value;
+    pub fn multisample_array_image(mut self, value: impl Into<Bool32>) -> Self {
+        self.multisample_array_image = value.into();
         self
     }
     #[inline]
-    pub fn mutable_comparison_samplers(mut self, value: Bool32) -> Self {
-        self.mutable_comparison_samplers = value;
+    pub fn mutable_comparison_samplers(mut self, value: impl Into<Bool32>) -> Self {
+        self.mutable_comparison_samplers = value.into();
         self
     }
     #[inline]
-    pub fn point_polygons(mut self, value: Bool32) -> Self {
-        self.point_polygons = value;
+    pub fn point_polygons(mut self, value: impl Into<Bool32>) -> Self {
+        self.point_polygons = value.into();
         self
     }
     #[inline]
-    pub fn sampler_mip_lod_bias(mut self, value: Bool32) -> Self {
-        self.sampler_mip_lod_bias = value;
+    pub fn sampler_mip_lod_bias(mut self, value: impl Into<Bool32>) -> Self {
+        self.sampler_mip_lod_bias = value.into();
         self
     }
     #[inline]
-    pub fn separate_stencil_mask_ref(mut self, value: Bool32) -> Self {
-        self.separate_stencil_mask_ref = value;
+    pub fn separate_stencil_mask_ref(mut self, value: impl Into<Bool32>) -> Self {
+        self.separate_stencil_mask_ref = value.into();
         self
     }
     #[inline]
-    pub fn shader_sample_rate_interpolation_functions(mut self, value: Bool32) -> Self {
-        self.shader_sample_rate_interpolation_functions = value;
+    pub fn shader_sample_rate_interpolation_functions(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_sample_rate_interpolation_functions = value.into();
         self
     }
     #[inline]
-    pub fn tessellation_isolines(mut self, value: Bool32) -> Self {
-        self.tessellation_isolines = value;
+    pub fn tessellation_isolines(mut self, value: impl Into<Bool32>) -> Self {
+        self.tessellation_isolines = value.into();
         self
     }
     #[inline]
-    pub fn tessellation_point_mode(mut self, value: Bool32) -> Self {
-        self.tessellation_point_mode = value;
+    pub fn tessellation_point_mode(mut self, value: impl Into<Bool32>) -> Self {
+        self.tessellation_point_mode = value.into();
         self
     }
     #[inline]
-    pub fn triangle_fans(mut self, value: Bool32) -> Self {
-        self.triangle_fans = value;
+    pub fn triangle_fans(mut self, value: impl Into<Bool32>) -> Self {
+        self.triangle_fans = value.into();
         self
     }
     #[inline]
-    pub fn vertex_attribute_access_beyond_stride(mut self, value: Bool32) -> Self {
-        self.vertex_attribute_access_beyond_stride = value;
+    pub fn vertex_attribute_access_beyond_stride(mut self, value: impl Into<Bool32>) -> Self {
+        self.vertex_attribute_access_beyond_stride = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -27509,8 +27743,8 @@ impl<'a> Default for PipelineViewportShadingRateImageStateCreateInfoNV<'a> {
 }
 impl<'a> PipelineViewportShadingRateImageStateCreateInfoNV<'a> {
     #[inline]
-    pub fn shading_rate_image_enable(mut self, value: Bool32) -> Self {
-        self.shading_rate_image_enable = value;
+    pub fn shading_rate_image_enable(mut self, value: impl Into<Bool32>) -> Self {
+        self.shading_rate_image_enable = value.into();
         self
     }
     #[inline]
@@ -27562,13 +27796,13 @@ impl<'a> Default for PhysicalDeviceShadingRateImageFeaturesNV<'a> {
 }
 impl<'a> PhysicalDeviceShadingRateImageFeaturesNV<'a> {
     #[inline]
-    pub fn shading_rate_image(mut self, value: Bool32) -> Self {
-        self.shading_rate_image = value;
+    pub fn shading_rate_image(mut self, value: impl Into<Bool32>) -> Self {
+        self.shading_rate_image = value.into();
         self
     }
     #[inline]
-    pub fn shading_rate_coarse_sample_order(mut self, value: Bool32) -> Self {
-        self.shading_rate_coarse_sample_order = value;
+    pub fn shading_rate_coarse_sample_order(mut self, value: impl Into<Bool32>) -> Self {
+        self.shading_rate_coarse_sample_order = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -28509,8 +28743,8 @@ impl<'a> Default for PhysicalDeviceRepresentativeFragmentTestFeaturesNV<'a> {
 }
 impl<'a> PhysicalDeviceRepresentativeFragmentTestFeaturesNV<'a> {
     #[inline]
-    pub fn representative_fragment_test(mut self, value: Bool32) -> Self {
-        self.representative_fragment_test = value;
+    pub fn representative_fragment_test(mut self, value: impl Into<Bool32>) -> Self {
+        self.representative_fragment_test = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -28548,8 +28782,8 @@ impl<'a> Default for PipelineRepresentativeFragmentTestStateCreateInfoNV<'a> {
 }
 impl<'a> PipelineRepresentativeFragmentTestStateCreateInfoNV<'a> {
     #[inline]
-    pub fn representative_fragment_test_enable(mut self, value: Bool32) -> Self {
-        self.representative_fragment_test_enable = value;
+    pub fn representative_fragment_test_enable(mut self, value: impl Into<Bool32>) -> Self {
+        self.representative_fragment_test_enable = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -28627,13 +28861,13 @@ impl<'a> Default for FilterCubicImageViewImageFormatPropertiesEXT<'a> {
 }
 impl<'a> FilterCubicImageViewImageFormatPropertiesEXT<'a> {
     #[inline]
-    pub fn filter_cubic(mut self, value: Bool32) -> Self {
-        self.filter_cubic = value;
+    pub fn filter_cubic(mut self, value: impl Into<Bool32>) -> Self {
+        self.filter_cubic = value.into();
         self
     }
     #[inline]
-    pub fn filter_cubic_minmax(mut self, value: Bool32) -> Self {
-        self.filter_cubic_minmax = value;
+    pub fn filter_cubic_minmax(mut self, value: impl Into<Bool32>) -> Self {
+        self.filter_cubic_minmax = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -28794,13 +29028,13 @@ impl<'a> Default for PhysicalDeviceShaderClockFeaturesKHR<'a> {
 }
 impl<'a> PhysicalDeviceShaderClockFeaturesKHR<'a> {
     #[inline]
-    pub fn shader_subgroup_clock(mut self, value: Bool32) -> Self {
-        self.shader_subgroup_clock = value;
+    pub fn shader_subgroup_clock(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_subgroup_clock = value.into();
         self
     }
     #[inline]
-    pub fn shader_device_clock(mut self, value: Bool32) -> Self {
-        self.shader_device_clock = value;
+    pub fn shader_device_clock(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_device_clock = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -29056,8 +29290,8 @@ impl<'a> Default for PhysicalDeviceGlobalPriorityQueryFeaturesKHR<'a> {
 }
 impl<'a> PhysicalDeviceGlobalPriorityQueryFeaturesKHR<'a> {
     #[inline]
-    pub fn global_priority_query(mut self, value: Bool32) -> Self {
-        self.global_priority_query = value;
+    pub fn global_priority_query(mut self, value: impl Into<Bool32>) -> Self {
+        self.global_priority_query = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -29251,13 +29485,13 @@ impl<'a> Default for PhysicalDeviceComputeShaderDerivativesFeaturesNV<'a> {
 }
 impl<'a> PhysicalDeviceComputeShaderDerivativesFeaturesNV<'a> {
     #[inline]
-    pub fn compute_derivative_group_quads(mut self, value: Bool32) -> Self {
-        self.compute_derivative_group_quads = value;
+    pub fn compute_derivative_group_quads(mut self, value: impl Into<Bool32>) -> Self {
+        self.compute_derivative_group_quads = value.into();
         self
     }
     #[inline]
-    pub fn compute_derivative_group_linear(mut self, value: Bool32) -> Self {
-        self.compute_derivative_group_linear = value;
+    pub fn compute_derivative_group_linear(mut self, value: impl Into<Bool32>) -> Self {
+        self.compute_derivative_group_linear = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -29300,13 +29534,13 @@ impl<'a> Default for PhysicalDeviceMeshShaderFeaturesNV<'a> {
 }
 impl<'a> PhysicalDeviceMeshShaderFeaturesNV<'a> {
     #[inline]
-    pub fn task_shader(mut self, value: Bool32) -> Self {
-        self.task_shader = value;
+    pub fn task_shader(mut self, value: impl Into<Bool32>) -> Self {
+        self.task_shader = value.into();
         self
     }
     #[inline]
-    pub fn mesh_shader(mut self, value: Bool32) -> Self {
-        self.mesh_shader = value;
+    pub fn mesh_shader(mut self, value: impl Into<Bool32>) -> Self {
+        self.mesh_shader = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -29500,8 +29734,8 @@ impl<'a> Default for PhysicalDeviceShaderImageFootprintFeaturesNV<'a> {
 }
 impl<'a> PhysicalDeviceShaderImageFootprintFeaturesNV<'a> {
     #[inline]
-    pub fn image_footprint(mut self, value: Bool32) -> Self {
-        self.image_footprint = value;
+    pub fn image_footprint(mut self, value: impl Into<Bool32>) -> Self {
+        self.image_footprint = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -29584,8 +29818,8 @@ impl<'a> Default for PhysicalDeviceExclusiveScissorFeaturesNV<'a> {
 }
 impl<'a> PhysicalDeviceExclusiveScissorFeaturesNV<'a> {
     #[inline]
-    pub fn exclusive_scissor(mut self, value: Bool32) -> Self {
-        self.exclusive_scissor = value;
+    pub fn exclusive_scissor(mut self, value: impl Into<Bool32>) -> Self {
+        self.exclusive_scissor = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -29706,8 +29940,8 @@ impl<'a> Default for PhysicalDeviceShaderIntegerFunctions2FeaturesINTEL<'a> {
 }
 impl<'a> PhysicalDeviceShaderIntegerFunctions2FeaturesINTEL<'a> {
     #[inline]
-    pub fn shader_integer_functions2(mut self, value: Bool32) -> Self {
-        self.shader_integer_functions2 = value;
+    pub fn shader_integer_functions2(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_integer_functions2 = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -29938,8 +30172,8 @@ impl<'a> PerformanceOverrideInfoINTEL<'a> {
         self
     }
     #[inline]
-    pub fn enable(mut self, value: Bool32) -> Self {
-        self.enable = value;
+    pub fn enable(mut self, value: impl Into<Bool32>) -> Self {
+        self.enable = value.into();
         self
     }
     #[inline]
@@ -30074,8 +30308,8 @@ impl<'a> Default for DisplayNativeHdrSurfaceCapabilitiesAMD<'a> {
 }
 impl<'a> DisplayNativeHdrSurfaceCapabilitiesAMD<'a> {
     #[inline]
-    pub fn local_dimming_support(mut self, value: Bool32) -> Self {
-        self.local_dimming_support = value;
+    pub fn local_dimming_support(mut self, value: impl Into<Bool32>) -> Self {
+        self.local_dimming_support = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -30112,8 +30346,8 @@ impl<'a> Default for SwapchainDisplayNativeHdrCreateInfoAMD<'a> {
 }
 impl<'a> SwapchainDisplayNativeHdrCreateInfoAMD<'a> {
     #[inline]
-    pub fn local_dimming_enable(mut self, value: Bool32) -> Self {
-        self.local_dimming_enable = value;
+    pub fn local_dimming_enable(mut self, value: impl Into<Bool32>) -> Self {
+        self.local_dimming_enable = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -30243,18 +30477,18 @@ impl<'a> Default for PhysicalDeviceFragmentDensityMapFeaturesEXT<'a> {
 }
 impl<'a> PhysicalDeviceFragmentDensityMapFeaturesEXT<'a> {
     #[inline]
-    pub fn fragment_density_map(mut self, value: Bool32) -> Self {
-        self.fragment_density_map = value;
+    pub fn fragment_density_map(mut self, value: impl Into<Bool32>) -> Self {
+        self.fragment_density_map = value.into();
         self
     }
     #[inline]
-    pub fn fragment_density_map_dynamic(mut self, value: Bool32) -> Self {
-        self.fragment_density_map_dynamic = value;
+    pub fn fragment_density_map_dynamic(mut self, value: impl Into<Bool32>) -> Self {
+        self.fragment_density_map_dynamic = value.into();
         self
     }
     #[inline]
-    pub fn fragment_density_map_non_subsampled_images(mut self, value: Bool32) -> Self {
-        self.fragment_density_map_non_subsampled_images = value;
+    pub fn fragment_density_map_non_subsampled_images(mut self, value: impl Into<Bool32>) -> Self {
+        self.fragment_density_map_non_subsampled_images = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -30306,8 +30540,8 @@ impl<'a> PhysicalDeviceFragmentDensityMapPropertiesEXT<'a> {
         self
     }
     #[inline]
-    pub fn fragment_density_invocations(mut self, value: Bool32) -> Self {
-        self.fragment_density_invocations = value;
+    pub fn fragment_density_invocations(mut self, value: impl Into<Bool32>) -> Self {
+        self.fragment_density_invocations = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -30490,18 +30724,18 @@ impl<'a> Default for PhysicalDeviceFragmentShadingRateFeaturesKHR<'a> {
 }
 impl<'a> PhysicalDeviceFragmentShadingRateFeaturesKHR<'a> {
     #[inline]
-    pub fn pipeline_fragment_shading_rate(mut self, value: Bool32) -> Self {
-        self.pipeline_fragment_shading_rate = value;
+    pub fn pipeline_fragment_shading_rate(mut self, value: impl Into<Bool32>) -> Self {
+        self.pipeline_fragment_shading_rate = value.into();
         self
     }
     #[inline]
-    pub fn primitive_fragment_shading_rate(mut self, value: Bool32) -> Self {
-        self.primitive_fragment_shading_rate = value;
+    pub fn primitive_fragment_shading_rate(mut self, value: impl Into<Bool32>) -> Self {
+        self.primitive_fragment_shading_rate = value.into();
         self
     }
     #[inline]
-    pub fn attachment_fragment_shading_rate(mut self, value: Bool32) -> Self {
-        self.attachment_fragment_shading_rate = value;
+    pub fn attachment_fragment_shading_rate(mut self, value: impl Into<Bool32>) -> Self {
+        self.attachment_fragment_shading_rate = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -30591,19 +30825,22 @@ impl<'a> PhysicalDeviceFragmentShadingRatePropertiesKHR<'a> {
     #[inline]
     pub fn primitive_fragment_shading_rate_with_multiple_viewports(
         mut self,
-        value: Bool32,
+        value: impl Into<Bool32>,
     ) -> Self {
-        self.primitive_fragment_shading_rate_with_multiple_viewports = value;
+        self.primitive_fragment_shading_rate_with_multiple_viewports = value.into();
         self
     }
     #[inline]
-    pub fn layered_shading_rate_attachments(mut self, value: Bool32) -> Self {
-        self.layered_shading_rate_attachments = value;
+    pub fn layered_shading_rate_attachments(mut self, value: impl Into<Bool32>) -> Self {
+        self.layered_shading_rate_attachments = value.into();
         self
     }
     #[inline]
-    pub fn fragment_shading_rate_non_trivial_combiner_ops(mut self, value: Bool32) -> Self {
-        self.fragment_shading_rate_non_trivial_combiner_ops = value;
+    pub fn fragment_shading_rate_non_trivial_combiner_ops(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.fragment_shading_rate_non_trivial_combiner_ops = value.into();
         self
     }
     #[inline]
@@ -30630,38 +30867,56 @@ impl<'a> PhysicalDeviceFragmentShadingRatePropertiesKHR<'a> {
         self
     }
     #[inline]
-    pub fn fragment_shading_rate_with_shader_depth_stencil_writes(mut self, value: Bool32) -> Self {
-        self.fragment_shading_rate_with_shader_depth_stencil_writes = value;
+    pub fn fragment_shading_rate_with_shader_depth_stencil_writes(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.fragment_shading_rate_with_shader_depth_stencil_writes = value.into();
         self
     }
     #[inline]
-    pub fn fragment_shading_rate_with_sample_mask(mut self, value: Bool32) -> Self {
-        self.fragment_shading_rate_with_sample_mask = value;
+    pub fn fragment_shading_rate_with_sample_mask(mut self, value: impl Into<Bool32>) -> Self {
+        self.fragment_shading_rate_with_sample_mask = value.into();
         self
     }
     #[inline]
-    pub fn fragment_shading_rate_with_shader_sample_mask(mut self, value: Bool32) -> Self {
-        self.fragment_shading_rate_with_shader_sample_mask = value;
+    pub fn fragment_shading_rate_with_shader_sample_mask(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.fragment_shading_rate_with_shader_sample_mask = value.into();
         self
     }
     #[inline]
-    pub fn fragment_shading_rate_with_conservative_rasterization(mut self, value: Bool32) -> Self {
-        self.fragment_shading_rate_with_conservative_rasterization = value;
+    pub fn fragment_shading_rate_with_conservative_rasterization(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.fragment_shading_rate_with_conservative_rasterization = value.into();
         self
     }
     #[inline]
-    pub fn fragment_shading_rate_with_fragment_shader_interlock(mut self, value: Bool32) -> Self {
-        self.fragment_shading_rate_with_fragment_shader_interlock = value;
+    pub fn fragment_shading_rate_with_fragment_shader_interlock(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.fragment_shading_rate_with_fragment_shader_interlock = value.into();
         self
     }
     #[inline]
-    pub fn fragment_shading_rate_with_custom_sample_locations(mut self, value: Bool32) -> Self {
-        self.fragment_shading_rate_with_custom_sample_locations = value;
+    pub fn fragment_shading_rate_with_custom_sample_locations(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.fragment_shading_rate_with_custom_sample_locations = value.into();
         self
     }
     #[inline]
-    pub fn fragment_shading_rate_strict_multiply_combiner(mut self, value: Bool32) -> Self {
-        self.fragment_shading_rate_strict_multiply_combiner = value;
+    pub fn fragment_shading_rate_strict_multiply_combiner(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.fragment_shading_rate_strict_multiply_combiner = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -30788,8 +31043,8 @@ impl<'a> Default for PhysicalDeviceCoherentMemoryFeaturesAMD<'a> {
 }
 impl<'a> PhysicalDeviceCoherentMemoryFeaturesAMD<'a> {
     #[inline]
-    pub fn device_coherent_memory(mut self, value: Bool32) -> Self {
-        self.device_coherent_memory = value;
+    pub fn device_coherent_memory(mut self, value: impl Into<Bool32>) -> Self {
+        self.device_coherent_memory = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -30831,8 +31086,8 @@ impl<'a> Default for PhysicalDeviceDynamicRenderingLocalReadFeaturesKHR<'a> {
 }
 impl<'a> PhysicalDeviceDynamicRenderingLocalReadFeaturesKHR<'a> {
     #[inline]
-    pub fn dynamic_rendering_local_read(mut self, value: Bool32) -> Self {
-        self.dynamic_rendering_local_read = value;
+    pub fn dynamic_rendering_local_read(mut self, value: impl Into<Bool32>) -> Self {
+        self.dynamic_rendering_local_read = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -30990,13 +31245,13 @@ impl<'a> Default for PhysicalDeviceShaderImageAtomicInt64FeaturesEXT<'a> {
 }
 impl<'a> PhysicalDeviceShaderImageAtomicInt64FeaturesEXT<'a> {
     #[inline]
-    pub fn shader_image_int64_atomics(mut self, value: Bool32) -> Self {
-        self.shader_image_int64_atomics = value;
+    pub fn shader_image_int64_atomics(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_image_int64_atomics = value.into();
         self
     }
     #[inline]
-    pub fn sparse_image_int64_atomics(mut self, value: Bool32) -> Self {
-        self.sparse_image_int64_atomics = value;
+    pub fn sparse_image_int64_atomics(mut self, value: impl Into<Bool32>) -> Self {
+        self.sparse_image_int64_atomics = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -31037,8 +31292,8 @@ impl<'a> Default for PhysicalDeviceShaderQuadControlFeaturesKHR<'a> {
 }
 impl<'a> PhysicalDeviceShaderQuadControlFeaturesKHR<'a> {
     #[inline]
-    pub fn shader_quad_control(mut self, value: Bool32) -> Self {
-        self.shader_quad_control = value;
+    pub fn shader_quad_control(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_quad_control = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -31124,8 +31379,8 @@ impl<'a> Default for PhysicalDeviceMemoryPriorityFeaturesEXT<'a> {
 }
 impl<'a> PhysicalDeviceMemoryPriorityFeaturesEXT<'a> {
     #[inline]
-    pub fn memory_priority(mut self, value: Bool32) -> Self {
-        self.memory_priority = value;
+    pub fn memory_priority(mut self, value: impl Into<Bool32>) -> Self {
+        self.memory_priority = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -31200,8 +31455,8 @@ impl<'a> Default for SurfaceProtectedCapabilitiesKHR<'a> {
 }
 impl<'a> SurfaceProtectedCapabilitiesKHR<'a> {
     #[inline]
-    pub fn supports_protected(mut self, value: Bool32) -> Self {
-        self.supports_protected = value;
+    pub fn supports_protected(mut self, value: impl Into<Bool32>) -> Self {
+        self.supports_protected = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -31245,8 +31500,8 @@ impl<'a> Default for PhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV<'a
 }
 impl<'a> PhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV<'a> {
     #[inline]
-    pub fn dedicated_allocation_image_aliasing(mut self, value: Bool32) -> Self {
-        self.dedicated_allocation_image_aliasing = value;
+    pub fn dedicated_allocation_image_aliasing(mut self, value: impl Into<Bool32>) -> Self {
+        self.dedicated_allocation_image_aliasing = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -31292,18 +31547,18 @@ impl<'a> Default for PhysicalDeviceBufferDeviceAddressFeaturesEXT<'a> {
 }
 impl<'a> PhysicalDeviceBufferDeviceAddressFeaturesEXT<'a> {
     #[inline]
-    pub fn buffer_device_address(mut self, value: Bool32) -> Self {
-        self.buffer_device_address = value;
+    pub fn buffer_device_address(mut self, value: impl Into<Bool32>) -> Self {
+        self.buffer_device_address = value.into();
         self
     }
     #[inline]
-    pub fn buffer_device_address_capture_replay(mut self, value: Bool32) -> Self {
-        self.buffer_device_address_capture_replay = value;
+    pub fn buffer_device_address_capture_replay(mut self, value: impl Into<Bool32>) -> Self {
+        self.buffer_device_address_capture_replay = value.into();
         self
     }
     #[inline]
-    pub fn buffer_device_address_multi_device(mut self, value: Bool32) -> Self {
-        self.buffer_device_address_multi_device = value;
+    pub fn buffer_device_address_multi_device(mut self, value: impl Into<Bool32>) -> Self {
+        self.buffer_device_address_multi_device = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -31440,8 +31695,8 @@ impl<'a> Default for PhysicalDevicePresentWaitFeaturesKHR<'a> {
 }
 impl<'a> PhysicalDevicePresentWaitFeaturesKHR<'a> {
     #[inline]
-    pub fn present_wait(mut self, value: Bool32) -> Self {
-        self.present_wait = value;
+    pub fn present_wait(mut self, value: impl Into<Bool32>) -> Self {
+        self.present_wait = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -31567,13 +31822,13 @@ impl<'a> Default for PhysicalDeviceCooperativeMatrixFeaturesNV<'a> {
 }
 impl<'a> PhysicalDeviceCooperativeMatrixFeaturesNV<'a> {
     #[inline]
-    pub fn cooperative_matrix(mut self, value: Bool32) -> Self {
-        self.cooperative_matrix = value;
+    pub fn cooperative_matrix(mut self, value: impl Into<Bool32>) -> Self {
+        self.cooperative_matrix = value.into();
         self
     }
     #[inline]
-    pub fn cooperative_matrix_robust_buffer_access(mut self, value: Bool32) -> Self {
-        self.cooperative_matrix_robust_buffer_access = value;
+    pub fn cooperative_matrix_robust_buffer_access(mut self, value: impl Into<Bool32>) -> Self {
+        self.cooperative_matrix_robust_buffer_access = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -31654,8 +31909,8 @@ impl<'a> Default for PhysicalDeviceCoverageReductionModeFeaturesNV<'a> {
 }
 impl<'a> PhysicalDeviceCoverageReductionModeFeaturesNV<'a> {
     #[inline]
-    pub fn coverage_reduction_mode(mut self, value: Bool32) -> Self {
-        self.coverage_reduction_mode = value;
+    pub fn coverage_reduction_mode(mut self, value: impl Into<Bool32>) -> Self {
+        self.coverage_reduction_mode = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -31801,18 +32056,18 @@ impl<'a> Default for PhysicalDeviceFragmentShaderInterlockFeaturesEXT<'a> {
 }
 impl<'a> PhysicalDeviceFragmentShaderInterlockFeaturesEXT<'a> {
     #[inline]
-    pub fn fragment_shader_sample_interlock(mut self, value: Bool32) -> Self {
-        self.fragment_shader_sample_interlock = value;
+    pub fn fragment_shader_sample_interlock(mut self, value: impl Into<Bool32>) -> Self {
+        self.fragment_shader_sample_interlock = value.into();
         self
     }
     #[inline]
-    pub fn fragment_shader_pixel_interlock(mut self, value: Bool32) -> Self {
-        self.fragment_shader_pixel_interlock = value;
+    pub fn fragment_shader_pixel_interlock(mut self, value: impl Into<Bool32>) -> Self {
+        self.fragment_shader_pixel_interlock = value.into();
         self
     }
     #[inline]
-    pub fn fragment_shader_shading_rate_interlock(mut self, value: Bool32) -> Self {
-        self.fragment_shader_shading_rate_interlock = value;
+    pub fn fragment_shader_shading_rate_interlock(mut self, value: impl Into<Bool32>) -> Self {
+        self.fragment_shader_shading_rate_interlock = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -31853,8 +32108,8 @@ impl<'a> Default for PhysicalDeviceYcbcrImageArraysFeaturesEXT<'a> {
 }
 impl<'a> PhysicalDeviceYcbcrImageArraysFeaturesEXT<'a> {
     #[inline]
-    pub fn ycbcr_image_arrays(mut self, value: Bool32) -> Self {
-        self.ycbcr_image_arrays = value;
+    pub fn ycbcr_image_arrays(mut self, value: impl Into<Bool32>) -> Self {
+        self.ycbcr_image_arrays = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -31897,13 +32152,16 @@ impl<'a> Default for PhysicalDeviceProvokingVertexFeaturesEXT<'a> {
 }
 impl<'a> PhysicalDeviceProvokingVertexFeaturesEXT<'a> {
     #[inline]
-    pub fn provoking_vertex_last(mut self, value: Bool32) -> Self {
-        self.provoking_vertex_last = value;
+    pub fn provoking_vertex_last(mut self, value: impl Into<Bool32>) -> Self {
+        self.provoking_vertex_last = value.into();
         self
     }
     #[inline]
-    pub fn transform_feedback_preserves_provoking_vertex(mut self, value: Bool32) -> Self {
-        self.transform_feedback_preserves_provoking_vertex = value;
+    pub fn transform_feedback_preserves_provoking_vertex(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.transform_feedback_preserves_provoking_vertex = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -31942,16 +32200,16 @@ impl<'a> Default for PhysicalDeviceProvokingVertexPropertiesEXT<'a> {
 }
 impl<'a> PhysicalDeviceProvokingVertexPropertiesEXT<'a> {
     #[inline]
-    pub fn provoking_vertex_mode_per_pipeline(mut self, value: Bool32) -> Self {
-        self.provoking_vertex_mode_per_pipeline = value;
+    pub fn provoking_vertex_mode_per_pipeline(mut self, value: impl Into<Bool32>) -> Self {
+        self.provoking_vertex_mode_per_pipeline = value.into();
         self
     }
     #[inline]
     pub fn transform_feedback_preserves_triangle_fan_provoking_vertex(
         mut self,
-        value: Bool32,
+        value: impl Into<Bool32>,
     ) -> Self {
-        self.transform_feedback_preserves_triangle_fan_provoking_vertex = value;
+        self.transform_feedback_preserves_triangle_fan_provoking_vertex = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -32069,8 +32327,8 @@ impl<'a> Default for SurfaceCapabilitiesFullScreenExclusiveEXT<'a> {
 }
 impl<'a> SurfaceCapabilitiesFullScreenExclusiveEXT<'a> {
     #[inline]
-    pub fn full_screen_exclusive_supported(mut self, value: Bool32) -> Self {
-        self.full_screen_exclusive_supported = value;
+    pub fn full_screen_exclusive_supported(mut self, value: impl Into<Bool32>) -> Self {
+        self.full_screen_exclusive_supported = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -32209,63 +32467,63 @@ impl<'a> Default for PhysicalDeviceShaderAtomicFloatFeaturesEXT<'a> {
 }
 impl<'a> PhysicalDeviceShaderAtomicFloatFeaturesEXT<'a> {
     #[inline]
-    pub fn shader_buffer_float32_atomics(mut self, value: Bool32) -> Self {
-        self.shader_buffer_float32_atomics = value;
+    pub fn shader_buffer_float32_atomics(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_buffer_float32_atomics = value.into();
         self
     }
     #[inline]
-    pub fn shader_buffer_float32_atomic_add(mut self, value: Bool32) -> Self {
-        self.shader_buffer_float32_atomic_add = value;
+    pub fn shader_buffer_float32_atomic_add(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_buffer_float32_atomic_add = value.into();
         self
     }
     #[inline]
-    pub fn shader_buffer_float64_atomics(mut self, value: Bool32) -> Self {
-        self.shader_buffer_float64_atomics = value;
+    pub fn shader_buffer_float64_atomics(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_buffer_float64_atomics = value.into();
         self
     }
     #[inline]
-    pub fn shader_buffer_float64_atomic_add(mut self, value: Bool32) -> Self {
-        self.shader_buffer_float64_atomic_add = value;
+    pub fn shader_buffer_float64_atomic_add(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_buffer_float64_atomic_add = value.into();
         self
     }
     #[inline]
-    pub fn shader_shared_float32_atomics(mut self, value: Bool32) -> Self {
-        self.shader_shared_float32_atomics = value;
+    pub fn shader_shared_float32_atomics(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_shared_float32_atomics = value.into();
         self
     }
     #[inline]
-    pub fn shader_shared_float32_atomic_add(mut self, value: Bool32) -> Self {
-        self.shader_shared_float32_atomic_add = value;
+    pub fn shader_shared_float32_atomic_add(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_shared_float32_atomic_add = value.into();
         self
     }
     #[inline]
-    pub fn shader_shared_float64_atomics(mut self, value: Bool32) -> Self {
-        self.shader_shared_float64_atomics = value;
+    pub fn shader_shared_float64_atomics(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_shared_float64_atomics = value.into();
         self
     }
     #[inline]
-    pub fn shader_shared_float64_atomic_add(mut self, value: Bool32) -> Self {
-        self.shader_shared_float64_atomic_add = value;
+    pub fn shader_shared_float64_atomic_add(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_shared_float64_atomic_add = value.into();
         self
     }
     #[inline]
-    pub fn shader_image_float32_atomics(mut self, value: Bool32) -> Self {
-        self.shader_image_float32_atomics = value;
+    pub fn shader_image_float32_atomics(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_image_float32_atomics = value.into();
         self
     }
     #[inline]
-    pub fn shader_image_float32_atomic_add(mut self, value: Bool32) -> Self {
-        self.shader_image_float32_atomic_add = value;
+    pub fn shader_image_float32_atomic_add(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_image_float32_atomic_add = value.into();
         self
     }
     #[inline]
-    pub fn sparse_image_float32_atomics(mut self, value: Bool32) -> Self {
-        self.sparse_image_float32_atomics = value;
+    pub fn sparse_image_float32_atomics(mut self, value: impl Into<Bool32>) -> Self {
+        self.sparse_image_float32_atomics = value.into();
         self
     }
     #[inline]
-    pub fn sparse_image_float32_atomic_add(mut self, value: Bool32) -> Self {
-        self.sparse_image_float32_atomic_add = value;
+    pub fn sparse_image_float32_atomic_add(mut self, value: impl Into<Bool32>) -> Self {
+        self.sparse_image_float32_atomic_add = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -32307,8 +32565,8 @@ impl<'a> Default for PhysicalDeviceExtendedDynamicStateFeaturesEXT<'a> {
 }
 impl<'a> PhysicalDeviceExtendedDynamicStateFeaturesEXT<'a> {
     #[inline]
-    pub fn extended_dynamic_state(mut self, value: Bool32) -> Self {
-        self.extended_dynamic_state = value;
+    pub fn extended_dynamic_state(mut self, value: impl Into<Bool32>) -> Self {
+        self.extended_dynamic_state = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -32350,8 +32608,8 @@ impl<'a> Default for PhysicalDevicePipelineExecutablePropertiesFeaturesKHR<'a> {
 }
 impl<'a> PhysicalDevicePipelineExecutablePropertiesFeaturesKHR<'a> {
     #[inline]
-    pub fn pipeline_executable_info(mut self, value: Bool32) -> Self {
-        self.pipeline_executable_info = value;
+    pub fn pipeline_executable_info(mut self, value: impl Into<Bool32>) -> Self {
+        self.pipeline_executable_info = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -32602,8 +32860,8 @@ impl<'a> Default for PipelineExecutableInternalRepresentationKHR<'a> {
 }
 impl<'a> PipelineExecutableInternalRepresentationKHR<'a> {
     #[inline]
-    pub fn is_text(mut self, value: Bool32) -> Self {
-        self.is_text = value;
+    pub fn is_text(mut self, value: impl Into<Bool32>) -> Self {
+        self.is_text = value.into();
         self
     }
     #[inline]
@@ -32662,8 +32920,8 @@ impl<'a> Default for PhysicalDeviceHostImageCopyFeaturesEXT<'a> {
 }
 impl<'a> PhysicalDeviceHostImageCopyFeaturesEXT<'a> {
     #[inline]
-    pub fn host_image_copy(mut self, value: Bool32) -> Self {
-        self.host_image_copy = value;
+    pub fn host_image_copy(mut self, value: impl Into<Bool32>) -> Self {
+        self.host_image_copy = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -32725,8 +32983,8 @@ impl<'a> PhysicalDeviceHostImageCopyPropertiesEXT<'a> {
         self
     }
     #[inline]
-    pub fn identical_memory_type_requirements(mut self, value: Bool32) -> Self {
-        self.identical_memory_type_requirements = value;
+    pub fn identical_memory_type_requirements(mut self, value: impl Into<Bool32>) -> Self {
+        self.identical_memory_type_requirements = value.into();
         self
     }
     #[inline]
@@ -33196,13 +33454,13 @@ impl<'a> Default for HostImageCopyDevicePerformanceQueryEXT<'a> {
 }
 impl<'a> HostImageCopyDevicePerformanceQueryEXT<'a> {
     #[inline]
-    pub fn optimal_device_access(mut self, value: Bool32) -> Self {
-        self.optimal_device_access = value;
+    pub fn optimal_device_access(mut self, value: impl Into<Bool32>) -> Self {
+        self.optimal_device_access = value.into();
         self
     }
     #[inline]
-    pub fn identical_memory_layout(mut self, value: Bool32) -> Self {
-        self.identical_memory_layout = value;
+    pub fn identical_memory_layout(mut self, value: impl Into<Bool32>) -> Self {
+        self.identical_memory_layout = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -33343,18 +33601,18 @@ impl<'a> Default for PhysicalDeviceMapMemoryPlacedFeaturesEXT<'a> {
 }
 impl<'a> PhysicalDeviceMapMemoryPlacedFeaturesEXT<'a> {
     #[inline]
-    pub fn memory_map_placed(mut self, value: Bool32) -> Self {
-        self.memory_map_placed = value;
+    pub fn memory_map_placed(mut self, value: impl Into<Bool32>) -> Self {
+        self.memory_map_placed = value.into();
         self
     }
     #[inline]
-    pub fn memory_map_range_placed(mut self, value: Bool32) -> Self {
-        self.memory_map_range_placed = value;
+    pub fn memory_map_range_placed(mut self, value: impl Into<Bool32>) -> Self {
+        self.memory_map_range_placed = value.into();
         self
     }
     #[inline]
-    pub fn memory_unmap_reserve(mut self, value: Bool32) -> Self {
-        self.memory_unmap_reserve = value;
+    pub fn memory_unmap_reserve(mut self, value: impl Into<Bool32>) -> Self {
+        self.memory_unmap_reserve = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -33491,63 +33749,63 @@ impl<'a> Default for PhysicalDeviceShaderAtomicFloat2FeaturesEXT<'a> {
 }
 impl<'a> PhysicalDeviceShaderAtomicFloat2FeaturesEXT<'a> {
     #[inline]
-    pub fn shader_buffer_float16_atomics(mut self, value: Bool32) -> Self {
-        self.shader_buffer_float16_atomics = value;
+    pub fn shader_buffer_float16_atomics(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_buffer_float16_atomics = value.into();
         self
     }
     #[inline]
-    pub fn shader_buffer_float16_atomic_add(mut self, value: Bool32) -> Self {
-        self.shader_buffer_float16_atomic_add = value;
+    pub fn shader_buffer_float16_atomic_add(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_buffer_float16_atomic_add = value.into();
         self
     }
     #[inline]
-    pub fn shader_buffer_float16_atomic_min_max(mut self, value: Bool32) -> Self {
-        self.shader_buffer_float16_atomic_min_max = value;
+    pub fn shader_buffer_float16_atomic_min_max(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_buffer_float16_atomic_min_max = value.into();
         self
     }
     #[inline]
-    pub fn shader_buffer_float32_atomic_min_max(mut self, value: Bool32) -> Self {
-        self.shader_buffer_float32_atomic_min_max = value;
+    pub fn shader_buffer_float32_atomic_min_max(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_buffer_float32_atomic_min_max = value.into();
         self
     }
     #[inline]
-    pub fn shader_buffer_float64_atomic_min_max(mut self, value: Bool32) -> Self {
-        self.shader_buffer_float64_atomic_min_max = value;
+    pub fn shader_buffer_float64_atomic_min_max(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_buffer_float64_atomic_min_max = value.into();
         self
     }
     #[inline]
-    pub fn shader_shared_float16_atomics(mut self, value: Bool32) -> Self {
-        self.shader_shared_float16_atomics = value;
+    pub fn shader_shared_float16_atomics(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_shared_float16_atomics = value.into();
         self
     }
     #[inline]
-    pub fn shader_shared_float16_atomic_add(mut self, value: Bool32) -> Self {
-        self.shader_shared_float16_atomic_add = value;
+    pub fn shader_shared_float16_atomic_add(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_shared_float16_atomic_add = value.into();
         self
     }
     #[inline]
-    pub fn shader_shared_float16_atomic_min_max(mut self, value: Bool32) -> Self {
-        self.shader_shared_float16_atomic_min_max = value;
+    pub fn shader_shared_float16_atomic_min_max(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_shared_float16_atomic_min_max = value.into();
         self
     }
     #[inline]
-    pub fn shader_shared_float32_atomic_min_max(mut self, value: Bool32) -> Self {
-        self.shader_shared_float32_atomic_min_max = value;
+    pub fn shader_shared_float32_atomic_min_max(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_shared_float32_atomic_min_max = value.into();
         self
     }
     #[inline]
-    pub fn shader_shared_float64_atomic_min_max(mut self, value: Bool32) -> Self {
-        self.shader_shared_float64_atomic_min_max = value;
+    pub fn shader_shared_float64_atomic_min_max(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_shared_float64_atomic_min_max = value.into();
         self
     }
     #[inline]
-    pub fn shader_image_float32_atomic_min_max(mut self, value: Bool32) -> Self {
-        self.shader_image_float32_atomic_min_max = value;
+    pub fn shader_image_float32_atomic_min_max(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_image_float32_atomic_min_max = value.into();
         self
     }
     #[inline]
-    pub fn sparse_image_float32_atomic_min_max(mut self, value: Bool32) -> Self {
-        self.sparse_image_float32_atomic_min_max = value;
+    pub fn sparse_image_float32_atomic_min_max(mut self, value: impl Into<Bool32>) -> Self {
+        self.sparse_image_float32_atomic_min_max = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -33739,8 +33997,8 @@ impl<'a> Default for PhysicalDeviceSwapchainMaintenance1FeaturesEXT<'a> {
 }
 impl<'a> PhysicalDeviceSwapchainMaintenance1FeaturesEXT<'a> {
     #[inline]
-    pub fn swapchain_maintenance1(mut self, value: Bool32) -> Self {
-        self.swapchain_maintenance1 = value;
+    pub fn swapchain_maintenance1(mut self, value: impl Into<Bool32>) -> Self {
+        self.swapchain_maintenance1 = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -34090,8 +34348,8 @@ impl<'a> Default for PhysicalDeviceDeviceGeneratedCommandsFeaturesNV<'a> {
 }
 impl<'a> PhysicalDeviceDeviceGeneratedCommandsFeaturesNV<'a> {
     #[inline]
-    pub fn device_generated_commands(mut self, value: Bool32) -> Self {
-        self.device_generated_commands = value;
+    pub fn device_generated_commands(mut self, value: impl Into<Bool32>) -> Self {
+        self.device_generated_commands = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -34427,8 +34685,8 @@ impl<'a> IndirectCommandsLayoutTokenNV<'a> {
         self
     }
     #[inline]
-    pub fn vertex_dynamic_stride(mut self, value: Bool32) -> Self {
-        self.vertex_dynamic_stride = value;
+    pub fn vertex_dynamic_stride(mut self, value: impl Into<Bool32>) -> Self {
+        self.vertex_dynamic_stride = value.into();
         self
     }
     #[inline]
@@ -34736,8 +34994,8 @@ impl<'a> Default for PhysicalDeviceInheritedViewportScissorFeaturesNV<'a> {
 }
 impl<'a> PhysicalDeviceInheritedViewportScissorFeaturesNV<'a> {
     #[inline]
-    pub fn inherited_viewport_scissor2_d(mut self, value: Bool32) -> Self {
-        self.inherited_viewport_scissor2_d = value;
+    pub fn inherited_viewport_scissor2_d(mut self, value: impl Into<Bool32>) -> Self {
+        self.inherited_viewport_scissor2_d = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -34779,8 +35037,8 @@ impl<'a> Default for CommandBufferInheritanceViewportScissorInfoNV<'a> {
 }
 impl<'a> CommandBufferInheritanceViewportScissorInfoNV<'a> {
     #[inline]
-    pub fn viewport_scissor2_d(mut self, value: Bool32) -> Self {
-        self.viewport_scissor2_d = value;
+    pub fn viewport_scissor2_d(mut self, value: impl Into<Bool32>) -> Self {
+        self.viewport_scissor2_d = value.into();
         self
     }
     #[inline]
@@ -34832,8 +35090,8 @@ impl<'a> Default for PhysicalDeviceTexelBufferAlignmentFeaturesEXT<'a> {
 }
 impl<'a> PhysicalDeviceTexelBufferAlignmentFeaturesEXT<'a> {
     #[inline]
-    pub fn texel_buffer_alignment(mut self, value: Bool32) -> Self {
-        self.texel_buffer_alignment = value;
+    pub fn texel_buffer_alignment(mut self, value: impl Into<Bool32>) -> Self {
+        self.texel_buffer_alignment = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -34964,23 +35222,26 @@ impl<'a> Default for PhysicalDeviceDepthBiasControlFeaturesEXT<'a> {
 }
 impl<'a> PhysicalDeviceDepthBiasControlFeaturesEXT<'a> {
     #[inline]
-    pub fn depth_bias_control(mut self, value: Bool32) -> Self {
-        self.depth_bias_control = value;
+    pub fn depth_bias_control(mut self, value: impl Into<Bool32>) -> Self {
+        self.depth_bias_control = value.into();
         self
     }
     #[inline]
-    pub fn least_representable_value_force_unorm_representation(mut self, value: Bool32) -> Self {
-        self.least_representable_value_force_unorm_representation = value;
+    pub fn least_representable_value_force_unorm_representation(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.least_representable_value_force_unorm_representation = value.into();
         self
     }
     #[inline]
-    pub fn float_representation(mut self, value: Bool32) -> Self {
-        self.float_representation = value;
+    pub fn float_representation(mut self, value: impl Into<Bool32>) -> Self {
+        self.float_representation = value.into();
         self
     }
     #[inline]
-    pub fn depth_bias_exact(mut self, value: Bool32) -> Self {
-        self.depth_bias_exact = value;
+    pub fn depth_bias_exact(mut self, value: impl Into<Bool32>) -> Self {
+        self.depth_bias_exact = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -35076,8 +35337,8 @@ impl<'a> DepthBiasRepresentationInfoEXT<'a> {
         self
     }
     #[inline]
-    pub fn depth_bias_exact(mut self, value: Bool32) -> Self {
-        self.depth_bias_exact = value;
+    pub fn depth_bias_exact(mut self, value: impl Into<Bool32>) -> Self {
+        self.depth_bias_exact = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -35119,8 +35380,8 @@ impl<'a> Default for PhysicalDeviceDeviceMemoryReportFeaturesEXT<'a> {
 }
 impl<'a> PhysicalDeviceDeviceMemoryReportFeaturesEXT<'a> {
     #[inline]
-    pub fn device_memory_report(mut self, value: Bool32) -> Self {
-        self.device_memory_report = value;
+    pub fn device_memory_report(mut self, value: impl Into<Bool32>) -> Self {
+        self.device_memory_report = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -35293,18 +35554,18 @@ impl<'a> Default for PhysicalDeviceRobustness2FeaturesEXT<'a> {
 }
 impl<'a> PhysicalDeviceRobustness2FeaturesEXT<'a> {
     #[inline]
-    pub fn robust_buffer_access2(mut self, value: Bool32) -> Self {
-        self.robust_buffer_access2 = value;
+    pub fn robust_buffer_access2(mut self, value: impl Into<Bool32>) -> Self {
+        self.robust_buffer_access2 = value.into();
         self
     }
     #[inline]
-    pub fn robust_image_access2(mut self, value: Bool32) -> Self {
-        self.robust_image_access2 = value;
+    pub fn robust_image_access2(mut self, value: impl Into<Bool32>) -> Self {
+        self.robust_image_access2 = value.into();
         self
     }
     #[inline]
-    pub fn null_descriptor(mut self, value: Bool32) -> Self {
-        self.null_descriptor = value;
+    pub fn null_descriptor(mut self, value: impl Into<Bool32>) -> Self {
+        self.null_descriptor = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -35476,13 +35737,13 @@ impl<'a> Default for PhysicalDeviceCustomBorderColorFeaturesEXT<'a> {
 }
 impl<'a> PhysicalDeviceCustomBorderColorFeaturesEXT<'a> {
     #[inline]
-    pub fn custom_border_colors(mut self, value: Bool32) -> Self {
-        self.custom_border_colors = value;
+    pub fn custom_border_colors(mut self, value: impl Into<Bool32>) -> Self {
+        self.custom_border_colors = value.into();
         self
     }
     #[inline]
-    pub fn custom_border_color_without_format(mut self, value: Bool32) -> Self {
-        self.custom_border_color_without_format = value;
+    pub fn custom_border_color_without_format(mut self, value: impl Into<Bool32>) -> Self {
+        self.custom_border_color_without_format = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -35564,8 +35825,8 @@ impl<'a> Default for PhysicalDevicePresentBarrierFeaturesNV<'a> {
 }
 impl<'a> PhysicalDevicePresentBarrierFeaturesNV<'a> {
     #[inline]
-    pub fn present_barrier(mut self, value: Bool32) -> Self {
-        self.present_barrier = value;
+    pub fn present_barrier(mut self, value: impl Into<Bool32>) -> Self {
+        self.present_barrier = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -35602,8 +35863,8 @@ impl<'a> Default for SurfaceCapabilitiesPresentBarrierNV<'a> {
 }
 impl<'a> SurfaceCapabilitiesPresentBarrierNV<'a> {
     #[inline]
-    pub fn present_barrier_supported(mut self, value: Bool32) -> Self {
-        self.present_barrier_supported = value;
+    pub fn present_barrier_supported(mut self, value: impl Into<Bool32>) -> Self {
+        self.present_barrier_supported = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -35640,8 +35901,8 @@ impl<'a> Default for SwapchainPresentBarrierCreateInfoNV<'a> {
 }
 impl<'a> SwapchainPresentBarrierCreateInfoNV<'a> {
     #[inline]
-    pub fn present_barrier_enable(mut self, value: Bool32) -> Self {
-        self.present_barrier_enable = value;
+    pub fn present_barrier_enable(mut self, value: impl Into<Bool32>) -> Self {
+        self.present_barrier_enable = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -35725,8 +35986,8 @@ impl<'a> Default for PhysicalDevicePresentIdFeaturesKHR<'a> {
 }
 impl<'a> PhysicalDevicePresentIdFeaturesKHR<'a> {
     #[inline]
-    pub fn present_id(mut self, value: Bool32) -> Self {
-        self.present_id = value;
+    pub fn present_id(mut self, value: impl Into<Bool32>) -> Self {
+        self.present_id = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -35767,8 +36028,8 @@ impl<'a> Default for PhysicalDeviceDiagnosticsConfigFeaturesNV<'a> {
 }
 impl<'a> PhysicalDeviceDiagnosticsConfigFeaturesNV<'a> {
     #[inline]
-    pub fn diagnostics_config(mut self, value: Bool32) -> Self {
-        self.diagnostics_config = value;
+    pub fn diagnostics_config(mut self, value: impl Into<Bool32>) -> Self {
+        self.diagnostics_config = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -36028,8 +36289,8 @@ impl<'a> Default for PhysicalDeviceCudaKernelLaunchFeaturesNV<'a> {
 }
 impl<'a> PhysicalDeviceCudaKernelLaunchFeaturesNV<'a> {
     #[inline]
-    pub fn cuda_kernel_launch_features(mut self, value: Bool32) -> Self {
-        self.cuda_kernel_launch_features = value;
+    pub fn cuda_kernel_launch_features(mut self, value: impl Into<Bool32>) -> Self {
+        self.cuda_kernel_launch_features = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -36827,18 +37088,24 @@ impl<'a> Default for PhysicalDeviceDescriptorBufferPropertiesEXT<'a> {
 }
 impl<'a> PhysicalDeviceDescriptorBufferPropertiesEXT<'a> {
     #[inline]
-    pub fn combined_image_sampler_descriptor_single_array(mut self, value: Bool32) -> Self {
-        self.combined_image_sampler_descriptor_single_array = value;
+    pub fn combined_image_sampler_descriptor_single_array(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.combined_image_sampler_descriptor_single_array = value.into();
         self
     }
     #[inline]
-    pub fn bufferless_push_descriptors(mut self, value: Bool32) -> Self {
-        self.bufferless_push_descriptors = value;
+    pub fn bufferless_push_descriptors(mut self, value: impl Into<Bool32>) -> Self {
+        self.bufferless_push_descriptors = value.into();
         self
     }
     #[inline]
-    pub fn allow_sampler_image_view_post_submit_creation(mut self, value: Bool32) -> Self {
-        self.allow_sampler_image_view_post_submit_creation = value;
+    pub fn allow_sampler_image_view_post_submit_creation(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.allow_sampler_image_view_post_submit_creation = value.into();
         self
     }
     #[inline]
@@ -37077,23 +37344,23 @@ impl<'a> Default for PhysicalDeviceDescriptorBufferFeaturesEXT<'a> {
 }
 impl<'a> PhysicalDeviceDescriptorBufferFeaturesEXT<'a> {
     #[inline]
-    pub fn descriptor_buffer(mut self, value: Bool32) -> Self {
-        self.descriptor_buffer = value;
+    pub fn descriptor_buffer(mut self, value: impl Into<Bool32>) -> Self {
+        self.descriptor_buffer = value.into();
         self
     }
     #[inline]
-    pub fn descriptor_buffer_capture_replay(mut self, value: Bool32) -> Self {
-        self.descriptor_buffer_capture_replay = value;
+    pub fn descriptor_buffer_capture_replay(mut self, value: impl Into<Bool32>) -> Self {
+        self.descriptor_buffer_capture_replay = value.into();
         self
     }
     #[inline]
-    pub fn descriptor_buffer_image_layout_ignored(mut self, value: Bool32) -> Self {
-        self.descriptor_buffer_image_layout_ignored = value;
+    pub fn descriptor_buffer_image_layout_ignored(mut self, value: impl Into<Bool32>) -> Self {
+        self.descriptor_buffer_image_layout_ignored = value.into();
         self
     }
     #[inline]
-    pub fn descriptor_buffer_push_descriptors(mut self, value: Bool32) -> Self {
-        self.descriptor_buffer_push_descriptors = value;
+    pub fn descriptor_buffer_push_descriptors(mut self, value: impl Into<Bool32>) -> Self {
+        self.descriptor_buffer_push_descriptors = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -37562,8 +37829,8 @@ impl<'a> Default for PhysicalDeviceGraphicsPipelineLibraryFeaturesEXT<'a> {
 }
 impl<'a> PhysicalDeviceGraphicsPipelineLibraryFeaturesEXT<'a> {
     #[inline]
-    pub fn graphics_pipeline_library(mut self, value: Bool32) -> Self {
-        self.graphics_pipeline_library = value;
+    pub fn graphics_pipeline_library(mut self, value: impl Into<Bool32>) -> Self {
+        self.graphics_pipeline_library = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -37603,16 +37870,16 @@ impl<'a> Default for PhysicalDeviceGraphicsPipelineLibraryPropertiesEXT<'a> {
 }
 impl<'a> PhysicalDeviceGraphicsPipelineLibraryPropertiesEXT<'a> {
     #[inline]
-    pub fn graphics_pipeline_library_fast_linking(mut self, value: Bool32) -> Self {
-        self.graphics_pipeline_library_fast_linking = value;
+    pub fn graphics_pipeline_library_fast_linking(mut self, value: impl Into<Bool32>) -> Self {
+        self.graphics_pipeline_library_fast_linking = value.into();
         self
     }
     #[inline]
     pub fn graphics_pipeline_library_independent_interpolation_decoration(
         mut self,
-        value: Bool32,
+        value: impl Into<Bool32>,
     ) -> Self {
-        self.graphics_pipeline_library_independent_interpolation_decoration = value;
+        self.graphics_pipeline_library_independent_interpolation_decoration = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -37694,8 +37961,8 @@ impl<'a> Default for PhysicalDeviceShaderEarlyAndLateFragmentTestsFeaturesAMD<'a
 }
 impl<'a> PhysicalDeviceShaderEarlyAndLateFragmentTestsFeaturesAMD<'a> {
     #[inline]
-    pub fn shader_early_and_late_fragment_tests(mut self, value: Bool32) -> Self {
-        self.shader_early_and_late_fragment_tests = value;
+    pub fn shader_early_and_late_fragment_tests(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_early_and_late_fragment_tests = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -37737,8 +38004,8 @@ impl<'a> Default for PhysicalDeviceFragmentShaderBarycentricFeaturesKHR<'a> {
 }
 impl<'a> PhysicalDeviceFragmentShaderBarycentricFeaturesKHR<'a> {
     #[inline]
-    pub fn fragment_shader_barycentric(mut self, value: Bool32) -> Self {
-        self.fragment_shader_barycentric = value;
+    pub fn fragment_shader_barycentric(mut self, value: impl Into<Bool32>) -> Self {
+        self.fragment_shader_barycentric = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -37778,8 +38045,11 @@ impl<'a> Default for PhysicalDeviceFragmentShaderBarycentricPropertiesKHR<'a> {
 }
 impl<'a> PhysicalDeviceFragmentShaderBarycentricPropertiesKHR<'a> {
     #[inline]
-    pub fn tri_strip_vertex_order_independent_of_provoking_vertex(mut self, value: Bool32) -> Self {
-        self.tri_strip_vertex_order_independent_of_provoking_vertex = value;
+    pub fn tri_strip_vertex_order_independent_of_provoking_vertex(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.tri_strip_vertex_order_independent_of_provoking_vertex = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -37823,8 +38093,8 @@ impl<'a> Default for PhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR<'
 }
 impl<'a> PhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR<'a> {
     #[inline]
-    pub fn shader_subgroup_uniform_control_flow(mut self, value: Bool32) -> Self {
-        self.shader_subgroup_uniform_control_flow = value;
+    pub fn shader_subgroup_uniform_control_flow(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_subgroup_uniform_control_flow = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -37870,18 +38140,18 @@ impl<'a> Default for PhysicalDeviceFragmentShadingRateEnumsFeaturesNV<'a> {
 }
 impl<'a> PhysicalDeviceFragmentShadingRateEnumsFeaturesNV<'a> {
     #[inline]
-    pub fn fragment_shading_rate_enums(mut self, value: Bool32) -> Self {
-        self.fragment_shading_rate_enums = value;
+    pub fn fragment_shading_rate_enums(mut self, value: impl Into<Bool32>) -> Self {
+        self.fragment_shading_rate_enums = value.into();
         self
     }
     #[inline]
-    pub fn supersample_fragment_shading_rates(mut self, value: Bool32) -> Self {
-        self.supersample_fragment_shading_rates = value;
+    pub fn supersample_fragment_shading_rates(mut self, value: impl Into<Bool32>) -> Self {
+        self.supersample_fragment_shading_rates = value.into();
         self
     }
     #[inline]
-    pub fn no_invocation_fragment_shading_rates(mut self, value: Bool32) -> Self {
-        self.no_invocation_fragment_shading_rates = value;
+    pub fn no_invocation_fragment_shading_rates(mut self, value: impl Into<Bool32>) -> Self {
+        self.no_invocation_fragment_shading_rates = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -38414,13 +38684,16 @@ impl<'a> Default for PhysicalDeviceRayTracingMotionBlurFeaturesNV<'a> {
 }
 impl<'a> PhysicalDeviceRayTracingMotionBlurFeaturesNV<'a> {
     #[inline]
-    pub fn ray_tracing_motion_blur(mut self, value: Bool32) -> Self {
-        self.ray_tracing_motion_blur = value;
+    pub fn ray_tracing_motion_blur(mut self, value: impl Into<Bool32>) -> Self {
+        self.ray_tracing_motion_blur = value.into();
         self
     }
     #[inline]
-    pub fn ray_tracing_motion_blur_pipeline_trace_rays_indirect(mut self, value: Bool32) -> Self {
-        self.ray_tracing_motion_blur_pipeline_trace_rays_indirect = value;
+    pub fn ray_tracing_motion_blur_pipeline_trace_rays_indirect(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.ray_tracing_motion_blur_pipeline_trace_rays_indirect = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -38469,28 +38742,28 @@ impl<'a> Default for PhysicalDeviceMeshShaderFeaturesEXT<'a> {
 }
 impl<'a> PhysicalDeviceMeshShaderFeaturesEXT<'a> {
     #[inline]
-    pub fn task_shader(mut self, value: Bool32) -> Self {
-        self.task_shader = value;
+    pub fn task_shader(mut self, value: impl Into<Bool32>) -> Self {
+        self.task_shader = value.into();
         self
     }
     #[inline]
-    pub fn mesh_shader(mut self, value: Bool32) -> Self {
-        self.mesh_shader = value;
+    pub fn mesh_shader(mut self, value: impl Into<Bool32>) -> Self {
+        self.mesh_shader = value.into();
         self
     }
     #[inline]
-    pub fn multiview_mesh_shader(mut self, value: Bool32) -> Self {
-        self.multiview_mesh_shader = value;
+    pub fn multiview_mesh_shader(mut self, value: impl Into<Bool32>) -> Self {
+        self.multiview_mesh_shader = value.into();
         self
     }
     #[inline]
-    pub fn primitive_fragment_shading_rate_mesh_shader(mut self, value: Bool32) -> Self {
-        self.primitive_fragment_shading_rate_mesh_shader = value;
+    pub fn primitive_fragment_shading_rate_mesh_shader(mut self, value: impl Into<Bool32>) -> Self {
+        self.primitive_fragment_shading_rate_mesh_shader = value.into();
         self
     }
     #[inline]
-    pub fn mesh_shader_queries(mut self, value: Bool32) -> Self {
-        self.mesh_shader_queries = value;
+    pub fn mesh_shader_queries(mut self, value: impl Into<Bool32>) -> Self {
+        self.mesh_shader_queries = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -38701,23 +38974,23 @@ impl<'a> PhysicalDeviceMeshShaderPropertiesEXT<'a> {
         self
     }
     #[inline]
-    pub fn prefers_local_invocation_vertex_output(mut self, value: Bool32) -> Self {
-        self.prefers_local_invocation_vertex_output = value;
+    pub fn prefers_local_invocation_vertex_output(mut self, value: impl Into<Bool32>) -> Self {
+        self.prefers_local_invocation_vertex_output = value.into();
         self
     }
     #[inline]
-    pub fn prefers_local_invocation_primitive_output(mut self, value: Bool32) -> Self {
-        self.prefers_local_invocation_primitive_output = value;
+    pub fn prefers_local_invocation_primitive_output(mut self, value: impl Into<Bool32>) -> Self {
+        self.prefers_local_invocation_primitive_output = value.into();
         self
     }
     #[inline]
-    pub fn prefers_compact_vertex_output(mut self, value: Bool32) -> Self {
-        self.prefers_compact_vertex_output = value;
+    pub fn prefers_compact_vertex_output(mut self, value: impl Into<Bool32>) -> Self {
+        self.prefers_compact_vertex_output = value.into();
         self
     }
     #[inline]
-    pub fn prefers_compact_primitive_output(mut self, value: Bool32) -> Self {
-        self.prefers_compact_primitive_output = value;
+    pub fn prefers_compact_primitive_output(mut self, value: impl Into<Bool32>) -> Self {
+        self.prefers_compact_primitive_output = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -38796,8 +39069,8 @@ impl<'a> Default for PhysicalDeviceYcbcr2Plane444FormatsFeaturesEXT<'a> {
 }
 impl<'a> PhysicalDeviceYcbcr2Plane444FormatsFeaturesEXT<'a> {
     #[inline]
-    pub fn ycbcr2plane444_formats(mut self, value: Bool32) -> Self {
-        self.ycbcr2plane444_formats = value;
+    pub fn ycbcr2plane444_formats(mut self, value: impl Into<Bool32>) -> Self {
+        self.ycbcr2plane444_formats = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -38839,8 +39112,8 @@ impl<'a> Default for PhysicalDeviceFragmentDensityMap2FeaturesEXT<'a> {
 }
 impl<'a> PhysicalDeviceFragmentDensityMap2FeaturesEXT<'a> {
     #[inline]
-    pub fn fragment_density_map_deferred(mut self, value: Bool32) -> Self {
-        self.fragment_density_map_deferred = value;
+    pub fn fragment_density_map_deferred(mut self, value: impl Into<Bool32>) -> Self {
+        self.fragment_density_map_deferred = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -38884,13 +39157,16 @@ impl<'a> Default for PhysicalDeviceFragmentDensityMap2PropertiesEXT<'a> {
 }
 impl<'a> PhysicalDeviceFragmentDensityMap2PropertiesEXT<'a> {
     #[inline]
-    pub fn subsampled_loads(mut self, value: Bool32) -> Self {
-        self.subsampled_loads = value;
+    pub fn subsampled_loads(mut self, value: impl Into<Bool32>) -> Self {
+        self.subsampled_loads = value.into();
         self
     }
     #[inline]
-    pub fn subsampled_coarse_reconstruction_early_access(mut self, value: Bool32) -> Self {
-        self.subsampled_coarse_reconstruction_early_access = value;
+    pub fn subsampled_coarse_reconstruction_early_access(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.subsampled_coarse_reconstruction_early_access = value.into();
         self
     }
     #[inline]
@@ -38984,23 +39260,32 @@ impl<'a> Default for PhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR<'a> 
 }
 impl<'a> PhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR<'a> {
     #[inline]
-    pub fn workgroup_memory_explicit_layout(mut self, value: Bool32) -> Self {
-        self.workgroup_memory_explicit_layout = value;
+    pub fn workgroup_memory_explicit_layout(mut self, value: impl Into<Bool32>) -> Self {
+        self.workgroup_memory_explicit_layout = value.into();
         self
     }
     #[inline]
-    pub fn workgroup_memory_explicit_layout_scalar_block_layout(mut self, value: Bool32) -> Self {
-        self.workgroup_memory_explicit_layout_scalar_block_layout = value;
+    pub fn workgroup_memory_explicit_layout_scalar_block_layout(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.workgroup_memory_explicit_layout_scalar_block_layout = value.into();
         self
     }
     #[inline]
-    pub fn workgroup_memory_explicit_layout8_bit_access(mut self, value: Bool32) -> Self {
-        self.workgroup_memory_explicit_layout8_bit_access = value;
+    pub fn workgroup_memory_explicit_layout8_bit_access(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.workgroup_memory_explicit_layout8_bit_access = value.into();
         self
     }
     #[inline]
-    pub fn workgroup_memory_explicit_layout16_bit_access(mut self, value: Bool32) -> Self {
-        self.workgroup_memory_explicit_layout16_bit_access = value;
+    pub fn workgroup_memory_explicit_layout16_bit_access(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.workgroup_memory_explicit_layout16_bit_access = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -39042,8 +39327,8 @@ impl<'a> Default for PhysicalDeviceImageCompressionControlFeaturesEXT<'a> {
 }
 impl<'a> PhysicalDeviceImageCompressionControlFeaturesEXT<'a> {
     #[inline]
-    pub fn image_compression_control(mut self, value: Bool32) -> Self {
-        self.image_compression_control = value;
+    pub fn image_compression_control(mut self, value: impl Into<Bool32>) -> Self {
+        self.image_compression_control = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -39197,8 +39482,8 @@ impl<'a> Default for PhysicalDeviceAttachmentFeedbackLoopLayoutFeaturesEXT<'a> {
 }
 impl<'a> PhysicalDeviceAttachmentFeedbackLoopLayoutFeaturesEXT<'a> {
     #[inline]
-    pub fn attachment_feedback_loop_layout(mut self, value: Bool32) -> Self {
-        self.attachment_feedback_loop_layout = value;
+    pub fn attachment_feedback_loop_layout(mut self, value: impl Into<Bool32>) -> Self {
+        self.attachment_feedback_loop_layout = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -39241,13 +39526,13 @@ impl<'a> Default for PhysicalDevice4444FormatsFeaturesEXT<'a> {
 }
 impl<'a> PhysicalDevice4444FormatsFeaturesEXT<'a> {
     #[inline]
-    pub fn format_a4_r4_g4_b4(mut self, value: Bool32) -> Self {
-        self.format_a4_r4_g4_b4 = value;
+    pub fn format_a4_r4_g4_b4(mut self, value: impl Into<Bool32>) -> Self {
+        self.format_a4_r4_g4_b4 = value.into();
         self
     }
     #[inline]
-    pub fn format_a4_b4_g4_r4(mut self, value: Bool32) -> Self {
-        self.format_a4_b4_g4_r4 = value;
+    pub fn format_a4_b4_g4_r4(mut self, value: impl Into<Bool32>) -> Self {
+        self.format_a4_b4_g4_r4 = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -39290,13 +39575,13 @@ impl<'a> Default for PhysicalDeviceFaultFeaturesEXT<'a> {
 }
 impl<'a> PhysicalDeviceFaultFeaturesEXT<'a> {
     #[inline]
-    pub fn device_fault(mut self, value: Bool32) -> Self {
-        self.device_fault = value;
+    pub fn device_fault(mut self, value: impl Into<Bool32>) -> Self {
+        self.device_fault = value.into();
         self
     }
     #[inline]
-    pub fn device_fault_vendor_binary(mut self, value: Bool32) -> Self {
-        self.device_fault_vendor_binary = value;
+    pub fn device_fault_vendor_binary(mut self, value: impl Into<Bool32>) -> Self {
+        self.device_fault_vendor_binary = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -39611,8 +39896,8 @@ impl<'a> Default for PhysicalDeviceRGBA10X6FormatsFeaturesEXT<'a> {
 }
 impl<'a> PhysicalDeviceRGBA10X6FormatsFeaturesEXT<'a> {
     #[inline]
-    pub fn format_rgba10x6_without_ycb_cr_sampler(mut self, value: Bool32) -> Self {
-        self.format_rgba10x6_without_ycb_cr_sampler = value;
+    pub fn format_rgba10x6_without_ycb_cr_sampler(mut self, value: impl Into<Bool32>) -> Self {
+        self.format_rgba10x6_without_ycb_cr_sampler = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -39702,8 +39987,8 @@ impl<'a> Default for PhysicalDeviceVertexInputDynamicStateFeaturesEXT<'a> {
 }
 impl<'a> PhysicalDeviceVertexInputDynamicStateFeaturesEXT<'a> {
     #[inline]
-    pub fn vertex_input_dynamic_state(mut self, value: Bool32) -> Self {
-        self.vertex_input_dynamic_state = value;
+    pub fn vertex_input_dynamic_state(mut self, value: impl Into<Bool32>) -> Self {
+        self.vertex_input_dynamic_state = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -39860,13 +40145,13 @@ impl<'a> Default for PhysicalDeviceDrmPropertiesEXT<'a> {
 }
 impl<'a> PhysicalDeviceDrmPropertiesEXT<'a> {
     #[inline]
-    pub fn has_primary(mut self, value: Bool32) -> Self {
-        self.has_primary = value;
+    pub fn has_primary(mut self, value: impl Into<Bool32>) -> Self {
+        self.has_primary = value.into();
         self
     }
     #[inline]
-    pub fn has_render(mut self, value: Bool32) -> Self {
-        self.has_render = value;
+    pub fn has_render(mut self, value: impl Into<Bool32>) -> Self {
+        self.has_render = value.into();
         self
     }
     #[inline]
@@ -39928,8 +40213,8 @@ impl<'a> Default for PhysicalDeviceAddressBindingReportFeaturesEXT<'a> {
 }
 impl<'a> PhysicalDeviceAddressBindingReportFeaturesEXT<'a> {
     #[inline]
-    pub fn report_address_binding(mut self, value: Bool32) -> Self {
-        self.report_address_binding = value;
+    pub fn report_address_binding(mut self, value: impl Into<Bool32>) -> Self {
+        self.report_address_binding = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -40029,8 +40314,8 @@ impl<'a> Default for PhysicalDeviceDepthClipControlFeaturesEXT<'a> {
 }
 impl<'a> PhysicalDeviceDepthClipControlFeaturesEXT<'a> {
     #[inline]
-    pub fn depth_clip_control(mut self, value: Bool32) -> Self {
-        self.depth_clip_control = value;
+    pub fn depth_clip_control(mut self, value: impl Into<Bool32>) -> Self {
+        self.depth_clip_control = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -40068,8 +40353,8 @@ impl<'a> Default for PipelineViewportDepthClipControlCreateInfoEXT<'a> {
 }
 impl<'a> PipelineViewportDepthClipControlCreateInfoEXT<'a> {
     #[inline]
-    pub fn negative_one_to_one(mut self, value: Bool32) -> Self {
-        self.negative_one_to_one = value;
+    pub fn negative_one_to_one(mut self, value: impl Into<Bool32>) -> Self {
+        self.negative_one_to_one = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -40113,13 +40398,13 @@ impl<'a> Default for PhysicalDevicePrimitiveTopologyListRestartFeaturesEXT<'a> {
 }
 impl<'a> PhysicalDevicePrimitiveTopologyListRestartFeaturesEXT<'a> {
     #[inline]
-    pub fn primitive_topology_list_restart(mut self, value: Bool32) -> Self {
-        self.primitive_topology_list_restart = value;
+    pub fn primitive_topology_list_restart(mut self, value: impl Into<Bool32>) -> Self {
+        self.primitive_topology_list_restart = value.into();
         self
     }
     #[inline]
-    pub fn primitive_topology_patch_list_restart(mut self, value: Bool32) -> Self {
-        self.primitive_topology_patch_list_restart = value;
+    pub fn primitive_topology_patch_list_restart(mut self, value: impl Into<Bool32>) -> Self {
+        self.primitive_topology_patch_list_restart = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -40963,8 +41248,8 @@ impl<'a> Default for PhysicalDeviceSubpassShadingFeaturesHUAWEI<'a> {
 }
 impl<'a> PhysicalDeviceSubpassShadingFeaturesHUAWEI<'a> {
     #[inline]
-    pub fn subpass_shading(mut self, value: Bool32) -> Self {
-        self.subpass_shading = value;
+    pub fn subpass_shading(mut self, value: impl Into<Bool32>) -> Self {
+        self.subpass_shading = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -41044,8 +41329,8 @@ impl<'a> Default for PhysicalDeviceInvocationMaskFeaturesHUAWEI<'a> {
 }
 impl<'a> PhysicalDeviceInvocationMaskFeaturesHUAWEI<'a> {
     #[inline]
-    pub fn invocation_mask(mut self, value: Bool32) -> Self {
-        self.invocation_mask = value;
+    pub fn invocation_mask(mut self, value: impl Into<Bool32>) -> Self {
+        self.invocation_mask = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -41130,8 +41415,8 @@ impl<'a> Default for PhysicalDeviceExternalMemoryRDMAFeaturesNV<'a> {
 }
 impl<'a> PhysicalDeviceExternalMemoryRDMAFeaturesNV<'a> {
     #[inline]
-    pub fn external_memory_rdma(mut self, value: Bool32) -> Self {
-        self.external_memory_rdma = value;
+    pub fn external_memory_rdma(mut self, value: impl Into<Bool32>) -> Self {
+        self.external_memory_rdma = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -41207,8 +41492,8 @@ impl<'a> Default for PhysicalDevicePipelinePropertiesFeaturesEXT<'a> {
 }
 impl<'a> PhysicalDevicePipelinePropertiesFeaturesEXT<'a> {
     #[inline]
-    pub fn pipeline_properties_identifier(mut self, value: Bool32) -> Self {
-        self.pipeline_properties_identifier = value;
+    pub fn pipeline_properties_identifier(mut self, value: impl Into<Bool32>) -> Self {
+        self.pipeline_properties_identifier = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -41249,8 +41534,8 @@ impl<'a> Default for PhysicalDeviceFrameBoundaryFeaturesEXT<'a> {
 }
 impl<'a> PhysicalDeviceFrameBoundaryFeaturesEXT<'a> {
     #[inline]
-    pub fn frame_boundary(mut self, value: Bool32) -> Self {
-        self.frame_boundary = value;
+    pub fn frame_boundary(mut self, value: impl Into<Bool32>) -> Self {
+        self.frame_boundary = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -41391,8 +41676,8 @@ impl<'a> Default for PhysicalDeviceMultisampledRenderToSingleSampledFeaturesEXT<
 }
 impl<'a> PhysicalDeviceMultisampledRenderToSingleSampledFeaturesEXT<'a> {
     #[inline]
-    pub fn multisampled_render_to_single_sampled(mut self, value: Bool32) -> Self {
-        self.multisampled_render_to_single_sampled = value;
+    pub fn multisampled_render_to_single_sampled(mut self, value: impl Into<Bool32>) -> Self {
+        self.multisampled_render_to_single_sampled = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -41429,8 +41714,8 @@ impl<'a> Default for SubpassResolvePerformanceQueryEXT<'a> {
 }
 impl<'a> SubpassResolvePerformanceQueryEXT<'a> {
     #[inline]
-    pub fn optimal(mut self, value: Bool32) -> Self {
-        self.optimal = value;
+    pub fn optimal(mut self, value: impl Into<Bool32>) -> Self {
+        self.optimal = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -41473,8 +41758,11 @@ impl<'a> Default for MultisampledRenderToSingleSampledInfoEXT<'a> {
 }
 impl<'a> MultisampledRenderToSingleSampledInfoEXT<'a> {
     #[inline]
-    pub fn multisampled_render_to_single_sampled_enable(mut self, value: Bool32) -> Self {
-        self.multisampled_render_to_single_sampled_enable = value;
+    pub fn multisampled_render_to_single_sampled_enable(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.multisampled_render_to_single_sampled_enable = value.into();
         self
     }
     #[inline]
@@ -41525,18 +41813,21 @@ impl<'a> Default for PhysicalDeviceExtendedDynamicState2FeaturesEXT<'a> {
 }
 impl<'a> PhysicalDeviceExtendedDynamicState2FeaturesEXT<'a> {
     #[inline]
-    pub fn extended_dynamic_state2(mut self, value: Bool32) -> Self {
-        self.extended_dynamic_state2 = value;
+    pub fn extended_dynamic_state2(mut self, value: impl Into<Bool32>) -> Self {
+        self.extended_dynamic_state2 = value.into();
         self
     }
     #[inline]
-    pub fn extended_dynamic_state2_logic_op(mut self, value: Bool32) -> Self {
-        self.extended_dynamic_state2_logic_op = value;
+    pub fn extended_dynamic_state2_logic_op(mut self, value: impl Into<Bool32>) -> Self {
+        self.extended_dynamic_state2_logic_op = value.into();
         self
     }
     #[inline]
-    pub fn extended_dynamic_state2_patch_control_points(mut self, value: Bool32) -> Self {
-        self.extended_dynamic_state2_patch_control_points = value;
+    pub fn extended_dynamic_state2_patch_control_points(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.extended_dynamic_state2_patch_control_points = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -41625,8 +41916,8 @@ impl<'a> Default for PhysicalDeviceColorWriteEnableFeaturesEXT<'a> {
 }
 impl<'a> PhysicalDeviceColorWriteEnableFeaturesEXT<'a> {
     #[inline]
-    pub fn color_write_enable(mut self, value: Bool32) -> Self {
-        self.color_write_enable = value;
+    pub fn color_write_enable(mut self, value: impl Into<Bool32>) -> Self {
+        self.color_write_enable = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -41713,18 +42004,24 @@ impl<'a> Default for PhysicalDevicePrimitivesGeneratedQueryFeaturesEXT<'a> {
 }
 impl<'a> PhysicalDevicePrimitivesGeneratedQueryFeaturesEXT<'a> {
     #[inline]
-    pub fn primitives_generated_query(mut self, value: Bool32) -> Self {
-        self.primitives_generated_query = value;
+    pub fn primitives_generated_query(mut self, value: impl Into<Bool32>) -> Self {
+        self.primitives_generated_query = value.into();
         self
     }
     #[inline]
-    pub fn primitives_generated_query_with_rasterizer_discard(mut self, value: Bool32) -> Self {
-        self.primitives_generated_query_with_rasterizer_discard = value;
+    pub fn primitives_generated_query_with_rasterizer_discard(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.primitives_generated_query_with_rasterizer_discard = value.into();
         self
     }
     #[inline]
-    pub fn primitives_generated_query_with_non_zero_streams(mut self, value: Bool32) -> Self {
-        self.primitives_generated_query_with_non_zero_streams = value;
+    pub fn primitives_generated_query_with_non_zero_streams(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.primitives_generated_query_with_non_zero_streams = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -41768,13 +42065,13 @@ impl<'a> Default for PhysicalDeviceRayTracingMaintenance1FeaturesKHR<'a> {
 }
 impl<'a> PhysicalDeviceRayTracingMaintenance1FeaturesKHR<'a> {
     #[inline]
-    pub fn ray_tracing_maintenance1(mut self, value: Bool32) -> Self {
-        self.ray_tracing_maintenance1 = value;
+    pub fn ray_tracing_maintenance1(mut self, value: impl Into<Bool32>) -> Self {
+        self.ray_tracing_maintenance1 = value.into();
         self
     }
     #[inline]
-    pub fn ray_tracing_pipeline_trace_rays_indirect2(mut self, value: Bool32) -> Self {
-        self.ray_tracing_pipeline_trace_rays_indirect2 = value;
+    pub fn ray_tracing_pipeline_trace_rays_indirect2(mut self, value: impl Into<Bool32>) -> Self {
+        self.ray_tracing_pipeline_trace_rays_indirect2 = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -41929,8 +42226,8 @@ impl<'a> Default for PhysicalDeviceImageViewMinLodFeaturesEXT<'a> {
 }
 impl<'a> PhysicalDeviceImageViewMinLodFeaturesEXT<'a> {
     #[inline]
-    pub fn min_lod(mut self, value: Bool32) -> Self {
-        self.min_lod = value;
+    pub fn min_lod(mut self, value: impl Into<Bool32>) -> Self {
+        self.min_lod = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -42009,8 +42306,8 @@ impl<'a> Default for PhysicalDeviceMultiDrawFeaturesEXT<'a> {
 }
 impl<'a> PhysicalDeviceMultiDrawFeaturesEXT<'a> {
     #[inline]
-    pub fn multi_draw(mut self, value: Bool32) -> Self {
-        self.multi_draw = value;
+    pub fn multi_draw(mut self, value: impl Into<Bool32>) -> Self {
+        self.multi_draw = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -42158,13 +42455,13 @@ impl<'a> Default for PhysicalDeviceImage2DViewOf3DFeaturesEXT<'a> {
 }
 impl<'a> PhysicalDeviceImage2DViewOf3DFeaturesEXT<'a> {
     #[inline]
-    pub fn image2_dview_of3_d(mut self, value: Bool32) -> Self {
-        self.image2_dview_of3_d = value;
+    pub fn image2_dview_of3_d(mut self, value: impl Into<Bool32>) -> Self {
+        self.image2_dview_of3_d = value.into();
         self
     }
     #[inline]
-    pub fn sampler2_dview_of3_d(mut self, value: Bool32) -> Self {
-        self.sampler2_dview_of3_d = value;
+    pub fn sampler2_dview_of3_d(mut self, value: impl Into<Bool32>) -> Self {
+        self.sampler2_dview_of3_d = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -42209,18 +42506,18 @@ impl<'a> Default for PhysicalDeviceShaderTileImageFeaturesEXT<'a> {
 }
 impl<'a> PhysicalDeviceShaderTileImageFeaturesEXT<'a> {
     #[inline]
-    pub fn shader_tile_image_color_read_access(mut self, value: Bool32) -> Self {
-        self.shader_tile_image_color_read_access = value;
+    pub fn shader_tile_image_color_read_access(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_tile_image_color_read_access = value.into();
         self
     }
     #[inline]
-    pub fn shader_tile_image_depth_read_access(mut self, value: Bool32) -> Self {
-        self.shader_tile_image_depth_read_access = value;
+    pub fn shader_tile_image_depth_read_access(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_tile_image_depth_read_access = value.into();
         self
     }
     #[inline]
-    pub fn shader_tile_image_stencil_read_access(mut self, value: Bool32) -> Self {
-        self.shader_tile_image_stencil_read_access = value;
+    pub fn shader_tile_image_stencil_read_access(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_tile_image_stencil_read_access = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -42261,21 +42558,24 @@ impl<'a> Default for PhysicalDeviceShaderTileImagePropertiesEXT<'a> {
 }
 impl<'a> PhysicalDeviceShaderTileImagePropertiesEXT<'a> {
     #[inline]
-    pub fn shader_tile_image_coherent_read_accelerated(mut self, value: Bool32) -> Self {
-        self.shader_tile_image_coherent_read_accelerated = value;
+    pub fn shader_tile_image_coherent_read_accelerated(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_tile_image_coherent_read_accelerated = value.into();
         self
     }
     #[inline]
     pub fn shader_tile_image_read_sample_from_pixel_rate_invocation(
         mut self,
-        value: Bool32,
+        value: impl Into<Bool32>,
     ) -> Self {
-        self.shader_tile_image_read_sample_from_pixel_rate_invocation = value;
+        self.shader_tile_image_read_sample_from_pixel_rate_invocation = value.into();
         self
     }
     #[inline]
-    pub fn shader_tile_image_read_from_helper_invocation(mut self, value: Bool32) -> Self {
-        self.shader_tile_image_read_from_helper_invocation = value;
+    pub fn shader_tile_image_read_from_helper_invocation(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.shader_tile_image_read_from_helper_invocation = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -42535,18 +42835,18 @@ impl<'a> Default for PhysicalDeviceOpacityMicromapFeaturesEXT<'a> {
 }
 impl<'a> PhysicalDeviceOpacityMicromapFeaturesEXT<'a> {
     #[inline]
-    pub fn micromap(mut self, value: Bool32) -> Self {
-        self.micromap = value;
+    pub fn micromap(mut self, value: impl Into<Bool32>) -> Self {
+        self.micromap = value.into();
         self
     }
     #[inline]
-    pub fn micromap_capture_replay(mut self, value: Bool32) -> Self {
-        self.micromap_capture_replay = value;
+    pub fn micromap_capture_replay(mut self, value: impl Into<Bool32>) -> Self {
+        self.micromap_capture_replay = value.into();
         self
     }
     #[inline]
-    pub fn micromap_host_commands(mut self, value: Bool32) -> Self {
-        self.micromap_host_commands = value;
+    pub fn micromap_host_commands(mut self, value: impl Into<Bool32>) -> Self {
+        self.micromap_host_commands = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -42816,8 +43116,8 @@ impl<'a> MicromapBuildSizesInfoEXT<'a> {
         self
     }
     #[inline]
-    pub fn discardable(mut self, value: Bool32) -> Self {
-        self.discardable = value;
+    pub fn discardable(mut self, value: impl Into<Bool32>) -> Self {
+        self.discardable = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -42989,8 +43289,8 @@ impl<'a> Default for PhysicalDeviceDisplacementMicromapFeaturesNV<'a> {
 }
 impl<'a> PhysicalDeviceDisplacementMicromapFeaturesNV<'a> {
     #[inline]
-    pub fn displacement_micromap(mut self, value: Bool32) -> Self {
-        self.displacement_micromap = value;
+    pub fn displacement_micromap(mut self, value: impl Into<Bool32>) -> Self {
+        self.displacement_micromap = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -43228,13 +43528,13 @@ impl<'a> Default for PhysicalDeviceClusterCullingShaderFeaturesHUAWEI<'a> {
 }
 impl<'a> PhysicalDeviceClusterCullingShaderFeaturesHUAWEI<'a> {
     #[inline]
-    pub fn clusterculling_shader(mut self, value: Bool32) -> Self {
-        self.clusterculling_shader = value;
+    pub fn clusterculling_shader(mut self, value: impl Into<Bool32>) -> Self {
+        self.clusterculling_shader = value.into();
         self
     }
     #[inline]
-    pub fn multiview_cluster_culling_shader(mut self, value: Bool32) -> Self {
-        self.multiview_cluster_culling_shader = value;
+    pub fn multiview_cluster_culling_shader(mut self, value: impl Into<Bool32>) -> Self {
+        self.multiview_cluster_culling_shader = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -43332,8 +43632,8 @@ impl<'a> Default for PhysicalDeviceClusterCullingShaderVrsFeaturesHUAWEI<'a> {
 }
 impl<'a> PhysicalDeviceClusterCullingShaderVrsFeaturesHUAWEI<'a> {
     #[inline]
-    pub fn cluster_shading_rate(mut self, value: Bool32) -> Self {
-        self.cluster_shading_rate = value;
+    pub fn cluster_shading_rate(mut self, value: impl Into<Bool32>) -> Self {
+        self.cluster_shading_rate = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -43377,13 +43677,13 @@ impl<'a> Default for PhysicalDeviceBorderColorSwizzleFeaturesEXT<'a> {
 }
 impl<'a> PhysicalDeviceBorderColorSwizzleFeaturesEXT<'a> {
     #[inline]
-    pub fn border_color_swizzle(mut self, value: Bool32) -> Self {
-        self.border_color_swizzle = value;
+    pub fn border_color_swizzle(mut self, value: impl Into<Bool32>) -> Self {
+        self.border_color_swizzle = value.into();
         self
     }
     #[inline]
-    pub fn border_color_swizzle_from_image(mut self, value: Bool32) -> Self {
-        self.border_color_swizzle_from_image = value;
+    pub fn border_color_swizzle_from_image(mut self, value: impl Into<Bool32>) -> Self {
+        self.border_color_swizzle_from_image = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -43428,8 +43728,8 @@ impl<'a> SamplerBorderColorComponentMappingCreateInfoEXT<'a> {
         self
     }
     #[inline]
-    pub fn srgb(mut self, value: Bool32) -> Self {
-        self.srgb = value;
+    pub fn srgb(mut self, value: impl Into<Bool32>) -> Self {
+        self.srgb = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -43471,8 +43771,8 @@ impl<'a> Default for PhysicalDevicePageableDeviceLocalMemoryFeaturesEXT<'a> {
 }
 impl<'a> PhysicalDevicePageableDeviceLocalMemoryFeaturesEXT<'a> {
     #[inline]
-    pub fn pageable_device_local_memory(mut self, value: Bool32) -> Self {
-        self.pageable_device_local_memory = value;
+    pub fn pageable_device_local_memory(mut self, value: impl Into<Bool32>) -> Self {
+        self.pageable_device_local_memory = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -43568,13 +43868,13 @@ impl<'a> Default for PhysicalDeviceShaderSubgroupRotateFeaturesKHR<'a> {
 }
 impl<'a> PhysicalDeviceShaderSubgroupRotateFeaturesKHR<'a> {
     #[inline]
-    pub fn shader_subgroup_rotate(mut self, value: Bool32) -> Self {
-        self.shader_subgroup_rotate = value;
+    pub fn shader_subgroup_rotate(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_subgroup_rotate = value.into();
         self
     }
     #[inline]
-    pub fn shader_subgroup_rotate_clustered(mut self, value: Bool32) -> Self {
-        self.shader_subgroup_rotate_clustered = value;
+    pub fn shader_subgroup_rotate_clustered(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_subgroup_rotate_clustered = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -43658,8 +43958,8 @@ impl<'a> Default for PhysicalDeviceSchedulingControlsFeaturesARM<'a> {
 }
 impl<'a> PhysicalDeviceSchedulingControlsFeaturesARM<'a> {
     #[inline]
-    pub fn scheduling_controls(mut self, value: Bool32) -> Self {
-        self.scheduling_controls = value;
+    pub fn scheduling_controls(mut self, value: impl Into<Bool32>) -> Self {
+        self.scheduling_controls = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -43740,8 +44040,8 @@ impl<'a> Default for PhysicalDeviceImageSlicedViewOf3DFeaturesEXT<'a> {
 }
 impl<'a> PhysicalDeviceImageSlicedViewOf3DFeaturesEXT<'a> {
     #[inline]
-    pub fn image_sliced_view_of3_d(mut self, value: Bool32) -> Self {
-        self.image_sliced_view_of3_d = value;
+    pub fn image_sliced_view_of3_d(mut self, value: impl Into<Bool32>) -> Self {
+        self.image_sliced_view_of3_d = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -43828,8 +44128,8 @@ impl<'a> Default for PhysicalDeviceDescriptorSetHostMappingFeaturesVALVE<'a> {
 }
 impl<'a> PhysicalDeviceDescriptorSetHostMappingFeaturesVALVE<'a> {
     #[inline]
-    pub fn descriptor_set_host_mapping(mut self, value: Bool32) -> Self {
-        self.descriptor_set_host_mapping = value;
+    pub fn descriptor_set_host_mapping(mut self, value: impl Into<Bool32>) -> Self {
+        self.descriptor_set_host_mapping = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -43952,8 +44252,8 @@ impl<'a> Default for PhysicalDeviceDepthClampZeroOneFeaturesEXT<'a> {
 }
 impl<'a> PhysicalDeviceDepthClampZeroOneFeaturesEXT<'a> {
     #[inline]
-    pub fn depth_clamp_zero_one(mut self, value: Bool32) -> Self {
-        self.depth_clamp_zero_one = value;
+    pub fn depth_clamp_zero_one(mut self, value: impl Into<Bool32>) -> Self {
+        self.depth_clamp_zero_one = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -43995,8 +44295,8 @@ impl<'a> Default for PhysicalDeviceNonSeamlessCubeMapFeaturesEXT<'a> {
 }
 impl<'a> PhysicalDeviceNonSeamlessCubeMapFeaturesEXT<'a> {
     #[inline]
-    pub fn non_seamless_cube_map(mut self, value: Bool32) -> Self {
-        self.non_seamless_cube_map = value;
+    pub fn non_seamless_cube_map(mut self, value: impl Into<Bool32>) -> Self {
+        self.non_seamless_cube_map = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -44037,8 +44337,8 @@ impl<'a> Default for PhysicalDeviceRenderPassStripedFeaturesARM<'a> {
 }
 impl<'a> PhysicalDeviceRenderPassStripedFeaturesARM<'a> {
     #[inline]
-    pub fn render_pass_striped(mut self, value: Bool32) -> Self {
-        self.render_pass_striped = value;
+    pub fn render_pass_striped(mut self, value: impl Into<Bool32>) -> Self {
+        self.render_pass_striped = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -44246,8 +44546,8 @@ impl<'a> Default for PhysicalDeviceFragmentDensityMapOffsetFeaturesQCOM<'a> {
 }
 impl<'a> PhysicalDeviceFragmentDensityMapOffsetFeaturesQCOM<'a> {
     #[inline]
-    pub fn fragment_density_map_offset(mut self, value: Bool32) -> Self {
-        self.fragment_density_map_offset = value;
+    pub fn fragment_density_map_offset(mut self, value: impl Into<Bool32>) -> Self {
+        self.fragment_density_map_offset = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -44463,8 +44763,8 @@ impl<'a> Default for PhysicalDeviceCopyMemoryIndirectFeaturesNV<'a> {
 }
 impl<'a> PhysicalDeviceCopyMemoryIndirectFeaturesNV<'a> {
     #[inline]
-    pub fn indirect_copy(mut self, value: Bool32) -> Self {
-        self.indirect_copy = value;
+    pub fn indirect_copy(mut self, value: impl Into<Bool32>) -> Self {
+        self.indirect_copy = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -44596,8 +44896,8 @@ impl<'a> Default for PhysicalDeviceMemoryDecompressionFeaturesNV<'a> {
 }
 impl<'a> PhysicalDeviceMemoryDecompressionFeaturesNV<'a> {
     #[inline]
-    pub fn memory_decompression(mut self, value: Bool32) -> Self {
-        self.memory_decompression = value;
+    pub fn memory_decompression(mut self, value: impl Into<Bool32>) -> Self {
+        self.memory_decompression = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -44689,18 +44989,18 @@ impl<'a> Default for PhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV<'a> 
 }
 impl<'a> PhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV<'a> {
     #[inline]
-    pub fn device_generated_compute(mut self, value: Bool32) -> Self {
-        self.device_generated_compute = value;
+    pub fn device_generated_compute(mut self, value: impl Into<Bool32>) -> Self {
+        self.device_generated_compute = value.into();
         self
     }
     #[inline]
-    pub fn device_generated_compute_pipelines(mut self, value: Bool32) -> Self {
-        self.device_generated_compute_pipelines = value;
+    pub fn device_generated_compute_pipelines(mut self, value: impl Into<Bool32>) -> Self {
+        self.device_generated_compute_pipelines = value.into();
         self
     }
     #[inline]
-    pub fn device_generated_compute_capture_replay(mut self, value: Bool32) -> Self {
-        self.device_generated_compute_capture_replay = value;
+    pub fn device_generated_compute_capture_replay(mut self, value: impl Into<Bool32>) -> Self {
+        self.device_generated_compute_capture_replay = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -44858,8 +45158,8 @@ impl<'a> Default for PhysicalDeviceLinearColorAttachmentFeaturesNV<'a> {
 }
 impl<'a> PhysicalDeviceLinearColorAttachmentFeaturesNV<'a> {
     #[inline]
-    pub fn linear_color_attachment(mut self, value: Bool32) -> Self {
-        self.linear_color_attachment = value;
+    pub fn linear_color_attachment(mut self, value: impl Into<Bool32>) -> Self {
+        self.linear_color_attachment = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -44901,8 +45201,8 @@ impl<'a> Default for PhysicalDeviceShaderMaximalReconvergenceFeaturesKHR<'a> {
 }
 impl<'a> PhysicalDeviceShaderMaximalReconvergenceFeaturesKHR<'a> {
     #[inline]
-    pub fn shader_maximal_reconvergence(mut self, value: Bool32) -> Self {
-        self.shader_maximal_reconvergence = value;
+    pub fn shader_maximal_reconvergence(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_maximal_reconvergence = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -44946,8 +45246,8 @@ impl<'a> Default for PhysicalDeviceImageCompressionControlSwapchainFeaturesEXT<'
 }
 impl<'a> PhysicalDeviceImageCompressionControlSwapchainFeaturesEXT<'a> {
     #[inline]
-    pub fn image_compression_control_swapchain(mut self, value: Bool32) -> Self {
-        self.image_compression_control_swapchain = value;
+    pub fn image_compression_control_swapchain(mut self, value: impl Into<Bool32>) -> Self {
+        self.image_compression_control_swapchain = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -45044,18 +45344,18 @@ impl<'a> Default for PhysicalDeviceImageProcessingFeaturesQCOM<'a> {
 }
 impl<'a> PhysicalDeviceImageProcessingFeaturesQCOM<'a> {
     #[inline]
-    pub fn texture_sample_weighted(mut self, value: Bool32) -> Self {
-        self.texture_sample_weighted = value;
+    pub fn texture_sample_weighted(mut self, value: impl Into<Bool32>) -> Self {
+        self.texture_sample_weighted = value.into();
         self
     }
     #[inline]
-    pub fn texture_box_filter(mut self, value: Bool32) -> Self {
-        self.texture_box_filter = value;
+    pub fn texture_box_filter(mut self, value: impl Into<Bool32>) -> Self {
+        self.texture_box_filter = value.into();
         self
     }
     #[inline]
-    pub fn texture_block_match(mut self, value: Bool32) -> Self {
-        self.texture_block_match = value;
+    pub fn texture_block_match(mut self, value: impl Into<Bool32>) -> Self {
+        self.texture_block_match = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -45161,18 +45461,18 @@ impl<'a> Default for PhysicalDeviceNestedCommandBufferFeaturesEXT<'a> {
 }
 impl<'a> PhysicalDeviceNestedCommandBufferFeaturesEXT<'a> {
     #[inline]
-    pub fn nested_command_buffer(mut self, value: Bool32) -> Self {
-        self.nested_command_buffer = value;
+    pub fn nested_command_buffer(mut self, value: impl Into<Bool32>) -> Self {
+        self.nested_command_buffer = value.into();
         self
     }
     #[inline]
-    pub fn nested_command_buffer_rendering(mut self, value: Bool32) -> Self {
-        self.nested_command_buffer_rendering = value;
+    pub fn nested_command_buffer_rendering(mut self, value: impl Into<Bool32>) -> Self {
+        self.nested_command_buffer_rendering = value.into();
         self
     }
     #[inline]
-    pub fn nested_command_buffer_simultaneous_use(mut self, value: Bool32) -> Self {
-        self.nested_command_buffer_simultaneous_use = value;
+    pub fn nested_command_buffer_simultaneous_use(mut self, value: impl Into<Bool32>) -> Self {
+        self.nested_command_buffer_simultaneous_use = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -45260,8 +45560,8 @@ impl<'a> Default for ExternalMemoryAcquireUnmodifiedEXT<'a> {
 }
 impl<'a> ExternalMemoryAcquireUnmodifiedEXT<'a> {
     #[inline]
-    pub fn acquire_unmodified_memory(mut self, value: Bool32) -> Self {
-        self.acquire_unmodified_memory = value;
+    pub fn acquire_unmodified_memory(mut self, value: impl Into<Bool32>) -> Self {
+        self.acquire_unmodified_memory = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -45363,170 +45663,221 @@ impl<'a> Default for PhysicalDeviceExtendedDynamicState3FeaturesEXT<'a> {
 }
 impl<'a> PhysicalDeviceExtendedDynamicState3FeaturesEXT<'a> {
     #[inline]
-    pub fn extended_dynamic_state3_tessellation_domain_origin(mut self, value: Bool32) -> Self {
-        self.extended_dynamic_state3_tessellation_domain_origin = value;
+    pub fn extended_dynamic_state3_tessellation_domain_origin(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.extended_dynamic_state3_tessellation_domain_origin = value.into();
         self
     }
     #[inline]
-    pub fn extended_dynamic_state3_depth_clamp_enable(mut self, value: Bool32) -> Self {
-        self.extended_dynamic_state3_depth_clamp_enable = value;
+    pub fn extended_dynamic_state3_depth_clamp_enable(mut self, value: impl Into<Bool32>) -> Self {
+        self.extended_dynamic_state3_depth_clamp_enable = value.into();
         self
     }
     #[inline]
-    pub fn extended_dynamic_state3_polygon_mode(mut self, value: Bool32) -> Self {
-        self.extended_dynamic_state3_polygon_mode = value;
+    pub fn extended_dynamic_state3_polygon_mode(mut self, value: impl Into<Bool32>) -> Self {
+        self.extended_dynamic_state3_polygon_mode = value.into();
         self
     }
     #[inline]
-    pub fn extended_dynamic_state3_rasterization_samples(mut self, value: Bool32) -> Self {
-        self.extended_dynamic_state3_rasterization_samples = value;
+    pub fn extended_dynamic_state3_rasterization_samples(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.extended_dynamic_state3_rasterization_samples = value.into();
         self
     }
     #[inline]
-    pub fn extended_dynamic_state3_sample_mask(mut self, value: Bool32) -> Self {
-        self.extended_dynamic_state3_sample_mask = value;
+    pub fn extended_dynamic_state3_sample_mask(mut self, value: impl Into<Bool32>) -> Self {
+        self.extended_dynamic_state3_sample_mask = value.into();
         self
     }
     #[inline]
-    pub fn extended_dynamic_state3_alpha_to_coverage_enable(mut self, value: Bool32) -> Self {
-        self.extended_dynamic_state3_alpha_to_coverage_enable = value;
+    pub fn extended_dynamic_state3_alpha_to_coverage_enable(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.extended_dynamic_state3_alpha_to_coverage_enable = value.into();
         self
     }
     #[inline]
-    pub fn extended_dynamic_state3_alpha_to_one_enable(mut self, value: Bool32) -> Self {
-        self.extended_dynamic_state3_alpha_to_one_enable = value;
+    pub fn extended_dynamic_state3_alpha_to_one_enable(mut self, value: impl Into<Bool32>) -> Self {
+        self.extended_dynamic_state3_alpha_to_one_enable = value.into();
         self
     }
     #[inline]
-    pub fn extended_dynamic_state3_logic_op_enable(mut self, value: Bool32) -> Self {
-        self.extended_dynamic_state3_logic_op_enable = value;
+    pub fn extended_dynamic_state3_logic_op_enable(mut self, value: impl Into<Bool32>) -> Self {
+        self.extended_dynamic_state3_logic_op_enable = value.into();
         self
     }
     #[inline]
-    pub fn extended_dynamic_state3_color_blend_enable(mut self, value: Bool32) -> Self {
-        self.extended_dynamic_state3_color_blend_enable = value;
+    pub fn extended_dynamic_state3_color_blend_enable(mut self, value: impl Into<Bool32>) -> Self {
+        self.extended_dynamic_state3_color_blend_enable = value.into();
         self
     }
     #[inline]
-    pub fn extended_dynamic_state3_color_blend_equation(mut self, value: Bool32) -> Self {
-        self.extended_dynamic_state3_color_blend_equation = value;
+    pub fn extended_dynamic_state3_color_blend_equation(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.extended_dynamic_state3_color_blend_equation = value.into();
         self
     }
     #[inline]
-    pub fn extended_dynamic_state3_color_write_mask(mut self, value: Bool32) -> Self {
-        self.extended_dynamic_state3_color_write_mask = value;
+    pub fn extended_dynamic_state3_color_write_mask(mut self, value: impl Into<Bool32>) -> Self {
+        self.extended_dynamic_state3_color_write_mask = value.into();
         self
     }
     #[inline]
-    pub fn extended_dynamic_state3_rasterization_stream(mut self, value: Bool32) -> Self {
-        self.extended_dynamic_state3_rasterization_stream = value;
+    pub fn extended_dynamic_state3_rasterization_stream(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.extended_dynamic_state3_rasterization_stream = value.into();
         self
     }
     #[inline]
     pub fn extended_dynamic_state3_conservative_rasterization_mode(
         mut self,
-        value: Bool32,
+        value: impl Into<Bool32>,
     ) -> Self {
-        self.extended_dynamic_state3_conservative_rasterization_mode = value;
+        self.extended_dynamic_state3_conservative_rasterization_mode = value.into();
         self
     }
     #[inline]
     pub fn extended_dynamic_state3_extra_primitive_overestimation_size(
         mut self,
-        value: Bool32,
+        value: impl Into<Bool32>,
     ) -> Self {
-        self.extended_dynamic_state3_extra_primitive_overestimation_size = value;
+        self.extended_dynamic_state3_extra_primitive_overestimation_size = value.into();
         self
     }
     #[inline]
-    pub fn extended_dynamic_state3_depth_clip_enable(mut self, value: Bool32) -> Self {
-        self.extended_dynamic_state3_depth_clip_enable = value;
+    pub fn extended_dynamic_state3_depth_clip_enable(mut self, value: impl Into<Bool32>) -> Self {
+        self.extended_dynamic_state3_depth_clip_enable = value.into();
         self
     }
     #[inline]
-    pub fn extended_dynamic_state3_sample_locations_enable(mut self, value: Bool32) -> Self {
-        self.extended_dynamic_state3_sample_locations_enable = value;
+    pub fn extended_dynamic_state3_sample_locations_enable(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.extended_dynamic_state3_sample_locations_enable = value.into();
         self
     }
     #[inline]
-    pub fn extended_dynamic_state3_color_blend_advanced(mut self, value: Bool32) -> Self {
-        self.extended_dynamic_state3_color_blend_advanced = value;
+    pub fn extended_dynamic_state3_color_blend_advanced(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.extended_dynamic_state3_color_blend_advanced = value.into();
         self
     }
     #[inline]
-    pub fn extended_dynamic_state3_provoking_vertex_mode(mut self, value: Bool32) -> Self {
-        self.extended_dynamic_state3_provoking_vertex_mode = value;
+    pub fn extended_dynamic_state3_provoking_vertex_mode(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.extended_dynamic_state3_provoking_vertex_mode = value.into();
         self
     }
     #[inline]
-    pub fn extended_dynamic_state3_line_rasterization_mode(mut self, value: Bool32) -> Self {
-        self.extended_dynamic_state3_line_rasterization_mode = value;
+    pub fn extended_dynamic_state3_line_rasterization_mode(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.extended_dynamic_state3_line_rasterization_mode = value.into();
         self
     }
     #[inline]
-    pub fn extended_dynamic_state3_line_stipple_enable(mut self, value: Bool32) -> Self {
-        self.extended_dynamic_state3_line_stipple_enable = value;
+    pub fn extended_dynamic_state3_line_stipple_enable(mut self, value: impl Into<Bool32>) -> Self {
+        self.extended_dynamic_state3_line_stipple_enable = value.into();
         self
     }
     #[inline]
-    pub fn extended_dynamic_state3_depth_clip_negative_one_to_one(mut self, value: Bool32) -> Self {
-        self.extended_dynamic_state3_depth_clip_negative_one_to_one = value;
+    pub fn extended_dynamic_state3_depth_clip_negative_one_to_one(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.extended_dynamic_state3_depth_clip_negative_one_to_one = value.into();
         self
     }
     #[inline]
-    pub fn extended_dynamic_state3_viewport_wscaling_enable(mut self, value: Bool32) -> Self {
-        self.extended_dynamic_state3_viewport_wscaling_enable = value;
+    pub fn extended_dynamic_state3_viewport_wscaling_enable(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.extended_dynamic_state3_viewport_wscaling_enable = value.into();
         self
     }
     #[inline]
-    pub fn extended_dynamic_state3_viewport_swizzle(mut self, value: Bool32) -> Self {
-        self.extended_dynamic_state3_viewport_swizzle = value;
+    pub fn extended_dynamic_state3_viewport_swizzle(mut self, value: impl Into<Bool32>) -> Self {
+        self.extended_dynamic_state3_viewport_swizzle = value.into();
         self
     }
     #[inline]
-    pub fn extended_dynamic_state3_coverage_to_color_enable(mut self, value: Bool32) -> Self {
-        self.extended_dynamic_state3_coverage_to_color_enable = value;
+    pub fn extended_dynamic_state3_coverage_to_color_enable(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.extended_dynamic_state3_coverage_to_color_enable = value.into();
         self
     }
     #[inline]
-    pub fn extended_dynamic_state3_coverage_to_color_location(mut self, value: Bool32) -> Self {
-        self.extended_dynamic_state3_coverage_to_color_location = value;
+    pub fn extended_dynamic_state3_coverage_to_color_location(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.extended_dynamic_state3_coverage_to_color_location = value.into();
         self
     }
     #[inline]
-    pub fn extended_dynamic_state3_coverage_modulation_mode(mut self, value: Bool32) -> Self {
-        self.extended_dynamic_state3_coverage_modulation_mode = value;
+    pub fn extended_dynamic_state3_coverage_modulation_mode(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.extended_dynamic_state3_coverage_modulation_mode = value.into();
         self
     }
     #[inline]
     pub fn extended_dynamic_state3_coverage_modulation_table_enable(
         mut self,
-        value: Bool32,
+        value: impl Into<Bool32>,
     ) -> Self {
-        self.extended_dynamic_state3_coverage_modulation_table_enable = value;
+        self.extended_dynamic_state3_coverage_modulation_table_enable = value.into();
         self
     }
     #[inline]
-    pub fn extended_dynamic_state3_coverage_modulation_table(mut self, value: Bool32) -> Self {
-        self.extended_dynamic_state3_coverage_modulation_table = value;
+    pub fn extended_dynamic_state3_coverage_modulation_table(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.extended_dynamic_state3_coverage_modulation_table = value.into();
         self
     }
     #[inline]
-    pub fn extended_dynamic_state3_coverage_reduction_mode(mut self, value: Bool32) -> Self {
-        self.extended_dynamic_state3_coverage_reduction_mode = value;
+    pub fn extended_dynamic_state3_coverage_reduction_mode(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.extended_dynamic_state3_coverage_reduction_mode = value.into();
         self
     }
     #[inline]
     pub fn extended_dynamic_state3_representative_fragment_test_enable(
         mut self,
-        value: Bool32,
+        value: impl Into<Bool32>,
     ) -> Self {
-        self.extended_dynamic_state3_representative_fragment_test_enable = value;
+        self.extended_dynamic_state3_representative_fragment_test_enable = value.into();
         self
     }
     #[inline]
-    pub fn extended_dynamic_state3_shading_rate_image_enable(mut self, value: Bool32) -> Self {
-        self.extended_dynamic_state3_shading_rate_image_enable = value;
+    pub fn extended_dynamic_state3_shading_rate_image_enable(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.extended_dynamic_state3_shading_rate_image_enable = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -45564,8 +45915,8 @@ impl<'a> Default for PhysicalDeviceExtendedDynamicState3PropertiesEXT<'a> {
 }
 impl<'a> PhysicalDeviceExtendedDynamicState3PropertiesEXT<'a> {
     #[inline]
-    pub fn dynamic_primitive_topology_unrestricted(mut self, value: Bool32) -> Self {
-        self.dynamic_primitive_topology_unrestricted = value;
+    pub fn dynamic_primitive_topology_unrestricted(mut self, value: impl Into<Bool32>) -> Self {
+        self.dynamic_primitive_topology_unrestricted = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -45661,13 +46012,13 @@ impl ColorBlendAdvancedEXT {
         self
     }
     #[inline]
-    pub fn src_premultiplied(mut self, value: Bool32) -> Self {
-        self.src_premultiplied = value;
+    pub fn src_premultiplied(mut self, value: impl Into<Bool32>) -> Self {
+        self.src_premultiplied = value.into();
         self
     }
     #[inline]
-    pub fn dst_premultiplied(mut self, value: Bool32) -> Self {
-        self.dst_premultiplied = value;
+    pub fn dst_premultiplied(mut self, value: impl Into<Bool32>) -> Self {
+        self.dst_premultiplied = value.into();
         self
     }
     #[inline]
@@ -45676,8 +46027,8 @@ impl ColorBlendAdvancedEXT {
         self
     }
     #[inline]
-    pub fn clamp_results(mut self, value: Bool32) -> Self {
-        self.clamp_results = value;
+    pub fn clamp_results(mut self, value: impl Into<Bool32>) -> Self {
+        self.clamp_results = value.into();
         self
     }
 }
@@ -45716,8 +46067,8 @@ impl<'a> Default for PhysicalDeviceSubpassMergeFeedbackFeaturesEXT<'a> {
 }
 impl<'a> PhysicalDeviceSubpassMergeFeedbackFeaturesEXT<'a> {
     #[inline]
-    pub fn subpass_merge_feedback(mut self, value: Bool32) -> Self {
-        self.subpass_merge_feedback = value;
+    pub fn subpass_merge_feedback(mut self, value: impl Into<Bool32>) -> Self {
+        self.subpass_merge_feedback = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -45758,8 +46109,8 @@ impl<'a> Default for RenderPassCreationControlEXT<'a> {
 }
 impl<'a> RenderPassCreationControlEXT<'a> {
     #[inline]
-    pub fn disallow_merging(mut self, value: Bool32) -> Self {
-        self.disallow_merging = value;
+    pub fn disallow_merging(mut self, value: impl Into<Bool32>) -> Self {
+        self.disallow_merging = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -46028,8 +46379,8 @@ impl<'a> Default for PhysicalDeviceShaderModuleIdentifierFeaturesEXT<'a> {
 }
 impl<'a> PhysicalDeviceShaderModuleIdentifierFeaturesEXT<'a> {
     #[inline]
-    pub fn shader_module_identifier(mut self, value: Bool32) -> Self {
-        self.shader_module_identifier = value;
+    pub fn shader_module_identifier(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_module_identifier = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -46189,18 +46540,21 @@ impl<'a> Default for PhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT
 }
 impl<'a> PhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT<'a> {
     #[inline]
-    pub fn rasterization_order_color_attachment_access(mut self, value: Bool32) -> Self {
-        self.rasterization_order_color_attachment_access = value;
+    pub fn rasterization_order_color_attachment_access(mut self, value: impl Into<Bool32>) -> Self {
+        self.rasterization_order_color_attachment_access = value.into();
         self
     }
     #[inline]
-    pub fn rasterization_order_depth_attachment_access(mut self, value: Bool32) -> Self {
-        self.rasterization_order_depth_attachment_access = value;
+    pub fn rasterization_order_depth_attachment_access(mut self, value: impl Into<Bool32>) -> Self {
+        self.rasterization_order_depth_attachment_access = value.into();
         self
     }
     #[inline]
-    pub fn rasterization_order_stencil_attachment_access(mut self, value: Bool32) -> Self {
-        self.rasterization_order_stencil_attachment_access = value;
+    pub fn rasterization_order_stencil_attachment_access(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.rasterization_order_stencil_attachment_access = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -46243,8 +46597,8 @@ impl<'a> Default for PhysicalDeviceOpticalFlowFeaturesNV<'a> {
 }
 impl<'a> PhysicalDeviceOpticalFlowFeaturesNV<'a> {
     #[inline]
-    pub fn optical_flow(mut self, value: Bool32) -> Self {
-        self.optical_flow = value;
+    pub fn optical_flow(mut self, value: impl Into<Bool32>) -> Self {
+        self.optical_flow = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -46311,23 +46665,23 @@ impl<'a> PhysicalDeviceOpticalFlowPropertiesNV<'a> {
         self
     }
     #[inline]
-    pub fn hint_supported(mut self, value: Bool32) -> Self {
-        self.hint_supported = value;
+    pub fn hint_supported(mut self, value: impl Into<Bool32>) -> Self {
+        self.hint_supported = value.into();
         self
     }
     #[inline]
-    pub fn cost_supported(mut self, value: Bool32) -> Self {
-        self.cost_supported = value;
+    pub fn cost_supported(mut self, value: impl Into<Bool32>) -> Self {
+        self.cost_supported = value.into();
         self
     }
     #[inline]
-    pub fn bidirectional_flow_supported(mut self, value: Bool32) -> Self {
-        self.bidirectional_flow_supported = value;
+    pub fn bidirectional_flow_supported(mut self, value: impl Into<Bool32>) -> Self {
+        self.bidirectional_flow_supported = value.into();
         self
     }
     #[inline]
-    pub fn global_flow_supported(mut self, value: Bool32) -> Self {
-        self.global_flow_supported = value;
+    pub fn global_flow_supported(mut self, value: impl Into<Bool32>) -> Self {
+        self.global_flow_supported = value.into();
         self
     }
     #[inline]
@@ -46652,8 +47006,8 @@ impl<'a> Default for PhysicalDeviceLegacyDitheringFeaturesEXT<'a> {
 }
 impl<'a> PhysicalDeviceLegacyDitheringFeaturesEXT<'a> {
     #[inline]
-    pub fn legacy_dithering(mut self, value: Bool32) -> Self {
-        self.legacy_dithering = value;
+    pub fn legacy_dithering(mut self, value: impl Into<Bool32>) -> Self {
+        self.legacy_dithering = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -46695,8 +47049,8 @@ impl<'a> Default for PhysicalDevicePipelineProtectedAccessFeaturesEXT<'a> {
 }
 impl<'a> PhysicalDevicePipelineProtectedAccessFeaturesEXT<'a> {
     #[inline]
-    pub fn pipeline_protected_access(mut self, value: Bool32) -> Self {
-        self.pipeline_protected_access = value;
+    pub fn pipeline_protected_access(mut self, value: impl Into<Bool32>) -> Self {
+        self.pipeline_protected_access = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -46738,8 +47092,8 @@ impl<'a> Default for PhysicalDeviceExternalFormatResolveFeaturesANDROID<'a> {
 }
 impl<'a> PhysicalDeviceExternalFormatResolveFeaturesANDROID<'a> {
     #[inline]
-    pub fn external_format_resolve(mut self, value: Bool32) -> Self {
-        self.external_format_resolve = value;
+    pub fn external_format_resolve(mut self, value: impl Into<Bool32>) -> Self {
+        self.external_format_resolve = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -46781,8 +47135,11 @@ impl<'a> Default for PhysicalDeviceExternalFormatResolvePropertiesANDROID<'a> {
 }
 impl<'a> PhysicalDeviceExternalFormatResolvePropertiesANDROID<'a> {
     #[inline]
-    pub fn null_color_attachment_with_external_format_resolve(mut self, value: Bool32) -> Self {
-        self.null_color_attachment_with_external_format_resolve = value;
+    pub fn null_color_attachment_with_external_format_resolve(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.null_color_attachment_with_external_format_resolve = value.into();
         self
     }
     #[inline]
@@ -46872,8 +47229,8 @@ impl<'a> Default for PhysicalDeviceMaintenance5FeaturesKHR<'a> {
 }
 impl<'a> PhysicalDeviceMaintenance5FeaturesKHR<'a> {
     #[inline]
-    pub fn maintenance5(mut self, value: Bool32) -> Self {
-        self.maintenance5 = value;
+    pub fn maintenance5(mut self, value: impl Into<Bool32>) -> Self {
+        self.maintenance5 = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -46922,34 +47279,40 @@ impl<'a> PhysicalDeviceMaintenance5PropertiesKHR<'a> {
     #[inline]
     pub fn early_fragment_multisample_coverage_after_sample_counting(
         mut self,
-        value: Bool32,
+        value: impl Into<Bool32>,
     ) -> Self {
-        self.early_fragment_multisample_coverage_after_sample_counting = value;
+        self.early_fragment_multisample_coverage_after_sample_counting = value.into();
         self
     }
     #[inline]
-    pub fn early_fragment_sample_mask_test_before_sample_counting(mut self, value: Bool32) -> Self {
-        self.early_fragment_sample_mask_test_before_sample_counting = value;
+    pub fn early_fragment_sample_mask_test_before_sample_counting(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.early_fragment_sample_mask_test_before_sample_counting = value.into();
         self
     }
     #[inline]
-    pub fn depth_stencil_swizzle_one_support(mut self, value: Bool32) -> Self {
-        self.depth_stencil_swizzle_one_support = value;
+    pub fn depth_stencil_swizzle_one_support(mut self, value: impl Into<Bool32>) -> Self {
+        self.depth_stencil_swizzle_one_support = value.into();
         self
     }
     #[inline]
-    pub fn polygon_mode_point_size(mut self, value: Bool32) -> Self {
-        self.polygon_mode_point_size = value;
+    pub fn polygon_mode_point_size(mut self, value: impl Into<Bool32>) -> Self {
+        self.polygon_mode_point_size = value.into();
         self
     }
     #[inline]
-    pub fn non_strict_single_pixel_wide_lines_use_parallelogram(mut self, value: Bool32) -> Self {
-        self.non_strict_single_pixel_wide_lines_use_parallelogram = value;
+    pub fn non_strict_single_pixel_wide_lines_use_parallelogram(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.non_strict_single_pixel_wide_lines_use_parallelogram = value.into();
         self
     }
     #[inline]
-    pub fn non_strict_wide_lines_use_parallelogram(mut self, value: Bool32) -> Self {
-        self.non_strict_wide_lines_use_parallelogram = value;
+    pub fn non_strict_wide_lines_use_parallelogram(mut self, value: impl Into<Bool32>) -> Self {
+        self.non_strict_wide_lines_use_parallelogram = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -47260,8 +47623,8 @@ impl<'a> Default for PhysicalDeviceRayTracingPositionFetchFeaturesKHR<'a> {
 }
 impl<'a> PhysicalDeviceRayTracingPositionFetchFeaturesKHR<'a> {
     #[inline]
-    pub fn ray_tracing_position_fetch(mut self, value: Bool32) -> Self {
-        self.ray_tracing_position_fetch = value;
+    pub fn ray_tracing_position_fetch(mut self, value: impl Into<Bool32>) -> Self {
+        self.ray_tracing_position_fetch = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -47302,8 +47665,8 @@ impl<'a> Default for PhysicalDeviceShaderObjectFeaturesEXT<'a> {
 }
 impl<'a> PhysicalDeviceShaderObjectFeaturesEXT<'a> {
     #[inline]
-    pub fn shader_object(mut self, value: Bool32) -> Self {
-        self.shader_object = value;
+    pub fn shader_object(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_object = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -47501,8 +47864,8 @@ impl<'a> Default for PhysicalDeviceTilePropertiesFeaturesQCOM<'a> {
 }
 impl<'a> PhysicalDeviceTilePropertiesFeaturesQCOM<'a> {
     #[inline]
-    pub fn tile_properties(mut self, value: Bool32) -> Self {
-        self.tile_properties = value;
+    pub fn tile_properties(mut self, value: impl Into<Bool32>) -> Self {
+        self.tile_properties = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -47591,8 +47954,8 @@ impl<'a> Default for PhysicalDeviceAmigoProfilingFeaturesSEC<'a> {
 }
 impl<'a> PhysicalDeviceAmigoProfilingFeaturesSEC<'a> {
     #[inline]
-    pub fn amigo_profiling(mut self, value: Bool32) -> Self {
-        self.amigo_profiling = value;
+    pub fn amigo_profiling(mut self, value: impl Into<Bool32>) -> Self {
+        self.amigo_profiling = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -47676,8 +48039,8 @@ impl<'a> Default for PhysicalDeviceMultiviewPerViewViewportsFeaturesQCOM<'a> {
 }
 impl<'a> PhysicalDeviceMultiviewPerViewViewportsFeaturesQCOM<'a> {
     #[inline]
-    pub fn multiview_per_view_viewports(mut self, value: Bool32) -> Self {
-        self.multiview_per_view_viewports = value;
+    pub fn multiview_per_view_viewports(mut self, value: impl Into<Bool32>) -> Self {
+        self.multiview_per_view_viewports = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -47761,8 +48124,8 @@ impl<'a> Default for PhysicalDeviceRayTracingInvocationReorderFeaturesNV<'a> {
 }
 impl<'a> PhysicalDeviceRayTracingInvocationReorderFeaturesNV<'a> {
     #[inline]
-    pub fn ray_tracing_invocation_reorder(mut self, value: Bool32) -> Self {
-        self.ray_tracing_invocation_reorder = value;
+    pub fn ray_tracing_invocation_reorder(mut self, value: impl Into<Bool32>) -> Self {
+        self.ray_tracing_invocation_reorder = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -47804,8 +48167,8 @@ impl<'a> Default for PhysicalDeviceExtendedSparseAddressSpaceFeaturesNV<'a> {
 }
 impl<'a> PhysicalDeviceExtendedSparseAddressSpaceFeaturesNV<'a> {
     #[inline]
-    pub fn extended_sparse_address_space(mut self, value: Bool32) -> Self {
-        self.extended_sparse_address_space = value;
+    pub fn extended_sparse_address_space(mut self, value: impl Into<Bool32>) -> Self {
+        self.extended_sparse_address_space = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -47900,8 +48263,8 @@ impl<'a> Default for PhysicalDeviceMutableDescriptorTypeFeaturesEXT<'a> {
 }
 impl<'a> PhysicalDeviceMutableDescriptorTypeFeaturesEXT<'a> {
     #[inline]
-    pub fn mutable_descriptor_type(mut self, value: Bool32) -> Self {
-        self.mutable_descriptor_type = value;
+    pub fn mutable_descriptor_type(mut self, value: impl Into<Bool32>) -> Self {
+        self.mutable_descriptor_type = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -48022,8 +48385,8 @@ impl<'a> Default for PhysicalDeviceLegacyVertexAttributesFeaturesEXT<'a> {
 }
 impl<'a> PhysicalDeviceLegacyVertexAttributesFeaturesEXT<'a> {
     #[inline]
-    pub fn legacy_vertex_attributes(mut self, value: Bool32) -> Self {
-        self.legacy_vertex_attributes = value;
+    pub fn legacy_vertex_attributes(mut self, value: impl Into<Bool32>) -> Self {
+        self.legacy_vertex_attributes = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -48061,8 +48424,8 @@ impl<'a> Default for PhysicalDeviceLegacyVertexAttributesPropertiesEXT<'a> {
 }
 impl<'a> PhysicalDeviceLegacyVertexAttributesPropertiesEXT<'a> {
     #[inline]
-    pub fn native_unaligned_performance(mut self, value: Bool32) -> Self {
-        self.native_unaligned_performance = value;
+    pub fn native_unaligned_performance(mut self, value: impl Into<Bool32>) -> Self {
+        self.native_unaligned_performance = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -48190,8 +48553,8 @@ impl<'a> Default for PhysicalDeviceShaderCoreBuiltinsFeaturesARM<'a> {
 }
 impl<'a> PhysicalDeviceShaderCoreBuiltinsFeaturesARM<'a> {
     #[inline]
-    pub fn shader_core_builtins(mut self, value: Bool32) -> Self {
-        self.shader_core_builtins = value;
+    pub fn shader_core_builtins(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_core_builtins = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -48286,8 +48649,8 @@ impl<'a> Default for PhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT<'a> {
 }
 impl<'a> PhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT<'a> {
     #[inline]
-    pub fn pipeline_library_group_handles(mut self, value: Bool32) -> Self {
-        self.pipeline_library_group_handles = value;
+    pub fn pipeline_library_group_handles(mut self, value: impl Into<Bool32>) -> Self {
+        self.pipeline_library_group_handles = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -48331,8 +48694,8 @@ impl<'a> Default for PhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT<
 }
 impl<'a> PhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT<'a> {
     #[inline]
-    pub fn dynamic_rendering_unused_attachments(mut self, value: Bool32) -> Self {
-        self.dynamic_rendering_unused_attachments = value;
+    pub fn dynamic_rendering_unused_attachments(mut self, value: impl Into<Bool32>) -> Self {
+        self.dynamic_rendering_unused_attachments = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -48369,13 +48732,13 @@ impl<'a> Default for LatencySleepModeInfoNV<'a> {
 }
 impl<'a> LatencySleepModeInfoNV<'a> {
     #[inline]
-    pub fn low_latency_mode(mut self, value: Bool32) -> Self {
-        self.low_latency_mode = value;
+    pub fn low_latency_mode(mut self, value: impl Into<Bool32>) -> Self {
+        self.low_latency_mode = value.into();
         self
     }
     #[inline]
-    pub fn low_latency_boost(mut self, value: Bool32) -> Self {
-        self.low_latency_boost = value;
+    pub fn low_latency_boost(mut self, value: impl Into<Bool32>) -> Self {
+        self.low_latency_boost = value.into();
         self
     }
     #[inline]
@@ -48702,8 +49065,8 @@ impl<'a> Default for SwapchainLatencyCreateInfoNV<'a> {
 }
 impl<'a> SwapchainLatencyCreateInfoNV<'a> {
     #[inline]
-    pub fn latency_mode_enable(mut self, value: Bool32) -> Self {
-        self.latency_mode_enable = value;
+    pub fn latency_mode_enable(mut self, value: impl Into<Bool32>) -> Self {
+        self.latency_mode_enable = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -48867,8 +49230,8 @@ impl<'a> CooperativeMatrixPropertiesKHR<'a> {
         self
     }
     #[inline]
-    pub fn saturating_accumulation(mut self, value: Bool32) -> Self {
-        self.saturating_accumulation = value;
+    pub fn saturating_accumulation(mut self, value: impl Into<Bool32>) -> Self {
+        self.saturating_accumulation = value.into();
         self
     }
     #[inline]
@@ -48916,13 +49279,13 @@ impl<'a> Default for PhysicalDeviceCooperativeMatrixFeaturesKHR<'a> {
 }
 impl<'a> PhysicalDeviceCooperativeMatrixFeaturesKHR<'a> {
     #[inline]
-    pub fn cooperative_matrix(mut self, value: Bool32) -> Self {
-        self.cooperative_matrix = value;
+    pub fn cooperative_matrix(mut self, value: impl Into<Bool32>) -> Self {
+        self.cooperative_matrix = value.into();
         self
     }
     #[inline]
-    pub fn cooperative_matrix_robust_buffer_access(mut self, value: Bool32) -> Self {
-        self.cooperative_matrix_robust_buffer_access = value;
+    pub fn cooperative_matrix_robust_buffer_access(mut self, value: impl Into<Bool32>) -> Self {
+        self.cooperative_matrix_robust_buffer_access = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -49003,8 +49366,8 @@ impl<'a> Default for PhysicalDeviceMultiviewPerViewRenderAreasFeaturesQCOM<'a> {
 }
 impl<'a> PhysicalDeviceMultiviewPerViewRenderAreasFeaturesQCOM<'a> {
     #[inline]
-    pub fn multiview_per_view_render_areas(mut self, value: Bool32) -> Self {
-        self.multiview_per_view_render_areas = value;
+    pub fn multiview_per_view_render_areas(mut self, value: impl Into<Bool32>) -> Self {
+        self.multiview_per_view_render_areas = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -49094,13 +49457,13 @@ impl<'a> Default for PhysicalDevicePerStageDescriptorSetFeaturesNV<'a> {
 }
 impl<'a> PhysicalDevicePerStageDescriptorSetFeaturesNV<'a> {
     #[inline]
-    pub fn per_stage_descriptor_set(mut self, value: Bool32) -> Self {
-        self.per_stage_descriptor_set = value;
+    pub fn per_stage_descriptor_set(mut self, value: impl Into<Bool32>) -> Self {
+        self.per_stage_descriptor_set = value.into();
         self
     }
     #[inline]
-    pub fn dynamic_pipeline_layout(mut self, value: Bool32) -> Self {
-        self.dynamic_pipeline_layout = value;
+    pub fn dynamic_pipeline_layout(mut self, value: impl Into<Bool32>) -> Self {
+        self.dynamic_pipeline_layout = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -49141,8 +49504,8 @@ impl<'a> Default for PhysicalDeviceImageProcessing2FeaturesQCOM<'a> {
 }
 impl<'a> PhysicalDeviceImageProcessing2FeaturesQCOM<'a> {
     #[inline]
-    pub fn texture_block_match2(mut self, value: Bool32) -> Self {
-        self.texture_block_match2 = value;
+    pub fn texture_block_match2(mut self, value: impl Into<Bool32>) -> Self {
+        self.texture_block_match2 = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -49267,8 +49630,8 @@ impl<'a> Default for PhysicalDeviceCubicWeightsFeaturesQCOM<'a> {
 }
 impl<'a> PhysicalDeviceCubicWeightsFeaturesQCOM<'a> {
     #[inline]
-    pub fn selectable_cubic_weights(mut self, value: Bool32) -> Self {
-        self.selectable_cubic_weights = value;
+    pub fn selectable_cubic_weights(mut self, value: impl Into<Bool32>) -> Self {
+        self.selectable_cubic_weights = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -49382,8 +49745,8 @@ impl<'a> Default for PhysicalDeviceYcbcrDegammaFeaturesQCOM<'a> {
 }
 impl<'a> PhysicalDeviceYcbcrDegammaFeaturesQCOM<'a> {
     #[inline]
-    pub fn ycbcr_degamma(mut self, value: Bool32) -> Self {
-        self.ycbcr_degamma = value;
+    pub fn ycbcr_degamma(mut self, value: impl Into<Bool32>) -> Self {
+        self.ycbcr_degamma = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -49423,13 +49786,13 @@ impl<'a> Default for SamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM<'a> {
 }
 impl<'a> SamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM<'a> {
     #[inline]
-    pub fn enable_ydegamma(mut self, value: Bool32) -> Self {
-        self.enable_ydegamma = value;
+    pub fn enable_ydegamma(mut self, value: impl Into<Bool32>) -> Self {
+        self.enable_ydegamma = value.into();
         self
     }
     #[inline]
-    pub fn enable_cb_cr_degamma(mut self, value: Bool32) -> Self {
-        self.enable_cb_cr_degamma = value;
+    pub fn enable_cb_cr_degamma(mut self, value: impl Into<Bool32>) -> Self {
+        self.enable_cb_cr_degamma = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -49470,8 +49833,8 @@ impl<'a> Default for PhysicalDeviceCubicClampFeaturesQCOM<'a> {
 }
 impl<'a> PhysicalDeviceCubicClampFeaturesQCOM<'a> {
     #[inline]
-    pub fn cubic_range_clamp(mut self, value: Bool32) -> Self {
-        self.cubic_range_clamp = value;
+    pub fn cubic_range_clamp(mut self, value: impl Into<Bool32>) -> Self {
+        self.cubic_range_clamp = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -49515,8 +49878,8 @@ impl<'a> Default for PhysicalDeviceAttachmentFeedbackLoopDynamicStateFeaturesEXT
 }
 impl<'a> PhysicalDeviceAttachmentFeedbackLoopDynamicStateFeaturesEXT<'a> {
     #[inline]
-    pub fn attachment_feedback_loop_dynamic_state(mut self, value: Bool32) -> Self {
-        self.attachment_feedback_loop_dynamic_state = value;
+    pub fn attachment_feedback_loop_dynamic_state(mut self, value: impl Into<Bool32>) -> Self {
+        self.attachment_feedback_loop_dynamic_state = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -49561,8 +49924,8 @@ impl<'a> PhysicalDeviceVertexAttributeDivisorPropertiesKHR<'a> {
         self
     }
     #[inline]
-    pub fn supports_non_zero_first_instance(mut self, value: Bool32) -> Self {
-        self.supports_non_zero_first_instance = value;
+    pub fn supports_non_zero_first_instance(mut self, value: impl Into<Bool32>) -> Self {
+        self.supports_non_zero_first_instance = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -49684,13 +50047,13 @@ impl<'a> Default for PhysicalDeviceVertexAttributeDivisorFeaturesKHR<'a> {
 }
 impl<'a> PhysicalDeviceVertexAttributeDivisorFeaturesKHR<'a> {
     #[inline]
-    pub fn vertex_attribute_instance_rate_divisor(mut self, value: Bool32) -> Self {
-        self.vertex_attribute_instance_rate_divisor = value;
+    pub fn vertex_attribute_instance_rate_divisor(mut self, value: impl Into<Bool32>) -> Self {
+        self.vertex_attribute_instance_rate_divisor = value.into();
         self
     }
     #[inline]
-    pub fn vertex_attribute_instance_rate_zero_divisor(mut self, value: Bool32) -> Self {
-        self.vertex_attribute_instance_rate_zero_divisor = value;
+    pub fn vertex_attribute_instance_rate_zero_divisor(mut self, value: impl Into<Bool32>) -> Self {
+        self.vertex_attribute_instance_rate_zero_divisor = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -49734,8 +50097,8 @@ impl<'a> Default for PhysicalDeviceShaderFloatControls2FeaturesKHR<'a> {
 }
 impl<'a> PhysicalDeviceShaderFloatControls2FeaturesKHR<'a> {
     #[inline]
-    pub fn shader_float_controls2(mut self, value: Bool32) -> Self {
-        self.shader_float_controls2 = value;
+    pub fn shader_float_controls2(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_float_controls2 = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -49986,8 +50349,8 @@ impl<'a> Default for PhysicalDeviceExternalMemoryScreenBufferFeaturesQNX<'a> {
 }
 impl<'a> PhysicalDeviceExternalMemoryScreenBufferFeaturesQNX<'a> {
     #[inline]
-    pub fn screen_buffer_import(mut self, value: Bool32) -> Self {
-        self.screen_buffer_import = value;
+    pub fn screen_buffer_import(mut self, value: impl Into<Bool32>) -> Self {
+        self.screen_buffer_import = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -50066,8 +50429,8 @@ impl<'a> Default for PhysicalDeviceIndexTypeUint8FeaturesKHR<'a> {
 }
 impl<'a> PhysicalDeviceIndexTypeUint8FeaturesKHR<'a> {
     #[inline]
-    pub fn index_type_uint8(mut self, value: Bool32) -> Self {
-        self.index_type_uint8 = value;
+    pub fn index_type_uint8(mut self, value: impl Into<Bool32>) -> Self {
+        self.index_type_uint8 = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -50119,33 +50482,33 @@ impl<'a> Default for PhysicalDeviceLineRasterizationFeaturesKHR<'a> {
 }
 impl<'a> PhysicalDeviceLineRasterizationFeaturesKHR<'a> {
     #[inline]
-    pub fn rectangular_lines(mut self, value: Bool32) -> Self {
-        self.rectangular_lines = value;
+    pub fn rectangular_lines(mut self, value: impl Into<Bool32>) -> Self {
+        self.rectangular_lines = value.into();
         self
     }
     #[inline]
-    pub fn bresenham_lines(mut self, value: Bool32) -> Self {
-        self.bresenham_lines = value;
+    pub fn bresenham_lines(mut self, value: impl Into<Bool32>) -> Self {
+        self.bresenham_lines = value.into();
         self
     }
     #[inline]
-    pub fn smooth_lines(mut self, value: Bool32) -> Self {
-        self.smooth_lines = value;
+    pub fn smooth_lines(mut self, value: impl Into<Bool32>) -> Self {
+        self.smooth_lines = value.into();
         self
     }
     #[inline]
-    pub fn stippled_rectangular_lines(mut self, value: Bool32) -> Self {
-        self.stippled_rectangular_lines = value;
+    pub fn stippled_rectangular_lines(mut self, value: impl Into<Bool32>) -> Self {
+        self.stippled_rectangular_lines = value.into();
         self
     }
     #[inline]
-    pub fn stippled_bresenham_lines(mut self, value: Bool32) -> Self {
-        self.stippled_bresenham_lines = value;
+    pub fn stippled_bresenham_lines(mut self, value: impl Into<Bool32>) -> Self {
+        self.stippled_bresenham_lines = value.into();
         self
     }
     #[inline]
-    pub fn stippled_smooth_lines(mut self, value: Bool32) -> Self {
-        self.stippled_smooth_lines = value;
+    pub fn stippled_smooth_lines(mut self, value: impl Into<Bool32>) -> Self {
+        self.stippled_smooth_lines = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -50237,8 +50600,8 @@ impl<'a> PipelineRasterizationLineStateCreateInfoKHR<'a> {
         self
     }
     #[inline]
-    pub fn stippled_line_enable(mut self, value: Bool32) -> Self {
-        self.stippled_line_enable = value;
+    pub fn stippled_line_enable(mut self, value: impl Into<Bool32>) -> Self {
+        self.stippled_line_enable = value.into();
         self
     }
     #[inline]
@@ -50327,8 +50690,8 @@ impl<'a> Default for PhysicalDeviceShaderExpectAssumeFeaturesKHR<'a> {
 }
 impl<'a> PhysicalDeviceShaderExpectAssumeFeaturesKHR<'a> {
     #[inline]
-    pub fn shader_expect_assume(mut self, value: Bool32) -> Self {
-        self.shader_expect_assume = value;
+    pub fn shader_expect_assume(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_expect_assume = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -50369,8 +50732,8 @@ impl<'a> Default for PhysicalDeviceMaintenance6FeaturesKHR<'a> {
 }
 impl<'a> PhysicalDeviceMaintenance6FeaturesKHR<'a> {
     #[inline]
-    pub fn maintenance6(mut self, value: Bool32) -> Self {
-        self.maintenance6 = value;
+    pub fn maintenance6(mut self, value: impl Into<Bool32>) -> Self {
+        self.maintenance6 = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -50411,8 +50774,8 @@ impl<'a> Default for PhysicalDeviceMaintenance6PropertiesKHR<'a> {
 }
 impl<'a> PhysicalDeviceMaintenance6PropertiesKHR<'a> {
     #[inline]
-    pub fn block_texel_view_compatible_multiple_layers(mut self, value: Bool32) -> Self {
-        self.block_texel_view_compatible_multiple_layers = value;
+    pub fn block_texel_view_compatible_multiple_layers(mut self, value: impl Into<Bool32>) -> Self {
+        self.block_texel_view_compatible_multiple_layers = value.into();
         self
     }
     #[inline]
@@ -50421,8 +50784,8 @@ impl<'a> PhysicalDeviceMaintenance6PropertiesKHR<'a> {
         self
     }
     #[inline]
-    pub fn fragment_shading_rate_clamp_combiner_inputs(mut self, value: Bool32) -> Self {
-        self.fragment_shading_rate_clamp_combiner_inputs = value;
+    pub fn fragment_shading_rate_clamp_combiner_inputs(mut self, value: impl Into<Bool32>) -> Self {
+        self.fragment_shading_rate_clamp_combiner_inputs = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -50857,8 +51220,8 @@ impl<'a> Default for PhysicalDeviceDescriptorPoolOverallocationFeaturesNV<'a> {
 }
 impl<'a> PhysicalDeviceDescriptorPoolOverallocationFeaturesNV<'a> {
     #[inline]
-    pub fn descriptor_pool_overallocation(mut self, value: Bool32) -> Self {
-        self.descriptor_pool_overallocation = value;
+    pub fn descriptor_pool_overallocation(mut self, value: impl Into<Bool32>) -> Self {
+        self.descriptor_pool_overallocation = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -50899,8 +51262,8 @@ impl<'a> Default for PhysicalDeviceRawAccessChainsFeaturesNV<'a> {
 }
 impl<'a> PhysicalDeviceRawAccessChainsFeaturesNV<'a> {
     #[inline]
-    pub fn shader_raw_access_chains(mut self, value: Bool32) -> Self {
-        self.shader_raw_access_chains = value;
+    pub fn shader_raw_access_chains(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_raw_access_chains = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -50944,8 +51307,8 @@ impl<'a> Default for PhysicalDeviceShaderRelaxedExtendedInstructionFeaturesKHR<'
 }
 impl<'a> PhysicalDeviceShaderRelaxedExtendedInstructionFeaturesKHR<'a> {
     #[inline]
-    pub fn shader_relaxed_extended_instruction(mut self, value: Bool32) -> Self {
-        self.shader_relaxed_extended_instruction = value;
+    pub fn shader_relaxed_extended_instruction(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_relaxed_extended_instruction = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -50986,8 +51349,8 @@ impl<'a> Default for PhysicalDeviceMaintenance7FeaturesKHR<'a> {
 }
 impl<'a> PhysicalDeviceMaintenance7FeaturesKHR<'a> {
     #[inline]
-    pub fn maintenance7(mut self, value: Bool32) -> Self {
-        self.maintenance7 = value;
+    pub fn maintenance7(mut self, value: impl Into<Bool32>) -> Self {
+        self.maintenance7 = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -51038,13 +51401,16 @@ impl<'a> Default for PhysicalDeviceMaintenance7PropertiesKHR<'a> {
 }
 impl<'a> PhysicalDeviceMaintenance7PropertiesKHR<'a> {
     #[inline]
-    pub fn robust_fragment_shading_rate_attachment_access(mut self, value: Bool32) -> Self {
-        self.robust_fragment_shading_rate_attachment_access = value;
+    pub fn robust_fragment_shading_rate_attachment_access(
+        mut self,
+        value: impl Into<Bool32>,
+    ) -> Self {
+        self.robust_fragment_shading_rate_attachment_access = value.into();
         self
     }
     #[inline]
-    pub fn separate_depth_stencil_attachment_access(mut self, value: Bool32) -> Self {
-        self.separate_depth_stencil_attachment_access = value;
+    pub fn separate_depth_stencil_attachment_access(mut self, value: impl Into<Bool32>) -> Self {
+        self.separate_depth_stencil_attachment_access = value.into();
         self
     }
     #[inline]
@@ -51268,8 +51634,8 @@ impl<'a> Default for PhysicalDeviceShaderAtomicFloat16VectorFeaturesNV<'a> {
 }
 impl<'a> PhysicalDeviceShaderAtomicFloat16VectorFeaturesNV<'a> {
     #[inline]
-    pub fn shader_float16_vector_atomics(mut self, value: Bool32) -> Self {
-        self.shader_float16_vector_atomics = value;
+    pub fn shader_float16_vector_atomics(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_float16_vector_atomics = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -51311,8 +51677,8 @@ impl<'a> Default for PhysicalDeviceShaderReplicatedCompositesFeaturesEXT<'a> {
 }
 impl<'a> PhysicalDeviceShaderReplicatedCompositesFeaturesEXT<'a> {
     #[inline]
-    pub fn shader_replicated_composites(mut self, value: Bool32) -> Self {
-        self.shader_replicated_composites = value;
+    pub fn shader_replicated_composites(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_replicated_composites = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -51354,8 +51720,8 @@ impl<'a> Default for PhysicalDeviceRayTracingValidationFeaturesNV<'a> {
 }
 impl<'a> PhysicalDeviceRayTracingValidationFeaturesNV<'a> {
     #[inline]
-    pub fn ray_tracing_validation(mut self, value: Bool32) -> Self {
-        self.ray_tracing_validation = value;
+    pub fn ray_tracing_validation(mut self, value: impl Into<Bool32>) -> Self {
+        self.ray_tracing_validation = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
@@ -51397,8 +51763,8 @@ impl<'a> Default for PhysicalDeviceImageAlignmentControlFeaturesMESA<'a> {
 }
 impl<'a> PhysicalDeviceImageAlignmentControlFeaturesMESA<'a> {
     #[inline]
-    pub fn image_alignment_control(mut self, value: Bool32) -> Self {
-        self.image_alignment_control = value;
+    pub fn image_alignment_control(mut self, value: impl Into<Bool32>) -> Self {
+        self.image_alignment_control = value.into();
         self
     }
     pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {

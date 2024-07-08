@@ -125,7 +125,7 @@
 //!         .queue_create_infos(slice::from_ref(&queue_info))
 //!         .enabled_features(Some(&features))
 //!         .enabled_extension(&required_extensions),
-//!     vk::PhysicalDeviceShaderObjectFeaturesEXT::default().shader_object(vk::TRUE)
+//!     vk::PhysicalDeviceShaderObjectFeaturesEXT::default().shader_object(true)
 //! );
 //!
 //! if does_not_support_extension {
@@ -133,7 +133,7 @@
 //! }
 //!
 //! if does_not_support_feature {
-//!     device_info.get_mut::<vk::PhysicalDeviceShaderObjectFeaturesEXT>().shader_object(vk::FALSE);
+//!     device_info.get_mut::<vk::PhysicalDeviceShaderObjectFeaturesEXT>().shader_object(false);
 //! }
 //!
 //! let device = physical_device.create_device(device_info.as_ref())?;

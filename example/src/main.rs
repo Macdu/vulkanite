@@ -536,7 +536,7 @@ impl VulkanApplication {
         let image_available = &self.image_available[curr_index];
 
         self.device
-            .wait_for_fences(slice::from_ref(fence), vk::TRUE, u64::MAX)?;
+            .wait_for_fences(slice::from_ref(fence), true, u64::MAX)?;
 
         self.device.reset_fences(slice::from_ref(fence))?;
         let (status, image_idx) = self.device.acquire_next_image_khr(
@@ -689,7 +689,7 @@ impl SwapchainObjects {
             .pre_transform(capabilities.current_transform)
             .composite_alpha(vk::CompositeAlphaFlagsKHR::Opaque)
             .present_mode(present_mode)
-            .clipped(vk::TRUE);
+            .clipped(true);
 
         let swapchain = device.create_swapchain_khr(&swapchain_info)?;
         let swapchain_images: SmallVec<[_; 3]> = device.get_swapchain_images_khr(&swapchain)?;

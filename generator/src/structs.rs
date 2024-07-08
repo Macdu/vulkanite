@@ -635,6 +635,7 @@ impl<'a> TryFrom<&'a xml::Param> for CommandParam<'a> {
 pub enum AdvancedType<'a> {
     Void,
     VoidPtr,
+    Bool32,
     Handle(&'a str),
     HandlePtr(&'a str),
     HandleArray(&'a str, &'a str),

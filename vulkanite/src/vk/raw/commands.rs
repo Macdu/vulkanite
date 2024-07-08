@@ -946,7 +946,7 @@ pub fn get_fence_status(
 pub fn wait_for_fences<V2: Alias<raw::Fence>>(
     device: &Device,
     p_fences: &[V2],
-    wait_all: Bool32,
+    wait_all: impl Into<Bool32>,
     timeout: u64,
     dispatcher: &CommandsDispatcher,
 ) -> Result<Status> {
@@ -959,7 +959,7 @@ pub fn wait_for_fences<V2: Alias<raw::Fence>>(
             Some(unsafe { device.clone() }),
             p_fences.len() as _,
             p_fences.as_ptr().cast(),
-            wait_all,
+            wait_all.into(),
             timeout,
         )
         .into_result()
@@ -6009,53 +6009,73 @@ pub fn cmd_bind_vertex_buffers2_ext<V3: Alias<raw::Buffer>>(
 #[doc(alias = "vkCmdSetDepthTestEnable")]
 pub fn cmd_set_depth_test_enable(
     command_buffer: &CommandBuffer,
-    depth_test_enable: Bool32,
+    depth_test_enable: impl Into<Bool32>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
         .cmd_set_depth_test_enable
         .get()
         .expect("Vulkan command not loaded.");
-    unsafe { vulkan_command(Some(unsafe { command_buffer.clone() }), depth_test_enable) }
+    unsafe {
+        vulkan_command(
+            Some(unsafe { command_buffer.clone() }),
+            depth_test_enable.into(),
+        )
+    }
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetDepthTestEnableEXT.html>"]
 #[doc(alias = "vkCmdSetDepthTestEnableEXT")]
 pub fn cmd_set_depth_test_enable_ext(
     command_buffer: &CommandBuffer,
-    depth_test_enable: Bool32,
+    depth_test_enable: impl Into<Bool32>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
         .cmd_set_depth_test_enable_ext
         .get()
         .expect("Vulkan command not loaded.");
-    unsafe { vulkan_command(Some(unsafe { command_buffer.clone() }), depth_test_enable) }
+    unsafe {
+        vulkan_command(
+            Some(unsafe { command_buffer.clone() }),
+            depth_test_enable.into(),
+        )
+    }
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetDepthWriteEnable.html>"]
 #[doc(alias = "vkCmdSetDepthWriteEnable")]
 pub fn cmd_set_depth_write_enable(
     command_buffer: &CommandBuffer,
-    depth_write_enable: Bool32,
+    depth_write_enable: impl Into<Bool32>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
         .cmd_set_depth_write_enable
         .get()
         .expect("Vulkan command not loaded.");
-    unsafe { vulkan_command(Some(unsafe { command_buffer.clone() }), depth_write_enable) }
+    unsafe {
+        vulkan_command(
+            Some(unsafe { command_buffer.clone() }),
+            depth_write_enable.into(),
+        )
+    }
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetDepthWriteEnableEXT.html>"]
 #[doc(alias = "vkCmdSetDepthWriteEnableEXT")]
 pub fn cmd_set_depth_write_enable_ext(
     command_buffer: &CommandBuffer,
-    depth_write_enable: Bool32,
+    depth_write_enable: impl Into<Bool32>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
         .cmd_set_depth_write_enable_ext
         .get()
         .expect("Vulkan command not loaded.");
-    unsafe { vulkan_command(Some(unsafe { command_buffer.clone() }), depth_write_enable) }
+    unsafe {
+        vulkan_command(
+            Some(unsafe { command_buffer.clone() }),
+            depth_write_enable.into(),
+        )
+    }
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetDepthCompareOp.html>"]
 #[doc(alias = "vkCmdSetDepthCompareOp")]
@@ -6087,7 +6107,7 @@ pub fn cmd_set_depth_compare_op_ext(
 #[doc(alias = "vkCmdSetDepthBoundsTestEnable")]
 pub fn cmd_set_depth_bounds_test_enable(
     command_buffer: &CommandBuffer,
-    depth_bounds_test_enable: Bool32,
+    depth_bounds_test_enable: impl Into<Bool32>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
@@ -6097,7 +6117,7 @@ pub fn cmd_set_depth_bounds_test_enable(
     unsafe {
         vulkan_command(
             Some(unsafe { command_buffer.clone() }),
-            depth_bounds_test_enable,
+            depth_bounds_test_enable.into(),
         )
     }
 }
@@ -6105,7 +6125,7 @@ pub fn cmd_set_depth_bounds_test_enable(
 #[doc(alias = "vkCmdSetDepthBoundsTestEnableEXT")]
 pub fn cmd_set_depth_bounds_test_enable_ext(
     command_buffer: &CommandBuffer,
-    depth_bounds_test_enable: Bool32,
+    depth_bounds_test_enable: impl Into<Bool32>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
@@ -6115,7 +6135,7 @@ pub fn cmd_set_depth_bounds_test_enable_ext(
     unsafe {
         vulkan_command(
             Some(unsafe { command_buffer.clone() }),
-            depth_bounds_test_enable,
+            depth_bounds_test_enable.into(),
         )
     }
 }
@@ -6123,27 +6143,37 @@ pub fn cmd_set_depth_bounds_test_enable_ext(
 #[doc(alias = "vkCmdSetStencilTestEnable")]
 pub fn cmd_set_stencil_test_enable(
     command_buffer: &CommandBuffer,
-    stencil_test_enable: Bool32,
+    stencil_test_enable: impl Into<Bool32>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
         .cmd_set_stencil_test_enable
         .get()
         .expect("Vulkan command not loaded.");
-    unsafe { vulkan_command(Some(unsafe { command_buffer.clone() }), stencil_test_enable) }
+    unsafe {
+        vulkan_command(
+            Some(unsafe { command_buffer.clone() }),
+            stencil_test_enable.into(),
+        )
+    }
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetStencilTestEnableEXT.html>"]
 #[doc(alias = "vkCmdSetStencilTestEnableEXT")]
 pub fn cmd_set_stencil_test_enable_ext(
     command_buffer: &CommandBuffer,
-    stencil_test_enable: Bool32,
+    stencil_test_enable: impl Into<Bool32>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
         .cmd_set_stencil_test_enable_ext
         .get()
         .expect("Vulkan command not loaded.");
-    unsafe { vulkan_command(Some(unsafe { command_buffer.clone() }), stencil_test_enable) }
+    unsafe {
+        vulkan_command(
+            Some(unsafe { command_buffer.clone() }),
+            stencil_test_enable.into(),
+        )
+    }
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetStencilOp.html>"]
 #[doc(alias = "vkCmdSetStencilOp")]
@@ -6201,7 +6231,7 @@ pub fn cmd_set_stencil_op_ext(
 #[doc(alias = "vkCmdSetRasterizerDiscardEnable")]
 pub fn cmd_set_rasterizer_discard_enable(
     command_buffer: &CommandBuffer,
-    rasterizer_discard_enable: Bool32,
+    rasterizer_discard_enable: impl Into<Bool32>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
@@ -6211,7 +6241,7 @@ pub fn cmd_set_rasterizer_discard_enable(
     unsafe {
         vulkan_command(
             Some(unsafe { command_buffer.clone() }),
-            rasterizer_discard_enable,
+            rasterizer_discard_enable.into(),
         )
     }
 }
@@ -6219,7 +6249,7 @@ pub fn cmd_set_rasterizer_discard_enable(
 #[doc(alias = "vkCmdSetRasterizerDiscardEnableEXT")]
 pub fn cmd_set_rasterizer_discard_enable_ext(
     command_buffer: &CommandBuffer,
-    rasterizer_discard_enable: Bool32,
+    rasterizer_discard_enable: impl Into<Bool32>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
@@ -6229,7 +6259,7 @@ pub fn cmd_set_rasterizer_discard_enable_ext(
     unsafe {
         vulkan_command(
             Some(unsafe { command_buffer.clone() }),
-            rasterizer_discard_enable,
+            rasterizer_discard_enable.into(),
         )
     }
 }
@@ -6237,33 +6267,43 @@ pub fn cmd_set_rasterizer_discard_enable_ext(
 #[doc(alias = "vkCmdSetDepthBiasEnable")]
 pub fn cmd_set_depth_bias_enable(
     command_buffer: &CommandBuffer,
-    depth_bias_enable: Bool32,
+    depth_bias_enable: impl Into<Bool32>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
         .cmd_set_depth_bias_enable
         .get()
         .expect("Vulkan command not loaded.");
-    unsafe { vulkan_command(Some(unsafe { command_buffer.clone() }), depth_bias_enable) }
+    unsafe {
+        vulkan_command(
+            Some(unsafe { command_buffer.clone() }),
+            depth_bias_enable.into(),
+        )
+    }
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetDepthBiasEnableEXT.html>"]
 #[doc(alias = "vkCmdSetDepthBiasEnableEXT")]
 pub fn cmd_set_depth_bias_enable_ext(
     command_buffer: &CommandBuffer,
-    depth_bias_enable: Bool32,
+    depth_bias_enable: impl Into<Bool32>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
         .cmd_set_depth_bias_enable_ext
         .get()
         .expect("Vulkan command not loaded.");
-    unsafe { vulkan_command(Some(unsafe { command_buffer.clone() }), depth_bias_enable) }
+    unsafe {
+        vulkan_command(
+            Some(unsafe { command_buffer.clone() }),
+            depth_bias_enable.into(),
+        )
+    }
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetPrimitiveRestartEnable.html>"]
 #[doc(alias = "vkCmdSetPrimitiveRestartEnable")]
 pub fn cmd_set_primitive_restart_enable(
     command_buffer: &CommandBuffer,
-    primitive_restart_enable: Bool32,
+    primitive_restart_enable: impl Into<Bool32>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
@@ -6273,7 +6313,7 @@ pub fn cmd_set_primitive_restart_enable(
     unsafe {
         vulkan_command(
             Some(unsafe { command_buffer.clone() }),
-            primitive_restart_enable,
+            primitive_restart_enable.into(),
         )
     }
 }
@@ -6281,7 +6321,7 @@ pub fn cmd_set_primitive_restart_enable(
 #[doc(alias = "vkCmdSetPrimitiveRestartEnableEXT")]
 pub fn cmd_set_primitive_restart_enable_ext(
     command_buffer: &CommandBuffer,
-    primitive_restart_enable: Bool32,
+    primitive_restart_enable: impl Into<Bool32>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
@@ -6291,7 +6331,7 @@ pub fn cmd_set_primitive_restart_enable_ext(
     unsafe {
         vulkan_command(
             Some(unsafe { command_buffer.clone() }),
-            primitive_restart_enable,
+            primitive_restart_enable.into(),
         )
     }
 }
@@ -8461,7 +8501,7 @@ pub fn cmd_set_discard_rectangle_ext(
 #[doc(alias = "vkCmdSetDiscardRectangleEnableEXT")]
 pub fn cmd_set_discard_rectangle_enable_ext(
     command_buffer: &CommandBuffer,
-    discard_rectangle_enable: Bool32,
+    discard_rectangle_enable: impl Into<Bool32>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
@@ -8471,7 +8511,7 @@ pub fn cmd_set_discard_rectangle_enable_ext(
     unsafe {
         vulkan_command(
             Some(unsafe { command_buffer.clone() }),
-            discard_rectangle_enable,
+            discard_rectangle_enable.into(),
         )
     }
 }
@@ -10182,7 +10222,7 @@ pub fn cmd_build_acceleration_structure_nv(
     p_info: &AccelerationStructureInfoNV,
     instance_data: Option<&Buffer>,
     instance_offset: DeviceSize,
-    update: Bool32,
+    update: impl Into<Bool32>,
     dst: &AccelerationStructureNV,
     src: Option<&AccelerationStructureNV>,
     scratch: &Buffer,
@@ -10199,7 +10239,7 @@ pub fn cmd_build_acceleration_structure_nv(
             ptr::from_ref(p_info),
             instance_data.map(|v| unsafe { v.clone() }),
             instance_offset,
-            update,
+            update.into(),
             Some(unsafe { dst.clone() }),
             src.map(|v| unsafe { v.clone() }),
             Some(unsafe { scratch.clone() }),
@@ -10753,7 +10793,7 @@ pub fn get_performance_parameter_intel(
 pub fn set_local_dimming_amd(
     device: &Device,
     swap_chain: &SwapchainKHR,
-    local_dimming_enable: Bool32,
+    local_dimming_enable: impl Into<Bool32>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
@@ -10764,7 +10804,7 @@ pub fn set_local_dimming_amd(
         vulkan_command(
             Some(unsafe { device.clone() }),
             Some(unsafe { swap_chain.clone() }),
-            local_dimming_enable,
+            local_dimming_enable.into(),
         )
     }
 }
@@ -11580,7 +11620,7 @@ pub fn cmd_preprocess_generated_commands_nv(
 #[doc(alias = "vkCmdExecuteGeneratedCommandsNV")]
 pub fn cmd_execute_generated_commands_nv(
     command_buffer: &CommandBuffer,
-    is_preprocessed: Bool32,
+    is_preprocessed: impl Into<Bool32>,
     p_generated_commands_info: &GeneratedCommandsInfoNV,
     dispatcher: &CommandsDispatcher,
 ) {
@@ -11591,7 +11631,7 @@ pub fn cmd_execute_generated_commands_nv(
     unsafe {
         vulkan_command(
             Some(unsafe { command_buffer.clone() }),
-            is_preprocessed,
+            is_preprocessed.into(),
             ptr::from_ref(p_generated_commands_info),
         )
     }
@@ -13387,14 +13427,19 @@ pub fn get_pipeline_indirect_device_address_nv(
 #[doc(alias = "vkCmdSetDepthClampEnableEXT")]
 pub fn cmd_set_depth_clamp_enable_ext(
     command_buffer: &CommandBuffer,
-    depth_clamp_enable: Bool32,
+    depth_clamp_enable: impl Into<Bool32>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
         .cmd_set_depth_clamp_enable_ext
         .get()
         .expect("Vulkan command not loaded.");
-    unsafe { vulkan_command(Some(unsafe { command_buffer.clone() }), depth_clamp_enable) }
+    unsafe {
+        vulkan_command(
+            Some(unsafe { command_buffer.clone() }),
+            depth_clamp_enable.into(),
+        )
+    }
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetPolygonModeEXT.html>"]
 #[doc(alias = "vkCmdSetPolygonModeEXT")]
@@ -13451,7 +13496,7 @@ pub fn cmd_set_sample_mask_ext(
 #[doc(alias = "vkCmdSetAlphaToCoverageEnableEXT")]
 pub fn cmd_set_alpha_to_coverage_enable_ext(
     command_buffer: &CommandBuffer,
-    alpha_to_coverage_enable: Bool32,
+    alpha_to_coverage_enable: impl Into<Bool32>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
@@ -13461,7 +13506,7 @@ pub fn cmd_set_alpha_to_coverage_enable_ext(
     unsafe {
         vulkan_command(
             Some(unsafe { command_buffer.clone() }),
-            alpha_to_coverage_enable,
+            alpha_to_coverage_enable.into(),
         )
     }
 }
@@ -13469,27 +13514,37 @@ pub fn cmd_set_alpha_to_coverage_enable_ext(
 #[doc(alias = "vkCmdSetAlphaToOneEnableEXT")]
 pub fn cmd_set_alpha_to_one_enable_ext(
     command_buffer: &CommandBuffer,
-    alpha_to_one_enable: Bool32,
+    alpha_to_one_enable: impl Into<Bool32>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
         .cmd_set_alpha_to_one_enable_ext
         .get()
         .expect("Vulkan command not loaded.");
-    unsafe { vulkan_command(Some(unsafe { command_buffer.clone() }), alpha_to_one_enable) }
+    unsafe {
+        vulkan_command(
+            Some(unsafe { command_buffer.clone() }),
+            alpha_to_one_enable.into(),
+        )
+    }
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetLogicOpEnableEXT.html>"]
 #[doc(alias = "vkCmdSetLogicOpEnableEXT")]
 pub fn cmd_set_logic_op_enable_ext(
     command_buffer: &CommandBuffer,
-    logic_op_enable: Bool32,
+    logic_op_enable: impl Into<Bool32>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
         .cmd_set_logic_op_enable_ext
         .get()
         .expect("Vulkan command not loaded.");
-    unsafe { vulkan_command(Some(unsafe { command_buffer.clone() }), logic_op_enable) }
+    unsafe {
+        vulkan_command(
+            Some(unsafe { command_buffer.clone() }),
+            logic_op_enable.into(),
+        )
+    }
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetColorBlendEnableEXT.html>"]
 #[doc(alias = "vkCmdSetColorBlendEnableEXT")]
@@ -13625,20 +13680,25 @@ pub fn cmd_set_extra_primitive_overestimation_size_ext(
 #[doc(alias = "vkCmdSetDepthClipEnableEXT")]
 pub fn cmd_set_depth_clip_enable_ext(
     command_buffer: &CommandBuffer,
-    depth_clip_enable: Bool32,
+    depth_clip_enable: impl Into<Bool32>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
         .cmd_set_depth_clip_enable_ext
         .get()
         .expect("Vulkan command not loaded.");
-    unsafe { vulkan_command(Some(unsafe { command_buffer.clone() }), depth_clip_enable) }
+    unsafe {
+        vulkan_command(
+            Some(unsafe { command_buffer.clone() }),
+            depth_clip_enable.into(),
+        )
+    }
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetSampleLocationsEnableEXT.html>"]
 #[doc(alias = "vkCmdSetSampleLocationsEnableEXT")]
 pub fn cmd_set_sample_locations_enable_ext(
     command_buffer: &CommandBuffer,
-    sample_locations_enable: Bool32,
+    sample_locations_enable: impl Into<Bool32>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
@@ -13648,7 +13708,7 @@ pub fn cmd_set_sample_locations_enable_ext(
     unsafe {
         vulkan_command(
             Some(unsafe { command_buffer.clone() }),
-            sample_locations_enable,
+            sample_locations_enable.into(),
         )
     }
 }
@@ -13713,7 +13773,7 @@ pub fn cmd_set_line_rasterization_mode_ext(
 #[doc(alias = "vkCmdSetLineStippleEnableEXT")]
 pub fn cmd_set_line_stipple_enable_ext(
     command_buffer: &CommandBuffer,
-    stippled_line_enable: Bool32,
+    stippled_line_enable: impl Into<Bool32>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
@@ -13723,7 +13783,7 @@ pub fn cmd_set_line_stipple_enable_ext(
     unsafe {
         vulkan_command(
             Some(unsafe { command_buffer.clone() }),
-            stippled_line_enable,
+            stippled_line_enable.into(),
         )
     }
 }
@@ -13731,20 +13791,25 @@ pub fn cmd_set_line_stipple_enable_ext(
 #[doc(alias = "vkCmdSetDepthClipNegativeOneToOneEXT")]
 pub fn cmd_set_depth_clip_negative_one_to_one_ext(
     command_buffer: &CommandBuffer,
-    negative_one_to_one: Bool32,
+    negative_one_to_one: impl Into<Bool32>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
         .cmd_set_depth_clip_negative_one_to_one_ext
         .get()
         .expect("Vulkan command not loaded.");
-    unsafe { vulkan_command(Some(unsafe { command_buffer.clone() }), negative_one_to_one) }
+    unsafe {
+        vulkan_command(
+            Some(unsafe { command_buffer.clone() }),
+            negative_one_to_one.into(),
+        )
+    }
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetViewportWScalingEnableNV.html>"]
 #[doc(alias = "vkCmdSetViewportWScalingEnableNV")]
 pub fn cmd_set_viewport_wscaling_enable_nv(
     command_buffer: &CommandBuffer,
-    viewport_wscaling_enable: Bool32,
+    viewport_wscaling_enable: impl Into<Bool32>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
@@ -13754,7 +13819,7 @@ pub fn cmd_set_viewport_wscaling_enable_nv(
     unsafe {
         vulkan_command(
             Some(unsafe { command_buffer.clone() }),
-            viewport_wscaling_enable,
+            viewport_wscaling_enable.into(),
         )
     }
 }
@@ -13783,7 +13848,7 @@ pub fn cmd_set_viewport_swizzle_nv(
 #[doc(alias = "vkCmdSetCoverageToColorEnableNV")]
 pub fn cmd_set_coverage_to_color_enable_nv(
     command_buffer: &CommandBuffer,
-    coverage_to_color_enable: Bool32,
+    coverage_to_color_enable: impl Into<Bool32>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
@@ -13793,7 +13858,7 @@ pub fn cmd_set_coverage_to_color_enable_nv(
     unsafe {
         vulkan_command(
             Some(unsafe { command_buffer.clone() }),
-            coverage_to_color_enable,
+            coverage_to_color_enable.into(),
         )
     }
 }
@@ -13837,7 +13902,7 @@ pub fn cmd_set_coverage_modulation_mode_nv(
 #[doc(alias = "vkCmdSetCoverageModulationTableEnableNV")]
 pub fn cmd_set_coverage_modulation_table_enable_nv(
     command_buffer: &CommandBuffer,
-    coverage_modulation_table_enable: Bool32,
+    coverage_modulation_table_enable: impl Into<Bool32>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
@@ -13847,7 +13912,7 @@ pub fn cmd_set_coverage_modulation_table_enable_nv(
     unsafe {
         vulkan_command(
             Some(unsafe { command_buffer.clone() }),
-            coverage_modulation_table_enable,
+            coverage_modulation_table_enable.into(),
         )
     }
 }
@@ -13874,7 +13939,7 @@ pub fn cmd_set_coverage_modulation_table_nv(
 #[doc(alias = "vkCmdSetShadingRateImageEnableNV")]
 pub fn cmd_set_shading_rate_image_enable_nv(
     command_buffer: &CommandBuffer,
-    shading_rate_image_enable: Bool32,
+    shading_rate_image_enable: impl Into<Bool32>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
@@ -13884,7 +13949,7 @@ pub fn cmd_set_shading_rate_image_enable_nv(
     unsafe {
         vulkan_command(
             Some(unsafe { command_buffer.clone() }),
-            shading_rate_image_enable,
+            shading_rate_image_enable.into(),
         )
     }
 }
@@ -13892,7 +13957,7 @@ pub fn cmd_set_shading_rate_image_enable_nv(
 #[doc(alias = "vkCmdSetRepresentativeFragmentTestEnableNV")]
 pub fn cmd_set_representative_fragment_test_enable_nv(
     command_buffer: &CommandBuffer,
-    representative_fragment_test_enable: Bool32,
+    representative_fragment_test_enable: impl Into<Bool32>,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
@@ -13902,7 +13967,7 @@ pub fn cmd_set_representative_fragment_test_enable_nv(
     unsafe {
         vulkan_command(
             Some(unsafe { command_buffer.clone() }),
-            representative_fragment_test_enable,
+            representative_fragment_test_enable.into(),
         )
     }
 }

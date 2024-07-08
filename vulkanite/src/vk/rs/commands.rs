@@ -1497,7 +1497,7 @@ impl<D: Dispatcher, A: Allocator> Device<D, A> {
     pub fn wait_for_fences<V2: Alias<raw::Fence>>(
         &self,
         p_fences: &[V2],
-        wait_all: Bool32,
+        wait_all: impl Into<Bool32>,
         timeout: u64,
     ) -> Result<Status> {
         raw::wait_for_fences(
@@ -3674,7 +3674,11 @@ impl<D: Dispatcher, A: Allocator> Device<D, A> {
     }
     #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkSetLocalDimmingAMD.html>"]
     #[doc(alias = "vkSetLocalDimmingAMD")]
-    pub fn set_local_dimming_amd(&self, swap_chain: &SwapchainKHR, local_dimming_enable: Bool32) {
+    pub fn set_local_dimming_amd(
+        &self,
+        swap_chain: &SwapchainKHR,
+        local_dimming_enable: impl Into<Bool32>,
+    ) {
         raw::set_local_dimming_amd(
             self,
             swap_chain,
@@ -6044,12 +6048,12 @@ impl<D: Dispatcher, A: Allocator> CommandBuffer<D, A> {
     }
     #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetDepthTestEnable.html>"]
     #[doc(alias = "vkCmdSetDepthTestEnable")]
-    pub fn set_depth_test_enable(&self, depth_test_enable: Bool32) {
+    pub fn set_depth_test_enable(&self, depth_test_enable: impl Into<Bool32>) {
         raw::cmd_set_depth_test_enable(self, depth_test_enable, self.disp.get_command_dispatcher())
     }
     #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetDepthTestEnableEXT.html>"]
     #[doc(alias = "vkCmdSetDepthTestEnableEXT")]
-    pub fn set_depth_test_enable_ext(&self, depth_test_enable: Bool32) {
+    pub fn set_depth_test_enable_ext(&self, depth_test_enable: impl Into<Bool32>) {
         raw::cmd_set_depth_test_enable_ext(
             self,
             depth_test_enable,
@@ -6058,7 +6062,7 @@ impl<D: Dispatcher, A: Allocator> CommandBuffer<D, A> {
     }
     #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetDepthWriteEnable.html>"]
     #[doc(alias = "vkCmdSetDepthWriteEnable")]
-    pub fn set_depth_write_enable(&self, depth_write_enable: Bool32) {
+    pub fn set_depth_write_enable(&self, depth_write_enable: impl Into<Bool32>) {
         raw::cmd_set_depth_write_enable(
             self,
             depth_write_enable,
@@ -6067,7 +6071,7 @@ impl<D: Dispatcher, A: Allocator> CommandBuffer<D, A> {
     }
     #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetDepthWriteEnableEXT.html>"]
     #[doc(alias = "vkCmdSetDepthWriteEnableEXT")]
-    pub fn set_depth_write_enable_ext(&self, depth_write_enable: Bool32) {
+    pub fn set_depth_write_enable_ext(&self, depth_write_enable: impl Into<Bool32>) {
         raw::cmd_set_depth_write_enable_ext(
             self,
             depth_write_enable,
@@ -6090,7 +6094,7 @@ impl<D: Dispatcher, A: Allocator> CommandBuffer<D, A> {
     }
     #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetDepthBoundsTestEnable.html>"]
     #[doc(alias = "vkCmdSetDepthBoundsTestEnable")]
-    pub fn set_depth_bounds_test_enable(&self, depth_bounds_test_enable: Bool32) {
+    pub fn set_depth_bounds_test_enable(&self, depth_bounds_test_enable: impl Into<Bool32>) {
         raw::cmd_set_depth_bounds_test_enable(
             self,
             depth_bounds_test_enable,
@@ -6099,7 +6103,7 @@ impl<D: Dispatcher, A: Allocator> CommandBuffer<D, A> {
     }
     #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetDepthBoundsTestEnableEXT.html>"]
     #[doc(alias = "vkCmdSetDepthBoundsTestEnableEXT")]
-    pub fn set_depth_bounds_test_enable_ext(&self, depth_bounds_test_enable: Bool32) {
+    pub fn set_depth_bounds_test_enable_ext(&self, depth_bounds_test_enable: impl Into<Bool32>) {
         raw::cmd_set_depth_bounds_test_enable_ext(
             self,
             depth_bounds_test_enable,
@@ -6108,7 +6112,7 @@ impl<D: Dispatcher, A: Allocator> CommandBuffer<D, A> {
     }
     #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetStencilTestEnable.html>"]
     #[doc(alias = "vkCmdSetStencilTestEnable")]
-    pub fn set_stencil_test_enable(&self, stencil_test_enable: Bool32) {
+    pub fn set_stencil_test_enable(&self, stencil_test_enable: impl Into<Bool32>) {
         raw::cmd_set_stencil_test_enable(
             self,
             stencil_test_enable,
@@ -6117,7 +6121,7 @@ impl<D: Dispatcher, A: Allocator> CommandBuffer<D, A> {
     }
     #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetStencilTestEnableEXT.html>"]
     #[doc(alias = "vkCmdSetStencilTestEnableEXT")]
-    pub fn set_stencil_test_enable_ext(&self, stencil_test_enable: Bool32) {
+    pub fn set_stencil_test_enable_ext(&self, stencil_test_enable: impl Into<Bool32>) {
         raw::cmd_set_stencil_test_enable_ext(
             self,
             stencil_test_enable,
@@ -6166,7 +6170,7 @@ impl<D: Dispatcher, A: Allocator> CommandBuffer<D, A> {
     }
     #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetRasterizerDiscardEnable.html>"]
     #[doc(alias = "vkCmdSetRasterizerDiscardEnable")]
-    pub fn set_rasterizer_discard_enable(&self, rasterizer_discard_enable: Bool32) {
+    pub fn set_rasterizer_discard_enable(&self, rasterizer_discard_enable: impl Into<Bool32>) {
         raw::cmd_set_rasterizer_discard_enable(
             self,
             rasterizer_discard_enable,
@@ -6175,7 +6179,7 @@ impl<D: Dispatcher, A: Allocator> CommandBuffer<D, A> {
     }
     #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetRasterizerDiscardEnableEXT.html>"]
     #[doc(alias = "vkCmdSetRasterizerDiscardEnableEXT")]
-    pub fn set_rasterizer_discard_enable_ext(&self, rasterizer_discard_enable: Bool32) {
+    pub fn set_rasterizer_discard_enable_ext(&self, rasterizer_discard_enable: impl Into<Bool32>) {
         raw::cmd_set_rasterizer_discard_enable_ext(
             self,
             rasterizer_discard_enable,
@@ -6184,12 +6188,12 @@ impl<D: Dispatcher, A: Allocator> CommandBuffer<D, A> {
     }
     #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetDepthBiasEnable.html>"]
     #[doc(alias = "vkCmdSetDepthBiasEnable")]
-    pub fn set_depth_bias_enable(&self, depth_bias_enable: Bool32) {
+    pub fn set_depth_bias_enable(&self, depth_bias_enable: impl Into<Bool32>) {
         raw::cmd_set_depth_bias_enable(self, depth_bias_enable, self.disp.get_command_dispatcher())
     }
     #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetDepthBiasEnableEXT.html>"]
     #[doc(alias = "vkCmdSetDepthBiasEnableEXT")]
-    pub fn set_depth_bias_enable_ext(&self, depth_bias_enable: Bool32) {
+    pub fn set_depth_bias_enable_ext(&self, depth_bias_enable: impl Into<Bool32>) {
         raw::cmd_set_depth_bias_enable_ext(
             self,
             depth_bias_enable,
@@ -6198,7 +6202,7 @@ impl<D: Dispatcher, A: Allocator> CommandBuffer<D, A> {
     }
     #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetPrimitiveRestartEnable.html>"]
     #[doc(alias = "vkCmdSetPrimitiveRestartEnable")]
-    pub fn set_primitive_restart_enable(&self, primitive_restart_enable: Bool32) {
+    pub fn set_primitive_restart_enable(&self, primitive_restart_enable: impl Into<Bool32>) {
         raw::cmd_set_primitive_restart_enable(
             self,
             primitive_restart_enable,
@@ -6207,7 +6211,7 @@ impl<D: Dispatcher, A: Allocator> CommandBuffer<D, A> {
     }
     #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetPrimitiveRestartEnableEXT.html>"]
     #[doc(alias = "vkCmdSetPrimitiveRestartEnableEXT")]
-    pub fn set_primitive_restart_enable_ext(&self, primitive_restart_enable: Bool32) {
+    pub fn set_primitive_restart_enable_ext(&self, primitive_restart_enable: impl Into<Bool32>) {
         raw::cmd_set_primitive_restart_enable_ext(
             self,
             primitive_restart_enable,
@@ -6418,7 +6422,7 @@ impl<D: Dispatcher, A: Allocator> CommandBuffer<D, A> {
     }
     #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetDiscardRectangleEnableEXT.html>"]
     #[doc(alias = "vkCmdSetDiscardRectangleEnableEXT")]
-    pub fn set_discard_rectangle_enable_ext(&self, discard_rectangle_enable: Bool32) {
+    pub fn set_discard_rectangle_enable_ext(&self, discard_rectangle_enable: impl Into<Bool32>) {
         raw::cmd_set_discard_rectangle_enable_ext(
             self,
             discard_rectangle_enable,
@@ -6696,7 +6700,7 @@ impl<D: Dispatcher, A: Allocator> CommandBuffer<D, A> {
         p_info: &AccelerationStructureInfoNV,
         instance_data: Option<&Buffer>,
         instance_offset: DeviceSize,
-        update: Bool32,
+        update: impl Into<Bool32>,
         dst: &AccelerationStructureNV,
         src: Option<&AccelerationStructureNV>,
         scratch: &Buffer,
@@ -6982,7 +6986,7 @@ impl<D: Dispatcher, A: Allocator> CommandBuffer<D, A> {
     #[doc(alias = "vkCmdExecuteGeneratedCommandsNV")]
     pub fn execute_generated_commands_nv(
         &self,
-        is_preprocessed: Bool32,
+        is_preprocessed: impl Into<Bool32>,
         p_generated_commands_info: &GeneratedCommandsInfoNV,
     ) {
         raw::cmd_execute_generated_commands_nv(
@@ -7385,7 +7389,7 @@ impl<D: Dispatcher, A: Allocator> CommandBuffer<D, A> {
     }
     #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetDepthClampEnableEXT.html>"]
     #[doc(alias = "vkCmdSetDepthClampEnableEXT")]
-    pub fn set_depth_clamp_enable_ext(&self, depth_clamp_enable: Bool32) {
+    pub fn set_depth_clamp_enable_ext(&self, depth_clamp_enable: impl Into<Bool32>) {
         raw::cmd_set_depth_clamp_enable_ext(
             self,
             depth_clamp_enable,
@@ -7418,7 +7422,7 @@ impl<D: Dispatcher, A: Allocator> CommandBuffer<D, A> {
     }
     #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetAlphaToCoverageEnableEXT.html>"]
     #[doc(alias = "vkCmdSetAlphaToCoverageEnableEXT")]
-    pub fn set_alpha_to_coverage_enable_ext(&self, alpha_to_coverage_enable: Bool32) {
+    pub fn set_alpha_to_coverage_enable_ext(&self, alpha_to_coverage_enable: impl Into<Bool32>) {
         raw::cmd_set_alpha_to_coverage_enable_ext(
             self,
             alpha_to_coverage_enable,
@@ -7427,7 +7431,7 @@ impl<D: Dispatcher, A: Allocator> CommandBuffer<D, A> {
     }
     #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetAlphaToOneEnableEXT.html>"]
     #[doc(alias = "vkCmdSetAlphaToOneEnableEXT")]
-    pub fn set_alpha_to_one_enable_ext(&self, alpha_to_one_enable: Bool32) {
+    pub fn set_alpha_to_one_enable_ext(&self, alpha_to_one_enable: impl Into<Bool32>) {
         raw::cmd_set_alpha_to_one_enable_ext(
             self,
             alpha_to_one_enable,
@@ -7436,7 +7440,7 @@ impl<D: Dispatcher, A: Allocator> CommandBuffer<D, A> {
     }
     #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetLogicOpEnableEXT.html>"]
     #[doc(alias = "vkCmdSetLogicOpEnableEXT")]
-    pub fn set_logic_op_enable_ext(&self, logic_op_enable: Bool32) {
+    pub fn set_logic_op_enable_ext(&self, logic_op_enable: impl Into<Bool32>) {
         raw::cmd_set_logic_op_enable_ext(self, logic_op_enable, self.disp.get_command_dispatcher())
     }
     #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetColorBlendEnableEXT.html>"]
@@ -7525,7 +7529,7 @@ impl<D: Dispatcher, A: Allocator> CommandBuffer<D, A> {
     }
     #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetDepthClipEnableEXT.html>"]
     #[doc(alias = "vkCmdSetDepthClipEnableEXT")]
-    pub fn set_depth_clip_enable_ext(&self, depth_clip_enable: Bool32) {
+    pub fn set_depth_clip_enable_ext(&self, depth_clip_enable: impl Into<Bool32>) {
         raw::cmd_set_depth_clip_enable_ext(
             self,
             depth_clip_enable,
@@ -7534,7 +7538,7 @@ impl<D: Dispatcher, A: Allocator> CommandBuffer<D, A> {
     }
     #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetSampleLocationsEnableEXT.html>"]
     #[doc(alias = "vkCmdSetSampleLocationsEnableEXT")]
-    pub fn set_sample_locations_enable_ext(&self, sample_locations_enable: Bool32) {
+    pub fn set_sample_locations_enable_ext(&self, sample_locations_enable: impl Into<Bool32>) {
         raw::cmd_set_sample_locations_enable_ext(
             self,
             sample_locations_enable,
@@ -7578,7 +7582,7 @@ impl<D: Dispatcher, A: Allocator> CommandBuffer<D, A> {
     }
     #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetLineStippleEnableEXT.html>"]
     #[doc(alias = "vkCmdSetLineStippleEnableEXT")]
-    pub fn set_line_stipple_enable_ext(&self, stippled_line_enable: Bool32) {
+    pub fn set_line_stipple_enable_ext(&self, stippled_line_enable: impl Into<Bool32>) {
         raw::cmd_set_line_stipple_enable_ext(
             self,
             stippled_line_enable,
@@ -7587,7 +7591,7 @@ impl<D: Dispatcher, A: Allocator> CommandBuffer<D, A> {
     }
     #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetDepthClipNegativeOneToOneEXT.html>"]
     #[doc(alias = "vkCmdSetDepthClipNegativeOneToOneEXT")]
-    pub fn set_depth_clip_negative_one_to_one_ext(&self, negative_one_to_one: Bool32) {
+    pub fn set_depth_clip_negative_one_to_one_ext(&self, negative_one_to_one: impl Into<Bool32>) {
         raw::cmd_set_depth_clip_negative_one_to_one_ext(
             self,
             negative_one_to_one,
@@ -7596,7 +7600,7 @@ impl<D: Dispatcher, A: Allocator> CommandBuffer<D, A> {
     }
     #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetViewportWScalingEnableNV.html>"]
     #[doc(alias = "vkCmdSetViewportWScalingEnableNV")]
-    pub fn set_viewport_wscaling_enable_nv(&self, viewport_wscaling_enable: Bool32) {
+    pub fn set_viewport_wscaling_enable_nv(&self, viewport_wscaling_enable: impl Into<Bool32>) {
         raw::cmd_set_viewport_wscaling_enable_nv(
             self,
             viewport_wscaling_enable,
@@ -7619,7 +7623,7 @@ impl<D: Dispatcher, A: Allocator> CommandBuffer<D, A> {
     }
     #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetCoverageToColorEnableNV.html>"]
     #[doc(alias = "vkCmdSetCoverageToColorEnableNV")]
-    pub fn set_coverage_to_color_enable_nv(&self, coverage_to_color_enable: Bool32) {
+    pub fn set_coverage_to_color_enable_nv(&self, coverage_to_color_enable: impl Into<Bool32>) {
         raw::cmd_set_coverage_to_color_enable_nv(
             self,
             coverage_to_color_enable,
@@ -7651,7 +7655,7 @@ impl<D: Dispatcher, A: Allocator> CommandBuffer<D, A> {
     #[doc(alias = "vkCmdSetCoverageModulationTableEnableNV")]
     pub fn set_coverage_modulation_table_enable_nv(
         &self,
-        coverage_modulation_table_enable: Bool32,
+        coverage_modulation_table_enable: impl Into<Bool32>,
     ) {
         raw::cmd_set_coverage_modulation_table_enable_nv(
             self,
@@ -7670,7 +7674,7 @@ impl<D: Dispatcher, A: Allocator> CommandBuffer<D, A> {
     }
     #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetShadingRateImageEnableNV.html>"]
     #[doc(alias = "vkCmdSetShadingRateImageEnableNV")]
-    pub fn set_shading_rate_image_enable_nv(&self, shading_rate_image_enable: Bool32) {
+    pub fn set_shading_rate_image_enable_nv(&self, shading_rate_image_enable: impl Into<Bool32>) {
         raw::cmd_set_shading_rate_image_enable_nv(
             self,
             shading_rate_image_enable,
@@ -7681,7 +7685,7 @@ impl<D: Dispatcher, A: Allocator> CommandBuffer<D, A> {
     #[doc(alias = "vkCmdSetRepresentativeFragmentTestEnableNV")]
     pub fn set_representative_fragment_test_enable_nv(
         &self,
-        representative_fragment_test_enable: Bool32,
+        representative_fragment_test_enable: impl Into<Bool32>,
     ) {
         raw::cmd_set_representative_fragment_test_enable_nv(
             self,

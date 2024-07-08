@@ -13,7 +13,9 @@ use syn::Ident;
 use crate::{
     helpers::camel_case_to_snake_case,
     structs::{
-        convert_field_to_snake_case, AdvancedType, Api, CType, Command, CommandParam, CommandParamsParsed, Constant, Enum, EnumAliased, EnumFlag, EnumValue, EnumVariant, Handle, MappingEntry, MappingType, Struct, StructBasetype, StructStandard, Type
+        convert_field_to_snake_case, AdvancedType, Api, CType, Command, CommandParam,
+        CommandParamsParsed, Constant, Enum, EnumAliased, EnumFlag, EnumValue, EnumVariant, Handle,
+        MappingEntry, MappingType, Struct, StructBasetype, StructStandard, Type,
     },
     xml,
 };
@@ -836,6 +838,7 @@ impl<'a> Generator<'a> {
                 Some(MappingType::Enum | MappingType::AliasedEnum(_)) => AT::Enum(name),
                 Some(MappingType::FunctionPtr) => AT::Func(name),
                 Some(MappingType::BaseType) if *name == "VoidPtr" => AT::VoidPtr,
+                Some(MappingType::BaseType) if *name == "VkBool32" => AT::Bool32,
                 _ => AT::Other(name),
             },
             Type::Ptr(name) => {
@@ -1099,6 +1102,7 @@ impl<'a> Generator<'a> {
         let result = match ty {
             AT::Void => quote!(c_void),
             AT::VoidPtr => quote!(VoidPtr),
+            AT::Bool32 => quote!(Bool32),
             AT::Enum(ty) | AT::Other(ty) => {
                 let ty_ident = self.get_ident_name(ty)?;
                 quote! (#ty_ident)
@@ -1217,6 +1221,10 @@ impl<'a> Generator<'a> {
                 let name = self.get_ident_name(name)?;
                 Ok(quote! (#name))
             }
+            AdvancedType::Bool32 => {
+                can_option = false;
+                Ok(quote!(impl Into<Bool32>))
+            }
             _ => {
                 can_option = false;
                 self.generate_type_inner(ty, true)
@@ -1271,6 +1279,7 @@ impl<'a> Generator<'a> {
             AdvancedType::CStringPtr => Err(anyhow!(
                 "Trying to generate outer type of a cstring pointer"
             )),
+            AdvancedType::Bool32 => Ok(quote! (#name.into())),
             AdvancedType::Bitfield(bit_name, bitsize) => {
                 let nb_bytes = *bitsize as usize / 8;
                 assert!(nb_bytes <= 4);
@@ -1385,6 +1394,7 @@ impl<'a> Generator<'a> {
             AdvancedType::Handle(_)
             | AdvancedType::HandleArray(_, _)
             | AdvancedType::Struct(_)
+            | AdvancedType::Bool32
             | AdvancedType::OtherDoubleArray(_, _, _) => Ok(quote!(Default::default())),
             AdvancedType::Other(name) => {
                 // We can't use default if the basetype is the alias of a pointer
