@@ -106,6 +106,13 @@ pub fn generate<'a, 'b>(
                 }
             }
 
+            pub unsafe fn clone(&self) -> Self {
+                Self {
+                    disp: self.disp.clone(),
+                    alloc: self.alloc.clone(),
+                }
+            }
+
             pub fn get_dispatcher(&self) -> &D {
                 &self.disp
             }
@@ -149,22 +156,20 @@ pub fn generate<'a, 'b>(
                     }
                 }
 
-                impl #id_name {
-                    pub fn from_inner(handle: raw::#id_name) -> Self {
-                        Self {
-                            inner: handle,
-                            disp: DynamicDispatcher(()),
-                            alloc: DefaultAllocator,
-                        }
-                    }
-                }
-
                 impl<D: Dispatcher, A: Allocator> #id_name<D, A> {
-                    pub fn from_inner_with(handle: raw::#id_name, disp: D, alloc: A) -> Self {
+                    pub unsafe fn from_inner(handle: raw::#id_name, disp: D, alloc: A) -> Self {
                         Self {
                             inner: handle,
                             disp,
                             alloc,
+                        }
+                    }
+
+                    pub unsafe fn clone(&self) -> Self {
+                        Self {
+                            inner: self.inner.clone(),
+                            disp: self.disp.clone(),
+                            alloc: self.alloc.clone(),
                         }
                     }
 
@@ -195,7 +200,7 @@ pub fn generate<'a, 'b>(
             ffi::{c_int, CStr},
             ops::Deref,
         };
-        use crate::{vk::*, Alias, Allocator, AdvancedDynamicArray, AsSlice, DefaultAllocator, Dispatcher, DynamicArray, DynamicDispatcher, StructureChainOut};
+        use crate::{vk::*, Alias, Allocator, AdvancedDynamicArray, AsSlice, DefaultAllocator, Dispatcher, DynamicArray, DynamicDispatcher, Handle, StructureChainOut};
 
         #(#result)*
     }
@@ -334,13 +339,13 @@ where
                     "vkCreateInstance" => {
                         return quote! {; vk_result.map(|instance| {
                             let disp = self.disp.clone_with_instance(&instance);
-                            Instance::from_inner_with(instance, disp, self.alloc.clone())
+                            unsafe { Instance::from_inner(instance, disp, self.alloc.clone()) }
                         })}
                     }
                     "vkCreateDevice" => {
                         return quote! {; vk_result.map(|device| {
                             let disp = self.disp.clone_with_device(&device);
-                            Device::from_inner_with(device, disp, self.alloc.clone())
+                            unsafe { Device::from_inner(device, disp, self.alloc.clone()) }
                         })}
                     }
                     _ => {}
@@ -348,10 +353,10 @@ where
                 let mapping_fn = if is_vec {
                     quote!(vk_result
                         .into_iter()
-                        .map(|el| #ret_name::from_inner_with(el, self.disp.clone(), self.alloc.clone()))
+                        .map(|el| unsafe{#ret_name::from_inner(el, self.disp.clone(), self.alloc.clone())})
                         .collect())
                 } else {
-                    quote!(#ret_name::from_inner_with(vk_result, self.disp.clone(), self.alloc.clone()))
+                    quote!(unsafe {#ret_name::from_inner(vk_result, self.disp.clone(), self.alloc.clone())})
                 };
                 if has_status {
                     if has_many_successes {

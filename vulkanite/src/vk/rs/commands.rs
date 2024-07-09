@@ -1,6 +1,6 @@
 use crate::{
     vk::*, AdvancedDynamicArray, Alias, Allocator, AsSlice, DefaultAllocator, Dispatcher,
-    DynamicArray, DynamicDispatcher, StructureChainOut,
+    DynamicArray, DynamicDispatcher, Handle, StructureChainOut,
 };
 use std::{
     ffi::{c_int, CStr},
@@ -13,6 +13,12 @@ pub struct Entry<D: Dispatcher = DynamicDispatcher, A: Allocator = DefaultAlloca
 impl<D: Dispatcher, A: Allocator> Entry<D, A> {
     pub fn new(disp: D, alloc: A) -> Self {
         Self { disp, alloc }
+    }
+    pub unsafe fn clone(&self) -> Self {
+        Self {
+            disp: self.disp.clone(),
+            alloc: self.alloc.clone(),
+        }
     }
     pub fn get_dispatcher(&self) -> &D {
         &self.disp
@@ -30,7 +36,7 @@ impl<D: Dispatcher, A: Allocator> Entry<D, A> {
         );
         vk_result.map(|instance| {
             let disp = self.disp.clone_with_instance(&instance);
-            Instance::from_inner_with(instance, disp, self.alloc.clone())
+            unsafe { Instance::from_inner(instance, disp, self.alloc.clone()) }
         })
     }
     #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkEnumerateInstanceExtensionProperties.html>"]
@@ -72,21 +78,19 @@ impl<D: Dispatcher, A: Allocator> Deref for Instance<D, A> {
         &self.inner
     }
 }
-impl Instance {
-    pub fn from_inner(handle: raw::Instance) -> Self {
-        Self {
-            inner: handle,
-            disp: DynamicDispatcher(()),
-            alloc: DefaultAllocator,
-        }
-    }
-}
 impl<D: Dispatcher, A: Allocator> Instance<D, A> {
-    pub fn from_inner_with(handle: raw::Instance, disp: D, alloc: A) -> Self {
+    pub unsafe fn from_inner(handle: raw::Instance, disp: D, alloc: A) -> Self {
         Self {
             inner: handle,
             disp,
             alloc,
+        }
+    }
+    pub unsafe fn clone(&self) -> Self {
+        Self {
+            inner: self.inner.clone(),
+            disp: self.disp.clone(),
+            alloc: self.alloc.clone(),
         }
     }
     pub fn get_dispatcher(&self) -> &D {
@@ -116,8 +120,8 @@ impl<D: Dispatcher, A: Allocator> Instance<D, A> {
         vk_result.map(|vk_result| {
             vk_result
                 .into_iter()
-                .map(|el| {
-                    PhysicalDevice::from_inner_with(el, self.disp.clone(), self.alloc.clone())
+                .map(|el| unsafe {
+                    PhysicalDevice::from_inner(el, self.disp.clone(), self.alloc.clone())
                 })
                 .collect()
         })
@@ -458,21 +462,19 @@ impl<D: Dispatcher, A: Allocator> Deref for PhysicalDevice<D, A> {
         &self.inner
     }
 }
-impl PhysicalDevice {
-    pub fn from_inner(handle: raw::PhysicalDevice) -> Self {
-        Self {
-            inner: handle,
-            disp: DynamicDispatcher(()),
-            alloc: DefaultAllocator,
-        }
-    }
-}
 impl<D: Dispatcher, A: Allocator> PhysicalDevice<D, A> {
-    pub fn from_inner_with(handle: raw::PhysicalDevice, disp: D, alloc: A) -> Self {
+    pub unsafe fn from_inner(handle: raw::PhysicalDevice, disp: D, alloc: A) -> Self {
         Self {
             inner: handle,
             disp,
             alloc,
+        }
+    }
+    pub unsafe fn clone(&self) -> Self {
+        Self {
+            inner: self.inner.clone(),
+            disp: self.disp.clone(),
+            alloc: self.alloc.clone(),
         }
     }
     pub fn get_dispatcher(&self) -> &D {
@@ -537,7 +539,7 @@ impl<D: Dispatcher, A: Allocator> PhysicalDevice<D, A> {
         );
         vk_result.map(|device| {
             let disp = self.disp.clone_with_device(&device);
-            Device::from_inner_with(device, disp, self.alloc.clone())
+            unsafe { Device::from_inner(device, disp, self.alloc.clone()) }
         })
     }
     #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkEnumerateDeviceExtensionProperties.html>"]
@@ -1294,21 +1296,19 @@ impl<D: Dispatcher, A: Allocator> Deref for Device<D, A> {
         &self.inner
     }
 }
-impl Device {
-    pub fn from_inner(handle: raw::Device) -> Self {
-        Self {
-            inner: handle,
-            disp: DynamicDispatcher(()),
-            alloc: DefaultAllocator,
-        }
-    }
-}
 impl<D: Dispatcher, A: Allocator> Device<D, A> {
-    pub fn from_inner_with(handle: raw::Device, disp: D, alloc: A) -> Self {
+    pub unsafe fn from_inner(handle: raw::Device, disp: D, alloc: A) -> Self {
         Self {
             inner: handle,
             disp,
             alloc,
+        }
+    }
+    pub unsafe fn clone(&self) -> Self {
+        Self {
+            inner: self.inner.clone(),
+            disp: self.disp.clone(),
+            alloc: self.alloc.clone(),
         }
     }
     pub fn get_dispatcher(&self) -> &D {
@@ -1340,7 +1340,7 @@ impl<D: Dispatcher, A: Allocator> Device<D, A> {
             queue_index,
             self.disp.get_command_dispatcher(),
         );
-        Queue::from_inner_with(vk_result, self.disp.clone(), self.alloc.clone())
+        unsafe { Queue::from_inner(vk_result, self.disp.clone(), self.alloc.clone()) }
     }
     #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkDeviceWaitIdle.html>"]
     #[doc(alias = "vkDeviceWaitIdle")]
@@ -2061,7 +2061,9 @@ impl<D: Dispatcher, A: Allocator> Device<D, A> {
         vk_result.map(|vk_result| {
             vk_result
                 .into_iter()
-                .map(|el| CommandBuffer::from_inner_with(el, self.disp.clone(), self.alloc.clone()))
+                .map(|el| unsafe {
+                    CommandBuffer::from_inner(el, self.disp.clone(), self.alloc.clone())
+                })
                 .collect()
         })
     }
@@ -2228,7 +2230,7 @@ impl<D: Dispatcher, A: Allocator> Device<D, A> {
     pub fn get_queue2(&self, p_queue_info: &DeviceQueueInfo2) -> Queue<D, A> {
         let vk_result =
             raw::get_device_queue2(self, p_queue_info, self.disp.get_command_dispatcher());
-        Queue::from_inner_with(vk_result, self.disp.clone(), self.alloc.clone())
+        unsafe { Queue::from_inner(vk_result, self.disp.clone(), self.alloc.clone()) }
     }
     #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCreateSamplerYcbcrConversion.html>"]
     #[doc(alias = "vkCreateSamplerYcbcrConversion")]
@@ -4708,21 +4710,19 @@ impl<D: Dispatcher, A: Allocator> Deref for Queue<D, A> {
         &self.inner
     }
 }
-impl Queue {
-    pub fn from_inner(handle: raw::Queue) -> Self {
-        Self {
-            inner: handle,
-            disp: DynamicDispatcher(()),
-            alloc: DefaultAllocator,
-        }
-    }
-}
 impl<D: Dispatcher, A: Allocator> Queue<D, A> {
-    pub fn from_inner_with(handle: raw::Queue, disp: D, alloc: A) -> Self {
+    pub unsafe fn from_inner(handle: raw::Queue, disp: D, alloc: A) -> Self {
         Self {
             inner: handle,
             disp,
             alloc,
+        }
+    }
+    pub unsafe fn clone(&self) -> Self {
+        Self {
+            inner: self.inner.clone(),
+            disp: self.disp.clone(),
+            alloc: self.alloc.clone(),
         }
     }
     pub fn get_dispatcher(&self) -> &D {
@@ -4907,21 +4907,19 @@ impl<D: Dispatcher, A: Allocator> Deref for CommandBuffer<D, A> {
         &self.inner
     }
 }
-impl CommandBuffer {
-    pub fn from_inner(handle: raw::CommandBuffer) -> Self {
-        Self {
-            inner: handle,
-            disp: DynamicDispatcher(()),
-            alloc: DefaultAllocator,
-        }
-    }
-}
 impl<D: Dispatcher, A: Allocator> CommandBuffer<D, A> {
-    pub fn from_inner_with(handle: raw::CommandBuffer, disp: D, alloc: A) -> Self {
+    pub unsafe fn from_inner(handle: raw::CommandBuffer, disp: D, alloc: A) -> Self {
         Self {
             inner: handle,
             disp,
             alloc,
+        }
+    }
+    pub unsafe fn clone(&self) -> Self {
+        Self {
+            inner: self.inner.clone(),
+            disp: self.disp.clone(),
+            alloc: self.alloc.clone(),
         }
     }
     pub fn get_dispatcher(&self) -> &D {
