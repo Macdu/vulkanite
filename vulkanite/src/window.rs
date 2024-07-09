@@ -1,5 +1,5 @@
 //! Functions that provide interop with the raw-window-handle crate.
-//! 
+//!
 //! These are largely inspired from the ash-window crate
 
 use raw_window_handle::RawDisplayHandle;
@@ -43,7 +43,7 @@ pub mod raw {
 
     use crate::vk;
 
-    /// Given an instance, a display handle and a window handle, create a surface associated with 
+    /// Given an instance, a display handle and a window handle, create a surface associated with
     /// the instance from these handles. Note that the underlying display/window must live at least
     /// as long as the surface
     pub fn create_surface(

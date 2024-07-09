@@ -138,9 +138,9 @@
 //!
 //! let device = physical_device.create_device(device_info.as_ref())?;
 //! ```
-//! 
+//!
 //! # Features
-//! 
+//!
 //! The following features are available:
 //! - `loaded`: Allow the crate to dynamically load the vulkan library using the `libloading` crate, see [Dispatcher::new_loaded]
 //! - `smallvec`: Add support for the smallvec crate to minimize heap allocations, enabling this feature allows the following: `let physical_devices: SmallVec<[_; 3]> = instance.enumerate_physical_devices()?;`.
@@ -1161,8 +1161,8 @@ impl<T, S, const N: usize> AdvancedDynamicArray<T, S> for SmallVec<[T; N]> {
 /// Custom type which represents types that can be seen as slices
 /// This is especially useful for this crate as there are multiple commands/structs
 /// which accept slices but for which one would usually only supply one element
-/// using [std::slice::from_ref]. 
-/// 
+/// using [std::slice::from_ref].
+///
 /// With this trait, all of these `from_ref` calls
 /// are avoided. There is also an implementation for [`Option<&T>`]
 pub trait AsSlice<'a, T>: Copy {
@@ -1214,15 +1214,15 @@ impl<'a, T> AsSlice<'a, T> for &'a Box<T> {
 /// Implement the AsSlice trait for `()``, some vulkan commands/structs take as parameter `Option<impl AsSlice<...>>`
 /// With this type, if you want to to give as parameter None (the compiler cannot infer the type, although this is not useful)
 /// you can use [`None::<()>`] (instead of `None::<&vk::AttachmentReference>` for example):
-/// 
+///
 /// # Example
-/// 
+///
 /// ```
 /// let subpass = vk::SubpassDescription::default()
 ///     .pipeline_bind_point(vk::PipelineBindPoint::Graphics)
 ///     .color_attachment(&color_ref, None::<()>);
 /// ```
-impl<'a,T> AsSlice<'a,T> for () {
+impl<'a, T> AsSlice<'a, T> for () {
     fn as_slice(self) -> &'a [T] {
         &[]
     }

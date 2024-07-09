@@ -187,7 +187,7 @@ pub struct DeviceExtension {
 }
 
 /// Replacement for PFN_vkDebugUtilsMessengerCallbackEXT (<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/PFN_vkDebugUtilsMessengerCallbackEXT.html>)
-/// 
+///
 /// Used by [vk::DebugUtilsMessengerCreateInfoEXT]
 pub type DebugUtilsMessengerCallbackEXT = Option<
     extern "system" fn(

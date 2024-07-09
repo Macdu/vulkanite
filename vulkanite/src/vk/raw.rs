@@ -1,5 +1,5 @@
-pub mod handles;
 pub mod commands;
+pub mod handles;
 
-pub use handles::*;
 pub use commands::*;
+pub use handles::*;

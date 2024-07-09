@@ -1,18 +1,21 @@
-use std::{collections::{BTreeMap, HashMap, HashSet}, iter};
+use std::{
+    collections::{BTreeMap, HashMap, HashSet},
+    iter,
+};
 
 use anyhow::{anyhow, Result};
 use proc_macro2::TokenStream;
 use quote::{format_ident, quote};
 
-use crate::{helpers::camel_case_to_snake_case, structs::{CommandParamsParsed, ReturnType, Type}, xml};
+use crate::{
+    helpers::camel_case_to_snake_case,
+    structs::{CommandParamsParsed, ReturnType, Type},
+    xml,
+};
 
 use super::{make_doc_link, GeneratedCommandType, Generator};
 
-
-pub fn generate<'a, 'b>(
-    gen: &'b Generator<'a>,
-    gen_ty: GeneratedCommandType,
-) -> Result<String> {
+pub fn generate<'a, 'b>(gen: &'b Generator<'a>, gen_ty: GeneratedCommandType) -> Result<String> {
     let mut listed_cmds = HashSet::new();
     let mut listed_handles = HashSet::new();
     let mut handle_cmds: HashMap<&str, BTreeMap<usize, CommandParamsParsed>> = HashMap::new();
@@ -60,33 +63,32 @@ pub fn generate<'a, 'b>(
 
     let is_complex_handle = |name: &str| handle_cmds.contains_key(name);
 
-    let create_methods =
-        |cmds: &BTreeMap<usize, CommandParamsParsed>| -> Result<Vec<TokenStream>> {
-            cmds.values()
-                .map(|cmd_parsed| {
-                    let cmd = cmd_parsed.command;
-                    let all_variants = iter::once((cmd.vk_name, cmd.name.as_str()))
-                        .chain(
-                            cmd.aliases
-                                .borrow()
-                                .iter()
-                                .map(|(vk_name, name)| (*vk_name, name.as_str())),
-                        )
-                        .map(|(vk_name, name)| {
+    let create_methods = |cmds: &BTreeMap<usize, CommandParamsParsed>| -> Result<Vec<TokenStream>> {
+        cmds.values()
+            .map(|cmd_parsed| {
+                let cmd = cmd_parsed.command;
+                let all_variants = iter::once((cmd.vk_name, cmd.name.as_str()))
+                    .chain(
+                        cmd.aliases
+                            .borrow()
+                            .iter()
+                            .map(|(vk_name, name)| (*vk_name, name.as_str())),
+                    )
+                    .map(|(vk_name, name)| {
                         generate_advanced_command(
-                                gen,
-                                name,
-                                vk_name,
-                                cmd_parsed,
-                                gen_ty,
-                                is_complex_handle,
-                            )
-                        })
-                        .collect::<Result<Vec<_>>>()?;
-                    Ok(quote! (#(#all_variants)*))
-                })
-                .collect::<Result<Vec<_>>>()
-        };
+                            gen,
+                            name,
+                            vk_name,
+                            cmd_parsed,
+                            gen_ty,
+                            is_complex_handle,
+                        )
+                    })
+                    .collect::<Result<Vec<_>>>()?;
+                Ok(quote! (#(#all_variants)*))
+            })
+            .collect::<Result<Vec<_>>>()
+    };
 
     let entry_cmds = handle_cmds
         .get("")
@@ -185,8 +187,7 @@ pub fn generate<'a, 'b>(
                 }
             });
         } else {
-            for alias_name in
-                iter::once(handle.name).chain(handle.aliases.borrow().iter().copied())
+            for alias_name in iter::once(handle.name).chain(handle.aliases.borrow().iter().copied())
             {
                 let id_name = format_ident!("{alias_name}");
                 let doc_tag = make_doc_link(&format!("Vk{alias_name}"));
@@ -312,8 +313,8 @@ where
                 .is_some_and(|my_struct| my_struct.s_type.is_some());
             let is_handle = gen.get_handle(ret_type).is_some();
 
-            let lifetime = (!is_handle && gen.compute_name_lifetime(ret_type))
-                .then(|| quote! (<'static>));
+            let lifetime =
+                (!is_handle && gen.compute_name_lifetime(ret_type)).then(|| quote! (<'static>));
             let ret_param = if needs_transformation {
                 Some(quote! (<D,A>))
             } else {
@@ -364,7 +365,6 @@ where
                     } else {
                         quote! (; vk_result.map(|vk_result| #mapping_fn))
                     }
-                    
                 } else {
                     quote! (; #mapping_fn)
                 }
@@ -408,7 +408,7 @@ where
         has_allocator.then(|| quote!(self.alloc.get_allocation_callbacks().as_ref(),));
 
     let doc_tag = make_doc_link(vk_name);
-    let unsafe_tag = name.starts_with("destroy").then(|| quote! (unsafe));
+    let unsafe_tag = name.starts_with("destroy").then(|| quote!(unsafe));
     let lifetime = (!cmd_parsed.vec_fields.is_empty()).then(|| quote! ('a, ));
 
     Ok(quote! {

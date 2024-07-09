@@ -119,7 +119,11 @@ pub struct Type {
     pub allow_duplicate: Option<bool>,
     #[serde(rename = "@returnedonly")]
     pub returned_only: Option<()>,
-    #[serde(default, rename = "@structextends", deserialize_with = "comma_separated")]
+    #[serde(
+        default,
+        rename = "@structextends",
+        deserialize_with = "comma_separated"
+    )]
     pub struct_extends: Vec<String>,
     #[serde(default, rename = "$value")]
     pub content: Vec<TypeContent>,
@@ -610,7 +614,7 @@ pub enum NumericFormat {
     UFloat,
     UInt,
     UNorm,
-    UScaled
+    UScaled,
 }
 
 #[derive(Deserialize, Debug)]
@@ -632,7 +636,7 @@ pub enum PlaneIndex {
     #[serde(rename = "1")]
     P1,
     #[serde(rename = "2")]
-    P2
+    P2,
 }
 
 #[derive(Deserialize, Debug)]
