@@ -149,7 +149,7 @@ The following features are available:
 - `raw-window-handle`: Add interoperability with the raw-window-handle crate, to create surfaces from raw handles, see the [window] module
 
 # MSRV
-The current MSRV for this crate is Rust 1.76 (C-String literals are heavily used). It is not planned to increase
+The current MSRV for this crate is Rust 1.77 (C-String literals are heavily used). It is not planned to increase
 this version anytime soon and if this happens a reasonable (at least 6 months old) MSRV will be chosen.
 
 Note that these bindings are still a Work-In-Process, the public API may see breaking changes if this improves
