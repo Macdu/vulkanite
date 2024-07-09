@@ -67,7 +67,7 @@
 //! that they have the same length.
 //! ```
 //! impl CommandBuffer {
-//!     pub fn set_viewport(&self, first_viewport: u32, viewports: &[Viewport]);
+//!     pub fn set_viewport(&self, first_viewport: u32, viewports: impl AsSlice<vk::Viewport>);
 //! }
 //!
 //! cmd_buffer.set_viewport(0, &[vk::Viewport{..}, vk::Viewport{..}])
@@ -88,7 +88,7 @@
 //! ```
 //! let surface_formats : Vec<_> = physical_device.get_surface_formats_khr(Some(surface))?;
 //! ```
-//! The reason `: Vec<_>` has to be added is when using the `small-vec` feature, it is possible to do the following:
+//! The reason `: Vec<_>` has to be added is when using the `smallvec` feature, it is possible to do the following:
 //! ```
 //! // won't make any heap allocation if you have less than 3 GPUs
 //! let physical_devices: SmallVec<[_; 3]> = instance.enumerate_physical_devices()?;
@@ -138,6 +138,13 @@
 //!
 //! let device = physical_device.create_device(device_info.as_ref())?;
 //! ```
+//! 
+//! # Features
+//! 
+//! The following features are available:
+//! - `loaded`: Allow the crate to dynamically load the vulkan library using the `libloading` crate, see [Dispatcher::new_loaded]
+//! - `smallvec`: Add support for the smallvec crate to minimize heap allocations, enabling this feature allows the following: `let physical_devices: SmallVec<[_; 3]> = instance.enumerate_physical_devices()?;`.
+//! - `raw-window-handle`: Add interoperability with the raw-window-handle crate, to create surfaces from raw handles, see the [window] module
 //!
 //! # MSRV
 //! The current MSRV for this crate is Rust 1.76 (C-String literals are heavily used). It is not planned to increase
