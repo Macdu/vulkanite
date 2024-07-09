@@ -1487,6 +1487,8 @@ impl<'a> Generator<'a> {
             }
             // add another indentation for fields
             bitflag = bitflag.replace("const ", "    const ");
+            // remove whitespace at the end of a line
+            bitflag = bitflag.replace(" \n", "\n");
             // remove the indentation for the bitflags! closing bracket
             bitflag.replace_range((bitflag.len() - 6)..(bitflag.len() - 2), "");
 
