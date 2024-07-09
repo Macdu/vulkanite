@@ -375,8 +375,10 @@ fn generate_struct<'a>(
                 }
             }),
             Some(quote! {
-                pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-                    unsafe { self.push_next_unchecked(ext) }
+                #[inline]
+                pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+                    unsafe { self.push_next_unchecked(ext) };
+                    self
                 }
             }),
         )

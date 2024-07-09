@@ -313,8 +313,10 @@ impl<'a> BufferMemoryBarrier<'a> {
         self.size = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -528,8 +530,10 @@ impl<'a> ImageMemoryBarrier<'a> {
         self.subresource_range = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -569,8 +573,10 @@ impl<'a> MemoryBarrier<'a> {
         self.dst_access_mask = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -740,8 +746,10 @@ impl<'a> ApplicationInfo<'a> {
         self.api_version = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -895,8 +903,10 @@ impl<'a> InstanceCreateInfo<'a> {
         self.enabled_extension_count = pp_enabled_extension_names.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -2404,8 +2414,10 @@ impl<'a> DeviceCreateInfo<'a> {
         self.enabled_extension_count = pp_enabled_extension_names.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -2455,8 +2467,10 @@ impl<'a> DeviceQueueCreateInfo<'a> {
         self.queue_count = p_queue_priorities.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -2609,8 +2623,10 @@ impl<'a> SubmitInfo<'a> {
         self.signal_semaphore_count = p_signal_semaphores.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -2657,8 +2673,10 @@ impl<'a> MappedMemoryRange<'a> {
         self.size = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -2698,8 +2716,10 @@ impl<'a> MemoryAllocateInfo<'a> {
         self.memory_type_index = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -2827,8 +2847,10 @@ impl<'a> BindSparseInfo<'a> {
         self.signal_semaphore_count = p_signal_semaphores.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -3199,8 +3221,10 @@ impl<'a> FenceCreateInfo<'a> {
         self.flags = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -3233,8 +3257,10 @@ impl<'a> SemaphoreCreateInfo<'a> {
         self.flags = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -3267,8 +3293,10 @@ impl<'a> EventCreateInfo<'a> {
         self.flags = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -3322,8 +3350,10 @@ impl<'a> QueryPoolCreateInfo<'a> {
         self.pipeline_statistics = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -3387,8 +3417,10 @@ impl<'a> BufferCreateInfo<'a> {
         self.queue_family_index_count = p_queue_family_indices.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -3449,8 +3481,10 @@ impl<'a> BufferViewCreateInfo<'a> {
         self.range = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -3563,8 +3597,10 @@ impl<'a> ImageCreateInfo<'a> {
         self.queue_family_index_count = p_queue_family_indices.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -3778,8 +3814,10 @@ impl<'a> ImageViewCreateInfo<'a> {
         self.subresource_range = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -3826,8 +3864,10 @@ impl<'a> ShaderModuleCreateInfo<'a> {
         self.code_size = value.len() * 4;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -3870,8 +3910,10 @@ impl<'a> PipelineCacheCreateInfo<'a> {
         self.initial_data_size = p_initial_data.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -3932,8 +3974,10 @@ impl<'a> ComputePipelineCreateInfo<'a> {
         self.base_pipeline_index = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -4103,8 +4147,10 @@ impl<'a> GraphicsPipelineCreateInfo<'a> {
         self.stage_count = p_stages.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -4248,8 +4294,10 @@ impl<'a> PipelineColorBlendStateCreateInfo<'a> {
         self.attachment_count = p_attachments.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -4345,8 +4393,10 @@ impl<'a> PipelineDepthStencilStateCreateInfo<'a> {
         self.max_depth_bounds = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -4389,8 +4439,10 @@ impl<'a> PipelineDynamicStateCreateInfo<'a> {
         self.dynamic_state_count = p_dynamic_states.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -4437,8 +4489,10 @@ impl<'a> PipelineInputAssemblyStateCreateInfo<'a> {
         self.primitive_restart_enable = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -4516,8 +4570,10 @@ impl<'a> PipelineMultisampleStateCreateInfo<'a> {
         self.p_sample_mask = mask.map(|arr| arr.as_ptr()).unwrap_or(ptr::null());
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -4620,8 +4676,10 @@ impl<'a> PipelineRasterizationStateCreateInfo<'a> {
         self.line_width = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -4682,8 +4740,10 @@ impl<'a> PipelineShaderStageCreateInfo<'a> {
         self.p_specialization_info = value.map(|v| ptr::from_ref(v)).unwrap_or(ptr::null());
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -4723,8 +4783,10 @@ impl<'a> PipelineTessellationStateCreateInfo<'a> {
         self.patch_control_points = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -4786,8 +4848,10 @@ impl<'a> PipelineVertexInputStateCreateInfo<'a> {
             p_vertex_attribute_descriptions.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -4850,8 +4914,10 @@ impl<'a> PipelineViewportStateCreateInfo<'a> {
         self.scissor_count = p_scissors.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkSampleMask.html>"]
@@ -5217,8 +5283,10 @@ impl<'a> PipelineLayoutCreateInfo<'a> {
         self.push_constant_range_count = p_push_constant_ranges.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -5393,8 +5461,10 @@ impl<'a> SamplerCreateInfo<'a> {
         self.unnormalized_coordinates = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -5469,8 +5539,10 @@ impl<'a> CopyDescriptorSet<'a> {
         self.descriptor_count = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -5596,8 +5668,10 @@ impl<'a> DescriptorPoolCreateInfo<'a> {
         self.pool_size_count = p_pool_sizes.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -5673,8 +5747,10 @@ impl<'a> DescriptorSetAllocateInfo<'a> {
         self.descriptor_set_count = p_set_layouts.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -5776,8 +5852,10 @@ impl<'a> DescriptorSetLayoutCreateInfo<'a> {
         self.binding_count = p_bindings.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -5852,8 +5930,10 @@ impl<'a> WriteDescriptorSet<'a> {
         self.descriptor_count = p_image_info.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -6036,8 +6116,10 @@ impl<'a> FramebufferCreateInfo<'a> {
         self.attachment_count = p_attachments.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -6100,8 +6182,10 @@ impl<'a> RenderPassCreateInfo<'a> {
         self.dependency_count = p_dependencies.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -6286,8 +6370,10 @@ impl<'a> CommandPoolCreateInfo<'a> {
         self.queue_family_index = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -6334,8 +6420,10 @@ impl<'a> CommandBufferAllocateInfo<'a> {
         self.command_buffer_count = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -6375,8 +6463,10 @@ impl<'a> CommandBufferBeginInfo<'a> {
         self.p_inheritance_info = value.map(|v| ptr::from_ref(v)).unwrap_or(ptr::null());
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -6444,8 +6534,10 @@ impl<'a> CommandBufferInheritanceInfo<'a> {
         self.pipeline_statistics = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -6922,8 +7014,10 @@ impl<'a> RenderPassBeginInfo<'a> {
         self.clear_value_count = p_clear_values.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -6981,8 +7075,10 @@ impl<'a> PhysicalDeviceSubgroupProperties<'a> {
         self.quad_operations_in_all_stages = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -7029,8 +7125,10 @@ impl<'a> BindBufferMemoryInfo<'a> {
         self.memory_offset = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type BindBufferMemoryInfoKHR<'a> = BindBufferMemoryInfo<'a>;
@@ -7078,8 +7176,10 @@ impl<'a> BindImageMemoryInfo<'a> {
         self.memory_offset = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type BindImageMemoryInfoKHR<'a> = BindImageMemoryInfo<'a>;
@@ -7142,8 +7242,10 @@ impl<'a> PhysicalDevice16BitStorageFeatures<'a> {
         self.storage_input_output16 = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PhysicalDevice16BitStorageFeaturesKHR<'a> = PhysicalDevice16BitStorageFeatures<'a>;
@@ -7188,8 +7290,10 @@ impl<'a> MemoryDedicatedRequirements<'a> {
         self.requires_dedicated_allocation = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type MemoryDedicatedRequirementsKHR<'a> = MemoryDedicatedRequirements<'a>;
@@ -7231,8 +7335,10 @@ impl<'a> MemoryDedicatedAllocateInfo<'a> {
         self.buffer = value.map(|v| unsafe { v.clone() });
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type MemoryDedicatedAllocateInfoKHR<'a> = MemoryDedicatedAllocateInfo<'a>;
@@ -7274,8 +7380,10 @@ impl<'a> MemoryAllocateFlagsInfo<'a> {
         self.device_mask = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type MemoryAllocateFlagsInfoKHR<'a> = MemoryAllocateFlagsInfo<'a>;
@@ -7324,8 +7432,10 @@ impl<'a> DeviceGroupRenderPassBeginInfo<'a> {
         self.device_render_area_count = p_device_render_areas.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type DeviceGroupRenderPassBeginInfoKHR<'a> = DeviceGroupRenderPassBeginInfo<'a>;
@@ -7363,8 +7473,10 @@ impl<'a> DeviceGroupCommandBufferBeginInfo<'a> {
         self.device_mask = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type DeviceGroupCommandBufferBeginInfoKHR<'a> = DeviceGroupCommandBufferBeginInfo<'a>;
@@ -7434,8 +7546,10 @@ impl<'a> DeviceGroupSubmitInfo<'a> {
         self.signal_semaphore_count = p_signal_semaphore_device_indices.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type DeviceGroupSubmitInfoKHR<'a> = DeviceGroupSubmitInfo<'a>;
@@ -7477,8 +7591,10 @@ impl<'a> DeviceGroupBindSparseInfo<'a> {
         self.memory_device_index = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type DeviceGroupBindSparseInfoKHR<'a> = DeviceGroupBindSparseInfo<'a>;
@@ -7519,8 +7635,10 @@ impl<'a> BindBufferMemoryDeviceGroupInfo<'a> {
         self.device_index_count = p_device_indices.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type BindBufferMemoryDeviceGroupInfoKHR<'a> = BindBufferMemoryDeviceGroupInfo<'a>;
@@ -7575,8 +7693,10 @@ impl<'a> BindImageMemoryDeviceGroupInfo<'a> {
         self.split_instance_bind_region_count = p_split_instance_bind_regions.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type BindImageMemoryDeviceGroupInfoKHR<'a> = BindImageMemoryDeviceGroupInfo<'a>;
@@ -7614,8 +7734,10 @@ impl<'a> PhysicalDeviceGroupProperties<'a> {
         self.subset_allocation = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PhysicalDeviceGroupPropertiesKHR<'a> = PhysicalDeviceGroupProperties<'a>;
@@ -7656,8 +7778,10 @@ impl<'a> DeviceGroupDeviceCreateInfo<'a> {
         self.physical_device_count = p_physical_devices.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type DeviceGroupDeviceCreateInfoKHR<'a> = DeviceGroupDeviceCreateInfo<'a>;
@@ -7691,8 +7815,10 @@ impl<'a> BufferMemoryRequirementsInfo2<'a> {
         self.buffer = Some(unsafe { value.clone() });
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type BufferMemoryRequirementsInfo2KHR<'a> = BufferMemoryRequirementsInfo2<'a>;
@@ -7726,8 +7852,10 @@ impl<'a> ImageMemoryRequirementsInfo2<'a> {
         self.image = Some(unsafe { value.clone() });
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type ImageMemoryRequirementsInfo2KHR<'a> = ImageMemoryRequirementsInfo2<'a>;
@@ -7761,8 +7889,10 @@ impl<'a> ImageSparseMemoryRequirementsInfo2<'a> {
         self.image = Some(unsafe { value.clone() });
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type ImageSparseMemoryRequirementsInfo2KHR<'a> = ImageSparseMemoryRequirementsInfo2<'a>;
@@ -7796,8 +7926,10 @@ impl<'a> MemoryRequirements2<'a> {
         self.memory_requirements = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type MemoryRequirements2KHR<'a> = MemoryRequirements2<'a>;
@@ -7831,8 +7963,10 @@ impl<'a> SparseImageMemoryRequirements2<'a> {
         self.memory_requirements = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type SparseImageMemoryRequirements2KHR<'a> = SparseImageMemoryRequirements2<'a>;
@@ -7867,8 +8001,10 @@ impl<'a> PhysicalDeviceFeatures2<'a> {
         self.features = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PhysicalDeviceFeatures2KHR<'a> = PhysicalDeviceFeatures2<'a>;
@@ -7902,8 +8038,10 @@ impl<'a> PhysicalDeviceProperties2<'a> {
         self.properties = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PhysicalDeviceProperties2KHR<'a> = PhysicalDeviceProperties2<'a>;
@@ -7937,8 +8075,10 @@ impl<'a> FormatProperties2<'a> {
         self.format_properties = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type FormatProperties2KHR<'a> = FormatProperties2<'a>;
@@ -7972,8 +8112,10 @@ impl<'a> ImageFormatProperties2<'a> {
         self.image_format_properties = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type ImageFormatProperties2KHR<'a> = ImageFormatProperties2<'a>;
@@ -8035,8 +8177,10 @@ impl<'a> PhysicalDeviceImageFormatInfo2<'a> {
         self.flags = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PhysicalDeviceImageFormatInfo2KHR<'a> = PhysicalDeviceImageFormatInfo2<'a>;
@@ -8070,8 +8214,10 @@ impl<'a> QueueFamilyProperties2<'a> {
         self.queue_family_properties = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type QueueFamilyProperties2KHR<'a> = QueueFamilyProperties2<'a>;
@@ -8105,8 +8251,10 @@ impl<'a> PhysicalDeviceMemoryProperties2<'a> {
         self.memory_properties = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PhysicalDeviceMemoryProperties2KHR<'a> = PhysicalDeviceMemoryProperties2<'a>;
@@ -8140,8 +8288,10 @@ impl<'a> SparseImageFormatProperties2<'a> {
         self.properties = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type SparseImageFormatProperties2KHR<'a> = SparseImageFormatProperties2<'a>;
@@ -8203,8 +8353,10 @@ impl<'a> PhysicalDeviceSparseImageFormatInfo2<'a> {
         self.tiling = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PhysicalDeviceSparseImageFormatInfo2KHR<'a> = PhysicalDeviceSparseImageFormatInfo2<'a>;
@@ -8242,8 +8394,10 @@ impl<'a> PhysicalDevicePointClippingProperties<'a> {
         self.point_clipping_behavior = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PhysicalDevicePointClippingPropertiesKHR<'a> = PhysicalDevicePointClippingProperties<'a>;
@@ -8287,8 +8441,10 @@ impl<'a> RenderPassInputAttachmentAspectCreateInfo<'a> {
         self.aspect_reference_count = p_aspect_references.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type RenderPassInputAttachmentAspectCreateInfoKHR<'a> =
@@ -8362,8 +8518,10 @@ impl<'a> ImageViewUsageCreateInfo<'a> {
         self.usage = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type ImageViewUsageCreateInfoKHR<'a> = ImageViewUsageCreateInfo<'a>;
@@ -8402,8 +8560,10 @@ impl<'a> PipelineTessellationDomainOriginStateCreateInfo<'a> {
         self.domain_origin = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PipelineTessellationDomainOriginStateCreateInfoKHR<'a> =
@@ -8465,8 +8625,10 @@ impl<'a> RenderPassMultiviewCreateInfo<'a> {
         self.correlation_mask_count = p_correlation_masks.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type RenderPassMultiviewCreateInfoKHR<'a> = RenderPassMultiviewCreateInfo<'a>;
@@ -8522,8 +8684,10 @@ impl<'a> PhysicalDeviceMultiviewFeatures<'a> {
         self.multiview_tessellation_shader = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PhysicalDeviceMultiviewFeaturesKHR<'a> = PhysicalDeviceMultiviewFeatures<'a>;
@@ -8568,8 +8732,10 @@ impl<'a> PhysicalDeviceMultiviewProperties<'a> {
         self.max_multiview_instance_index = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PhysicalDeviceMultiviewPropertiesKHR<'a> = PhysicalDeviceMultiviewProperties<'a>;
@@ -8618,8 +8784,10 @@ impl<'a> PhysicalDeviceVariablePointersFeatures<'a> {
         self.variable_pointers = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PhysicalDeviceVariablePointersFeaturesKHR<'a> = PhysicalDeviceVariablePointersFeatures<'a>;
@@ -8663,8 +8831,10 @@ impl<'a> PhysicalDeviceProtectedMemoryFeatures<'a> {
         self.protected_memory = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -8701,8 +8871,10 @@ impl<'a> PhysicalDeviceProtectedMemoryProperties<'a> {
         self.protected_no_fault = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -8749,8 +8921,10 @@ impl<'a> DeviceQueueInfo2<'a> {
         self.queue_index = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -8784,8 +8958,10 @@ impl<'a> ProtectedSubmitInfo<'a> {
         self.protected_submit = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -8867,8 +9043,10 @@ impl<'a> SamplerYcbcrConversionCreateInfo<'a> {
         self.force_explicit_reconstruction = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type SamplerYcbcrConversionCreateInfoKHR<'a> = SamplerYcbcrConversionCreateInfo<'a>;
@@ -8904,8 +9082,10 @@ impl<'a> SamplerYcbcrConversionInfo<'a> {
         self.conversion = Some(unsafe { value.clone() });
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type SamplerYcbcrConversionInfoKHR<'a> = SamplerYcbcrConversionInfo<'a>;
@@ -8940,8 +9120,10 @@ impl<'a> BindImagePlaneMemoryInfo<'a> {
         self.plane_aspect = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type BindImagePlaneMemoryInfoKHR<'a> = BindImagePlaneMemoryInfo<'a>;
@@ -8979,8 +9161,10 @@ impl<'a> ImagePlaneMemoryRequirementsInfo<'a> {
         self.plane_aspect = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type ImagePlaneMemoryRequirementsInfoKHR<'a> = ImagePlaneMemoryRequirementsInfo<'a>;
@@ -9023,8 +9207,10 @@ impl<'a> PhysicalDeviceSamplerYcbcrConversionFeatures<'a> {
         self.sampler_ycbcr_conversion = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PhysicalDeviceSamplerYcbcrConversionFeaturesKHR<'a> =
@@ -9064,8 +9250,10 @@ impl<'a> SamplerYcbcrConversionImageFormatProperties<'a> {
         self.combined_image_sampler_descriptor_count = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type SamplerYcbcrConversionImageFormatPropertiesKHR<'a> =
@@ -9207,8 +9395,10 @@ impl<'a> DescriptorUpdateTemplateCreateInfo<'a> {
         self.descriptor_update_entry_count = p_descriptor_update_entries.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type DescriptorUpdateTemplateCreateInfoKHR<'a> = DescriptorUpdateTemplateCreateInfo<'a>;
@@ -9287,8 +9477,10 @@ impl<'a> PhysicalDeviceExternalImageFormatInfo<'a> {
         self.handle_type = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PhysicalDeviceExternalImageFormatInfoKHR<'a> = PhysicalDeviceExternalImageFormatInfo<'a>;
@@ -9326,8 +9518,10 @@ impl<'a> ExternalImageFormatProperties<'a> {
         self.external_memory_properties = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type ExternalImageFormatPropertiesKHR<'a> = ExternalImageFormatProperties<'a>;
@@ -9375,8 +9569,10 @@ impl<'a> PhysicalDeviceExternalBufferInfo<'a> {
         self.handle_type = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PhysicalDeviceExternalBufferInfoKHR<'a> = PhysicalDeviceExternalBufferInfo<'a>;
@@ -9410,8 +9606,10 @@ impl<'a> ExternalBufferProperties<'a> {
         self.external_memory_properties = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type ExternalBufferPropertiesKHR<'a> = ExternalBufferProperties<'a>;
@@ -9477,8 +9675,10 @@ impl<'a> PhysicalDeviceIDProperties<'a> {
         self.device_luidvalid = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PhysicalDeviceIDPropertiesKHR<'a> = PhysicalDeviceIDProperties<'a>;
@@ -9513,8 +9713,10 @@ impl<'a> ExternalMemoryImageCreateInfo<'a> {
         self.handle_types = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type ExternalMemoryImageCreateInfoKHR<'a> = ExternalMemoryImageCreateInfo<'a>;
@@ -9552,8 +9754,10 @@ impl<'a> ExternalMemoryBufferCreateInfo<'a> {
         self.handle_types = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type ExternalMemoryBufferCreateInfoKHR<'a> = ExternalMemoryBufferCreateInfo<'a>;
@@ -9588,8 +9792,10 @@ impl<'a> ExportMemoryAllocateInfo<'a> {
         self.handle_types = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type ExportMemoryAllocateInfoKHR<'a> = ExportMemoryAllocateInfo<'a>;
@@ -9623,8 +9829,10 @@ impl<'a> PhysicalDeviceExternalFenceInfo<'a> {
         self.handle_type = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PhysicalDeviceExternalFenceInfoKHR<'a> = PhysicalDeviceExternalFenceInfo<'a>;
@@ -9675,8 +9883,10 @@ impl<'a> ExternalFenceProperties<'a> {
         self.external_fence_features = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type ExternalFencePropertiesKHR<'a> = ExternalFenceProperties<'a>;
@@ -9711,8 +9921,10 @@ impl<'a> ExportFenceCreateInfo<'a> {
         self.handle_types = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type ExportFenceCreateInfoKHR<'a> = ExportFenceCreateInfo<'a>;
@@ -9747,8 +9959,10 @@ impl<'a> ExportSemaphoreCreateInfo<'a> {
         self.handle_types = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type ExportSemaphoreCreateInfoKHR<'a> = ExportSemaphoreCreateInfo<'a>;
@@ -9782,8 +9996,10 @@ impl<'a> PhysicalDeviceExternalSemaphoreInfo<'a> {
         self.handle_type = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PhysicalDeviceExternalSemaphoreInfoKHR<'a> = PhysicalDeviceExternalSemaphoreInfo<'a>;
@@ -9834,8 +10050,10 @@ impl<'a> ExternalSemaphoreProperties<'a> {
         self.external_semaphore_features = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type ExternalSemaphorePropertiesKHR<'a> = ExternalSemaphoreProperties<'a>;
@@ -9880,8 +10098,10 @@ impl<'a> PhysicalDeviceMaintenance3Properties<'a> {
         self.max_memory_allocation_size = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PhysicalDeviceMaintenance3PropertiesKHR<'a> = PhysicalDeviceMaintenance3Properties<'a>;
@@ -9915,8 +10135,10 @@ impl<'a> DescriptorSetLayoutSupport<'a> {
         self.supported = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type DescriptorSetLayoutSupportKHR<'a> = DescriptorSetLayoutSupport<'a>;
@@ -9958,8 +10180,10 @@ impl<'a> PhysicalDeviceShaderDrawParametersFeatures<'a> {
         self.shader_draw_parameters = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PhysicalDeviceShaderDrawParameterFeatures<'a> =
@@ -10079,8 +10303,10 @@ impl<'a> PhysicalDeviceVulkan11Features<'a> {
         self.shader_draw_parameters = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -10215,8 +10441,10 @@ impl<'a> PhysicalDeviceVulkan11Properties<'a> {
         self.max_memory_allocation_size = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -10636,8 +10864,10 @@ impl<'a> PhysicalDeviceVulkan12Features<'a> {
         self.subgroup_broadcast_dynamic_id = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -11065,8 +11295,10 @@ impl<'a> PhysicalDeviceVulkan12Properties<'a> {
         )
         .unwrap()
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -11111,8 +11343,10 @@ impl<'a> ImageFormatListCreateInfo<'a> {
         self.view_format_count = p_view_formats.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type ImageFormatListCreateInfoKHR<'a> = ImageFormatListCreateInfo<'a>;
@@ -11192,8 +11426,10 @@ impl<'a> RenderPassCreateInfo2<'a> {
         self.correlated_view_mask_count = p_correlated_view_masks.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type RenderPassCreateInfo2KHR<'a> = RenderPassCreateInfo2<'a>;
@@ -11283,8 +11519,10 @@ impl<'a> AttachmentDescription2<'a> {
         self.final_layout = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type AttachmentDescription2KHR<'a> = AttachmentDescription2<'a>;
@@ -11332,8 +11570,10 @@ impl<'a> AttachmentReference2<'a> {
         self.aspect_mask = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type AttachmentReference2KHR<'a> = AttachmentReference2<'a>;
@@ -11430,8 +11670,10 @@ impl<'a> SubpassDescription2<'a> {
         self.preserve_attachment_count = p_preserve_attachments.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type SubpassDescription2KHR<'a> = SubpassDescription2<'a>;
@@ -11514,8 +11756,10 @@ impl<'a> SubpassDependency2<'a> {
         self.view_offset = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type SubpassDependency2KHR<'a> = SubpassDependency2<'a>;
@@ -11549,8 +11793,10 @@ impl<'a> SubpassBeginInfo<'a> {
         self.contents = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type SubpassBeginInfoKHR<'a> = SubpassBeginInfo<'a>;
@@ -11577,8 +11823,10 @@ impl<'a> Default for SubpassEndInfo<'a> {
     }
 }
 impl<'a> SubpassEndInfo<'a> {
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type SubpassEndInfoKHR<'a> = SubpassEndInfo<'a>;
@@ -11634,8 +11882,10 @@ impl<'a> PhysicalDevice8BitStorageFeatures<'a> {
         self.storage_push_constant8 = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PhysicalDevice8BitStorageFeaturesKHR<'a> = PhysicalDevice8BitStorageFeatures<'a>;
@@ -11743,8 +11993,10 @@ impl<'a> PhysicalDeviceDriverProperties<'a> {
         )
         .unwrap()
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PhysicalDeviceDriverPropertiesKHR<'a> = PhysicalDeviceDriverProperties<'a>;
@@ -11793,8 +12045,10 @@ impl<'a> PhysicalDeviceShaderAtomicInt64Features<'a> {
         self.shader_shared_int64_atomics = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PhysicalDeviceShaderAtomicInt64FeaturesKHR<'a> =
@@ -11844,8 +12098,10 @@ impl<'a> PhysicalDeviceShaderFloat16Int8Features<'a> {
         self.shader_int8 = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PhysicalDeviceShaderFloat16Int8FeaturesKHR<'a> =
@@ -11997,8 +12253,10 @@ impl<'a> PhysicalDeviceFloatControlsProperties<'a> {
         self.shader_rounding_mode_rtzfloat64 = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PhysicalDeviceFloatControlsPropertiesKHR<'a> = PhysicalDeviceFloatControlsProperties<'a>;
@@ -12047,8 +12305,10 @@ impl<'a> DescriptorSetLayoutBindingFlagsCreateInfo<'a> {
         self.binding_count = p_binding_flags.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type DescriptorSetLayoutBindingFlagsCreateInfoEXT<'a> =
@@ -12278,8 +12538,10 @@ impl<'a> PhysicalDeviceDescriptorIndexingFeatures<'a> {
         self.runtime_descriptor_array = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PhysicalDeviceDescriptorIndexingFeaturesEXT<'a> =
@@ -12502,8 +12764,10 @@ impl<'a> PhysicalDeviceDescriptorIndexingProperties<'a> {
         self.max_descriptor_set_update_after_bind_input_attachments = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PhysicalDeviceDescriptorIndexingPropertiesEXT<'a> =
@@ -12546,8 +12810,10 @@ impl<'a> DescriptorSetVariableDescriptorCountAllocateInfo<'a> {
         self.descriptor_set_count = p_descriptor_counts.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type DescriptorSetVariableDescriptorCountAllocateInfoEXT<'a> =
@@ -12587,8 +12853,10 @@ impl<'a> DescriptorSetVariableDescriptorCountLayoutSupport<'a> {
         self.max_variable_descriptor_count = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type DescriptorSetVariableDescriptorCountLayoutSupportEXT<'a> =
@@ -12645,8 +12913,10 @@ impl<'a> SubpassDescriptionDepthStencilResolve<'a> {
             value.map(|v| ptr::from_ref(v)).unwrap_or(ptr::null());
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type SubpassDescriptionDepthStencilResolveKHR<'a> = SubpassDescriptionDepthStencilResolve<'a>;
@@ -12706,8 +12976,10 @@ impl<'a> PhysicalDeviceDepthStencilResolveProperties<'a> {
         self.independent_resolve = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PhysicalDeviceDepthStencilResolvePropertiesKHR<'a> =
@@ -12750,8 +13022,10 @@ impl<'a> PhysicalDeviceScalarBlockLayoutFeatures<'a> {
         self.scalar_block_layout = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PhysicalDeviceScalarBlockLayoutFeaturesEXT<'a> =
@@ -12791,8 +13065,10 @@ impl<'a> ImageStencilUsageCreateInfo<'a> {
         self.stencil_usage = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type ImageStencilUsageCreateInfoEXT<'a> = ImageStencilUsageCreateInfo<'a>;
@@ -12830,8 +13106,10 @@ impl<'a> SamplerReductionModeCreateInfo<'a> {
         self.reduction_mode = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type SamplerReductionModeCreateInfoEXT<'a> = SamplerReductionModeCreateInfo<'a>;
@@ -12877,8 +13155,10 @@ impl<'a> PhysicalDeviceSamplerFilterMinmaxProperties<'a> {
         self.filter_minmax_image_component_mapping = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PhysicalDeviceSamplerFilterMinmaxPropertiesEXT<'a> =
@@ -12938,8 +13218,10 @@ impl<'a> PhysicalDeviceVulkanMemoryModelFeatures<'a> {
         self.vulkan_memory_model_availability_visibility_chains = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PhysicalDeviceVulkanMemoryModelFeaturesKHR<'a> =
@@ -12982,8 +13264,10 @@ impl<'a> PhysicalDeviceImagelessFramebufferFeatures<'a> {
         self.imageless_framebuffer = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PhysicalDeviceImagelessFramebufferFeaturesKHR<'a> =
@@ -13028,8 +13312,10 @@ impl<'a> FramebufferAttachmentsCreateInfo<'a> {
         self.attachment_image_info_count = p_attachment_image_infos.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type FramebufferAttachmentsCreateInfoKHR<'a> = FramebufferAttachmentsCreateInfo<'a>;
@@ -13101,8 +13387,10 @@ impl<'a> FramebufferAttachmentImageInfo<'a> {
         self.view_format_count = p_view_formats.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type FramebufferAttachmentImageInfoKHR<'a> = FramebufferAttachmentImageInfo<'a>;
@@ -13146,8 +13434,10 @@ impl<'a> RenderPassAttachmentBeginInfo<'a> {
         self.attachment_count = p_attachments.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type RenderPassAttachmentBeginInfoKHR<'a> = RenderPassAttachmentBeginInfo<'a>;
@@ -13190,8 +13480,10 @@ impl<'a> PhysicalDeviceUniformBufferStandardLayoutFeatures<'a> {
         self.uniform_buffer_standard_layout = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PhysicalDeviceUniformBufferStandardLayoutFeaturesKHR<'a> =
@@ -13235,8 +13527,10 @@ impl<'a> PhysicalDeviceShaderSubgroupExtendedTypesFeatures<'a> {
         self.shader_subgroup_extended_types = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PhysicalDeviceShaderSubgroupExtendedTypesFeaturesKHR<'a> =
@@ -13280,8 +13574,10 @@ impl<'a> PhysicalDeviceSeparateDepthStencilLayoutsFeatures<'a> {
         self.separate_depth_stencil_layouts = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR<'a> =
@@ -13320,8 +13616,10 @@ impl<'a> AttachmentReferenceStencilLayout<'a> {
         self.stencil_layout = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type AttachmentReferenceStencilLayoutKHR<'a> = AttachmentReferenceStencilLayout<'a>;
@@ -13366,8 +13664,10 @@ impl<'a> AttachmentDescriptionStencilLayout<'a> {
         self.stencil_final_layout = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type AttachmentDescriptionStencilLayoutKHR<'a> = AttachmentDescriptionStencilLayout<'a>;
@@ -13409,8 +13709,10 @@ impl<'a> PhysicalDeviceHostQueryResetFeatures<'a> {
         self.host_query_reset = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PhysicalDeviceHostQueryResetFeaturesEXT<'a> = PhysicalDeviceHostQueryResetFeatures<'a>;
@@ -13452,8 +13754,10 @@ impl<'a> PhysicalDeviceTimelineSemaphoreFeatures<'a> {
         self.timeline_semaphore = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PhysicalDeviceTimelineSemaphoreFeaturesKHR<'a> =
@@ -13492,8 +13796,10 @@ impl<'a> PhysicalDeviceTimelineSemaphoreProperties<'a> {
         self.max_timeline_semaphore_value_difference = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PhysicalDeviceTimelineSemaphorePropertiesKHR<'a> =
@@ -13540,8 +13846,10 @@ impl<'a> SemaphoreTypeCreateInfo<'a> {
         self.initial_value = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type SemaphoreTypeCreateInfoKHR<'a> = SemaphoreTypeCreateInfo<'a>;
@@ -13603,8 +13911,10 @@ impl<'a> TimelineSemaphoreSubmitInfo<'a> {
         self.signal_semaphore_value_count = p_signal_semaphore_values.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type TimelineSemaphoreSubmitInfoKHR<'a> = TimelineSemaphoreSubmitInfo<'a>;
@@ -13655,8 +13965,10 @@ impl<'a> SemaphoreWaitInfo<'a> {
         self.semaphore_count = p_semaphores.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type SemaphoreWaitInfoKHR<'a> = SemaphoreWaitInfo<'a>;
@@ -13697,8 +14009,10 @@ impl<'a> SemaphoreSignalInfo<'a> {
         self.value = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type SemaphoreSignalInfoKHR<'a> = SemaphoreSignalInfo<'a>;
@@ -13754,8 +14068,10 @@ impl<'a> PhysicalDeviceBufferDeviceAddressFeatures<'a> {
         self.buffer_device_address_multi_device = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PhysicalDeviceBufferDeviceAddressFeaturesKHR<'a> =
@@ -13790,8 +14106,10 @@ impl<'a> BufferDeviceAddressInfo<'a> {
         self.buffer = Some(unsafe { value.clone() });
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type BufferDeviceAddressInfoKHR<'a> = BufferDeviceAddressInfo<'a>;
@@ -13830,8 +14148,10 @@ impl<'a> BufferOpaqueCaptureAddressCreateInfo<'a> {
         self.opaque_capture_address = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type BufferOpaqueCaptureAddressCreateInfoKHR<'a> = BufferOpaqueCaptureAddressCreateInfo<'a>;
@@ -13869,8 +14189,10 @@ impl<'a> MemoryOpaqueCaptureAddressAllocateInfo<'a> {
         self.opaque_capture_address = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type MemoryOpaqueCaptureAddressAllocateInfoKHR<'a> = MemoryOpaqueCaptureAddressAllocateInfo<'a>;
@@ -13904,8 +14226,10 @@ impl<'a> DeviceMemoryOpaqueCaptureAddressInfo<'a> {
         self.memory = Some(unsafe { value.clone() });
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type DeviceMemoryOpaqueCaptureAddressInfoKHR<'a> = DeviceMemoryOpaqueCaptureAddressInfo<'a>;
@@ -14051,8 +14375,10 @@ impl<'a> PhysicalDeviceVulkan13Features<'a> {
         self.maintenance4 = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -14454,8 +14780,10 @@ impl<'a> PhysicalDeviceVulkan13Properties<'a> {
         self.max_buffer_size = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -14525,8 +14853,10 @@ impl<'a> PipelineCreationFeedbackCreateInfo<'a> {
             p_pipeline_stage_creation_feedbacks.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PipelineCreationFeedbackCreateInfoEXT<'a> = PipelineCreationFeedbackCreateInfo<'a>;
@@ -14600,8 +14930,10 @@ impl<'a> PhysicalDeviceShaderTerminateInvocationFeatures<'a> {
         self.shader_terminate_invocation = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PhysicalDeviceShaderTerminateInvocationFeaturesKHR<'a> =
@@ -14672,8 +15004,10 @@ impl<'a> PhysicalDeviceToolProperties<'a> {
         )
         .unwrap()
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PhysicalDeviceToolPropertiesEXT<'a> = PhysicalDeviceToolProperties<'a>;
@@ -14716,8 +15050,10 @@ impl<'a> PhysicalDeviceShaderDemoteToHelperInvocationFeatures<'a> {
         self.shader_demote_to_helper_invocation = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PhysicalDeviceShaderDemoteToHelperInvocationFeaturesEXT<'a> =
@@ -14760,8 +15096,10 @@ impl<'a> PhysicalDevicePrivateDataFeatures<'a> {
         self.private_data = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PhysicalDevicePrivateDataFeaturesEXT<'a> = PhysicalDevicePrivateDataFeatures<'a>;
@@ -14796,8 +15134,10 @@ impl<'a> DevicePrivateDataCreateInfo<'a> {
         self.private_data_slot_request_count = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type DevicePrivateDataCreateInfoEXT<'a> = DevicePrivateDataCreateInfo<'a>;
@@ -14831,8 +15171,10 @@ impl<'a> PrivateDataSlotCreateInfo<'a> {
         self.flags = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PrivateDataSlotCreateInfoEXT<'a> = PrivateDataSlotCreateInfo<'a>;
@@ -14875,8 +15217,10 @@ impl<'a> PhysicalDevicePipelineCreationCacheControlFeatures<'a> {
         self.pipeline_creation_cache_control = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PhysicalDevicePipelineCreationCacheControlFeaturesEXT<'a> =
@@ -14933,8 +15277,10 @@ impl<'a> MemoryBarrier2<'a> {
         self.dst_access_mask = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type MemoryBarrier2KHR<'a> = MemoryBarrier2<'a>;
@@ -15024,8 +15370,10 @@ impl<'a> BufferMemoryBarrier2<'a> {
         self.size = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type BufferMemoryBarrier2KHR<'a> = BufferMemoryBarrier2<'a>;
@@ -15122,8 +15470,10 @@ impl<'a> ImageMemoryBarrier2<'a> {
         self.subresource_range = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type ImageMemoryBarrier2KHR<'a> = ImageMemoryBarrier2<'a>;
@@ -15196,8 +15546,10 @@ impl<'a> DependencyInfo<'a> {
         self.image_memory_barrier_count = p_image_memory_barriers.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type DependencyInfoKHR<'a> = DependencyInfo<'a>;
@@ -15270,8 +15622,10 @@ impl<'a> SubmitInfo2<'a> {
         self.signal_semaphore_info_count = p_signal_semaphore_infos.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type SubmitInfo2KHR<'a> = SubmitInfo2<'a>;
@@ -15326,8 +15680,10 @@ impl<'a> SemaphoreSubmitInfo<'a> {
         self.device_index = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type SemaphoreSubmitInfoKHR<'a> = SemaphoreSubmitInfo<'a>;
@@ -15368,8 +15724,10 @@ impl<'a> CommandBufferSubmitInfo<'a> {
         self.device_mask = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type CommandBufferSubmitInfoKHR<'a> = CommandBufferSubmitInfo<'a>;
@@ -15411,8 +15769,10 @@ impl<'a> PhysicalDeviceSynchronization2Features<'a> {
         self.synchronization2 = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PhysicalDeviceSynchronization2FeaturesKHR<'a> = PhysicalDeviceSynchronization2Features<'a>;
@@ -15455,8 +15815,10 @@ impl<'a> PhysicalDeviceZeroInitializeWorkgroupMemoryFeatures<'a> {
         self.shader_zero_initialize_workgroup_memory = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PhysicalDeviceZeroInitializeWorkgroupMemoryFeaturesKHR<'a> =
@@ -15499,8 +15861,10 @@ impl<'a> PhysicalDeviceImageRobustnessFeatures<'a> {
         self.robust_image_access = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PhysicalDeviceImageRobustnessFeaturesEXT<'a> = PhysicalDeviceImageRobustnessFeatures<'a>;
@@ -15551,8 +15915,10 @@ impl<'a> CopyBufferInfo2<'a> {
         self.region_count = p_regions.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type CopyBufferInfo2KHR<'a> = CopyBufferInfo2<'a>;
@@ -15617,8 +15983,10 @@ impl<'a> CopyImageInfo2<'a> {
         self.region_count = p_regions.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type CopyImageInfo2KHR<'a> = CopyImageInfo2<'a>;
@@ -15676,8 +16044,10 @@ impl<'a> CopyBufferToImageInfo2<'a> {
         self.region_count = p_regions.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type CopyBufferToImageInfo2KHR<'a> = CopyBufferToImageInfo2<'a>;
@@ -15735,8 +16105,10 @@ impl<'a> CopyImageToBufferInfo2<'a> {
         self.region_count = p_regions.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type CopyImageToBufferInfo2KHR<'a> = CopyImageToBufferInfo2<'a>;
@@ -15808,8 +16180,10 @@ impl<'a> BlitImageInfo2<'a> {
         self.region_count = p_regions.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type BlitImageInfo2KHR<'a> = BlitImageInfo2<'a>;
@@ -15874,8 +16248,10 @@ impl<'a> ResolveImageInfo2<'a> {
         self.region_count = p_regions.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type ResolveImageInfo2KHR<'a> = ResolveImageInfo2<'a>;
@@ -15923,8 +16299,10 @@ impl<'a> BufferCopy2<'a> {
         self.size = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type BufferCopy2KHR<'a> = BufferCopy2<'a>;
@@ -15986,8 +16364,10 @@ impl<'a> ImageCopy2<'a> {
         self.extent = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type ImageCopy2KHR<'a> = ImageCopy2<'a>;
@@ -16042,8 +16422,10 @@ impl<'a> ImageBlit2<'a> {
         self.dst_offsets = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type ImageBlit2KHR<'a> = ImageBlit2<'a>;
@@ -16112,8 +16494,10 @@ impl<'a> BufferImageCopy2<'a> {
         self.image_extent = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type BufferImageCopy2KHR<'a> = BufferImageCopy2<'a>;
@@ -16175,8 +16559,10 @@ impl<'a> ImageResolve2<'a> {
         self.extent = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type ImageResolve2KHR<'a> = ImageResolve2<'a>;
@@ -16225,8 +16611,10 @@ impl<'a> PhysicalDeviceSubgroupSizeControlFeatures<'a> {
         self.compute_full_subgroups = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PhysicalDeviceSubgroupSizeControlFeaturesEXT<'a> =
@@ -16287,8 +16675,10 @@ impl<'a> PhysicalDeviceSubgroupSizeControlProperties<'a> {
         self.required_subgroup_size_stages = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PhysicalDeviceSubgroupSizeControlPropertiesEXT<'a> =
@@ -16332,8 +16722,10 @@ impl<'a> PipelineShaderStageRequiredSubgroupSizeCreateInfo<'a> {
         self.required_subgroup_size = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PipelineShaderStageRequiredSubgroupSizeCreateInfoEXT<'a> =
@@ -16388,8 +16780,10 @@ impl<'a> PhysicalDeviceInlineUniformBlockFeatures<'a> {
         self.descriptor_binding_inline_uniform_block_update_after_bind = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PhysicalDeviceInlineUniformBlockFeaturesEXT<'a> =
@@ -16462,8 +16856,10 @@ impl<'a> PhysicalDeviceInlineUniformBlockProperties<'a> {
         self.max_descriptor_set_update_after_bind_inline_uniform_blocks = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PhysicalDeviceInlineUniformBlockPropertiesEXT<'a> =
@@ -16505,8 +16901,10 @@ impl<'a> WriteDescriptorSetInlineUniformBlock<'a> {
         self.data_size = p_data.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type WriteDescriptorSetInlineUniformBlockEXT<'a> = WriteDescriptorSetInlineUniformBlock<'a>;
@@ -16544,8 +16942,10 @@ impl<'a> DescriptorPoolInlineUniformBlockCreateInfo<'a> {
         self.max_inline_uniform_block_bindings = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type DescriptorPoolInlineUniformBlockCreateInfoEXT<'a> =
@@ -16589,8 +16989,10 @@ impl<'a> PhysicalDeviceTextureCompressionASTCHDRFeatures<'a> {
         self.texture_compression_astc_hdr = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PhysicalDeviceTextureCompressionASTCHDRFeaturesEXT<'a> =
@@ -16673,8 +17075,10 @@ impl<'a> RenderingInfo<'a> {
         self.color_attachment_count = p_color_attachments.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type RenderingInfoKHR<'a> = RenderingInfo<'a>;
@@ -16757,8 +17161,10 @@ impl<'a> RenderingAttachmentInfo<'a> {
         self.clear_value = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type RenderingAttachmentInfoKHR<'a> = RenderingAttachmentInfo<'a>;
@@ -16823,8 +17229,10 @@ impl<'a> PipelineRenderingCreateInfo<'a> {
         self.color_attachment_count = p_color_attachment_formats.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PipelineRenderingCreateInfoKHR<'a> = PipelineRenderingCreateInfo<'a>;
@@ -16866,8 +17274,10 @@ impl<'a> PhysicalDeviceDynamicRenderingFeatures<'a> {
         self.dynamic_rendering = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PhysicalDeviceDynamicRenderingFeaturesKHR<'a> = PhysicalDeviceDynamicRenderingFeatures<'a>;
@@ -16946,8 +17356,10 @@ impl<'a> CommandBufferInheritanceRenderingInfo<'a> {
         self.color_attachment_count = p_color_attachment_formats.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type CommandBufferInheritanceRenderingInfoKHR<'a> = CommandBufferInheritanceRenderingInfo<'a>;
@@ -16990,8 +17402,10 @@ impl<'a> PhysicalDeviceShaderIntegerDotProductFeatures<'a> {
         self.shader_integer_dot_product = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PhysicalDeviceShaderIntegerDotProductFeaturesKHR<'a> =
@@ -17294,8 +17708,10 @@ impl<'a> PhysicalDeviceShaderIntegerDotProductProperties<'a> {
             value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PhysicalDeviceShaderIntegerDotProductPropertiesKHR<'a> =
@@ -17362,8 +17778,10 @@ impl<'a> PhysicalDeviceTexelBufferAlignmentProperties<'a> {
         self.uniform_texel_buffer_offset_single_texel_alignment = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PhysicalDeviceTexelBufferAlignmentPropertiesEXT<'a> =
@@ -17413,8 +17831,10 @@ impl<'a> FormatProperties3<'a> {
         self.buffer_features = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type FormatProperties3KHR<'a> = FormatProperties3<'a>;
@@ -17456,8 +17876,10 @@ impl<'a> PhysicalDeviceMaintenance4Features<'a> {
         self.maintenance4 = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PhysicalDeviceMaintenance4FeaturesKHR<'a> = PhysicalDeviceMaintenance4Features<'a>;
@@ -17495,8 +17917,10 @@ impl<'a> PhysicalDeviceMaintenance4Properties<'a> {
         self.max_buffer_size = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PhysicalDeviceMaintenance4PropertiesKHR<'a> = PhysicalDeviceMaintenance4Properties<'a>;
@@ -17530,8 +17954,10 @@ impl<'a> DeviceBufferMemoryRequirements<'a> {
         self.p_create_info = ptr::from_ref(value);
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type DeviceBufferMemoryRequirementsKHR<'a> = DeviceBufferMemoryRequirements<'a>;
@@ -17572,8 +17998,10 @@ impl<'a> DeviceImageMemoryRequirements<'a> {
         self.plane_aspect = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type DeviceImageMemoryRequirementsKHR<'a> = DeviceImageMemoryRequirements<'a>;
@@ -17824,8 +18252,10 @@ impl<'a> SwapchainCreateInfoKHR<'a> {
         self.queue_family_index_count = p_queue_family_indices.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -17887,8 +18317,10 @@ impl<'a> PresentInfoKHR<'a> {
         self.swapchain_count = p_swapchains.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -17922,8 +18354,10 @@ impl<'a> ImageSwapchainCreateInfoKHR<'a> {
         self.swapchain = value.map(|v| unsafe { v.clone() });
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -17967,8 +18401,10 @@ impl<'a> BindImageMemorySwapchainInfoKHR<'a> {
         self.image_index = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -18029,8 +18465,10 @@ impl<'a> AcquireNextImageInfoKHR<'a> {
         self.device_mask = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -18070,8 +18508,10 @@ impl<'a> DeviceGroupPresentCapabilitiesKHR<'a> {
         self.modes = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -18115,8 +18555,10 @@ impl<'a> DeviceGroupPresentInfoKHR<'a> {
         self.swapchain_count = p_device_masks.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -18153,8 +18595,10 @@ impl<'a> DeviceGroupSwapchainCreateInfoKHR<'a> {
         self.modes = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -18194,8 +18638,10 @@ impl<'a> DisplayModeCreateInfoKHR<'a> {
         self.parameters = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -18514,8 +18960,10 @@ impl<'a> DisplaySurfaceCreateInfoKHR<'a> {
         self.image_extent = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -18563,8 +19011,10 @@ impl<'a> DisplayPresentInfoKHR<'a> {
         self.persistent = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -18611,8 +19061,10 @@ impl<'a> XlibSurfaceCreateInfoKHR<'a> {
         self.window = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -18659,8 +19111,10 @@ impl<'a> XcbSurfaceCreateInfoKHR<'a> {
         self.window = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -18707,8 +19161,10 @@ impl<'a> WaylandSurfaceCreateInfoKHR<'a> {
         self.surface = ptr::from_ref(value);
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/ANativeWindow.html>"]
@@ -18750,8 +19206,10 @@ impl<'a> AndroidSurfaceCreateInfoKHR<'a> {
         self.window = ptr::from_ref(value);
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -18798,8 +19256,10 @@ impl<'a> Win32SurfaceCreateInfoKHR<'a> {
         self.hwnd = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -18850,8 +19310,10 @@ impl<'a> DebugReportCallbackCreateInfoEXT<'a> {
         self.p_user_data = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -18889,8 +19351,10 @@ impl<'a> PipelineRasterizationStateRasterizationOrderAMD<'a> {
         self.rasterization_order = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -18937,8 +19401,10 @@ impl<'a> DebugMarkerObjectNameInfoEXT<'a> {
         self.p_object_name = value.as_ptr();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -18995,8 +19461,10 @@ impl<'a> DebugMarkerObjectTagInfoEXT<'a> {
         self.tag_size = p_tag.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -19036,8 +19504,10 @@ impl<'a> DebugMarkerMarkerInfoEXT<'a> {
         self.color = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -19074,8 +19544,10 @@ impl<'a> DedicatedAllocationImageCreateInfoNV<'a> {
         self.dedicated_allocation = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -19112,8 +19584,10 @@ impl<'a> DedicatedAllocationBufferCreateInfoNV<'a> {
         self.dedicated_allocation = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -19157,8 +19631,10 @@ impl<'a> DedicatedAllocationMemoryAllocateInfoNV<'a> {
         self.buffer = value.map(|v| unsafe { v.clone() });
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -19206,8 +19682,10 @@ impl<'a> PhysicalDeviceTransformFeedbackFeaturesEXT<'a> {
         self.geometry_streams = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -19311,8 +19789,10 @@ impl<'a> PhysicalDeviceTransformFeedbackPropertiesEXT<'a> {
         self.transform_feedback_draw = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -19357,8 +19837,10 @@ impl<'a> PipelineRasterizationStateStreamCreateInfoEXT<'a> {
         self.rasterization_stream = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -19394,8 +19876,10 @@ impl<'a> CuModuleCreateInfoNVX<'a> {
         self.data_size = p_data.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -19435,8 +19919,10 @@ impl<'a> CuFunctionCreateInfoNVX<'a> {
         self.p_name = value.as_ptr();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -19538,8 +20024,10 @@ impl<'a> CuLaunchInfoNVX<'a> {
         self.extra_count = p_extras.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -19586,8 +20074,10 @@ impl<'a> ImageViewHandleInfoNVX<'a> {
         self.sampler = value.map(|v| unsafe { v.clone() });
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -19627,8 +20117,10 @@ impl<'a> ImageViewAddressPropertiesNVX<'a> {
         self.size = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -19665,8 +20157,10 @@ impl<'a> TextureLODGatherFormatPropertiesAMD<'a> {
         self.supports_texture_gather_lodbias_amd = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -19834,8 +20328,10 @@ impl<'a> RenderingFragmentShadingRateAttachmentInfoKHR<'a> {
         self.shading_rate_attachment_texel_size = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -19880,8 +20376,10 @@ impl<'a> RenderingFragmentDensityMapAttachmentInfoEXT<'a> {
         self.image_layout = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -19935,8 +20433,10 @@ impl<'a> AttachmentSampleCountInfoAMD<'a> {
         self.color_attachment_count = p_color_attachment_samples.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type AttachmentSampleCountInfoNV<'a> = AttachmentSampleCountInfoAMD<'a>;
@@ -19989,8 +20489,10 @@ impl<'a> MultiviewPerViewAttributesInfoNVX<'a> {
         self.per_view_attributes_position_xonly = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -20030,8 +20532,10 @@ impl<'a> StreamDescriptorSurfaceCreateInfoGGP<'a> {
         self.stream_descriptor = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -20072,8 +20576,10 @@ impl<'a> PhysicalDeviceCornerSampledImageFeaturesNV<'a> {
         self.corner_sampled_image = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -20157,8 +20663,10 @@ impl<'a> ExternalMemoryImageCreateInfoNV<'a> {
         self.handle_types = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -20192,8 +20700,10 @@ impl<'a> ExportMemoryAllocateInfoNV<'a> {
         self.handle_types = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -20237,8 +20747,10 @@ impl<'a> ImportMemoryWin32HandleInfoNV<'a> {
         self.handle = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -20282,8 +20794,10 @@ impl<'a> ExportMemoryWin32HandleInfoNV<'a> {
         self.dw_access = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -20353,8 +20867,10 @@ impl<'a> Win32KeyedMutexAcquireReleaseInfoNV<'a> {
         self.release_count = p_release_syncs.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -20394,8 +20910,10 @@ impl<'a> ValidationFlagsEXT<'a> {
         self.disabled_validation_check_count = p_disabled_validation_checks.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -20435,8 +20953,10 @@ impl<'a> ViSurfaceCreateInfoNN<'a> {
         self.window = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -20470,8 +20990,10 @@ impl<'a> ImageViewASTCDecodeModeEXT<'a> {
         self.decode_mode = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -20512,8 +21034,10 @@ impl<'a> PhysicalDeviceASTCDecodeFeaturesEXT<'a> {
         self.decode_mode_shared_exponent = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -20555,8 +21079,10 @@ impl<'a> PhysicalDevicePipelineRobustnessFeaturesEXT<'a> {
         self.pipeline_robustness = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -20624,8 +21150,10 @@ impl<'a> PhysicalDevicePipelineRobustnessPropertiesEXT<'a> {
         self.default_robustness_images = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -20695,8 +21223,10 @@ impl<'a> PipelineRobustnessCreateInfoEXT<'a> {
         self.images = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -20747,8 +21277,10 @@ impl<'a> ImportMemoryWin32HandleInfoKHR<'a> {
         self.name = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -20799,8 +21331,10 @@ impl<'a> ExportMemoryWin32HandleInfoKHR<'a> {
         self.name = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -20833,8 +21367,10 @@ impl<'a> MemoryWin32HandlePropertiesKHR<'a> {
         self.memory_type_bits = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -20874,8 +21410,10 @@ impl<'a> MemoryGetWin32HandleInfoKHR<'a> {
         self.handle_type = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -20916,8 +21454,10 @@ impl<'a> ImportMemoryFdInfoKHR<'a> {
         self.fd = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -20950,8 +21490,10 @@ impl<'a> MemoryFdPropertiesKHR<'a> {
         self.memory_type_bits = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -20991,8 +21533,10 @@ impl<'a> MemoryGetFdInfoKHR<'a> {
         self.handle_type = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -21064,8 +21608,10 @@ impl<'a> Win32KeyedMutexAcquireReleaseInfoKHR<'a> {
         self.release_count = p_release_syncs.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -21126,8 +21672,10 @@ impl<'a> ImportSemaphoreWin32HandleInfoKHR<'a> {
         self.name = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -21178,8 +21726,10 @@ impl<'a> ExportSemaphoreWin32HandleInfoKHR<'a> {
         self.name = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -21239,8 +21789,10 @@ impl<'a> D3D12FenceSubmitInfoKHR<'a> {
         self.signal_semaphore_values_count = p_signal_semaphore_values.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -21280,8 +21832,10 @@ impl<'a> SemaphoreGetWin32HandleInfoKHR<'a> {
         self.handle_type = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -21335,8 +21889,10 @@ impl<'a> ImportSemaphoreFdInfoKHR<'a> {
         self.fd = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -21376,8 +21932,10 @@ impl<'a> SemaphoreGetFdInfoKHR<'a> {
         self.handle_type = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -21414,8 +21972,10 @@ impl<'a> PhysicalDevicePushDescriptorPropertiesKHR<'a> {
         self.max_push_descriptors = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -21462,8 +22022,10 @@ impl<'a> ConditionalRenderingBeginInfoEXT<'a> {
         self.flags = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -21512,8 +22074,10 @@ impl<'a> PhysicalDeviceConditionalRenderingFeaturesEXT<'a> {
         self.inherited_conditional_rendering = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -21551,8 +22115,10 @@ impl<'a> CommandBufferInheritanceConditionalRenderingInfoEXT<'a> {
         self.conditional_rendering_enable = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -21594,8 +22160,10 @@ impl<'a> PresentRegionsKHR<'a> {
         self.swapchain_count = p_regions.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -21749,8 +22317,10 @@ impl<'a> PipelineViewportWScalingStateCreateInfoNV<'a> {
         self.viewport_count = p_viewport_wscalings.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -21853,8 +22423,10 @@ impl<'a> SurfaceCapabilities2EXT<'a> {
         self.supported_surface_counters = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -21887,8 +22459,10 @@ impl<'a> DisplayPowerInfoEXT<'a> {
         self.power_state = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -21921,8 +22495,10 @@ impl<'a> DeviceEventInfoEXT<'a> {
         self.device_event = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -21955,8 +22531,10 @@ impl<'a> DisplayEventInfoEXT<'a> {
         self.display_event = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -21993,8 +22571,10 @@ impl<'a> SwapchainCounterCreateInfoEXT<'a> {
         self.surface_counters = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -22110,8 +22690,10 @@ impl<'a> PresentTimesInfoGOOGLE<'a> {
         self.swapchain_count = p_times.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -22179,8 +22761,10 @@ impl<'a> PhysicalDeviceMultiviewPerViewAttributesPropertiesNVX<'a> {
         self.per_view_position_all_components = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -22274,8 +22858,10 @@ impl<'a> PipelineViewportSwizzleStateCreateInfoNV<'a> {
         self.viewport_count = p_viewport_swizzles.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -22313,8 +22899,10 @@ impl<'a> PhysicalDeviceDiscardRectanglePropertiesEXT<'a> {
         self.max_discard_rectangles = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -22368,8 +22956,10 @@ impl<'a> PipelineDiscardRectangleStateCreateInfoEXT<'a> {
         self.discard_rectangle_count = p_discard_rectangles.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -22469,8 +23059,10 @@ impl<'a> PhysicalDeviceConservativeRasterizationPropertiesEXT<'a> {
         self.conservative_rasterization_post_depth_coverage = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -22525,8 +23117,10 @@ impl<'a> PipelineRasterizationConservativeStateCreateInfoEXT<'a> {
         self.extra_primitive_overestimation_size = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -22567,8 +23161,10 @@ impl<'a> PhysicalDeviceDepthClipEnableFeaturesEXT<'a> {
         self.depth_clip_enable = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -22613,8 +23209,10 @@ impl<'a> PipelineRasterizationDepthClipStateCreateInfoEXT<'a> {
         self.depth_clip_enable = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -22696,8 +23294,10 @@ impl<'a> HdrMetadataEXT<'a> {
         self.max_frame_average_light_level = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -22769,8 +23369,10 @@ impl<'a> PhysicalDeviceRelaxedLineRasterizationFeaturesIMG<'a> {
         self.relaxed_line_rasterization = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -22807,8 +23409,10 @@ impl<'a> SharedPresentSurfaceCapabilitiesKHR<'a> {
         self.shared_present_supported_usage_flags = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -22869,8 +23473,10 @@ impl<'a> ImportFenceWin32HandleInfoKHR<'a> {
         self.name = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -22918,8 +23524,10 @@ impl<'a> ExportFenceWin32HandleInfoKHR<'a> {
         self.name = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -22959,8 +23567,10 @@ impl<'a> FenceGetWin32HandleInfoKHR<'a> {
         self.handle_type = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -23014,8 +23624,10 @@ impl<'a> ImportFenceFdInfoKHR<'a> {
         self.fd = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -23055,8 +23667,10 @@ impl<'a> FenceGetFdInfoKHR<'a> {
         self.handle_type = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -23104,8 +23718,10 @@ impl<'a> PhysicalDevicePerformanceQueryFeaturesKHR<'a> {
         self.performance_counter_multiple_query_pools = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -23143,8 +23759,10 @@ impl<'a> PhysicalDevicePerformanceQueryPropertiesKHR<'a> {
         self.allow_command_buffer_query_copies = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -23198,8 +23816,10 @@ impl<'a> PerformanceCounterKHR<'a> {
         self.uuid = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -23258,8 +23878,10 @@ impl<'a> PerformanceCounterDescriptionKHR<'a> {
         )
         .unwrap()
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -23306,8 +23928,10 @@ impl<'a> QueryPoolPerformanceCreateInfoKHR<'a> {
         self.counter_index_count = p_counter_indices.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -23366,8 +23990,10 @@ impl<'a> AcquireProfilingLockInfoKHR<'a> {
         self.timeout = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -23402,8 +24028,10 @@ impl<'a> PerformanceQuerySubmitInfoKHR<'a> {
         self.counter_pass_index = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -23440,8 +24068,10 @@ impl<'a> PerformanceQueryReservationInfoKHR<'a> {
         self.max_performance_queries_per_pool = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -23474,8 +24104,10 @@ impl<'a> PhysicalDeviceSurfaceInfo2KHR<'a> {
         self.surface = value.map(|v| unsafe { v.clone() });
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -23508,8 +24140,10 @@ impl<'a> SurfaceCapabilities2KHR<'a> {
         self.surface_capabilities = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -23542,8 +24176,10 @@ impl<'a> SurfaceFormat2KHR<'a> {
         self.surface_format = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -23576,8 +24212,10 @@ impl<'a> DisplayProperties2KHR<'a> {
         self.display_properties = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -23610,8 +24248,10 @@ impl<'a> DisplayPlaneProperties2KHR<'a> {
         self.display_plane_properties = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -23644,8 +24284,10 @@ impl<'a> DisplayModeProperties2KHR<'a> {
         self.display_mode_properties = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -23685,8 +24327,10 @@ impl<'a> DisplayPlaneInfo2KHR<'a> {
         self.plane_index = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -23719,8 +24363,10 @@ impl<'a> DisplayPlaneCapabilities2KHR<'a> {
         self.capabilities = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -23760,8 +24406,10 @@ impl<'a> IOSSurfaceCreateInfoMVK<'a> {
         self.p_view = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -23801,8 +24449,10 @@ impl<'a> MacOSSurfaceCreateInfoMVK<'a> {
         self.p_view = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -23842,8 +24492,10 @@ impl<'a> DebugUtilsLabelEXT<'a> {
         self.color = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -23933,8 +24585,10 @@ impl<'a> DebugUtilsMessengerCallbackDataEXT<'a> {
         self.object_count = p_objects.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -23999,8 +24653,10 @@ impl<'a> DebugUtilsMessengerCreateInfoEXT<'a> {
         self.p_user_data = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -24051,8 +24707,10 @@ impl<'a> DebugUtilsObjectNameInfoEXT<'a> {
         self.p_object_name = value.map(|v| v.as_ptr()).unwrap_or(ptr::null());
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -24109,8 +24767,10 @@ impl<'a> DebugUtilsObjectTagInfoEXT<'a> {
         self.tag_size = p_tag.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -24147,8 +24807,10 @@ impl<'a> AndroidHardwareBufferUsageANDROID<'a> {
         self.android_hardware_buffer_usage = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -24188,8 +24850,10 @@ impl<'a> AndroidHardwareBufferPropertiesANDROID<'a> {
         self.memory_type_bits = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -24276,8 +24940,10 @@ impl<'a> AndroidHardwareBufferFormatPropertiesANDROID<'a> {
         self.suggested_ychroma_offset = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -24314,8 +24980,10 @@ impl<'a> ImportAndroidHardwareBufferInfoANDROID<'a> {
         self.buffer = ptr::from_ref(value);
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -24348,8 +25016,10 @@ impl<'a> MemoryGetAndroidHardwareBufferInfoANDROID<'a> {
         self.memory = Some(unsafe { value.clone() });
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -24396,8 +25066,10 @@ impl<'a> ExternalFormatANDROID<'a> {
         self.external_format = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/AHardwareBuffer.html>"]
@@ -24486,8 +25158,10 @@ impl<'a> AndroidHardwareBufferFormatProperties2ANDROID<'a> {
         self.suggested_ychroma_offset = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -24528,8 +25202,10 @@ impl<'a> PhysicalDeviceShaderEnqueueFeaturesAMDX<'a> {
         self.shader_enqueue = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -24594,8 +25270,10 @@ impl<'a> PhysicalDeviceShaderEnqueuePropertiesAMDX<'a> {
         self.execution_graph_dispatch_address_alignment = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -24628,8 +25306,10 @@ impl<'a> ExecutionGraphPipelineScratchSizeAMDX<'a> {
         self.size = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -24705,8 +25385,10 @@ impl<'a> ExecutionGraphPipelineCreateInfoAMDX<'a> {
         self.stage_count = p_stages.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -24831,8 +25513,10 @@ impl<'a> PipelineShaderStageNodeCreateInfoAMDX<'a> {
         self.index = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -24932,8 +25616,10 @@ impl<'a> SampleLocationsInfoEXT<'a> {
         self.sample_locations_count = p_sample_locations.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -25057,8 +25743,10 @@ impl<'a> RenderPassSampleLocationsBeginInfoEXT<'a> {
             p_post_subpass_sample_locations.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -25102,8 +25790,10 @@ impl<'a> PipelineSampleLocationsStateCreateInfoEXT<'a> {
         self.sample_locations_info = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -25168,8 +25858,10 @@ impl<'a> PhysicalDeviceSampleLocationsPropertiesEXT<'a> {
         self.variable_sample_locations = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -25202,8 +25894,10 @@ impl<'a> MultisamplePropertiesEXT<'a> {
         self.max_sample_location_grid_size = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -25245,8 +25939,10 @@ impl<'a> PhysicalDeviceBlendOperationAdvancedFeaturesEXT<'a> {
         self.advanced_blend_coherent_operations = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -25319,8 +26015,10 @@ impl<'a> PhysicalDeviceBlendOperationAdvancedPropertiesEXT<'a> {
         self.advanced_blend_all_operations = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -25372,8 +26070,10 @@ impl<'a> PipelineColorBlendAdvancedStateCreateInfoEXT<'a> {
         self.blend_overlap = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -25424,8 +26124,10 @@ impl<'a> PipelineCoverageToColorStateCreateInfoNV<'a> {
         self.coverage_to_color_location = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -25634,8 +26336,10 @@ impl<'a> AccelerationStructureGeometryTrianglesDataKHR<'a> {
         self.transform_data = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -25759,8 +26463,10 @@ impl<'a> AccelerationStructureBuildGeometryInfoKHR<'a> {
         self.geometry_count = p_geometries.map(|p| p.as_slice().len()).unwrap_or_default() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -25800,8 +26506,10 @@ impl<'a> AccelerationStructureGeometryAabbsDataKHR<'a> {
         self.stride = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -25902,8 +26610,10 @@ impl<'a> AccelerationStructureGeometryInstancesDataKHR<'a> {
         self.data = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -25965,8 +26675,10 @@ impl<'a> AccelerationStructureGeometryKHR<'a> {
         self.flags = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -26034,8 +26746,10 @@ impl<'a> AccelerationStructureCreateInfoKHR<'a> {
         self.device_address = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -26083,8 +26797,10 @@ impl<'a> WriteDescriptorSetAccelerationStructureKHR<'a> {
         self.acceleration_structure_count = p_acceleration_structures.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -26157,8 +26873,10 @@ impl<'a> PhysicalDeviceAccelerationStructureFeaturesKHR<'a> {
         self.descriptor_binding_acceleration_structure_update_after_bind = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -26251,8 +26969,10 @@ impl<'a> PhysicalDeviceAccelerationStructurePropertiesKHR<'a> {
         self.min_acceleration_structure_scratch_offset_alignment = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -26285,8 +27005,10 @@ impl<'a> AccelerationStructureDeviceAddressInfoKHR<'a> {
         self.acceleration_structure = Some(unsafe { value.clone() });
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -26319,8 +27041,10 @@ impl<'a> AccelerationStructureVersionInfoKHR<'a> {
         self.p_version_data = value.as_ptr();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -26367,8 +27091,10 @@ impl<'a> CopyAccelerationStructureToMemoryInfoKHR<'a> {
         self.mode = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -26415,8 +27141,10 @@ impl<'a> CopyMemoryToAccelerationStructureInfoKHR<'a> {
         self.mode = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -26463,8 +27191,10 @@ impl<'a> CopyAccelerationStructureInfoKHR<'a> {
         self.mode = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -26511,8 +27241,10 @@ impl<'a> AccelerationStructureBuildSizesInfoKHR<'a> {
         self.build_scratch_size = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -26580,8 +27312,10 @@ impl<'a> RayTracingShaderGroupCreateInfoKHR<'a> {
         self.p_shader_group_capture_replay_handle = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -26689,8 +27423,10 @@ impl<'a> RayTracingPipelineCreateInfoKHR<'a> {
         self.group_count = p_groups.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -26766,8 +27502,10 @@ impl<'a> PhysicalDeviceRayTracingPipelineFeaturesKHR<'a> {
         self.ray_traversal_primitive_culling = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -26854,8 +27592,10 @@ impl<'a> PhysicalDeviceRayTracingPipelinePropertiesKHR<'a> {
         self.max_ray_hit_attribute_size = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -26969,8 +27709,10 @@ impl<'a> RayTracingPipelineInterfaceCreateInfoKHR<'a> {
         self.max_pipeline_ray_hit_attribute_size = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -27011,8 +27753,10 @@ impl<'a> PhysicalDeviceRayQueryFeaturesKHR<'a> {
         self.ray_query = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -27082,8 +27826,10 @@ impl<'a> PipelineCoverageModulationStateCreateInfoNV<'a> {
         self.coverage_modulation_table_count = p_coverage_modulation_table.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -27127,8 +27873,10 @@ impl<'a> PhysicalDeviceShaderSMBuiltinsPropertiesNV<'a> {
         self.shader_warps_per_sm = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -27169,8 +27917,10 @@ impl<'a> PhysicalDeviceShaderSMBuiltinsFeaturesNV<'a> {
         self.shader_smbuiltins = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -27209,8 +27959,10 @@ impl<'a> DrmFormatModifierPropertiesListEXT<'a> {
         self.drm_format_modifier_count = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -27302,8 +28054,10 @@ impl<'a> PhysicalDeviceImageDrmFormatModifierInfoEXT<'a> {
         self.queue_family_index_count = p_queue_family_indices.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -27343,8 +28097,10 @@ impl<'a> ImageDrmFormatModifierListCreateInfoEXT<'a> {
         self.drm_format_modifier_count = p_drm_format_modifiers.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -27392,8 +28148,10 @@ impl<'a> ImageDrmFormatModifierExplicitCreateInfoEXT<'a> {
         self.drm_format_modifier_plane_count = p_plane_layouts.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -27426,8 +28184,10 @@ impl<'a> ImageDrmFormatModifierPropertiesEXT<'a> {
         self.drm_format_modifier = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -27466,8 +28226,10 @@ impl<'a> DrmFormatModifierPropertiesList2EXT<'a> {
         self.drm_format_modifier_count = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -27547,8 +28309,10 @@ impl<'a> ValidationCacheCreateInfoEXT<'a> {
         self.initial_data_size = p_initial_data.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -27589,8 +28353,10 @@ impl<'a> ShaderModuleValidationCacheCreateInfoEXT<'a> {
         self.validation_cache = Some(unsafe { value.clone() });
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -27729,8 +28495,10 @@ impl<'a> PhysicalDevicePortabilitySubsetFeaturesKHR<'a> {
         self.vertex_attribute_access_beyond_stride = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -27768,8 +28536,10 @@ impl<'a> PhysicalDevicePortabilitySubsetPropertiesKHR<'a> {
         self.min_vertex_input_binding_stride_alignment = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -27852,8 +28622,10 @@ impl<'a> PipelineViewportShadingRateImageStateCreateInfoNV<'a> {
         self.viewport_count = p_shading_rate_palettes.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -27901,8 +28673,10 @@ impl<'a> PhysicalDeviceShadingRateImageFeaturesNV<'a> {
         self.shading_rate_coarse_sample_order = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -27953,8 +28727,10 @@ impl<'a> PhysicalDeviceShadingRateImagePropertiesNV<'a> {
         self.shading_rate_max_coarse_samples = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -28086,8 +28862,10 @@ impl<'a> PipelineViewportCoarseSampleOrderStateCreateInfoNV<'a> {
         self.custom_sample_order_count = p_custom_sample_orders.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -28148,8 +28926,10 @@ impl<'a> RayTracingShaderGroupCreateInfoNV<'a> {
         self.intersection_shader = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -28233,8 +29013,10 @@ impl<'a> RayTracingPipelineCreateInfoNV<'a> {
         self.group_count = p_groups.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -28337,8 +29119,10 @@ impl<'a> GeometryTrianglesNV<'a> {
         self.transform_offset = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -28392,8 +29176,10 @@ impl<'a> GeometryAABBNV<'a> {
         self.offset = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -28471,8 +29257,10 @@ impl<'a> GeometryNV<'a> {
         self.flags = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -28529,8 +29317,10 @@ impl<'a> AccelerationStructureInfoNV<'a> {
         self.geometry_count = p_geometries.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -28570,8 +29360,10 @@ impl<'a> AccelerationStructureCreateInfoNV<'a> {
         self.info = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -28628,8 +29420,10 @@ impl<'a> BindAccelerationStructureMemoryInfoNV<'a> {
         self.device_index_count = p_device_indices.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -28677,8 +29471,10 @@ impl<'a> WriteDescriptorSetAccelerationStructureNV<'a> {
         self.acceleration_structure_count = p_acceleration_structures.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -28719,8 +29515,10 @@ impl<'a> AccelerationStructureMemoryRequirementsInfoNV<'a> {
         self.acceleration_structure = Some(unsafe { value.clone() });
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -28806,8 +29604,10 @@ impl<'a> PhysicalDeviceRayTracingPropertiesNV<'a> {
         self.max_descriptor_set_acceleration_structures = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -28849,8 +29649,10 @@ impl<'a> PhysicalDeviceRepresentativeFragmentTestFeaturesNV<'a> {
         self.representative_fragment_test = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -28888,8 +29690,10 @@ impl<'a> PipelineRepresentativeFragmentTestStateCreateInfoNV<'a> {
         self.representative_fragment_test_enable = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -28926,8 +29730,10 @@ impl<'a> PhysicalDeviceImageViewImageFormatInfoEXT<'a> {
         self.image_view_type = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -28972,8 +29778,10 @@ impl<'a> FilterCubicImageViewImageFormatPropertiesEXT<'a> {
         self.filter_cubic_minmax = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -29017,8 +29825,10 @@ impl<'a> ImportMemoryHostPointerInfoEXT<'a> {
         self.p_host_pointer = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -29051,8 +29861,10 @@ impl<'a> MemoryHostPointerPropertiesEXT<'a> {
         self.memory_type_bits = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -29090,8 +29902,10 @@ impl<'a> PhysicalDeviceExternalMemoryHostPropertiesEXT<'a> {
         self.min_imported_host_pointer_alignment = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -29139,8 +29953,10 @@ impl<'a> PhysicalDeviceShaderClockFeaturesKHR<'a> {
         self.shader_device_clock = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -29185,8 +30001,10 @@ impl<'a> PipelineCompilerControlCreateInfoAMD<'a> {
         self.compiler_control_flags = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -29314,8 +30132,10 @@ impl<'a> PhysicalDeviceShaderCorePropertiesAMD<'a> {
         self.vgpr_allocation_granularity = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -29352,8 +30172,10 @@ impl<'a> DeviceQueueGlobalPriorityCreateInfoKHR<'a> {
         self.global_priority = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type DeviceQueueGlobalPriorityCreateInfoEXT<'a> = DeviceQueueGlobalPriorityCreateInfoKHR<'a>;
@@ -29396,8 +30218,10 @@ impl<'a> PhysicalDeviceGlobalPriorityQueryFeaturesKHR<'a> {
         self.global_priority_query = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PhysicalDeviceGlobalPriorityQueryFeaturesEXT<'a> =
@@ -29433,8 +30257,10 @@ impl<'a> Default for QueueFamilyGlobalPriorityPropertiesKHR<'a> {
     }
 }
 impl<'a> QueueFamilyGlobalPriorityPropertiesKHR<'a> {
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type QueueFamilyGlobalPriorityPropertiesEXT<'a> = QueueFamilyGlobalPriorityPropertiesKHR<'a>;
@@ -29472,8 +30298,10 @@ impl<'a> DeviceMemoryOverallocationCreateInfoAMD<'a> {
         self.overallocation_behavior = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -29511,8 +30339,10 @@ impl<'a> PhysicalDeviceVertexAttributeDivisorPropertiesEXT<'a> {
         self.max_vertex_attrib_divisor = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -29546,8 +30376,10 @@ impl<'a> PresentFrameTokenGGP<'a> {
         self.frame_token = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -29596,8 +30428,10 @@ impl<'a> PhysicalDeviceComputeShaderDerivativesFeaturesNV<'a> {
         self.compute_derivative_group_linear = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -29645,8 +30479,10 @@ impl<'a> PhysicalDeviceMeshShaderFeaturesNV<'a> {
         self.mesh_shader = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -29767,8 +30603,10 @@ impl<'a> PhysicalDeviceMeshShaderPropertiesNV<'a> {
         self.mesh_output_per_primitive_granularity = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -29840,8 +30678,10 @@ impl<'a> PhysicalDeviceShaderImageFootprintFeaturesNV<'a> {
         self.image_footprint = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -29882,8 +30722,10 @@ impl<'a> PipelineViewportExclusiveScissorStateCreateInfoNV<'a> {
         self.exclusive_scissor_count = p_exclusive_scissors.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -29924,8 +30766,10 @@ impl<'a> PhysicalDeviceExclusiveScissorFeaturesNV<'a> {
         self.exclusive_scissor = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -29962,8 +30806,10 @@ impl<'a> QueueFamilyCheckpointPropertiesNV<'a> {
         self.checkpoint_execution_stage_mask = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -30003,8 +30849,10 @@ impl<'a> CheckpointDataNV<'a> {
         self.p_checkpoint_marker = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -30046,8 +30894,10 @@ impl<'a> PhysicalDeviceShaderIntegerFunctions2FeaturesINTEL<'a> {
         self.shader_integer_functions2 = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -30128,8 +30978,10 @@ impl<'a> InitializePerformanceApiInfoINTEL<'a> {
         self.p_user_data = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -30166,8 +31018,10 @@ impl<'a> QueryPoolPerformanceQueryCreateInfoINTEL<'a> {
         self.performance_counters_sampling = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type QueryPoolCreateInfoINTEL<'a> = QueryPoolPerformanceQueryCreateInfoINTEL<'a>;
@@ -30201,8 +31055,10 @@ impl<'a> PerformanceMarkerInfoINTEL<'a> {
         self.marker = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -30235,8 +31091,10 @@ impl<'a> PerformanceStreamMarkerInfoINTEL<'a> {
         self.marker = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -30283,8 +31141,10 @@ impl<'a> PerformanceOverrideInfoINTEL<'a> {
         self.parameter = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -30317,8 +31177,10 @@ impl<'a> PerformanceConfigurationAcquireInfoINTEL<'a> {
         self.ty = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -30376,8 +31238,10 @@ impl<'a> PhysicalDevicePCIBusInfoPropertiesEXT<'a> {
         self.pci_function = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -30414,8 +31278,10 @@ impl<'a> DisplayNativeHdrSurfaceCapabilitiesAMD<'a> {
         self.local_dimming_support = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -30452,8 +31318,10 @@ impl<'a> SwapchainDisplayNativeHdrCreateInfoAMD<'a> {
         self.local_dimming_enable = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -30493,8 +31361,10 @@ impl<'a> ImagePipeSurfaceCreateInfoFUCHSIA<'a> {
         self.image_pipe_handle = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -30534,8 +31404,10 @@ impl<'a> MetalSurfaceCreateInfoEXT<'a> {
         self.p_layer = ptr::from_ref(value);
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/CAMetalLayer.html>"]
@@ -30593,8 +31465,10 @@ impl<'a> PhysicalDeviceFragmentDensityMapFeaturesEXT<'a> {
         self.fragment_density_map_non_subsampled_images = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -30646,8 +31520,10 @@ impl<'a> PhysicalDeviceFragmentDensityMapPropertiesEXT<'a> {
         self.fragment_density_invocations = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -30688,8 +31564,10 @@ impl<'a> RenderPassFragmentDensityMapCreateInfoEXT<'a> {
         self.fragment_density_map_attachment = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -30737,8 +31615,10 @@ impl<'a> FragmentShadingRateAttachmentInfoKHR<'a> {
         self.shading_rate_attachment_texel_size = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -30783,8 +31663,10 @@ impl<'a> PipelineFragmentShadingRateStateCreateInfoKHR<'a> {
         self.combiner_ops = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -30840,8 +31722,10 @@ impl<'a> PhysicalDeviceFragmentShadingRateFeaturesKHR<'a> {
         self.attachment_fragment_shading_rate = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -31021,8 +31905,10 @@ impl<'a> PhysicalDeviceFragmentShadingRatePropertiesKHR<'a> {
         self.fragment_shading_rate_strict_multiply_combiner = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -31062,8 +31948,10 @@ impl<'a> PhysicalDeviceFragmentShadingRateKHR<'a> {
         self.fragment_size = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -31107,8 +31995,10 @@ impl<'a> PhysicalDeviceShaderCoreProperties2AMD<'a> {
         self.active_compute_unit_count = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -31149,8 +32039,10 @@ impl<'a> PhysicalDeviceCoherentMemoryFeaturesAMD<'a> {
         self.device_coherent_memory = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -31192,8 +32084,10 @@ impl<'a> PhysicalDeviceDynamicRenderingLocalReadFeaturesKHR<'a> {
         self.dynamic_rendering_local_read = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -31240,8 +32134,10 @@ impl<'a> RenderingAttachmentLocationInfoKHR<'a> {
         self.color_attachment_count = p_color_attachment_locations.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -31310,8 +32206,10 @@ impl<'a> RenderingInputAttachmentIndexInfoKHR<'a> {
         self.color_attachment_count = p_color_attachment_input_indices.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -31360,8 +32258,10 @@ impl<'a> PhysicalDeviceShaderImageAtomicInt64FeaturesEXT<'a> {
         self.sparse_image_int64_atomics = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -31402,8 +32302,10 @@ impl<'a> PhysicalDeviceShaderQuadControlFeaturesKHR<'a> {
         self.shader_quad_control = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -31447,8 +32349,10 @@ impl<'a> PhysicalDeviceMemoryBudgetPropertiesEXT<'a> {
         self.heap_usage = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -31489,8 +32393,10 @@ impl<'a> PhysicalDeviceMemoryPriorityFeaturesEXT<'a> {
         self.memory_priority = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -31527,8 +32433,10 @@ impl<'a> MemoryPriorityAllocateInfoEXT<'a> {
         self.priority = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -31565,8 +32473,10 @@ impl<'a> SurfaceProtectedCapabilitiesKHR<'a> {
         self.supports_protected = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -31610,8 +32520,10 @@ impl<'a> PhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV<'a> {
         self.dedicated_allocation_image_aliasing = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -31667,8 +32579,10 @@ impl<'a> PhysicalDeviceBufferDeviceAddressFeaturesEXT<'a> {
         self.buffer_device_address_multi_device = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PhysicalDeviceBufferAddressFeaturesEXT<'a> =
@@ -31707,8 +32621,10 @@ impl<'a> BufferDeviceAddressCreateInfoEXT<'a> {
         self.device_address = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -31766,8 +32682,10 @@ impl<'a> ValidationFeaturesEXT<'a> {
             p_disabled_validation_features.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -31808,8 +32726,10 @@ impl<'a> PhysicalDevicePresentWaitFeaturesKHR<'a> {
         self.present_wait = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -31891,8 +32811,10 @@ impl<'a> CooperativeMatrixPropertiesNV<'a> {
         self.scope = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -31940,8 +32862,10 @@ impl<'a> PhysicalDeviceCooperativeMatrixFeaturesNV<'a> {
         self.cooperative_matrix_robust_buffer_access = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -31979,8 +32903,10 @@ impl<'a> PhysicalDeviceCooperativeMatrixPropertiesNV<'a> {
         self.cooperative_matrix_supported_stages = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -32022,8 +32948,10 @@ impl<'a> PhysicalDeviceCoverageReductionModeFeaturesNV<'a> {
         self.coverage_reduction_mode = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -32067,8 +32995,10 @@ impl<'a> PipelineCoverageReductionStateCreateInfoNV<'a> {
         self.coverage_reduction_mode = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -32122,8 +33052,10 @@ impl<'a> FramebufferMixedSamplesCombinationNV<'a> {
         self.color_samples = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -32179,8 +33111,10 @@ impl<'a> PhysicalDeviceFragmentShaderInterlockFeaturesEXT<'a> {
         self.fragment_shader_shading_rate_interlock = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -32221,8 +33155,10 @@ impl<'a> PhysicalDeviceYcbcrImageArraysFeaturesEXT<'a> {
         self.ycbcr_image_arrays = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -32273,8 +33209,10 @@ impl<'a> PhysicalDeviceProvokingVertexFeaturesEXT<'a> {
         self.transform_feedback_preserves_provoking_vertex = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -32321,8 +33259,10 @@ impl<'a> PhysicalDeviceProvokingVertexPropertiesEXT<'a> {
         self.transform_feedback_preserves_triangle_fan_provoking_vertex = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -32360,8 +33300,10 @@ impl<'a> PipelineRasterizationProvokingVertexStateCreateInfoEXT<'a> {
         self.provoking_vertex_mode = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -32402,8 +33344,10 @@ impl<'a> SurfaceFullScreenExclusiveInfoEXT<'a> {
         self.full_screen_exclusive = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -32440,8 +33384,10 @@ impl<'a> SurfaceCapabilitiesFullScreenExclusiveEXT<'a> {
         self.full_screen_exclusive_supported = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -32482,8 +33428,10 @@ impl<'a> SurfaceFullScreenExclusiveWin32InfoEXT<'a> {
         self.hmonitor = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -32516,8 +33464,10 @@ impl<'a> HeadlessSurfaceCreateInfoEXT<'a> {
         self.flags = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -32635,8 +33585,10 @@ impl<'a> PhysicalDeviceShaderAtomicFloatFeaturesEXT<'a> {
         self.sparse_image_float32_atomic_add = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -32678,8 +33630,10 @@ impl<'a> PhysicalDeviceExtendedDynamicStateFeaturesEXT<'a> {
         self.extended_dynamic_state = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -32721,8 +33675,10 @@ impl<'a> PhysicalDevicePipelineExecutablePropertiesFeaturesKHR<'a> {
         self.pipeline_executable_info = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -32755,8 +33711,10 @@ impl<'a> PipelineInfoKHR<'a> {
         self.pipeline = Some(unsafe { value.clone() });
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PipelineInfoEXT<'a> = PipelineInfoKHR<'a>;
@@ -32814,8 +33772,10 @@ impl<'a> PipelineExecutablePropertiesKHR<'a> {
         )
         .unwrap()
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -32855,8 +33815,10 @@ impl<'a> PipelineExecutableInfoKHR<'a> {
         self.executable_index = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -32930,8 +33892,10 @@ impl<'a> PipelineExecutableStatisticKHR<'a> {
         )
         .unwrap()
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -32991,8 +33955,10 @@ impl<'a> PipelineExecutableInternalRepresentationKHR<'a> {
         )
         .unwrap()
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -33033,8 +33999,10 @@ impl<'a> PhysicalDeviceHostImageCopyFeaturesEXT<'a> {
         self.host_image_copy = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -33108,8 +34076,10 @@ impl<'a> PhysicalDeviceHostImageCopyPropertiesEXT<'a> {
         self.copy_dst_layout_count = p_copy_dst_layouts.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -33177,8 +34147,10 @@ impl<'a> MemoryToImageCopyEXT<'a> {
         self.image_extent = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -33246,8 +34218,10 @@ impl<'a> ImageToMemoryCopyEXT<'a> {
         self.image_extent = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -33304,8 +34278,10 @@ impl<'a> CopyMemoryToImageInfoEXT<'a> {
         self.region_count = p_regions.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -33362,8 +34338,10 @@ impl<'a> CopyImageToMemoryInfoEXT<'a> {
         self.region_count = p_regions.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -33434,8 +34412,10 @@ impl<'a> CopyImageToImageInfoEXT<'a> {
         self.region_count = p_regions.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -33489,8 +34469,10 @@ impl<'a> HostImageLayoutTransitionInfoEXT<'a> {
         self.subresource_range = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -33527,8 +34509,10 @@ impl<'a> SubresourceHostMemcpySizeEXT<'a> {
         self.size = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -33572,8 +34556,10 @@ impl<'a> HostImageCopyDevicePerformanceQueryEXT<'a> {
         self.identical_memory_layout = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -33627,8 +34613,10 @@ impl<'a> MemoryMapInfoKHR<'a> {
         self.size = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -33668,8 +34656,10 @@ impl<'a> MemoryUnmapInfoKHR<'a> {
         self.memory = Some(unsafe { value.clone() });
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -33724,8 +34714,10 @@ impl<'a> PhysicalDeviceMapMemoryPlacedFeaturesEXT<'a> {
         self.memory_unmap_reserve = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -33762,8 +34754,10 @@ impl<'a> PhysicalDeviceMapMemoryPlacedPropertiesEXT<'a> {
         self.min_placed_memory_map_alignment = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -33797,8 +34791,10 @@ impl<'a> MemoryMapPlacedInfoEXT<'a> {
         self.p_placed_address = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -33917,8 +34913,10 @@ impl<'a> PhysicalDeviceShaderAtomicFloat2FeaturesEXT<'a> {
         self.sparse_image_float32_atomic_min_max = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -33955,8 +34953,10 @@ impl<'a> SurfacePresentModeEXT<'a> {
         self.present_mode = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -34021,8 +35021,10 @@ impl<'a> SurfacePresentScalingCapabilitiesEXT<'a> {
         self.max_scaled_image_extent = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -34067,8 +35069,10 @@ impl<'a> SurfacePresentModeCompatibilityEXT<'a> {
         self.present_mode_count = p_present_modes.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -34110,8 +35114,10 @@ impl<'a> PhysicalDeviceSwapchainMaintenance1FeaturesEXT<'a> {
         self.swapchain_maintenance1 = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -34148,8 +35154,10 @@ impl<'a> SwapchainPresentFenceInfoEXT<'a> {
         self.swapchain_count = p_fences.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -34189,8 +35197,10 @@ impl<'a> SwapchainPresentModesCreateInfoEXT<'a> {
         self.present_mode_count = p_present_modes.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -34227,8 +35237,10 @@ impl<'a> SwapchainPresentModeInfoEXT<'a> {
         self.swapchain_count = p_present_modes.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -34279,8 +35291,10 @@ impl<'a> SwapchainPresentScalingCreateInfoEXT<'a> {
         self.present_gravity_y = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -34323,8 +35337,10 @@ impl<'a> ReleaseSwapchainImagesInfoEXT<'a> {
         self.image_index_count = p_image_indices.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -34418,8 +35434,10 @@ impl<'a> PhysicalDeviceDeviceGeneratedCommandsPropertiesNV<'a> {
         self.min_indirect_commands_buffer_offset_alignment = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -34461,8 +35479,10 @@ impl<'a> PhysicalDeviceDeviceGeneratedCommandsFeaturesNV<'a> {
         self.device_generated_commands = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -34518,8 +35538,10 @@ impl<'a> GraphicsShaderGroupCreateInfoNV<'a> {
         self.stage_count = p_stages.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -34575,8 +35597,10 @@ impl<'a> GraphicsPipelineShaderGroupsCreateInfoNV<'a> {
         self.pipeline_count = p_pipelines.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -34840,8 +35864,10 @@ impl<'a> IndirectCommandsLayoutTokenNV<'a> {
         self.index_type_count = p_index_types.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -34901,8 +35927,10 @@ impl<'a> IndirectCommandsLayoutCreateInfoNV<'a> {
         self.stream_count = p_stream_strides.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -35015,8 +36043,10 @@ impl<'a> GeneratedCommandsInfoNV<'a> {
         self.stream_count = p_streams.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -35070,8 +36100,10 @@ impl<'a> GeneratedCommandsMemoryRequirementsInfoNV<'a> {
         self.max_sequences_count = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -35113,8 +36145,10 @@ impl<'a> PhysicalDeviceInheritedViewportScissorFeaturesNV<'a> {
         self.inherited_viewport_scissor2_d = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -35166,8 +36200,10 @@ impl<'a> CommandBufferInheritanceViewportScissorInfoNV<'a> {
         self.p_viewport_depths = ptr::from_ref(value);
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -35209,8 +36245,10 @@ impl<'a> PhysicalDeviceTexelBufferAlignmentFeaturesEXT<'a> {
         self.texel_buffer_alignment = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -35247,8 +36285,10 @@ impl<'a> RenderPassTransformBeginInfoQCOM<'a> {
         self.transform = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -35293,8 +36333,10 @@ impl<'a> CommandBufferInheritanceRenderPassTransformInfoQCOM<'a> {
         self.render_area = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -35359,8 +36401,10 @@ impl<'a> PhysicalDeviceDepthBiasControlFeaturesEXT<'a> {
         self.depth_bias_exact = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -35407,8 +36451,10 @@ impl<'a> DepthBiasInfoEXT<'a> {
         self.depth_bias_slope_factor = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -35456,8 +36502,10 @@ impl<'a> DepthBiasRepresentationInfoEXT<'a> {
         self.depth_bias_exact = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -35499,8 +36547,10 @@ impl<'a> PhysicalDeviceDeviceMemoryReportFeaturesEXT<'a> {
         self.device_memory_report = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -35551,8 +36601,10 @@ impl<'a> DeviceDeviceMemoryReportCreateInfoEXT<'a> {
         self.p_user_data = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -35627,8 +36679,10 @@ impl<'a> DeviceMemoryReportCallbackDataEXT<'a> {
         self.heap_index = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -35683,8 +36737,10 @@ impl<'a> PhysicalDeviceRobustness2FeaturesEXT<'a> {
         self.null_descriptor = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -35728,8 +36784,10 @@ impl<'a> PhysicalDeviceRobustness2PropertiesEXT<'a> {
         self.robust_uniform_buffer_access_size_alignment = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -35773,8 +36831,10 @@ impl<'a> SamplerCustomBorderColorCreateInfoEXT<'a> {
         self.format = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -35812,8 +36872,10 @@ impl<'a> PhysicalDeviceCustomBorderColorPropertiesEXT<'a> {
         self.max_custom_border_color_samplers = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -35861,8 +36923,10 @@ impl<'a> PhysicalDeviceCustomBorderColorFeaturesEXT<'a> {
         self.custom_border_color_without_format = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -35905,8 +36969,10 @@ impl<'a> PipelineLibraryCreateInfoKHR<'a> {
         self.library_count = p_libraries.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -35947,8 +37013,10 @@ impl<'a> PhysicalDevicePresentBarrierFeaturesNV<'a> {
         self.present_barrier = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -35985,8 +37053,10 @@ impl<'a> SurfaceCapabilitiesPresentBarrierNV<'a> {
         self.present_barrier_supported = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -36023,8 +37093,10 @@ impl<'a> SwapchainPresentBarrierCreateInfoNV<'a> {
         self.present_barrier_enable = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -36066,8 +37138,10 @@ impl<'a> PresentIdKHR<'a> {
         self.swapchain_count = p_present_ids.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -36108,8 +37182,10 @@ impl<'a> PhysicalDevicePresentIdFeaturesKHR<'a> {
         self.present_id = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -36150,8 +37226,10 @@ impl<'a> PhysicalDeviceDiagnosticsConfigFeaturesNV<'a> {
         self.diagnostics_config = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -36188,8 +37266,10 @@ impl<'a> DeviceDiagnosticsConfigCreateInfoNV<'a> {
         self.flags = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -36225,8 +37305,10 @@ impl<'a> CudaModuleCreateInfoNV<'a> {
         self.data_size = p_data.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -36266,8 +37348,10 @@ impl<'a> CudaFunctionCreateInfoNV<'a> {
         self.p_name = value.as_ptr();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -36369,8 +37453,10 @@ impl<'a> CudaLaunchInfoNV<'a> {
         self.extra_count = p_extras.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -36411,8 +37497,10 @@ impl<'a> PhysicalDeviceCudaKernelLaunchFeaturesNV<'a> {
         self.cuda_kernel_launch_features = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -36456,8 +37544,10 @@ impl<'a> PhysicalDeviceCudaKernelLaunchPropertiesNV<'a> {
         self.compute_capability_major = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -36491,8 +37581,10 @@ impl<'a> QueryLowLatencySupportNV<'a> {
         self.p_queried_low_latency_data = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -36547,8 +37639,10 @@ impl<'a> ExportMetalObjectCreateInfoEXT<'a> {
         self.export_object_type = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -36574,8 +37668,10 @@ impl<'a> Default for ExportMetalObjectsInfoEXT<'a> {
     }
 }
 impl<'a> ExportMetalObjectsInfoEXT<'a> {
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -36612,8 +37708,10 @@ impl<'a> ExportMetalDeviceInfoEXT<'a> {
         self.mtl_device = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -36657,8 +37755,10 @@ impl<'a> ExportMetalCommandQueueInfoEXT<'a> {
         self.mtl_command_queue = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -36702,8 +37802,10 @@ impl<'a> ExportMetalBufferInfoEXT<'a> {
         self.mtl_buffer = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -36737,8 +37839,10 @@ impl<'a> ImportMetalBufferInfoEXT<'a> {
         self.mtl_buffer = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -36803,8 +37907,10 @@ impl<'a> ExportMetalTextureInfoEXT<'a> {
         self.mtl_texture = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -36845,8 +37951,10 @@ impl<'a> ImportMetalTextureInfoEXT<'a> {
         self.mtl_texture = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -36890,8 +37998,10 @@ impl<'a> ExportMetalIOSurfaceInfoEXT<'a> {
         self.io_surface = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -36925,8 +38035,10 @@ impl<'a> ImportMetalIOSurfaceInfoEXT<'a> {
         self.io_surface = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -36977,8 +38089,10 @@ impl<'a> ExportMetalSharedEventInfoEXT<'a> {
         self.mtl_shared_event = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -37016,8 +38130,10 @@ impl<'a> ImportMetalSharedEventInfoEXT<'a> {
         self.mtl_shared_event = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/MTLDevice_id.html>"]
@@ -37066,8 +38182,10 @@ impl<'a> QueueFamilyCheckpointProperties2NV<'a> {
         self.checkpoint_execution_stage_mask = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -37107,8 +38225,10 @@ impl<'a> CheckpointData2NV<'a> {
         self.p_checkpoint_marker = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -37379,8 +38499,10 @@ impl<'a> PhysicalDeviceDescriptorBufferPropertiesEXT<'a> {
         self.descriptor_buffer_address_space_size = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -37418,8 +38540,10 @@ impl<'a> PhysicalDeviceDescriptorBufferDensityMapPropertiesEXT<'a> {
         self.combined_image_sampler_density_map_descriptor_size = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -37481,8 +38605,10 @@ impl<'a> PhysicalDeviceDescriptorBufferFeaturesEXT<'a> {
         self.descriptor_buffer_push_descriptors = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -37529,8 +38655,10 @@ impl<'a> DescriptorAddressInfoEXT<'a> {
         self.format = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -37570,8 +38698,10 @@ impl<'a> DescriptorBufferBindingInfoEXT<'a> {
         self.usage = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -37609,8 +38739,10 @@ impl<'a> DescriptorBufferBindingPushDescriptorBufferHandleEXT<'a> {
         self.buffer = Some(unsafe { value.clone() });
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -37672,8 +38804,10 @@ impl<'a> DescriptorGetInfoEXT<'a> {
         self.data = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -37706,8 +38840,10 @@ impl<'a> BufferCaptureDescriptorDataInfoEXT<'a> {
         self.buffer = Some(unsafe { value.clone() });
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -37740,8 +38876,10 @@ impl<'a> ImageCaptureDescriptorDataInfoEXT<'a> {
         self.image = Some(unsafe { value.clone() });
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -37774,8 +38912,10 @@ impl<'a> ImageViewCaptureDescriptorDataInfoEXT<'a> {
         self.image_view = Some(unsafe { value.clone() });
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -37808,8 +38948,10 @@ impl<'a> SamplerCaptureDescriptorDataInfoEXT<'a> {
         self.sampler = Some(unsafe { value.clone() });
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -37866,8 +39008,10 @@ impl<'a> OpaqueCaptureDescriptorDataCreateInfoEXT<'a> {
         self.opaque_capture_descriptor_data = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -37908,8 +39052,10 @@ impl<'a> AccelerationStructureCaptureDescriptorDataInfoEXT<'a> {
         self.acceleration_structure_nv = value.map(|v| unsafe { v.clone() });
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -37951,8 +39097,10 @@ impl<'a> PhysicalDeviceGraphicsPipelineLibraryFeaturesEXT<'a> {
         self.graphics_pipeline_library = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -38000,8 +39148,10 @@ impl<'a> PhysicalDeviceGraphicsPipelineLibraryPropertiesEXT<'a> {
         self.graphics_pipeline_library_independent_interpolation_decoration = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -38038,8 +39188,10 @@ impl<'a> GraphicsPipelineLibraryCreateInfoEXT<'a> {
         self.flags = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -38083,8 +39235,10 @@ impl<'a> PhysicalDeviceShaderEarlyAndLateFragmentTestsFeaturesAMD<'a> {
         self.shader_early_and_late_fragment_tests = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -38126,8 +39280,10 @@ impl<'a> PhysicalDeviceFragmentShaderBarycentricFeaturesKHR<'a> {
         self.fragment_shader_barycentric = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PhysicalDeviceFragmentShaderBarycentricFeaturesNV<'a> =
@@ -38170,8 +39326,10 @@ impl<'a> PhysicalDeviceFragmentShaderBarycentricPropertiesKHR<'a> {
         self.tri_strip_vertex_order_independent_of_provoking_vertex = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -38215,8 +39373,10 @@ impl<'a> PhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR<'a> {
         self.shader_subgroup_uniform_control_flow = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -38272,8 +39432,10 @@ impl<'a> PhysicalDeviceFragmentShadingRateEnumsFeaturesNV<'a> {
         self.no_invocation_fragment_shading_rates = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -38311,8 +39473,10 @@ impl<'a> PhysicalDeviceFragmentShadingRateEnumsPropertiesNV<'a> {
         self.max_fragment_shading_rate_invocation_count = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -38364,8 +39528,10 @@ impl<'a> PipelineFragmentShadingRateEnumStateCreateInfoNV<'a> {
         self.combiner_ops = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -38403,8 +39569,10 @@ impl<'a> AccelerationStructureGeometryMotionTrianglesDataNV<'a> {
         self.vertex_data = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -38448,8 +39616,10 @@ impl<'a> AccelerationStructureMotionInfoNV<'a> {
         self.flags = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -38814,8 +39984,10 @@ impl<'a> PhysicalDeviceRayTracingMotionBlurFeaturesNV<'a> {
         self.ray_tracing_motion_blur_pipeline_trace_rays_indirect = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -38884,8 +40056,10 @@ impl<'a> PhysicalDeviceMeshShaderFeaturesEXT<'a> {
         self.mesh_shader_queries = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -39111,8 +40285,10 @@ impl<'a> PhysicalDeviceMeshShaderPropertiesEXT<'a> {
         self.prefers_compact_primitive_output = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -39191,8 +40367,10 @@ impl<'a> PhysicalDeviceYcbcr2Plane444FormatsFeaturesEXT<'a> {
         self.ycbcr2plane444_formats = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -39234,8 +40412,10 @@ impl<'a> PhysicalDeviceFragmentDensityMap2FeaturesEXT<'a> {
         self.fragment_density_map_deferred = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -39297,8 +40477,10 @@ impl<'a> PhysicalDeviceFragmentDensityMap2PropertiesEXT<'a> {
         self.max_descriptor_set_subsampled_samplers = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -39333,8 +40515,10 @@ impl<'a> CopyCommandTransformInfoQCOM<'a> {
         self.transform = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -39406,8 +40590,10 @@ impl<'a> PhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR<'a> {
         self.workgroup_memory_explicit_layout16_bit_access = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -39449,8 +40635,10 @@ impl<'a> PhysicalDeviceImageCompressionControlFeaturesEXT<'a> {
         self.image_compression_control = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -39505,8 +40693,10 @@ impl<'a> ImageCompressionControlEXT<'a> {
         self.compression_control_plane_count = p_fixed_rate_flags.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -39561,8 +40751,10 @@ impl<'a> ImageCompressionPropertiesEXT<'a> {
         self.image_compression_fixed_rate_flags = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -39604,8 +40796,10 @@ impl<'a> PhysicalDeviceAttachmentFeedbackLoopLayoutFeaturesEXT<'a> {
         self.attachment_feedback_loop_layout = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -39653,8 +40847,10 @@ impl<'a> PhysicalDevice4444FormatsFeaturesEXT<'a> {
         self.format_a4_b4_g4_r4 = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -39702,8 +40898,10 @@ impl<'a> PhysicalDeviceFaultFeaturesEXT<'a> {
         self.device_fault_vendor_binary = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -39750,8 +40948,10 @@ impl<'a> DeviceFaultCountsEXT<'a> {
         self.vendor_binary_size = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -39807,8 +41007,10 @@ impl<'a> DeviceFaultInfoEXT<'a> {
         )
         .unwrap()
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -40018,8 +41220,10 @@ impl<'a> PhysicalDeviceRGBA10X6FormatsFeaturesEXT<'a> {
         self.format_rgba10x6_without_ycb_cr_sampler = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -40066,8 +41270,10 @@ impl<'a> DirectFBSurfaceCreateInfoEXT<'a> {
         self.surface = ptr::from_ref(value);
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -40109,8 +41315,10 @@ impl<'a> PhysicalDeviceVertexInputDynamicStateFeaturesEXT<'a> {
         self.vertex_input_dynamic_state = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -40164,8 +41372,10 @@ impl<'a> VertexInputBindingDescription2EXT<'a> {
         self.divisor = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -40219,8 +41429,10 @@ impl<'a> VertexInputAttributeDescription2EXT<'a> {
         self.offset = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -40292,8 +41504,10 @@ impl<'a> PhysicalDeviceDrmPropertiesEXT<'a> {
         self.render_minor = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -40335,8 +41549,10 @@ impl<'a> PhysicalDeviceAddressBindingReportFeaturesEXT<'a> {
         self.report_address_binding = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -40394,8 +41610,10 @@ impl<'a> DeviceAddressBindingCallbackDataEXT<'a> {
         self.binding_type = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -40436,8 +41654,10 @@ impl<'a> PhysicalDeviceDepthClipControlFeaturesEXT<'a> {
         self.depth_clip_control = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -40475,8 +41695,10 @@ impl<'a> PipelineViewportDepthClipControlCreateInfoEXT<'a> {
         self.negative_one_to_one = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -40525,8 +41747,10 @@ impl<'a> PhysicalDevicePrimitiveTopologyListRestartFeaturesEXT<'a> {
         self.primitive_topology_patch_list_restart = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -40570,8 +41794,10 @@ impl<'a> ImportMemoryZirconHandleInfoFUCHSIA<'a> {
         self.handle = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -40604,8 +41830,10 @@ impl<'a> MemoryZirconHandlePropertiesFUCHSIA<'a> {
         self.memory_type_bits = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -40645,8 +41873,10 @@ impl<'a> MemoryGetZirconHandleInfoFUCHSIA<'a> {
         self.handle_type = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -40700,8 +41930,10 @@ impl<'a> ImportSemaphoreZirconHandleInfoFUCHSIA<'a> {
         self.zircon_handle = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -40741,8 +41973,10 @@ impl<'a> SemaphoreGetZirconHandleInfoFUCHSIA<'a> {
         self.handle_type = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -40775,8 +42009,10 @@ impl<'a> BufferCollectionCreateInfoFUCHSIA<'a> {
         self.collection_token = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -40820,8 +42056,10 @@ impl<'a> ImportMemoryBufferCollectionFUCHSIA<'a> {
         self.index = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -40865,8 +42103,10 @@ impl<'a> BufferCollectionImageCreateInfoFUCHSIA<'a> {
         self.index = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -40916,8 +42156,10 @@ impl<'a> BufferConstraintsInfoFUCHSIA<'a> {
         self.buffer_collection_constraints = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -40961,8 +42203,10 @@ impl<'a> BufferCollectionBufferCreateInfoFUCHSIA<'a> {
         self.index = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -41065,8 +42309,10 @@ impl<'a> BufferCollectionPropertiesFUCHSIA<'a> {
         self.suggested_ychroma_offset = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -41099,8 +42345,10 @@ impl<'a> SysmemColorSpaceFUCHSIA<'a> {
         self.color_space = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -41156,8 +42404,10 @@ impl<'a> ImageConstraintsInfoFUCHSIA<'a> {
         self.format_constraints_count = p_format_constraints.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -41224,8 +42474,10 @@ impl<'a> ImageFormatConstraintsInfoFUCHSIA<'a> {
         self.color_space_count = p_color_spaces.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -41286,8 +42538,10 @@ impl<'a> BufferCollectionConstraintsInfoFUCHSIA<'a> {
         self.min_buffer_count_for_shared_slack = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -41331,8 +42585,10 @@ impl<'a> SubpassShadingPipelineCreateInfoHUAWEI<'a> {
         self.subpass = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -41373,8 +42629,10 @@ impl<'a> PhysicalDeviceSubpassShadingFeaturesHUAWEI<'a> {
         self.subpass_shading = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -41412,8 +42670,10 @@ impl<'a> PhysicalDeviceSubpassShadingPropertiesHUAWEI<'a> {
         self.max_subpass_shading_workgroup_size_aspect_ratio = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -41454,8 +42714,10 @@ impl<'a> PhysicalDeviceInvocationMaskFeaturesHUAWEI<'a> {
         self.invocation_mask = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkRemoteAddressNV.html>"]
@@ -41498,8 +42760,10 @@ impl<'a> MemoryGetRemoteAddressInfoNV<'a> {
         self.handle_type = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -41540,8 +42804,10 @@ impl<'a> PhysicalDeviceExternalMemoryRDMAFeaturesNV<'a> {
         self.external_memory_rdma = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -41574,8 +42840,10 @@ impl<'a> PipelinePropertiesIdentifierEXT<'a> {
         self.pipeline_identifier = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -41617,8 +42885,10 @@ impl<'a> PhysicalDevicePipelinePropertiesFeaturesEXT<'a> {
         self.pipeline_properties_identifier = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -41659,8 +42929,10 @@ impl<'a> PhysicalDeviceFrameBoundaryFeaturesEXT<'a> {
         self.frame_boundary = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -41756,8 +43028,10 @@ impl<'a> FrameBoundaryEXT<'a> {
         self.tag_size = p_tag.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -41801,8 +43075,10 @@ impl<'a> PhysicalDeviceMultisampledRenderToSingleSampledFeaturesEXT<'a> {
         self.multisampled_render_to_single_sampled = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -41839,8 +43115,10 @@ impl<'a> SubpassResolvePerformanceQueryEXT<'a> {
         self.optimal = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -41891,8 +43169,10 @@ impl<'a> MultisampledRenderToSingleSampledInfoEXT<'a> {
         self.rasterization_samples = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -41951,8 +43231,10 @@ impl<'a> PhysicalDeviceExtendedDynamicState2FeaturesEXT<'a> {
         self.extended_dynamic_state2_patch_control_points = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -41999,8 +43281,10 @@ impl<'a> ScreenSurfaceCreateInfoQNX<'a> {
         self.window = ptr::from_ref(value);
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -42041,8 +43325,10 @@ impl<'a> PhysicalDeviceColorWriteEnableFeaturesEXT<'a> {
         self.color_write_enable = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -42082,8 +43368,10 @@ impl<'a> PipelineColorWriteCreateInfoEXT<'a> {
         self.attachment_count = p_color_write_enables.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -42145,8 +43433,10 @@ impl<'a> PhysicalDevicePrimitivesGeneratedQueryFeaturesEXT<'a> {
         self.primitives_generated_query_with_non_zero_streams = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -42195,8 +43485,10 @@ impl<'a> PhysicalDeviceRayTracingMaintenance1FeaturesKHR<'a> {
         self.ray_tracing_pipeline_trace_rays_indirect2 = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -42351,8 +43643,10 @@ impl<'a> PhysicalDeviceImageViewMinLodFeaturesEXT<'a> {
         self.min_lod = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -42389,8 +43683,10 @@ impl<'a> ImageViewMinLodCreateInfoEXT<'a> {
         self.min_lod = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -42431,8 +43727,10 @@ impl<'a> PhysicalDeviceMultiDrawFeaturesEXT<'a> {
         self.multi_draw = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -42469,8 +43767,10 @@ impl<'a> PhysicalDeviceMultiDrawPropertiesEXT<'a> {
         self.max_multi_draw_count = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -42585,8 +43885,10 @@ impl<'a> PhysicalDeviceImage2DViewOf3DFeaturesEXT<'a> {
         self.sampler2_dview_of3_d = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -42641,8 +43943,10 @@ impl<'a> PhysicalDeviceShaderTileImageFeaturesEXT<'a> {
         self.shader_tile_image_stencil_read_access = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -42699,8 +44003,10 @@ impl<'a> PhysicalDeviceShaderTileImagePropertiesEXT<'a> {
         self.shader_tile_image_read_from_helper_invocation = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -42810,8 +44116,10 @@ impl<'a> MicromapBuildInfoEXT<'a> {
             .unwrap_or_default() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -42916,8 +44224,10 @@ impl<'a> MicromapCreateInfoEXT<'a> {
         self.device_address = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -42972,8 +44282,10 @@ impl<'a> PhysicalDeviceOpacityMicromapFeaturesEXT<'a> {
         self.micromap_host_commands = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -43017,8 +44329,10 @@ impl<'a> PhysicalDeviceOpacityMicromapPropertiesEXT<'a> {
         self.max_opacity4_state_subdivision_level = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -43051,8 +44365,10 @@ impl<'a> MicromapVersionInfoEXT<'a> {
         self.p_version_data = value.as_ptr();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -43099,8 +44415,10 @@ impl<'a> CopyMicromapToMemoryInfoEXT<'a> {
         self.mode = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -43147,8 +44465,10 @@ impl<'a> CopyMemoryToMicromapInfoEXT<'a> {
         self.mode = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -43195,8 +44515,10 @@ impl<'a> CopyMicromapInfoEXT<'a> {
         self.mode = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -43243,8 +44565,10 @@ impl<'a> MicromapBuildSizesInfoEXT<'a> {
         self.discardable = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -43338,8 +44662,10 @@ impl<'a> AccelerationStructureTrianglesOpacityMicromapEXT<'a> {
             .unwrap_or_default() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -43418,8 +44744,10 @@ impl<'a> PhysicalDeviceDisplacementMicromapFeaturesNV<'a> {
         self.displacement_micromap = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -43457,8 +44785,10 @@ impl<'a> PhysicalDeviceDisplacementMicromapPropertiesNV<'a> {
         self.max_displacement_micromap_subdivision_level = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -43614,8 +44944,10 @@ impl<'a> AccelerationStructureTrianglesDisplacementMicromapNV<'a> {
             .unwrap_or_default() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -43664,8 +44996,10 @@ impl<'a> PhysicalDeviceClusterCullingShaderFeaturesHUAWEI<'a> {
         self.multiview_cluster_culling_shader = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -43724,8 +45058,10 @@ impl<'a> PhysicalDeviceClusterCullingShaderPropertiesHUAWEI<'a> {
         self.indirect_buffer_offset_alignment = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -43763,8 +45099,10 @@ impl<'a> PhysicalDeviceClusterCullingShaderVrsFeaturesHUAWEI<'a> {
         self.cluster_shading_rate = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -43813,8 +45151,10 @@ impl<'a> PhysicalDeviceBorderColorSwizzleFeaturesEXT<'a> {
         self.border_color_swizzle_from_image = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -43859,8 +45199,10 @@ impl<'a> SamplerBorderColorComponentMappingCreateInfoEXT<'a> {
         self.srgb = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -43902,8 +45244,10 @@ impl<'a> PhysicalDevicePageableDeviceLocalMemoryFeaturesEXT<'a> {
         self.pageable_device_local_memory = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -43954,8 +45298,10 @@ impl<'a> PhysicalDeviceShaderCorePropertiesARM<'a> {
         self.fma_rate = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -44004,8 +45350,10 @@ impl<'a> PhysicalDeviceShaderSubgroupRotateFeaturesKHR<'a> {
         self.shader_subgroup_rotate_clustered = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -44046,8 +45394,10 @@ impl<'a> DeviceQueueShaderCoreControlCreateInfoARM<'a> {
         self.shader_core_count = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -44089,8 +45439,10 @@ impl<'a> PhysicalDeviceSchedulingControlsFeaturesARM<'a> {
         self.scheduling_controls = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -44128,8 +45480,10 @@ impl<'a> PhysicalDeviceSchedulingControlsPropertiesARM<'a> {
         self.scheduling_controls_flags = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -44171,8 +45525,10 @@ impl<'a> PhysicalDeviceImageSlicedViewOf3DFeaturesEXT<'a> {
         self.image_sliced_view_of3_d = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -44216,8 +45572,10 @@ impl<'a> ImageViewSlicedCreateInfoEXT<'a> {
         self.slice_count = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -44259,8 +45617,10 @@ impl<'a> PhysicalDeviceDescriptorSetHostMappingFeaturesVALVE<'a> {
         self.descriptor_set_host_mapping = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -44300,8 +45660,10 @@ impl<'a> DescriptorSetBindingReferenceVALVE<'a> {
         self.binding = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -44341,8 +45703,10 @@ impl<'a> DescriptorSetLayoutHostMappingInfoVALVE<'a> {
         self.descriptor_size = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -44383,8 +45747,10 @@ impl<'a> PhysicalDeviceDepthClampZeroOneFeaturesEXT<'a> {
         self.depth_clamp_zero_one = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -44426,8 +45792,10 @@ impl<'a> PhysicalDeviceNonSeamlessCubeMapFeaturesEXT<'a> {
         self.non_seamless_cube_map = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -44468,8 +45836,10 @@ impl<'a> PhysicalDeviceRenderPassStripedFeaturesARM<'a> {
         self.render_pass_striped = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -44514,8 +45884,10 @@ impl<'a> PhysicalDeviceRenderPassStripedPropertiesARM<'a> {
         self.max_render_pass_stripes = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -44559,8 +45931,10 @@ impl<'a> RenderPassStripeBeginInfoARM<'a> {
         self.stripe_info_count = p_stripe_infos.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -44593,8 +45967,10 @@ impl<'a> RenderPassStripeInfoARM<'a> {
         self.stripe_area = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -44637,8 +46013,10 @@ impl<'a> RenderPassStripeSubmitInfoARM<'a> {
         self.stripe_semaphore_info_count = p_stripe_semaphore_infos.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -44680,8 +46058,10 @@ impl<'a> PhysicalDeviceFragmentDensityMapOffsetFeaturesQCOM<'a> {
         self.fragment_density_map_offset = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -44719,8 +46099,10 @@ impl<'a> PhysicalDeviceFragmentDensityMapOffsetPropertiesQCOM<'a> {
         self.fragment_density_offset_granularity = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -44763,8 +46145,10 @@ impl<'a> SubpassFragmentDensityMapOffsetEndInfoQCOM<'a> {
         self.fragment_density_offset_count = p_fragment_density_offsets.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -44900,8 +46284,10 @@ impl<'a> PhysicalDeviceCopyMemoryIndirectFeaturesNV<'a> {
         self.indirect_copy = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -44939,8 +46325,10 @@ impl<'a> PhysicalDeviceCopyMemoryIndirectPropertiesNV<'a> {
         self.supported_queues = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -45033,8 +46421,10 @@ impl<'a> PhysicalDeviceMemoryDecompressionFeaturesNV<'a> {
         self.memory_decompression = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -45079,8 +46469,10 @@ impl<'a> PhysicalDeviceMemoryDecompressionPropertiesNV<'a> {
         self.max_decompression_indirect_count = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -45136,8 +46528,10 @@ impl<'a> PhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV<'a> {
         self.device_generated_compute_capture_replay = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -45188,8 +46582,10 @@ impl<'a> ComputePipelineIndirectBufferInfoNV<'a> {
         self.pipeline_device_address_capture_replay = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -45229,8 +46625,10 @@ impl<'a> PipelineIndirectDeviceAddressInfoNV<'a> {
         self.pipeline = Some(unsafe { value.clone() });
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -45295,8 +46693,10 @@ impl<'a> PhysicalDeviceLinearColorAttachmentFeaturesNV<'a> {
         self.linear_color_attachment = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -45338,8 +46738,10 @@ impl<'a> PhysicalDeviceShaderMaximalReconvergenceFeaturesKHR<'a> {
         self.shader_maximal_reconvergence = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -45383,8 +46785,10 @@ impl<'a> PhysicalDeviceImageCompressionControlSwapchainFeaturesEXT<'a> {
         self.image_compression_control_swapchain = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -45435,8 +46839,10 @@ impl<'a> ImageViewSampleWeightCreateInfoQCOM<'a> {
         self.num_phases = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -45491,8 +46897,10 @@ impl<'a> PhysicalDeviceImageProcessingFeaturesQCOM<'a> {
         self.texture_block_match = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -45551,8 +46959,10 @@ impl<'a> PhysicalDeviceImageProcessingPropertiesQCOM<'a> {
         self.max_box_filter_block_size = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -45608,8 +47018,10 @@ impl<'a> PhysicalDeviceNestedCommandBufferFeaturesEXT<'a> {
         self.nested_command_buffer_simultaneous_use = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -45647,8 +47059,10 @@ impl<'a> PhysicalDeviceNestedCommandBufferPropertiesEXT<'a> {
         self.max_command_buffer_nesting_level = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -45697,8 +47111,10 @@ impl<'a> ExternalMemoryAcquireUnmodifiedEXT<'a> {
         self.acquire_unmodified_memory = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -46013,8 +47429,10 @@ impl<'a> PhysicalDeviceExtendedDynamicState3FeaturesEXT<'a> {
         self.extended_dynamic_state3_shading_rate_image_enable = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -46052,8 +47470,10 @@ impl<'a> PhysicalDeviceExtendedDynamicState3PropertiesEXT<'a> {
         self.dynamic_primitive_topology_unrestricted = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -46204,8 +47624,10 @@ impl<'a> PhysicalDeviceSubpassMergeFeedbackFeaturesEXT<'a> {
         self.subpass_merge_feedback = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -46246,8 +47668,10 @@ impl<'a> RenderPassCreationControlEXT<'a> {
         self.disallow_merging = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -46307,8 +47731,10 @@ impl<'a> RenderPassCreationFeedbackCreateInfoEXT<'a> {
         self.p_render_pass_feedback = ptr::from_ref(value);
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -46384,8 +47810,10 @@ impl<'a> RenderPassSubpassFeedbackCreateInfoEXT<'a> {
         self.p_subpass_feedback = ptr::from_ref(value);
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -46425,8 +47853,10 @@ impl<'a> DirectDriverLoadingInfoLUNARG<'a> {
         self.pfn_get_instance_proc_addr = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -46476,8 +47906,10 @@ impl<'a> DirectDriverLoadingListLUNARG<'a> {
         self.driver_count = p_drivers.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -46519,8 +47951,10 @@ impl<'a> PhysicalDeviceShaderModuleIdentifierFeaturesEXT<'a> {
         self.shader_module_identifier = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -46558,8 +47992,10 @@ impl<'a> PhysicalDeviceShaderModuleIdentifierPropertiesEXT<'a> {
         self.shader_module_identifier_algorithm_uuid = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -46600,8 +48036,10 @@ impl<'a> PipelineShaderStageModuleIdentifierCreateInfoEXT<'a> {
         self.identifier_size = p_identifier.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -46631,8 +48069,10 @@ impl<'a> Default for ShaderModuleIdentifierEXT<'a> {
     }
 }
 impl<'a> ShaderModuleIdentifierEXT<'a> {
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -46693,8 +48133,10 @@ impl<'a> PhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT<'a> {
         self.rasterization_order_stencil_attachment_access = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PhysicalDeviceRasterizationOrderAttachmentAccessFeaturesARM<'a> =
@@ -46737,8 +48179,10 @@ impl<'a> PhysicalDeviceOpticalFlowFeaturesNV<'a> {
         self.optical_flow = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -46845,8 +48289,10 @@ impl<'a> PhysicalDeviceOpticalFlowPropertiesNV<'a> {
         self.max_num_regions_of_interest = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -46884,8 +48330,10 @@ impl<'a> OpticalFlowImageFormatInfoNV<'a> {
         self.usage = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -46918,8 +48366,10 @@ impl<'a> OpticalFlowImageFormatPropertiesNV<'a> {
         self.format = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -47008,8 +48458,10 @@ impl<'a> OpticalFlowSessionCreateInfoNV<'a> {
         self.flags = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -47060,8 +48512,10 @@ impl<'a> OpticalFlowSessionCreatePrivateDataInfoNV<'a> {
         self.p_private_data = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -47104,8 +48558,10 @@ impl<'a> OpticalFlowExecuteInfoNV<'a> {
         self.region_count = p_regions.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -47146,8 +48602,10 @@ impl<'a> PhysicalDeviceLegacyDitheringFeaturesEXT<'a> {
         self.legacy_dithering = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -47189,8 +48647,10 @@ impl<'a> PhysicalDevicePipelineProtectedAccessFeaturesEXT<'a> {
         self.pipeline_protected_access = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -47232,8 +48692,10 @@ impl<'a> PhysicalDeviceExternalFormatResolveFeaturesANDROID<'a> {
         self.external_format_resolve = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -47288,8 +48750,10 @@ impl<'a> PhysicalDeviceExternalFormatResolvePropertiesANDROID<'a> {
         self.external_format_resolve_chroma_offset_y = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -47327,8 +48791,10 @@ impl<'a> AndroidHardwareBufferFormatResolvePropertiesANDROID<'a> {
         self.color_attachment_format = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -47369,8 +48835,10 @@ impl<'a> PhysicalDeviceMaintenance5FeaturesKHR<'a> {
         self.maintenance5 = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -47451,8 +48919,10 @@ impl<'a> PhysicalDeviceMaintenance5PropertiesKHR<'a> {
         self.non_strict_wide_lines_use_parallelogram = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -47512,8 +48982,10 @@ impl<'a> RenderingAreaInfoKHR<'a> {
         self.color_attachment_count = p_color_attachment_formats.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -47553,8 +49025,10 @@ impl<'a> DeviceImageSubresourceInfoKHR<'a> {
         self.p_subresource = ptr::from_ref(value);
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -47587,8 +49061,10 @@ impl<'a> ImageSubresource2KHR<'a> {
         self.image_subresource = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type ImageSubresource2EXT<'a> = ImageSubresource2KHR<'a>;
@@ -47622,8 +49098,10 @@ impl<'a> SubresourceLayout2KHR<'a> {
         self.subresource_layout = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type SubresourceLayout2EXT<'a> = SubresourceLayout2KHR<'a>;
@@ -47673,8 +49151,10 @@ impl<'a> PipelineCreateFlags2CreateInfoKHR<'a> {
         self.flags = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -47723,8 +49203,10 @@ impl<'a> BufferUsageFlags2CreateInfoKHR<'a> {
         self.usage = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -47766,8 +49248,10 @@ impl<'a> PhysicalDeviceRayTracingPositionFetchFeaturesKHR<'a> {
         self.ray_tracing_position_fetch = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -47808,8 +49292,10 @@ impl<'a> PhysicalDeviceShaderObjectFeaturesEXT<'a> {
         self.shader_object = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -47853,8 +49339,10 @@ impl<'a> PhysicalDeviceShaderObjectPropertiesEXT<'a> {
         self.shader_binary_version = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -47968,8 +49456,10 @@ impl<'a> ShaderCreateInfoEXT<'a> {
         self.push_constant_range_count = p_push_constant_ranges.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -48010,8 +49500,10 @@ impl<'a> PhysicalDeviceTilePropertiesFeaturesQCOM<'a> {
         self.tile_properties = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -48058,8 +49550,10 @@ impl<'a> TilePropertiesQCOM<'a> {
         self.origin = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -48100,8 +49594,10 @@ impl<'a> PhysicalDeviceAmigoProfilingFeaturesSEC<'a> {
         self.amigo_profiling = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -48142,8 +49638,10 @@ impl<'a> AmigoProfilingSubmitInfoSEC<'a> {
         self.swap_buffer_timestamp = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -48185,8 +49683,10 @@ impl<'a> PhysicalDeviceMultiviewPerViewViewportsFeaturesQCOM<'a> {
         self.multiview_per_view_viewports = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -48227,8 +49727,10 @@ impl<'a> PhysicalDeviceRayTracingInvocationReorderPropertiesNV<'a> {
         self.ray_tracing_invocation_reorder_reordering_hint = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -48270,8 +49772,10 @@ impl<'a> PhysicalDeviceRayTracingInvocationReorderFeaturesNV<'a> {
         self.ray_tracing_invocation_reorder = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -48313,8 +49817,10 @@ impl<'a> PhysicalDeviceExtendedSparseAddressSpaceFeaturesNV<'a> {
         self.extended_sparse_address_space = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -48366,8 +49872,10 @@ impl<'a> PhysicalDeviceExtendedSparseAddressSpacePropertiesNV<'a> {
         self.extended_sparse_buffer_usage_flags = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -48409,8 +49917,10 @@ impl<'a> PhysicalDeviceMutableDescriptorTypeFeaturesEXT<'a> {
         self.mutable_descriptor_type = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PhysicalDeviceMutableDescriptorTypeFeaturesVALVE<'a> =
@@ -48492,8 +50002,10 @@ impl<'a> MutableDescriptorTypeCreateInfoEXT<'a> {
             p_mutable_descriptor_type_lists.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type MutableDescriptorTypeCreateInfoVALVE<'a> = MutableDescriptorTypeCreateInfoEXT<'a>;
@@ -48536,8 +50048,10 @@ impl<'a> PhysicalDeviceLegacyVertexAttributesFeaturesEXT<'a> {
         self.legacy_vertex_attributes = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -48575,8 +50089,10 @@ impl<'a> PhysicalDeviceLegacyVertexAttributesPropertiesEXT<'a> {
         self.native_unaligned_performance = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -48613,8 +50129,10 @@ impl<'a> LayerSettingsCreateInfoEXT<'a> {
         self.setting_count = p_settings.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -48704,8 +50222,10 @@ impl<'a> PhysicalDeviceShaderCoreBuiltinsFeaturesARM<'a> {
         self.shader_core_builtins = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -48757,8 +50277,10 @@ impl<'a> PhysicalDeviceShaderCoreBuiltinsPropertiesARM<'a> {
         self.shader_warps_per_core = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -48800,8 +50322,10 @@ impl<'a> PhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT<'a> {
         self.pipeline_library_group_handles = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -48845,8 +50369,10 @@ impl<'a> PhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT<'a> {
         self.dynamic_rendering_unused_attachments = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -48893,8 +50419,10 @@ impl<'a> LatencySleepModeInfoNV<'a> {
         self.minimum_interval_us = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -48934,8 +50462,10 @@ impl<'a> LatencySleepInfoNV<'a> {
         self.value = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -48975,8 +50505,10 @@ impl<'a> SetLatencyMarkerInfoNV<'a> {
         self.marker = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -49017,8 +50549,10 @@ impl<'a> GetLatencyMarkerInfoNV<'a> {
         self.timing_count = p_timings.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -49142,8 +50676,10 @@ impl<'a> LatencyTimingsFrameReportNV<'a> {
         self.gpu_render_end_time_us = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -49178,8 +50714,10 @@ impl<'a> LatencySubmissionPresentIdNV<'a> {
         self.present_id = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -49216,8 +50754,10 @@ impl<'a> SwapchainLatencyCreateInfoNV<'a> {
         self.latency_mode_enable = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -49250,8 +50790,10 @@ impl<'a> OutOfBandQueueTypeInfoNV<'a> {
         self.queue_type = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -49296,8 +50838,10 @@ impl<'a> LatencySurfaceCapabilitiesNV<'a> {
         self.present_mode_count = p_present_modes.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -49386,8 +50930,10 @@ impl<'a> CooperativeMatrixPropertiesKHR<'a> {
         self.scope = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -49435,8 +50981,10 @@ impl<'a> PhysicalDeviceCooperativeMatrixFeaturesKHR<'a> {
         self.cooperative_matrix_robust_buffer_access = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -49474,8 +51022,10 @@ impl<'a> PhysicalDeviceCooperativeMatrixPropertiesKHR<'a> {
         self.cooperative_matrix_supported_stages = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -49517,8 +51067,10 @@ impl<'a> PhysicalDeviceMultiviewPerViewRenderAreasFeaturesQCOM<'a> {
         self.multiview_per_view_render_areas = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -49566,8 +51118,10 @@ impl<'a> MultiviewPerViewRenderAreasRenderPassBeginInfoQCOM<'a> {
         self.per_view_render_area_count = p_per_view_render_areas.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -49616,8 +51170,10 @@ impl<'a> PhysicalDevicePerStageDescriptorSetFeaturesNV<'a> {
         self.dynamic_pipeline_layout = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -49658,8 +51214,10 @@ impl<'a> PhysicalDeviceImageProcessing2FeaturesQCOM<'a> {
         self.texture_block_match2 = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -49697,8 +51255,10 @@ impl<'a> PhysicalDeviceImageProcessing2PropertiesQCOM<'a> {
         self.max_block_match_window = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -49742,8 +51302,10 @@ impl<'a> SamplerBlockMatchWindowCreateInfoQCOM<'a> {
         self.window_compare_mode = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -49784,8 +51346,10 @@ impl<'a> PhysicalDeviceCubicWeightsFeaturesQCOM<'a> {
         self.selectable_cubic_weights = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -49822,8 +51386,10 @@ impl<'a> SamplerCubicWeightsCreateInfoQCOM<'a> {
         self.cubic_weights = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -49857,8 +51423,10 @@ impl<'a> BlitImageCubicWeightsInfoQCOM<'a> {
         self.cubic_weights = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -49899,8 +51467,10 @@ impl<'a> PhysicalDeviceYcbcrDegammaFeaturesQCOM<'a> {
         self.ycbcr_degamma = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -49945,8 +51515,10 @@ impl<'a> SamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM<'a> {
         self.enable_cb_cr_degamma = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -49987,8 +51559,10 @@ impl<'a> PhysicalDeviceCubicClampFeaturesQCOM<'a> {
         self.cubic_range_clamp = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -50032,8 +51606,10 @@ impl<'a> PhysicalDeviceAttachmentFeedbackLoopDynamicStateFeaturesEXT<'a> {
         self.attachment_feedback_loop_dynamic_state = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -50078,8 +51654,10 @@ impl<'a> PhysicalDeviceVertexAttributeDivisorPropertiesKHR<'a> {
         self.supports_non_zero_first_instance = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -50154,8 +51732,10 @@ impl<'a> PipelineVertexInputDivisorStateCreateInfoKHR<'a> {
         self.vertex_binding_divisor_count = p_vertex_binding_divisors.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PipelineVertexInputDivisorStateCreateInfoEXT<'a> =
@@ -50206,8 +51786,10 @@ impl<'a> PhysicalDeviceVertexAttributeDivisorFeaturesKHR<'a> {
         self.vertex_attribute_instance_rate_zero_divisor = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PhysicalDeviceVertexAttributeDivisorFeaturesEXT<'a> =
@@ -50251,8 +51833,10 @@ impl<'a> PhysicalDeviceShaderFloatControls2FeaturesKHR<'a> {
         self.shader_float_controls2 = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -50292,8 +51876,10 @@ impl<'a> ScreenBufferPropertiesQNX<'a> {
         self.memory_type_bits = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -50386,8 +51972,10 @@ impl<'a> ScreenBufferFormatPropertiesQNX<'a> {
         self.suggested_ychroma_offset = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -50421,8 +52009,10 @@ impl<'a> ImportScreenBufferInfoQNX<'a> {
         self.buffer = ptr::from_ref(value);
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -50460,8 +52050,10 @@ impl<'a> ExternalFormatQNX<'a> {
         self.external_format = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -50503,8 +52095,10 @@ impl<'a> PhysicalDeviceExternalMemoryScreenBufferFeaturesQNX<'a> {
         self.screen_buffer_import = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -50541,8 +52135,10 @@ impl<'a> PhysicalDeviceLayeredDriverPropertiesMSFT<'a> {
         self.underlying_api = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -50583,8 +52179,10 @@ impl<'a> PhysicalDeviceIndexTypeUint8FeaturesKHR<'a> {
         self.index_type_uint8 = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PhysicalDeviceIndexTypeUint8FeaturesEXT<'a> = PhysicalDeviceIndexTypeUint8FeaturesKHR<'a>;
@@ -50661,8 +52259,10 @@ impl<'a> PhysicalDeviceLineRasterizationFeaturesKHR<'a> {
         self.stippled_smooth_lines = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PhysicalDeviceLineRasterizationFeaturesEXT<'a> =
@@ -50702,8 +52302,10 @@ impl<'a> PhysicalDeviceLineRasterizationPropertiesKHR<'a> {
         self.line_sub_pixel_precision_bits = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PhysicalDeviceLineRasterizationPropertiesEXT<'a> =
@@ -50764,8 +52366,10 @@ impl<'a> PipelineRasterizationLineStateCreateInfoKHR<'a> {
         self.line_stipple_pattern = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type PipelineRasterizationLineStateCreateInfoEXT<'a> =
@@ -50800,8 +52404,10 @@ impl<'a> CalibratedTimestampInfoKHR<'a> {
         self.time_domain = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 pub type CalibratedTimestampInfoEXT<'a> = CalibratedTimestampInfoKHR<'a>;
@@ -50844,8 +52450,10 @@ impl<'a> PhysicalDeviceShaderExpectAssumeFeaturesKHR<'a> {
         self.shader_expect_assume = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -50886,8 +52494,10 @@ impl<'a> PhysicalDeviceMaintenance6FeaturesKHR<'a> {
         self.maintenance6 = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -50938,8 +52548,10 @@ impl<'a> PhysicalDeviceMaintenance6PropertiesKHR<'a> {
         self.fragment_shading_rate_clamp_combiner_inputs = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -50974,8 +52586,10 @@ impl<'a> BindMemoryStatusKHR<'a> {
         self.p_result = ptr::from_ref(value);
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -51050,8 +52664,10 @@ impl<'a> BindDescriptorSetsInfoKHR<'a> {
         self.dynamic_offset_count = p_dynamic_offsets.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -51108,8 +52724,10 @@ impl<'a> PushConstantsInfoKHR<'a> {
         self.size = p_values.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -51169,8 +52787,10 @@ impl<'a> PushDescriptorSetInfoKHR<'a> {
         self.descriptor_write_count = p_descriptor_writes.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -51224,8 +52844,10 @@ impl<'a> PushDescriptorSetWithTemplateInfoKHR<'a> {
         self.p_data = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -51289,8 +52911,10 @@ impl<'a> SetDescriptorBufferOffsetsInfoEXT<'a> {
         self.set_count = p_buffer_indices.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -51338,8 +52962,10 @@ impl<'a> BindDescriptorBufferEmbeddedSamplersInfoEXT<'a> {
         self.set = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -51381,8 +53007,10 @@ impl<'a> PhysicalDeviceDescriptorPoolOverallocationFeaturesNV<'a> {
         self.descriptor_pool_overallocation = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -51423,8 +53051,10 @@ impl<'a> PhysicalDeviceRawAccessChainsFeaturesNV<'a> {
         self.shader_raw_access_chains = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -51468,8 +53098,10 @@ impl<'a> PhysicalDeviceShaderRelaxedExtendedInstructionFeaturesKHR<'a> {
         self.shader_relaxed_extended_instruction = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -51510,8 +53142,10 @@ impl<'a> PhysicalDeviceMaintenance7FeaturesKHR<'a> {
         self.maintenance7 = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -51609,8 +53243,10 @@ impl<'a> PhysicalDeviceMaintenance7PropertiesKHR<'a> {
         self.max_descriptor_set_update_after_bind_total_buffers_dynamic = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -51658,8 +53294,10 @@ impl<'a> PhysicalDeviceLayeredApiPropertiesListKHR<'a> {
         self.layered_api_count = p_layered_apis.as_slice().len() as _;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -51713,8 +53351,10 @@ impl<'a> PhysicalDeviceLayeredApiPropertiesKHR<'a> {
         self.device_name = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -51752,8 +53392,10 @@ impl<'a> PhysicalDeviceLayeredApiVulkanPropertiesKHR<'a> {
         self.properties = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -51795,8 +53437,10 @@ impl<'a> PhysicalDeviceShaderAtomicFloat16VectorFeaturesNV<'a> {
         self.shader_float16_vector_atomics = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -51838,8 +53482,10 @@ impl<'a> PhysicalDeviceShaderReplicatedCompositesFeaturesEXT<'a> {
         self.shader_replicated_composites = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -51881,8 +53527,10 @@ impl<'a> PhysicalDeviceRayTracingValidationFeaturesNV<'a> {
         self.ray_tracing_validation = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -51924,8 +53572,10 @@ impl<'a> PhysicalDeviceImageAlignmentControlFeaturesMESA<'a> {
         self.image_alignment_control = value.into();
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -51963,8 +53613,10 @@ impl<'a> PhysicalDeviceImageAlignmentControlPropertiesMESA<'a> {
         self.supported_image_alignment_mask = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
 #[repr(C)]
@@ -52001,7 +53653,9 @@ impl<'a> ImageAlignmentControlCreateInfoMESA<'a> {
         self.maximum_requested_alignment = value;
         self
     }
-    pub fn push_next<T: ExtendingStructure<Self>>(&mut self, ext: &'a mut T) {
-        unsafe { self.push_next_unchecked(ext) }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
     }
 }
