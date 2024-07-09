@@ -1005,19 +1005,19 @@ macro_rules! structure_chain {
     ($head:expr, $ext1:expr $(,)?) => {
         $crate::StructureChain1::new($head, $ext1)
     };
-    ($head:pat, $ext1:pat, $ext2:pat $(,)?) => {
+    ($head:expr, $ext1:expr, $ext2:expr $(,)?) => {
         $crate::StructureChain2::new($head, $ext1, $ext2)
     };
-    ($head:pat, $ext1:pat, $ext2:pat, $ext3:pat $(,)?) => {
+    ($head:expr, $ext1:expr, $ext2:expr, $ext3:expr $(,)?) => {
         $crate::StructureChain3::new($head, $ext1, $ext2, $ext3)
     };
-    ($head:pat, $ext1:pat, $ext2:pat, $ext3:pat, $ext4:pat $(,)?) => {
+    ($head:expr, $ext1:expr, $ext2:expr, $ext3:expr, $ext4:expr $(,)?) => {
         $crate::StructureChain4::new($head, $ext1, $ext2, $ext3, $ext4)
     };
-    ($head:pat, $ext1:pat, $ext2:pat, $ext3:pat, $ext4:pat, $ext5:pat $(,)?) => {
+    ($head:expr, $ext1:expr, $ext2:expr, $ext3:expr, $ext4:expr, $ext5:expr $(,)?) => {
         $crate::StructureChain5::new($head, $ext1, $ext2, $ext3, $ext4, $ext5)
     };
-    ($head:pat, $ext1:pat, $ext2:pat, $ext3:pat, $ext4:pat, $ext5:pat, $ext6:pat $(,)?) => {
+    ($head:expr, $ext1:expr, $ext2:expr, $ext3:expr, $ext4:expr, $ext5:expr, $ext6:expr $(,)?) => {
         $crate::StructureChain6::new($head, $ext1, $ext2, $ext3, $ext4, $ext5, $ext6)
     };
 }
