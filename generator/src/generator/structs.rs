@@ -71,7 +71,7 @@ pub fn generate<'a>(gen: &Generator<'a>) -> Result<String> {
         use std::ptr;
         use std::array;
         use std::marker::PhantomData;
-        use std::ffi::{c_char, c_int, c_void};
+        use std::ffi::{c_char, c_int, c_ulong, c_void};
         use std::mem::ManuallyDrop;
 
         #(#struct_features)*

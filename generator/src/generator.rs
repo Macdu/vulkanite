@@ -153,7 +153,7 @@ impl<'a> Generator<'a> {
             ("double", "f64"),
             ("void", "c_void"),
             // Types from external headers
-            ("Window", "u32"),
+            ("Window", "c_ulong"),
             ("xcb_window_t", "u32"),
             // Custom types for QoL improvements
             ("VoidPtr", "VoidPtr"),

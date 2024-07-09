@@ -2,7 +2,7 @@ use crate::vk::raw::*;
 use crate::vk::*;
 use crate::*;
 use std::array;
-use std::ffi::{c_char, c_int, c_void};
+use std::ffi::{c_char, c_int, c_ulong, c_void};
 use std::marker::PhantomData;
 use std::mem::ManuallyDrop;
 use std::ptr;
@@ -19025,7 +19025,7 @@ pub struct XlibSurfaceCreateInfoKHR<'a> {
     pub(crate) p_next: Cell<*const Header>,
     pub flags: u32,
     pub dpy: *const VoidPtr,
-    pub window: u32,
+    pub window: c_ulong,
     phantom: PhantomData<&'a ()>,
 }
 unsafe impl<'a> ExtendableStructure for XlibSurfaceCreateInfoKHR<'a> {
@@ -19057,7 +19057,7 @@ impl<'a> XlibSurfaceCreateInfoKHR<'a> {
         self
     }
     #[inline]
-    pub fn window(mut self, value: u32) -> Self {
+    pub fn window(mut self, value: c_ulong) -> Self {
         self.window = value;
         self
     }
