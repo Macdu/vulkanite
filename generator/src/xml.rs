@@ -111,6 +111,8 @@ pub struct Type {
     pub object_type_enum: Option<String>,
     #[serde(rename = "@requires")]
     pub requires: Option<String>,
+    #[serde(rename = "@bitvalues")]
+    pub bitvalues: Option<String>,
     #[serde(rename = "@api")]
     pub api: Option<Api>,
     #[serde(rename = "@deprecated")]

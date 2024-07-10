@@ -1692,10 +1692,16 @@ pub struct CommandsDispatcher {
             unsafe extern "system" fn(Option<CommandBuffer>, Option<Event>, *const DependencyInfo),
         >,
     >,
-    pub cmd_reset_event2:
-        Cell<Option<unsafe extern "system" fn(Option<CommandBuffer>, Option<Event>, u32)>>,
-    pub cmd_reset_event2_khr:
-        Cell<Option<unsafe extern "system" fn(Option<CommandBuffer>, Option<Event>, u32)>>,
+    pub cmd_reset_event2: Cell<
+        Option<
+            unsafe extern "system" fn(Option<CommandBuffer>, Option<Event>, PipelineStageFlags2),
+        >,
+    >,
+    pub cmd_reset_event2_khr: Cell<
+        Option<
+            unsafe extern "system" fn(Option<CommandBuffer>, Option<Event>, PipelineStageFlags2),
+        >,
+    >,
     pub cmd_wait_events2: Cell<
         Option<
             unsafe extern "system" fn(
@@ -1720,10 +1726,26 @@ pub struct CommandsDispatcher {
         Cell<Option<unsafe extern "system" fn(Option<CommandBuffer>, *const DependencyInfo)>>,
     pub cmd_pipeline_barrier2_khr:
         Cell<Option<unsafe extern "system" fn(Option<CommandBuffer>, *const DependencyInfo)>>,
-    pub cmd_write_timestamp2:
-        Cell<Option<unsafe extern "system" fn(Option<CommandBuffer>, u32, Option<QueryPool>, u32)>>,
-    pub cmd_write_timestamp2_khr:
-        Cell<Option<unsafe extern "system" fn(Option<CommandBuffer>, u32, Option<QueryPool>, u32)>>,
+    pub cmd_write_timestamp2: Cell<
+        Option<
+            unsafe extern "system" fn(
+                Option<CommandBuffer>,
+                PipelineStageFlags2,
+                Option<QueryPool>,
+                u32,
+            ),
+        >,
+    >,
+    pub cmd_write_timestamp2_khr: Cell<
+        Option<
+            unsafe extern "system" fn(
+                Option<CommandBuffer>,
+                PipelineStageFlags2,
+                Option<QueryPool>,
+                u32,
+            ),
+        >,
+    >,
     pub queue_submit2: Cell<
         Option<
             unsafe extern "system" fn(
@@ -3793,7 +3815,13 @@ pub struct CommandsDispatcher {
         Cell<Option<unsafe extern "system" fn(Option<Device>, *const ExportMetalObjectsInfoEXT)>>,
     pub cmd_write_buffer_marker2_amd: Cell<
         Option<
-            unsafe extern "system" fn(Option<CommandBuffer>, u32, Option<Buffer>, DeviceSize, u32),
+            unsafe extern "system" fn(
+                Option<CommandBuffer>,
+                PipelineStageFlags2,
+                Option<Buffer>,
+                DeviceSize,
+                u32,
+            ),
         >,
     >,
     pub get_queue_checkpoint_data2_nv: Cell<

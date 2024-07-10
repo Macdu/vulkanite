@@ -5326,7 +5326,7 @@ pub fn cmd_set_event2_khr(
 pub fn cmd_reset_event2(
     command_buffer: &CommandBuffer,
     event: &Event,
-    stage_mask: u32,
+    stage_mask: PipelineStageFlags2,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
@@ -5346,7 +5346,7 @@ pub fn cmd_reset_event2(
 pub fn cmd_reset_event2_khr(
     command_buffer: &CommandBuffer,
     event: &Event,
-    stage_mask: u32,
+    stage_mask: PipelineStageFlags2,
     dispatcher: &CommandsDispatcher,
 ) {
     let vulkan_command = dispatcher
@@ -5443,7 +5443,7 @@ pub fn cmd_pipeline_barrier2_khr(
 #[doc(alias = "vkCmdWriteTimestamp2")]
 pub fn cmd_write_timestamp2(
     command_buffer: &CommandBuffer,
-    stage: u32,
+    stage: PipelineStageFlags2,
     query_pool: &QueryPool,
     query: u32,
     dispatcher: &CommandsDispatcher,
@@ -5465,7 +5465,7 @@ pub fn cmd_write_timestamp2(
 #[doc(alias = "vkCmdWriteTimestamp2KHR")]
 pub fn cmd_write_timestamp2_khr(
     command_buffer: &CommandBuffer,
-    stage: u32,
+    stage: PipelineStageFlags2,
     query_pool: &QueryPool,
     query: u32,
     dispatcher: &CommandsDispatcher,
@@ -11933,7 +11933,7 @@ pub fn export_metal_objects_ext<S: StructureChainOut<ExportMetalObjectsInfoEXT<'
 #[doc(alias = "vkCmdWriteBufferMarker2AMD")]
 pub fn cmd_write_buffer_marker2_amd(
     command_buffer: &CommandBuffer,
-    stage: u32,
+    stage: PipelineStageFlags2,
     dst_buffer: &Buffer,
     dst_offset: DeviceSize,
     marker: u32,

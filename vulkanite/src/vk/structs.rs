@@ -15231,10 +15231,10 @@ pub type PhysicalDevicePipelineCreationCacheControlFeaturesEXT<'a> =
 pub struct MemoryBarrier2<'a> {
     pub(crate) s_type: StructureType,
     pub(crate) p_next: Cell<*const Header>,
-    pub src_stage_mask: u32,
-    pub src_access_mask: u32,
-    pub dst_stage_mask: u32,
-    pub dst_access_mask: u32,
+    pub src_stage_mask: PipelineStageFlags2,
+    pub src_access_mask: AccessFlags2,
+    pub dst_stage_mask: PipelineStageFlags2,
+    pub dst_access_mask: AccessFlags2,
     phantom: PhantomData<&'a ()>,
 }
 unsafe impl<'a> ExtendableStructure for MemoryBarrier2<'a> {
@@ -15258,22 +15258,22 @@ impl<'a> Default for MemoryBarrier2<'a> {
 }
 impl<'a> MemoryBarrier2<'a> {
     #[inline]
-    pub fn src_stage_mask(mut self, value: u32) -> Self {
+    pub fn src_stage_mask(mut self, value: PipelineStageFlags2) -> Self {
         self.src_stage_mask = value;
         self
     }
     #[inline]
-    pub fn src_access_mask(mut self, value: u32) -> Self {
+    pub fn src_access_mask(mut self, value: AccessFlags2) -> Self {
         self.src_access_mask = value;
         self
     }
     #[inline]
-    pub fn dst_stage_mask(mut self, value: u32) -> Self {
+    pub fn dst_stage_mask(mut self, value: PipelineStageFlags2) -> Self {
         self.dst_stage_mask = value;
         self
     }
     #[inline]
-    pub fn dst_access_mask(mut self, value: u32) -> Self {
+    pub fn dst_access_mask(mut self, value: AccessFlags2) -> Self {
         self.dst_access_mask = value;
         self
     }
@@ -15290,10 +15290,10 @@ pub type MemoryBarrier2KHR<'a> = MemoryBarrier2<'a>;
 pub struct BufferMemoryBarrier2<'a> {
     pub(crate) s_type: StructureType,
     pub(crate) p_next: Cell<*const Header>,
-    pub src_stage_mask: u32,
-    pub src_access_mask: u32,
-    pub dst_stage_mask: u32,
-    pub dst_access_mask: u32,
+    pub src_stage_mask: PipelineStageFlags2,
+    pub src_access_mask: AccessFlags2,
+    pub dst_stage_mask: PipelineStageFlags2,
+    pub dst_access_mask: AccessFlags2,
     pub src_queue_family_index: u32,
     pub dst_queue_family_index: u32,
     pub buffer: Option<Buffer>,
@@ -15326,22 +15326,22 @@ impl<'a> Default for BufferMemoryBarrier2<'a> {
 }
 impl<'a> BufferMemoryBarrier2<'a> {
     #[inline]
-    pub fn src_stage_mask(mut self, value: u32) -> Self {
+    pub fn src_stage_mask(mut self, value: PipelineStageFlags2) -> Self {
         self.src_stage_mask = value;
         self
     }
     #[inline]
-    pub fn src_access_mask(mut self, value: u32) -> Self {
+    pub fn src_access_mask(mut self, value: AccessFlags2) -> Self {
         self.src_access_mask = value;
         self
     }
     #[inline]
-    pub fn dst_stage_mask(mut self, value: u32) -> Self {
+    pub fn dst_stage_mask(mut self, value: PipelineStageFlags2) -> Self {
         self.dst_stage_mask = value;
         self
     }
     #[inline]
-    pub fn dst_access_mask(mut self, value: u32) -> Self {
+    pub fn dst_access_mask(mut self, value: AccessFlags2) -> Self {
         self.dst_access_mask = value;
         self
     }
@@ -15383,10 +15383,10 @@ pub type BufferMemoryBarrier2KHR<'a> = BufferMemoryBarrier2<'a>;
 pub struct ImageMemoryBarrier2<'a> {
     pub(crate) s_type: StructureType,
     pub(crate) p_next: Cell<*const Header>,
-    pub src_stage_mask: u32,
-    pub src_access_mask: u32,
-    pub dst_stage_mask: u32,
-    pub dst_access_mask: u32,
+    pub src_stage_mask: PipelineStageFlags2,
+    pub src_access_mask: AccessFlags2,
+    pub dst_stage_mask: PipelineStageFlags2,
+    pub dst_access_mask: AccessFlags2,
     pub old_layout: ImageLayout,
     pub new_layout: ImageLayout,
     pub src_queue_family_index: u32,
@@ -15421,22 +15421,22 @@ impl<'a> Default for ImageMemoryBarrier2<'a> {
 }
 impl<'a> ImageMemoryBarrier2<'a> {
     #[inline]
-    pub fn src_stage_mask(mut self, value: u32) -> Self {
+    pub fn src_stage_mask(mut self, value: PipelineStageFlags2) -> Self {
         self.src_stage_mask = value;
         self
     }
     #[inline]
-    pub fn src_access_mask(mut self, value: u32) -> Self {
+    pub fn src_access_mask(mut self, value: AccessFlags2) -> Self {
         self.src_access_mask = value;
         self
     }
     #[inline]
-    pub fn dst_stage_mask(mut self, value: u32) -> Self {
+    pub fn dst_stage_mask(mut self, value: PipelineStageFlags2) -> Self {
         self.dst_stage_mask = value;
         self
     }
     #[inline]
-    pub fn dst_access_mask(mut self, value: u32) -> Self {
+    pub fn dst_access_mask(mut self, value: AccessFlags2) -> Self {
         self.dst_access_mask = value;
         self
     }
@@ -15637,7 +15637,7 @@ pub struct SemaphoreSubmitInfo<'a> {
     pub(crate) p_next: Cell<*const Header>,
     pub semaphore: Option<Semaphore>,
     pub value: u64,
-    pub stage_mask: u32,
+    pub stage_mask: PipelineStageFlags2,
     pub device_index: u32,
     phantom: PhantomData<&'a ()>,
 }
@@ -15671,7 +15671,7 @@ impl<'a> SemaphoreSubmitInfo<'a> {
         self
     }
     #[inline]
-    pub fn stage_mask(mut self, value: u32) -> Self {
+    pub fn stage_mask(mut self, value: PipelineStageFlags2) -> Self {
         self.stage_mask = value;
         self
     }
@@ -17792,9 +17792,9 @@ pub type PhysicalDeviceTexelBufferAlignmentPropertiesEXT<'a> =
 pub struct FormatProperties3<'a> {
     pub(crate) s_type: StructureType,
     pub(crate) p_next: Cell<*const Header>,
-    pub linear_tiling_features: u32,
-    pub optimal_tiling_features: u32,
-    pub buffer_features: u32,
+    pub linear_tiling_features: FormatFeatureFlags2,
+    pub optimal_tiling_features: FormatFeatureFlags2,
+    pub buffer_features: FormatFeatureFlags2,
     phantom: PhantomData<&'a ()>,
 }
 unsafe impl<'a> ExtendableStructure for FormatProperties3<'a> {
@@ -17817,17 +17817,17 @@ impl<'a> Default for FormatProperties3<'a> {
 }
 impl<'a> FormatProperties3<'a> {
     #[inline]
-    pub fn linear_tiling_features(mut self, value: u32) -> Self {
+    pub fn linear_tiling_features(mut self, value: FormatFeatureFlags2) -> Self {
         self.linear_tiling_features = value;
         self
     }
     #[inline]
-    pub fn optimal_tiling_features(mut self, value: u32) -> Self {
+    pub fn optimal_tiling_features(mut self, value: FormatFeatureFlags2) -> Self {
         self.optimal_tiling_features = value;
         self
     }
     #[inline]
-    pub fn buffer_features(mut self, value: u32) -> Self {
+    pub fn buffer_features(mut self, value: FormatFeatureFlags2) -> Self {
         self.buffer_features = value;
         self
     }
@@ -25082,7 +25082,7 @@ pub struct AndroidHardwareBufferFormatProperties2ANDROID<'a> {
     pub(crate) p_next: Cell<*const Header>,
     pub format: Format,
     pub external_format: u64,
-    pub format_features: u32,
+    pub format_features: FormatFeatureFlags2,
     pub sampler_ycbcr_conversion_components: ComponentMapping,
     pub suggested_ycbcr_model: SamplerYcbcrModelConversion,
     pub suggested_ycbcr_range: SamplerYcbcrRange,
@@ -25129,7 +25129,7 @@ impl<'a> AndroidHardwareBufferFormatProperties2ANDROID<'a> {
         self
     }
     #[inline]
-    pub fn format_features(mut self, value: u32) -> Self {
+    pub fn format_features(mut self, value: FormatFeatureFlags2) -> Self {
         self.format_features = value;
         self
     }
@@ -28239,7 +28239,7 @@ impl<'a> DrmFormatModifierPropertiesList2EXT<'a> {
 pub struct DrmFormatModifierProperties2EXT {
     pub drm_format_modifier: u64,
     pub drm_format_modifier_plane_count: u32,
-    pub drm_format_modifier_tiling_features: u32,
+    pub drm_format_modifier_tiling_features: FormatFeatureFlags2,
 }
 unsafe impl Send for DrmFormatModifierProperties2EXT {}
 unsafe impl Sync for DrmFormatModifierProperties2EXT {}
@@ -28264,7 +28264,7 @@ impl DrmFormatModifierProperties2EXT {
         self
     }
     #[inline]
-    pub fn drm_format_modifier_tiling_features(mut self, value: u32) -> Self {
+    pub fn drm_format_modifier_tiling_features(mut self, value: FormatFeatureFlags2) -> Self {
         self.drm_format_modifier_tiling_features = value;
         self
     }
@@ -38154,7 +38154,7 @@ pub type IOSurfaceRef = VoidPtr;
 pub struct QueueFamilyCheckpointProperties2NV<'a> {
     pub(crate) s_type: StructureType,
     pub(crate) p_next: Cell<*const Header>,
-    pub checkpoint_execution_stage_mask: u32,
+    pub checkpoint_execution_stage_mask: PipelineStageFlags2,
     phantom: PhantomData<&'a ()>,
 }
 unsafe impl<'a> ExtendableStructure for QueueFamilyCheckpointProperties2NV<'a> {
@@ -38178,7 +38178,7 @@ impl<'a> Default for QueueFamilyCheckpointProperties2NV<'a> {
 }
 impl<'a> QueueFamilyCheckpointProperties2NV<'a> {
     #[inline]
-    pub fn checkpoint_execution_stage_mask(mut self, value: u32) -> Self {
+    pub fn checkpoint_execution_stage_mask(mut self, value: PipelineStageFlags2) -> Self {
         self.checkpoint_execution_stage_mask = value;
         self
     }
@@ -38194,7 +38194,7 @@ impl<'a> QueueFamilyCheckpointProperties2NV<'a> {
 pub struct CheckpointData2NV<'a> {
     pub(crate) s_type: StructureType,
     pub(crate) p_next: Cell<*const Header>,
-    pub stage: u32,
+    pub stage: PipelineStageFlags2,
     pub p_checkpoint_marker: VoidPtr,
     phantom: PhantomData<&'a ()>,
 }
@@ -38216,7 +38216,7 @@ impl<'a> Default for CheckpointData2NV<'a> {
 }
 impl<'a> CheckpointData2NV<'a> {
     #[inline]
-    pub fn stage(mut self, value: u32) -> Self {
+    pub fn stage(mut self, value: PipelineStageFlags2) -> Self {
         self.stage = value;
         self
     }
@@ -45451,7 +45451,7 @@ impl<'a> PhysicalDeviceSchedulingControlsFeaturesARM<'a> {
 pub struct PhysicalDeviceSchedulingControlsPropertiesARM<'a> {
     pub(crate) s_type: StructureType,
     pub(crate) p_next: Cell<*const Header>,
-    pub scheduling_controls_flags: u32,
+    pub scheduling_controls_flags: PhysicalDeviceSchedulingControlsFlagsARM,
     phantom: PhantomData<&'a ()>,
 }
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceSchedulingControlsPropertiesARM<'a> {
@@ -45476,7 +45476,10 @@ impl<'a> Default for PhysicalDeviceSchedulingControlsPropertiesARM<'a> {
 }
 impl<'a> PhysicalDeviceSchedulingControlsPropertiesARM<'a> {
     #[inline]
-    pub fn scheduling_controls_flags(mut self, value: u32) -> Self {
+    pub fn scheduling_controls_flags(
+        mut self,
+        value: PhysicalDeviceSchedulingControlsFlagsARM,
+    ) -> Self {
         self.scheduling_controls_flags = value;
         self
     }
@@ -46340,7 +46343,7 @@ pub struct DecompressMemoryRegionNV {
     pub dst_address: DeviceAddress,
     pub compressed_size: DeviceSize,
     pub decompressed_size: DeviceSize,
-    pub decompression_method: u32,
+    pub decompression_method: MemoryDecompressionMethodFlagsNV,
 }
 unsafe impl Send for DecompressMemoryRegionNV {}
 unsafe impl Sync for DecompressMemoryRegionNV {}
@@ -46377,7 +46380,7 @@ impl DecompressMemoryRegionNV {
         self
     }
     #[inline]
-    pub fn decompression_method(mut self, value: u32) -> Self {
+    pub fn decompression_method(mut self, value: MemoryDecompressionMethodFlagsNV) -> Self {
         self.decompression_method = value;
         self
     }
@@ -46433,7 +46436,7 @@ impl<'a> PhysicalDeviceMemoryDecompressionFeaturesNV<'a> {
 pub struct PhysicalDeviceMemoryDecompressionPropertiesNV<'a> {
     pub(crate) s_type: StructureType,
     pub(crate) p_next: Cell<*const Header>,
-    pub decompression_methods: u32,
+    pub decompression_methods: MemoryDecompressionMethodFlagsNV,
     pub max_decompression_indirect_count: u64,
     phantom: PhantomData<&'a ()>,
 }
@@ -46460,7 +46463,7 @@ impl<'a> Default for PhysicalDeviceMemoryDecompressionPropertiesNV<'a> {
 }
 impl<'a> PhysicalDeviceMemoryDecompressionPropertiesNV<'a> {
     #[inline]
-    pub fn decompression_methods(mut self, value: u32) -> Self {
+    pub fn decompression_methods(mut self, value: MemoryDecompressionMethodFlagsNV) -> Self {
         self.decompression_methods = value;
         self
     }
@@ -49111,7 +49114,7 @@ pub type SubresourceLayout2EXT<'a> = SubresourceLayout2KHR<'a>;
 pub struct PipelineCreateFlags2CreateInfoKHR<'a> {
     pub(crate) s_type: StructureType,
     pub(crate) p_next: Cell<*const Header>,
-    pub flags: u32,
+    pub flags: PipelineCreateFlags2KHR,
     phantom: PhantomData<&'a ()>,
 }
 unsafe impl<'a> ExtendableStructure for PipelineCreateFlags2CreateInfoKHR<'a> {
@@ -49147,7 +49150,7 @@ impl<'a> Default for PipelineCreateFlags2CreateInfoKHR<'a> {
 }
 impl<'a> PipelineCreateFlags2CreateInfoKHR<'a> {
     #[inline]
-    pub fn flags(mut self, value: u32) -> Self {
+    pub fn flags(mut self, value: PipelineCreateFlags2KHR) -> Self {
         self.flags = value;
         self
     }
@@ -49163,7 +49166,7 @@ impl<'a> PipelineCreateFlags2CreateInfoKHR<'a> {
 pub struct BufferUsageFlags2CreateInfoKHR<'a> {
     pub(crate) s_type: StructureType,
     pub(crate) p_next: Cell<*const Header>,
-    pub usage: u32,
+    pub usage: BufferUsageFlags2KHR,
     phantom: PhantomData<&'a ()>,
 }
 unsafe impl<'a> ExtendableStructure for BufferUsageFlags2CreateInfoKHR<'a> {
@@ -49199,7 +49202,7 @@ impl<'a> Default for BufferUsageFlags2CreateInfoKHR<'a> {
 }
 impl<'a> BufferUsageFlags2CreateInfoKHR<'a> {
     #[inline]
-    pub fn usage(mut self, value: u32) -> Self {
+    pub fn usage(mut self, value: BufferUsageFlags2KHR) -> Self {
         self.usage = value;
         self
     }

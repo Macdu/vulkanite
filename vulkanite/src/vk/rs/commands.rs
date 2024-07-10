@@ -5822,12 +5822,12 @@ impl<D: Dispatcher, A: Allocator> CommandBuffer<D, A> {
     }
     #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdResetEvent2.html>"]
     #[doc(alias = "vkCmdResetEvent2")]
-    pub fn reset_event2(&self, event: &Event, stage_mask: u32) {
+    pub fn reset_event2(&self, event: &Event, stage_mask: PipelineStageFlags2) {
         raw::cmd_reset_event2(self, event, stage_mask, self.disp.get_command_dispatcher())
     }
     #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdResetEvent2KHR.html>"]
     #[doc(alias = "vkCmdResetEvent2KHR")]
-    pub fn reset_event2_khr(&self, event: &Event, stage_mask: u32) {
+    pub fn reset_event2_khr(&self, event: &Event, stage_mask: PipelineStageFlags2) {
         raw::cmd_reset_event2_khr(self, event, stage_mask, self.disp.get_command_dispatcher())
     }
     #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdWaitEvents2.html>"]
@@ -5870,7 +5870,7 @@ impl<D: Dispatcher, A: Allocator> CommandBuffer<D, A> {
     }
     #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdWriteTimestamp2.html>"]
     #[doc(alias = "vkCmdWriteTimestamp2")]
-    pub fn write_timestamp2(&self, stage: u32, query_pool: &QueryPool, query: u32) {
+    pub fn write_timestamp2(&self, stage: PipelineStageFlags2, query_pool: &QueryPool, query: u32) {
         raw::cmd_write_timestamp2(
             self,
             stage,
@@ -5881,7 +5881,12 @@ impl<D: Dispatcher, A: Allocator> CommandBuffer<D, A> {
     }
     #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdWriteTimestamp2KHR.html>"]
     #[doc(alias = "vkCmdWriteTimestamp2KHR")]
-    pub fn write_timestamp2_khr(&self, stage: u32, query_pool: &QueryPool, query: u32) {
+    pub fn write_timestamp2_khr(
+        &self,
+        stage: PipelineStageFlags2,
+        query_pool: &QueryPool,
+        query: u32,
+    ) {
         raw::cmd_write_timestamp2_khr(
             self,
             stage,
@@ -7076,7 +7081,7 @@ impl<D: Dispatcher, A: Allocator> CommandBuffer<D, A> {
     #[doc(alias = "vkCmdWriteBufferMarker2AMD")]
     pub fn write_buffer_marker2_amd(
         &self,
-        stage: u32,
+        stage: PipelineStageFlags2,
         dst_buffer: &Buffer,
         dst_offset: DeviceSize,
         marker: u32,

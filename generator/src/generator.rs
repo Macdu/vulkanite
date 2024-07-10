@@ -494,18 +494,22 @@ impl<'a> Generator<'a> {
                         _ => None,
                     })
                     .ok_or_else(|| anyhow!("Failed to find name for bimask"))?;
-                let value = if let Some(req) = &bitmask.requires {
-                    mapping
-                        .get(req.as_str())
-                        .ok_or_else(|| anyhow!("Failed to find bitflag {req}"))?
-                        .clone()
-                } else {
-                    // bitflag with no value defined yet (can only be 0)
-                    MappingEntry {
-                        name: "u32".to_owned(),
-                        ty: MappingType::BaseType,
-                    }
-                };
+                let value =
+                    if let Some(req) = bitmask.requires.as_ref().or(bitmask.bitvalues.as_ref()) {
+                        mapping
+                            .get(req.as_str())
+                            .ok_or_else(|| anyhow!("Failed to find bitflag {req}"))?
+                            .clone()
+                    } else {
+                        // bitflag with no value defined yet (can only be 0)
+                        let is_64 = bitmask.content.iter().any(
+                            |cnt| matches!(cnt, xml::TypeContent::Type(ty) if ty == "VkFlags64"),
+                        );
+                        MappingEntry {
+                            name: if is_64 { "u64" } else { "u32" }.to_owned(),
+                            ty: MappingType::BaseType,
+                        }
+                    };
                 assert!(mapping.insert(name, value).is_none());
             }
         }
