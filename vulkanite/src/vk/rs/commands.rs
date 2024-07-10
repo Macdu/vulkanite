@@ -816,7 +816,7 @@ impl<D: Dispatcher, A: Allocator> PhysicalDevice<D, A> {
         &self,
         queue_family_index: u32,
         surface: &SurfaceKHR,
-    ) -> Result<Bool32> {
+    ) -> Result<bool> {
         raw::get_physical_device_surface_support_khr(
             self,
             queue_family_index,
@@ -945,7 +945,7 @@ impl<D: Dispatcher, A: Allocator> PhysicalDevice<D, A> {
         queue_family_index: u32,
         dpy: &VoidPtr,
         visual_id: VoidPtr,
-    ) -> Bool32 {
+    ) -> bool {
         raw::get_physical_device_xlib_presentation_support_khr(
             self,
             queue_family_index,
@@ -961,7 +961,7 @@ impl<D: Dispatcher, A: Allocator> PhysicalDevice<D, A> {
         queue_family_index: u32,
         connection: &VoidPtr,
         visualid: VoidPtr,
-    ) -> Bool32 {
+    ) -> bool {
         raw::get_physical_device_xcb_presentation_support_khr(
             self,
             queue_family_index,
@@ -976,7 +976,7 @@ impl<D: Dispatcher, A: Allocator> PhysicalDevice<D, A> {
         &self,
         queue_family_index: u32,
         display: &VoidPtr,
-    ) -> Bool32 {
+    ) -> bool {
         raw::get_physical_device_wayland_presentation_support_khr(
             self,
             queue_family_index,
@@ -986,7 +986,7 @@ impl<D: Dispatcher, A: Allocator> PhysicalDevice<D, A> {
     }
     #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceWin32PresentationSupportKHR.html>"]
     #[doc(alias = "vkGetPhysicalDeviceWin32PresentationSupportKHR")]
-    pub fn get_win32_presentation_support_khr(&self, queue_family_index: u32) -> Bool32 {
+    pub fn get_win32_presentation_support_khr(&self, queue_family_index: u32) -> bool {
         raw::get_physical_device_win32_presentation_support_khr(
             self,
             queue_family_index,
@@ -1216,7 +1216,7 @@ impl<D: Dispatcher, A: Allocator> PhysicalDevice<D, A> {
         &self,
         queue_family_index: u32,
         dfb: &VoidPtr,
-    ) -> Bool32 {
+    ) -> bool {
         raw::get_physical_device_direct_fbpresentation_support_ext(
             self,
             queue_family_index,
@@ -1230,7 +1230,7 @@ impl<D: Dispatcher, A: Allocator> PhysicalDevice<D, A> {
         &self,
         queue_family_index: u32,
         window: &VoidPtr,
-    ) -> Bool32 {
+    ) -> bool {
         raw::get_physical_device_screen_presentation_support_qnx(
             self,
             queue_family_index,

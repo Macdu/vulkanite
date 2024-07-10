@@ -167,7 +167,11 @@ fn generate_raw_command<'a, 'b>(
     let (ret_type, pre_call, post_call, ret_template, inner_call) = match cmd.return_ty {
         ReturnType::BaseType(name) => {
             let ty_name = gen.get_ident_name(name)?;
-            (quote! (-> #ty_name), None, None, None, None)
+            if name == "VkBool32" {
+                (quote! (-> bool), None, Some(quote!(.into())), None, None)
+            } else {
+                (quote! (-> #ty_name), None, None, None, None)
+            }
         }
         ReturnType::Result { nb_successes, .. } if output_fields.is_empty() => (
             if nb_successes > 1 {
@@ -193,7 +197,7 @@ fn generate_raw_command<'a, 'b>(
                 Type::DoublePtr("void") => "VoidPtr",
                 _ => return Err(anyhow!("Could not use return field for {name}")),
             };
-            let ret_name = gen.get_ident_name(ret_type)?;
+            let mut ret_name = gen.get_ident_name(ret_type)?;
             let field_name = format_ident!("{}", field.name);
 
             let external_length = output_length.map(|param| format_ident!("{}", param.name));
@@ -214,6 +218,7 @@ fn generate_raw_command<'a, 'b>(
                 .transpose()
                 .map_err(|_| anyhow!("Failed to parse length of {}", field.vk_name))?;
 
+            let is_vec = external_length.is_some() || internal_length.is_some();
             let is_structure_type = gen
                 .get_struct(ret_type)
                 .is_some_and(|my_struct| my_struct.s_type.is_some());
@@ -222,8 +227,13 @@ fn generate_raw_command<'a, 'b>(
             let lifetime =
                 (!is_handle && gen.compute_name_lifetime(ret_type)).then(|| quote! (<'static>));
 
+            if !is_vec && ret_type == "VkBool32" {
+                assert!(has_status);
+                ret_name = format_ident!("bool");
+            }
+
             let mut result_quote = quote! (#ret_name #lifetime);
-            if internal_length.is_some() || external_length.is_some() {
+            if is_vec {
                 result_quote = quote!(R)
             } else if is_structure_type {
                 result_quote = quote!(S)
@@ -241,6 +251,8 @@ fn generate_raw_command<'a, 'b>(
                 quote!(vk_vec.resize_with_len(vk_len as _); vk_vec)
             } else if is_structure_type {
                 quote! (S::setup_cleanup(#field_name.as_mut_ptr());#field_name.assume_init())
+            } else if ret_type == "VkBool32" {
+                quote! (#field_name.assume_init().into())
             } else {
                 quote! (#field_name.assume_init())
             };

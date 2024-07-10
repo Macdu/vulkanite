@@ -281,7 +281,11 @@ where
     let (ret_type, ret_template, pre_call, post_call) = match cmd.return_ty {
         ReturnType::BaseType(name) => {
             let ty_name = gen.get_ident_name(name)?;
-            (quote! (-> #ty_name), None, None, None)
+            if name == "VkBool32" {
+                (quote! (-> bool), None, None, None)
+            } else {
+                (quote! (-> #ty_name), None, None, None)
+            }
         }
         ReturnType::Result { nb_successes, .. } if cmd_parsed.output_fields.is_empty() => (
             if nb_successes > 1 {
@@ -302,7 +306,7 @@ where
                 Type::DoublePtr("void") => "VoidPtr",
                 _ => return Err(anyhow!("Could not use return field for {name}")),
             };
-            let ret_name = gen.get_ident_name(ret_type)?;
+            let mut ret_name = gen.get_ident_name(ret_type)?;
             let needs_transformation = is_complex_handle(ret_type);
 
             let is_vec = cmd_parsed.output_length.is_some()
@@ -312,6 +316,10 @@ where
                 .get_struct(ret_type)
                 .is_some_and(|my_struct| my_struct.s_type.is_some());
             let is_handle = gen.get_handle(ret_type).is_some();
+
+            if !is_vec && ret_type == "VkBool32" {
+                ret_name = format_ident!("bool");
+            }
 
             let lifetime =
                 (!is_handle && gen.compute_name_lifetime(ret_type)).then(|| quote! (<'static>));

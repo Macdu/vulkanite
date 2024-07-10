@@ -233,7 +233,7 @@ impl VulkanApplication {
                 props.queue_flags.contains(vk::QueueFlags::Graphics)
                     && physical_device
                         .get_surface_support_khr(*queue as u32, surface)
-                        .is_ok_and(|supported| supported.into())
+                        .is_ok_and(|supported| supported)
             })
             .ok_or_else(|| anyhow!("Failed to find a suitable GPU queue"))?;
 

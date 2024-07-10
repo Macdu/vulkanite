@@ -6540,7 +6540,7 @@ pub fn get_physical_device_surface_support_khr(
     queue_family_index: u32,
     surface: &SurfaceKHR,
     dispatcher: &CommandsDispatcher,
-) -> Result<Bool32> {
+) -> Result<bool> {
     let vulkan_command = dispatcher
         .get_physical_device_surface_support_khr
         .get()
@@ -6553,7 +6553,7 @@ pub fn get_physical_device_surface_support_khr(
             Some(unsafe { surface.clone() }),
             p_supported.as_mut_ptr(),
         );
-        vk_status.map_success(|| p_supported.assume_init())
+        vk_status.map_success(|| p_supported.assume_init().into())
     }
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceSurfaceCapabilitiesKHR.html>"]
@@ -7228,7 +7228,7 @@ pub fn get_physical_device_xlib_presentation_support_khr(
     dpy: &VoidPtr,
     visual_id: VoidPtr,
     dispatcher: &CommandsDispatcher,
-) -> Bool32 {
+) -> bool {
     let vulkan_command = dispatcher
         .get_physical_device_xlib_presentation_support_khr
         .get()
@@ -7240,6 +7240,7 @@ pub fn get_physical_device_xlib_presentation_support_khr(
             ptr::from_ref(dpy),
             visual_id,
         )
+        .into()
     }
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCreateXcbSurfaceKHR.html>"]
@@ -7273,7 +7274,7 @@ pub fn get_physical_device_xcb_presentation_support_khr(
     connection: &VoidPtr,
     visualid: VoidPtr,
     dispatcher: &CommandsDispatcher,
-) -> Bool32 {
+) -> bool {
     let vulkan_command = dispatcher
         .get_physical_device_xcb_presentation_support_khr
         .get()
@@ -7285,6 +7286,7 @@ pub fn get_physical_device_xcb_presentation_support_khr(
             ptr::from_ref(connection),
             visualid,
         )
+        .into()
     }
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCreateWaylandSurfaceKHR.html>"]
@@ -7317,7 +7319,7 @@ pub fn get_physical_device_wayland_presentation_support_khr(
     queue_family_index: u32,
     display: &VoidPtr,
     dispatcher: &CommandsDispatcher,
-) -> Bool32 {
+) -> bool {
     let vulkan_command = dispatcher
         .get_physical_device_wayland_presentation_support_khr
         .get()
@@ -7328,6 +7330,7 @@ pub fn get_physical_device_wayland_presentation_support_khr(
             queue_family_index,
             ptr::from_ref(display),
         )
+        .into()
     }
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCreateAndroidSurfaceKHR.html>"]
@@ -7382,12 +7385,12 @@ pub fn get_physical_device_win32_presentation_support_khr(
     physical_device: &PhysicalDevice,
     queue_family_index: u32,
     dispatcher: &CommandsDispatcher,
-) -> Bool32 {
+) -> bool {
     let vulkan_command = dispatcher
         .get_physical_device_win32_presentation_support_khr
         .get()
         .expect("Vulkan command not loaded.");
-    unsafe { vulkan_command(Some(unsafe { physical_device.clone() }), queue_family_index) }
+    unsafe { vulkan_command(Some(unsafe { physical_device.clone() }), queue_family_index).into() }
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCreateDebugReportCallbackEXT.html>"]
 #[doc(alias = "vkCreateDebugReportCallbackEXT")]
@@ -12388,7 +12391,7 @@ pub fn get_physical_device_direct_fbpresentation_support_ext(
     queue_family_index: u32,
     dfb: &VoidPtr,
     dispatcher: &CommandsDispatcher,
-) -> Bool32 {
+) -> bool {
     let vulkan_command = dispatcher
         .get_physical_device_direct_fbpresentation_support_ext
         .get()
@@ -12399,6 +12402,7 @@ pub fn get_physical_device_direct_fbpresentation_support_ext(
             queue_family_index,
             ptr::from_ref(dfb),
         )
+        .into()
     }
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetVertexInputEXT.html>"]
@@ -12781,7 +12785,7 @@ pub fn get_physical_device_screen_presentation_support_qnx(
     queue_family_index: u32,
     window: &VoidPtr,
     dispatcher: &CommandsDispatcher,
-) -> Bool32 {
+) -> bool {
     let vulkan_command = dispatcher
         .get_physical_device_screen_presentation_support_qnx
         .get()
@@ -12792,6 +12796,7 @@ pub fn get_physical_device_screen_presentation_support_qnx(
             queue_family_index,
             ptr::from_ref(window),
         )
+        .into()
     }
 }
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetColorWriteEnableEXT.html>"]
