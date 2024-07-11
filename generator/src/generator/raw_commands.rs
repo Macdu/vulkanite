@@ -118,14 +118,15 @@ fn generate_raw_command<'a, 'b>(
                 .iter()
                 .any(|(vk_name, _)| *vk_name == param.vk_name)
             {
-                let (_, _, inner) = gen.generate_slice_type(
+                let slice_ty = gen.generate_slice_type(
                     advanced_ty,
                     idx as u32,
-                    name.clone(),
+                    &name,
+                    None,
                     false,
                     param.optional,
                 )?;
-                Ok(inner)
+                Ok(slice_ty.affectation)
             } else if output_fields
                 .iter()
                 .any(|(vk_name, _)| *vk_name == param.vk_name)

@@ -68,11 +68,7 @@ pub fn generate<'a>(gen: &Generator<'a>) -> Result<String> {
         use crate::*;
         use crate::vk::*;
         use crate::vk::raw::*;
-        use std::ptr;
-        use std::array;
-        use std::marker::PhantomData;
-        use std::ffi::{c_char, c_int, c_ulong, c_void};
-        use std::mem::ManuallyDrop;
+        use std::{array, ffi::{c_char, c_int, c_ulong, c_void}, marker::PhantomData, mem::ManuallyDrop, ptr, slice};
 
         #(#struct_features)*
         #(#struct_extensions)*
@@ -297,11 +293,6 @@ fn generate_struct<'a>(
         .iter()
         .filter_map(|field| length_fields.get(field.vk_name))
         .map(|length_field| {
-            if my_struct.return_only {
-                // TODO: still add getters
-                return Ok(quote! ());
-            }
-
             let len_field = length_field.len_field;
             let var_name = if length_field.array_fields.len() == 1 && length_field.array_fields[0].name.starts_with("p_") {
                 &length_field.array_fields[0].name[("p_".len())..]
@@ -314,13 +305,12 @@ fn generate_struct<'a>(
             } else {
                 return Err(anyhow!("field length name not expected: {}", len_field.name))
             };
-            let setter_name = format_ident!("{}", var_name);
-            //let getter_name = format_ident!("get_{}", field.name[2..]);
+            let setter_name = format_ident!("{var_name}");
             let length_name = format_ident!("{}", length_field.len_field.name);
             // a slice of size 0 can be seen as a none, no need for options if there is just one field
             let can_be_optional = length_field.array_fields.len() > 1;
             let ty_tokens = length_field.array_fields.iter().enumerate().map(|(idx, field)|{
-                gen.generate_slice_type(field.advanced_ty.get().unwrap(), idx as u32, format_ident!("{}", field.name), true, can_be_optional && field.optional)
+                gen.generate_slice_type(field.advanced_ty.get().unwrap(), idx as u32, &format_ident!("{}", field.name), Some(&length_name), true, can_be_optional && field.optional)
             }).collect::<Result<Vec<_>>>()?;
             let field_names = length_field.array_fields.iter().map(|field| {
                 format_ident!("{}",field.name)
@@ -332,16 +322,44 @@ fn generate_struct<'a>(
                 let first_field = &field_names[0];
                 quote! (#first_field.map(|p| p.as_slice().len()).unwrap_or_default() as _)
             };
-            let template_arg = ty_tokens.iter().map(|(x,_,_)| x).filter(|x| !x.is_empty());
-            let slice_ty = ty_tokens.iter().map(|(_,y,_)| y);
-            let attr = ty_tokens.iter().map(|(_,_,z)| z);
-            Ok(quote! {
+            let template_arg = ty_tokens.iter().map(|t| &t.template_param).filter_map(|x| x.as_ref());
+            let slice_ty = ty_tokens.iter().map(|t| &t.input_ty);
+            let affectations = ty_tokens.iter().map(|t| &t.affectation);
+            let setter = (!my_struct.return_only).then(|| quote! (
                 #[inline]
                 pub fn #setter_name<#(#template_arg),*>(mut self, #(#field_names: #slice_ty),*) -> Self {
-                    #(#attr;)*
+                    #(#affectations;)*
                     self.#length_name = #len_value;
                     self
                 }
+            ));
+
+            let getters = ty_tokens.into_iter().zip(length_field.array_fields.iter()).map(|(slice_ty, field)| {
+                let mut var_name = field.name.as_str();
+                if var_name.starts_with("p_") {
+                    var_name = &var_name[2..];
+                } else if var_name.starts_with("pp_") 
+                    // TODO: handle this properly (not hardcoded)
+                    && var_name != "pp_geometries" && var_name != "pp_usage_counts" {
+                    var_name = &var_name[3..];
+                }
+                let getter_name = format_ident!("get_{var_name}");
+                let ret_ty = &slice_ty.output_ty;
+                let access = &slice_ty.access;
+                // if the value is stored inside the struct, the lifetime of the slice is until the struct can be modified again
+                let own_lifetime = matches!(field.advanced_ty.get(), Some(AdvancedType::HandleArray(..)| AdvancedType::OtherArrayWithCst(..) | AdvancedType::OtherArrayWithEnum(..) ))
+                    .then(|| quote! ('b));
+                quote! {
+                    #[inline]
+                    pub fn #getter_name<#own_lifetime>(&#own_lifetime self) -> #ret_ty {
+                        #access
+                    }
+                }
+            });
+
+            Ok(quote! {
+                #setter
+                #(#getters)*
             })
         })
         .collect::<Result<Vec<_>>>()?;

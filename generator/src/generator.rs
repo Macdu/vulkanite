@@ -15,7 +15,7 @@ use crate::{
     structs::{
         convert_field_to_snake_case, AdvancedType, Api, CType, Command, CommandParam,
         CommandParamsParsed, Constant, Enum, EnumAliased, EnumFlag, EnumValue, EnumVariant, Handle,
-        MappingEntry, MappingType, Struct, StructBasetype, StructStandard, Type,
+        MappingEntry, MappingType, SliceType, Struct, StructBasetype, StructStandard, Type,
     },
     xml,
 };
@@ -1044,29 +1044,33 @@ impl<'a> Generator<'a> {
                 {
                     let outer_type =
                         self.generate_type_outer(&advanced_ty, param.optional, false)?;
-                    Ok((quote!(), (name.to_token_stream(), outer_type)))
+                    Ok((None, (name.to_token_stream(), outer_type)))
                 } else if vec_fields
                     .iter()
                     .any(|(vk_name, _)| *vk_name == param.vk_name)
                 {
-                    let (templ, outer, _) = self.generate_slice_type(
+                    let SliceType {
+                        template_param,
+                        input_ty,
+                        ..
+                    } = self.generate_slice_type(
                         advanced_ty,
                         idx as u32,
-                        name.clone(),
+                        &name,
+                        None,
                         false,
                         param.optional,
                     )?;
-                    Ok((templ, (name.to_token_stream(), outer)))
+                    Ok((template_param, (name.to_token_stream(), input_ty)))
                 } else {
-                    Ok((quote!(), (quote!(), quote!())))
+                    Ok((None, (quote!(), quote!())))
                 }
             })
             .collect::<Result<Vec<_>>>()?;
 
         let parsed_arg_templates = result_params
             .iter()
-            .map(|(x, _)| x.clone())
-            .filter(|t| !t.is_empty())
+            .filter_map(|(x, _)| x.clone())
             .collect();
         let parsed_args_in = result_params
             .iter()
@@ -1307,15 +1311,15 @@ impl<'a> Generator<'a> {
         }
     }
 
-    /// First returned argument is the template parameter, second is the slice type, third is the affectation
     fn generate_slice_type(
         &self,
         ty: AdvancedType<'a>,
         index: u32,
-        name: Ident,
+        name: &Ident,
+        len_field: Option<&Ident>,
         is_assignment: bool,
         is_optional: bool,
-    ) -> Result<(TokenStream, TokenStream, TokenStream)> {
+    ) -> Result<SliceType> {
         let get_lifetime = |ty: &str| self.compute_name_lifetime(ty).then(|| quote! (<'a>));
         let template_ty = format_ident!("V{}", index);
         let mut simple_affectation = if is_optional {
@@ -1323,6 +1327,14 @@ impl<'a> Generator<'a> {
         } else {
             quote! (#name.as_slice().as_ptr().cast())
         };
+        let mut access_name = quote!(#name);
+        if matches!(ty, AdvancedType::VoidPtr) {
+            access_name = quote! (#name.cast::<u8>())
+        }
+        let mut access = quote! ( unsafe { slice::from_raw_parts(self.#access_name.cast(), self.#len_field as _) });
+        if is_optional {
+            access = quote! ( (!self.#name.is_null()).then(|| #access).unwrap_or(&[]) );
+        }
         if is_assignment {
             simple_affectation = quote! (self.#name = #simple_affectation)
         };
@@ -1335,31 +1347,53 @@ impl<'a> Generator<'a> {
             }
         };
 
+        let field_name = name;
         match ty {
-            AdvancedType::HandlePtr(name) | AdvancedType::HandleArray(name, _) => {
+            AdvancedType::HandlePtr(name) => {
                 let name = self.get_ident_name(name)?;
-                Ok((
-                    quote! (#template_ty: Alias<raw::#name> + 'a),
-                    wrap_ty(quote! (impl AsSlice<'a, #template_ty>)),
-                    simple_affectation,
-                ))
+                Ok(SliceType {
+                    template_param: Some(quote! (#template_ty: Alias<raw::#name> + 'a)),
+                    input_ty: wrap_ty(quote! (impl AsSlice<'a, #template_ty>)),
+                    affectation: simple_affectation,
+                    output_ty: quote! (&'a [BorrowedHandle<'a, raw::#name>]),
+                    access,
+                })
+            }
+            AdvancedType::HandleArray(name, _) => {
+                // output only type
+                let name = self.get_ident_name(name)?;
+                Ok(SliceType {
+                    template_param: None,
+                    input_ty: quote!(),
+                    affectation: quote!(),
+                    output_ty: quote! (&'b [BorrowedHandle<'a, raw::#name>]),
+                    access: quote! {
+                        // first perform the size check (safer although shouldn't be needed)
+                        let handle_array = &self.#field_name[..(self.#len_field as _)];
+                        unsafe { slice::from_raw_parts(handle_array.as_ptr().cast(), handle_array.len()) }
+                    },
+                })
             }
             AdvancedType::OtherPtr(name) => {
                 let lifetime = get_lifetime(name);
                 let name = self.get_ident_name(name)?;
-                Ok((
-                    quote!(),
-                    wrap_ty(quote! (impl AsSlice<'a,#name #lifetime>)),
-                    simple_affectation,
-                ))
+                Ok(SliceType {
+                    template_param: None,
+                    input_ty: wrap_ty(quote! (impl AsSlice<'a,#name #lifetime>)),
+                    affectation: simple_affectation,
+                    output_ty: quote! (&'a [#name #lifetime]),
+                    access,
+                })
             }
             AdvancedType::VoidPtr => {
                 // binary data
-                Ok((
-                    quote!(),
-                    wrap_ty(quote!(impl AsSlice<'a, u8>)),
-                    simple_affectation,
-                ))
+                Ok(SliceType {
+                    template_param: None,
+                    input_ty: wrap_ty(quote!(impl AsSlice<'a, u8>)),
+                    affectation: simple_affectation,
+                    output_ty: quote!(&'a [u8]),
+                    access,
+                })
             }
             AdvancedType::OtherDoublePtr(ty) => {
                 let lifetime = get_lifetime(ty);
@@ -1368,18 +1402,37 @@ impl<'a> Generator<'a> {
                 } else {
                     format_ident!("{}", self.get_ident_name(ty)?).into_token_stream()
                 };
-                Ok((
-                    quote!(),
-                    wrap_ty(quote! (impl AsSlice<'a, &'a #ty #lifetime>)),
-                    simple_affectation,
-                ))
+                Ok(SliceType {
+                    template_param: None,
+                    input_ty: wrap_ty(quote! (impl AsSlice<'a, &'a #ty #lifetime>)),
+                    affectation: simple_affectation,
+                    output_ty: quote! (&'a [&'a #ty #lifetime]),
+                    access,
+                })
             }
-            AdvancedType::CStringPtr => Ok((
-                quote!(),
-                wrap_ty(quote!(impl AsSlice<'a, *const c_char>)),
-                simple_affectation,
+            AdvancedType::CStringPtr => Ok(SliceType {
+                template_param: None,
+                input_ty: wrap_ty(quote!(impl AsSlice<'a, *const c_char>)),
+                affectation: simple_affectation,
+                output_ty: quote!(&'a [*const c_char]),
+                access,
+            }),
+            AdvancedType::OtherArrayWithCst(name, _)
+            | AdvancedType::OtherArrayWithEnum(name, _) => {
+                // output only type
+                let lifetime = get_lifetime(name);
+                let name = self.get_ident_name(name)?;
+                Ok(SliceType {
+                    template_param: None,
+                    input_ty: quote!(),
+                    affectation: quote!(),
+                    output_ty: quote!(&'b [#name #lifetime]),
+                    access: quote! (&self.#field_name[..(self.#len_field as _)]),
+                })
+            }
+            _ => Err(anyhow!(
+                "Trying to get array with unexpected type for {name}"
             )),
-            _ => Err(anyhow!("Trying to get array with unexpected type")),
         }
     }
 

@@ -1,11 +1,13 @@
 use crate::vk::raw::*;
 use crate::vk::*;
 use crate::*;
-use std::array;
-use std::ffi::{c_char, c_int, c_ulong, c_void};
-use std::marker::PhantomData;
-use std::mem::ManuallyDrop;
-use std::ptr;
+use std::{
+    array,
+    ffi::{c_char, c_int, c_ulong, c_void},
+    marker::PhantomData,
+    mem::ManuallyDrop,
+    ptr, slice,
+};
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkDeviceAddress.html>"]
 #[doc(alias = "VkDeviceAddress")]
 pub type DeviceAddress = u64;
@@ -895,6 +897,15 @@ impl<'a> InstanceCreateInfo<'a> {
         self
     }
     #[inline]
+    pub fn get_enabled_layer_names(&self) -> &'a [*const c_char] {
+        unsafe {
+            slice::from_raw_parts(
+                self.pp_enabled_layer_names.cast(),
+                self.enabled_layer_count as _,
+            )
+        }
+    }
+    #[inline]
     pub fn enabled_extension(
         mut self,
         pp_enabled_extension_names: impl AsSlice<'a, InstanceExtensionName>,
@@ -902,6 +913,15 @@ impl<'a> InstanceCreateInfo<'a> {
         self.pp_enabled_extension_names = pp_enabled_extension_names.as_slice().as_ptr().cast();
         self.enabled_extension_count = pp_enabled_extension_names.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_enabled_extension_names(&self) -> &'a [InstanceExtensionName] {
+        unsafe {
+            slice::from_raw_parts(
+                self.pp_enabled_extension_names.cast(),
+                self.enabled_extension_count as _,
+            )
+        }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -2156,7 +2176,16 @@ impl Default for PhysicalDeviceMemoryProperties {
         }
     }
 }
-impl PhysicalDeviceMemoryProperties {}
+impl PhysicalDeviceMemoryProperties {
+    #[inline]
+    pub fn get_memory_types<'b>(&'b self) -> &'b [MemoryType] {
+        &self.memory_types[..(self.memory_type_count as _)]
+    }
+    #[inline]
+    pub fn get_memory_heaps<'b>(&'b self) -> &'b [MemoryHeap] {
+        &self.memory_heaps[..(self.memory_heap_count as _)]
+    }
+}
 #[repr(C)]
 #[derive(Clone, Copy)]
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceProperties.html>"]
@@ -2397,6 +2426,15 @@ impl<'a> DeviceCreateInfo<'a> {
         self
     }
     #[inline]
+    pub fn get_queue_create_infos(&self) -> &'a [DeviceQueueCreateInfo<'a>] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_queue_create_infos.cast(),
+                self.queue_create_info_count as _,
+            )
+        }
+    }
+    #[inline]
     pub fn enabled_layer(
         mut self,
         pp_enabled_layer_names: impl AsSlice<'a, *const c_char>,
@@ -2406,6 +2444,15 @@ impl<'a> DeviceCreateInfo<'a> {
         self
     }
     #[inline]
+    pub fn get_enabled_layer_names(&self) -> &'a [*const c_char] {
+        unsafe {
+            slice::from_raw_parts(
+                self.pp_enabled_layer_names.cast(),
+                self.enabled_layer_count as _,
+            )
+        }
+    }
+    #[inline]
     pub fn enabled_extension(
         mut self,
         pp_enabled_extension_names: impl AsSlice<'a, DeviceExtensionName>,
@@ -2413,6 +2460,15 @@ impl<'a> DeviceCreateInfo<'a> {
         self.pp_enabled_extension_names = pp_enabled_extension_names.as_slice().as_ptr().cast();
         self.enabled_extension_count = pp_enabled_extension_names.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_enabled_extension_names(&self) -> &'a [DeviceExtensionName] {
+        unsafe {
+            slice::from_raw_parts(
+                self.pp_enabled_extension_names.cast(),
+                self.enabled_extension_count as _,
+            )
+        }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -2466,6 +2522,10 @@ impl<'a> DeviceQueueCreateInfo<'a> {
         self.p_queue_priorities = p_queue_priorities.as_slice().as_ptr().cast();
         self.queue_count = p_queue_priorities.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_queue_priorities(&self) -> &'a [f32] {
+        unsafe { slice::from_raw_parts(self.p_queue_priorities.cast(), self.queue_count as _) }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -2606,6 +2666,26 @@ impl<'a> SubmitInfo<'a> {
         self
     }
     #[inline]
+    pub fn get_wait_semaphores(&self) -> &'a [BorrowedHandle<'a, raw::Semaphore>] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_wait_semaphores.cast(),
+                self.wait_semaphore_count as _,
+            )
+        }
+    }
+    #[inline]
+    pub fn get_wait_dst_stage_mask(&self) -> &'a [PipelineStageFlags] {
+        (!self.p_wait_dst_stage_mask.is_null())
+            .then(|| unsafe {
+                slice::from_raw_parts(
+                    self.p_wait_dst_stage_mask.cast(),
+                    self.wait_semaphore_count as _,
+                )
+            })
+            .unwrap_or(&[])
+    }
+    #[inline]
     pub fn command_buffers<V0: Alias<raw::CommandBuffer> + 'a>(
         mut self,
         p_command_buffers: impl AsSlice<'a, V0>,
@@ -2615,6 +2695,15 @@ impl<'a> SubmitInfo<'a> {
         self
     }
     #[inline]
+    pub fn get_command_buffers(&self) -> &'a [BorrowedHandle<'a, raw::CommandBuffer>] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_command_buffers.cast(),
+                self.command_buffer_count as _,
+            )
+        }
+    }
+    #[inline]
     pub fn signal_semaphores<V0: Alias<raw::Semaphore> + 'a>(
         mut self,
         p_signal_semaphores: impl AsSlice<'a, V0>,
@@ -2622,6 +2711,15 @@ impl<'a> SubmitInfo<'a> {
         self.p_signal_semaphores = p_signal_semaphores.as_slice().as_ptr().cast();
         self.signal_semaphore_count = p_signal_semaphores.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_signal_semaphores(&self) -> &'a [BorrowedHandle<'a, raw::Semaphore>] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_signal_semaphores.cast(),
+                self.signal_semaphore_count as _,
+            )
+        }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -2812,6 +2910,15 @@ impl<'a> BindSparseInfo<'a> {
         self
     }
     #[inline]
+    pub fn get_wait_semaphores(&self) -> &'a [BorrowedHandle<'a, raw::Semaphore>] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_wait_semaphores.cast(),
+                self.wait_semaphore_count as _,
+            )
+        }
+    }
+    #[inline]
     pub fn buffer_binds(
         mut self,
         p_buffer_binds: impl AsSlice<'a, SparseBufferMemoryBindInfo<'a>>,
@@ -2819,6 +2926,10 @@ impl<'a> BindSparseInfo<'a> {
         self.p_buffer_binds = p_buffer_binds.as_slice().as_ptr().cast();
         self.buffer_bind_count = p_buffer_binds.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_buffer_binds(&self) -> &'a [SparseBufferMemoryBindInfo<'a>] {
+        unsafe { slice::from_raw_parts(self.p_buffer_binds.cast(), self.buffer_bind_count as _) }
     }
     #[inline]
     pub fn image_opaque_binds(
@@ -2830,6 +2941,15 @@ impl<'a> BindSparseInfo<'a> {
         self
     }
     #[inline]
+    pub fn get_image_opaque_binds(&self) -> &'a [SparseImageOpaqueMemoryBindInfo<'a>] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_image_opaque_binds.cast(),
+                self.image_opaque_bind_count as _,
+            )
+        }
+    }
+    #[inline]
     pub fn image_binds(
         mut self,
         p_image_binds: impl AsSlice<'a, SparseImageMemoryBindInfo<'a>>,
@@ -2839,6 +2959,10 @@ impl<'a> BindSparseInfo<'a> {
         self
     }
     #[inline]
+    pub fn get_image_binds(&self) -> &'a [SparseImageMemoryBindInfo<'a>] {
+        unsafe { slice::from_raw_parts(self.p_image_binds.cast(), self.image_bind_count as _) }
+    }
+    #[inline]
     pub fn signal_semaphores<V0: Alias<raw::Semaphore> + 'a>(
         mut self,
         p_signal_semaphores: impl AsSlice<'a, V0>,
@@ -2846,6 +2970,15 @@ impl<'a> BindSparseInfo<'a> {
         self.p_signal_semaphores = p_signal_semaphores.as_slice().as_ptr().cast();
         self.signal_semaphore_count = p_signal_semaphores.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_signal_semaphores(&self) -> &'a [BorrowedHandle<'a, raw::Semaphore>] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_signal_semaphores.cast(),
+                self.signal_semaphore_count as _,
+            )
+        }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -2922,6 +3055,10 @@ impl<'a> SparseBufferMemoryBindInfo<'a> {
         self.p_binds = p_binds.as_slice().as_ptr().cast();
         self.bind_count = p_binds.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_binds(&self) -> &'a [SparseMemoryBind<'a>] {
+        unsafe { slice::from_raw_parts(self.p_binds.cast(), self.bind_count as _) }
     }
 }
 #[repr(C)]
@@ -3053,6 +3190,10 @@ impl<'a> SparseImageMemoryBindInfo<'a> {
         self.bind_count = p_binds.as_slice().len() as _;
         self
     }
+    #[inline]
+    pub fn get_binds(&self) -> &'a [SparseImageMemoryBind<'a>] {
+        unsafe { slice::from_raw_parts(self.p_binds.cast(), self.bind_count as _) }
+    }
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
@@ -3137,6 +3278,10 @@ impl<'a> SparseImageOpaqueMemoryBindInfo<'a> {
         self.p_binds = p_binds.as_slice().as_ptr().cast();
         self.bind_count = p_binds.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_binds(&self) -> &'a [SparseMemoryBind<'a>] {
+        unsafe { slice::from_raw_parts(self.p_binds.cast(), self.bind_count as _) }
     }
 }
 #[repr(C)]
@@ -3418,6 +3563,15 @@ impl<'a> BufferCreateInfo<'a> {
         self
     }
     #[inline]
+    pub fn get_queue_family_indices(&self) -> &'a [u32] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_queue_family_indices.cast(),
+                self.queue_family_index_count as _,
+            )
+        }
+    }
+    #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
         unsafe { self.push_next_unchecked(ext) };
         self
@@ -3596,6 +3750,15 @@ impl<'a> ImageCreateInfo<'a> {
         self.p_queue_family_indices = p_queue_family_indices.as_slice().as_ptr().cast();
         self.queue_family_index_count = p_queue_family_indices.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_queue_family_indices(&self) -> &'a [u32] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_queue_family_indices.cast(),
+                self.queue_family_index_count as _,
+            )
+        }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -3911,6 +4074,15 @@ impl<'a> PipelineCacheCreateInfo<'a> {
         self
     }
     #[inline]
+    pub fn get_initial_data(&self) -> &'a [u8] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_initial_data.cast::<u8>().cast(),
+                self.initial_data_size as _,
+            )
+        }
+    }
+    #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
         unsafe { self.push_next_unchecked(ext) };
         self
@@ -4148,6 +4320,10 @@ impl<'a> GraphicsPipelineCreateInfo<'a> {
         self
     }
     #[inline]
+    pub fn get_stages(&self) -> &'a [PipelineShaderStageCreateInfo<'a>] {
+        unsafe { slice::from_raw_parts(self.p_stages.cast(), self.stage_count as _) }
+    }
+    #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
         unsafe { self.push_next_unchecked(ext) };
         self
@@ -4295,6 +4471,10 @@ impl<'a> PipelineColorBlendStateCreateInfo<'a> {
         self
     }
     #[inline]
+    pub fn get_attachments(&self) -> &'a [PipelineColorBlendAttachmentState] {
+        unsafe { slice::from_raw_parts(self.p_attachments.cast(), self.attachment_count as _) }
+    }
+    #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
         unsafe { self.push_next_unchecked(ext) };
         self
@@ -4438,6 +4618,12 @@ impl<'a> PipelineDynamicStateCreateInfo<'a> {
         self.p_dynamic_states = p_dynamic_states.as_slice().as_ptr().cast();
         self.dynamic_state_count = p_dynamic_states.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_dynamic_states(&self) -> &'a [DynamicState] {
+        unsafe {
+            slice::from_raw_parts(self.p_dynamic_states.cast(), self.dynamic_state_count as _)
+        }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -4838,6 +5024,15 @@ impl<'a> PipelineVertexInputStateCreateInfo<'a> {
         self
     }
     #[inline]
+    pub fn get_vertex_binding_descriptions(&self) -> &'a [VertexInputBindingDescription] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_vertex_binding_descriptions.cast(),
+                self.vertex_binding_description_count as _,
+            )
+        }
+    }
+    #[inline]
     pub fn vertex_attribute_descriptions(
         mut self,
         p_vertex_attribute_descriptions: impl AsSlice<'a, VertexInputAttributeDescription>,
@@ -4847,6 +5042,15 @@ impl<'a> PipelineVertexInputStateCreateInfo<'a> {
         self.vertex_attribute_description_count =
             p_vertex_attribute_descriptions.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_vertex_attribute_descriptions(&self) -> &'a [VertexInputAttributeDescription] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_vertex_attribute_descriptions.cast(),
+                self.vertex_attribute_description_count as _,
+            )
+        }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -4909,10 +5113,18 @@ impl<'a> PipelineViewportStateCreateInfo<'a> {
         self
     }
     #[inline]
+    pub fn get_viewports(&self) -> &'a [Viewport] {
+        unsafe { slice::from_raw_parts(self.p_viewports.cast(), self.viewport_count as _) }
+    }
+    #[inline]
     pub fn scissors(mut self, p_scissors: impl AsSlice<'a, Rect2D>) -> Self {
         self.p_scissors = p_scissors.as_slice().as_ptr().cast();
         self.scissor_count = p_scissors.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_scissors(&self) -> &'a [Rect2D] {
+        unsafe { slice::from_raw_parts(self.p_scissors.cast(), self.scissor_count as _) }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -4954,10 +5166,18 @@ impl<'a> SpecializationInfo<'a> {
         self
     }
     #[inline]
+    pub fn get_map_entries(&self) -> &'a [SpecializationMapEntry] {
+        unsafe { slice::from_raw_parts(self.p_map_entries.cast(), self.map_entry_count as _) }
+    }
+    #[inline]
     pub fn data(mut self, p_data: impl AsSlice<'a, u8>) -> Self {
         self.p_data = p_data.as_slice().as_ptr().cast();
         self.data_size = p_data.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_data(&self) -> &'a [u8] {
+        unsafe { slice::from_raw_parts(self.p_data.cast::<u8>().cast(), self.data_size as _) }
     }
 }
 #[repr(C)]
@@ -5275,6 +5495,10 @@ impl<'a> PipelineLayoutCreateInfo<'a> {
         self
     }
     #[inline]
+    pub fn get_set_layouts(&self) -> &'a [BorrowedHandle<'a, raw::DescriptorSetLayout>] {
+        unsafe { slice::from_raw_parts(self.p_set_layouts.cast(), self.set_layout_count as _) }
+    }
+    #[inline]
     pub fn push_constant_ranges(
         mut self,
         p_push_constant_ranges: impl AsSlice<'a, PushConstantRange>,
@@ -5282,6 +5506,15 @@ impl<'a> PipelineLayoutCreateInfo<'a> {
         self.p_push_constant_ranges = p_push_constant_ranges.as_slice().as_ptr().cast();
         self.push_constant_range_count = p_push_constant_ranges.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_push_constant_ranges(&self) -> &'a [PushConstantRange] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_push_constant_ranges.cast(),
+                self.push_constant_range_count as _,
+            )
+        }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -5669,6 +5902,10 @@ impl<'a> DescriptorPoolCreateInfo<'a> {
         self
     }
     #[inline]
+    pub fn get_pool_sizes(&self) -> &'a [DescriptorPoolSize] {
+        unsafe { slice::from_raw_parts(self.p_pool_sizes.cast(), self.pool_size_count as _) }
+    }
+    #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
         unsafe { self.push_next_unchecked(ext) };
         self
@@ -5748,6 +5985,10 @@ impl<'a> DescriptorSetAllocateInfo<'a> {
         self
     }
     #[inline]
+    pub fn get_set_layouts(&self) -> &'a [BorrowedHandle<'a, raw::DescriptorSetLayout>] {
+        unsafe { slice::from_raw_parts(self.p_set_layouts.cast(), self.descriptor_set_count as _) }
+    }
+    #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
         unsafe { self.push_next_unchecked(ext) };
         self
@@ -5808,6 +6049,12 @@ impl<'a> DescriptorSetLayoutBinding<'a> {
         self.descriptor_count = p_immutable_samplers.as_slice().len() as _;
         self
     }
+    #[inline]
+    pub fn get_immutable_samplers(&self) -> &'a [BorrowedHandle<'a, raw::Sampler>] {
+        unsafe {
+            slice::from_raw_parts(self.p_immutable_samplers.cast(), self.descriptor_count as _)
+        }
+    }
 }
 #[repr(C)]
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkDescriptorSetLayoutCreateInfo.html>"]
@@ -5851,6 +6098,10 @@ impl<'a> DescriptorSetLayoutCreateInfo<'a> {
         self.p_bindings = p_bindings.as_slice().as_ptr().cast();
         self.binding_count = p_bindings.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_bindings(&self) -> &'a [DescriptorSetLayoutBinding<'a>] {
+        unsafe { slice::from_raw_parts(self.p_bindings.cast(), self.binding_count as _) }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -5929,6 +6180,20 @@ impl<'a> WriteDescriptorSet<'a> {
         self.p_texel_buffer_view = p_texel_buffer_view.as_slice().as_ptr().cast();
         self.descriptor_count = p_image_info.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_image_info(&self) -> &'a [DescriptorImageInfo<'a>] {
+        unsafe { slice::from_raw_parts(self.p_image_info.cast(), self.descriptor_count as _) }
+    }
+    #[inline]
+    pub fn get_buffer_info(&self) -> &'a [DescriptorBufferInfo<'a>] {
+        unsafe { slice::from_raw_parts(self.p_buffer_info.cast(), self.descriptor_count as _) }
+    }
+    #[inline]
+    pub fn get_texel_buffer_view(&self) -> &'a [BorrowedHandle<'a, raw::BufferView>] {
+        unsafe {
+            slice::from_raw_parts(self.p_texel_buffer_view.cast(), self.descriptor_count as _)
+        }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -6117,6 +6382,10 @@ impl<'a> FramebufferCreateInfo<'a> {
         self
     }
     #[inline]
+    pub fn get_attachments(&self) -> &'a [BorrowedHandle<'a, raw::ImageView>] {
+        unsafe { slice::from_raw_parts(self.p_attachments.cast(), self.attachment_count as _) }
+    }
+    #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
         unsafe { self.push_next_unchecked(ext) };
         self
@@ -6171,16 +6440,28 @@ impl<'a> RenderPassCreateInfo<'a> {
         self
     }
     #[inline]
+    pub fn get_attachments(&self) -> &'a [AttachmentDescription] {
+        unsafe { slice::from_raw_parts(self.p_attachments.cast(), self.attachment_count as _) }
+    }
+    #[inline]
     pub fn subpasses(mut self, p_subpasses: impl AsSlice<'a, SubpassDescription<'a>>) -> Self {
         self.p_subpasses = p_subpasses.as_slice().as_ptr().cast();
         self.subpass_count = p_subpasses.as_slice().len() as _;
         self
     }
     #[inline]
+    pub fn get_subpasses(&self) -> &'a [SubpassDescription<'a>] {
+        unsafe { slice::from_raw_parts(self.p_subpasses.cast(), self.subpass_count as _) }
+    }
+    #[inline]
     pub fn dependencies(mut self, p_dependencies: impl AsSlice<'a, SubpassDependency>) -> Self {
         self.p_dependencies = p_dependencies.as_slice().as_ptr().cast();
         self.dependency_count = p_dependencies.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_dependencies(&self) -> &'a [SubpassDependency] {
+        unsafe { slice::from_raw_parts(self.p_dependencies.cast(), self.dependency_count as _) }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -6314,6 +6595,15 @@ impl<'a> SubpassDescription<'a> {
         self
     }
     #[inline]
+    pub fn get_input_attachments(&self) -> &'a [AttachmentReference] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_input_attachments.cast(),
+                self.input_attachment_count as _,
+            )
+        }
+    }
+    #[inline]
     pub fn color_attachment(
         mut self,
         p_color_attachments: impl AsSlice<'a, AttachmentReference>,
@@ -6327,10 +6617,39 @@ impl<'a> SubpassDescription<'a> {
         self
     }
     #[inline]
+    pub fn get_color_attachments(&self) -> &'a [AttachmentReference] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_color_attachments.cast(),
+                self.color_attachment_count as _,
+            )
+        }
+    }
+    #[inline]
+    pub fn get_resolve_attachments(&self) -> &'a [AttachmentReference] {
+        (!self.p_resolve_attachments.is_null())
+            .then(|| unsafe {
+                slice::from_raw_parts(
+                    self.p_resolve_attachments.cast(),
+                    self.color_attachment_count as _,
+                )
+            })
+            .unwrap_or(&[])
+    }
+    #[inline]
     pub fn preserve_attachments(mut self, p_preserve_attachments: impl AsSlice<'a, u32>) -> Self {
         self.p_preserve_attachments = p_preserve_attachments.as_slice().as_ptr().cast();
         self.preserve_attachment_count = p_preserve_attachments.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_preserve_attachments(&self) -> &'a [u32] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_preserve_attachments.cast(),
+                self.preserve_attachment_count as _,
+            )
+        }
     }
 }
 #[repr(C)]
@@ -7015,6 +7334,10 @@ impl<'a> RenderPassBeginInfo<'a> {
         self
     }
     #[inline]
+    pub fn get_clear_values(&self) -> &'a [ClearValue] {
+        unsafe { slice::from_raw_parts(self.p_clear_values.cast(), self.clear_value_count as _) }
+    }
+    #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
         unsafe { self.push_next_unchecked(ext) };
         self
@@ -7433,6 +7756,15 @@ impl<'a> DeviceGroupRenderPassBeginInfo<'a> {
         self
     }
     #[inline]
+    pub fn get_device_render_areas(&self) -> &'a [Rect2D] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_device_render_areas.cast(),
+                self.device_render_area_count as _,
+            )
+        }
+    }
+    #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
         unsafe { self.push_next_unchecked(ext) };
         self
@@ -7527,6 +7859,15 @@ impl<'a> DeviceGroupSubmitInfo<'a> {
         self
     }
     #[inline]
+    pub fn get_wait_semaphore_device_indices(&self) -> &'a [u32] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_wait_semaphore_device_indices.cast(),
+                self.wait_semaphore_count as _,
+            )
+        }
+    }
+    #[inline]
     pub fn command_buffer_device_masks(
         mut self,
         p_command_buffer_device_masks: impl AsSlice<'a, u32>,
@@ -7537,6 +7878,15 @@ impl<'a> DeviceGroupSubmitInfo<'a> {
         self
     }
     #[inline]
+    pub fn get_command_buffer_device_masks(&self) -> &'a [u32] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_command_buffer_device_masks.cast(),
+                self.command_buffer_count as _,
+            )
+        }
+    }
+    #[inline]
     pub fn signal_semaphore_device_indices(
         mut self,
         p_signal_semaphore_device_indices: impl AsSlice<'a, u32>,
@@ -7545,6 +7895,15 @@ impl<'a> DeviceGroupSubmitInfo<'a> {
             p_signal_semaphore_device_indices.as_slice().as_ptr().cast();
         self.signal_semaphore_count = p_signal_semaphore_device_indices.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_signal_semaphore_device_indices(&self) -> &'a [u32] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_signal_semaphore_device_indices.cast(),
+                self.signal_semaphore_count as _,
+            )
+        }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -7636,6 +7995,10 @@ impl<'a> BindBufferMemoryDeviceGroupInfo<'a> {
         self
     }
     #[inline]
+    pub fn get_device_indices(&self) -> &'a [u32] {
+        unsafe { slice::from_raw_parts(self.p_device_indices.cast(), self.device_index_count as _) }
+    }
+    #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
         unsafe { self.push_next_unchecked(ext) };
         self
@@ -7684,6 +8047,10 @@ impl<'a> BindImageMemoryDeviceGroupInfo<'a> {
         self
     }
     #[inline]
+    pub fn get_device_indices(&self) -> &'a [u32] {
+        unsafe { slice::from_raw_parts(self.p_device_indices.cast(), self.device_index_count as _) }
+    }
+    #[inline]
     pub fn split_instance_bind_regions(
         mut self,
         p_split_instance_bind_regions: impl AsSlice<'a, Rect2D>,
@@ -7692,6 +8059,15 @@ impl<'a> BindImageMemoryDeviceGroupInfo<'a> {
             p_split_instance_bind_regions.as_slice().as_ptr().cast();
         self.split_instance_bind_region_count = p_split_instance_bind_regions.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_split_instance_bind_regions(&self) -> &'a [Rect2D] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_split_instance_bind_regions.cast(),
+                self.split_instance_bind_region_count as _,
+            )
+        }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -7733,6 +8109,11 @@ impl<'a> PhysicalDeviceGroupProperties<'a> {
     pub fn subset_allocation(mut self, value: impl Into<Bool32>) -> Self {
         self.subset_allocation = value.into();
         self
+    }
+    #[inline]
+    pub fn get_physical_devices<'b>(&'b self) -> &'b [BorrowedHandle<'a, raw::PhysicalDevice>] {
+        let handle_array = &self.physical_devices[..(self.physical_device_count as _)];
+        unsafe { slice::from_raw_parts(handle_array.as_ptr().cast(), handle_array.len()) }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -7777,6 +8158,15 @@ impl<'a> DeviceGroupDeviceCreateInfo<'a> {
         self.p_physical_devices = p_physical_devices.as_slice().as_ptr().cast();
         self.physical_device_count = p_physical_devices.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_physical_devices(&self) -> &'a [BorrowedHandle<'a, raw::PhysicalDevice>] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_physical_devices.cast(),
+                self.physical_device_count as _,
+            )
+        }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -8442,6 +8832,15 @@ impl<'a> RenderPassInputAttachmentAspectCreateInfo<'a> {
         self
     }
     #[inline]
+    pub fn get_aspect_references(&self) -> &'a [InputAttachmentAspectReference] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_aspect_references.cast(),
+                self.aspect_reference_count as _,
+            )
+        }
+    }
+    #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
         unsafe { self.push_next_unchecked(ext) };
         self
@@ -8614,16 +9013,33 @@ impl<'a> RenderPassMultiviewCreateInfo<'a> {
         self
     }
     #[inline]
+    pub fn get_view_masks(&self) -> &'a [u32] {
+        unsafe { slice::from_raw_parts(self.p_view_masks.cast(), self.subpass_count as _) }
+    }
+    #[inline]
     pub fn view_offsets(mut self, p_view_offsets: impl AsSlice<'a, i32>) -> Self {
         self.p_view_offsets = p_view_offsets.as_slice().as_ptr().cast();
         self.dependency_count = p_view_offsets.as_slice().len() as _;
         self
     }
     #[inline]
+    pub fn get_view_offsets(&self) -> &'a [i32] {
+        unsafe { slice::from_raw_parts(self.p_view_offsets.cast(), self.dependency_count as _) }
+    }
+    #[inline]
     pub fn correlation_masks(mut self, p_correlation_masks: impl AsSlice<'a, u32>) -> Self {
         self.p_correlation_masks = p_correlation_masks.as_slice().as_ptr().cast();
         self.correlation_mask_count = p_correlation_masks.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_correlation_masks(&self) -> &'a [u32] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_correlation_masks.cast(),
+                self.correlation_mask_count as _,
+            )
+        }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -9394,6 +9810,15 @@ impl<'a> DescriptorUpdateTemplateCreateInfo<'a> {
         self.p_descriptor_update_entries = p_descriptor_update_entries.as_slice().as_ptr().cast();
         self.descriptor_update_entry_count = p_descriptor_update_entries.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_descriptor_update_entries(&self) -> &'a [DescriptorUpdateTemplateEntry] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_descriptor_update_entries.cast(),
+                self.descriptor_update_entry_count as _,
+            )
+        }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -11344,6 +11769,10 @@ impl<'a> ImageFormatListCreateInfo<'a> {
         self
     }
     #[inline]
+    pub fn get_view_formats(&self) -> &'a [Format] {
+        unsafe { slice::from_raw_parts(self.p_view_formats.cast(), self.view_format_count as _) }
+    }
+    #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
         unsafe { self.push_next_unchecked(ext) };
         self
@@ -11406,10 +11835,18 @@ impl<'a> RenderPassCreateInfo2<'a> {
         self
     }
     #[inline]
+    pub fn get_attachments(&self) -> &'a [AttachmentDescription2<'a>] {
+        unsafe { slice::from_raw_parts(self.p_attachments.cast(), self.attachment_count as _) }
+    }
+    #[inline]
     pub fn subpasses(mut self, p_subpasses: impl AsSlice<'a, SubpassDescription2<'a>>) -> Self {
         self.p_subpasses = p_subpasses.as_slice().as_ptr().cast();
         self.subpass_count = p_subpasses.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_subpasses(&self) -> &'a [SubpassDescription2<'a>] {
+        unsafe { slice::from_raw_parts(self.p_subpasses.cast(), self.subpass_count as _) }
     }
     #[inline]
     pub fn dependencies(
@@ -11421,10 +11858,23 @@ impl<'a> RenderPassCreateInfo2<'a> {
         self
     }
     #[inline]
+    pub fn get_dependencies(&self) -> &'a [SubpassDependency2<'a>] {
+        unsafe { slice::from_raw_parts(self.p_dependencies.cast(), self.dependency_count as _) }
+    }
+    #[inline]
     pub fn correlated_view_masks(mut self, p_correlated_view_masks: impl AsSlice<'a, u32>) -> Self {
         self.p_correlated_view_masks = p_correlated_view_masks.as_slice().as_ptr().cast();
         self.correlated_view_mask_count = p_correlated_view_masks.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_correlated_view_masks(&self) -> &'a [u32] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_correlated_view_masks.cast(),
+                self.correlated_view_mask_count as _,
+            )
+        }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -11652,6 +12102,15 @@ impl<'a> SubpassDescription2<'a> {
         self
     }
     #[inline]
+    pub fn get_input_attachments(&self) -> &'a [AttachmentReference2<'a>] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_input_attachments.cast(),
+                self.input_attachment_count as _,
+            )
+        }
+    }
+    #[inline]
     pub fn color_attachment(
         mut self,
         p_color_attachments: impl AsSlice<'a, AttachmentReference2<'a>>,
@@ -11665,10 +12124,39 @@ impl<'a> SubpassDescription2<'a> {
         self
     }
     #[inline]
+    pub fn get_color_attachments(&self) -> &'a [AttachmentReference2<'a>] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_color_attachments.cast(),
+                self.color_attachment_count as _,
+            )
+        }
+    }
+    #[inline]
+    pub fn get_resolve_attachments(&self) -> &'a [AttachmentReference2<'a>] {
+        (!self.p_resolve_attachments.is_null())
+            .then(|| unsafe {
+                slice::from_raw_parts(
+                    self.p_resolve_attachments.cast(),
+                    self.color_attachment_count as _,
+                )
+            })
+            .unwrap_or(&[])
+    }
+    #[inline]
     pub fn preserve_attachments(mut self, p_preserve_attachments: impl AsSlice<'a, u32>) -> Self {
         self.p_preserve_attachments = p_preserve_attachments.as_slice().as_ptr().cast();
         self.preserve_attachment_count = p_preserve_attachments.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_preserve_attachments(&self) -> &'a [u32] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_preserve_attachments.cast(),
+                self.preserve_attachment_count as _,
+            )
+        }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -12306,6 +12794,10 @@ impl<'a> DescriptorSetLayoutBindingFlagsCreateInfo<'a> {
         self
     }
     #[inline]
+    pub fn get_binding_flags(&self) -> &'a [DescriptorBindingFlags] {
+        unsafe { slice::from_raw_parts(self.p_binding_flags.cast(), self.binding_count as _) }
+    }
+    #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
         unsafe { self.push_next_unchecked(ext) };
         self
@@ -12811,6 +13303,15 @@ impl<'a> DescriptorSetVariableDescriptorCountAllocateInfo<'a> {
         self
     }
     #[inline]
+    pub fn get_descriptor_counts(&self) -> &'a [u32] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_descriptor_counts.cast(),
+                self.descriptor_set_count as _,
+            )
+        }
+    }
+    #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
         unsafe { self.push_next_unchecked(ext) };
         self
@@ -13313,6 +13814,15 @@ impl<'a> FramebufferAttachmentsCreateInfo<'a> {
         self
     }
     #[inline]
+    pub fn get_attachment_image_infos(&self) -> &'a [FramebufferAttachmentImageInfo<'a>] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_attachment_image_infos.cast(),
+                self.attachment_image_info_count as _,
+            )
+        }
+    }
+    #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
         unsafe { self.push_next_unchecked(ext) };
         self
@@ -13388,6 +13898,10 @@ impl<'a> FramebufferAttachmentImageInfo<'a> {
         self
     }
     #[inline]
+    pub fn get_view_formats(&self) -> &'a [Format] {
+        unsafe { slice::from_raw_parts(self.p_view_formats.cast(), self.view_format_count as _) }
+    }
+    #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
         unsafe { self.push_next_unchecked(ext) };
         self
@@ -13433,6 +13947,10 @@ impl<'a> RenderPassAttachmentBeginInfo<'a> {
         self.p_attachments = p_attachments.as_slice().as_ptr().cast();
         self.attachment_count = p_attachments.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_attachments(&self) -> &'a [BorrowedHandle<'a, raw::ImageView>] {
+        unsafe { slice::from_raw_parts(self.p_attachments.cast(), self.attachment_count as _) }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -13903,6 +14421,15 @@ impl<'a> TimelineSemaphoreSubmitInfo<'a> {
         self
     }
     #[inline]
+    pub fn get_wait_semaphore_values(&self) -> &'a [u64] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_wait_semaphore_values.cast(),
+                self.wait_semaphore_value_count as _,
+            )
+        }
+    }
+    #[inline]
     pub fn signal_semaphore_values(
         mut self,
         p_signal_semaphore_values: impl AsSlice<'a, u64>,
@@ -13910,6 +14437,15 @@ impl<'a> TimelineSemaphoreSubmitInfo<'a> {
         self.p_signal_semaphore_values = p_signal_semaphore_values.as_slice().as_ptr().cast();
         self.signal_semaphore_value_count = p_signal_semaphore_values.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_signal_semaphore_values(&self) -> &'a [u64] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_signal_semaphore_values.cast(),
+                self.signal_semaphore_value_count as _,
+            )
+        }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -13964,6 +14500,14 @@ impl<'a> SemaphoreWaitInfo<'a> {
         self.p_values = p_values.as_slice().as_ptr().cast();
         self.semaphore_count = p_semaphores.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_semaphores(&self) -> &'a [BorrowedHandle<'a, raw::Semaphore>] {
+        unsafe { slice::from_raw_parts(self.p_semaphores.cast(), self.semaphore_count as _) }
+    }
+    #[inline]
+    pub fn get_values(&self) -> &'a [u64] {
+        unsafe { slice::from_raw_parts(self.p_values.cast(), self.semaphore_count as _) }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -14854,6 +15398,15 @@ impl<'a> PipelineCreationFeedbackCreateInfo<'a> {
         self
     }
     #[inline]
+    pub fn get_pipeline_stage_creation_feedbacks(&self) -> &'a [PipelineCreationFeedback] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_pipeline_stage_creation_feedbacks.cast(),
+                self.pipeline_stage_creation_feedback_count as _,
+            )
+        }
+    }
+    #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
         unsafe { self.push_next_unchecked(ext) };
         self
@@ -15529,6 +16082,15 @@ impl<'a> DependencyInfo<'a> {
         self
     }
     #[inline]
+    pub fn get_memory_barriers(&self) -> &'a [MemoryBarrier2<'a>] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_memory_barriers.cast(),
+                self.memory_barrier_count as _,
+            )
+        }
+    }
+    #[inline]
     pub fn buffer_memory_barriers(
         mut self,
         p_buffer_memory_barriers: impl AsSlice<'a, BufferMemoryBarrier2<'a>>,
@@ -15538,6 +16100,15 @@ impl<'a> DependencyInfo<'a> {
         self
     }
     #[inline]
+    pub fn get_buffer_memory_barriers(&self) -> &'a [BufferMemoryBarrier2<'a>] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_buffer_memory_barriers.cast(),
+                self.buffer_memory_barrier_count as _,
+            )
+        }
+    }
+    #[inline]
     pub fn image_memory_barriers(
         mut self,
         p_image_memory_barriers: impl AsSlice<'a, ImageMemoryBarrier2<'a>>,
@@ -15545,6 +16116,15 @@ impl<'a> DependencyInfo<'a> {
         self.p_image_memory_barriers = p_image_memory_barriers.as_slice().as_ptr().cast();
         self.image_memory_barrier_count = p_image_memory_barriers.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_image_memory_barriers(&self) -> &'a [ImageMemoryBarrier2<'a>] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_image_memory_barriers.cast(),
+                self.image_memory_barrier_count as _,
+            )
+        }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -15605,6 +16185,15 @@ impl<'a> SubmitInfo2<'a> {
         self
     }
     #[inline]
+    pub fn get_wait_semaphore_infos(&self) -> &'a [SemaphoreSubmitInfo<'a>] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_wait_semaphore_infos.cast(),
+                self.wait_semaphore_info_count as _,
+            )
+        }
+    }
+    #[inline]
     pub fn command_buffer_infos(
         mut self,
         p_command_buffer_infos: impl AsSlice<'a, CommandBufferSubmitInfo<'a>>,
@@ -15614,6 +16203,15 @@ impl<'a> SubmitInfo2<'a> {
         self
     }
     #[inline]
+    pub fn get_command_buffer_infos(&self) -> &'a [CommandBufferSubmitInfo<'a>] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_command_buffer_infos.cast(),
+                self.command_buffer_info_count as _,
+            )
+        }
+    }
+    #[inline]
     pub fn signal_semaphore_infos(
         mut self,
         p_signal_semaphore_infos: impl AsSlice<'a, SemaphoreSubmitInfo<'a>>,
@@ -15621,6 +16219,15 @@ impl<'a> SubmitInfo2<'a> {
         self.p_signal_semaphore_infos = p_signal_semaphore_infos.as_slice().as_ptr().cast();
         self.signal_semaphore_info_count = p_signal_semaphore_infos.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_signal_semaphore_infos(&self) -> &'a [SemaphoreSubmitInfo<'a>] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_signal_semaphore_infos.cast(),
+                self.signal_semaphore_info_count as _,
+            )
+        }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -15916,6 +16523,10 @@ impl<'a> CopyBufferInfo2<'a> {
         self
     }
     #[inline]
+    pub fn get_regions(&self) -> &'a [BufferCopy2<'a>] {
+        unsafe { slice::from_raw_parts(self.p_regions.cast(), self.region_count as _) }
+    }
+    #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
         unsafe { self.push_next_unchecked(ext) };
         self
@@ -15984,6 +16595,10 @@ impl<'a> CopyImageInfo2<'a> {
         self
     }
     #[inline]
+    pub fn get_regions(&self) -> &'a [ImageCopy2<'a>] {
+        unsafe { slice::from_raw_parts(self.p_regions.cast(), self.region_count as _) }
+    }
+    #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
         unsafe { self.push_next_unchecked(ext) };
         self
@@ -16045,6 +16660,10 @@ impl<'a> CopyBufferToImageInfo2<'a> {
         self
     }
     #[inline]
+    pub fn get_regions(&self) -> &'a [BufferImageCopy2<'a>] {
+        unsafe { slice::from_raw_parts(self.p_regions.cast(), self.region_count as _) }
+    }
+    #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
         unsafe { self.push_next_unchecked(ext) };
         self
@@ -16104,6 +16723,10 @@ impl<'a> CopyImageToBufferInfo2<'a> {
         self.p_regions = p_regions.as_slice().as_ptr().cast();
         self.region_count = p_regions.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_regions(&self) -> &'a [BufferImageCopy2<'a>] {
+        unsafe { slice::from_raw_parts(self.p_regions.cast(), self.region_count as _) }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -16181,6 +16804,10 @@ impl<'a> BlitImageInfo2<'a> {
         self
     }
     #[inline]
+    pub fn get_regions(&self) -> &'a [ImageBlit2<'a>] {
+        unsafe { slice::from_raw_parts(self.p_regions.cast(), self.region_count as _) }
+    }
+    #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
         unsafe { self.push_next_unchecked(ext) };
         self
@@ -16247,6 +16874,10 @@ impl<'a> ResolveImageInfo2<'a> {
         self.p_regions = p_regions.as_slice().as_ptr().cast();
         self.region_count = p_regions.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_regions(&self) -> &'a [ImageResolve2<'a>] {
+        unsafe { slice::from_raw_parts(self.p_regions.cast(), self.region_count as _) }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -16902,6 +17533,10 @@ impl<'a> WriteDescriptorSetInlineUniformBlock<'a> {
         self
     }
     #[inline]
+    pub fn get_data(&self) -> &'a [u8] {
+        unsafe { slice::from_raw_parts(self.p_data.cast::<u8>().cast(), self.data_size as _) }
+    }
+    #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
         unsafe { self.push_next_unchecked(ext) };
         self
@@ -17076,6 +17711,15 @@ impl<'a> RenderingInfo<'a> {
         self
     }
     #[inline]
+    pub fn get_color_attachments(&self) -> &'a [RenderingAttachmentInfo<'a>] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_color_attachments.cast(),
+                self.color_attachment_count as _,
+            )
+        }
+    }
+    #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
         unsafe { self.push_next_unchecked(ext) };
         self
@@ -17230,6 +17874,15 @@ impl<'a> PipelineRenderingCreateInfo<'a> {
         self
     }
     #[inline]
+    pub fn get_color_attachment_formats(&self) -> &'a [Format] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_color_attachment_formats.cast(),
+                self.color_attachment_count as _,
+            )
+        }
+    }
+    #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
         unsafe { self.push_next_unchecked(ext) };
         self
@@ -17355,6 +18008,15 @@ impl<'a> CommandBufferInheritanceRenderingInfo<'a> {
         self.p_color_attachment_formats = p_color_attachment_formats.as_slice().as_ptr().cast();
         self.color_attachment_count = p_color_attachment_formats.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_color_attachment_formats(&self) -> &'a [Format] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_color_attachment_formats.cast(),
+                self.color_attachment_count as _,
+            )
+        }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -18253,6 +18915,15 @@ impl<'a> SwapchainCreateInfoKHR<'a> {
         self
     }
     #[inline]
+    pub fn get_queue_family_indices(&self) -> &'a [u32] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_queue_family_indices.cast(),
+                self.queue_family_index_count as _,
+            )
+        }
+    }
+    #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
         unsafe { self.push_next_unchecked(ext) };
         self
@@ -18303,6 +18974,15 @@ impl<'a> PresentInfoKHR<'a> {
         self
     }
     #[inline]
+    pub fn get_wait_semaphores(&self) -> &'a [BorrowedHandle<'a, raw::Semaphore>] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_wait_semaphores.cast(),
+                self.wait_semaphore_count as _,
+            )
+        }
+    }
+    #[inline]
     pub fn swapchain<V0: Alias<raw::SwapchainKHR> + 'a>(
         mut self,
         p_swapchains: impl AsSlice<'a, V0>,
@@ -18316,6 +18996,22 @@ impl<'a> PresentInfoKHR<'a> {
             .unwrap_or(ptr::null());
         self.swapchain_count = p_swapchains.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_swapchains(&self) -> &'a [BorrowedHandle<'a, raw::SwapchainKHR>] {
+        unsafe { slice::from_raw_parts(self.p_swapchains.cast(), self.swapchain_count as _) }
+    }
+    #[inline]
+    pub fn get_image_indices(&self) -> &'a [u32] {
+        unsafe { slice::from_raw_parts(self.p_image_indices.cast(), self.swapchain_count as _) }
+    }
+    #[inline]
+    pub fn get_results(&self) -> &'a [Status] {
+        (!self.p_results.is_null())
+            .then(|| unsafe {
+                slice::from_raw_parts(self.p_results.cast(), self.swapchain_count as _)
+            })
+            .unwrap_or(&[])
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -18554,6 +19250,10 @@ impl<'a> DeviceGroupPresentInfoKHR<'a> {
         self.p_device_masks = p_device_masks.as_slice().as_ptr().cast();
         self.swapchain_count = p_device_masks.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_device_masks(&self) -> &'a [u32] {
+        unsafe { slice::from_raw_parts(self.p_device_masks.cast(), self.swapchain_count as _) }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -19462,6 +20162,10 @@ impl<'a> DebugMarkerObjectTagInfoEXT<'a> {
         self
     }
     #[inline]
+    pub fn get_tag(&self) -> &'a [u8] {
+        unsafe { slice::from_raw_parts(self.p_tag.cast::<u8>().cast(), self.tag_size as _) }
+    }
+    #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
         unsafe { self.push_next_unchecked(ext) };
         self
@@ -19877,6 +20581,10 @@ impl<'a> CuModuleCreateInfoNVX<'a> {
         self
     }
     #[inline]
+    pub fn get_data(&self) -> &'a [u8] {
+        unsafe { slice::from_raw_parts(self.p_data.cast::<u8>().cast(), self.data_size as _) }
+    }
+    #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
         unsafe { self.push_next_unchecked(ext) };
         self
@@ -20019,10 +20727,18 @@ impl<'a> CuLaunchInfoNVX<'a> {
         self
     }
     #[inline]
+    pub fn get_params(&self) -> &'a [&'a ()] {
+        unsafe { slice::from_raw_parts(self.p_params.cast(), self.param_count as _) }
+    }
+    #[inline]
     pub fn extras(mut self, p_extras: impl AsSlice<'a, &'a ()>) -> Self {
         self.p_extras = p_extras.as_slice().as_ptr().cast();
         self.extra_count = p_extras.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_extras(&self) -> &'a [&'a ()] {
+        unsafe { slice::from_raw_parts(self.p_extras.cast(), self.extra_count as _) }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -20432,6 +21148,15 @@ impl<'a> AttachmentSampleCountInfoAMD<'a> {
         self.p_color_attachment_samples = p_color_attachment_samples.as_slice().as_ptr().cast();
         self.color_attachment_count = p_color_attachment_samples.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_color_attachment_samples(&self) -> &'a [SampleCountFlags] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_color_attachment_samples.cast(),
+                self.color_attachment_count as _,
+            )
+        }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -20857,6 +21582,23 @@ impl<'a> Win32KeyedMutexAcquireReleaseInfoNV<'a> {
         self
     }
     #[inline]
+    pub fn get_acquire_syncs(&self) -> &'a [BorrowedHandle<'a, raw::DeviceMemory>] {
+        unsafe { slice::from_raw_parts(self.p_acquire_syncs.cast(), self.acquire_count as _) }
+    }
+    #[inline]
+    pub fn get_acquire_keys(&self) -> &'a [u64] {
+        unsafe { slice::from_raw_parts(self.p_acquire_keys.cast(), self.acquire_count as _) }
+    }
+    #[inline]
+    pub fn get_acquire_timeout_milliseconds(&self) -> &'a [u32] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_acquire_timeout_milliseconds.cast(),
+                self.acquire_count as _,
+            )
+        }
+    }
+    #[inline]
     pub fn release<V0: Alias<raw::DeviceMemory> + 'a>(
         mut self,
         p_release_syncs: impl AsSlice<'a, V0>,
@@ -20866,6 +21608,14 @@ impl<'a> Win32KeyedMutexAcquireReleaseInfoNV<'a> {
         self.p_release_keys = p_release_keys.as_slice().as_ptr().cast();
         self.release_count = p_release_syncs.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_release_syncs(&self) -> &'a [BorrowedHandle<'a, raw::DeviceMemory>] {
+        unsafe { slice::from_raw_parts(self.p_release_syncs.cast(), self.release_count as _) }
+    }
+    #[inline]
+    pub fn get_release_keys(&self) -> &'a [u64] {
+        unsafe { slice::from_raw_parts(self.p_release_keys.cast(), self.release_count as _) }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -20909,6 +21659,15 @@ impl<'a> ValidationFlagsEXT<'a> {
         self.p_disabled_validation_checks = p_disabled_validation_checks.as_slice().as_ptr().cast();
         self.disabled_validation_check_count = p_disabled_validation_checks.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_disabled_validation_checks(&self) -> &'a [ValidationCheckEXT] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_disabled_validation_checks.cast(),
+                self.disabled_validation_check_count as _,
+            )
+        }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -21598,6 +22357,18 @@ impl<'a> Win32KeyedMutexAcquireReleaseInfoKHR<'a> {
         self
     }
     #[inline]
+    pub fn get_acquire_syncs(&self) -> &'a [BorrowedHandle<'a, raw::DeviceMemory>] {
+        unsafe { slice::from_raw_parts(self.p_acquire_syncs.cast(), self.acquire_count as _) }
+    }
+    #[inline]
+    pub fn get_acquire_keys(&self) -> &'a [u64] {
+        unsafe { slice::from_raw_parts(self.p_acquire_keys.cast(), self.acquire_count as _) }
+    }
+    #[inline]
+    pub fn get_acquire_timeouts(&self) -> &'a [u32] {
+        unsafe { slice::from_raw_parts(self.p_acquire_timeouts.cast(), self.acquire_count as _) }
+    }
+    #[inline]
     pub fn release<V0: Alias<raw::DeviceMemory> + 'a>(
         mut self,
         p_release_syncs: impl AsSlice<'a, V0>,
@@ -21607,6 +22378,14 @@ impl<'a> Win32KeyedMutexAcquireReleaseInfoKHR<'a> {
         self.p_release_keys = p_release_keys.as_slice().as_ptr().cast();
         self.release_count = p_release_syncs.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_release_syncs(&self) -> &'a [BorrowedHandle<'a, raw::DeviceMemory>] {
+        unsafe { slice::from_raw_parts(self.p_release_syncs.cast(), self.release_count as _) }
+    }
+    #[inline]
+    pub fn get_release_keys(&self) -> &'a [u64] {
+        unsafe { slice::from_raw_parts(self.p_release_keys.cast(), self.release_count as _) }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -21781,6 +22560,15 @@ impl<'a> D3D12FenceSubmitInfoKHR<'a> {
         self
     }
     #[inline]
+    pub fn get_wait_semaphore_values(&self) -> &'a [u64] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_wait_semaphore_values.cast(),
+                self.wait_semaphore_values_count as _,
+            )
+        }
+    }
+    #[inline]
     pub fn signal_semaphore_values(
         mut self,
         p_signal_semaphore_values: impl AsSlice<'a, u64>,
@@ -21788,6 +22576,15 @@ impl<'a> D3D12FenceSubmitInfoKHR<'a> {
         self.p_signal_semaphore_values = p_signal_semaphore_values.as_slice().as_ptr().cast();
         self.signal_semaphore_values_count = p_signal_semaphore_values.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_signal_semaphore_values(&self) -> &'a [u64] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_signal_semaphore_values.cast(),
+                self.signal_semaphore_values_count as _,
+            )
+        }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -22161,6 +22958,10 @@ impl<'a> PresentRegionsKHR<'a> {
         self
     }
     #[inline]
+    pub fn get_regions(&self) -> &'a [PresentRegionKHR<'a>] {
+        unsafe { slice::from_raw_parts(self.p_regions.cast(), self.swapchain_count as _) }
+    }
+    #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
         unsafe { self.push_next_unchecked(ext) };
         self
@@ -22196,6 +22997,10 @@ impl<'a> PresentRegionKHR<'a> {
         self.p_rectangles = p_rectangles.as_slice().as_ptr().cast();
         self.rectangle_count = p_rectangles.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_rectangles(&self) -> &'a [RectLayerKHR] {
+        unsafe { slice::from_raw_parts(self.p_rectangles.cast(), self.rectangle_count as _) }
     }
 }
 #[repr(C)]
@@ -22316,6 +23121,10 @@ impl<'a> PipelineViewportWScalingStateCreateInfoNV<'a> {
         self.p_viewport_wscalings = p_viewport_wscalings.as_slice().as_ptr().cast();
         self.viewport_count = p_viewport_wscalings.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_viewport_wscalings(&self) -> &'a [ViewportWScalingNV] {
+        unsafe { slice::from_raw_parts(self.p_viewport_wscalings.cast(), self.viewport_count as _) }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -22691,6 +23500,10 @@ impl<'a> PresentTimesInfoGOOGLE<'a> {
         self
     }
     #[inline]
+    pub fn get_times(&self) -> &'a [PresentTimeGOOGLE] {
+        unsafe { slice::from_raw_parts(self.p_times.cast(), self.swapchain_count as _) }
+    }
+    #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
         unsafe { self.push_next_unchecked(ext) };
         self
@@ -22859,6 +23672,10 @@ impl<'a> PipelineViewportSwizzleStateCreateInfoNV<'a> {
         self
     }
     #[inline]
+    pub fn get_viewport_swizzles(&self) -> &'a [ViewportSwizzleNV] {
+        unsafe { slice::from_raw_parts(self.p_viewport_swizzles.cast(), self.viewport_count as _) }
+    }
+    #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
         unsafe { self.push_next_unchecked(ext) };
         self
@@ -22955,6 +23772,15 @@ impl<'a> PipelineDiscardRectangleStateCreateInfoEXT<'a> {
         self.p_discard_rectangles = p_discard_rectangles.as_slice().as_ptr().cast();
         self.discard_rectangle_count = p_discard_rectangles.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_discard_rectangles(&self) -> &'a [Rect2D] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_discard_rectangles.cast(),
+                self.discard_rectangle_count as _,
+            )
+        }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -23929,6 +24755,12 @@ impl<'a> QueryPoolPerformanceCreateInfoKHR<'a> {
         self
     }
     #[inline]
+    pub fn get_counter_indices(&self) -> &'a [u32] {
+        unsafe {
+            slice::from_raw_parts(self.p_counter_indices.cast(), self.counter_index_count as _)
+        }
+    }
+    #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
         unsafe { self.push_next_unchecked(ext) };
         self
@@ -24571,6 +25403,10 @@ impl<'a> DebugUtilsMessengerCallbackDataEXT<'a> {
         self
     }
     #[inline]
+    pub fn get_queue_labels(&self) -> &'a [DebugUtilsLabelEXT<'a>] {
+        unsafe { slice::from_raw_parts(self.p_queue_labels.cast(), self.queue_label_count as _) }
+    }
+    #[inline]
     pub fn cmd_buf_labels(
         mut self,
         p_cmd_buf_labels: impl AsSlice<'a, DebugUtilsLabelEXT<'a>>,
@@ -24580,10 +25416,20 @@ impl<'a> DebugUtilsMessengerCallbackDataEXT<'a> {
         self
     }
     #[inline]
+    pub fn get_cmd_buf_labels(&self) -> &'a [DebugUtilsLabelEXT<'a>] {
+        unsafe {
+            slice::from_raw_parts(self.p_cmd_buf_labels.cast(), self.cmd_buf_label_count as _)
+        }
+    }
+    #[inline]
     pub fn objects(mut self, p_objects: impl AsSlice<'a, DebugUtilsObjectNameInfoEXT<'a>>) -> Self {
         self.p_objects = p_objects.as_slice().as_ptr().cast();
         self.object_count = p_objects.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_objects(&self) -> &'a [DebugUtilsObjectNameInfoEXT<'a>] {
+        unsafe { slice::from_raw_parts(self.p_objects.cast(), self.object_count as _) }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -24766,6 +25612,10 @@ impl<'a> DebugUtilsObjectTagInfoEXT<'a> {
         self.p_tag = p_tag.as_slice().as_ptr().cast();
         self.tag_size = p_tag.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_tag(&self) -> &'a [u8] {
+        unsafe { slice::from_raw_parts(self.p_tag.cast::<u8>().cast(), self.tag_size as _) }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -25386,6 +26236,10 @@ impl<'a> ExecutionGraphPipelineCreateInfoAMDX<'a> {
         self
     }
     #[inline]
+    pub fn get_stages(&self) -> &'a [PipelineShaderStageCreateInfo<'a>] {
+        unsafe { slice::from_raw_parts(self.p_stages.cast(), self.stage_count as _) }
+    }
+    #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
         unsafe { self.push_next_unchecked(ext) };
         self
@@ -25617,6 +26471,15 @@ impl<'a> SampleLocationsInfoEXT<'a> {
         self
     }
     #[inline]
+    pub fn get_sample_locations(&self) -> &'a [SampleLocationEXT] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_sample_locations.cast(),
+                self.sample_locations_count as _,
+            )
+        }
+    }
+    #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
         unsafe { self.push_next_unchecked(ext) };
         self
@@ -25733,6 +26596,17 @@ impl<'a> RenderPassSampleLocationsBeginInfoEXT<'a> {
         self
     }
     #[inline]
+    pub fn get_attachment_initial_sample_locations(
+        &self,
+    ) -> &'a [AttachmentSampleLocationsEXT<'a>] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_attachment_initial_sample_locations.cast(),
+                self.attachment_initial_sample_locations_count as _,
+            )
+        }
+    }
+    #[inline]
     pub fn post_subpass_sample_locations(
         mut self,
         p_post_subpass_sample_locations: impl AsSlice<'a, SubpassSampleLocationsEXT<'a>>,
@@ -25742,6 +26616,15 @@ impl<'a> RenderPassSampleLocationsBeginInfoEXT<'a> {
         self.post_subpass_sample_locations_count =
             p_post_subpass_sample_locations.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_post_subpass_sample_locations(&self) -> &'a [SubpassSampleLocationsEXT<'a>] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_post_subpass_sample_locations.cast(),
+                self.post_subpass_sample_locations_count as _,
+            )
+        }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -26464,6 +27347,22 @@ impl<'a> AccelerationStructureBuildGeometryInfoKHR<'a> {
         self
     }
     #[inline]
+    pub fn get_geometries(&self) -> &'a [AccelerationStructureGeometryKHR<'a>] {
+        (!self.p_geometries.is_null())
+            .then(|| unsafe {
+                slice::from_raw_parts(self.p_geometries.cast(), self.geometry_count as _)
+            })
+            .unwrap_or(&[])
+    }
+    #[inline]
+    pub fn get_pp_geometries(&self) -> &'a [&'a AccelerationStructureGeometryKHR<'a>] {
+        (!self.pp_geometries.is_null())
+            .then(|| unsafe {
+                slice::from_raw_parts(self.pp_geometries.cast(), self.geometry_count as _)
+            })
+            .unwrap_or(&[])
+    }
+    #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
         unsafe { self.push_next_unchecked(ext) };
         self
@@ -26796,6 +27695,17 @@ impl<'a> WriteDescriptorSetAccelerationStructureKHR<'a> {
         self.p_acceleration_structures = p_acceleration_structures.as_slice().as_ptr().cast();
         self.acceleration_structure_count = p_acceleration_structures.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_acceleration_structures(
+        &self,
+    ) -> &'a [BorrowedHandle<'a, raw::AccelerationStructureKHR>] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_acceleration_structures.cast(),
+                self.acceleration_structure_count as _,
+            )
+        }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -27415,6 +28325,10 @@ impl<'a> RayTracingPipelineCreateInfoKHR<'a> {
         self
     }
     #[inline]
+    pub fn get_stages(&self) -> &'a [PipelineShaderStageCreateInfo<'a>] {
+        unsafe { slice::from_raw_parts(self.p_stages.cast(), self.stage_count as _) }
+    }
+    #[inline]
     pub fn groups(
         mut self,
         p_groups: impl AsSlice<'a, RayTracingShaderGroupCreateInfoKHR<'a>>,
@@ -27422,6 +28336,10 @@ impl<'a> RayTracingPipelineCreateInfoKHR<'a> {
         self.p_groups = p_groups.as_slice().as_ptr().cast();
         self.group_count = p_groups.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_groups(&self) -> &'a [RayTracingShaderGroupCreateInfoKHR<'a>] {
+        unsafe { slice::from_raw_parts(self.p_groups.cast(), self.group_count as _) }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -27827,6 +28745,15 @@ impl<'a> PipelineCoverageModulationStateCreateInfoNV<'a> {
         self
     }
     #[inline]
+    pub fn get_coverage_modulation_table(&self) -> &'a [f32] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_coverage_modulation_table.cast(),
+                self.coverage_modulation_table_count as _,
+            )
+        }
+    }
+    #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
         unsafe { self.push_next_unchecked(ext) };
         self
@@ -27960,6 +28887,15 @@ impl<'a> DrmFormatModifierPropertiesListEXT<'a> {
         self
     }
     #[inline]
+    pub fn get_drm_format_modifier_properties(&self) -> &'a [DrmFormatModifierPropertiesEXT] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_drm_format_modifier_properties.cast(),
+                self.drm_format_modifier_count as _,
+            )
+        }
+    }
+    #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
         unsafe { self.push_next_unchecked(ext) };
         self
@@ -28055,6 +28991,15 @@ impl<'a> PhysicalDeviceImageDrmFormatModifierInfoEXT<'a> {
         self
     }
     #[inline]
+    pub fn get_queue_family_indices(&self) -> &'a [u32] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_queue_family_indices.cast(),
+                self.queue_family_index_count as _,
+            )
+        }
+    }
+    #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
         unsafe { self.push_next_unchecked(ext) };
         self
@@ -28096,6 +29041,15 @@ impl<'a> ImageDrmFormatModifierListCreateInfoEXT<'a> {
         self.p_drm_format_modifiers = p_drm_format_modifiers.as_slice().as_ptr().cast();
         self.drm_format_modifier_count = p_drm_format_modifiers.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_drm_format_modifiers(&self) -> &'a [u64] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_drm_format_modifiers.cast(),
+                self.drm_format_modifier_count as _,
+            )
+        }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -28147,6 +29101,15 @@ impl<'a> ImageDrmFormatModifierExplicitCreateInfoEXT<'a> {
         self.p_plane_layouts = p_plane_layouts.as_slice().as_ptr().cast();
         self.drm_format_modifier_plane_count = p_plane_layouts.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_plane_layouts(&self) -> &'a [SubresourceLayout] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_plane_layouts.cast(),
+                self.drm_format_modifier_plane_count as _,
+            )
+        }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -28225,6 +29188,15 @@ impl<'a> DrmFormatModifierPropertiesList2EXT<'a> {
     pub fn drm_format_modifier_count(mut self, value: u32) -> Self {
         self.drm_format_modifier_count = value;
         self
+    }
+    #[inline]
+    pub fn get_drm_format_modifier_properties(&self) -> &'a [DrmFormatModifierProperties2EXT] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_drm_format_modifier_properties.cast(),
+                self.drm_format_modifier_count as _,
+            )
+        }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -28308,6 +29280,15 @@ impl<'a> ValidationCacheCreateInfoEXT<'a> {
         self.p_initial_data = p_initial_data.as_slice().as_ptr().cast();
         self.initial_data_size = p_initial_data.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_initial_data(&self) -> &'a [u8] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_initial_data.cast::<u8>().cast(),
+                self.initial_data_size as _,
+            )
+        }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -28573,6 +29554,15 @@ impl<'a> ShadingRatePaletteNV<'a> {
             p_shading_rate_palette_entries.as_slice().len() as _;
         self
     }
+    #[inline]
+    pub fn get_shading_rate_palette_entries(&self) -> &'a [ShadingRatePaletteEntryNV] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_shading_rate_palette_entries.cast(),
+                self.shading_rate_palette_entry_count as _,
+            )
+        }
+    }
 }
 #[repr(C)]
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPipelineViewportShadingRateImageStateCreateInfoNV.html>"]
@@ -28621,6 +29611,15 @@ impl<'a> PipelineViewportShadingRateImageStateCreateInfoNV<'a> {
         self.p_shading_rate_palettes = p_shading_rate_palettes.as_slice().as_ptr().cast();
         self.viewport_count = p_shading_rate_palettes.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_shading_rate_palettes(&self) -> &'a [ShadingRatePaletteNV<'a>] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_shading_rate_palettes.cast(),
+                self.viewport_count as _,
+            )
+        }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -28813,6 +29812,15 @@ impl<'a> CoarseSampleOrderCustomNV<'a> {
         self.sample_location_count = p_sample_locations.as_slice().len() as _;
         self
     }
+    #[inline]
+    pub fn get_sample_locations(&self) -> &'a [CoarseSampleLocationNV] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_sample_locations.cast(),
+                self.sample_location_count as _,
+            )
+        }
+    }
 }
 #[repr(C)]
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPipelineViewportCoarseSampleOrderStateCreateInfoNV.html>"]
@@ -28861,6 +29869,15 @@ impl<'a> PipelineViewportCoarseSampleOrderStateCreateInfoNV<'a> {
         self.p_custom_sample_orders = p_custom_sample_orders.as_slice().as_ptr().cast();
         self.custom_sample_order_count = p_custom_sample_orders.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_custom_sample_orders(&self) -> &'a [CoarseSampleOrderCustomNV<'a>] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_custom_sample_orders.cast(),
+                self.custom_sample_order_count as _,
+            )
+        }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -29005,6 +30022,10 @@ impl<'a> RayTracingPipelineCreateInfoNV<'a> {
         self
     }
     #[inline]
+    pub fn get_stages(&self) -> &'a [PipelineShaderStageCreateInfo<'a>] {
+        unsafe { slice::from_raw_parts(self.p_stages.cast(), self.stage_count as _) }
+    }
+    #[inline]
     pub fn groups(
         mut self,
         p_groups: impl AsSlice<'a, RayTracingShaderGroupCreateInfoNV<'a>>,
@@ -29012,6 +30033,10 @@ impl<'a> RayTracingPipelineCreateInfoNV<'a> {
         self.p_groups = p_groups.as_slice().as_ptr().cast();
         self.group_count = p_groups.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_groups(&self) -> &'a [RayTracingShaderGroupCreateInfoNV<'a>] {
+        unsafe { slice::from_raw_parts(self.p_groups.cast(), self.group_count as _) }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -29318,6 +30343,10 @@ impl<'a> AccelerationStructureInfoNV<'a> {
         self
     }
     #[inline]
+    pub fn get_geometries(&self) -> &'a [GeometryNV<'a>] {
+        unsafe { slice::from_raw_parts(self.p_geometries.cast(), self.geometry_count as _) }
+    }
+    #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
         unsafe { self.push_next_unchecked(ext) };
         self
@@ -29421,6 +30450,10 @@ impl<'a> BindAccelerationStructureMemoryInfoNV<'a> {
         self
     }
     #[inline]
+    pub fn get_device_indices(&self) -> &'a [u32] {
+        unsafe { slice::from_raw_parts(self.p_device_indices.cast(), self.device_index_count as _) }
+    }
+    #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
         unsafe { self.push_next_unchecked(ext) };
         self
@@ -29470,6 +30503,17 @@ impl<'a> WriteDescriptorSetAccelerationStructureNV<'a> {
         self.p_acceleration_structures = p_acceleration_structures.as_slice().as_ptr().cast();
         self.acceleration_structure_count = p_acceleration_structures.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_acceleration_structures(
+        &self,
+    ) -> &'a [BorrowedHandle<'a, raw::AccelerationStructureNV>] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_acceleration_structures.cast(),
+                self.acceleration_structure_count as _,
+            )
+        }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -30258,6 +31302,10 @@ impl<'a> Default for QueueFamilyGlobalPriorityPropertiesKHR<'a> {
 }
 impl<'a> QueueFamilyGlobalPriorityPropertiesKHR<'a> {
     #[inline]
+    pub fn get_priorities<'b>(&'b self) -> &'b [QueueGlobalPriorityKHR] {
+        &self.priorities[..(self.priority_count as _)]
+    }
+    #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
         unsafe { self.push_next_unchecked(ext) };
         self
@@ -30721,6 +31769,15 @@ impl<'a> PipelineViewportExclusiveScissorStateCreateInfoNV<'a> {
         self.p_exclusive_scissors = p_exclusive_scissors.as_slice().as_ptr().cast();
         self.exclusive_scissor_count = p_exclusive_scissors.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_exclusive_scissors(&self) -> &'a [Rect2D] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_exclusive_scissors.cast(),
+                self.exclusive_scissor_count as _,
+            )
+        }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -32135,6 +33192,15 @@ impl<'a> RenderingAttachmentLocationInfoKHR<'a> {
         self
     }
     #[inline]
+    pub fn get_color_attachment_locations(&self) -> &'a [u32] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_color_attachment_locations.cast(),
+                self.color_attachment_count as _,
+            )
+        }
+    }
+    #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
         unsafe { self.push_next_unchecked(ext) };
         self
@@ -32205,6 +33271,15 @@ impl<'a> RenderingInputAttachmentIndexInfoKHR<'a> {
             p_color_attachment_input_indices.as_slice().as_ptr().cast();
         self.color_attachment_count = p_color_attachment_input_indices.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_color_attachment_input_indices(&self) -> &'a [u32] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_color_attachment_input_indices.cast(),
+                self.color_attachment_count as _,
+            )
+        }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -32672,6 +33747,15 @@ impl<'a> ValidationFeaturesEXT<'a> {
         self
     }
     #[inline]
+    pub fn get_enabled_validation_features(&self) -> &'a [ValidationFeatureEnableEXT] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_enabled_validation_features.cast(),
+                self.enabled_validation_feature_count as _,
+            )
+        }
+    }
+    #[inline]
     pub fn disabled_validation_features(
         mut self,
         p_disabled_validation_features: impl AsSlice<'a, ValidationFeatureDisableEXT>,
@@ -32681,6 +33765,15 @@ impl<'a> ValidationFeaturesEXT<'a> {
         self.disabled_validation_feature_count =
             p_disabled_validation_features.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_disabled_validation_features(&self) -> &'a [ValidationFeatureDisableEXT] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_disabled_validation_features.cast(),
+                self.disabled_validation_feature_count as _,
+            )
+        }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -33956,6 +35049,10 @@ impl<'a> PipelineExecutableInternalRepresentationKHR<'a> {
         .unwrap()
     }
     #[inline]
+    pub fn get_data(&self) -> &'a [u8] {
+        unsafe { slice::from_raw_parts(self.p_data.cast::<u8>().cast(), self.data_size as _) }
+    }
+    #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
         unsafe { self.push_next_unchecked(ext) };
         self
@@ -34071,10 +35168,28 @@ impl<'a> PhysicalDeviceHostImageCopyPropertiesEXT<'a> {
         self
     }
     #[inline]
+    pub fn get_copy_src_layouts(&self) -> &'a [ImageLayout] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_copy_src_layouts.cast(),
+                self.copy_src_layout_count as _,
+            )
+        }
+    }
+    #[inline]
     pub fn copy_dst_layouts(mut self, p_copy_dst_layouts: impl AsSlice<'a, ImageLayout>) -> Self {
         self.p_copy_dst_layouts = p_copy_dst_layouts.as_slice().as_ptr().cast();
         self.copy_dst_layout_count = p_copy_dst_layouts.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_copy_dst_layouts(&self) -> &'a [ImageLayout] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_copy_dst_layouts.cast(),
+                self.copy_dst_layout_count as _,
+            )
+        }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -34279,6 +35394,10 @@ impl<'a> CopyMemoryToImageInfoEXT<'a> {
         self
     }
     #[inline]
+    pub fn get_regions(&self) -> &'a [MemoryToImageCopyEXT<'a>] {
+        unsafe { slice::from_raw_parts(self.p_regions.cast(), self.region_count as _) }
+    }
+    #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
         unsafe { self.push_next_unchecked(ext) };
         self
@@ -34337,6 +35456,10 @@ impl<'a> CopyImageToMemoryInfoEXT<'a> {
         self.p_regions = p_regions.as_slice().as_ptr().cast();
         self.region_count = p_regions.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_regions(&self) -> &'a [ImageToMemoryCopyEXT<'a>] {
+        unsafe { slice::from_raw_parts(self.p_regions.cast(), self.region_count as _) }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -34411,6 +35534,10 @@ impl<'a> CopyImageToImageInfoEXT<'a> {
         self.p_regions = p_regions.as_slice().as_ptr().cast();
         self.region_count = p_regions.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_regions(&self) -> &'a [ImageCopy2<'a>] {
+        unsafe { slice::from_raw_parts(self.p_regions.cast(), self.region_count as _) }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -35070,6 +36197,10 @@ impl<'a> SurfacePresentModeCompatibilityEXT<'a> {
         self
     }
     #[inline]
+    pub fn get_present_modes(&self) -> &'a [PresentModeKHR] {
+        unsafe { slice::from_raw_parts(self.p_present_modes.cast(), self.present_mode_count as _) }
+    }
+    #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
         unsafe { self.push_next_unchecked(ext) };
         self
@@ -35155,6 +36286,10 @@ impl<'a> SwapchainPresentFenceInfoEXT<'a> {
         self
     }
     #[inline]
+    pub fn get_fences(&self) -> &'a [BorrowedHandle<'a, raw::Fence>] {
+        unsafe { slice::from_raw_parts(self.p_fences.cast(), self.swapchain_count as _) }
+    }
+    #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
         unsafe { self.push_next_unchecked(ext) };
         self
@@ -35198,6 +36333,10 @@ impl<'a> SwapchainPresentModesCreateInfoEXT<'a> {
         self
     }
     #[inline]
+    pub fn get_present_modes(&self) -> &'a [PresentModeKHR] {
+        unsafe { slice::from_raw_parts(self.p_present_modes.cast(), self.present_mode_count as _) }
+    }
+    #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
         unsafe { self.push_next_unchecked(ext) };
         self
@@ -35236,6 +36375,10 @@ impl<'a> SwapchainPresentModeInfoEXT<'a> {
         self.p_present_modes = p_present_modes.as_slice().as_ptr().cast();
         self.swapchain_count = p_present_modes.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_present_modes(&self) -> &'a [PresentModeKHR] {
+        unsafe { slice::from_raw_parts(self.p_present_modes.cast(), self.swapchain_count as _) }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -35336,6 +36479,10 @@ impl<'a> ReleaseSwapchainImagesInfoEXT<'a> {
         self.p_image_indices = p_image_indices.as_slice().as_ptr().cast();
         self.image_index_count = p_image_indices.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_image_indices(&self) -> &'a [u32] {
+        unsafe { slice::from_raw_parts(self.p_image_indices.cast(), self.image_index_count as _) }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -35539,6 +36686,10 @@ impl<'a> GraphicsShaderGroupCreateInfoNV<'a> {
         self
     }
     #[inline]
+    pub fn get_stages(&self) -> &'a [PipelineShaderStageCreateInfo<'a>] {
+        unsafe { slice::from_raw_parts(self.p_stages.cast(), self.stage_count as _) }
+    }
+    #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
         unsafe { self.push_next_unchecked(ext) };
         self
@@ -35589,6 +36740,10 @@ impl<'a> GraphicsPipelineShaderGroupsCreateInfoNV<'a> {
         self
     }
     #[inline]
+    pub fn get_groups(&self) -> &'a [GraphicsShaderGroupCreateInfoNV<'a>] {
+        unsafe { slice::from_raw_parts(self.p_groups.cast(), self.group_count as _) }
+    }
+    #[inline]
     pub fn pipelines<V0: Alias<raw::Pipeline> + 'a>(
         mut self,
         p_pipelines: impl AsSlice<'a, V0>,
@@ -35596,6 +36751,10 @@ impl<'a> GraphicsPipelineShaderGroupsCreateInfoNV<'a> {
         self.p_pipelines = p_pipelines.as_slice().as_ptr().cast();
         self.pipeline_count = p_pipelines.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_pipelines(&self) -> &'a [BorrowedHandle<'a, raw::Pipeline>] {
+        unsafe { slice::from_raw_parts(self.p_pipelines.cast(), self.pipeline_count as _) }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -35865,6 +37024,16 @@ impl<'a> IndirectCommandsLayoutTokenNV<'a> {
         self
     }
     #[inline]
+    pub fn get_index_types(&self) -> &'a [IndexType] {
+        unsafe { slice::from_raw_parts(self.p_index_types.cast(), self.index_type_count as _) }
+    }
+    #[inline]
+    pub fn get_index_type_values(&self) -> &'a [u32] {
+        unsafe {
+            slice::from_raw_parts(self.p_index_type_values.cast(), self.index_type_count as _)
+        }
+    }
+    #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
         unsafe { self.push_next_unchecked(ext) };
         self
@@ -35922,10 +37091,18 @@ impl<'a> IndirectCommandsLayoutCreateInfoNV<'a> {
         self
     }
     #[inline]
+    pub fn get_tokens(&self) -> &'a [IndirectCommandsLayoutTokenNV<'a>] {
+        unsafe { slice::from_raw_parts(self.p_tokens.cast(), self.token_count as _) }
+    }
+    #[inline]
     pub fn stream_strides(mut self, p_stream_strides: impl AsSlice<'a, u32>) -> Self {
         self.p_stream_strides = p_stream_strides.as_slice().as_ptr().cast();
         self.stream_count = p_stream_strides.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_stream_strides(&self) -> &'a [u32] {
+        unsafe { slice::from_raw_parts(self.p_stream_strides.cast(), self.stream_count as _) }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -36042,6 +37219,10 @@ impl<'a> GeneratedCommandsInfoNV<'a> {
         self.p_streams = p_streams.as_slice().as_ptr().cast();
         self.stream_count = p_streams.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_streams(&self) -> &'a [IndirectCommandsStreamNV<'a>] {
+        unsafe { slice::from_raw_parts(self.p_streams.cast(), self.stream_count as _) }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -36970,6 +38151,10 @@ impl<'a> PipelineLibraryCreateInfoKHR<'a> {
         self
     }
     #[inline]
+    pub fn get_libraries(&self) -> &'a [BorrowedHandle<'a, raw::Pipeline>] {
+        unsafe { slice::from_raw_parts(self.p_libraries.cast(), self.library_count as _) }
+    }
+    #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
         unsafe { self.push_next_unchecked(ext) };
         self
@@ -37139,6 +38324,10 @@ impl<'a> PresentIdKHR<'a> {
         self
     }
     #[inline]
+    pub fn get_present_ids(&self) -> &'a [u64] {
+        unsafe { slice::from_raw_parts(self.p_present_ids.cast(), self.swapchain_count as _) }
+    }
+    #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
         unsafe { self.push_next_unchecked(ext) };
         self
@@ -37306,6 +38495,10 @@ impl<'a> CudaModuleCreateInfoNV<'a> {
         self
     }
     #[inline]
+    pub fn get_data(&self) -> &'a [u8] {
+        unsafe { slice::from_raw_parts(self.p_data.cast::<u8>().cast(), self.data_size as _) }
+    }
+    #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
         unsafe { self.push_next_unchecked(ext) };
         self
@@ -37448,10 +38641,18 @@ impl<'a> CudaLaunchInfoNV<'a> {
         self
     }
     #[inline]
+    pub fn get_params(&self) -> &'a [&'a ()] {
+        unsafe { slice::from_raw_parts(self.p_params.cast(), self.param_count as _) }
+    }
+    #[inline]
     pub fn extras(mut self, p_extras: impl AsSlice<'a, &'a ()>) -> Self {
         self.p_extras = p_extras.as_slice().as_ptr().cast();
         self.extra_count = p_extras.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_extras(&self) -> &'a [&'a ()] {
+        unsafe { slice::from_raw_parts(self.p_extras.cast(), self.extra_count as _) }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -40694,6 +41895,15 @@ impl<'a> ImageCompressionControlEXT<'a> {
         self
     }
     #[inline]
+    pub fn get_fixed_rate_flags(&self) -> &'a [ImageCompressionFixedRateFlagsEXT] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_fixed_rate_flags.cast(),
+                self.compression_control_plane_count as _,
+            )
+        }
+    }
+    #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
         unsafe { self.push_next_unchecked(ext) };
         self
@@ -42405,6 +43615,15 @@ impl<'a> ImageConstraintsInfoFUCHSIA<'a> {
         self
     }
     #[inline]
+    pub fn get_format_constraints(&self) -> &'a [ImageFormatConstraintsInfoFUCHSIA<'a>] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_format_constraints.cast(),
+                self.format_constraints_count as _,
+            )
+        }
+    }
+    #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
         unsafe { self.push_next_unchecked(ext) };
         self
@@ -42473,6 +43692,10 @@ impl<'a> ImageFormatConstraintsInfoFUCHSIA<'a> {
         self.p_color_spaces = p_color_spaces.as_slice().as_ptr().cast();
         self.color_space_count = p_color_spaces.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_color_spaces(&self) -> &'a [SysmemColorSpaceFUCHSIA<'a>] {
+        unsafe { slice::from_raw_parts(self.p_color_spaces.cast(), self.color_space_count as _) }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -43017,16 +44240,28 @@ impl<'a> FrameBoundaryEXT<'a> {
         self
     }
     #[inline]
+    pub fn get_images(&self) -> &'a [BorrowedHandle<'a, raw::Image>] {
+        unsafe { slice::from_raw_parts(self.p_images.cast(), self.image_count as _) }
+    }
+    #[inline]
     pub fn buffers<V0: Alias<raw::Buffer> + 'a>(mut self, p_buffers: impl AsSlice<'a, V0>) -> Self {
         self.p_buffers = p_buffers.as_slice().as_ptr().cast();
         self.buffer_count = p_buffers.as_slice().len() as _;
         self
     }
     #[inline]
+    pub fn get_buffers(&self) -> &'a [BorrowedHandle<'a, raw::Buffer>] {
+        unsafe { slice::from_raw_parts(self.p_buffers.cast(), self.buffer_count as _) }
+    }
+    #[inline]
     pub fn tag(mut self, p_tag: impl AsSlice<'a, u8>) -> Self {
         self.p_tag = p_tag.as_slice().as_ptr().cast();
         self.tag_size = p_tag.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_tag(&self) -> &'a [u8] {
+        unsafe { slice::from_raw_parts(self.p_tag.cast::<u8>().cast(), self.tag_size as _) }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -43367,6 +44602,15 @@ impl<'a> PipelineColorWriteCreateInfoEXT<'a> {
         self.p_color_write_enables = p_color_write_enables.as_slice().as_ptr().cast();
         self.attachment_count = p_color_write_enables.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_color_write_enables(&self) -> &'a [Bool32] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_color_write_enables.cast(),
+                self.attachment_count as _,
+            )
+        }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -44117,6 +45361,22 @@ impl<'a> MicromapBuildInfoEXT<'a> {
         self
     }
     #[inline]
+    pub fn get_usage_counts(&self) -> &'a [MicromapUsageEXT] {
+        (!self.p_usage_counts.is_null())
+            .then(|| unsafe {
+                slice::from_raw_parts(self.p_usage_counts.cast(), self.usage_counts_count as _)
+            })
+            .unwrap_or(&[])
+    }
+    #[inline]
+    pub fn get_pp_usage_counts(&self) -> &'a [&'a MicromapUsageEXT] {
+        (!self.pp_usage_counts.is_null())
+            .then(|| unsafe {
+                slice::from_raw_parts(self.pp_usage_counts.cast(), self.usage_counts_count as _)
+            })
+            .unwrap_or(&[])
+    }
+    #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
         unsafe { self.push_next_unchecked(ext) };
         self
@@ -44663,6 +45923,22 @@ impl<'a> AccelerationStructureTrianglesOpacityMicromapEXT<'a> {
         self
     }
     #[inline]
+    pub fn get_usage_counts(&self) -> &'a [MicromapUsageEXT] {
+        (!self.p_usage_counts.is_null())
+            .then(|| unsafe {
+                slice::from_raw_parts(self.p_usage_counts.cast(), self.usage_counts_count as _)
+            })
+            .unwrap_or(&[])
+    }
+    #[inline]
+    pub fn get_pp_usage_counts(&self) -> &'a [&'a MicromapUsageEXT] {
+        (!self.pp_usage_counts.is_null())
+            .then(|| unsafe {
+                slice::from_raw_parts(self.pp_usage_counts.cast(), self.usage_counts_count as _)
+            })
+            .unwrap_or(&[])
+    }
+    #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
         unsafe { self.push_next_unchecked(ext) };
         self
@@ -44943,6 +46219,22 @@ impl<'a> AccelerationStructureTrianglesDisplacementMicromapNV<'a> {
             .map(|p| p.as_slice().len())
             .unwrap_or_default() as _;
         self
+    }
+    #[inline]
+    pub fn get_usage_counts(&self) -> &'a [MicromapUsageEXT] {
+        (!self.p_usage_counts.is_null())
+            .then(|| unsafe {
+                slice::from_raw_parts(self.p_usage_counts.cast(), self.usage_counts_count as _)
+            })
+            .unwrap_or(&[])
+    }
+    #[inline]
+    pub fn get_pp_usage_counts(&self) -> &'a [&'a MicromapUsageEXT] {
+        (!self.pp_usage_counts.is_null())
+            .then(|| unsafe {
+                slice::from_raw_parts(self.pp_usage_counts.cast(), self.usage_counts_count as _)
+            })
+            .unwrap_or(&[])
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -45935,6 +47227,10 @@ impl<'a> RenderPassStripeBeginInfoARM<'a> {
         self
     }
     #[inline]
+    pub fn get_stripe_infos(&self) -> &'a [RenderPassStripeInfoARM<'a>] {
+        unsafe { slice::from_raw_parts(self.p_stripe_infos.cast(), self.stripe_info_count as _) }
+    }
+    #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
         unsafe { self.push_next_unchecked(ext) };
         self
@@ -46015,6 +47311,15 @@ impl<'a> RenderPassStripeSubmitInfoARM<'a> {
         self.p_stripe_semaphore_infos = p_stripe_semaphore_infos.as_slice().as_ptr().cast();
         self.stripe_semaphore_info_count = p_stripe_semaphore_infos.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_stripe_semaphore_infos(&self) -> &'a [SemaphoreSubmitInfo<'a>] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_stripe_semaphore_infos.cast(),
+                self.stripe_semaphore_info_count as _,
+            )
+        }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -46147,6 +47452,15 @@ impl<'a> SubpassFragmentDensityMapOffsetEndInfoQCOM<'a> {
         self.p_fragment_density_offsets = p_fragment_density_offsets.as_slice().as_ptr().cast();
         self.fragment_density_offset_count = p_fragment_density_offsets.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_fragment_density_offsets(&self) -> &'a [Offset2D] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_fragment_density_offsets.cast(),
+                self.fragment_density_offset_count as _,
+            )
+        }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -47910,6 +49224,10 @@ impl<'a> DirectDriverLoadingListLUNARG<'a> {
         self
     }
     #[inline]
+    pub fn get_drivers(&self) -> &'a [DirectDriverLoadingInfoLUNARG<'a>] {
+        unsafe { slice::from_raw_parts(self.p_drivers.cast(), self.driver_count as _) }
+    }
+    #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
         unsafe { self.push_next_unchecked(ext) };
         self
@@ -48040,6 +49358,10 @@ impl<'a> PipelineShaderStageModuleIdentifierCreateInfoEXT<'a> {
         self
     }
     #[inline]
+    pub fn get_identifier(&self) -> &'a [u8] {
+        unsafe { slice::from_raw_parts(self.p_identifier.cast(), self.identifier_size as _) }
+    }
+    #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
         unsafe { self.push_next_unchecked(ext) };
         self
@@ -48072,6 +49394,10 @@ impl<'a> Default for ShaderModuleIdentifierEXT<'a> {
     }
 }
 impl<'a> ShaderModuleIdentifierEXT<'a> {
+    #[inline]
+    pub fn get_identifier<'b>(&'b self) -> &'b [u8] {
+        &self.identifier[..(self.identifier_size as _)]
+    }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
         unsafe { self.push_next_unchecked(ext) };
@@ -48562,6 +49888,10 @@ impl<'a> OpticalFlowExecuteInfoNV<'a> {
         self
     }
     #[inline]
+    pub fn get_regions(&self) -> &'a [Rect2D] {
+        unsafe { slice::from_raw_parts(self.p_regions.cast(), self.region_count as _) }
+    }
+    #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
         unsafe { self.push_next_unchecked(ext) };
         self
@@ -48984,6 +50314,15 @@ impl<'a> RenderingAreaInfoKHR<'a> {
         self.p_color_attachment_formats = p_color_attachment_formats.as_slice().as_ptr().cast();
         self.color_attachment_count = p_color_attachment_formats.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_color_attachment_formats(&self) -> &'a [Format] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_color_attachment_formats.cast(),
+                self.color_attachment_count as _,
+            )
+        }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -49442,6 +50781,10 @@ impl<'a> ShaderCreateInfoEXT<'a> {
         self
     }
     #[inline]
+    pub fn get_code(&self) -> &'a [u8] {
+        unsafe { slice::from_raw_parts(self.p_code.cast::<u8>().cast(), self.code_size as _) }
+    }
+    #[inline]
     pub fn set_layouts<V0: Alias<raw::DescriptorSetLayout> + 'a>(
         mut self,
         p_set_layouts: impl AsSlice<'a, V0>,
@@ -49451,6 +50794,10 @@ impl<'a> ShaderCreateInfoEXT<'a> {
         self
     }
     #[inline]
+    pub fn get_set_layouts(&self) -> &'a [BorrowedHandle<'a, raw::DescriptorSetLayout>] {
+        unsafe { slice::from_raw_parts(self.p_set_layouts.cast(), self.set_layout_count as _) }
+    }
+    #[inline]
     pub fn push_constant_ranges(
         mut self,
         p_push_constant_ranges: impl AsSlice<'a, PushConstantRange>,
@@ -49458,6 +50805,15 @@ impl<'a> ShaderCreateInfoEXT<'a> {
         self.p_push_constant_ranges = p_push_constant_ranges.as_slice().as_ptr().cast();
         self.push_constant_range_count = p_push_constant_ranges.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_push_constant_ranges(&self) -> &'a [PushConstantRange] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_push_constant_ranges.cast(),
+                self.push_constant_range_count as _,
+            )
+        }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -49957,6 +51313,15 @@ impl<'a> MutableDescriptorTypeListEXT<'a> {
         self.descriptor_type_count = p_descriptor_types.as_slice().len() as _;
         self
     }
+    #[inline]
+    pub fn get_descriptor_types(&self) -> &'a [DescriptorType] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_descriptor_types.cast(),
+                self.descriptor_type_count as _,
+            )
+        }
+    }
 }
 pub type MutableDescriptorTypeListVALVE<'a> = MutableDescriptorTypeListEXT<'a>;
 #[repr(C)]
@@ -50004,6 +51369,15 @@ impl<'a> MutableDescriptorTypeCreateInfoEXT<'a> {
         self.mutable_descriptor_type_list_count =
             p_mutable_descriptor_type_lists.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_mutable_descriptor_type_lists(&self) -> &'a [MutableDescriptorTypeListEXT<'a>] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_mutable_descriptor_type_lists.cast(),
+                self.mutable_descriptor_type_list_count as _,
+            )
+        }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -50133,6 +51507,10 @@ impl<'a> LayerSettingsCreateInfoEXT<'a> {
         self
     }
     #[inline]
+    pub fn get_settings(&self) -> &'a [LayerSettingEXT<'a>] {
+        unsafe { slice::from_raw_parts(self.p_settings.cast(), self.setting_count as _) }
+    }
+    #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
         unsafe { self.push_next_unchecked(ext) };
         self
@@ -50184,6 +51562,10 @@ impl<'a> LayerSettingEXT<'a> {
         self.p_values = p_values.as_slice().as_ptr().cast();
         self.value_count = p_values.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_values(&self) -> &'a [u8] {
+        unsafe { slice::from_raw_parts(self.p_values.cast::<u8>().cast(), self.value_count as _) }
     }
 }
 #[repr(C)]
@@ -50553,6 +51935,10 @@ impl<'a> GetLatencyMarkerInfoNV<'a> {
         self
     }
     #[inline]
+    pub fn get_timings(&self) -> &'a [LatencyTimingsFrameReportNV<'a>] {
+        unsafe { slice::from_raw_parts(self.p_timings.cast(), self.timing_count as _) }
+    }
+    #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
         unsafe { self.push_next_unchecked(ext) };
         self
@@ -50842,6 +52228,10 @@ impl<'a> LatencySurfaceCapabilitiesNV<'a> {
         self
     }
     #[inline]
+    pub fn get_present_modes(&self) -> &'a [PresentModeKHR] {
+        unsafe { slice::from_raw_parts(self.p_present_modes.cast(), self.present_mode_count as _) }
+    }
+    #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
         unsafe { self.push_next_unchecked(ext) };
         self
@@ -51120,6 +52510,15 @@ impl<'a> MultiviewPerViewRenderAreasRenderPassBeginInfoQCOM<'a> {
         self.p_per_view_render_areas = p_per_view_render_areas.as_slice().as_ptr().cast();
         self.per_view_render_area_count = p_per_view_render_areas.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_per_view_render_areas(&self) -> &'a [Rect2D] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_per_view_render_areas.cast(),
+                self.per_view_render_area_count as _,
+            )
+        }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -51734,6 +53133,15 @@ impl<'a> PipelineVertexInputDivisorStateCreateInfoKHR<'a> {
         self.p_vertex_binding_divisors = p_vertex_binding_divisors.as_slice().as_ptr().cast();
         self.vertex_binding_divisor_count = p_vertex_binding_divisors.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_vertex_binding_divisors(&self) -> &'a [VertexInputBindingDivisorDescriptionKHR] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_vertex_binding_divisors.cast(),
+                self.vertex_binding_divisor_count as _,
+            )
+        }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -52662,10 +54070,28 @@ impl<'a> BindDescriptorSetsInfoKHR<'a> {
         self
     }
     #[inline]
+    pub fn get_descriptor_sets(&self) -> &'a [BorrowedHandle<'a, raw::DescriptorSet>] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_descriptor_sets.cast(),
+                self.descriptor_set_count as _,
+            )
+        }
+    }
+    #[inline]
     pub fn dynamic_offsets(mut self, p_dynamic_offsets: impl AsSlice<'a, u32>) -> Self {
         self.p_dynamic_offsets = p_dynamic_offsets.as_slice().as_ptr().cast();
         self.dynamic_offset_count = p_dynamic_offsets.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_dynamic_offsets(&self) -> &'a [u32] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_dynamic_offsets.cast(),
+                self.dynamic_offset_count as _,
+            )
+        }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -52726,6 +54152,10 @@ impl<'a> PushConstantsInfoKHR<'a> {
         self.p_values = p_values.as_slice().as_ptr().cast();
         self.size = p_values.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_values(&self) -> &'a [u8] {
+        unsafe { slice::from_raw_parts(self.p_values.cast::<u8>().cast(), self.size as _) }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -52789,6 +54219,15 @@ impl<'a> PushDescriptorSetInfoKHR<'a> {
         self.p_descriptor_writes = p_descriptor_writes.as_slice().as_ptr().cast();
         self.descriptor_write_count = p_descriptor_writes.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_descriptor_writes(&self) -> &'a [WriteDescriptorSet<'a>] {
+        unsafe {
+            slice::from_raw_parts(
+                self.p_descriptor_writes.cast(),
+                self.descriptor_write_count as _,
+            )
+        }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -52913,6 +54352,14 @@ impl<'a> SetDescriptorBufferOffsetsInfoEXT<'a> {
         self.p_offsets = p_offsets.as_slice().as_ptr().cast();
         self.set_count = p_buffer_indices.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_buffer_indices(&self) -> &'a [u32] {
+        unsafe { slice::from_raw_parts(self.p_buffer_indices.cast(), self.set_count as _) }
+    }
+    #[inline]
+    pub fn get_offsets(&self) -> &'a [DeviceSize] {
+        unsafe { slice::from_raw_parts(self.p_offsets.cast(), self.set_count as _) }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -53296,6 +54743,10 @@ impl<'a> PhysicalDeviceLayeredApiPropertiesListKHR<'a> {
         self.p_layered_apis = p_layered_apis.as_slice().as_ptr().cast();
         self.layered_api_count = p_layered_apis.as_slice().len() as _;
         self
+    }
+    #[inline]
+    pub fn get_layered_apis(&self) -> &'a [PhysicalDeviceLayeredApiPropertiesKHR<'a>] {
+        unsafe { slice::from_raw_parts(self.p_layered_apis.cast(), self.layered_api_count as _) }
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {

@@ -748,6 +748,19 @@ pub struct CommandParamsParsed<'a, 'b> {
     pub command: &'b Command<'a>,
 }
 
+pub struct SliceType {
+    /// V: Alias<raw::Fence>
+    pub template_param: Option<TokenStream>,
+    /// p_offset: impl AsSlice<'a, V>
+    pub input_ty: TokenStream,
+    /// self.p_offset = p_offset.as_slice().as_ptr()
+    pub affectation: TokenStream,
+    /// &'b [DeviceSize]
+    pub output_ty: TokenStream,
+    /// unsafe { slices::from_raw_parts(..) }
+    pub access: TokenStream,
+}
+
 /// Performs screaming snake case to pascal case conversion
 /// We only keep the part of the field not already in the container:
 /// VK_PRIMITIVE_TOPOLOGY_POINT_LIST => PointList
