@@ -8,7 +8,7 @@ use proc_macro2::TokenStream;
 use quote::{format_ident, quote};
 
 use crate::{
-    structs::{AdvancedType, Struct, StructBasetype, StructField, StructStandard},
+    structs::{AdvancedType, Struct, StructBasetype, StructField, StructStandard, Type},
     xml,
 };
 
@@ -188,7 +188,14 @@ fn generate_struct<'a>(
                     quote! {p_next: Cell::new(ptr::null())},
                 ),
                 _ => {
-                    let default_value = gen.generate_default(&field.advanced_ty.get().unwrap())?;
+                    let default_value = if field.name.ends_with("queue_family_index")
+                        && matches!(field.ty, Type::Path("uint32_t"))
+                    {
+                        // for queue families, set the default value as vk::QUEUE_FAMILY_IGNORED (instead of 0 which is a valid queue id)
+                        quote!(QUEUE_FAMILY_IGNORED)
+                    } else {
+                        gen.generate_default(&field.advanced_ty.get().unwrap())?
+                    };
                     let mut ty_inner =
                         gen.generate_type_inner(&field.advanced_ty.get().unwrap(), true)?;
                     if my_struct.is_union && gen.compute_type_lifetime(&field.ty) {
