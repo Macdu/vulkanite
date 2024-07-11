@@ -15,17 +15,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
+    - uses: taiki-e/install-action@cargo-rdme
+    - name: Check Readme
+      run: cargo rdme --check
     - name: Check fmt
       run: cargo fmt --all -- --check
     - run: cargo check -p example
-
-  readme:
-    name: Check Readme
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
-    - run: cargo install cargo-rdme
-    - run: cargo rdme --check
 
   check_msrv:
     name: Check MSRV (1.77.0)
