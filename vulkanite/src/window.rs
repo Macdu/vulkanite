@@ -37,7 +37,7 @@ pub fn enumerate_required_extensions(
 }
 
 pub mod raw {
-    use std::mem;
+    use std::os::raw::c_void;
 
     use raw_window_handle::{RawDisplayHandle, RawWindowHandle};
 
@@ -55,58 +55,53 @@ pub mod raw {
     ) -> vk::Result<vk::raw::SurfaceKHR> {
         match (display_handle, window_handle) {
             (RawDisplayHandle::Windows(_), RawWindowHandle::Win32(window)) => {
-                let surface_desc = unsafe {
-                    vk::Win32SurfaceCreateInfoKHR::default()
-                        .hwnd(mem::transmute(window.hwnd))
-                        .hinstance(mem::transmute(
-                            window
-                                .hinstance
-                                .ok_or(vk::Status::ErrorInitializationFailed)?,
-                        ))
-                };
+                let surface_desc = vk::Win32SurfaceCreateInfoKHR::default()
+                    .hwnd(window.hwnd.get() as *const c_void)
+                    .hinstance(
+                        window
+                            .hinstance
+                            .ok_or(vk::Status::ErrorInitializationFailed)?
+                            .get() as *const c_void,
+                    );
                 vk::raw::create_win32_surface_khr(instance, &surface_desc, allocator, dispatcher)
             }
 
             (RawDisplayHandle::Wayland(display), RawWindowHandle::Wayland(window)) => {
-                let surface_desc = unsafe {
-                    vk::WaylandSurfaceCreateInfoKHR::default()
-                        .display(mem::transmute(display.display))
-                        .surface(mem::transmute(window.surface))
-                };
+                let surface_desc = vk::WaylandSurfaceCreateInfoKHR::default()
+                    .display(unsafe { display.display.cast().as_ref() })
+                    .surface(unsafe { window.surface.cast().as_ref() });
                 vk::raw::create_wayland_surface_khr(instance, &surface_desc, allocator, dispatcher)
             }
 
             (RawDisplayHandle::Xlib(display), RawWindowHandle::Xlib(window)) => {
-                let surface_desc = unsafe {
-                    vk::XlibSurfaceCreateInfoKHR::default()
-                        .dpy(mem::transmute(
-                            display
-                                .display
-                                .ok_or(vk::Status::ErrorInitializationFailed)?,
-                        ))
-                        .window(window.window)
-                };
+                let surface_desc = vk::XlibSurfaceCreateInfoKHR::default()
+                    .dpy(unsafe {
+                        display
+                            .display
+                            .ok_or(vk::Status::ErrorInitializationFailed)?
+                            .cast()
+                            .as_ref()
+                    })
+                    .window(window.window);
                 vk::raw::create_xlib_surface_khr(instance, &surface_desc, allocator, dispatcher)
             }
 
             (RawDisplayHandle::Xcb(display), RawWindowHandle::Xcb(window)) => {
-                let surface_desc = unsafe {
-                    vk::XcbSurfaceCreateInfoKHR::default()
-                        .connection(mem::transmute(
-                            display
-                                .connection
-                                .ok_or(vk::Status::ErrorInitializationFailed)?,
-                        ))
-                        .window(window.window.get())
-                };
+                let surface_desc = vk::XcbSurfaceCreateInfoKHR::default()
+                    .connection(unsafe {
+                        display
+                            .connection
+                            .ok_or(vk::Status::ErrorInitializationFailed)?
+                            .cast()
+                            .as_ref()
+                    })
+                    .window(window.window.get());
                 vk::raw::create_xcb_surface_khr(instance, &surface_desc, allocator, dispatcher)
             }
 
             (RawDisplayHandle::Android(_), RawWindowHandle::AndroidNdk(window)) => {
-                let surface_desc = unsafe {
-                    vk::AndroidSurfaceCreateInfoKHR::default()
-                        .window(mem::transmute(window.a_native_window))
-                };
+                let surface_desc = vk::AndroidSurfaceCreateInfoKHR::default()
+                    .window(unsafe { window.a_native_window.cast().as_ref() });
                 vk::raw::create_android_surface_khr(instance, &surface_desc, allocator, dispatcher)
             }
 
@@ -118,9 +113,8 @@ pub mod raw {
                     Layer::Existing(layer) | Layer::Allocated(layer) => layer,
                 };
 
-                let surface_desc = unsafe {
-                    vk::MetalSurfaceCreateInfoEXT::default().p_layer(mem::transmute(layer))
-                };
+                let surface_desc = vk::MetalSurfaceCreateInfoEXT::default()
+                    .layer(unsafe { layer.cast().as_ref() });
                 vk::raw::create_metal_surface_ext(instance, &surface_desc, allocator, dispatcher)
             }
 
@@ -132,9 +126,8 @@ pub mod raw {
                     Layer::Existing(layer) | Layer::Allocated(layer) => layer,
                 };
 
-                let surface_desc = unsafe {
-                    vk::MetalSurfaceCreateInfoEXT::default().p_layer(mem::transmute(layer))
-                };
+                let surface_desc = vk::MetalSurfaceCreateInfoEXT::default()
+                    .layer(unsafe { layer.cast().as_ref() });
                 vk::raw::create_metal_surface_ext(instance, &surface_desc, allocator, dispatcher)
             }
             _ => Err(vk::Status::ErrorExtensionNotPresent),
