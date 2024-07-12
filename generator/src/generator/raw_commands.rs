@@ -327,17 +327,14 @@ fn generate_raw_command<'a, 'b>(
 
     let func_name = format_ident!("{name}");
     let doc = make_doc_link(vk_name);
-    let unsafe_tag = name.starts_with("destroy").then(|| quote!(unsafe));
     let lifetime = (!vec_fields.is_empty()).then(|| quote! ('a, ));
     Ok(quote! {
         #doc
-        pub #unsafe_tag fn #func_name<#lifetime #ret_template #(#templates),*>(#(#args_outer_name: #args_outer_type,)* dispatcher: &CommandsDispatcher ) #ret_type {
+        pub unsafe fn #func_name<#lifetime #ret_template #(#templates),*>(#(#args_outer_name: #args_outer_type,)* dispatcher: &CommandsDispatcher ) #ret_type {
             let vulkan_command = dispatcher.#func_name.get().expect("Vulkan command not loaded.");
-            unsafe {
-                #pre_call
-                #inner_call
-                #post_call
-            }
+            #pre_call
+            #inner_call
+            #post_call
         }
     })
 }

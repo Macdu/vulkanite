@@ -46,7 +46,7 @@ pub mod raw {
     /// Given an instance, a display handle and a window handle, create a surface associated with
     /// the instance from these handles. Note that the underlying display/window must live at least
     /// as long as the surface
-    pub fn create_surface(
+    pub unsafe fn create_surface(
         instance: &vk::raw::Instance,
         allocator: Option<&vk::AllocationCallbacks>,
         dispatcher: &vk::CommandsDispatcher,
@@ -146,12 +146,14 @@ pub mod rs {
         display_handle: &RawDisplayHandle,
         window_handle: &RawWindowHandle,
     ) -> vk::Result<vk::rs::SurfaceKHR> {
-        super::raw::create_surface(
-            instance,
-            instance.get_allocator().get_allocation_callbacks().as_ref(),
-            instance.get_dispatcher().get_command_dispatcher(),
-            display_handle,
-            window_handle,
-        )
+        unsafe {
+            super::raw::create_surface(
+                instance,
+                instance.get_allocator().get_allocation_callbacks().as_ref(),
+                instance.get_dispatcher().get_command_dispatcher(),
+                display_handle,
+                window_handle,
+            )
+        }
     }
 }

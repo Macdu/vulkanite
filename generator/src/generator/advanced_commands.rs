@@ -431,7 +431,9 @@ where
         #doc_tag
         pub #unsafe_tag fn #fn_name<#lifetime #ret_template #(#arg_template),*>(&self, #(#arg_outer_name: #arg_outer_type),*) #ret_type {
             #pre_call
-            raw::#raw_fn_name(#caller #(#arg_outer_name,)* #allocator_param self.disp.get_command_dispatcher())
+            unsafe {
+                raw::#raw_fn_name(#caller #(#arg_outer_name,)* #allocator_param self.disp.get_command_dispatcher())
+            }
             #post_call
         }
     })
