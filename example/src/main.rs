@@ -682,7 +682,7 @@ impl SwapchainObjects {
             .min_image_count(swapchain_count)
             .image_format(format.format)
             .image_color_space(format.color_space)
-            .image_extent(extent.clone())
+            .image_extent(extent)
             .image_array_layers(1)
             .image_usage(vk::ImageUsageFlags::ColorAttachment)
             .image_sharing_mode(vk::SharingMode::Exclusive)

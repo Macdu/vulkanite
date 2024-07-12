@@ -6,19 +6,20 @@ use std::{
     ffi::{c_int, CStr},
     ops::Deref,
 };
+#[derive(Clone)]
 pub struct Entry<D: Dispatcher = DynamicDispatcher, A: Allocator = DefaultAllocator> {
     disp: D,
     alloc: A,
 }
+impl<D: Dispatcher, A: Allocator> Copy for Entry<D, A>
+where
+    D: Copy,
+    A: Copy,
+{
+}
 impl<D: Dispatcher, A: Allocator> Entry<D, A> {
     pub fn new(disp: D, alloc: A) -> Self {
         Self { disp, alloc }
-    }
-    pub unsafe fn clone(&self) -> Self {
-        Self {
-            disp: self.disp.clone(),
-            alloc: self.alloc.clone(),
-        }
     }
     pub fn get_dispatcher(&self) -> &D {
         &self.disp
@@ -64,24 +65,31 @@ impl<D: Dispatcher, A: Allocator> Entry<D, A> {
     }
 }
 #[repr(C)]
+#[derive(Clone)]
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkInstance.html>"]
 #[doc(alias = "VkInstance")]
 pub struct Instance<D: Dispatcher = DynamicDispatcher, A: Allocator = DefaultAllocator> {
-    inner: raw::Instance,
+    inner: <raw::Instance as Handle>::InnerType,
     disp: D,
     alloc: A,
 }
 unsafe impl Alias<raw::Instance> for Instance {}
+impl<D: Dispatcher, A: Allocator> Copy for Instance<D, A>
+where
+    D: Copy,
+    A: Copy,
+{
+}
 impl<D: Dispatcher, A: Allocator> Deref for Instance<D, A> {
     type Target = raw::Instance;
     fn deref(&self) -> &Self::Target {
-        &self.inner
+        unsafe { std::mem::transmute(&self.inner) }
     }
 }
 impl<D: Dispatcher, A: Allocator> Instance<D, A> {
     pub unsafe fn from_inner(handle: raw::Instance, disp: D, alloc: A) -> Self {
         Self {
-            inner: handle,
+            inner: handle.as_raw(),
             disp,
             alloc,
         }
@@ -448,24 +456,31 @@ impl<D: Dispatcher, A: Allocator> Instance<D, A> {
     }
 }
 #[repr(C)]
+#[derive(Clone)]
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDevice.html>"]
 #[doc(alias = "VkPhysicalDevice")]
 pub struct PhysicalDevice<D: Dispatcher = DynamicDispatcher, A: Allocator = DefaultAllocator> {
-    inner: raw::PhysicalDevice,
+    inner: <raw::PhysicalDevice as Handle>::InnerType,
     disp: D,
     alloc: A,
 }
 unsafe impl Alias<raw::PhysicalDevice> for PhysicalDevice {}
+impl<D: Dispatcher, A: Allocator> Copy for PhysicalDevice<D, A>
+where
+    D: Copy,
+    A: Copy,
+{
+}
 impl<D: Dispatcher, A: Allocator> Deref for PhysicalDevice<D, A> {
     type Target = raw::PhysicalDevice;
     fn deref(&self) -> &Self::Target {
-        &self.inner
+        unsafe { std::mem::transmute(&self.inner) }
     }
 }
 impl<D: Dispatcher, A: Allocator> PhysicalDevice<D, A> {
     pub unsafe fn from_inner(handle: raw::PhysicalDevice, disp: D, alloc: A) -> Self {
         Self {
-            inner: handle,
+            inner: handle.as_raw(),
             disp,
             alloc,
         }
@@ -1282,24 +1297,31 @@ impl<D: Dispatcher, A: Allocator> PhysicalDevice<D, A> {
     }
 }
 #[repr(C)]
+#[derive(Clone)]
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkDevice.html>"]
 #[doc(alias = "VkDevice")]
 pub struct Device<D: Dispatcher = DynamicDispatcher, A: Allocator = DefaultAllocator> {
-    inner: raw::Device,
+    inner: <raw::Device as Handle>::InnerType,
     disp: D,
     alloc: A,
 }
 unsafe impl Alias<raw::Device> for Device {}
+impl<D: Dispatcher, A: Allocator> Copy for Device<D, A>
+where
+    D: Copy,
+    A: Copy,
+{
+}
 impl<D: Dispatcher, A: Allocator> Deref for Device<D, A> {
     type Target = raw::Device;
     fn deref(&self) -> &Self::Target {
-        &self.inner
+        unsafe { std::mem::transmute(&self.inner) }
     }
 }
 impl<D: Dispatcher, A: Allocator> Device<D, A> {
     pub unsafe fn from_inner(handle: raw::Device, disp: D, alloc: A) -> Self {
         Self {
-            inner: handle,
+            inner: handle.as_raw(),
             disp,
             alloc,
         }
@@ -4696,24 +4718,31 @@ impl<D: Dispatcher, A: Allocator> Device<D, A> {
     }
 }
 #[repr(C)]
+#[derive(Clone)]
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkQueue.html>"]
 #[doc(alias = "VkQueue")]
 pub struct Queue<D: Dispatcher = DynamicDispatcher, A: Allocator = DefaultAllocator> {
-    inner: raw::Queue,
+    inner: <raw::Queue as Handle>::InnerType,
     disp: D,
     alloc: A,
 }
 unsafe impl Alias<raw::Queue> for Queue {}
+impl<D: Dispatcher, A: Allocator> Copy for Queue<D, A>
+where
+    D: Copy,
+    A: Copy,
+{
+}
 impl<D: Dispatcher, A: Allocator> Deref for Queue<D, A> {
     type Target = raw::Queue;
     fn deref(&self) -> &Self::Target {
-        &self.inner
+        unsafe { std::mem::transmute(&self.inner) }
     }
 }
 impl<D: Dispatcher, A: Allocator> Queue<D, A> {
     pub unsafe fn from_inner(handle: raw::Queue, disp: D, alloc: A) -> Self {
         Self {
-            inner: handle,
+            inner: handle.as_raw(),
             disp,
             alloc,
         }
@@ -4893,24 +4922,31 @@ pub type RenderPass = raw::RenderPass;
 #[doc(alias = "VkCommandPool")]
 pub type CommandPool = raw::CommandPool;
 #[repr(C)]
+#[derive(Clone)]
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkCommandBuffer.html>"]
 #[doc(alias = "VkCommandBuffer")]
 pub struct CommandBuffer<D: Dispatcher = DynamicDispatcher, A: Allocator = DefaultAllocator> {
-    inner: raw::CommandBuffer,
+    inner: <raw::CommandBuffer as Handle>::InnerType,
     disp: D,
     alloc: A,
 }
 unsafe impl Alias<raw::CommandBuffer> for CommandBuffer {}
+impl<D: Dispatcher, A: Allocator> Copy for CommandBuffer<D, A>
+where
+    D: Copy,
+    A: Copy,
+{
+}
 impl<D: Dispatcher, A: Allocator> Deref for CommandBuffer<D, A> {
     type Target = raw::CommandBuffer;
     fn deref(&self) -> &Self::Target {
-        &self.inner
+        unsafe { std::mem::transmute(&self.inner) }
     }
 }
 impl<D: Dispatcher, A: Allocator> CommandBuffer<D, A> {
     pub unsafe fn from_inner(handle: raw::CommandBuffer, disp: D, alloc: A) -> Self {
         Self {
-            inner: handle,
+            inner: handle.as_raw(),
             disp,
             alloc,
         }

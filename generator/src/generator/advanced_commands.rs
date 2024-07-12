@@ -95,9 +95,17 @@ pub fn generate<'a, 'b>(gen: &'b Generator<'a>, gen_ty: GeneratedCommandType) ->
         .expect("vkCreateInstance should be here");
     let entry_methods = create_methods(entry_cmds)?;
     result.push(quote! {
+        #[derive(Clone)]
         pub struct Entry<D: Dispatcher = DynamicDispatcher, A: Allocator = DefaultAllocator> {
             disp: D,
             alloc: A,
+        }
+
+        impl<D: Dispatcher, A: Allocator> Copy for Entry<D, A>
+        where
+            D: Copy,
+            A: Copy,
+        {
         }
 
         impl<D: Dispatcher, A: Allocator> Entry<D, A> {
@@ -105,13 +113,6 @@ pub fn generate<'a, 'b>(gen: &'b Generator<'a>, gen_ty: GeneratedCommandType) ->
                 Self {
                     disp,
                     alloc,
-                }
-            }
-
-            pub unsafe fn clone(&self) -> Self {
-                Self {
-                    disp: self.disp.clone(),
-                    alloc: self.alloc.clone(),
                 }
             }
 
@@ -141,27 +142,34 @@ pub fn generate<'a, 'b>(gen: &'b Generator<'a>, gen_ty: GeneratedCommandType) ->
 
             result.push(quote! {
                 #[repr(C)]
+                #[derive(Clone)]
                 #doc_tag
                 pub struct #id_name<D: Dispatcher = DynamicDispatcher, A: Allocator = DefaultAllocator> {
-                    inner: raw::#id_name,
+                    inner: <raw::#id_name as Handle>::InnerType,
                     disp: D,
                     alloc: A,
                 }
 
                 #alias_impl
+                impl<D: Dispatcher, A:Allocator> Copy for #id_name<D,A> where
+                D: Copy,
+                A: Copy,
+                {
+                }
 
                 impl<D: Dispatcher, A: Allocator> Deref for #id_name<D,A> {
                     type Target = raw::#id_name;
 
                     fn deref(&self) -> &Self::Target {
-                        &self.inner
+                        // Safety: raw::#id_name is repr(transparent) of raw::#id_name::InnerType
+                        unsafe{ std::mem::transmute(&self.inner) }
                     }
                 }
 
                 impl<D: Dispatcher, A: Allocator> #id_name<D, A> {
                     pub unsafe fn from_inner(handle: raw::#id_name, disp: D, alloc: A) -> Self {
                         Self {
-                            inner: handle,
+                            inner: handle.as_raw(),
                             disp,
                             alloc,
                         }

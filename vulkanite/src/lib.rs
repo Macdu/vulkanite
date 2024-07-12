@@ -239,7 +239,7 @@ static DYNAMIC_DISPATCHER: vk::CommandsDispatcher = unsafe { std::mem::zeroed() 
 /// Using a dynamic dispatcher means that at any point, only at most one vulkan instance
 /// and at most one vulkan device exists. This is the case for most Vulkan program but if you cannot
 /// guarantee it, use [MultiDispatcher] instead
-#[derive(Clone)]
+#[derive(Clone, Copy)]
 pub struct DynamicDispatcher(pub(crate) ());
 
 impl Dispatcher for DynamicDispatcher {
@@ -454,7 +454,7 @@ pub unsafe trait Allocator: Sized + Clone {
 
 /// The default vulkan allocator, Using this allocator will let Vulkan use the default allocator
 /// It is the same as specifying NULL (on C) or None (on Ash) every time the parameter pAllocator is required
-#[derive(Clone)]
+#[derive(Clone, Copy)]
 pub struct DefaultAllocator;
 
 unsafe impl Allocator for DefaultAllocator {
@@ -523,7 +523,7 @@ unsafe impl<T> Alias<T> for T {}
 
 /// A dispatchable or non-dispatchable Vulkan Handle
 pub trait Handle: private::Sealed + Sized {
-    type InnerType;
+    type InnerType: Copy;
     const TYPE: vk::ObjectType;
 
     /// Retrieve the inner content of the vulkan handle, to be used by other Vulkan librairies not using this crate
