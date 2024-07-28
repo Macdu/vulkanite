@@ -1200,11 +1200,11 @@ impl<'a> Generator<'a> {
         let result = match ty {
             AdvancedType::Handle(name) => {
                 let name = self.get_ident_name(name)?;
-                Ok(quote!(&#life_a #name))
+                Ok(quote!(&#life_a raw::#name))
             }
             AdvancedType::HandlePtr(name) => {
                 let name = self.get_ident_name(name)?;
-                Ok(quote! (&#life_a #name))
+                Ok(quote! (&#life_a raw::#name))
             }
             AdvancedType::HandleArray(_, _) => {
                 Err(anyhow!("Trying to generate outer type of a handle array"))

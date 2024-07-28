@@ -1,4 +1,4 @@
-use std::{collections::HashSet, error::Error, ffi::CStr};
+use std::{collections::HashSet, error::Error, ffi::CStr, ops::Deref};
 
 use anyhow::{anyhow, Result};
 use raw_window_handle::{HasDisplayHandle, HasWindowHandle, RawDisplayHandle};
@@ -604,8 +604,9 @@ impl Drop for VulkanApplication {
 
             self.device.destroy();
 
-            self.instance
-                .destroy_debug_utils_messenger_ext(self.debug_messenger.as_ref());
+            self.instance.destroy_debug_utils_messenger_ext(
+                self.debug_messenger.as_ref().map(|deb| deb.deref()),
+            );
             self.instance.destroy_surface_khr(Some(&self.surface));
 
             self.instance.destroy();

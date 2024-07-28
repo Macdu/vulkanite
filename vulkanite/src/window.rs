@@ -154,6 +154,7 @@ pub mod rs {
                 display_handle,
                 window_handle,
             )
+            .map(|surface| vk::rs::SurfaceKHR::from_inner(surface))
         }
     }
 }

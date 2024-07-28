@@ -130,6 +130,12 @@ pub fn generate<'a, 'b>(gen: &'b Generator<'a>, gen_ty: GeneratedCommandType) ->
 
     for (handle_name, handle) in handles_order {
         if let Some(cmds) = handle_cmds.get(handle_name) {
+            if !handle.aliases.borrow().is_empty() {
+                return Err(anyhow!(
+                    "Handle {handle_name} was not expected to have aliases"
+                ));
+            }
+
             let id_name = format_ident!("{}", handle.name);
             let doc_tag = make_doc_link(handle_name);
 
@@ -175,14 +181,6 @@ pub fn generate<'a, 'b>(gen: &'b Generator<'a>, gen_ty: GeneratedCommandType) ->
                         }
                     }
 
-                    pub unsafe fn clone(&self) -> Self {
-                        Self {
-                            inner: self.inner.clone(),
-                            disp: self.disp.clone(),
-                            alloc: self.alloc.clone(),
-                        }
-                    }
-
                     pub fn get_dispatcher(&self) -> &D {
                         &self.disp
                     }
@@ -195,16 +193,45 @@ pub fn generate<'a, 'b>(gen: &'b Generator<'a>, gen_ty: GeneratedCommandType) ->
                 }
             });
         } else {
-            for alias_name in iter::once(handle.name).chain(handle.aliases.borrow().iter().copied())
-            {
-                let id_name = format_ident!("{alias_name}");
+            let id_name = format_ident!("{}", handle.name);
+            let doc_tag = make_doc_link(handle_name);
+
+            result.push(quote! {
+                #[repr(C)]
+                #[derive(Clone, Copy)]
+                #doc_tag
+                pub struct #id_name{
+                    inner: <raw::#id_name as Handle>::InnerType,
+                }
+
+                unsafe impl Alias<raw::#id_name> for #id_name {}
+                impl Deref for #id_name {
+                    type Target = raw::#id_name;
+
+                    fn deref(&self) -> &Self::Target {
+                        // Safety: raw::#id_name is repr(transparent) of raw::#id_name::InnerType
+                        unsafe{ std::mem::transmute(&self.inner) }
+                    }
+                }
+
+                impl #id_name {
+                    pub fn from_inner(handle: raw::#id_name) -> Self {
+                        Self {
+                            inner: handle.as_raw(),
+                        }
+                    }
+                }
+            });
+            for alias_name in handle.aliases.borrow().iter() {
                 let doc_tag = make_doc_link(&format!("Vk{alias_name}"));
-                result.push(quote! (#doc_tag pub type #id_name = raw::#id_name;))
+                let alias_name = format_ident!("{alias_name}");
+                result.push(quote! (#doc_tag pub type #alias_name = raw::#id_name;))
             }
         }
     }
 
     let result = quote! {
+        #![allow(unused_unsafe)]
         use std::{
             ffi::{c_int, CStr},
             ops::Deref,
@@ -315,7 +342,8 @@ where
                 _ => return Err(anyhow!("Could not use return field for {name}")),
             };
             let mut ret_name = gen.get_ident_name(ret_type)?;
-            let needs_transformation = is_complex_handle(ret_type);
+            let needs_transformation = gen.get_handle(ret_type).is_some();
+            let needs_disp_alloc = is_complex_handle(ret_type);
 
             let is_vec = cmd_parsed.output_length.is_some()
                 || field.xml.altlen.is_some()
@@ -331,11 +359,14 @@ where
 
             let lifetime =
                 (!is_handle && gen.compute_name_lifetime(ret_type)).then(|| quote! (<'static>));
-            let ret_param = if needs_transformation {
+            let ret_param = if needs_disp_alloc {
                 Some(quote! (<D,A>))
             } else {
                 lifetime
             };
+
+            let disp_alloc_param =
+                needs_disp_alloc.then(|| quote!(self.disp.clone(), self.alloc.clone(),));
 
             let pre_call = needs_transformation.then(|| {
                 let type_descr = is_vec.then(|| {
@@ -370,10 +401,10 @@ where
                 let mapping_fn = if is_vec {
                     quote!(vk_result
                         .into_iter()
-                        .map(|el| unsafe{#ret_name::from_inner(el, self.disp.clone(), self.alloc.clone())})
+                        .map(|el| unsafe{#ret_name::from_inner(el, #disp_alloc_param)})
                         .collect())
                 } else {
-                    quote!(unsafe {#ret_name::from_inner(vk_result, self.disp.clone(), self.alloc.clone())})
+                    quote!(unsafe {#ret_name::from_inner(vk_result, #disp_alloc_param)})
                 };
                 if has_status {
                     if has_many_successes {

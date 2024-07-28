@@ -301,7 +301,7 @@ impl<'a> BufferMemoryBarrier<'a> {
         self
     }
     #[inline]
-    pub fn buffer(mut self, value: &'a Buffer) -> Self {
+    pub fn buffer(mut self, value: &'a raw::Buffer) -> Self {
         self.buffer = Some(unsafe { value.clone() });
         self
     }
@@ -523,7 +523,7 @@ impl<'a> ImageMemoryBarrier<'a> {
         self
     }
     #[inline]
-    pub fn image(mut self, value: &'a Image) -> Self {
+    pub fn image(mut self, value: &'a raw::Image) -> Self {
         self.image = Some(unsafe { value.clone() });
         self
     }
@@ -2757,7 +2757,7 @@ impl<'a> Default for MappedMemoryRange<'a> {
 }
 impl<'a> MappedMemoryRange<'a> {
     #[inline]
-    pub fn memory(mut self, value: &'a DeviceMemory) -> Self {
+    pub fn memory(mut self, value: &'a raw::DeviceMemory) -> Self {
         self.memory = Some(unsafe { value.clone() });
         self
     }
@@ -3046,7 +3046,7 @@ impl<'a> Default for SparseBufferMemoryBindInfo<'a> {
 }
 impl<'a> SparseBufferMemoryBindInfo<'a> {
     #[inline]
-    pub fn buffer(mut self, value: &'a Buffer) -> Self {
+    pub fn buffer(mut self, value: &'a raw::Buffer) -> Self {
         self.buffer = Some(unsafe { value.clone() });
         self
     }
@@ -3142,7 +3142,7 @@ impl<'a> SparseImageMemoryBind<'a> {
         self
     }
     #[inline]
-    pub fn memory(mut self, value: Option<&'a DeviceMemory>) -> Self {
+    pub fn memory(mut self, value: Option<&'a raw::DeviceMemory>) -> Self {
         self.memory = value.map(|v| unsafe { v.clone() });
         self
     }
@@ -3180,7 +3180,7 @@ impl<'a> Default for SparseImageMemoryBindInfo<'a> {
 }
 impl<'a> SparseImageMemoryBindInfo<'a> {
     #[inline]
-    pub fn image(mut self, value: &'a Image) -> Self {
+    pub fn image(mut self, value: &'a raw::Image) -> Self {
         self.image = Some(unsafe { value.clone() });
         self
     }
@@ -3269,7 +3269,7 @@ impl<'a> Default for SparseImageOpaqueMemoryBindInfo<'a> {
 }
 impl<'a> SparseImageOpaqueMemoryBindInfo<'a> {
     #[inline]
-    pub fn image(mut self, value: &'a Image) -> Self {
+    pub fn image(mut self, value: &'a raw::Image) -> Self {
         self.image = Some(unsafe { value.clone() });
         self
     }
@@ -3321,7 +3321,7 @@ impl<'a> SparseMemoryBind<'a> {
         self
     }
     #[inline]
-    pub fn memory(mut self, value: Option<&'a DeviceMemory>) -> Self {
+    pub fn memory(mut self, value: Option<&'a raw::DeviceMemory>) -> Self {
         self.memory = value.map(|v| unsafe { v.clone() });
         self
     }
@@ -3616,7 +3616,7 @@ impl<'a> BufferViewCreateInfo<'a> {
         self
     }
     #[inline]
-    pub fn buffer(mut self, value: &'a Buffer) -> Self {
+    pub fn buffer(mut self, value: &'a raw::Buffer) -> Self {
         self.buffer = Some(unsafe { value.clone() });
         self
     }
@@ -3953,7 +3953,7 @@ impl<'a> ImageViewCreateInfo<'a> {
         self
     }
     #[inline]
-    pub fn image(mut self, value: &'a Image) -> Self {
+    pub fn image(mut self, value: &'a raw::Image) -> Self {
         self.image = Some(unsafe { value.clone() });
         self
     }
@@ -4132,12 +4132,12 @@ impl<'a> ComputePipelineCreateInfo<'a> {
         self
     }
     #[inline]
-    pub fn layout(mut self, value: &'a PipelineLayout) -> Self {
+    pub fn layout(mut self, value: &'a raw::PipelineLayout) -> Self {
         self.layout = Some(unsafe { value.clone() });
         self
     }
     #[inline]
-    pub fn base_pipeline_handle(mut self, value: Option<&'a Pipeline>) -> Self {
+    pub fn base_pipeline_handle(mut self, value: Option<&'a raw::Pipeline>) -> Self {
         self.base_pipeline_handle = value.map(|v| unsafe { v.clone() });
         self
     }
@@ -4289,12 +4289,12 @@ impl<'a> GraphicsPipelineCreateInfo<'a> {
         self
     }
     #[inline]
-    pub fn layout(mut self, value: Option<&'a PipelineLayout>) -> Self {
+    pub fn layout(mut self, value: Option<&'a raw::PipelineLayout>) -> Self {
         self.layout = value.map(|v| unsafe { v.clone() });
         self
     }
     #[inline]
-    pub fn render_pass(mut self, value: Option<&'a RenderPass>) -> Self {
+    pub fn render_pass(mut self, value: Option<&'a raw::RenderPass>) -> Self {
         self.render_pass = value.map(|v| unsafe { v.clone() });
         self
     }
@@ -4304,7 +4304,7 @@ impl<'a> GraphicsPipelineCreateInfo<'a> {
         self
     }
     #[inline]
-    pub fn base_pipeline_handle(mut self, value: Option<&'a Pipeline>) -> Self {
+    pub fn base_pipeline_handle(mut self, value: Option<&'a raw::Pipeline>) -> Self {
         self.base_pipeline_handle = value.map(|v| unsafe { v.clone() });
         self
     }
@@ -4912,7 +4912,7 @@ impl<'a> PipelineShaderStageCreateInfo<'a> {
         self
     }
     #[inline]
-    pub fn module(mut self, value: Option<&'a ShaderModule>) -> Self {
+    pub fn module(mut self, value: Option<&'a raw::ShaderModule>) -> Self {
         self.module = value.map(|v| unsafe { v.clone() });
         self
     }
@@ -5738,7 +5738,7 @@ impl<'a> Default for CopyDescriptorSet<'a> {
 }
 impl<'a> CopyDescriptorSet<'a> {
     #[inline]
-    pub fn src_set(mut self, value: &'a DescriptorSet) -> Self {
+    pub fn src_set(mut self, value: &'a raw::DescriptorSet) -> Self {
         self.src_set = Some(unsafe { value.clone() });
         self
     }
@@ -5753,7 +5753,7 @@ impl<'a> CopyDescriptorSet<'a> {
         self
     }
     #[inline]
-    pub fn dst_set(mut self, value: &'a DescriptorSet) -> Self {
+    pub fn dst_set(mut self, value: &'a raw::DescriptorSet) -> Self {
         self.dst_set = Some(unsafe { value.clone() });
         self
     }
@@ -5801,7 +5801,7 @@ impl<'a> Default for DescriptorBufferInfo<'a> {
 }
 impl<'a> DescriptorBufferInfo<'a> {
     #[inline]
-    pub fn buffer(mut self, value: Option<&'a Buffer>) -> Self {
+    pub fn buffer(mut self, value: Option<&'a raw::Buffer>) -> Self {
         self.buffer = value.map(|v| unsafe { v.clone() });
         self
     }
@@ -5839,12 +5839,12 @@ impl<'a> Default for DescriptorImageInfo<'a> {
 }
 impl<'a> DescriptorImageInfo<'a> {
     #[inline]
-    pub fn sampler(mut self, value: &'a Sampler) -> Self {
+    pub fn sampler(mut self, value: &'a raw::Sampler) -> Self {
         self.sampler = Some(unsafe { value.clone() });
         self
     }
     #[inline]
-    pub fn image_view(mut self, value: &'a ImageView) -> Self {
+    pub fn image_view(mut self, value: &'a raw::ImageView) -> Self {
         self.image_view = Some(unsafe { value.clone() });
         self
     }
@@ -5971,7 +5971,7 @@ impl<'a> Default for DescriptorSetAllocateInfo<'a> {
 }
 impl<'a> DescriptorSetAllocateInfo<'a> {
     #[inline]
-    pub fn descriptor_pool(mut self, value: &'a DescriptorPool) -> Self {
+    pub fn descriptor_pool(mut self, value: &'a raw::DescriptorPool) -> Self {
         self.descriptor_pool = Some(unsafe { value.clone() });
         self
     }
@@ -6149,7 +6149,7 @@ impl<'a> Default for WriteDescriptorSet<'a> {
 }
 impl<'a> WriteDescriptorSet<'a> {
     #[inline]
-    pub fn dst_set(mut self, value: &'a DescriptorSet) -> Self {
+    pub fn dst_set(mut self, value: &'a raw::DescriptorSet) -> Self {
         self.dst_set = Some(unsafe { value.clone() });
         self
     }
@@ -6353,7 +6353,7 @@ impl<'a> FramebufferCreateInfo<'a> {
         self
     }
     #[inline]
-    pub fn render_pass(mut self, value: &'a RenderPass) -> Self {
+    pub fn render_pass(mut self, value: &'a raw::RenderPass) -> Self {
         self.render_pass = Some(unsafe { value.clone() });
         self
     }
@@ -6725,7 +6725,7 @@ impl<'a> Default for CommandBufferAllocateInfo<'a> {
 }
 impl<'a> CommandBufferAllocateInfo<'a> {
     #[inline]
-    pub fn command_pool(mut self, value: &'a CommandPool) -> Self {
+    pub fn command_pool(mut self, value: &'a raw::CommandPool) -> Self {
         self.command_pool = Some(unsafe { value.clone() });
         self
     }
@@ -6824,7 +6824,7 @@ impl<'a> Default for CommandBufferInheritanceInfo<'a> {
 }
 impl<'a> CommandBufferInheritanceInfo<'a> {
     #[inline]
-    pub fn render_pass(mut self, value: Option<&'a RenderPass>) -> Self {
+    pub fn render_pass(mut self, value: Option<&'a raw::RenderPass>) -> Self {
         self.render_pass = value.map(|v| unsafe { v.clone() });
         self
     }
@@ -6834,7 +6834,7 @@ impl<'a> CommandBufferInheritanceInfo<'a> {
         self
     }
     #[inline]
-    pub fn framebuffer(mut self, value: Option<&'a Framebuffer>) -> Self {
+    pub fn framebuffer(mut self, value: Option<&'a raw::Framebuffer>) -> Self {
         self.framebuffer = value.map(|v| unsafe { v.clone() });
         self
     }
@@ -7313,12 +7313,12 @@ impl<'a> Default for RenderPassBeginInfo<'a> {
 }
 impl<'a> RenderPassBeginInfo<'a> {
     #[inline]
-    pub fn render_pass(mut self, value: &'a RenderPass) -> Self {
+    pub fn render_pass(mut self, value: &'a raw::RenderPass) -> Self {
         self.render_pass = Some(unsafe { value.clone() });
         self
     }
     #[inline]
-    pub fn framebuffer(mut self, value: &'a Framebuffer) -> Self {
+    pub fn framebuffer(mut self, value: &'a raw::Framebuffer) -> Self {
         self.framebuffer = Some(unsafe { value.clone() });
         self
     }
@@ -7434,12 +7434,12 @@ impl<'a> Default for BindBufferMemoryInfo<'a> {
 }
 impl<'a> BindBufferMemoryInfo<'a> {
     #[inline]
-    pub fn buffer(mut self, value: &'a Buffer) -> Self {
+    pub fn buffer(mut self, value: &'a raw::Buffer) -> Self {
         self.buffer = Some(unsafe { value.clone() });
         self
     }
     #[inline]
-    pub fn memory(mut self, value: &'a DeviceMemory) -> Self {
+    pub fn memory(mut self, value: &'a raw::DeviceMemory) -> Self {
         self.memory = Some(unsafe { value.clone() });
         self
     }
@@ -7485,12 +7485,12 @@ impl<'a> Default for BindImageMemoryInfo<'a> {
 }
 impl<'a> BindImageMemoryInfo<'a> {
     #[inline]
-    pub fn image(mut self, value: &'a Image) -> Self {
+    pub fn image(mut self, value: &'a raw::Image) -> Self {
         self.image = Some(unsafe { value.clone() });
         self
     }
     #[inline]
-    pub fn memory(mut self, value: &'a DeviceMemory) -> Self {
+    pub fn memory(mut self, value: &'a raw::DeviceMemory) -> Self {
         self.memory = Some(unsafe { value.clone() });
         self
     }
@@ -7649,12 +7649,12 @@ impl<'a> Default for MemoryDedicatedAllocateInfo<'a> {
 }
 impl<'a> MemoryDedicatedAllocateInfo<'a> {
     #[inline]
-    pub fn image(mut self, value: Option<&'a Image>) -> Self {
+    pub fn image(mut self, value: Option<&'a raw::Image>) -> Self {
         self.image = value.map(|v| unsafe { v.clone() });
         self
     }
     #[inline]
-    pub fn buffer(mut self, value: Option<&'a Buffer>) -> Self {
+    pub fn buffer(mut self, value: Option<&'a raw::Buffer>) -> Self {
         self.buffer = value.map(|v| unsafe { v.clone() });
         self
     }
@@ -8201,7 +8201,7 @@ impl<'a> Default for BufferMemoryRequirementsInfo2<'a> {
 }
 impl<'a> BufferMemoryRequirementsInfo2<'a> {
     #[inline]
-    pub fn buffer(mut self, value: &'a Buffer) -> Self {
+    pub fn buffer(mut self, value: &'a raw::Buffer) -> Self {
         self.buffer = Some(unsafe { value.clone() });
         self
     }
@@ -8238,7 +8238,7 @@ impl<'a> Default for ImageMemoryRequirementsInfo2<'a> {
 }
 impl<'a> ImageMemoryRequirementsInfo2<'a> {
     #[inline]
-    pub fn image(mut self, value: &'a Image) -> Self {
+    pub fn image(mut self, value: &'a raw::Image) -> Self {
         self.image = Some(unsafe { value.clone() });
         self
     }
@@ -8275,7 +8275,7 @@ impl<'a> Default for ImageSparseMemoryRequirementsInfo2<'a> {
 }
 impl<'a> ImageSparseMemoryRequirementsInfo2<'a> {
     #[inline]
-    pub fn image(mut self, value: &'a Image) -> Self {
+    pub fn image(mut self, value: &'a raw::Image) -> Self {
         self.image = Some(unsafe { value.clone() });
         self
     }
@@ -9494,7 +9494,7 @@ impl<'a> Default for SamplerYcbcrConversionInfo<'a> {
 }
 impl<'a> SamplerYcbcrConversionInfo<'a> {
     #[inline]
-    pub fn conversion(mut self, value: &'a SamplerYcbcrConversion) -> Self {
+    pub fn conversion(mut self, value: &'a raw::SamplerYcbcrConversion) -> Self {
         self.conversion = Some(unsafe { value.clone() });
         self
     }
@@ -9783,7 +9783,7 @@ impl<'a> DescriptorUpdateTemplateCreateInfo<'a> {
         self
     }
     #[inline]
-    pub fn descriptor_set_layout(mut self, value: &'a DescriptorSetLayout) -> Self {
+    pub fn descriptor_set_layout(mut self, value: &'a raw::DescriptorSetLayout) -> Self {
         self.descriptor_set_layout = Some(unsafe { value.clone() });
         self
     }
@@ -9793,7 +9793,7 @@ impl<'a> DescriptorUpdateTemplateCreateInfo<'a> {
         self
     }
     #[inline]
-    pub fn pipeline_layout(mut self, value: &'a PipelineLayout) -> Self {
+    pub fn pipeline_layout(mut self, value: &'a raw::PipelineLayout) -> Self {
         self.pipeline_layout = Some(unsafe { value.clone() });
         self
     }
@@ -14544,7 +14544,7 @@ impl<'a> Default for SemaphoreSignalInfo<'a> {
 }
 impl<'a> SemaphoreSignalInfo<'a> {
     #[inline]
-    pub fn semaphore(mut self, value: &'a Semaphore) -> Self {
+    pub fn semaphore(mut self, value: &'a raw::Semaphore) -> Self {
         self.semaphore = Some(unsafe { value.clone() });
         self
     }
@@ -14646,7 +14646,7 @@ impl<'a> Default for BufferDeviceAddressInfo<'a> {
 }
 impl<'a> BufferDeviceAddressInfo<'a> {
     #[inline]
-    pub fn buffer(mut self, value: &'a Buffer) -> Self {
+    pub fn buffer(mut self, value: &'a raw::Buffer) -> Self {
         self.buffer = Some(unsafe { value.clone() });
         self
     }
@@ -14766,7 +14766,7 @@ impl<'a> Default for DeviceMemoryOpaqueCaptureAddressInfo<'a> {
 }
 impl<'a> DeviceMemoryOpaqueCaptureAddressInfo<'a> {
     #[inline]
-    pub fn memory(mut self, value: &'a DeviceMemory) -> Self {
+    pub fn memory(mut self, value: &'a raw::DeviceMemory) -> Self {
         self.memory = Some(unsafe { value.clone() });
         self
     }
@@ -15909,7 +15909,7 @@ impl<'a> BufferMemoryBarrier2<'a> {
         self
     }
     #[inline]
-    pub fn buffer(mut self, value: &'a Buffer) -> Self {
+    pub fn buffer(mut self, value: &'a raw::Buffer) -> Self {
         self.buffer = Some(unsafe { value.clone() });
         self
     }
@@ -16014,7 +16014,7 @@ impl<'a> ImageMemoryBarrier2<'a> {
         self
     }
     #[inline]
-    pub fn image(mut self, value: &'a Image) -> Self {
+    pub fn image(mut self, value: &'a raw::Image) -> Self {
         self.image = Some(unsafe { value.clone() });
         self
     }
@@ -16268,7 +16268,7 @@ impl<'a> Default for SemaphoreSubmitInfo<'a> {
 }
 impl<'a> SemaphoreSubmitInfo<'a> {
     #[inline]
-    pub fn semaphore(mut self, value: &'a Semaphore) -> Self {
+    pub fn semaphore(mut self, value: &'a raw::Semaphore) -> Self {
         self.semaphore = Some(unsafe { value.clone() });
         self
     }
@@ -16322,7 +16322,7 @@ impl<'a> Default for CommandBufferSubmitInfo<'a> {
 }
 impl<'a> CommandBufferSubmitInfo<'a> {
     #[inline]
-    pub fn command_buffer(mut self, value: &'a CommandBuffer) -> Self {
+    pub fn command_buffer(mut self, value: &'a raw::CommandBuffer) -> Self {
         self.command_buffer = Some(unsafe { value.clone() });
         self
     }
@@ -16507,12 +16507,12 @@ impl<'a> Default for CopyBufferInfo2<'a> {
 }
 impl<'a> CopyBufferInfo2<'a> {
     #[inline]
-    pub fn src_buffer(mut self, value: &'a Buffer) -> Self {
+    pub fn src_buffer(mut self, value: &'a raw::Buffer) -> Self {
         self.src_buffer = Some(unsafe { value.clone() });
         self
     }
     #[inline]
-    pub fn dst_buffer(mut self, value: &'a Buffer) -> Self {
+    pub fn dst_buffer(mut self, value: &'a raw::Buffer) -> Self {
         self.dst_buffer = Some(unsafe { value.clone() });
         self
     }
@@ -16569,7 +16569,7 @@ impl<'a> Default for CopyImageInfo2<'a> {
 }
 impl<'a> CopyImageInfo2<'a> {
     #[inline]
-    pub fn src_image(mut self, value: &'a Image) -> Self {
+    pub fn src_image(mut self, value: &'a raw::Image) -> Self {
         self.src_image = Some(unsafe { value.clone() });
         self
     }
@@ -16579,7 +16579,7 @@ impl<'a> CopyImageInfo2<'a> {
         self
     }
     #[inline]
-    pub fn dst_image(mut self, value: &'a Image) -> Self {
+    pub fn dst_image(mut self, value: &'a raw::Image) -> Self {
         self.dst_image = Some(unsafe { value.clone() });
         self
     }
@@ -16639,12 +16639,12 @@ impl<'a> Default for CopyBufferToImageInfo2<'a> {
 }
 impl<'a> CopyBufferToImageInfo2<'a> {
     #[inline]
-    pub fn src_buffer(mut self, value: &'a Buffer) -> Self {
+    pub fn src_buffer(mut self, value: &'a raw::Buffer) -> Self {
         self.src_buffer = Some(unsafe { value.clone() });
         self
     }
     #[inline]
-    pub fn dst_image(mut self, value: &'a Image) -> Self {
+    pub fn dst_image(mut self, value: &'a raw::Image) -> Self {
         self.dst_image = Some(unsafe { value.clone() });
         self
     }
@@ -16704,7 +16704,7 @@ impl<'a> Default for CopyImageToBufferInfo2<'a> {
 }
 impl<'a> CopyImageToBufferInfo2<'a> {
     #[inline]
-    pub fn src_image(mut self, value: &'a Image) -> Self {
+    pub fn src_image(mut self, value: &'a raw::Image) -> Self {
         self.src_image = Some(unsafe { value.clone() });
         self
     }
@@ -16714,7 +16714,7 @@ impl<'a> CopyImageToBufferInfo2<'a> {
         self
     }
     #[inline]
-    pub fn dst_buffer(mut self, value: &'a Buffer) -> Self {
+    pub fn dst_buffer(mut self, value: &'a raw::Buffer) -> Self {
         self.dst_buffer = Some(unsafe { value.clone() });
         self
     }
@@ -16773,7 +16773,7 @@ impl<'a> Default for BlitImageInfo2<'a> {
 }
 impl<'a> BlitImageInfo2<'a> {
     #[inline]
-    pub fn src_image(mut self, value: &'a Image) -> Self {
+    pub fn src_image(mut self, value: &'a raw::Image) -> Self {
         self.src_image = Some(unsafe { value.clone() });
         self
     }
@@ -16783,7 +16783,7 @@ impl<'a> BlitImageInfo2<'a> {
         self
     }
     #[inline]
-    pub fn dst_image(mut self, value: &'a Image) -> Self {
+    pub fn dst_image(mut self, value: &'a raw::Image) -> Self {
         self.dst_image = Some(unsafe { value.clone() });
         self
     }
@@ -16850,7 +16850,7 @@ impl<'a> Default for ResolveImageInfo2<'a> {
 }
 impl<'a> ResolveImageInfo2<'a> {
     #[inline]
-    pub fn src_image(mut self, value: &'a Image) -> Self {
+    pub fn src_image(mut self, value: &'a raw::Image) -> Self {
         self.src_image = Some(unsafe { value.clone() });
         self
     }
@@ -16860,7 +16860,7 @@ impl<'a> ResolveImageInfo2<'a> {
         self
     }
     #[inline]
-    pub fn dst_image(mut self, value: &'a Image) -> Self {
+    pub fn dst_image(mut self, value: &'a raw::Image) -> Self {
         self.dst_image = Some(unsafe { value.clone() });
         self
     }
@@ -17766,7 +17766,7 @@ impl<'a> Default for RenderingAttachmentInfo<'a> {
 }
 impl<'a> RenderingAttachmentInfo<'a> {
     #[inline]
-    pub fn image_view(mut self, value: Option<&'a ImageView>) -> Self {
+    pub fn image_view(mut self, value: Option<&'a raw::ImageView>) -> Self {
         self.image_view = value.map(|v| unsafe { v.clone() });
         self
     }
@@ -17781,7 +17781,7 @@ impl<'a> RenderingAttachmentInfo<'a> {
         self
     }
     #[inline]
-    pub fn resolve_image_view(mut self, value: Option<&'a ImageView>) -> Self {
+    pub fn resolve_image_view(mut self, value: Option<&'a raw::ImageView>) -> Self {
         self.resolve_image_view = value.map(|v| unsafe { v.clone() });
         self
     }
@@ -18844,7 +18844,7 @@ impl<'a> SwapchainCreateInfoKHR<'a> {
         self
     }
     #[inline]
-    pub fn surface(mut self, value: &'a SurfaceKHR) -> Self {
+    pub fn surface(mut self, value: &'a raw::SurfaceKHR) -> Self {
         self.surface = Some(unsafe { value.clone() });
         self
     }
@@ -18904,7 +18904,7 @@ impl<'a> SwapchainCreateInfoKHR<'a> {
         self
     }
     #[inline]
-    pub fn old_swapchain(mut self, value: Option<&'a SwapchainKHR>) -> Self {
+    pub fn old_swapchain(mut self, value: Option<&'a raw::SwapchainKHR>) -> Self {
         self.old_swapchain = value.map(|v| unsafe { v.clone() });
         self
     }
@@ -19046,7 +19046,7 @@ impl<'a> Default for ImageSwapchainCreateInfoKHR<'a> {
 }
 impl<'a> ImageSwapchainCreateInfoKHR<'a> {
     #[inline]
-    pub fn swapchain(mut self, value: Option<&'a SwapchainKHR>) -> Self {
+    pub fn swapchain(mut self, value: Option<&'a raw::SwapchainKHR>) -> Self {
         self.swapchain = value.map(|v| unsafe { v.clone() });
         self
     }
@@ -19088,7 +19088,7 @@ impl<'a> Default for BindImageMemorySwapchainInfoKHR<'a> {
 }
 impl<'a> BindImageMemorySwapchainInfoKHR<'a> {
     #[inline]
-    pub fn swapchain(mut self, value: &'a SwapchainKHR) -> Self {
+    pub fn swapchain(mut self, value: &'a raw::SwapchainKHR) -> Self {
         self.swapchain = Some(unsafe { value.clone() });
         self
     }
@@ -19137,7 +19137,7 @@ impl<'a> Default for AcquireNextImageInfoKHR<'a> {
 }
 impl<'a> AcquireNextImageInfoKHR<'a> {
     #[inline]
-    pub fn swapchain(mut self, value: &'a SwapchainKHR) -> Self {
+    pub fn swapchain(mut self, value: &'a raw::SwapchainKHR) -> Self {
         self.swapchain = Some(unsafe { value.clone() });
         self
     }
@@ -19147,12 +19147,12 @@ impl<'a> AcquireNextImageInfoKHR<'a> {
         self
     }
     #[inline]
-    pub fn semaphore(mut self, value: Option<&'a Semaphore>) -> Self {
+    pub fn semaphore(mut self, value: Option<&'a raw::Semaphore>) -> Self {
         self.semaphore = value.map(|v| unsafe { v.clone() });
         self
     }
     #[inline]
-    pub fn fence(mut self, value: Option<&'a Fence>) -> Self {
+    pub fn fence(mut self, value: Option<&'a raw::Fence>) -> Self {
         self.fence = value.map(|v| unsafe { v.clone() });
         self
     }
@@ -19395,7 +19395,7 @@ impl<'a> Default for DisplayModePropertiesKHR<'a> {
 }
 impl<'a> DisplayModePropertiesKHR<'a> {
     #[inline]
-    pub fn display_mode(mut self, value: &'a DisplayModeKHR) -> Self {
+    pub fn display_mode(mut self, value: &'a raw::DisplayModeKHR) -> Self {
         self.display_mode = Some(unsafe { value.clone() });
         self
     }
@@ -19505,7 +19505,7 @@ impl<'a> Default for DisplayPlanePropertiesKHR<'a> {
 }
 impl<'a> DisplayPlanePropertiesKHR<'a> {
     #[inline]
-    pub fn current_display(mut self, value: &'a DisplayKHR) -> Self {
+    pub fn current_display(mut self, value: &'a raw::DisplayKHR) -> Self {
         self.current_display = Some(unsafe { value.clone() });
         self
     }
@@ -19546,7 +19546,7 @@ impl<'a> Default for DisplayPropertiesKHR<'a> {
 }
 impl<'a> DisplayPropertiesKHR<'a> {
     #[inline]
-    pub fn display(mut self, value: &'a DisplayKHR) -> Self {
+    pub fn display(mut self, value: &'a raw::DisplayKHR) -> Self {
         self.display = Some(unsafe { value.clone() });
         self
     }
@@ -19626,7 +19626,7 @@ impl<'a> DisplaySurfaceCreateInfoKHR<'a> {
         self
     }
     #[inline]
-    pub fn display_mode(mut self, value: &'a DisplayModeKHR) -> Self {
+    pub fn display_mode(mut self, value: &'a raw::DisplayModeKHR) -> Self {
         self.display_mode = Some(unsafe { value.clone() });
         self
     }
@@ -20326,12 +20326,12 @@ impl<'a> Default for DedicatedAllocationMemoryAllocateInfoNV<'a> {
 }
 impl<'a> DedicatedAllocationMemoryAllocateInfoNV<'a> {
     #[inline]
-    pub fn image(mut self, value: Option<&'a Image>) -> Self {
+    pub fn image(mut self, value: Option<&'a raw::Image>) -> Self {
         self.image = value.map(|v| unsafe { v.clone() });
         self
     }
     #[inline]
-    pub fn buffer(mut self, value: Option<&'a Buffer>) -> Self {
+    pub fn buffer(mut self, value: Option<&'a raw::Buffer>) -> Self {
         self.buffer = value.map(|v| unsafe { v.clone() });
         self
     }
@@ -20618,7 +20618,7 @@ impl<'a> Default for CuFunctionCreateInfoNVX<'a> {
 }
 impl<'a> CuFunctionCreateInfoNVX<'a> {
     #[inline]
-    pub fn module(mut self, value: &'a CuModuleNVX) -> Self {
+    pub fn module(mut self, value: &'a raw::CuModuleNVX) -> Self {
         self.module = Some(unsafe { value.clone() });
         self
     }
@@ -20681,7 +20681,7 @@ impl<'a> Default for CuLaunchInfoNVX<'a> {
 }
 impl<'a> CuLaunchInfoNVX<'a> {
     #[inline]
-    pub fn function(mut self, value: &'a CuFunctionNVX) -> Self {
+    pub fn function(mut self, value: &'a raw::CuFunctionNVX) -> Self {
         self.function = Some(unsafe { value.clone() });
         self
     }
@@ -20776,7 +20776,7 @@ impl<'a> Default for ImageViewHandleInfoNVX<'a> {
 }
 impl<'a> ImageViewHandleInfoNVX<'a> {
     #[inline]
-    pub fn image_view(mut self, value: &'a ImageView) -> Self {
+    pub fn image_view(mut self, value: &'a raw::ImageView) -> Self {
         self.image_view = Some(unsafe { value.clone() });
         self
     }
@@ -20786,7 +20786,7 @@ impl<'a> ImageViewHandleInfoNVX<'a> {
         self
     }
     #[inline]
-    pub fn sampler(mut self, value: Option<&'a Sampler>) -> Self {
+    pub fn sampler(mut self, value: Option<&'a raw::Sampler>) -> Self {
         self.sampler = value.map(|v| unsafe { v.clone() });
         self
     }
@@ -21030,7 +21030,7 @@ impl<'a> Default for RenderingFragmentShadingRateAttachmentInfoKHR<'a> {
 }
 impl<'a> RenderingFragmentShadingRateAttachmentInfoKHR<'a> {
     #[inline]
-    pub fn image_view(mut self, value: Option<&'a ImageView>) -> Self {
+    pub fn image_view(mut self, value: Option<&'a raw::ImageView>) -> Self {
         self.image_view = value.map(|v| unsafe { v.clone() });
         self
     }
@@ -21083,7 +21083,7 @@ impl<'a> Default for RenderingFragmentDensityMapAttachmentInfoEXT<'a> {
 }
 impl<'a> RenderingFragmentDensityMapAttachmentInfoEXT<'a> {
     #[inline]
-    pub fn image_view(mut self, value: &'a ImageView) -> Self {
+    pub fn image_view(mut self, value: &'a raw::ImageView) -> Self {
         self.image_view = Some(unsafe { value.clone() });
         self
     }
@@ -22160,7 +22160,7 @@ impl<'a> Default for MemoryGetWin32HandleInfoKHR<'a> {
 }
 impl<'a> MemoryGetWin32HandleInfoKHR<'a> {
     #[inline]
-    pub fn memory(mut self, value: &'a DeviceMemory) -> Self {
+    pub fn memory(mut self, value: &'a raw::DeviceMemory) -> Self {
         self.memory = Some(unsafe { value.clone() });
         self
     }
@@ -22283,7 +22283,7 @@ impl<'a> Default for MemoryGetFdInfoKHR<'a> {
 }
 impl<'a> MemoryGetFdInfoKHR<'a> {
     #[inline]
-    pub fn memory(mut self, value: &'a DeviceMemory) -> Self {
+    pub fn memory(mut self, value: &'a raw::DeviceMemory) -> Self {
         self.memory = Some(unsafe { value.clone() });
         self
     }
@@ -22427,7 +22427,7 @@ impl<'a> Default for ImportSemaphoreWin32HandleInfoKHR<'a> {
 }
 impl<'a> ImportSemaphoreWin32HandleInfoKHR<'a> {
     #[inline]
-    pub fn semaphore(mut self, value: &'a Semaphore) -> Self {
+    pub fn semaphore(mut self, value: &'a raw::Semaphore) -> Self {
         self.semaphore = Some(unsafe { value.clone() });
         self
     }
@@ -22620,7 +22620,7 @@ impl<'a> Default for SemaphoreGetWin32HandleInfoKHR<'a> {
 }
 impl<'a> SemaphoreGetWin32HandleInfoKHR<'a> {
     #[inline]
-    pub fn semaphore(mut self, value: &'a Semaphore) -> Self {
+    pub fn semaphore(mut self, value: &'a raw::Semaphore) -> Self {
         self.semaphore = Some(unsafe { value.clone() });
         self
     }
@@ -22667,7 +22667,7 @@ impl<'a> Default for ImportSemaphoreFdInfoKHR<'a> {
 }
 impl<'a> ImportSemaphoreFdInfoKHR<'a> {
     #[inline]
-    pub fn semaphore(mut self, value: &'a Semaphore) -> Self {
+    pub fn semaphore(mut self, value: &'a raw::Semaphore) -> Self {
         self.semaphore = Some(unsafe { value.clone() });
         self
     }
@@ -22720,7 +22720,7 @@ impl<'a> Default for SemaphoreGetFdInfoKHR<'a> {
 }
 impl<'a> SemaphoreGetFdInfoKHR<'a> {
     #[inline]
-    pub fn semaphore(mut self, value: &'a Semaphore) -> Self {
+    pub fn semaphore(mut self, value: &'a raw::Semaphore) -> Self {
         self.semaphore = Some(unsafe { value.clone() });
         self
     }
@@ -22805,7 +22805,7 @@ impl<'a> Default for ConditionalRenderingBeginInfoEXT<'a> {
 }
 impl<'a> ConditionalRenderingBeginInfoEXT<'a> {
     #[inline]
-    pub fn buffer(mut self, value: &'a Buffer) -> Self {
+    pub fn buffer(mut self, value: &'a raw::Buffer) -> Self {
         self.buffer = Some(unsafe { value.clone() });
         self
     }
@@ -24275,7 +24275,7 @@ impl<'a> Default for ImportFenceWin32HandleInfoKHR<'a> {
 }
 impl<'a> ImportFenceWin32HandleInfoKHR<'a> {
     #[inline]
-    pub fn fence(mut self, value: &'a Fence) -> Self {
+    pub fn fence(mut self, value: &'a raw::Fence) -> Self {
         self.fence = Some(unsafe { value.clone() });
         self
     }
@@ -24384,7 +24384,7 @@ impl<'a> Default for FenceGetWin32HandleInfoKHR<'a> {
 }
 impl<'a> FenceGetWin32HandleInfoKHR<'a> {
     #[inline]
-    pub fn fence(mut self, value: &'a Fence) -> Self {
+    pub fn fence(mut self, value: &'a raw::Fence) -> Self {
         self.fence = Some(unsafe { value.clone() });
         self
     }
@@ -24431,7 +24431,7 @@ impl<'a> Default for ImportFenceFdInfoKHR<'a> {
 }
 impl<'a> ImportFenceFdInfoKHR<'a> {
     #[inline]
-    pub fn fence(mut self, value: &'a Fence) -> Self {
+    pub fn fence(mut self, value: &'a raw::Fence) -> Self {
         self.fence = Some(unsafe { value.clone() });
         self
     }
@@ -24484,7 +24484,7 @@ impl<'a> Default for FenceGetFdInfoKHR<'a> {
 }
 impl<'a> FenceGetFdInfoKHR<'a> {
     #[inline]
-    pub fn fence(mut self, value: &'a Fence) -> Self {
+    pub fn fence(mut self, value: &'a raw::Fence) -> Self {
         self.fence = Some(unsafe { value.clone() });
         self
     }
@@ -24932,7 +24932,7 @@ impl<'a> Default for PhysicalDeviceSurfaceInfo2KHR<'a> {
 }
 impl<'a> PhysicalDeviceSurfaceInfo2KHR<'a> {
     #[inline]
-    pub fn surface(mut self, value: Option<&'a SurfaceKHR>) -> Self {
+    pub fn surface(mut self, value: Option<&'a raw::SurfaceKHR>) -> Self {
         self.surface = value.map(|v| unsafe { v.clone() });
         self
     }
@@ -25150,7 +25150,7 @@ impl<'a> Default for DisplayPlaneInfo2KHR<'a> {
 }
 impl<'a> DisplayPlaneInfo2KHR<'a> {
     #[inline]
-    pub fn mode(mut self, value: &'a DisplayModeKHR) -> Self {
+    pub fn mode(mut self, value: &'a raw::DisplayModeKHR) -> Self {
         self.mode = Some(unsafe { value.clone() });
         self
     }
@@ -25862,7 +25862,7 @@ impl<'a> Default for MemoryGetAndroidHardwareBufferInfoANDROID<'a> {
 }
 impl<'a> MemoryGetAndroidHardwareBufferInfoANDROID<'a> {
     #[inline]
-    pub fn memory(mut self, value: &'a DeviceMemory) -> Self {
+    pub fn memory(mut self, value: &'a raw::DeviceMemory) -> Self {
         self.memory = Some(unsafe { value.clone() });
         self
     }
@@ -26215,12 +26215,12 @@ impl<'a> ExecutionGraphPipelineCreateInfoAMDX<'a> {
         self
     }
     #[inline]
-    pub fn layout(mut self, value: &'a PipelineLayout) -> Self {
+    pub fn layout(mut self, value: &'a raw::PipelineLayout) -> Self {
         self.layout = Some(unsafe { value.clone() });
         self
     }
     #[inline]
-    pub fn base_pipeline_handle(mut self, value: Option<&'a Pipeline>) -> Self {
+    pub fn base_pipeline_handle(mut self, value: Option<&'a raw::Pipeline>) -> Self {
         self.base_pipeline_handle = value.map(|v| unsafe { v.clone() });
         self
     }
@@ -27308,7 +27308,7 @@ impl<'a> AccelerationStructureBuildGeometryInfoKHR<'a> {
     #[inline]
     pub fn src_acceleration_structure(
         mut self,
-        value: Option<&'a AccelerationStructureKHR>,
+        value: Option<&'a raw::AccelerationStructureKHR>,
     ) -> Self {
         self.src_acceleration_structure = value.map(|v| unsafe { v.clone() });
         self
@@ -27316,7 +27316,7 @@ impl<'a> AccelerationStructureBuildGeometryInfoKHR<'a> {
     #[inline]
     pub fn dst_acceleration_structure(
         mut self,
-        value: Option<&'a AccelerationStructureKHR>,
+        value: Option<&'a raw::AccelerationStructureKHR>,
     ) -> Self {
         self.dst_acceleration_structure = value.map(|v| unsafe { v.clone() });
         self
@@ -27621,7 +27621,7 @@ impl<'a> AccelerationStructureCreateInfoKHR<'a> {
         self
     }
     #[inline]
-    pub fn buffer(mut self, value: &'a Buffer) -> Self {
+    pub fn buffer(mut self, value: &'a raw::Buffer) -> Self {
         self.buffer = Some(unsafe { value.clone() });
         self
     }
@@ -27911,7 +27911,7 @@ impl<'a> Default for AccelerationStructureDeviceAddressInfoKHR<'a> {
 }
 impl<'a> AccelerationStructureDeviceAddressInfoKHR<'a> {
     #[inline]
-    pub fn acceleration_structure(mut self, value: &'a AccelerationStructureKHR) -> Self {
+    pub fn acceleration_structure(mut self, value: &'a raw::AccelerationStructureKHR) -> Self {
         self.acceleration_structure = Some(unsafe { value.clone() });
         self
     }
@@ -27987,7 +27987,7 @@ impl<'a> Default for CopyAccelerationStructureToMemoryInfoKHR<'a> {
 }
 impl<'a> CopyAccelerationStructureToMemoryInfoKHR<'a> {
     #[inline]
-    pub fn src(mut self, value: &'a AccelerationStructureKHR) -> Self {
+    pub fn src(mut self, value: &'a raw::AccelerationStructureKHR) -> Self {
         self.src = Some(unsafe { value.clone() });
         self
     }
@@ -28042,7 +28042,7 @@ impl<'a> CopyMemoryToAccelerationStructureInfoKHR<'a> {
         self
     }
     #[inline]
-    pub fn dst(mut self, value: &'a AccelerationStructureKHR) -> Self {
+    pub fn dst(mut self, value: &'a raw::AccelerationStructureKHR) -> Self {
         self.dst = Some(unsafe { value.clone() });
         self
     }
@@ -28087,12 +28087,12 @@ impl<'a> Default for CopyAccelerationStructureInfoKHR<'a> {
 }
 impl<'a> CopyAccelerationStructureInfoKHR<'a> {
     #[inline]
-    pub fn src(mut self, value: &'a AccelerationStructureKHR) -> Self {
+    pub fn src(mut self, value: &'a raw::AccelerationStructureKHR) -> Self {
         self.src = Some(unsafe { value.clone() });
         self
     }
     #[inline]
-    pub fn dst(mut self, value: &'a AccelerationStructureKHR) -> Self {
+    pub fn dst(mut self, value: &'a raw::AccelerationStructureKHR) -> Self {
         self.dst = Some(unsafe { value.clone() });
         self
     }
@@ -28304,12 +28304,12 @@ impl<'a> RayTracingPipelineCreateInfoKHR<'a> {
         self
     }
     #[inline]
-    pub fn layout(mut self, value: &'a PipelineLayout) -> Self {
+    pub fn layout(mut self, value: &'a raw::PipelineLayout) -> Self {
         self.layout = Some(unsafe { value.clone() });
         self
     }
     #[inline]
-    pub fn base_pipeline_handle(mut self, value: Option<&'a Pipeline>) -> Self {
+    pub fn base_pipeline_handle(mut self, value: Option<&'a raw::Pipeline>) -> Self {
         self.base_pipeline_handle = value.map(|v| unsafe { v.clone() });
         self
     }
@@ -29330,7 +29330,7 @@ impl<'a> Default for ShaderModuleValidationCacheCreateInfoEXT<'a> {
 }
 impl<'a> ShaderModuleValidationCacheCreateInfoEXT<'a> {
     #[inline]
-    pub fn validation_cache(mut self, value: &'a ValidationCacheEXT) -> Self {
+    pub fn validation_cache(mut self, value: &'a raw::ValidationCacheEXT) -> Self {
         self.validation_cache = Some(unsafe { value.clone() });
         self
     }
@@ -30001,12 +30001,12 @@ impl<'a> RayTracingPipelineCreateInfoNV<'a> {
         self
     }
     #[inline]
-    pub fn layout(mut self, value: &'a PipelineLayout) -> Self {
+    pub fn layout(mut self, value: &'a raw::PipelineLayout) -> Self {
         self.layout = Some(unsafe { value.clone() });
         self
     }
     #[inline]
-    pub fn base_pipeline_handle(mut self, value: Option<&'a Pipeline>) -> Self {
+    pub fn base_pipeline_handle(mut self, value: Option<&'a raw::Pipeline>) -> Self {
         self.base_pipeline_handle = value.map(|v| unsafe { v.clone() });
         self
     }
@@ -30090,7 +30090,7 @@ impl<'a> Default for GeometryTrianglesNV<'a> {
 }
 impl<'a> GeometryTrianglesNV<'a> {
     #[inline]
-    pub fn vertex_data(mut self, value: Option<&'a Buffer>) -> Self {
+    pub fn vertex_data(mut self, value: Option<&'a raw::Buffer>) -> Self {
         self.vertex_data = value.map(|v| unsafe { v.clone() });
         self
     }
@@ -30115,7 +30115,7 @@ impl<'a> GeometryTrianglesNV<'a> {
         self
     }
     #[inline]
-    pub fn index_data(mut self, value: Option<&'a Buffer>) -> Self {
+    pub fn index_data(mut self, value: Option<&'a raw::Buffer>) -> Self {
         self.index_data = value.map(|v| unsafe { v.clone() });
         self
     }
@@ -30135,7 +30135,7 @@ impl<'a> GeometryTrianglesNV<'a> {
         self
     }
     #[inline]
-    pub fn transform_data(mut self, value: Option<&'a Buffer>) -> Self {
+    pub fn transform_data(mut self, value: Option<&'a raw::Buffer>) -> Self {
         self.transform_data = value.map(|v| unsafe { v.clone() });
         self
     }
@@ -30182,7 +30182,7 @@ impl<'a> Default for GeometryAABBNV<'a> {
 }
 impl<'a> GeometryAABBNV<'a> {
     #[inline]
-    pub fn aabb_data(mut self, value: Option<&'a Buffer>) -> Self {
+    pub fn aabb_data(mut self, value: Option<&'a raw::Buffer>) -> Self {
         self.aabb_data = value.map(|v| unsafe { v.clone() });
         self
     }
@@ -30429,12 +30429,12 @@ impl<'a> Default for BindAccelerationStructureMemoryInfoNV<'a> {
 }
 impl<'a> BindAccelerationStructureMemoryInfoNV<'a> {
     #[inline]
-    pub fn acceleration_structure(mut self, value: &'a AccelerationStructureNV) -> Self {
+    pub fn acceleration_structure(mut self, value: &'a raw::AccelerationStructureNV) -> Self {
         self.acceleration_structure = Some(unsafe { value.clone() });
         self
     }
     #[inline]
-    pub fn memory(mut self, value: &'a DeviceMemory) -> Self {
+    pub fn memory(mut self, value: &'a raw::DeviceMemory) -> Self {
         self.memory = Some(unsafe { value.clone() });
         self
     }
@@ -30555,7 +30555,7 @@ impl<'a> AccelerationStructureMemoryRequirementsInfoNV<'a> {
         self
     }
     #[inline]
-    pub fn acceleration_structure(mut self, value: &'a AccelerationStructureNV) -> Self {
+    pub fn acceleration_structure(mut self, value: &'a raw::AccelerationStructureNV) -> Self {
         self.acceleration_structure = Some(unsafe { value.clone() });
         self
     }
@@ -34800,7 +34800,7 @@ impl<'a> Default for PipelineInfoKHR<'a> {
 }
 impl<'a> PipelineInfoKHR<'a> {
     #[inline]
-    pub fn pipeline(mut self, value: &'a Pipeline) -> Self {
+    pub fn pipeline(mut self, value: &'a raw::Pipeline) -> Self {
         self.pipeline = Some(unsafe { value.clone() });
         self
     }
@@ -34899,7 +34899,7 @@ impl<'a> Default for PipelineExecutableInfoKHR<'a> {
 }
 impl<'a> PipelineExecutableInfoKHR<'a> {
     #[inline]
-    pub fn pipeline(mut self, value: &'a Pipeline) -> Self {
+    pub fn pipeline(mut self, value: &'a raw::Pipeline) -> Self {
         self.pipeline = Some(unsafe { value.clone() });
         self
     }
@@ -35378,7 +35378,7 @@ impl<'a> CopyMemoryToImageInfoEXT<'a> {
         self
     }
     #[inline]
-    pub fn dst_image(mut self, value: &'a Image) -> Self {
+    pub fn dst_image(mut self, value: &'a raw::Image) -> Self {
         self.dst_image = Some(unsafe { value.clone() });
         self
     }
@@ -35442,7 +35442,7 @@ impl<'a> CopyImageToMemoryInfoEXT<'a> {
         self
     }
     #[inline]
-    pub fn src_image(mut self, value: &'a Image) -> Self {
+    pub fn src_image(mut self, value: &'a raw::Image) -> Self {
         self.src_image = Some(unsafe { value.clone() });
         self
     }
@@ -35510,7 +35510,7 @@ impl<'a> CopyImageToImageInfoEXT<'a> {
         self
     }
     #[inline]
-    pub fn src_image(mut self, value: &'a Image) -> Self {
+    pub fn src_image(mut self, value: &'a raw::Image) -> Self {
         self.src_image = Some(unsafe { value.clone() });
         self
     }
@@ -35520,7 +35520,7 @@ impl<'a> CopyImageToImageInfoEXT<'a> {
         self
     }
     #[inline]
-    pub fn dst_image(mut self, value: &'a Image) -> Self {
+    pub fn dst_image(mut self, value: &'a raw::Image) -> Self {
         self.dst_image = Some(unsafe { value.clone() });
         self
     }
@@ -35577,7 +35577,7 @@ impl<'a> Default for HostImageLayoutTransitionInfoEXT<'a> {
 }
 impl<'a> HostImageLayoutTransitionInfoEXT<'a> {
     #[inline]
-    pub fn image(mut self, value: &'a Image) -> Self {
+    pub fn image(mut self, value: &'a raw::Image) -> Self {
         self.image = Some(unsafe { value.clone() });
         self
     }
@@ -35726,7 +35726,7 @@ impl<'a> MemoryMapInfoKHR<'a> {
         self
     }
     #[inline]
-    pub fn memory(mut self, value: &'a DeviceMemory) -> Self {
+    pub fn memory(mut self, value: &'a raw::DeviceMemory) -> Self {
         self.memory = Some(unsafe { value.clone() });
         self
     }
@@ -35779,7 +35779,7 @@ impl<'a> MemoryUnmapInfoKHR<'a> {
         self
     }
     #[inline]
-    pub fn memory(mut self, value: &'a DeviceMemory) -> Self {
+    pub fn memory(mut self, value: &'a raw::DeviceMemory) -> Self {
         self.memory = Some(unsafe { value.clone() });
         self
     }
@@ -36470,7 +36470,7 @@ impl<'a> Default for ReleaseSwapchainImagesInfoEXT<'a> {
 }
 impl<'a> ReleaseSwapchainImagesInfoEXT<'a> {
     #[inline]
-    pub fn swapchain(mut self, value: &'a SwapchainKHR) -> Self {
+    pub fn swapchain(mut self, value: &'a raw::SwapchainKHR) -> Self {
         self.swapchain = Some(unsafe { value.clone() });
         self
     }
@@ -36903,7 +36903,7 @@ impl<'a> Default for IndirectCommandsStreamNV<'a> {
 }
 impl<'a> IndirectCommandsStreamNV<'a> {
     #[inline]
-    pub fn buffer(mut self, value: &'a Buffer) -> Self {
+    pub fn buffer(mut self, value: &'a raw::Buffer) -> Self {
         self.buffer = Some(unsafe { value.clone() });
         self
     }
@@ -36988,7 +36988,7 @@ impl<'a> IndirectCommandsLayoutTokenNV<'a> {
         self
     }
     #[inline]
-    pub fn pushconstant_pipeline_layout(mut self, value: Option<&'a PipelineLayout>) -> Self {
+    pub fn pushconstant_pipeline_layout(mut self, value: Option<&'a raw::PipelineLayout>) -> Self {
         self.pushconstant_pipeline_layout = value.map(|v| unsafe { v.clone() });
         self
     }
@@ -37165,12 +37165,12 @@ impl<'a> GeneratedCommandsInfoNV<'a> {
         self
     }
     #[inline]
-    pub fn pipeline(mut self, value: Option<&'a Pipeline>) -> Self {
+    pub fn pipeline(mut self, value: Option<&'a raw::Pipeline>) -> Self {
         self.pipeline = value.map(|v| unsafe { v.clone() });
         self
     }
     #[inline]
-    pub fn indirect_commands_layout(mut self, value: &'a IndirectCommandsLayoutNV) -> Self {
+    pub fn indirect_commands_layout(mut self, value: &'a raw::IndirectCommandsLayoutNV) -> Self {
         self.indirect_commands_layout = Some(unsafe { value.clone() });
         self
     }
@@ -37180,7 +37180,7 @@ impl<'a> GeneratedCommandsInfoNV<'a> {
         self
     }
     #[inline]
-    pub fn preprocess_buffer(mut self, value: &'a Buffer) -> Self {
+    pub fn preprocess_buffer(mut self, value: &'a raw::Buffer) -> Self {
         self.preprocess_buffer = Some(unsafe { value.clone() });
         self
     }
@@ -37195,7 +37195,7 @@ impl<'a> GeneratedCommandsInfoNV<'a> {
         self
     }
     #[inline]
-    pub fn sequences_count_buffer(mut self, value: Option<&'a Buffer>) -> Self {
+    pub fn sequences_count_buffer(mut self, value: Option<&'a raw::Buffer>) -> Self {
         self.sequences_count_buffer = value.map(|v| unsafe { v.clone() });
         self
     }
@@ -37205,7 +37205,7 @@ impl<'a> GeneratedCommandsInfoNV<'a> {
         self
     }
     #[inline]
-    pub fn sequences_index_buffer(mut self, value: Option<&'a Buffer>) -> Self {
+    pub fn sequences_index_buffer(mut self, value: Option<&'a raw::Buffer>) -> Self {
         self.sequences_index_buffer = value.map(|v| unsafe { v.clone() });
         self
     }
@@ -37267,12 +37267,12 @@ impl<'a> GeneratedCommandsMemoryRequirementsInfoNV<'a> {
         self
     }
     #[inline]
-    pub fn pipeline(mut self, value: Option<&'a Pipeline>) -> Self {
+    pub fn pipeline(mut self, value: Option<&'a raw::Pipeline>) -> Self {
         self.pipeline = value.map(|v| unsafe { v.clone() });
         self
     }
     #[inline]
-    pub fn indirect_commands_layout(mut self, value: &'a IndirectCommandsLayoutNV) -> Self {
+    pub fn indirect_commands_layout(mut self, value: &'a raw::IndirectCommandsLayoutNV) -> Self {
         self.indirect_commands_layout = Some(unsafe { value.clone() });
         self
     }
@@ -38532,7 +38532,7 @@ impl<'a> Default for CudaFunctionCreateInfoNV<'a> {
 }
 impl<'a> CudaFunctionCreateInfoNV<'a> {
     #[inline]
-    pub fn module(mut self, value: &'a CudaModuleNV) -> Self {
+    pub fn module(mut self, value: &'a raw::CudaModuleNV) -> Self {
         self.module = Some(unsafe { value.clone() });
         self
     }
@@ -38595,7 +38595,7 @@ impl<'a> Default for CudaLaunchInfoNV<'a> {
 }
 impl<'a> CudaLaunchInfoNV<'a> {
     #[inline]
-    pub fn function(mut self, value: &'a CudaFunctionNV) -> Self {
+    pub fn function(mut self, value: &'a raw::CudaFunctionNV) -> Self {
         self.function = Some(unsafe { value.clone() });
         self
     }
@@ -38947,7 +38947,7 @@ impl<'a> Default for ExportMetalCommandQueueInfoEXT<'a> {
 }
 impl<'a> ExportMetalCommandQueueInfoEXT<'a> {
     #[inline]
-    pub fn queue(mut self, value: &'a Queue) -> Self {
+    pub fn queue(mut self, value: &'a raw::Queue) -> Self {
         self.queue = Some(unsafe { value.clone() });
         self
     }
@@ -38994,7 +38994,7 @@ impl<'a> Default for ExportMetalBufferInfoEXT<'a> {
 }
 impl<'a> ExportMetalBufferInfoEXT<'a> {
     #[inline]
-    pub fn memory(mut self, value: &'a DeviceMemory) -> Self {
+    pub fn memory(mut self, value: &'a raw::DeviceMemory) -> Self {
         self.memory = Some(unsafe { value.clone() });
         self
     }
@@ -39084,17 +39084,17 @@ impl<'a> Default for ExportMetalTextureInfoEXT<'a> {
 }
 impl<'a> ExportMetalTextureInfoEXT<'a> {
     #[inline]
-    pub fn image(mut self, value: Option<&'a Image>) -> Self {
+    pub fn image(mut self, value: Option<&'a raw::Image>) -> Self {
         self.image = value.map(|v| unsafe { v.clone() });
         self
     }
     #[inline]
-    pub fn image_view(mut self, value: Option<&'a ImageView>) -> Self {
+    pub fn image_view(mut self, value: Option<&'a raw::ImageView>) -> Self {
         self.image_view = value.map(|v| unsafe { v.clone() });
         self
     }
     #[inline]
-    pub fn buffer_view(mut self, value: Option<&'a BufferView>) -> Self {
+    pub fn buffer_view(mut self, value: Option<&'a raw::BufferView>) -> Self {
         self.buffer_view = value.map(|v| unsafe { v.clone() });
         self
     }
@@ -39190,7 +39190,7 @@ impl<'a> Default for ExportMetalIOSurfaceInfoEXT<'a> {
 }
 impl<'a> ExportMetalIOSurfaceInfoEXT<'a> {
     #[inline]
-    pub fn image(mut self, value: &'a Image) -> Self {
+    pub fn image(mut self, value: &'a raw::Image) -> Self {
         self.image = Some(unsafe { value.clone() });
         self
     }
@@ -39276,12 +39276,12 @@ impl<'a> Default for ExportMetalSharedEventInfoEXT<'a> {
 }
 impl<'a> ExportMetalSharedEventInfoEXT<'a> {
     #[inline]
-    pub fn semaphore(mut self, value: Option<&'a Semaphore>) -> Self {
+    pub fn semaphore(mut self, value: Option<&'a raw::Semaphore>) -> Self {
         self.semaphore = value.map(|v| unsafe { v.clone() });
         self
     }
     #[inline]
-    pub fn event(mut self, value: Option<&'a Event>) -> Self {
+    pub fn event(mut self, value: Option<&'a raw::Event>) -> Self {
         self.event = value.map(|v| unsafe { v.clone() });
         self
     }
@@ -39936,7 +39936,7 @@ impl<'a> Default for DescriptorBufferBindingPushDescriptorBufferHandleEXT<'a> {
 }
 impl<'a> DescriptorBufferBindingPushDescriptorBufferHandleEXT<'a> {
     #[inline]
-    pub fn buffer(mut self, value: &'a Buffer) -> Self {
+    pub fn buffer(mut self, value: &'a raw::Buffer) -> Self {
         self.buffer = Some(unsafe { value.clone() });
         self
     }
@@ -40037,7 +40037,7 @@ impl<'a> Default for BufferCaptureDescriptorDataInfoEXT<'a> {
 }
 impl<'a> BufferCaptureDescriptorDataInfoEXT<'a> {
     #[inline]
-    pub fn buffer(mut self, value: &'a Buffer) -> Self {
+    pub fn buffer(mut self, value: &'a raw::Buffer) -> Self {
         self.buffer = Some(unsafe { value.clone() });
         self
     }
@@ -40073,7 +40073,7 @@ impl<'a> Default for ImageCaptureDescriptorDataInfoEXT<'a> {
 }
 impl<'a> ImageCaptureDescriptorDataInfoEXT<'a> {
     #[inline]
-    pub fn image(mut self, value: &'a Image) -> Self {
+    pub fn image(mut self, value: &'a raw::Image) -> Self {
         self.image = Some(unsafe { value.clone() });
         self
     }
@@ -40109,7 +40109,7 @@ impl<'a> Default for ImageViewCaptureDescriptorDataInfoEXT<'a> {
 }
 impl<'a> ImageViewCaptureDescriptorDataInfoEXT<'a> {
     #[inline]
-    pub fn image_view(mut self, value: &'a ImageView) -> Self {
+    pub fn image_view(mut self, value: &'a raw::ImageView) -> Self {
         self.image_view = Some(unsafe { value.clone() });
         self
     }
@@ -40145,7 +40145,7 @@ impl<'a> Default for SamplerCaptureDescriptorDataInfoEXT<'a> {
 }
 impl<'a> SamplerCaptureDescriptorDataInfoEXT<'a> {
     #[inline]
-    pub fn sampler(mut self, value: &'a Sampler) -> Self {
+    pub fn sampler(mut self, value: &'a raw::Sampler) -> Self {
         self.sampler = Some(unsafe { value.clone() });
         self
     }
@@ -40244,12 +40244,18 @@ impl<'a> Default for AccelerationStructureCaptureDescriptorDataInfoEXT<'a> {
 }
 impl<'a> AccelerationStructureCaptureDescriptorDataInfoEXT<'a> {
     #[inline]
-    pub fn acceleration_structure(mut self, value: Option<&'a AccelerationStructureKHR>) -> Self {
+    pub fn acceleration_structure(
+        mut self,
+        value: Option<&'a raw::AccelerationStructureKHR>,
+    ) -> Self {
         self.acceleration_structure = value.map(|v| unsafe { v.clone() });
         self
     }
     #[inline]
-    pub fn acceleration_structure_nv(mut self, value: Option<&'a AccelerationStructureNV>) -> Self {
+    pub fn acceleration_structure_nv(
+        mut self,
+        value: Option<&'a raw::AccelerationStructureNV>,
+    ) -> Self {
         self.acceleration_structure_nv = value.map(|v| unsafe { v.clone() });
         self
     }
@@ -43074,7 +43080,7 @@ impl<'a> Default for MemoryGetZirconHandleInfoFUCHSIA<'a> {
 }
 impl<'a> MemoryGetZirconHandleInfoFUCHSIA<'a> {
     #[inline]
-    pub fn memory(mut self, value: &'a DeviceMemory) -> Self {
+    pub fn memory(mut self, value: &'a raw::DeviceMemory) -> Self {
         self.memory = Some(unsafe { value.clone() });
         self
     }
@@ -43121,7 +43127,7 @@ impl<'a> Default for ImportSemaphoreZirconHandleInfoFUCHSIA<'a> {
 }
 impl<'a> ImportSemaphoreZirconHandleInfoFUCHSIA<'a> {
     #[inline]
-    pub fn semaphore(mut self, value: &'a Semaphore) -> Self {
+    pub fn semaphore(mut self, value: &'a raw::Semaphore) -> Self {
         self.semaphore = Some(unsafe { value.clone() });
         self
     }
@@ -43174,7 +43180,7 @@ impl<'a> Default for SemaphoreGetZirconHandleInfoFUCHSIA<'a> {
 }
 impl<'a> SemaphoreGetZirconHandleInfoFUCHSIA<'a> {
     #[inline]
-    pub fn semaphore(mut self, value: &'a Semaphore) -> Self {
+    pub fn semaphore(mut self, value: &'a raw::Semaphore) -> Self {
         self.semaphore = Some(unsafe { value.clone() });
         self
     }
@@ -43257,7 +43263,7 @@ impl<'a> Default for ImportMemoryBufferCollectionFUCHSIA<'a> {
 }
 impl<'a> ImportMemoryBufferCollectionFUCHSIA<'a> {
     #[inline]
-    pub fn collection(mut self, value: &'a BufferCollectionFUCHSIA) -> Self {
+    pub fn collection(mut self, value: &'a raw::BufferCollectionFUCHSIA) -> Self {
         self.collection = Some(unsafe { value.clone() });
         self
     }
@@ -43304,7 +43310,7 @@ impl<'a> Default for BufferCollectionImageCreateInfoFUCHSIA<'a> {
 }
 impl<'a> BufferCollectionImageCreateInfoFUCHSIA<'a> {
     #[inline]
-    pub fn collection(mut self, value: &'a BufferCollectionFUCHSIA) -> Self {
+    pub fn collection(mut self, value: &'a raw::BufferCollectionFUCHSIA) -> Self {
         self.collection = Some(unsafe { value.clone() });
         self
     }
@@ -43404,7 +43410,7 @@ impl<'a> Default for BufferCollectionBufferCreateInfoFUCHSIA<'a> {
 }
 impl<'a> BufferCollectionBufferCreateInfoFUCHSIA<'a> {
     #[inline]
-    pub fn collection(mut self, value: &'a BufferCollectionFUCHSIA) -> Self {
+    pub fn collection(mut self, value: &'a raw::BufferCollectionFUCHSIA) -> Self {
         self.collection = Some(unsafe { value.clone() });
         self
     }
@@ -43799,7 +43805,7 @@ impl<'a> Default for SubpassShadingPipelineCreateInfoHUAWEI<'a> {
 }
 impl<'a> SubpassShadingPipelineCreateInfoHUAWEI<'a> {
     #[inline]
-    pub fn render_pass(mut self, value: &'a RenderPass) -> Self {
+    pub fn render_pass(mut self, value: &'a raw::RenderPass) -> Self {
         self.render_pass = Some(unsafe { value.clone() });
         self
     }
@@ -43974,7 +43980,7 @@ impl<'a> Default for MemoryGetRemoteAddressInfoNV<'a> {
 }
 impl<'a> MemoryGetRemoteAddressInfoNV<'a> {
     #[inline]
-    pub fn memory(mut self, value: &'a DeviceMemory) -> Self {
+    pub fn memory(mut self, value: &'a raw::DeviceMemory) -> Self {
         self.memory = Some(unsafe { value.clone() });
         self
     }
@@ -45314,7 +45320,7 @@ impl<'a> MicromapBuildInfoEXT<'a> {
         self
     }
     #[inline]
-    pub fn dst_micromap(mut self, value: Option<&'a MicromapEXT>) -> Self {
+    pub fn dst_micromap(mut self, value: Option<&'a raw::MicromapEXT>) -> Self {
         self.dst_micromap = value.map(|v| unsafe { v.clone() });
         self
     }
@@ -45460,7 +45466,7 @@ impl<'a> MicromapCreateInfoEXT<'a> {
         self
     }
     #[inline]
-    pub fn buffer(mut self, value: &'a Buffer) -> Self {
+    pub fn buffer(mut self, value: &'a raw::Buffer) -> Self {
         self.buffer = Some(unsafe { value.clone() });
         self
     }
@@ -45661,7 +45667,7 @@ impl<'a> Default for CopyMicromapToMemoryInfoEXT<'a> {
 }
 impl<'a> CopyMicromapToMemoryInfoEXT<'a> {
     #[inline]
-    pub fn src(mut self, value: &'a MicromapEXT) -> Self {
+    pub fn src(mut self, value: &'a raw::MicromapEXT) -> Self {
         self.src = Some(unsafe { value.clone() });
         self
     }
@@ -45716,7 +45722,7 @@ impl<'a> CopyMemoryToMicromapInfoEXT<'a> {
         self
     }
     #[inline]
-    pub fn dst(mut self, value: &'a MicromapEXT) -> Self {
+    pub fn dst(mut self, value: &'a raw::MicromapEXT) -> Self {
         self.dst = Some(unsafe { value.clone() });
         self
     }
@@ -45761,12 +45767,12 @@ impl<'a> Default for CopyMicromapInfoEXT<'a> {
 }
 impl<'a> CopyMicromapInfoEXT<'a> {
     #[inline]
-    pub fn src(mut self, value: &'a MicromapEXT) -> Self {
+    pub fn src(mut self, value: &'a raw::MicromapEXT) -> Self {
         self.src = Some(unsafe { value.clone() });
         self
     }
     #[inline]
-    pub fn dst(mut self, value: &'a MicromapEXT) -> Self {
+    pub fn dst(mut self, value: &'a raw::MicromapEXT) -> Self {
         self.dst = Some(unsafe { value.clone() });
         self
     }
@@ -45901,7 +45907,7 @@ impl<'a> AccelerationStructureTrianglesOpacityMicromapEXT<'a> {
         self
     }
     #[inline]
-    pub fn micromap(mut self, value: Option<&'a MicromapEXT>) -> Self {
+    pub fn micromap(mut self, value: Option<&'a raw::MicromapEXT>) -> Self {
         self.micromap = value.map(|v| unsafe { v.clone() });
         self
     }
@@ -46199,7 +46205,7 @@ impl<'a> AccelerationStructureTrianglesDisplacementMicromapNV<'a> {
         self
     }
     #[inline]
-    pub fn micromap(mut self, value: Option<&'a MicromapEXT>) -> Self {
+    pub fn micromap(mut self, value: Option<&'a raw::MicromapEXT>) -> Self {
         self.micromap = value.map(|v| unsafe { v.clone() });
         self
     }
@@ -46946,7 +46952,7 @@ impl<'a> Default for DescriptorSetBindingReferenceVALVE<'a> {
 }
 impl<'a> DescriptorSetBindingReferenceVALVE<'a> {
     #[inline]
-    pub fn descriptor_set_layout(mut self, value: &'a DescriptorSetLayout) -> Self {
+    pub fn descriptor_set_layout(mut self, value: &'a raw::DescriptorSetLayout) -> Self {
         self.descriptor_set_layout = Some(unsafe { value.clone() });
         self
     }
@@ -47938,7 +47944,7 @@ impl<'a> PipelineIndirectDeviceAddressInfoNV<'a> {
         self
     }
     #[inline]
-    pub fn pipeline(mut self, value: &'a Pipeline) -> Self {
+    pub fn pipeline(mut self, value: &'a raw::Pipeline) -> Self {
         self.pipeline = Some(unsafe { value.clone() });
         self
     }
@@ -51838,7 +51844,7 @@ impl<'a> Default for LatencySleepInfoNV<'a> {
 }
 impl<'a> LatencySleepInfoNV<'a> {
     #[inline]
-    pub fn signal_semaphore(mut self, value: &'a Semaphore) -> Self {
+    pub fn signal_semaphore(mut self, value: &'a raw::Semaphore) -> Self {
         self.signal_semaphore = Some(unsafe { value.clone() });
         self
     }
@@ -54046,7 +54052,7 @@ impl<'a> BindDescriptorSetsInfoKHR<'a> {
         self
     }
     #[inline]
-    pub fn layout(mut self, value: Option<&'a PipelineLayout>) -> Self {
+    pub fn layout(mut self, value: Option<&'a raw::PipelineLayout>) -> Self {
         self.layout = value.map(|v| unsafe { v.clone() });
         self
     }
@@ -54133,7 +54139,7 @@ impl<'a> Default for PushConstantsInfoKHR<'a> {
 }
 impl<'a> PushConstantsInfoKHR<'a> {
     #[inline]
-    pub fn layout(mut self, value: Option<&'a PipelineLayout>) -> Self {
+    pub fn layout(mut self, value: Option<&'a raw::PipelineLayout>) -> Self {
         self.layout = value.map(|v| unsafe { v.clone() });
         self
     }
@@ -54202,7 +54208,7 @@ impl<'a> PushDescriptorSetInfoKHR<'a> {
         self
     }
     #[inline]
-    pub fn layout(mut self, value: Option<&'a PipelineLayout>) -> Self {
+    pub fn layout(mut self, value: Option<&'a raw::PipelineLayout>) -> Self {
         self.layout = value.map(|v| unsafe { v.clone() });
         self
     }
@@ -54267,12 +54273,12 @@ impl<'a> Default for PushDescriptorSetWithTemplateInfoKHR<'a> {
 }
 impl<'a> PushDescriptorSetWithTemplateInfoKHR<'a> {
     #[inline]
-    pub fn descriptor_update_template(mut self, value: &'a DescriptorUpdateTemplate) -> Self {
+    pub fn descriptor_update_template(mut self, value: &'a raw::DescriptorUpdateTemplate) -> Self {
         self.descriptor_update_template = Some(unsafe { value.clone() });
         self
     }
     #[inline]
-    pub fn layout(mut self, value: Option<&'a PipelineLayout>) -> Self {
+    pub fn layout(mut self, value: Option<&'a raw::PipelineLayout>) -> Self {
         self.layout = value.map(|v| unsafe { v.clone() });
         self
     }
@@ -54333,7 +54339,7 @@ impl<'a> SetDescriptorBufferOffsetsInfoEXT<'a> {
         self
     }
     #[inline]
-    pub fn layout(mut self, value: Option<&'a PipelineLayout>) -> Self {
+    pub fn layout(mut self, value: Option<&'a raw::PipelineLayout>) -> Self {
         self.layout = value.map(|v| unsafe { v.clone() });
         self
     }
@@ -54403,7 +54409,7 @@ impl<'a> BindDescriptorBufferEmbeddedSamplersInfoEXT<'a> {
         self
     }
     #[inline]
-    pub fn layout(mut self, value: Option<&'a PipelineLayout>) -> Self {
+    pub fn layout(mut self, value: Option<&'a raw::PipelineLayout>) -> Self {
         self.layout = value.map(|v| unsafe { v.clone() });
         self
     }
