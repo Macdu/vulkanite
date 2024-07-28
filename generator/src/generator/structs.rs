@@ -300,6 +300,7 @@ fn generate_struct<'a>(
         .iter()
         .filter_map(|field| length_fields.get(field.vk_name))
         .map(|length_field| {
+            // get the length field name
             let len_field = length_field.len_field;
             let var_name = if length_field.array_fields.len() == 1 && length_field.array_fields[0].name.starts_with("p_") {
                 &length_field.array_fields[0].name[("p_".len())..]
@@ -312,8 +313,10 @@ fn generate_struct<'a>(
             } else {
                 return Err(anyhow!("field length name not expected: {}", len_field.name))
             };
+
             let setter_name = format_ident!("{var_name}");
             let length_name = format_ident!("{}", length_field.len_field.name);
+
             // a slice of size 0 can be seen as a none, no need for options if there is just one field
             let can_be_optional = length_field.array_fields.len() > 1;
             let ty_tokens = length_field.array_fields.iter().enumerate().map(|(idx, field)|{
@@ -322,6 +325,8 @@ fn generate_struct<'a>(
             let field_names = length_field.array_fields.iter().map(|field| {
                 format_ident!("{}",field.name)
             }).collect::<Vec<_>>();
+
+            // find a parameter which cannot be optional to use it as the length if possible
             let len_value = if let Some((idx,_)) = length_field.array_fields.iter().enumerate().find(|(_,field)| !can_be_optional || !field.optional) {
                 let used_field = &field_names[idx];
                 quote! (#used_field.as_slice().len() as _)
@@ -329,9 +334,11 @@ fn generate_struct<'a>(
                 let first_field = &field_names[0];
                 quote! (#first_field.map(|p| p.as_slice().len()).unwrap_or_default() as _)
             };
+
             let template_arg = ty_tokens.iter().map(|t| &t.template_param).filter_map(|x| x.as_ref());
             let slice_ty = ty_tokens.iter().map(|t| &t.input_ty);
             let affectations = ty_tokens.iter().map(|t| &t.affectation);
+
             let setter = (!my_struct.return_only).then(|| quote! (
                 #[inline]
                 pub fn #setter_name<#(#template_arg),*>(mut self, #(#field_names: #slice_ty),*) -> Self {
@@ -410,6 +417,7 @@ fn generate_struct<'a>(
     } else {
         (None, None)
     };
+
     let struct_extensions = my_struct
         .extends
         .iter()

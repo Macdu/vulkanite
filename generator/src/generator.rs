@@ -1332,9 +1332,10 @@ impl<'a> Generator<'a> {
             access_name = quote! (#name.cast::<u8>())
         }
         let mut access = quote! ( unsafe { slice::from_raw_parts(self.#access_name.cast(), self.#len_field as _) });
-        if is_optional {
-            access = quote! ( (!self.#name.is_null()).then(|| #access).unwrap_or(&[]) );
-        }
+        // TODO: add an if is_optional check once non-optional type pointers cannot be set to null (otherwise UB)
+        // if is_optional {
+        access = quote! ( (!self.#name.is_null()).then(|| #access).unwrap_or(&[]) );
+
         if is_assignment {
             simple_affectation = quote! (self.#name = #simple_affectation)
         };
