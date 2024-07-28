@@ -4,9 +4,7 @@ use anyhow::{anyhow, Result};
 use raw_window_handle::{HasDisplayHandle, HasWindowHandle, RawDisplayHandle};
 use smallvec::{smallvec, SmallVec};
 use vulkanite::{
-    flagbits, include_spirv,
-    vk::{self, PipelineVertexInputStateCreateInfo},
-    window, DefaultAllocator, Dispatcher, DynamicDispatcher,
+    flagbits, include_spirv, vk, window, DefaultAllocator, Dispatcher, DynamicDispatcher,
 };
 use winit::{
     application::ApplicationHandler,
@@ -385,7 +383,7 @@ impl VulkanApplication {
         let dynamic_info =
             vk::PipelineDynamicStateCreateInfo::default().dynamic_states(&dynamic_state);
 
-        let vertex_input = PipelineVertexInputStateCreateInfo::default();
+        let vertex_input = vk::PipelineVertexInputStateCreateInfo::default();
         let input_assembly = vk::PipelineInputAssemblyStateCreateInfo::default()
             .topology(vk::PrimitiveTopology::TriangleList);
         let viewport_state = vk::PipelineViewportStateCreateInfo::default()
