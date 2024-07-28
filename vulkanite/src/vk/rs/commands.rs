@@ -5576,6 +5576,11 @@ impl<D: Dispatcher, A: Allocator> Device<D, A> {
             )
         }
     }
+    #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkAntiLagUpdateAMD.html>"]
+    #[doc(alias = "vkAntiLagUpdateAMD")]
+    pub fn anti_lag_update_amd(&self, p_data: &AntiLagDataAMD) {
+        unsafe { raw::anti_lag_update_amd(self, p_data, self.disp.get_command_dispatcher()) }
+    }
     #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCreateShadersEXT.html>"]
     #[doc(alias = "vkCreateShadersEXT")]
     pub fn create_shaders_ext<'a, R: AdvancedDynamicArray<ShaderEXT, raw::ShaderEXT>>(

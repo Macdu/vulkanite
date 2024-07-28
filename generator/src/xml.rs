@@ -33,6 +33,7 @@ pub struct RegistryContent {
     pub spirvextensions: Vec<Spirvextensions>,
     pub spirvcapabilities: Vec<Spirvcapabilities>,
     pub syncs: Vec<Sync>,
+    pub videocodecs: Vec<Videocodecs>,
     pub comments: Vec<Comment>,
 }
 
@@ -48,6 +49,7 @@ deserialize_multiple! {deserialize_registry_content, RegistryContent,
     spirvextensions => Spirvextensions,
     spirvcapabilities => Spirvcapabilities,
     syncs => Sync,
+    videocodecs => Videocodecs,
     comments => Comment,
 }
 
@@ -765,4 +767,89 @@ pub struct SyncPipeline {
     pub name: String,
     #[serde(rename = "@depends")]
     pub depends: Option<String>,
+    #[serde(rename = "syncpipelinestage")]
+    pub stages: Vec<SyncPipelineStage>,
+}
+
+#[derive(Deserialize, Debug)]
+pub struct SyncPipelineStage {
+    #[serde(rename = "@order")]
+    pub order: Option<String>,
+    #[serde(rename = "@depends")]
+    pub depends: Option<String>,
+    #[serde(rename = "$text")]
+    pub stage: String,
+}
+
+#[derive(Deserialize, Debug)]
+pub struct Videocodecs {
+    #[serde(rename = "videocodec")]
+    pub codecs: Vec<VideoCodec>,
+}
+
+#[derive(Deserialize, Debug)]
+pub struct VideoCodec {
+    #[serde(rename = "@name")]
+    pub name: String,
+    #[serde(rename = "@extend")]
+    pub extend: Option<String>,
+    #[serde(rename = "@value")]
+    pub value: Option<String>,
+    #[serde(rename = "videoprofiles")]
+    pub profiles: Option<VideoProfiles>,
+    #[serde(rename = "videocapabilities")]
+    pub capabilities: VideoCapabilities,
+    #[serde(default, rename = "videoformat")]
+    pub formats: Vec<VideoFormat>,
+}
+
+#[derive(Deserialize, Debug)]
+pub struct VideoCapabilities {
+    #[serde(rename = "@struct")]
+    pub struct_name: String,
+}
+
+#[derive(Deserialize, Debug)]
+#[serde(rename_all = "snake_case")]
+pub struct VideoFormat {
+    #[serde(rename = "@name")]
+    pub name: String,
+    #[serde(rename = "@usage")]
+    pub usage: String,
+    #[serde(rename = "videorequirecapabilities")]
+    pub capabilities: Option<VideoRequireCapabilities>,
+}
+
+#[derive(Deserialize, Debug)]
+pub struct VideoRequireCapabilities {
+    #[serde(rename = "@struct")]
+    pub struct_name: String,
+    #[serde(rename = "@member")]
+    pub member: String,
+    #[serde(rename = "@value")]
+    pub value: String,
+}
+
+#[derive(Deserialize, Debug)]
+pub struct VideoProfiles {
+    #[serde(rename = "@struct")]
+    pub struct_name: String,
+    #[serde(rename = "videoprofilemember")]
+    pub members: Vec<VideoProfileMember>,
+}
+
+#[derive(Deserialize, Debug)]
+pub struct VideoProfileMember {
+    #[serde(rename = "@name")]
+    pub name: String,
+    #[serde(rename = "videoprofile")]
+    pub profiles: Vec<VideoProfile>,
+}
+
+#[derive(Deserialize, Debug)]
+pub struct VideoProfile {
+    #[serde(rename = "@name")]
+    pub name: String,
+    #[serde(rename = "@value")]
+    pub value: String,
 }

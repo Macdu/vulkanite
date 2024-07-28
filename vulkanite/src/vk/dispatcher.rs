@@ -4535,6 +4535,8 @@ pub struct CommandsDispatcher {
             ),
         >,
     >,
+    pub anti_lag_update_amd:
+        Cell<Option<unsafe extern "system" fn(Option<Device>, *const AntiLagDataAMD)>>,
     pub create_shaders_ext: Cell<
         Option<
             unsafe extern "system" fn(
@@ -8332,6 +8334,11 @@ impl CommandsDispatcher {
                 .get()
                 .or(self.get_image_subresource_layout2_ext.get()),
         );
+        self.anti_lag_update_amd
+            .set(mem::transmute(get_instance_proc_addr(
+                get_instance(),
+                c"vkAntiLagUpdateAMD".as_ptr(),
+            )));
         self.create_shaders_ext
             .set(mem::transmute(get_instance_proc_addr(
                 get_instance(),
@@ -11475,6 +11482,11 @@ impl CommandsDispatcher {
                 .get()
                 .or(self.get_image_subresource_layout2_ext.get()),
         );
+        self.anti_lag_update_amd
+            .set(mem::transmute(get_device_proc_addr(
+                get_device(),
+                c"vkAntiLagUpdateAMD".as_ptr(),
+            )));
         self.create_shaders_ext
             .set(mem::transmute(get_device_proc_addr(
                 get_device(),

@@ -1,7 +1,7 @@
 use super::{
     ApiVersion, DeviceExtension, DeviceExtensionName, InstanceExtension, InstanceExtensionName,
 };
-pub const HEADER_VERSION: ApiVersion = ApiVersion::new(0, 1, 3, 289u32);
+pub const HEADER_VERSION: ApiVersion = ApiVersion::new(0, 1, 3, 292u32);
 pub const KHR_SURFACE: InstanceExtension = InstanceExtension {
     name: unsafe { InstanceExtensionName::new(c"VK_KHR_surface") },
     spec: 25u32,
@@ -324,11 +324,11 @@ pub const EXT_DEPTH_CLIP_ENABLE: DeviceExtension = DeviceExtension {
 };
 pub const EXT_SWAPCHAIN_COLORSPACE: InstanceExtension = InstanceExtension {
     name: unsafe { InstanceExtensionName::new(c"VK_EXT_swapchain_colorspace") },
-    spec: 4u32,
+    spec: 5u32,
 };
 pub const EXT_HDR_METADATA: DeviceExtension = DeviceExtension {
     name: unsafe { DeviceExtensionName::new(c"VK_EXT_hdr_metadata") },
-    spec: 2u32,
+    spec: 3u32,
 };
 pub const KHR_IMAGELESS_FRAMEBUFFER: DeviceExtension = DeviceExtension {
     name: unsafe { DeviceExtensionName::new(c"VK_KHR_imageless_framebuffer") },
@@ -1306,6 +1306,10 @@ pub const ANDROID_EXTERNAL_FORMAT_RESOLVE: DeviceExtension = DeviceExtension {
 };
 pub const KHR_MAINTENANCE5: DeviceExtension = DeviceExtension {
     name: unsafe { DeviceExtensionName::new(c"VK_KHR_maintenance5") },
+    spec: 1u32,
+};
+pub const AMD_ANTI_LAG: DeviceExtension = DeviceExtension {
+    name: unsafe { DeviceExtensionName::new(c"VK_AMD_anti_lag") },
     spec: 1u32,
 };
 pub const KHR_RAY_TRACING_POSITION_FETCH: DeviceExtension = DeviceExtension {

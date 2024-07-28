@@ -805,6 +805,9 @@ pub enum StructureType {
     ImageSubresource2KHR = 1000338003,
     PipelineCreateFlags2CreateInfoKHR = 1000470005,
     BufferUsageFlags2CreateInfoKHR = 1000470006,
+    PhysicalDeviceAntiLagFeaturesAMD = 1000476000,
+    AntiLagDataAMD = 1000476001,
+    AntiLagPresentationInfoAMD = 1000476002,
     PhysicalDeviceRayTracingPositionFetchFeaturesKHR = 1000481000,
     PhysicalDeviceShaderObjectFeaturesEXT = 1000482000,
     PhysicalDeviceShaderObjectPropertiesEXT = 1000482001,
@@ -5201,6 +5204,23 @@ bitflags! {
         const MicromapBuildInputReadOnlyEXT = 1u64 << 23;
         const MicromapStorageEXT = 1u64 << 24;
     }
+}
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkAntiLagModeAMD.html>"]
+#[doc(alias = "VkAntiLagModeAMD")]
+#[repr(u32)]
+pub enum AntiLagModeAMD {
+    DriverControl = 0,
+    On = 1,
+    Off = 2,
+}
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkAntiLagStageAMD.html>"]
+#[doc(alias = "VkAntiLagStageAMD")]
+#[repr(u32)]
+pub enum AntiLagStageAMD {
+    Input = 0,
+    Present = 1,
 }
 bitflags! {
     #[derive(Default)]

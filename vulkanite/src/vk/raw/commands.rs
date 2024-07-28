@@ -13209,6 +13209,19 @@ pub unsafe fn get_image_subresource_layout2_ext<
     S::setup_cleanup(p_layout.as_mut_ptr());
     p_layout.assume_init()
 }
+#[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkAntiLagUpdateAMD.html>"]
+#[doc(alias = "vkAntiLagUpdateAMD")]
+pub unsafe fn anti_lag_update_amd(
+    device: &raw::Device,
+    p_data: &AntiLagDataAMD,
+    dispatcher: &CommandsDispatcher,
+) {
+    let vulkan_command = dispatcher
+        .anti_lag_update_amd
+        .get()
+        .expect("Vulkan command not loaded.");
+    vulkan_command(Some(unsafe { device.clone() }), ptr::from_ref(p_data))
+}
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCreateShadersEXT.html>"]
 #[doc(alias = "vkCreateShadersEXT")]
 pub unsafe fn create_shaders_ext<'a, R: DynamicArray<ShaderEXT>>(

@@ -50558,6 +50558,143 @@ impl<'a> BufferUsageFlags2CreateInfoKHR<'a> {
     }
 }
 #[repr(C)]
+#[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceAntiLagFeaturesAMD.html>"]
+#[doc(alias = "VkPhysicalDeviceAntiLagFeaturesAMD")]
+pub struct PhysicalDeviceAntiLagFeaturesAMD<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub anti_lag: Bool32,
+    phantom: PhantomData<&'a ()>,
+}
+unsafe impl<'a> ExtendableStructure for PhysicalDeviceAntiLagFeaturesAMD<'a> {
+    const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceAntiLagFeaturesAMD;
+}
+unsafe impl<'a> Send for PhysicalDeviceAntiLagFeaturesAMD<'a> {}
+unsafe impl<'a> Sync for PhysicalDeviceAntiLagFeaturesAMD<'a> {}
+unsafe impl<'a, 'b> ExtendingStructure<PhysicalDeviceFeatures2<'b>>
+    for PhysicalDeviceAntiLagFeaturesAMD<'a>
+{
+}
+unsafe impl<'a, 'b> ExtendingStructure<DeviceCreateInfo<'b>>
+    for PhysicalDeviceAntiLagFeaturesAMD<'a>
+{
+}
+impl<'a> Default for PhysicalDeviceAntiLagFeaturesAMD<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            anti_lag: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+impl<'a> PhysicalDeviceAntiLagFeaturesAMD<'a> {
+    #[inline]
+    pub fn anti_lag(mut self, value: impl Into<Bool32>) -> Self {
+        self.anti_lag = value.into();
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[repr(C)]
+#[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkAntiLagDataAMD.html>"]
+#[doc(alias = "VkAntiLagDataAMD")]
+pub struct AntiLagDataAMD<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub mode: AntiLagModeAMD,
+    pub max_fps: u32,
+    pub p_presentation_info: *const AntiLagPresentationInfoAMD<'a>,
+    phantom: PhantomData<&'a ()>,
+}
+unsafe impl<'a> ExtendableStructure for AntiLagDataAMD<'a> {
+    const STRUCTURE_TYPE: StructureType = StructureType::AntiLagDataAMD;
+}
+unsafe impl<'a> Send for AntiLagDataAMD<'a> {}
+unsafe impl<'a> Sync for AntiLagDataAMD<'a> {}
+impl<'a> Default for AntiLagDataAMD<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            mode: AntiLagModeAMD::DriverControl,
+            max_fps: Default::default(),
+            p_presentation_info: ptr::null(),
+            phantom: PhantomData,
+        }
+    }
+}
+impl<'a> AntiLagDataAMD<'a> {
+    #[inline]
+    pub fn mode(mut self, value: AntiLagModeAMD) -> Self {
+        self.mode = value;
+        self
+    }
+    #[inline]
+    pub fn max_fps(mut self, value: u32) -> Self {
+        self.max_fps = value;
+        self
+    }
+    #[inline]
+    pub fn presentation_info(mut self, value: Option<&'a AntiLagPresentationInfoAMD<'a>>) -> Self {
+        self.p_presentation_info = value.map(|v| ptr::from_ref(v)).unwrap_or(ptr::null());
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[repr(C)]
+#[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkAntiLagPresentationInfoAMD.html>"]
+#[doc(alias = "VkAntiLagPresentationInfoAMD")]
+pub struct AntiLagPresentationInfoAMD<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub stage: AntiLagStageAMD,
+    pub frame_index: u64,
+    phantom: PhantomData<&'a ()>,
+}
+unsafe impl<'a> ExtendableStructure for AntiLagPresentationInfoAMD<'a> {
+    const STRUCTURE_TYPE: StructureType = StructureType::AntiLagPresentationInfoAMD;
+}
+unsafe impl<'a> Send for AntiLagPresentationInfoAMD<'a> {}
+unsafe impl<'a> Sync for AntiLagPresentationInfoAMD<'a> {}
+impl<'a> Default for AntiLagPresentationInfoAMD<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            stage: AntiLagStageAMD::Input,
+            frame_index: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+impl<'a> AntiLagPresentationInfoAMD<'a> {
+    #[inline]
+    pub fn stage(mut self, value: AntiLagStageAMD) -> Self {
+        self.stage = value;
+        self
+    }
+    #[inline]
+    pub fn frame_index(mut self, value: u64) -> Self {
+        self.frame_index = value;
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[repr(C)]
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceRayTracingPositionFetchFeaturesKHR.html>"]
 #[doc(alias = "VkPhysicalDeviceRayTracingPositionFetchFeaturesKHR")]
 pub struct PhysicalDeviceRayTracingPositionFetchFeaturesKHR<'a> {
