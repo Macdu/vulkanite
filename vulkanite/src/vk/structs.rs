@@ -2494,7 +2494,7 @@ pub struct DeviceQueueCreateInfo<'a> {
     pub(crate) p_next: Cell<*const Header>,
     pub flags: DeviceQueueCreateFlags,
     pub queue_family_index: u32,
-    pub(crate) queue_count: u32,
+    pub queue_count: u32,
     pub(crate) p_queue_priorities: *const f32,
     phantom: PhantomData<&'a ()>,
 }
@@ -2525,6 +2525,11 @@ impl<'a> DeviceQueueCreateInfo<'a> {
     #[inline]
     pub fn queue_family_index(mut self, value: u32) -> Self {
         self.queue_family_index = value;
+        self
+    }
+    #[inline]
+    pub fn queue_count(mut self, value: u32) -> Self {
+        self.queue_count = value;
         self
     }
     #[inline]
