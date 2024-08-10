@@ -3551,7 +3551,7 @@ pub struct BufferCreateInfo<'a> {
     pub size: DeviceSize,
     pub usage: BufferUsageFlags,
     pub sharing_mode: SharingMode,
-    pub(crate) queue_family_index_count: u32,
+    pub queue_family_index_count: u32,
     pub(crate) p_queue_family_indices: *const u32,
     phantom: PhantomData<&'a ()>,
 }
@@ -3594,6 +3594,11 @@ impl<'a> BufferCreateInfo<'a> {
     #[inline]
     pub fn sharing_mode(mut self, value: SharingMode) -> Self {
         self.sharing_mode = value;
+        self
+    }
+    #[inline]
+    pub fn queue_family_index_count(mut self, value: u32) -> Self {
+        self.queue_family_index_count = value;
         self
     }
     #[inline]
@@ -3699,7 +3704,7 @@ pub struct ImageCreateInfo<'a> {
     pub tiling: ImageTiling,
     pub usage: ImageUsageFlags,
     pub sharing_mode: SharingMode,
-    pub(crate) queue_family_index_count: u32,
+    pub queue_family_index_count: u32,
     pub(crate) p_queue_family_indices: *const u32,
     pub initial_layout: ImageLayout,
     phantom: PhantomData<&'a ()>,
@@ -3780,6 +3785,11 @@ impl<'a> ImageCreateInfo<'a> {
     #[inline]
     pub fn sharing_mode(mut self, value: SharingMode) -> Self {
         self.sharing_mode = value;
+        self
+    }
+    #[inline]
+    pub fn queue_family_index_count(mut self, value: u32) -> Self {
+        self.queue_family_index_count = value;
         self
     }
     #[inline]
@@ -5919,13 +5929,13 @@ impl<'a> Default for DescriptorImageInfo<'a> {
 }
 impl<'a> DescriptorImageInfo<'a> {
     #[inline]
-    pub fn sampler(mut self, value: &'a raw::Sampler) -> Self {
-        self.sampler = Some(unsafe { value.clone() });
+    pub fn sampler(mut self, value: Option<&'a raw::Sampler>) -> Self {
+        self.sampler = value.map(|v| unsafe { v.clone() });
         self
     }
     #[inline]
-    pub fn image_view(mut self, value: &'a raw::ImageView) -> Self {
-        self.image_view = Some(unsafe { value.clone() });
+    pub fn image_view(mut self, value: Option<&'a raw::ImageView>) -> Self {
+        self.image_view = value.map(|v| unsafe { v.clone() });
         self
     }
     #[inline]
@@ -6212,7 +6222,7 @@ pub struct WriteDescriptorSet<'a> {
     pub dst_set: Option<DescriptorSet>,
     pub dst_binding: u32,
     pub dst_array_element: u32,
-    pub(crate) descriptor_count: u32,
+    pub descriptor_count: u32,
     pub descriptor_type: DescriptorType,
     pub(crate) p_image_info: *const DescriptorImageInfo<'a>,
     pub(crate) p_buffer_info: *const DescriptorBufferInfo<'a>,
@@ -6243,8 +6253,8 @@ impl<'a> Default for WriteDescriptorSet<'a> {
 }
 impl<'a> WriteDescriptorSet<'a> {
     #[inline]
-    pub fn dst_set(mut self, value: &'a raw::DescriptorSet) -> Self {
-        self.dst_set = Some(unsafe { value.clone() });
+    pub fn dst_set(mut self, value: Option<&'a raw::DescriptorSet>) -> Self {
+        self.dst_set = value.map(|v| unsafe { v.clone() });
         self
     }
     #[inline]
@@ -6258,6 +6268,11 @@ impl<'a> WriteDescriptorSet<'a> {
         self
     }
     #[inline]
+    pub fn descriptor_count(mut self, value: u32) -> Self {
+        self.descriptor_count = value;
+        self
+    }
+    #[inline]
     pub fn descriptor_type(mut self, value: DescriptorType) -> Self {
         self.descriptor_type = value;
         self
@@ -6265,14 +6280,20 @@ impl<'a> WriteDescriptorSet<'a> {
     #[inline]
     pub fn descriptor<V2: Alias<raw::BufferView> + 'a>(
         mut self,
-        p_image_info: impl AsSlice<'a, DescriptorImageInfo<'a>>,
-        p_buffer_info: impl AsSlice<'a, DescriptorBufferInfo<'a>>,
-        p_texel_buffer_view: impl AsSlice<'a, V2>,
+        p_image_info: Option<impl AsSlice<'a, DescriptorImageInfo<'a>>>,
+        p_buffer_info: Option<impl AsSlice<'a, DescriptorBufferInfo<'a>>>,
+        p_texel_buffer_view: Option<impl AsSlice<'a, V2>>,
     ) -> Self {
-        self.p_image_info = p_image_info.as_slice().as_ptr().cast();
-        self.p_buffer_info = p_buffer_info.as_slice().as_ptr().cast();
-        self.p_texel_buffer_view = p_texel_buffer_view.as_slice().as_ptr().cast();
-        self.descriptor_count = p_image_info.as_slice().len() as _;
+        self.p_image_info = p_image_info
+            .map(|p| p.as_slice().as_ptr().cast())
+            .unwrap_or(ptr::null());
+        self.p_buffer_info = p_buffer_info
+            .map(|p| p.as_slice().as_ptr().cast())
+            .unwrap_or(ptr::null());
+        self.p_texel_buffer_view = p_texel_buffer_view
+            .map(|p| p.as_slice().as_ptr().cast())
+            .unwrap_or(ptr::null());
+        self.descriptor_count = p_image_info.map(|p| p.as_slice().len()).unwrap_or_default() as _;
         self
     }
     #[inline]
@@ -6422,7 +6443,7 @@ pub struct FramebufferCreateInfo<'a> {
     pub(crate) p_next: Cell<*const Header>,
     pub flags: FramebufferCreateFlags,
     pub render_pass: Option<RenderPass>,
-    pub(crate) attachment_count: u32,
+    pub attachment_count: u32,
     pub(crate) p_attachments: *const ImageView,
     pub width: u32,
     pub height: u32,
@@ -6459,6 +6480,11 @@ impl<'a> FramebufferCreateInfo<'a> {
     #[inline]
     pub fn render_pass(mut self, value: &'a raw::RenderPass) -> Self {
         self.render_pass = Some(unsafe { value.clone() });
+        self
+    }
+    #[inline]
+    pub fn attachment_count(mut self, value: u32) -> Self {
+        self.attachment_count = value;
         self
     }
     #[inline]
@@ -7414,7 +7440,7 @@ pub struct RenderPassBeginInfo<'a> {
     pub render_pass: Option<RenderPass>,
     pub framebuffer: Option<Framebuffer>,
     pub render_area: Rect2D,
-    pub(crate) clear_value_count: u32,
+    pub clear_value_count: u32,
     pub(crate) p_clear_values: *const ClearValue,
     phantom: PhantomData<&'a ()>,
 }
@@ -7451,6 +7477,11 @@ impl<'a> RenderPassBeginInfo<'a> {
     #[inline]
     pub fn render_area(mut self, value: Rect2D) -> Self {
         self.render_area = value;
+        self
+    }
+    #[inline]
+    pub fn clear_value_count(mut self, value: u32) -> Self {
+        self.clear_value_count = value;
         self
     }
     #[inline]
@@ -7620,8 +7651,8 @@ impl<'a> BindImageMemoryInfo<'a> {
         self
     }
     #[inline]
-    pub fn memory(mut self, value: &'a raw::DeviceMemory) -> Self {
-        self.memory = Some(unsafe { value.clone() });
+    pub fn memory(mut self, value: Option<&'a raw::DeviceMemory>) -> Self {
+        self.memory = value.map(|v| unsafe { v.clone() });
         self
     }
     #[inline]
@@ -9945,8 +9976,8 @@ impl<'a> DescriptorUpdateTemplateCreateInfo<'a> {
         self
     }
     #[inline]
-    pub fn descriptor_set_layout(mut self, value: &'a raw::DescriptorSetLayout) -> Self {
-        self.descriptor_set_layout = Some(unsafe { value.clone() });
+    pub fn descriptor_set_layout(mut self, value: Option<&'a raw::DescriptorSetLayout>) -> Self {
+        self.descriptor_set_layout = value.map(|v| unsafe { v.clone() });
         self
     }
     #[inline]
@@ -9955,8 +9986,8 @@ impl<'a> DescriptorUpdateTemplateCreateInfo<'a> {
         self
     }
     #[inline]
-    pub fn pipeline_layout(mut self, value: &'a raw::PipelineLayout) -> Self {
-        self.pipeline_layout = Some(unsafe { value.clone() });
+    pub fn pipeline_layout(mut self, value: Option<&'a raw::PipelineLayout>) -> Self {
+        self.pipeline_layout = value.map(|v| unsafe { v.clone() });
         self
     }
     #[inline]
@@ -18079,7 +18110,7 @@ pub struct PipelineRenderingCreateInfo<'a> {
     pub(crate) s_type: StructureType,
     pub(crate) p_next: Cell<*const Header>,
     pub view_mask: u32,
-    pub(crate) color_attachment_count: u32,
+    pub color_attachment_count: u32,
     pub(crate) p_color_attachment_formats: *const Format,
     pub depth_attachment_format: Format,
     pub stencil_attachment_format: Format,
@@ -18112,6 +18143,11 @@ impl<'a> PipelineRenderingCreateInfo<'a> {
     #[inline]
     pub fn view_mask(mut self, value: u32) -> Self {
         self.view_mask = value;
+        self
+    }
+    #[inline]
+    pub fn color_attachment_count(mut self, value: u32) -> Self {
+        self.color_attachment_count = value;
         self
     }
     #[inline]
@@ -19062,7 +19098,7 @@ pub struct SwapchainCreateInfoKHR<'a> {
     pub image_array_layers: u32,
     pub image_usage: ImageUsageFlags,
     pub image_sharing_mode: SharingMode,
-    pub(crate) queue_family_index_count: u32,
+    pub queue_family_index_count: u32,
     pub(crate) p_queue_family_indices: *const u32,
     pub pre_transform: SurfaceTransformFlagsKHR,
     pub composite_alpha: CompositeAlphaFlagsKHR,
@@ -19145,6 +19181,11 @@ impl<'a> SwapchainCreateInfoKHR<'a> {
     #[inline]
     pub fn image_sharing_mode(mut self, value: SharingMode) -> Self {
         self.image_sharing_mode = value;
+        self
+    }
+    #[inline]
+    pub fn queue_family_index_count(mut self, value: u32) -> Self {
+        self.queue_family_index_count = value;
         self
     }
     #[inline]
@@ -20032,8 +20073,8 @@ impl<'a> XlibSurfaceCreateInfoKHR<'a> {
         self
     }
     #[inline]
-    pub fn dpy(mut self, value: &'a VoidPtr) -> Self {
-        self.dpy = ptr::from_ref(value);
+    pub fn dpy(mut self, value: Option<&'a VoidPtr>) -> Self {
+        self.dpy = value.map(|v| ptr::from_ref(v)).unwrap_or(ptr::null());
         self
     }
     #[inline]
@@ -20082,8 +20123,8 @@ impl<'a> XcbSurfaceCreateInfoKHR<'a> {
         self
     }
     #[inline]
-    pub fn connection(mut self, value: &'a VoidPtr) -> Self {
-        self.connection = ptr::from_ref(value);
+    pub fn connection(mut self, value: Option<&'a VoidPtr>) -> Self {
+        self.connection = value.map(|v| ptr::from_ref(v)).unwrap_or(ptr::null());
         self
     }
     #[inline]
@@ -20132,13 +20173,13 @@ impl<'a> WaylandSurfaceCreateInfoKHR<'a> {
         self
     }
     #[inline]
-    pub fn display(mut self, value: &'a VoidPtr) -> Self {
-        self.display = ptr::from_ref(value);
+    pub fn display(mut self, value: Option<&'a VoidPtr>) -> Self {
+        self.display = value.map(|v| ptr::from_ref(v)).unwrap_or(ptr::null());
         self
     }
     #[inline]
-    pub fn surface(mut self, value: &'a VoidPtr) -> Self {
-        self.surface = ptr::from_ref(value);
+    pub fn surface(mut self, value: Option<&'a VoidPtr>) -> Self {
+        self.surface = value.map(|v| ptr::from_ref(v)).unwrap_or(ptr::null());
         self
     }
     #[inline]
@@ -20182,8 +20223,8 @@ impl<'a> AndroidSurfaceCreateInfoKHR<'a> {
         self
     }
     #[inline]
-    pub fn window(mut self, value: &'a ANativeWindow) -> Self {
-        self.window = ptr::from_ref(value);
+    pub fn window(mut self, value: Option<&'a ANativeWindow>) -> Self {
+        self.window = value.map(|v| ptr::from_ref(v)).unwrap_or(ptr::null());
         self
     }
     #[inline]
@@ -21396,7 +21437,7 @@ impl<'a> RenderingFragmentDensityMapAttachmentInfoEXT<'a> {
 pub struct AttachmentSampleCountInfoAMD<'a> {
     pub(crate) s_type: StructureType,
     pub(crate) p_next: Cell<*const Header>,
-    pub(crate) color_attachment_count: u32,
+    pub color_attachment_count: u32,
     pub(crate) p_color_attachment_samples: *const SampleCountFlags,
     pub depth_stencil_attachment_samples: SampleCountFlags,
     phantom: PhantomData<&'a ()>,
@@ -21427,6 +21468,11 @@ impl<'a> Default for AttachmentSampleCountInfoAMD<'a> {
     }
 }
 impl<'a> AttachmentSampleCountInfoAMD<'a> {
+    #[inline]
+    pub fn color_attachment_count(mut self, value: u32) -> Self {
+        self.color_attachment_count = value;
+        self
+    }
     #[inline]
     pub fn depth_stencil_attachment_samples(mut self, value: SampleCountFlags) -> Self {
         self.depth_stencil_attachment_samples = value;
@@ -24088,7 +24134,7 @@ pub struct PipelineDiscardRectangleStateCreateInfoEXT<'a> {
     pub(crate) p_next: Cell<*const Header>,
     pub flags: u32,
     pub discard_rectangle_mode: DiscardRectangleModeEXT,
-    pub(crate) discard_rectangle_count: u32,
+    pub discard_rectangle_count: u32,
     pub(crate) p_discard_rectangles: *const Rect2D,
     phantom: PhantomData<&'a ()>,
 }
@@ -24123,6 +24169,11 @@ impl<'a> PipelineDiscardRectangleStateCreateInfoEXT<'a> {
     #[inline]
     pub fn discard_rectangle_mode(mut self, value: DiscardRectangleModeEXT) -> Self {
         self.discard_rectangle_mode = value;
+        self
+    }
+    #[inline]
+    pub fn discard_rectangle_count(mut self, value: u32) -> Self {
+        self.discard_rectangle_count = value;
         self
     }
     #[inline]
@@ -29340,7 +29391,7 @@ pub struct PhysicalDeviceImageDrmFormatModifierInfoEXT<'a> {
     pub(crate) p_next: Cell<*const Header>,
     pub drm_format_modifier: u64,
     pub sharing_mode: SharingMode,
-    pub(crate) queue_family_index_count: u32,
+    pub queue_family_index_count: u32,
     pub(crate) p_queue_family_indices: *const u32,
     phantom: PhantomData<&'a ()>,
 }
@@ -29376,6 +29427,11 @@ impl<'a> PhysicalDeviceImageDrmFormatModifierInfoEXT<'a> {
     #[inline]
     pub fn sharing_mode(mut self, value: SharingMode) -> Self {
         self.sharing_mode = value;
+        self
+    }
+    #[inline]
+    pub fn queue_family_index_count(mut self, value: u32) -> Self {
+        self.queue_family_index_count = value;
         self
     }
     #[inline]
@@ -29977,7 +30033,7 @@ pub struct PipelineViewportShadingRateImageStateCreateInfoNV<'a> {
     pub(crate) s_type: StructureType,
     pub(crate) p_next: Cell<*const Header>,
     pub shading_rate_image_enable: Bool32,
-    pub(crate) viewport_count: u32,
+    pub viewport_count: u32,
     pub(crate) p_shading_rate_palettes: *const ShadingRatePaletteNV<'a>,
     phantom: PhantomData<&'a ()>,
 }
@@ -30007,6 +30063,11 @@ impl<'a> PipelineViewportShadingRateImageStateCreateInfoNV<'a> {
     #[inline]
     pub fn shading_rate_image_enable(mut self, value: impl Into<Bool32>) -> Self {
         self.shading_rate_image_enable = value.into();
+        self
+    }
+    #[inline]
+    pub fn viewport_count(mut self, value: u32) -> Self {
+        self.viewport_count = value;
         self
     }
     #[inline]
@@ -32164,7 +32225,7 @@ impl<'a> PhysicalDeviceShaderImageFootprintFeaturesNV<'a> {
 pub struct PipelineViewportExclusiveScissorStateCreateInfoNV<'a> {
     pub(crate) s_type: StructureType,
     pub(crate) p_next: Cell<*const Header>,
-    pub(crate) exclusive_scissor_count: u32,
+    pub exclusive_scissor_count: u32,
     pub(crate) p_exclusive_scissors: *const Rect2D,
     phantom: PhantomData<&'a ()>,
 }
@@ -32190,6 +32251,11 @@ impl<'a> Default for PipelineViewportExclusiveScissorStateCreateInfoNV<'a> {
     }
 }
 impl<'a> PipelineViewportExclusiveScissorStateCreateInfoNV<'a> {
+    #[inline]
+    pub fn exclusive_scissor_count(mut self, value: u32) -> Self {
+        self.exclusive_scissor_count = value;
+        self
+    }
     #[inline]
     pub fn exclusive_scissors(mut self, p_exclusive_scissors: impl AsSlice<'a, Rect2D>) -> Self {
         self.p_exclusive_scissors = p_exclusive_scissors.as_slice().as_ptr().cast();
@@ -32885,8 +32951,8 @@ impl<'a> MetalSurfaceCreateInfoEXT<'a> {
         self
     }
     #[inline]
-    pub fn layer(mut self, value: &'a CAMetalLayer) -> Self {
-        self.p_layer = ptr::from_ref(value);
+    pub fn layer(mut self, value: Option<&'a CAMetalLayer>) -> Self {
+        self.p_layer = value.map(|v| ptr::from_ref(v)).unwrap_or(ptr::null());
         self
     }
     #[inline]
@@ -33581,7 +33647,7 @@ impl<'a> PhysicalDeviceDynamicRenderingLocalReadFeaturesKHR<'a> {
 pub struct RenderingAttachmentLocationInfoKHR<'a> {
     pub(crate) s_type: StructureType,
     pub(crate) p_next: Cell<*const Header>,
-    pub(crate) color_attachment_count: u32,
+    pub color_attachment_count: u32,
     pub(crate) p_color_attachment_locations: *const u32,
     phantom: PhantomData<&'a ()>,
 }
@@ -33610,6 +33676,11 @@ impl<'a> Default for RenderingAttachmentLocationInfoKHR<'a> {
     }
 }
 impl<'a> RenderingAttachmentLocationInfoKHR<'a> {
+    #[inline]
+    pub fn color_attachment_count(mut self, value: u32) -> Self {
+        self.color_attachment_count = value;
+        self
+    }
     #[inline]
     pub fn color_attachment_locations(
         mut self,
@@ -37877,8 +37948,8 @@ impl<'a> CommandBufferInheritanceViewportScissorInfoNV<'a> {
         self
     }
     #[inline]
-    pub fn viewport_depths(mut self, value: &'a Viewport) -> Self {
-        self.p_viewport_depths = ptr::from_ref(value);
+    pub fn viewport_depths(mut self, value: Option<&'a Viewport>) -> Self {
+        self.p_viewport_depths = value.map(|v| ptr::from_ref(v)).unwrap_or(ptr::null());
         self
     }
     #[inline]
@@ -39073,9 +39144,9 @@ pub struct CudaLaunchInfoNV<'a> {
     pub block_dim_y: u32,
     pub block_dim_z: u32,
     pub shared_mem_bytes: u32,
-    pub(crate) param_count: usize,
+    pub param_count: usize,
     pub(crate) p_params: *const *const c_void,
-    pub(crate) extra_count: usize,
+    pub extra_count: usize,
     pub(crate) p_extras: *const *const c_void,
     phantom: PhantomData<&'a ()>,
 }
@@ -39144,6 +39215,16 @@ impl<'a> CudaLaunchInfoNV<'a> {
     #[inline]
     pub fn shared_mem_bytes(mut self, value: u32) -> Self {
         self.shared_mem_bytes = value;
+        self
+    }
+    #[inline]
+    pub fn param_count(mut self, value: usize) -> Self {
+        self.param_count = value;
+        self
+    }
+    #[inline]
+    pub fn extra_count(mut self, value: usize) -> Self {
+        self.extra_count = value;
         self
     }
     #[inline]
@@ -42371,7 +42452,7 @@ pub struct ImageCompressionControlEXT<'a> {
     pub(crate) s_type: StructureType,
     pub(crate) p_next: Cell<*const Header>,
     pub flags: ImageCompressionFlagsEXT,
-    pub(crate) compression_control_plane_count: u32,
+    pub compression_control_plane_count: u32,
     pub(crate) p_fixed_rate_flags: *const ImageCompressionFixedRateFlagsEXT,
     phantom: PhantomData<&'a ()>,
 }
@@ -42405,6 +42486,11 @@ impl<'a> ImageCompressionControlEXT<'a> {
     #[inline]
     pub fn flags(mut self, value: ImageCompressionFlagsEXT) -> Self {
         self.flags = value;
+        self
+    }
+    #[inline]
+    pub fn compression_control_plane_count(mut self, value: u32) -> Self {
+        self.compression_control_plane_count = value;
         self
     }
     #[inline]
@@ -42995,13 +43081,13 @@ impl<'a> DirectFBSurfaceCreateInfoEXT<'a> {
         self
     }
     #[inline]
-    pub fn dfb(mut self, value: &'a VoidPtr) -> Self {
-        self.dfb = ptr::from_ref(value);
+    pub fn dfb(mut self, value: Option<&'a VoidPtr>) -> Self {
+        self.dfb = value.map(|v| ptr::from_ref(v)).unwrap_or(ptr::null());
         self
     }
     #[inline]
-    pub fn surface(mut self, value: &'a VoidPtr) -> Self {
-        self.surface = ptr::from_ref(value);
+    pub fn surface(mut self, value: Option<&'a VoidPtr>) -> Self {
+        self.surface = value.map(|v| ptr::from_ref(v)).unwrap_or(ptr::null());
         self
     }
     #[inline]
@@ -45047,13 +45133,13 @@ impl<'a> ScreenSurfaceCreateInfoQNX<'a> {
         self
     }
     #[inline]
-    pub fn context(mut self, value: &'a VoidPtr) -> Self {
-        self.context = ptr::from_ref(value);
+    pub fn context(mut self, value: Option<&'a VoidPtr>) -> Self {
+        self.context = value.map(|v| ptr::from_ref(v)).unwrap_or(ptr::null());
         self
     }
     #[inline]
-    pub fn window(mut self, value: &'a VoidPtr) -> Self {
-        self.window = ptr::from_ref(value);
+    pub fn window(mut self, value: Option<&'a VoidPtr>) -> Self {
+        self.window = value.map(|v| ptr::from_ref(v)).unwrap_or(ptr::null());
         self
     }
     #[inline]
@@ -50827,7 +50913,7 @@ pub struct RenderingAreaInfoKHR<'a> {
     pub(crate) s_type: StructureType,
     pub(crate) p_next: Cell<*const Header>,
     pub view_mask: u32,
-    pub(crate) color_attachment_count: u32,
+    pub color_attachment_count: u32,
     pub(crate) p_color_attachment_formats: *const Format,
     pub depth_attachment_format: Format,
     pub stencil_attachment_format: Format,
@@ -50856,6 +50942,11 @@ impl<'a> RenderingAreaInfoKHR<'a> {
     #[inline]
     pub fn view_mask(mut self, value: u32) -> Self {
         self.view_mask = value;
+        self
+    }
+    #[inline]
+    pub fn color_attachment_count(mut self, value: u32) -> Self {
+        self.color_attachment_count = value;
         self
     }
     #[inline]
@@ -54151,8 +54242,8 @@ impl<'a> Default for ImportScreenBufferInfoQNX<'a> {
 }
 impl<'a> ImportScreenBufferInfoQNX<'a> {
     #[inline]
-    pub fn buffer(mut self, value: &'a VoidPtr) -> Self {
-        self.buffer = ptr::from_ref(value);
+    pub fn buffer(mut self, value: Option<&'a VoidPtr>) -> Self {
+        self.buffer = value.map(|v| ptr::from_ref(v)).unwrap_or(ptr::null());
         self
     }
     #[inline]

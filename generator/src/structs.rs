@@ -485,7 +485,7 @@ impl<'a> StructField<'a> {
             _ => &name,
         }
         .to_string();
-        let optional = value.optional.contains(&true);
+        let optional = value.optional.contains(&true) || value.no_auto_validity.is_some();
         Ok(StructField {
             name,
             vk_name,

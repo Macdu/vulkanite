@@ -68,19 +68,21 @@ pub mod raw {
 
             (RawDisplayHandle::Wayland(display), RawWindowHandle::Wayland(window)) => {
                 let surface_desc = vk::WaylandSurfaceCreateInfoKHR::default()
-                    .display(unsafe { display.display.cast().as_ref() })
-                    .surface(unsafe { window.surface.cast().as_ref() });
+                    .display(unsafe { Some(display.display.cast().as_ref()) })
+                    .surface(unsafe { Some(window.surface.cast().as_ref()) });
                 vk::raw::create_wayland_surface_khr(instance, &surface_desc, allocator, dispatcher)
             }
 
             (RawDisplayHandle::Xlib(display), RawWindowHandle::Xlib(window)) => {
                 let surface_desc = vk::XlibSurfaceCreateInfoKHR::default()
                     .dpy(unsafe {
-                        display
-                            .display
-                            .ok_or(vk::Status::ErrorInitializationFailed)?
-                            .cast()
-                            .as_ref()
+                        Some(
+                            display
+                                .display
+                                .ok_or(vk::Status::ErrorInitializationFailed)?
+                                .cast()
+                                .as_ref(),
+                        )
                     })
                     .window(window.window);
                 vk::raw::create_xlib_surface_khr(instance, &surface_desc, allocator, dispatcher)
@@ -89,11 +91,13 @@ pub mod raw {
             (RawDisplayHandle::Xcb(display), RawWindowHandle::Xcb(window)) => {
                 let surface_desc = vk::XcbSurfaceCreateInfoKHR::default()
                     .connection(unsafe {
-                        display
-                            .connection
-                            .ok_or(vk::Status::ErrorInitializationFailed)?
-                            .cast()
-                            .as_ref()
+                        Some(
+                            display
+                                .connection
+                                .ok_or(vk::Status::ErrorInitializationFailed)?
+                                .cast()
+                                .as_ref(),
+                        )
                     })
                     .window(window.window.get());
                 vk::raw::create_xcb_surface_khr(instance, &surface_desc, allocator, dispatcher)
@@ -101,7 +105,7 @@ pub mod raw {
 
             (RawDisplayHandle::Android(_), RawWindowHandle::AndroidNdk(window)) => {
                 let surface_desc = vk::AndroidSurfaceCreateInfoKHR::default()
-                    .window(unsafe { window.a_native_window.cast().as_ref() });
+                    .window(unsafe { Some(window.a_native_window.cast().as_ref()) });
                 vk::raw::create_android_surface_khr(instance, &surface_desc, allocator, dispatcher)
             }
 
