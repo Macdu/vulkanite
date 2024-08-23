@@ -1,6 +1,6 @@
 [package]
 name = "vulkanite"
-version = "0.0.5"
+version = "0.0.6"
 edition = "2021"
 authors = ["Macdu <Macdu@users.noreply.github.com>"]
 description = "Vulkan bindings for Rust"
