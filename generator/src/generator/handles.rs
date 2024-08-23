@@ -45,7 +45,8 @@ pub fn generate<'a>(gen: &Generator<'a>) -> Result<String> {
         use core::fmt;
         use std::num::{NonZeroU64, NonZeroUsize};
 
-        include! {"handles_def.rs"}
+        #[macro_use]
+        mod macros;
 
         #(#feature_handles)*
         #(#feature_extensions)*

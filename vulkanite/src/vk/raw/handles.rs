@@ -2,7 +2,8 @@ use crate::private;
 use crate::{vk::ObjectType, Handle};
 use core::fmt;
 use std::num::{NonZeroU64, NonZeroUsize};
-include! { "handles_def.rs" }
+#[macro_use]
+mod macros;
 handle_dispatchable! { Instance , Instance , doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkInstance.html>" , "VkInstance" }
 handle_dispatchable! { PhysicalDevice , PhysicalDevice , doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDevice.html>" , "VkPhysicalDevice" }
 handle_dispatchable! { Device , Device , doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkDevice.html>" , "VkDevice" }
