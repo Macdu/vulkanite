@@ -1,7 +1,7 @@
 use super::{
     ApiVersion, DeviceExtension, DeviceExtensionName, InstanceExtension, InstanceExtensionName,
 };
-pub const HEADER_VERSION: ApiVersion = ApiVersion::new(0, 1, 3, 292u32);
+pub const HEADER_VERSION: ApiVersion = ApiVersion::new(0, 1, 3, 294u32);
 pub const KHR_SURFACE: InstanceExtension = InstanceExtension {
     name: unsafe { InstanceExtensionName::new(c"VK_KHR_surface") },
     spec: 25u32,
@@ -1320,6 +1320,10 @@ pub const EXT_SHADER_OBJECT: DeviceExtension = DeviceExtension {
     name: unsafe { DeviceExtensionName::new(c"VK_EXT_shader_object") },
     spec: 1u32,
 };
+pub const KHR_PIPELINE_BINARY: DeviceExtension = DeviceExtension {
+    name: unsafe { DeviceExtensionName::new(c"VK_KHR_pipeline_binary") },
+    spec: 1u32,
+};
 pub const QCOM_TILE_PROPERTIES: DeviceExtension = DeviceExtension {
     name: unsafe { DeviceExtensionName::new(c"VK_QCOM_tile_properties") },
     spec: 1u32,
@@ -1450,6 +1454,10 @@ pub const NV_RAW_ACCESS_CHAINS: DeviceExtension = DeviceExtension {
 };
 pub const KHR_SHADER_RELAXED_EXTENDED_INSTRUCTION: DeviceExtension = DeviceExtension {
     name: unsafe { DeviceExtensionName::new(c"VK_KHR_shader_relaxed_extended_instruction") },
+    spec: 1u32,
+};
+pub const NV_COMMAND_BUFFER_INHERITANCE: DeviceExtension = DeviceExtension {
+    name: unsafe { DeviceExtensionName::new(c"VK_NV_command_buffer_inheritance") },
     spec: 1u32,
 };
 pub const KHR_MAINTENANCE7: DeviceExtension = DeviceExtension {

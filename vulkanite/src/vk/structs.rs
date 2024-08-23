@@ -4162,6 +4162,10 @@ unsafe impl<'a> ExtendableStructure for ComputePipelineCreateInfo<'a> {
 }
 unsafe impl<'a> Send for ComputePipelineCreateInfo<'a> {}
 unsafe impl<'a> Sync for ComputePipelineCreateInfo<'a> {}
+unsafe impl<'a, 'b> ExtendingStructure<PipelineCreateInfoKHR<'b>>
+    for ComputePipelineCreateInfo<'a>
+{
+}
 impl<'a> Default for ComputePipelineCreateInfo<'a> {
     fn default() -> Self {
         Self {
@@ -4238,6 +4242,10 @@ unsafe impl<'a> ExtendableStructure for GraphicsPipelineCreateInfo<'a> {
 }
 unsafe impl<'a> Send for GraphicsPipelineCreateInfo<'a> {}
 unsafe impl<'a> Sync for GraphicsPipelineCreateInfo<'a> {}
+unsafe impl<'a, 'b> ExtendingStructure<PipelineCreateInfoKHR<'b>>
+    for GraphicsPipelineCreateInfo<'a>
+{
+}
 impl<'a> Default for GraphicsPipelineCreateInfo<'a> {
     fn default() -> Self {
         Self {
@@ -26609,6 +26617,10 @@ unsafe impl<'a> ExtendableStructure for ExecutionGraphPipelineCreateInfoAMDX<'a>
 }
 unsafe impl<'a> Send for ExecutionGraphPipelineCreateInfoAMDX<'a> {}
 unsafe impl<'a> Sync for ExecutionGraphPipelineCreateInfoAMDX<'a> {}
+unsafe impl<'a, 'b> ExtendingStructure<PipelineCreateInfoKHR<'b>>
+    for ExecutionGraphPipelineCreateInfoAMDX<'a>
+{
+}
 impl<'a> Default for ExecutionGraphPipelineCreateInfoAMDX<'a> {
     fn default() -> Self {
         Self {
@@ -28690,6 +28702,10 @@ unsafe impl<'a> ExtendableStructure for RayTracingPipelineCreateInfoKHR<'a> {
 }
 unsafe impl<'a> Send for RayTracingPipelineCreateInfoKHR<'a> {}
 unsafe impl<'a> Sync for RayTracingPipelineCreateInfoKHR<'a> {}
+unsafe impl<'a, 'b> ExtendingStructure<PipelineCreateInfoKHR<'b>>
+    for RayTracingPipelineCreateInfoKHR<'a>
+{
+}
 impl<'a> Default for RayTracingPipelineCreateInfoKHR<'a> {
     fn default() -> Self {
         Self {
@@ -30444,6 +30460,10 @@ unsafe impl<'a> ExtendableStructure for RayTracingPipelineCreateInfoNV<'a> {
 }
 unsafe impl<'a> Send for RayTracingPipelineCreateInfoNV<'a> {}
 unsafe impl<'a> Sync for RayTracingPipelineCreateInfoNV<'a> {}
+unsafe impl<'a, 'b> ExtendingStructure<PipelineCreateInfoKHR<'b>>
+    for RayTracingPipelineCreateInfoNV<'a>
+{
+}
 impl<'a> Default for RayTracingPipelineCreateInfoNV<'a> {
     fn default() -> Self {
         Self {
@@ -51624,6 +51644,561 @@ impl<'a> ShaderCreateInfoEXT<'a> {
     }
 }
 #[repr(C)]
+#[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDevicePipelineBinaryFeaturesKHR.html>"]
+#[doc(alias = "VkPhysicalDevicePipelineBinaryFeaturesKHR")]
+pub struct PhysicalDevicePipelineBinaryFeaturesKHR<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub pipeline_binaries: Bool32,
+    phantom: PhantomData<&'a ()>,
+}
+unsafe impl<'a> ExtendableStructure for PhysicalDevicePipelineBinaryFeaturesKHR<'a> {
+    const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDevicePipelineBinaryFeaturesKHR;
+}
+unsafe impl<'a> Send for PhysicalDevicePipelineBinaryFeaturesKHR<'a> {}
+unsafe impl<'a> Sync for PhysicalDevicePipelineBinaryFeaturesKHR<'a> {}
+unsafe impl<'a, 'b> ExtendingStructure<PhysicalDeviceFeatures2<'b>>
+    for PhysicalDevicePipelineBinaryFeaturesKHR<'a>
+{
+}
+unsafe impl<'a, 'b> ExtendingStructure<DeviceCreateInfo<'b>>
+    for PhysicalDevicePipelineBinaryFeaturesKHR<'a>
+{
+}
+impl<'a> Default for PhysicalDevicePipelineBinaryFeaturesKHR<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            pipeline_binaries: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+impl<'a> PhysicalDevicePipelineBinaryFeaturesKHR<'a> {
+    #[inline]
+    pub fn pipeline_binaries(mut self, value: impl Into<Bool32>) -> Self {
+        self.pipeline_binaries = value.into();
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[repr(C)]
+#[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDevicePipelineBinaryPropertiesKHR.html>"]
+#[doc(alias = "VkPhysicalDevicePipelineBinaryPropertiesKHR")]
+pub struct PhysicalDevicePipelineBinaryPropertiesKHR<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub pipeline_binary_internal_cache: Bool32,
+    pub pipeline_binary_internal_cache_control: Bool32,
+    pub pipeline_binary_prefers_internal_cache: Bool32,
+    pub pipeline_binary_precompiled_internal_cache: Bool32,
+    pub pipeline_binary_compressed_data: Bool32,
+    phantom: PhantomData<&'a ()>,
+}
+unsafe impl<'a> ExtendableStructure for PhysicalDevicePipelineBinaryPropertiesKHR<'a> {
+    const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDevicePipelineBinaryPropertiesKHR;
+}
+unsafe impl<'a> Send for PhysicalDevicePipelineBinaryPropertiesKHR<'a> {}
+unsafe impl<'a> Sync for PhysicalDevicePipelineBinaryPropertiesKHR<'a> {}
+unsafe impl<'a, 'b> ExtendingStructure<PhysicalDeviceProperties2<'b>>
+    for PhysicalDevicePipelineBinaryPropertiesKHR<'a>
+{
+}
+impl<'a> Default for PhysicalDevicePipelineBinaryPropertiesKHR<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            pipeline_binary_internal_cache: Default::default(),
+            pipeline_binary_internal_cache_control: Default::default(),
+            pipeline_binary_prefers_internal_cache: Default::default(),
+            pipeline_binary_precompiled_internal_cache: Default::default(),
+            pipeline_binary_compressed_data: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+impl<'a> PhysicalDevicePipelineBinaryPropertiesKHR<'a> {
+    #[inline]
+    pub fn pipeline_binary_internal_cache(mut self, value: impl Into<Bool32>) -> Self {
+        self.pipeline_binary_internal_cache = value.into();
+        self
+    }
+    #[inline]
+    pub fn pipeline_binary_internal_cache_control(mut self, value: impl Into<Bool32>) -> Self {
+        self.pipeline_binary_internal_cache_control = value.into();
+        self
+    }
+    #[inline]
+    pub fn pipeline_binary_prefers_internal_cache(mut self, value: impl Into<Bool32>) -> Self {
+        self.pipeline_binary_prefers_internal_cache = value.into();
+        self
+    }
+    #[inline]
+    pub fn pipeline_binary_precompiled_internal_cache(mut self, value: impl Into<Bool32>) -> Self {
+        self.pipeline_binary_precompiled_internal_cache = value.into();
+        self
+    }
+    #[inline]
+    pub fn pipeline_binary_compressed_data(mut self, value: impl Into<Bool32>) -> Self {
+        self.pipeline_binary_compressed_data = value.into();
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[repr(C)]
+#[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkDevicePipelineBinaryInternalCacheControlKHR.html>"]
+#[doc(alias = "VkDevicePipelineBinaryInternalCacheControlKHR")]
+pub struct DevicePipelineBinaryInternalCacheControlKHR<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub disable_internal_cache: Bool32,
+    phantom: PhantomData<&'a ()>,
+}
+unsafe impl<'a> ExtendableStructure for DevicePipelineBinaryInternalCacheControlKHR<'a> {
+    const STRUCTURE_TYPE: StructureType =
+        StructureType::DevicePipelineBinaryInternalCacheControlKHR;
+}
+unsafe impl<'a> Send for DevicePipelineBinaryInternalCacheControlKHR<'a> {}
+unsafe impl<'a> Sync for DevicePipelineBinaryInternalCacheControlKHR<'a> {}
+unsafe impl<'a, 'b> ExtendingStructure<DeviceCreateInfo<'b>>
+    for DevicePipelineBinaryInternalCacheControlKHR<'a>
+{
+}
+impl<'a> Default for DevicePipelineBinaryInternalCacheControlKHR<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            disable_internal_cache: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+impl<'a> DevicePipelineBinaryInternalCacheControlKHR<'a> {
+    #[inline]
+    pub fn disable_internal_cache(mut self, value: impl Into<Bool32>) -> Self {
+        self.disable_internal_cache = value.into();
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[repr(C)]
+#[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPipelineBinaryKeyKHR.html>"]
+#[doc(alias = "VkPipelineBinaryKeyKHR")]
+pub struct PipelineBinaryKeyKHR<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub key_size: u32,
+    pub key: [u8; MAX_PIPELINE_BINARY_KEY_SIZE_KHR as _],
+    phantom: PhantomData<&'a ()>,
+}
+unsafe impl<'a> ExtendableStructure for PipelineBinaryKeyKHR<'a> {
+    const STRUCTURE_TYPE: StructureType = StructureType::PipelineBinaryKeyKHR;
+}
+unsafe impl<'a> Send for PipelineBinaryKeyKHR<'a> {}
+unsafe impl<'a> Sync for PipelineBinaryKeyKHR<'a> {}
+impl<'a> Default for PipelineBinaryKeyKHR<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            key_size: Default::default(),
+            key: array::from_fn(|_| Default::default()),
+            phantom: PhantomData,
+        }
+    }
+}
+impl<'a> PipelineBinaryKeyKHR<'a> {
+    #[inline]
+    pub fn key_size(mut self, value: u32) -> Self {
+        self.key_size = value;
+        self
+    }
+    #[inline]
+    pub fn key(mut self, value: [u8; MAX_PIPELINE_BINARY_KEY_SIZE_KHR as _]) -> Self {
+        self.key = value;
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[repr(C)]
+#[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPipelineBinaryDataKHR.html>"]
+#[doc(alias = "VkPipelineBinaryDataKHR")]
+pub struct PipelineBinaryDataKHR<'a> {
+    pub(crate) data_size: usize,
+    pub(crate) p_data: VoidPtr,
+    phantom: PhantomData<&'a ()>,
+}
+unsafe impl<'a> Send for PipelineBinaryDataKHR<'a> {}
+unsafe impl<'a> Sync for PipelineBinaryDataKHR<'a> {}
+impl<'a> Default for PipelineBinaryDataKHR<'a> {
+    fn default() -> Self {
+        Self {
+            data_size: Default::default(),
+            p_data: ptr::null(),
+            phantom: PhantomData,
+        }
+    }
+}
+impl<'a> PipelineBinaryDataKHR<'a> {
+    #[inline]
+    pub fn data(mut self, p_data: impl AsSlice<'a, u8>) -> Self {
+        self.p_data = p_data.as_slice().as_ptr().cast();
+        self.data_size = p_data.as_slice().len() as _;
+        self
+    }
+    #[inline]
+    pub fn get_data(&self) -> &'a [u8] {
+        (!self.p_data.is_null())
+            .then(|| unsafe {
+                slice::from_raw_parts(self.p_data.cast::<u8>().cast(), self.data_size as _)
+            })
+            .unwrap_or(&[])
+    }
+}
+#[repr(C)]
+#[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPipelineBinaryKeysAndDataKHR.html>"]
+#[doc(alias = "VkPipelineBinaryKeysAndDataKHR")]
+pub struct PipelineBinaryKeysAndDataKHR<'a> {
+    pub(crate) binary_count: u32,
+    pub(crate) p_pipeline_binary_keys: *const PipelineBinaryKeyKHR<'a>,
+    pub(crate) p_pipeline_binary_data: *const PipelineBinaryDataKHR<'a>,
+    phantom: PhantomData<&'a ()>,
+}
+unsafe impl<'a> Send for PipelineBinaryKeysAndDataKHR<'a> {}
+unsafe impl<'a> Sync for PipelineBinaryKeysAndDataKHR<'a> {}
+impl<'a> Default for PipelineBinaryKeysAndDataKHR<'a> {
+    fn default() -> Self {
+        Self {
+            binary_count: Default::default(),
+            p_pipeline_binary_keys: ptr::null(),
+            p_pipeline_binary_data: ptr::null(),
+            phantom: PhantomData,
+        }
+    }
+}
+impl<'a> PipelineBinaryKeysAndDataKHR<'a> {
+    #[inline]
+    pub fn binary(
+        mut self,
+        p_pipeline_binary_keys: impl AsSlice<'a, PipelineBinaryKeyKHR<'a>>,
+        p_pipeline_binary_data: impl AsSlice<'a, PipelineBinaryDataKHR<'a>>,
+    ) -> Self {
+        self.p_pipeline_binary_keys = p_pipeline_binary_keys.as_slice().as_ptr().cast();
+        self.p_pipeline_binary_data = p_pipeline_binary_data.as_slice().as_ptr().cast();
+        self.binary_count = p_pipeline_binary_keys.as_slice().len() as _;
+        self
+    }
+    #[inline]
+    pub fn get_pipeline_binary_keys(&self) -> &'a [PipelineBinaryKeyKHR<'a>] {
+        (!self.p_pipeline_binary_keys.is_null())
+            .then(|| unsafe {
+                slice::from_raw_parts(self.p_pipeline_binary_keys.cast(), self.binary_count as _)
+            })
+            .unwrap_or(&[])
+    }
+    #[inline]
+    pub fn get_pipeline_binary_data(&self) -> &'a [PipelineBinaryDataKHR<'a>] {
+        (!self.p_pipeline_binary_data.is_null())
+            .then(|| unsafe {
+                slice::from_raw_parts(self.p_pipeline_binary_data.cast(), self.binary_count as _)
+            })
+            .unwrap_or(&[])
+    }
+}
+#[repr(C)]
+#[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPipelineBinaryCreateInfoKHR.html>"]
+#[doc(alias = "VkPipelineBinaryCreateInfoKHR")]
+pub struct PipelineBinaryCreateInfoKHR<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub p_keys_and_data_info: *const PipelineBinaryKeysAndDataKHR<'a>,
+    pub pipeline: Option<Pipeline>,
+    pub p_pipeline_create_info: *const PipelineCreateInfoKHR<'a>,
+    phantom: PhantomData<&'a ()>,
+}
+unsafe impl<'a> ExtendableStructure for PipelineBinaryCreateInfoKHR<'a> {
+    const STRUCTURE_TYPE: StructureType = StructureType::PipelineBinaryCreateInfoKHR;
+}
+unsafe impl<'a> Send for PipelineBinaryCreateInfoKHR<'a> {}
+unsafe impl<'a> Sync for PipelineBinaryCreateInfoKHR<'a> {}
+impl<'a> Default for PipelineBinaryCreateInfoKHR<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            p_keys_and_data_info: ptr::null(),
+            pipeline: Default::default(),
+            p_pipeline_create_info: ptr::null(),
+            phantom: PhantomData,
+        }
+    }
+}
+impl<'a> PipelineBinaryCreateInfoKHR<'a> {
+    #[inline]
+    pub fn keys_and_data_info(
+        mut self,
+        value: Option<&'a PipelineBinaryKeysAndDataKHR<'a>>,
+    ) -> Self {
+        self.p_keys_and_data_info = value.map(|v| ptr::from_ref(v)).unwrap_or(ptr::null());
+        self
+    }
+    #[inline]
+    pub fn pipeline(mut self, value: Option<&'a raw::Pipeline>) -> Self {
+        self.pipeline = value.map(|v| unsafe { v.clone() });
+        self
+    }
+    #[inline]
+    pub fn pipeline_create_info(mut self, value: Option<&'a PipelineCreateInfoKHR<'a>>) -> Self {
+        self.p_pipeline_create_info = value.map(|v| ptr::from_ref(v)).unwrap_or(ptr::null());
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[repr(C)]
+#[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPipelineBinaryInfoKHR.html>"]
+#[doc(alias = "VkPipelineBinaryInfoKHR")]
+pub struct PipelineBinaryInfoKHR<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub(crate) binary_count: u32,
+    pub(crate) p_pipeline_binaries: *const PipelineBinaryKHR,
+    phantom: PhantomData<&'a ()>,
+}
+unsafe impl<'a> ExtendableStructure for PipelineBinaryInfoKHR<'a> {
+    const STRUCTURE_TYPE: StructureType = StructureType::PipelineBinaryInfoKHR;
+}
+unsafe impl<'a> Send for PipelineBinaryInfoKHR<'a> {}
+unsafe impl<'a> Sync for PipelineBinaryInfoKHR<'a> {}
+unsafe impl<'a, 'b> ExtendingStructure<GraphicsPipelineCreateInfo<'b>>
+    for PipelineBinaryInfoKHR<'a>
+{
+}
+unsafe impl<'a, 'b> ExtendingStructure<ComputePipelineCreateInfo<'b>>
+    for PipelineBinaryInfoKHR<'a>
+{
+}
+unsafe impl<'a, 'b> ExtendingStructure<RayTracingPipelineCreateInfoKHR<'b>>
+    for PipelineBinaryInfoKHR<'a>
+{
+}
+impl<'a> Default for PipelineBinaryInfoKHR<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            binary_count: Default::default(),
+            p_pipeline_binaries: ptr::null(),
+            phantom: PhantomData,
+        }
+    }
+}
+impl<'a> PipelineBinaryInfoKHR<'a> {
+    #[inline]
+    pub fn pipeline_binaries<V0: Alias<raw::PipelineBinaryKHR> + 'a>(
+        mut self,
+        p_pipeline_binaries: impl AsSlice<'a, V0>,
+    ) -> Self {
+        self.p_pipeline_binaries = p_pipeline_binaries.as_slice().as_ptr().cast();
+        self.binary_count = p_pipeline_binaries.as_slice().len() as _;
+        self
+    }
+    #[inline]
+    pub fn get_pipeline_binaries(&self) -> &'a [BorrowedHandle<'a, raw::PipelineBinaryKHR>] {
+        (!self.p_pipeline_binaries.is_null())
+            .then(|| unsafe {
+                slice::from_raw_parts(self.p_pipeline_binaries.cast(), self.binary_count as _)
+            })
+            .unwrap_or(&[])
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[repr(C)]
+#[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkReleaseCapturedPipelineDataInfoKHR.html>"]
+#[doc(alias = "VkReleaseCapturedPipelineDataInfoKHR")]
+pub struct ReleaseCapturedPipelineDataInfoKHR<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub pipeline: Option<Pipeline>,
+    phantom: PhantomData<&'a ()>,
+}
+unsafe impl<'a> ExtendableStructure for ReleaseCapturedPipelineDataInfoKHR<'a> {
+    const STRUCTURE_TYPE: StructureType = StructureType::ReleaseCapturedPipelineDataInfoKHR;
+}
+unsafe impl<'a> Send for ReleaseCapturedPipelineDataInfoKHR<'a> {}
+unsafe impl<'a> Sync for ReleaseCapturedPipelineDataInfoKHR<'a> {}
+impl<'a> Default for ReleaseCapturedPipelineDataInfoKHR<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            pipeline: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+impl<'a> ReleaseCapturedPipelineDataInfoKHR<'a> {
+    #[inline]
+    pub fn pipeline(mut self, value: &'a raw::Pipeline) -> Self {
+        self.pipeline = Some(unsafe { value.clone() });
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[repr(C)]
+#[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPipelineBinaryDataInfoKHR.html>"]
+#[doc(alias = "VkPipelineBinaryDataInfoKHR")]
+pub struct PipelineBinaryDataInfoKHR<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub pipeline_binary: Option<PipelineBinaryKHR>,
+    phantom: PhantomData<&'a ()>,
+}
+unsafe impl<'a> ExtendableStructure for PipelineBinaryDataInfoKHR<'a> {
+    const STRUCTURE_TYPE: StructureType = StructureType::PipelineBinaryDataInfoKHR;
+}
+unsafe impl<'a> Send for PipelineBinaryDataInfoKHR<'a> {}
+unsafe impl<'a> Sync for PipelineBinaryDataInfoKHR<'a> {}
+impl<'a> Default for PipelineBinaryDataInfoKHR<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            pipeline_binary: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+impl<'a> PipelineBinaryDataInfoKHR<'a> {
+    #[inline]
+    pub fn pipeline_binary(mut self, value: &'a raw::PipelineBinaryKHR) -> Self {
+        self.pipeline_binary = Some(unsafe { value.clone() });
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[repr(C)]
+#[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPipelineCreateInfoKHR.html>"]
+#[doc(alias = "VkPipelineCreateInfoKHR")]
+pub struct PipelineCreateInfoKHR<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    phantom: PhantomData<&'a ()>,
+}
+unsafe impl<'a> ExtendableStructure for PipelineCreateInfoKHR<'a> {
+    const STRUCTURE_TYPE: StructureType = StructureType::PipelineCreateInfoKHR;
+}
+unsafe impl<'a> Send for PipelineCreateInfoKHR<'a> {}
+unsafe impl<'a> Sync for PipelineCreateInfoKHR<'a> {}
+impl<'a> Default for PipelineCreateInfoKHR<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            phantom: PhantomData,
+        }
+    }
+}
+impl<'a> PipelineCreateInfoKHR<'a> {
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[repr(C)]
+#[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPipelineBinaryHandlesInfoKHR.html>"]
+#[doc(alias = "VkPipelineBinaryHandlesInfoKHR")]
+pub struct PipelineBinaryHandlesInfoKHR<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub pipeline_binary_count: u32,
+    pub(crate) p_pipeline_binaries: *const PipelineBinaryKHR,
+    phantom: PhantomData<&'a ()>,
+}
+unsafe impl<'a> ExtendableStructure for PipelineBinaryHandlesInfoKHR<'a> {
+    const STRUCTURE_TYPE: StructureType = StructureType::PipelineBinaryHandlesInfoKHR;
+}
+unsafe impl<'a> Send for PipelineBinaryHandlesInfoKHR<'a> {}
+unsafe impl<'a> Sync for PipelineBinaryHandlesInfoKHR<'a> {}
+impl<'a> Default for PipelineBinaryHandlesInfoKHR<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            pipeline_binary_count: Default::default(),
+            p_pipeline_binaries: ptr::null(),
+            phantom: PhantomData,
+        }
+    }
+}
+impl<'a> PipelineBinaryHandlesInfoKHR<'a> {
+    #[inline]
+    pub fn pipeline_binary_count(mut self, value: u32) -> Self {
+        self.pipeline_binary_count = value;
+        self
+    }
+    #[inline]
+    pub fn pipeline_binaries<V0: Alias<raw::PipelineBinaryKHR> + 'a>(
+        mut self,
+        p_pipeline_binaries: impl AsSlice<'a, V0>,
+    ) -> Self {
+        self.p_pipeline_binaries = p_pipeline_binaries.as_slice().as_ptr().cast();
+        self.pipeline_binary_count = p_pipeline_binaries.as_slice().len() as _;
+        self
+    }
+    #[inline]
+    pub fn get_pipeline_binaries(&self) -> &'a [BorrowedHandle<'a, raw::PipelineBinaryKHR>] {
+        (!self.p_pipeline_binaries.is_null())
+            .then(|| unsafe {
+                slice::from_raw_parts(
+                    self.p_pipeline_binaries.cast(),
+                    self.pipeline_binary_count as _,
+                )
+            })
+            .unwrap_or(&[])
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[repr(C)]
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceTilePropertiesFeaturesQCOM.html>"]
 #[doc(alias = "VkPhysicalDeviceTilePropertiesFeaturesQCOM")]
 pub struct PhysicalDeviceTilePropertiesFeaturesQCOM<'a> {
@@ -52333,7 +52908,7 @@ pub struct LayerSettingEXT<'a> {
     pub p_layer_name: *const c_char,
     pub p_setting_name: *const c_char,
     pub ty: LayerSettingTypeEXT,
-    pub(crate) value_count: u32,
+    pub value_count: u32,
     pub(crate) p_values: VoidPtr,
     phantom: PhantomData<&'a ()>,
 }
@@ -52365,6 +52940,11 @@ impl<'a> LayerSettingEXT<'a> {
     #[inline]
     pub fn ty(mut self, value: LayerSettingTypeEXT) -> Self {
         self.ty = value;
+        self
+    }
+    #[inline]
+    pub fn value_count(mut self, value: u32) -> Self {
+        self.value_count = value;
         self
     }
     #[inline]
@@ -55388,6 +55968,51 @@ impl<'a> PhysicalDeviceShaderRelaxedExtendedInstructionFeaturesKHR<'a> {
     #[inline]
     pub fn shader_relaxed_extended_instruction(mut self, value: impl Into<Bool32>) -> Self {
         self.shader_relaxed_extended_instruction = value.into();
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[repr(C)]
+#[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceCommandBufferInheritanceFeaturesNV.html>"]
+#[doc(alias = "VkPhysicalDeviceCommandBufferInheritanceFeaturesNV")]
+pub struct PhysicalDeviceCommandBufferInheritanceFeaturesNV<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub command_buffer_inheritance: Bool32,
+    phantom: PhantomData<&'a ()>,
+}
+unsafe impl<'a> ExtendableStructure for PhysicalDeviceCommandBufferInheritanceFeaturesNV<'a> {
+    const STRUCTURE_TYPE: StructureType =
+        StructureType::PhysicalDeviceCommandBufferInheritanceFeaturesNV;
+}
+unsafe impl<'a> Send for PhysicalDeviceCommandBufferInheritanceFeaturesNV<'a> {}
+unsafe impl<'a> Sync for PhysicalDeviceCommandBufferInheritanceFeaturesNV<'a> {}
+unsafe impl<'a, 'b> ExtendingStructure<PhysicalDeviceFeatures2<'b>>
+    for PhysicalDeviceCommandBufferInheritanceFeaturesNV<'a>
+{
+}
+unsafe impl<'a, 'b> ExtendingStructure<DeviceCreateInfo<'b>>
+    for PhysicalDeviceCommandBufferInheritanceFeaturesNV<'a>
+{
+}
+impl<'a> Default for PhysicalDeviceCommandBufferInheritanceFeaturesNV<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            command_buffer_inheritance: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+impl<'a> PhysicalDeviceCommandBufferInheritanceFeaturesNV<'a> {
+    #[inline]
+    pub fn command_buffer_inheritance(mut self, value: impl Into<Bool32>) -> Self {
+        self.command_buffer_inheritance = value.into();
         self
     }
     #[inline]

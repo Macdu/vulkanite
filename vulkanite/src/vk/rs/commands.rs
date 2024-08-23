@@ -5633,6 +5633,67 @@ impl<D: Dispatcher, A: Allocator> Device<D, A> {
             )
         }
     }
+    #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCreatePipelineBinariesKHR.html>"]
+    #[doc(alias = "vkCreatePipelineBinariesKHR")]
+    pub fn create_pipeline_binaries_khr<
+        S: StructureChainOut<PipelineBinaryHandlesInfoKHR<'static>>,
+    >(
+        &self,
+        p_create_info: &PipelineBinaryCreateInfoKHR,
+    ) -> Result<(Status, S)> {
+        unsafe {
+            raw::create_pipeline_binaries_khr(
+                self,
+                p_create_info,
+                self.alloc.get_allocation_callbacks().as_ref(),
+                self.disp.get_command_dispatcher(),
+            )
+        }
+    }
+    #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkDestroyPipelineBinaryKHR.html>"]
+    #[doc(alias = "vkDestroyPipelineBinaryKHR")]
+    pub unsafe fn destroy_pipeline_binary_khr(
+        &self,
+        pipeline_binary: Option<&raw::PipelineBinaryKHR>,
+    ) {
+        unsafe {
+            raw::destroy_pipeline_binary_khr(
+                self,
+                pipeline_binary,
+                self.alloc.get_allocation_callbacks().as_ref(),
+                self.disp.get_command_dispatcher(),
+            )
+        }
+    }
+    #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetPipelineKeyKHR.html>"]
+    #[doc(alias = "vkGetPipelineKeyKHR")]
+    pub fn get_pipeline_key_khr<S: StructureChainOut<PipelineBinaryKeyKHR<'static>>>(
+        &self,
+        p_pipeline_create_info: Option<&PipelineCreateInfoKHR>,
+    ) -> Result<S> {
+        unsafe {
+            raw::get_pipeline_key_khr(
+                self,
+                p_pipeline_create_info,
+                self.disp.get_command_dispatcher(),
+            )
+        }
+    }
+    #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkReleaseCapturedPipelineDataKHR.html>"]
+    #[doc(alias = "vkReleaseCapturedPipelineDataKHR")]
+    pub fn release_captured_pipeline_data_khr(
+        &self,
+        p_info: &ReleaseCapturedPipelineDataInfoKHR,
+    ) -> Result<()> {
+        unsafe {
+            raw::release_captured_pipeline_data_khr(
+                self,
+                p_info,
+                self.alloc.get_allocation_callbacks().as_ref(),
+                self.disp.get_command_dispatcher(),
+            )
+        }
+    }
     #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetFramebufferTilePropertiesQCOM.html>"]
     #[doc(alias = "vkGetFramebufferTilePropertiesQCOM")]
     pub fn get_framebuffer_tile_properties_qcom<R: DynamicArray<TilePropertiesQCOM<'static>>>(
@@ -10324,6 +10385,27 @@ impl Deref for ShaderEXT {
 }
 impl ShaderEXT {
     pub fn from_inner(handle: raw::ShaderEXT) -> Self {
+        Self {
+            inner: handle.as_raw(),
+        }
+    }
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+#[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPipelineBinaryKHR.html>"]
+#[doc(alias = "VkPipelineBinaryKHR")]
+pub struct PipelineBinaryKHR {
+    inner: <raw::PipelineBinaryKHR as Handle>::InnerType,
+}
+unsafe impl Alias<raw::PipelineBinaryKHR> for PipelineBinaryKHR {}
+impl Deref for PipelineBinaryKHR {
+    type Target = raw::PipelineBinaryKHR;
+    fn deref(&self) -> &Self::Target {
+        unsafe { std::mem::transmute(&self.inner) }
+    }
+}
+impl PipelineBinaryKHR {
+    pub fn from_inner(handle: raw::PipelineBinaryKHR) -> Self {
         Self {
             inner: handle.as_raw(),
         }

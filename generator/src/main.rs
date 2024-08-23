@@ -13,7 +13,30 @@ mod xml;
 fn main() -> Result<(), Box<dyn Error>> {
     let file = std::fs::File::open("../vk.xml")?;
     let reader = BufReader::new(file);
-    let registry: Registry = from_reader(reader)?;
+    let mut registry: Registry = from_reader(reader)?;
+
+    // temporary workaround, the VK_KHR_pipeline_binary does not specify it requires VK_MAX_PIPELINE_BINARY_KEY_SIZE_KHR (even though is actually requires it)
+    registry
+        .extensions
+        .first_mut()
+        .and_then(|exts| {
+            exts.extension
+                .iter_mut()
+                .find(|ext| ext.name == "VK_KHR_pipeline_binary")
+        })
+        .and_then(|ext| ext.require.first_mut())
+        .map(|ext| {
+            if !ext.content.iter().any(|cnt| {
+                matches!(cnt, xml::RequireContent::Enum(xml::RequireEnum{name, ..}) 
+                        if name == "VK_MAX_PIPELINE_BINARY_KEY_SIZE_KHR")
+            }) {
+                ext.content
+                    .push(xml::RequireContent::Enum(xml::RequireEnum {
+                        name: "VK_MAX_PIPELINE_BINARY_KEY_SIZE_KHR".to_owned(),
+                        ..Default::default()
+                    }));
+            }
+        });
 
     let generator = Generator::new(Api::Vulkan, &registry)?;
 

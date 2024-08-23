@@ -44,6 +44,8 @@ pub enum Status {
     OperationNotDeferredKHR = 1000268003,
     ErrorCompressionExhaustedEXT = -1000338000,
     IncompatibleShaderBinaryEXT = 1000482000,
+    PipelineBinaryMissingKHR = 1000483000,
+    ErrorNotEnoughSpaceKHR = -1000483000,
 }
 #[allow(non_upper_case_globals)]
 impl Status {
@@ -812,6 +814,16 @@ pub enum StructureType {
     PhysicalDeviceShaderObjectFeaturesEXT = 1000482000,
     PhysicalDeviceShaderObjectPropertiesEXT = 1000482001,
     ShaderCreateInfoEXT = 1000482002,
+    PhysicalDevicePipelineBinaryFeaturesKHR = 1000483000,
+    PipelineBinaryCreateInfoKHR = 1000483001,
+    PipelineBinaryInfoKHR = 1000483002,
+    PipelineBinaryKeyKHR = 1000483003,
+    PhysicalDevicePipelineBinaryPropertiesKHR = 1000483004,
+    ReleaseCapturedPipelineDataInfoKHR = 1000483005,
+    PipelineBinaryDataInfoKHR = 1000483006,
+    PipelineCreateInfoKHR = 1000483007,
+    DevicePipelineBinaryInternalCacheControlKHR = 1000483008,
+    PipelineBinaryHandlesInfoKHR = 1000483009,
     PhysicalDeviceTilePropertiesFeaturesQCOM = 1000484000,
     TilePropertiesQCOM = 1000484001,
     PhysicalDeviceAmigoProfilingFeaturesSEC = 1000485000,
@@ -883,6 +895,7 @@ pub enum StructureType {
     PhysicalDeviceDescriptorPoolOverallocationFeaturesNV = 1000546000,
     PhysicalDeviceRawAccessChainsFeaturesNV = 1000555000,
     PhysicalDeviceShaderRelaxedExtendedInstructionFeaturesKHR = 1000558000,
+    PhysicalDeviceCommandBufferInheritanceFeaturesNV = 1000559000,
     PhysicalDeviceMaintenance7FeaturesKHR = 1000562000,
     PhysicalDeviceMaintenance7PropertiesKHR = 1000562001,
     PhysicalDeviceLayeredApiPropertiesListKHR = 1000562002,
@@ -1258,6 +1271,7 @@ pub enum ObjectType {
     MicromapEXT = 1000396000,
     OpticalFlowSessionNV = 1000464000,
     ShaderEXT = 1000482000,
+    PipelineBinaryKHR = 1000483000,
 }
 #[allow(non_upper_case_globals)]
 impl ObjectType {
@@ -5167,6 +5181,7 @@ bitflags! {
         const ProtectedAccessOnlyEXT = 1u64 << 30;
         const RayTracingDisplacementMicromapNV = 1u64 << 28;
         const DescriptorBufferEXT = 1u64 << 29;
+        const CaptureData = 1u64 << 31;
     }
 }
 bitflags! {
@@ -5246,6 +5261,9 @@ pub enum ShaderCodeTypeEXT {
     Binary = 0,
     Spirv = 1,
 }
+#[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VK_MAX_PIPELINE_BINARY_KEY_SIZE_KHR.html>"]
+#[doc(alias = "VK_MAX_PIPELINE_BINARY_KEY_SIZE_KHR")]
+pub const MAX_PIPELINE_BINARY_KEY_SIZE_KHR: u32 = 32;
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkRayTracingInvocationReorderModeNV.html>"]
 #[doc(alias = "VkRayTracingInvocationReorderModeNV")]

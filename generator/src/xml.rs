@@ -1,6 +1,6 @@
 #![allow(dead_code)]
 
-use std::ops::Deref;
+use std::ops::{Deref, DerefMut};
 
 use serde::{Deserialize, Deserializer};
 
@@ -17,6 +17,12 @@ impl Deref for Registry {
 
     fn deref(&self) -> &Self::Target {
         &self.content
+    }
+}
+
+impl DerefMut for Registry {
+    fn deref_mut(&mut self) -> &mut Self::Target {
+        &mut self.content
     }
 }
 
@@ -406,7 +412,8 @@ pub struct Feature {
     #[serde(rename = "@comment")]
     pub comment: String,
     pub require: Vec<Require>,
-    pub remove: Option<Remove>,
+    #[serde(default)]
+    pub remove: Vec<Remove>,
 }
 
 #[derive(Deserialize, Debug)]
@@ -423,10 +430,11 @@ pub enum RequireContent {
     Enum(RequireEnum),
     Type(RequireType),
     Command(RequireCommand),
+    Feature(RequireFeature),
     Comment(String),
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Default)]
 pub struct RequireEnum {
     #[serde(rename = "@name")]
     pub name: String,
@@ -462,6 +470,14 @@ pub struct RequireCommand {
     pub name: String,
     #[serde(rename = "@comment")]
     pub comment: Option<String>,
+}
+
+#[derive(Deserialize, Debug)]
+pub struct RequireFeature {
+    #[serde(rename = "@name")]
+    pub name: String,
+    #[serde(rename = "@struct")]
+    pub structure: String,
 }
 
 #[derive(Deserialize, Debug)]

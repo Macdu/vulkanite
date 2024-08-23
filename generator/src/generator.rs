@@ -821,10 +821,13 @@ impl<'a> Generator<'a> {
             }
             Struct::Standard(standard_type) => {
                 let lifetime = standard_type.s_type.is_some()
-                    || standard_type
-                        .fields
-                        .iter()
-                        .any(|field| self.compute_type_lifetime(&field.ty));
+                    || standard_type.fields.iter().any(|field| {
+                        let ty_has_lifetime = self.compute_type_lifetime(&field.ty);
+                        // void* pData with a given length must also be given a lifetime
+                        let is_data_ptr =
+                            matches!(field.ty, Type::VoidPtr) && field.xml.len.is_some();
+                        ty_has_lifetime || is_data_ptr
+                    });
                 standard_type.has_lifetime.set(Some(lifetime));
                 lifetime
             }

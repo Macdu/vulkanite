@@ -60,3 +60,4 @@ handle_nondispatchable! { BufferCollectionFUCHSIA , BufferCollectionFUCHSIA , do
 handle_nondispatchable! { MicromapEXT , MicromapEXT , doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkMicromapEXT.html>" , "VkMicromapEXT" }
 handle_nondispatchable! { OpticalFlowSessionNV , OpticalFlowSessionNV , doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkOpticalFlowSessionNV.html>" , "VkOpticalFlowSessionNV" }
 handle_nondispatchable! { ShaderEXT , ShaderEXT , doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkShaderEXT.html>" , "VkShaderEXT" }
+handle_nondispatchable! { PipelineBinaryKHR , PipelineBinaryKHR , doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPipelineBinaryKHR.html>" , "VkPipelineBinaryKHR" }

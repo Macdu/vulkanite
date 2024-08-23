@@ -13305,6 +13305,95 @@ pub unsafe fn cmd_bind_shaders_ext<'a, V3: Alias<raw::ShaderEXT> + 'a>(
         p_shaders.as_slice().as_ptr().cast(),
     )
 }
+#[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCreatePipelineBinariesKHR.html>"]
+#[doc(alias = "vkCreatePipelineBinariesKHR")]
+pub unsafe fn create_pipeline_binaries_khr<
+    S: StructureChainOut<PipelineBinaryHandlesInfoKHR<'static>>,
+>(
+    device: &raw::Device,
+    p_create_info: &PipelineBinaryCreateInfoKHR,
+    p_allocator: Option<&AllocationCallbacks>,
+    dispatcher: &CommandsDispatcher,
+) -> Result<(Status, S)> {
+    let vulkan_command = dispatcher
+        .create_pipeline_binaries_khr
+        .get()
+        .expect("Vulkan command not loaded.");
+    let mut p_binaries = MaybeUninit::uninit();
+    S::setup_uninit(&mut p_binaries);
+    let vk_status = vulkan_command(
+        Some(unsafe { device.clone() }),
+        ptr::from_ref(p_create_info),
+        p_allocator.map(|v| ptr::from_ref(v)).unwrap_or(ptr::null()),
+        S::get_uninit_head_ptr(p_binaries.as_mut_ptr()),
+    );
+    vk_status.map_successes(|| {
+        S::setup_cleanup(p_binaries.as_mut_ptr());
+        p_binaries.assume_init()
+    })
+}
+#[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkDestroyPipelineBinaryKHR.html>"]
+#[doc(alias = "vkDestroyPipelineBinaryKHR")]
+pub unsafe fn destroy_pipeline_binary_khr(
+    device: &raw::Device,
+    pipeline_binary: Option<&raw::PipelineBinaryKHR>,
+    p_allocator: Option<&AllocationCallbacks>,
+    dispatcher: &CommandsDispatcher,
+) {
+    let vulkan_command = dispatcher
+        .destroy_pipeline_binary_khr
+        .get()
+        .expect("Vulkan command not loaded.");
+    vulkan_command(
+        Some(unsafe { device.clone() }),
+        pipeline_binary.map(|v| unsafe { v.clone() }),
+        p_allocator.map(|v| ptr::from_ref(v)).unwrap_or(ptr::null()),
+    )
+}
+#[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetPipelineKeyKHR.html>"]
+#[doc(alias = "vkGetPipelineKeyKHR")]
+pub unsafe fn get_pipeline_key_khr<S: StructureChainOut<PipelineBinaryKeyKHR<'static>>>(
+    device: &raw::Device,
+    p_pipeline_create_info: Option<&PipelineCreateInfoKHR>,
+    dispatcher: &CommandsDispatcher,
+) -> Result<S> {
+    let vulkan_command = dispatcher
+        .get_pipeline_key_khr
+        .get()
+        .expect("Vulkan command not loaded.");
+    let mut p_pipeline_key = MaybeUninit::uninit();
+    S::setup_uninit(&mut p_pipeline_key);
+    let vk_status = vulkan_command(
+        Some(unsafe { device.clone() }),
+        p_pipeline_create_info
+            .map(|v| ptr::from_ref(v))
+            .unwrap_or(ptr::null()),
+        S::get_uninit_head_ptr(p_pipeline_key.as_mut_ptr()),
+    );
+    vk_status.map_success(|| {
+        S::setup_cleanup(p_pipeline_key.as_mut_ptr());
+        p_pipeline_key.assume_init()
+    })
+}
+#[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkReleaseCapturedPipelineDataKHR.html>"]
+#[doc(alias = "vkReleaseCapturedPipelineDataKHR")]
+pub unsafe fn release_captured_pipeline_data_khr(
+    device: &raw::Device,
+    p_info: &ReleaseCapturedPipelineDataInfoKHR,
+    p_allocator: Option<&AllocationCallbacks>,
+    dispatcher: &CommandsDispatcher,
+) -> Result<()> {
+    let vulkan_command = dispatcher
+        .release_captured_pipeline_data_khr
+        .get()
+        .expect("Vulkan command not loaded.");
+    vulkan_command(
+        Some(unsafe { device.clone() }),
+        ptr::from_ref(p_info),
+        p_allocator.map(|v| ptr::from_ref(v)).unwrap_or(ptr::null()),
+    )
+    .map_success(|| ())
+}
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetFramebufferTilePropertiesQCOM.html>"]
 #[doc(alias = "vkGetFramebufferTilePropertiesQCOM")]
 pub unsafe fn get_framebuffer_tile_properties_qcom<R: DynamicArray<TilePropertiesQCOM<'static>>>(

@@ -4577,6 +4577,54 @@ pub struct CommandsDispatcher {
             ),
         >,
     >,
+    pub create_pipeline_binaries_khr: Cell<
+        Option<
+            unsafe extern "system" fn(
+                Option<Device>,
+                *const PipelineBinaryCreateInfoKHR,
+                *const AllocationCallbacks,
+                *const PipelineBinaryHandlesInfoKHR,
+            ) -> Status,
+        >,
+    >,
+    pub destroy_pipeline_binary_khr: Cell<
+        Option<
+            unsafe extern "system" fn(
+                Option<Device>,
+                Option<PipelineBinaryKHR>,
+                *const AllocationCallbacks,
+            ),
+        >,
+    >,
+    pub get_pipeline_key_khr: Cell<
+        Option<
+            unsafe extern "system" fn(
+                Option<Device>,
+                *const PipelineCreateInfoKHR,
+                *const PipelineBinaryKeyKHR,
+            ) -> Status,
+        >,
+    >,
+    pub get_pipeline_binary_data_khr: Cell<
+        Option<
+            unsafe extern "system" fn(
+                Option<Device>,
+                *const PipelineBinaryDataInfoKHR,
+                *const PipelineBinaryKeyKHR,
+                *const usize,
+                VoidPtr,
+            ) -> Status,
+        >,
+    >,
+    pub release_captured_pipeline_data_khr: Cell<
+        Option<
+            unsafe extern "system" fn(
+                Option<Device>,
+                *const ReleaseCapturedPipelineDataInfoKHR,
+                *const AllocationCallbacks,
+            ) -> Status,
+        >,
+    >,
     pub get_framebuffer_tile_properties_qcom: Cell<
         Option<
             unsafe extern "system" fn(
@@ -8359,6 +8407,31 @@ impl CommandsDispatcher {
                 get_instance(),
                 c"vkCmdBindShadersEXT".as_ptr(),
             )));
+        self.create_pipeline_binaries_khr
+            .set(mem::transmute(get_instance_proc_addr(
+                get_instance(),
+                c"vkCreatePipelineBinariesKHR".as_ptr(),
+            )));
+        self.destroy_pipeline_binary_khr
+            .set(mem::transmute(get_instance_proc_addr(
+                get_instance(),
+                c"vkDestroyPipelineBinaryKHR".as_ptr(),
+            )));
+        self.get_pipeline_key_khr
+            .set(mem::transmute(get_instance_proc_addr(
+                get_instance(),
+                c"vkGetPipelineKeyKHR".as_ptr(),
+            )));
+        self.get_pipeline_binary_data_khr
+            .set(mem::transmute(get_instance_proc_addr(
+                get_instance(),
+                c"vkGetPipelineBinaryDataKHR".as_ptr(),
+            )));
+        self.release_captured_pipeline_data_khr
+            .set(mem::transmute(get_instance_proc_addr(
+                get_instance(),
+                c"vkReleaseCapturedPipelineDataKHR".as_ptr(),
+            )));
         self.get_framebuffer_tile_properties_qcom
             .set(mem::transmute(get_instance_proc_addr(
                 get_instance(),
@@ -11506,6 +11579,31 @@ impl CommandsDispatcher {
             .set(mem::transmute(get_device_proc_addr(
                 get_device(),
                 c"vkCmdBindShadersEXT".as_ptr(),
+            )));
+        self.create_pipeline_binaries_khr
+            .set(mem::transmute(get_device_proc_addr(
+                get_device(),
+                c"vkCreatePipelineBinariesKHR".as_ptr(),
+            )));
+        self.destroy_pipeline_binary_khr
+            .set(mem::transmute(get_device_proc_addr(
+                get_device(),
+                c"vkDestroyPipelineBinaryKHR".as_ptr(),
+            )));
+        self.get_pipeline_key_khr
+            .set(mem::transmute(get_device_proc_addr(
+                get_device(),
+                c"vkGetPipelineKeyKHR".as_ptr(),
+            )));
+        self.get_pipeline_binary_data_khr
+            .set(mem::transmute(get_device_proc_addr(
+                get_device(),
+                c"vkGetPipelineBinaryDataKHR".as_ptr(),
+            )));
+        self.release_captured_pipeline_data_khr
+            .set(mem::transmute(get_device_proc_addr(
+                get_device(),
+                c"vkReleaseCapturedPipelineDataKHR".as_ptr(),
             )));
         self.get_framebuffer_tile_properties_qcom
             .set(mem::transmute(get_device_proc_addr(
