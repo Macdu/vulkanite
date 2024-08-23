@@ -55,6 +55,9 @@ fn main() -> Result<(), Box<dyn Error>> {
     let structs = generator.generate_structs()?;
     fs::write(crate_vk.join("structs.rs"), structs)?;
 
+    let formats = generator.generate_formats()?;
+    fs::write(crate_vk.join("formats.rs"), formats)?;
+
     let dispatcher = generator.generate_dispatcher()?;
     fs::write(crate_vk.join("dispatcher.rs"), dispatcher)?;
 

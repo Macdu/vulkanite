@@ -24,6 +24,7 @@ mod advanced_commands;
 mod dispatcher;
 mod enums;
 mod extensions;
+mod formats;
 mod handles;
 mod raw_commands;
 mod structs;
@@ -210,6 +211,10 @@ impl<'a> Generator<'a> {
 
     pub fn generate_structs(&self) -> Result<String> {
         structs::generate(self)
+    }
+
+    pub fn generate_formats(&self) -> Result<String> {
+        formats::generate(self)
     }
 
     pub fn generate_dispatcher(&self) -> Result<String> {

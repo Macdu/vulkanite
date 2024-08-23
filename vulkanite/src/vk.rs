@@ -2,6 +2,7 @@ mod custom;
 mod dispatcher;
 pub mod enums;
 pub mod extensions;
+mod formats;
 pub mod raw;
 pub mod rs;
 pub mod structs;
