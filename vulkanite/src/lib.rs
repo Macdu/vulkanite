@@ -612,11 +612,23 @@ impl<'a, T: Handle> AsMut<T> for BorrowedMutHandle<'a, T> {
 ///     VkStructureType        sType;
 ///     const void*            pNext;
 /// sType must always be set to STRUCTURE_TYPE
-pub unsafe trait ExtendableStructure: Default {
+/// This trait contains the minimum to be object safe, [ExtendableStructure] extends on it
+pub unsafe trait ExtendableStructureBase {
+    fn header(&self) -> *const Header {
+        ptr::from_ref(self).cast()
+    }
+
+    fn header_mut(&mut self) -> *mut Header {
+        ptr::from_mut(self).cast()
+    }
+}
+
+pub unsafe trait ExtendableStructure: ExtendableStructureBase + Default {
     const STRUCTURE_TYPE: vk::StructureType;
 
+    /// SAFETY: Same as [ExtendableStructureBase::header]
     unsafe fn retrieve_next(&self) -> &Cell<*const Header> {
-        unsafe { &mem::transmute::<_, &Header>(self).p_next }
+        &unsafe { &*self.header() }.p_next
     }
 
     /// Assuming the current structure chain is the following:
@@ -822,6 +834,7 @@ where
 {
     fn get_mut<T: ExtendingStructure<H>>(&mut self) -> &mut T {
         if H::STRUCTURE_TYPE == T::STRUCTURE_TYPE {
+            self.perform_linking();
             unsafe {
                 mem::transmute(self)
             }
@@ -839,6 +852,7 @@ where
 
     fn get<T: ExtendingStructure<H>>(&self) -> &T {
         if H::STRUCTURE_TYPE == T::STRUCTURE_TYPE {
+            self.perform_linking();
             unsafe {
                 mem::transmute(self)
             }
@@ -979,6 +993,159 @@ make_structure_chain_type! {StructureChain4, V1 => (1,ext1), V2 => (2,ext2), V3 
 make_structure_chain_type! {StructureChain5, V1 => (1,ext1), V2 => (2,ext2), V3 => (3,ext3), V4 => (4,ext4), V5 => (5,ext5)}
 make_structure_chain_type! {StructureChain6, V1 => (1,ext1), V2 => (2,ext2), V3 => (3,ext3), V4 => (4,ext4), V5 => (5,ext5), V6 => (6,ext6) }
 
+/// Structure Chain that can take an arbitrary number of structures extending it
+/// This is done by putting the structures on the heap
+pub struct StructureChainVec<H: ExtendableStructure> {
+    head: H,
+    content: Vec<(Box<dyn ExtendableStructureBase>, Cell<bool>)>,
+    has_changed: Cell<bool>,
+}
+
+impl<H> StructureChainVec<H>
+where
+    H: ExtendableStructure,
+{
+    pub fn new(head: H) -> Self {
+        Self::new_with_capacity(head, 0)
+    }
+
+    pub fn new_with_capacity(head: H, capacity: usize) -> Self {
+        Self {
+            head,
+            content: Vec::with_capacity(capacity),
+            has_changed: Cell::new(true),
+        }
+    }
+
+    /// Add a new structure to the structure chain
+    /// Note: No check is done that the structure is not already part of this structure chain
+    /// When pushing a structure, it is pushed in a linked state
+    pub fn push<T: ExtendingStructure<H> + 'static>(&mut self, structure: T) {
+        self.has_changed.set(true);
+        self.content.push((Box::new(structure), Cell::new(true)));
+    }
+
+    fn perform_linking(&self) {
+        self.has_changed.set(false);
+        let mut prev_ptr = ptr::null();
+        for (structure, is_linked) in &self.content {
+            if is_linked.get() {
+                let next_header = structure.header();
+                unsafe { &*next_header }.p_next.set(prev_ptr);
+                prev_ptr = next_header;
+            }
+        }
+        unsafe { self.head.retrieve_next().set(prev_ptr) };
+    }
+}
+
+impl<H> AsRef<H> for StructureChainVec<H>
+where
+    H: ExtendableStructure,
+{
+    fn as_ref(&self) -> &H {
+        if self.has_changed.get() {
+            self.perform_linking();
+        }
+        &self.head
+    }
+}
+
+impl<H> AsMut<H> for StructureChainVec<H>
+where
+    H: ExtendableStructure,
+{
+    fn as_mut(&mut self) -> &mut H {
+        if self.has_changed.get() {
+            self.perform_linking();
+        }
+        &mut self.head
+    }
+}
+
+unsafe impl<H> StructureChain<H> for StructureChainVec<H>
+where
+    H: ExtendableStructure,
+{
+    fn get_mut<T: ExtendingStructure<H>>(&mut self) -> &mut T {
+        if H::STRUCTURE_TYPE == T::STRUCTURE_TYPE {
+            self.perform_linking();
+            return unsafe { mem::transmute(self) };
+        }
+
+        for (structure, _) in &mut self.content {
+            let header = structure.header_mut();
+            if unsafe { (*header).s_type } == H::STRUCTURE_TYPE {
+                return unsafe { mem::transmute(header) };
+            }
+        }
+
+        panic!(
+            "Type {} is not part of the structure chain",
+            std::any::type_name::<H>()
+        )
+    }
+
+    fn get<T: ExtendingStructure<H>>(&self) -> &T {
+        if H::STRUCTURE_TYPE == T::STRUCTURE_TYPE {
+            self.perform_linking();
+            return unsafe { mem::transmute(self) };
+        }
+
+        for (structure, _) in &self.content {
+            let header = structure.header();
+            if unsafe { (*header).s_type } == H::STRUCTURE_TYPE {
+                return unsafe { mem::transmute(header) };
+            }
+        }
+
+        panic!(
+            "Type {} is not part of the structure chain",
+            std::any::type_name::<H>()
+        )
+    }
+
+    fn unlink<T: ExtendingStructure<H>>(&mut self) {
+        if H::STRUCTURE_TYPE == T::STRUCTURE_TYPE {
+            panic!("Cannot unlink head structure!");
+        }
+        self.has_changed.set(true);
+
+        for (structure, is_linked) in &self.content {
+            let header = structure.header();
+            if unsafe { (*header).s_type } == H::STRUCTURE_TYPE {
+                is_linked.set(false);
+                return;
+            }
+        }
+
+        panic!(
+            "Type {} is not part of the structure chain",
+            std::any::type_name::<H>()
+        )
+    }
+
+    fn link<T: ExtendingStructure<H>>(&mut self) {
+        if H::STRUCTURE_TYPE == T::STRUCTURE_TYPE {
+            panic!("Head structure is always linked!");
+        }
+        self.has_changed.set(true);
+
+        for (structure, is_linked) in &self.content {
+            let header = structure.header();
+            if unsafe { (*header).s_type } == H::STRUCTURE_TYPE {
+                is_linked.set(true);
+                return;
+            }
+        }
+
+        panic!(
+            "Type {} is not part of the structure chain",
+            std::any::type_name::<H>()
+        )
+    }
+}
+
 #[macro_export]
 macro_rules! create_structure_chain {
     ($head:ty $(,)?) => {
@@ -1027,6 +1194,14 @@ macro_rules! structure_chain {
     ($head:expr, $ext1:expr, $ext2:expr, $ext3:expr, $ext4:expr, $ext5:expr, $ext6:expr $(,)?) => {
         $crate::StructureChain6::new($head, $ext1, $ext2, $ext3, $ext4, $ext5, $ext6)
     };
+    ($head:expr, $($ext:expr),*  $(,)?) => {{
+        // TODO: this can be optimized using new_with_capacity
+        let mut chain = $crate::StructureChainVec::new($head);
+        $(
+            chain.push($ext);
+        )*
+        chain
+    }}
 }
 
 /// Includes a file as a reference to a u32 array.

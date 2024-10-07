@@ -258,6 +258,7 @@ pub struct BufferMemoryBarrier<'a> {
     pub size: DeviceSize,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for BufferMemoryBarrier<'a> {}
 unsafe impl<'a> ExtendableStructure for BufferMemoryBarrier<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::BufferMemoryBarrier;
 }
@@ -469,6 +470,7 @@ pub struct ImageMemoryBarrier<'a> {
     pub subresource_range: ImageSubresourceRange,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ImageMemoryBarrier<'a> {}
 unsafe impl<'a> ExtendableStructure for ImageMemoryBarrier<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ImageMemoryBarrier;
 }
@@ -548,6 +550,7 @@ pub struct MemoryBarrier<'a> {
     pub dst_access_mask: AccessFlags,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for MemoryBarrier<'a> {}
 unsafe impl<'a> ExtendableStructure for MemoryBarrier<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::MemoryBarrier;
 }
@@ -703,6 +706,7 @@ pub struct ApplicationInfo<'a> {
     pub api_version: ApiVersion,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ApplicationInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for ApplicationInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ApplicationInfo;
 }
@@ -856,6 +860,7 @@ pub struct InstanceCreateInfo<'a> {
     pub(crate) pp_enabled_extension_names: *const InstanceExtensionName,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for InstanceCreateInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for InstanceCreateInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::InstanceCreateInfo;
 }
@@ -2387,6 +2392,7 @@ pub struct DeviceCreateInfo<'a> {
     pub p_enabled_features: *const PhysicalDeviceFeatures,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DeviceCreateInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for DeviceCreateInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::DeviceCreateInfo;
 }
@@ -2498,6 +2504,7 @@ pub struct DeviceQueueCreateInfo<'a> {
     pub(crate) p_queue_priorities: *const f32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DeviceQueueCreateInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for DeviceQueueCreateInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::DeviceQueueCreateInfo;
 }
@@ -2644,6 +2651,7 @@ pub struct SubmitInfo<'a> {
     pub(crate) p_signal_semaphores: *const Semaphore,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for SubmitInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for SubmitInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::SubmitInfo;
 }
@@ -2758,6 +2766,7 @@ pub struct MappedMemoryRange<'a> {
     pub size: DeviceSize,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for MappedMemoryRange<'a> {}
 unsafe impl<'a> ExtendableStructure for MappedMemoryRange<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::MappedMemoryRange;
 }
@@ -2807,6 +2816,7 @@ pub struct MemoryAllocateInfo<'a> {
     pub memory_type_index: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for MemoryAllocateInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for MemoryAllocateInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::MemoryAllocateInfo;
 }
@@ -2895,6 +2905,7 @@ pub struct BindSparseInfo<'a> {
     pub(crate) p_signal_semaphores: *const Semaphore,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for BindSparseInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for BindSparseInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::BindSparseInfo;
 }
@@ -3385,6 +3396,7 @@ pub struct FenceCreateInfo<'a> {
     pub flags: FenceCreateFlags,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for FenceCreateInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for FenceCreateInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::FenceCreateInfo;
 }
@@ -3421,6 +3433,7 @@ pub struct SemaphoreCreateInfo<'a> {
     pub flags: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for SemaphoreCreateInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for SemaphoreCreateInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::SemaphoreCreateInfo;
 }
@@ -3457,6 +3470,7 @@ pub struct EventCreateInfo<'a> {
     pub flags: EventCreateFlags,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for EventCreateInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for EventCreateInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::EventCreateInfo;
 }
@@ -3496,6 +3510,7 @@ pub struct QueryPoolCreateInfo<'a> {
     pub pipeline_statistics: QueryPipelineStatisticFlags,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for QueryPoolCreateInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for QueryPoolCreateInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::QueryPoolCreateInfo;
 }
@@ -3555,6 +3570,7 @@ pub struct BufferCreateInfo<'a> {
     pub(crate) p_queue_family_indices: *const u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for BufferCreateInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for BufferCreateInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::BufferCreateInfo;
 }
@@ -3637,6 +3653,7 @@ pub struct BufferViewCreateInfo<'a> {
     pub range: DeviceSize,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for BufferViewCreateInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for BufferViewCreateInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::BufferViewCreateInfo;
 }
@@ -3709,6 +3726,7 @@ pub struct ImageCreateInfo<'a> {
     pub initial_layout: ImageLayout,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ImageCreateInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for ImageCreateInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ImageCreateInfo;
 }
@@ -3980,6 +3998,7 @@ pub struct ImageViewCreateInfo<'a> {
     pub subresource_range: ImageSubresourceRange,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ImageViewCreateInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for ImageViewCreateInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ImageViewCreateInfo;
 }
@@ -4048,6 +4067,7 @@ pub struct ShaderModuleCreateInfo<'a> {
     pub(crate) p_code: *const u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ShaderModuleCreateInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for ShaderModuleCreateInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ShaderModuleCreateInfo;
 }
@@ -4098,6 +4118,7 @@ pub struct PipelineCacheCreateInfo<'a> {
     pub(crate) p_initial_data: VoidPtr,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PipelineCacheCreateInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for PipelineCacheCreateInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PipelineCacheCreateInfo;
 }
@@ -4157,6 +4178,7 @@ pub struct ComputePipelineCreateInfo<'a> {
     pub base_pipeline_index: i32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ComputePipelineCreateInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for ComputePipelineCreateInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ComputePipelineCreateInfo;
 }
@@ -4237,6 +4259,7 @@ pub struct GraphicsPipelineCreateInfo<'a> {
     pub base_pipeline_index: i32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for GraphicsPipelineCreateInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for GraphicsPipelineCreateInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::GraphicsPipelineCreateInfo;
 }
@@ -4481,6 +4504,7 @@ pub struct PipelineColorBlendStateCreateInfo<'a> {
     pub blend_constants: [f32; 4u16 as _],
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PipelineColorBlendStateCreateInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for PipelineColorBlendStateCreateInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PipelineColorBlendStateCreateInfo;
 }
@@ -4568,6 +4592,7 @@ pub struct PipelineDepthStencilStateCreateInfo<'a> {
     pub max_depth_bounds: f32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PipelineDepthStencilStateCreateInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for PipelineDepthStencilStateCreateInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PipelineDepthStencilStateCreateInfo;
 }
@@ -4660,6 +4685,7 @@ pub struct PipelineDynamicStateCreateInfo<'a> {
     pub(crate) p_dynamic_states: *const DynamicState,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PipelineDynamicStateCreateInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for PipelineDynamicStateCreateInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PipelineDynamicStateCreateInfo;
 }
@@ -4714,6 +4740,7 @@ pub struct PipelineInputAssemblyStateCreateInfo<'a> {
     pub primitive_restart_enable: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PipelineInputAssemblyStateCreateInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for PipelineInputAssemblyStateCreateInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PipelineInputAssemblyStateCreateInfo;
 }
@@ -4768,6 +4795,7 @@ pub struct PipelineMultisampleStateCreateInfo<'a> {
     pub alpha_to_one_enable: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PipelineMultisampleStateCreateInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for PipelineMultisampleStateCreateInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PipelineMultisampleStateCreateInfo;
 }
@@ -4853,6 +4881,7 @@ pub struct PipelineRasterizationStateCreateInfo<'a> {
     pub line_width: f32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PipelineRasterizationStateCreateInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for PipelineRasterizationStateCreateInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PipelineRasterizationStateCreateInfo;
 }
@@ -4953,6 +4982,7 @@ pub struct PipelineShaderStageCreateInfo<'a> {
     pub p_specialization_info: *const SpecializationInfo<'a>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PipelineShaderStageCreateInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for PipelineShaderStageCreateInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PipelineShaderStageCreateInfo;
 }
@@ -5014,6 +5044,7 @@ pub struct PipelineTessellationStateCreateInfo<'a> {
     pub patch_control_points: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PipelineTessellationStateCreateInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for PipelineTessellationStateCreateInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PipelineTessellationStateCreateInfo;
 }
@@ -5060,6 +5091,7 @@ pub struct PipelineVertexInputStateCreateInfo<'a> {
     pub(crate) p_vertex_attribute_descriptions: *const VertexInputAttributeDescription,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PipelineVertexInputStateCreateInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for PipelineVertexInputStateCreateInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PipelineVertexInputStateCreateInfo;
 }
@@ -5147,6 +5179,7 @@ pub struct PipelineViewportStateCreateInfo<'a> {
     pub(crate) p_scissors: *const Rect2D,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PipelineViewportStateCreateInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for PipelineViewportStateCreateInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PipelineViewportStateCreateInfo;
 }
@@ -5526,6 +5559,7 @@ pub struct PipelineLayoutCreateInfo<'a> {
     pub(crate) p_push_constant_ranges: *const PushConstantRange,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PipelineLayoutCreateInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for PipelineLayoutCreateInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PipelineLayoutCreateInfo;
 }
@@ -5681,6 +5715,7 @@ pub struct SamplerCreateInfo<'a> {
     pub unnormalized_coordinates: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for SamplerCreateInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for SamplerCreateInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::SamplerCreateInfo;
 }
@@ -5813,6 +5848,7 @@ pub struct CopyDescriptorSet<'a> {
     pub descriptor_count: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for CopyDescriptorSet<'a> {}
 unsafe impl<'a> ExtendableStructure for CopyDescriptorSet<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::CopyDescriptorSet;
 }
@@ -5964,6 +6000,7 @@ pub struct DescriptorPoolCreateInfo<'a> {
     pub(crate) p_pool_sizes: *const DescriptorPoolSize,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DescriptorPoolCreateInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for DescriptorPoolCreateInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::DescriptorPoolCreateInfo;
 }
@@ -6054,6 +6091,7 @@ pub struct DescriptorSetAllocateInfo<'a> {
     pub(crate) p_set_layouts: *const DescriptorSetLayout,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DescriptorSetAllocateInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for DescriptorSetAllocateInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::DescriptorSetAllocateInfo;
 }
@@ -6175,6 +6213,7 @@ pub struct DescriptorSetLayoutCreateInfo<'a> {
     pub(crate) p_bindings: *const DescriptorSetLayoutBinding<'a>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DescriptorSetLayoutCreateInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for DescriptorSetLayoutCreateInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::DescriptorSetLayoutCreateInfo;
 }
@@ -6237,6 +6276,7 @@ pub struct WriteDescriptorSet<'a> {
     pub(crate) p_texel_buffer_view: *const BufferView,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for WriteDescriptorSet<'a> {}
 unsafe impl<'a> ExtendableStructure for WriteDescriptorSet<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::WriteDescriptorSet;
 }
@@ -6458,6 +6498,7 @@ pub struct FramebufferCreateInfo<'a> {
     pub layers: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for FramebufferCreateInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for FramebufferCreateInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::FramebufferCreateInfo;
 }
@@ -6548,6 +6589,7 @@ pub struct RenderPassCreateInfo<'a> {
     pub(crate) p_dependencies: *const SubpassDependency,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for RenderPassCreateInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for RenderPassCreateInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::RenderPassCreateInfo;
 }
@@ -6822,6 +6864,7 @@ pub struct CommandPoolCreateInfo<'a> {
     pub queue_family_index: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for CommandPoolCreateInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for CommandPoolCreateInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::CommandPoolCreateInfo;
 }
@@ -6866,6 +6909,7 @@ pub struct CommandBufferAllocateInfo<'a> {
     pub command_buffer_count: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for CommandBufferAllocateInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for CommandBufferAllocateInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::CommandBufferAllocateInfo;
 }
@@ -6915,6 +6959,7 @@ pub struct CommandBufferBeginInfo<'a> {
     pub p_inheritance_info: *const CommandBufferInheritanceInfo<'a>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for CommandBufferBeginInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for CommandBufferBeginInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::CommandBufferBeginInfo;
 }
@@ -6962,6 +7007,7 @@ pub struct CommandBufferInheritanceInfo<'a> {
     pub pipeline_statistics: QueryPipelineStatisticFlags,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for CommandBufferInheritanceInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for CommandBufferInheritanceInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::CommandBufferInheritanceInfo;
 }
@@ -7452,6 +7498,7 @@ pub struct RenderPassBeginInfo<'a> {
     pub(crate) p_clear_values: *const ClearValue,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for RenderPassBeginInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for RenderPassBeginInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::RenderPassBeginInfo;
 }
@@ -7524,6 +7571,7 @@ pub struct PhysicalDeviceSubgroupProperties<'a> {
     pub quad_operations_in_all_stages: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceSubgroupProperties<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceSubgroupProperties<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceSubgroupProperties;
 }
@@ -7584,6 +7632,7 @@ pub struct BindBufferMemoryInfo<'a> {
     pub memory_offset: DeviceSize,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for BindBufferMemoryInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for BindBufferMemoryInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::BindBufferMemoryInfo;
 }
@@ -7635,6 +7684,7 @@ pub struct BindImageMemoryInfo<'a> {
     pub memory_offset: DeviceSize,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for BindImageMemoryInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for BindImageMemoryInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::BindImageMemoryInfo;
 }
@@ -7687,6 +7737,7 @@ pub struct PhysicalDevice16BitStorageFeatures<'a> {
     pub storage_input_output16: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDevice16BitStorageFeatures<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDevice16BitStorageFeatures<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDevice16BitStorageFeatures;
 }
@@ -7751,6 +7802,7 @@ pub struct MemoryDedicatedRequirements<'a> {
     pub requires_dedicated_allocation: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for MemoryDedicatedRequirements<'a> {}
 unsafe impl<'a> ExtendableStructure for MemoryDedicatedRequirements<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::MemoryDedicatedRequirements;
 }
@@ -7799,6 +7851,7 @@ pub struct MemoryDedicatedAllocateInfo<'a> {
     pub buffer: Option<Buffer>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for MemoryDedicatedAllocateInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for MemoryDedicatedAllocateInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::MemoryDedicatedAllocateInfo;
 }
@@ -7844,6 +7897,7 @@ pub struct MemoryAllocateFlagsInfo<'a> {
     pub device_mask: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for MemoryAllocateFlagsInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for MemoryAllocateFlagsInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::MemoryAllocateFlagsInfo;
 }
@@ -7890,6 +7944,7 @@ pub struct DeviceGroupRenderPassBeginInfo<'a> {
     pub(crate) p_device_render_areas: *const Rect2D,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DeviceGroupRenderPassBeginInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for DeviceGroupRenderPassBeginInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::DeviceGroupRenderPassBeginInfo;
 }
@@ -7951,6 +8006,7 @@ pub struct DeviceGroupCommandBufferBeginInfo<'a> {
     pub device_mask: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DeviceGroupCommandBufferBeginInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for DeviceGroupCommandBufferBeginInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::DeviceGroupCommandBufferBeginInfo;
 }
@@ -7997,6 +8053,7 @@ pub struct DeviceGroupSubmitInfo<'a> {
     pub(crate) p_signal_semaphore_device_indices: *const u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DeviceGroupSubmitInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for DeviceGroupSubmitInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::DeviceGroupSubmitInfo;
 }
@@ -8099,6 +8156,7 @@ pub struct DeviceGroupBindSparseInfo<'a> {
     pub memory_device_index: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DeviceGroupBindSparseInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for DeviceGroupBindSparseInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::DeviceGroupBindSparseInfo;
 }
@@ -8144,6 +8202,7 @@ pub struct BindBufferMemoryDeviceGroupInfo<'a> {
     pub(crate) p_device_indices: *const u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for BindBufferMemoryDeviceGroupInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for BindBufferMemoryDeviceGroupInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::BindBufferMemoryDeviceGroupInfo;
 }
@@ -8198,6 +8257,7 @@ pub struct BindImageMemoryDeviceGroupInfo<'a> {
     pub(crate) p_split_instance_bind_regions: *const Rect2D,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for BindImageMemoryDeviceGroupInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for BindImageMemoryDeviceGroupInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::BindImageMemoryDeviceGroupInfo;
 }
@@ -8274,6 +8334,7 @@ pub struct PhysicalDeviceGroupProperties<'a> {
     pub subset_allocation: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceGroupProperties<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceGroupProperties<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceGroupProperties;
 }
@@ -8319,6 +8380,7 @@ pub struct DeviceGroupDeviceCreateInfo<'a> {
     pub(crate) p_physical_devices: *const PhysicalDevice,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DeviceGroupDeviceCreateInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for DeviceGroupDeviceCreateInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::DeviceGroupDeviceCreateInfo;
 }
@@ -8373,6 +8435,7 @@ pub struct BufferMemoryRequirementsInfo2<'a> {
     pub buffer: Option<Buffer>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for BufferMemoryRequirementsInfo2<'a> {}
 unsafe impl<'a> ExtendableStructure for BufferMemoryRequirementsInfo2<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::BufferMemoryRequirementsInfo2;
 }
@@ -8410,6 +8473,7 @@ pub struct ImageMemoryRequirementsInfo2<'a> {
     pub image: Option<Image>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ImageMemoryRequirementsInfo2<'a> {}
 unsafe impl<'a> ExtendableStructure for ImageMemoryRequirementsInfo2<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ImageMemoryRequirementsInfo2;
 }
@@ -8447,6 +8511,7 @@ pub struct ImageSparseMemoryRequirementsInfo2<'a> {
     pub image: Option<Image>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ImageSparseMemoryRequirementsInfo2<'a> {}
 unsafe impl<'a> ExtendableStructure for ImageSparseMemoryRequirementsInfo2<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ImageSparseMemoryRequirementsInfo2;
 }
@@ -8484,6 +8549,7 @@ pub struct MemoryRequirements2<'a> {
     pub memory_requirements: MemoryRequirements,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for MemoryRequirements2<'a> {}
 unsafe impl<'a> ExtendableStructure for MemoryRequirements2<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::MemoryRequirements2;
 }
@@ -8521,6 +8587,7 @@ pub struct SparseImageMemoryRequirements2<'a> {
     pub memory_requirements: SparseImageMemoryRequirements,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for SparseImageMemoryRequirements2<'a> {}
 unsafe impl<'a> ExtendableStructure for SparseImageMemoryRequirements2<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::SparseImageMemoryRequirements2;
 }
@@ -8558,6 +8625,7 @@ pub struct PhysicalDeviceFeatures2<'a> {
     pub features: PhysicalDeviceFeatures,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceFeatures2<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceFeatures2<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceFeatures2;
 }
@@ -8596,6 +8664,7 @@ pub struct PhysicalDeviceProperties2<'a> {
     pub properties: PhysicalDeviceProperties,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceProperties2<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceProperties2<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceProperties2;
 }
@@ -8633,6 +8702,7 @@ pub struct FormatProperties2<'a> {
     pub format_properties: FormatProperties,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for FormatProperties2<'a> {}
 unsafe impl<'a> ExtendableStructure for FormatProperties2<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::FormatProperties2;
 }
@@ -8670,6 +8740,7 @@ pub struct ImageFormatProperties2<'a> {
     pub image_format_properties: ImageFormatProperties,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ImageFormatProperties2<'a> {}
 unsafe impl<'a> ExtendableStructure for ImageFormatProperties2<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ImageFormatProperties2;
 }
@@ -8711,6 +8782,7 @@ pub struct PhysicalDeviceImageFormatInfo2<'a> {
     pub flags: ImageCreateFlags,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceImageFormatInfo2<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceImageFormatInfo2<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceImageFormatInfo2;
 }
@@ -8772,6 +8844,7 @@ pub struct QueueFamilyProperties2<'a> {
     pub queue_family_properties: QueueFamilyProperties,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for QueueFamilyProperties2<'a> {}
 unsafe impl<'a> ExtendableStructure for QueueFamilyProperties2<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::QueueFamilyProperties2;
 }
@@ -8809,6 +8882,7 @@ pub struct PhysicalDeviceMemoryProperties2<'a> {
     pub memory_properties: PhysicalDeviceMemoryProperties,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceMemoryProperties2<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceMemoryProperties2<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceMemoryProperties2;
 }
@@ -8846,6 +8920,7 @@ pub struct SparseImageFormatProperties2<'a> {
     pub properties: SparseImageFormatProperties,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for SparseImageFormatProperties2<'a> {}
 unsafe impl<'a> ExtendableStructure for SparseImageFormatProperties2<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::SparseImageFormatProperties2;
 }
@@ -8887,6 +8962,7 @@ pub struct PhysicalDeviceSparseImageFormatInfo2<'a> {
     pub tiling: ImageTiling,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceSparseImageFormatInfo2<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceSparseImageFormatInfo2<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceSparseImageFormatInfo2;
 }
@@ -8948,6 +9024,7 @@ pub struct PhysicalDevicePointClippingProperties<'a> {
     pub point_clipping_behavior: PointClippingBehavior,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDevicePointClippingProperties<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDevicePointClippingProperties<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDevicePointClippingProperties;
 }
@@ -8990,6 +9067,7 @@ pub struct RenderPassInputAttachmentAspectCreateInfo<'a> {
     pub(crate) p_aspect_references: *const InputAttachmentAspectReference,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for RenderPassInputAttachmentAspectCreateInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for RenderPassInputAttachmentAspectCreateInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::RenderPassInputAttachmentAspectCreateInfo;
 }
@@ -9086,6 +9164,7 @@ pub struct ImageViewUsageCreateInfo<'a> {
     pub usage: ImageUsageFlags,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ImageViewUsageCreateInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for ImageViewUsageCreateInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ImageViewUsageCreateInfo;
 }
@@ -9124,6 +9203,7 @@ pub struct PipelineTessellationDomainOriginStateCreateInfo<'a> {
     pub domain_origin: TessellationDomainOrigin,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PipelineTessellationDomainOriginStateCreateInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for PipelineTessellationDomainOriginStateCreateInfo<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PipelineTessellationDomainOriginStateCreateInfo;
@@ -9172,6 +9252,7 @@ pub struct RenderPassMultiviewCreateInfo<'a> {
     pub(crate) p_correlation_masks: *const u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for RenderPassMultiviewCreateInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for RenderPassMultiviewCreateInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::RenderPassMultiviewCreateInfo;
 }
@@ -9260,6 +9341,7 @@ pub struct PhysicalDeviceMultiviewFeatures<'a> {
     pub multiview_tessellation_shader: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceMultiviewFeatures<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceMultiviewFeatures<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceMultiviewFeatures;
 }
@@ -9318,6 +9400,7 @@ pub struct PhysicalDeviceMultiviewProperties<'a> {
     pub max_multiview_instance_index: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceMultiviewProperties<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceMultiviewProperties<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceMultiviewProperties;
 }
@@ -9366,6 +9449,7 @@ pub struct PhysicalDeviceVariablePointersFeatures<'a> {
     pub variable_pointers: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceVariablePointersFeatures<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceVariablePointersFeatures<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceVariablePointersFeatures;
 }
@@ -9419,6 +9503,7 @@ pub struct PhysicalDeviceProtectedMemoryFeatures<'a> {
     pub protected_memory: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceProtectedMemoryFeatures<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceProtectedMemoryFeatures<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceProtectedMemoryFeatures;
 }
@@ -9463,6 +9548,7 @@ pub struct PhysicalDeviceProtectedMemoryProperties<'a> {
     pub protected_no_fault: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceProtectedMemoryProperties<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceProtectedMemoryProperties<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceProtectedMemoryProperties;
 }
@@ -9505,6 +9591,7 @@ pub struct DeviceQueueInfo2<'a> {
     pub queue_index: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DeviceQueueInfo2<'a> {}
 unsafe impl<'a> ExtendableStructure for DeviceQueueInfo2<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::DeviceQueueInfo2;
 }
@@ -9553,6 +9640,7 @@ pub struct ProtectedSubmitInfo<'a> {
     pub protected_submit: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ProtectedSubmitInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for ProtectedSubmitInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ProtectedSubmitInfo;
 }
@@ -9597,6 +9685,7 @@ pub struct SamplerYcbcrConversionCreateInfo<'a> {
     pub force_explicit_reconstruction: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for SamplerYcbcrConversionCreateInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for SamplerYcbcrConversionCreateInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::SamplerYcbcrConversionCreateInfo;
 }
@@ -9676,6 +9765,7 @@ pub struct SamplerYcbcrConversionInfo<'a> {
     pub conversion: Option<SamplerYcbcrConversion>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for SamplerYcbcrConversionInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for SamplerYcbcrConversionInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::SamplerYcbcrConversionInfo;
 }
@@ -9715,6 +9805,7 @@ pub struct BindImagePlaneMemoryInfo<'a> {
     pub plane_aspect: ImageAspectFlags,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for BindImagePlaneMemoryInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for BindImagePlaneMemoryInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::BindImagePlaneMemoryInfo;
 }
@@ -9753,6 +9844,7 @@ pub struct ImagePlaneMemoryRequirementsInfo<'a> {
     pub plane_aspect: ImageAspectFlags,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ImagePlaneMemoryRequirementsInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for ImagePlaneMemoryRequirementsInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ImagePlaneMemoryRequirementsInfo;
 }
@@ -9794,6 +9886,7 @@ pub struct PhysicalDeviceSamplerYcbcrConversionFeatures<'a> {
     pub sampler_ycbcr_conversion: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceSamplerYcbcrConversionFeatures<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceSamplerYcbcrConversionFeatures<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceSamplerYcbcrConversionFeatures;
@@ -9841,6 +9934,7 @@ pub struct SamplerYcbcrConversionImageFormatProperties<'a> {
     pub combined_image_sampler_descriptor_count: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for SamplerYcbcrConversionImageFormatProperties<'a> {}
 unsafe impl<'a> ExtendableStructure for SamplerYcbcrConversionImageFormatProperties<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::SamplerYcbcrConversionImageFormatProperties;
@@ -9950,6 +10044,7 @@ pub struct DescriptorUpdateTemplateCreateInfo<'a> {
     pub set: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DescriptorUpdateTemplateCreateInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for DescriptorUpdateTemplateCreateInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::DescriptorUpdateTemplateCreateInfo;
 }
@@ -10080,6 +10175,7 @@ pub struct PhysicalDeviceExternalImageFormatInfo<'a> {
     pub handle_type: ExternalMemoryHandleTypeFlags,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceExternalImageFormatInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceExternalImageFormatInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceExternalImageFormatInfo;
 }
@@ -10121,6 +10217,7 @@ pub struct ExternalImageFormatProperties<'a> {
     pub external_memory_properties: ExternalMemoryProperties,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ExternalImageFormatProperties<'a> {}
 unsafe impl<'a> ExtendableStructure for ExternalImageFormatProperties<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ExternalImageFormatProperties;
 }
@@ -10164,6 +10261,7 @@ pub struct PhysicalDeviceExternalBufferInfo<'a> {
     pub handle_type: ExternalMemoryHandleTypeFlags,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceExternalBufferInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceExternalBufferInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceExternalBufferInfo;
 }
@@ -10213,6 +10311,7 @@ pub struct ExternalBufferProperties<'a> {
     pub external_memory_properties: ExternalMemoryProperties,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ExternalBufferProperties<'a> {}
 unsafe impl<'a> ExtendableStructure for ExternalBufferProperties<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ExternalBufferProperties;
 }
@@ -10254,6 +10353,7 @@ pub struct PhysicalDeviceIDProperties<'a> {
     pub device_luidvalid: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceIDProperties<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceIDProperties<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceIdProperties;
 }
@@ -10319,6 +10419,7 @@ pub struct ExternalMemoryImageCreateInfo<'a> {
     pub handle_types: ExternalMemoryHandleTypeFlags,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ExternalMemoryImageCreateInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for ExternalMemoryImageCreateInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ExternalMemoryImageCreateInfo;
 }
@@ -10357,6 +10458,7 @@ pub struct ExternalMemoryBufferCreateInfo<'a> {
     pub handle_types: ExternalMemoryHandleTypeFlags,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ExternalMemoryBufferCreateInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for ExternalMemoryBufferCreateInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ExternalMemoryBufferCreateInfo;
 }
@@ -10398,6 +10500,7 @@ pub struct ExportMemoryAllocateInfo<'a> {
     pub handle_types: ExternalMemoryHandleTypeFlags,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ExportMemoryAllocateInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for ExportMemoryAllocateInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ExportMemoryAllocateInfo;
 }
@@ -10436,6 +10539,7 @@ pub struct PhysicalDeviceExternalFenceInfo<'a> {
     pub handle_type: ExternalFenceHandleTypeFlags,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceExternalFenceInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceExternalFenceInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceExternalFenceInfo;
 }
@@ -10475,6 +10579,7 @@ pub struct ExternalFenceProperties<'a> {
     pub external_fence_features: ExternalFenceFeatureFlags,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ExternalFenceProperties<'a> {}
 unsafe impl<'a> ExtendableStructure for ExternalFenceProperties<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ExternalFenceProperties;
 }
@@ -10527,6 +10632,7 @@ pub struct ExportFenceCreateInfo<'a> {
     pub handle_types: ExternalFenceHandleTypeFlags,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ExportFenceCreateInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for ExportFenceCreateInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ExportFenceCreateInfo;
 }
@@ -10565,6 +10671,7 @@ pub struct ExportSemaphoreCreateInfo<'a> {
     pub handle_types: ExternalSemaphoreHandleTypeFlags,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ExportSemaphoreCreateInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for ExportSemaphoreCreateInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ExportSemaphoreCreateInfo;
 }
@@ -10603,6 +10710,7 @@ pub struct PhysicalDeviceExternalSemaphoreInfo<'a> {
     pub handle_type: ExternalSemaphoreHandleTypeFlags,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceExternalSemaphoreInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceExternalSemaphoreInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceExternalSemaphoreInfo;
 }
@@ -10642,6 +10750,7 @@ pub struct ExternalSemaphoreProperties<'a> {
     pub external_semaphore_features: ExternalSemaphoreFeatureFlags,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ExternalSemaphoreProperties<'a> {}
 unsafe impl<'a> ExtendableStructure for ExternalSemaphoreProperties<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ExternalSemaphoreProperties;
 }
@@ -10695,6 +10804,7 @@ pub struct PhysicalDeviceMaintenance3Properties<'a> {
     pub max_memory_allocation_size: DeviceSize,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceMaintenance3Properties<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceMaintenance3Properties<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceMaintenance3Properties;
 }
@@ -10742,6 +10852,7 @@ pub struct DescriptorSetLayoutSupport<'a> {
     pub supported: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DescriptorSetLayoutSupport<'a> {}
 unsafe impl<'a> ExtendableStructure for DescriptorSetLayoutSupport<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::DescriptorSetLayoutSupport;
 }
@@ -10779,6 +10890,7 @@ pub struct PhysicalDeviceShaderDrawParametersFeatures<'a> {
     pub shader_draw_parameters: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceShaderDrawParametersFeatures<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceShaderDrawParametersFeatures<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceShaderDrawParametersFeatures;
 }
@@ -10836,6 +10948,7 @@ pub struct PhysicalDeviceVulkan11Features<'a> {
     pub shader_draw_parameters: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceVulkan11Features<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceVulkan11Features<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceVulkan11Features;
 }
@@ -10960,6 +11073,7 @@ pub struct PhysicalDeviceVulkan11Properties<'a> {
     pub max_memory_allocation_size: DeviceSize,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceVulkan11Properties<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceVulkan11Properties<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceVulkan11Properties;
 }
@@ -11130,6 +11244,7 @@ pub struct PhysicalDeviceVulkan12Features<'a> {
     pub subgroup_broadcast_dynamic_id: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceVulkan12Features<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceVulkan12Features<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceVulkan12Features;
 }
@@ -11558,6 +11673,7 @@ pub struct PhysicalDeviceVulkan12Properties<'a> {
     pub framebuffer_integer_color_sample_counts: SampleCountFlags,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceVulkan12Properties<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceVulkan12Properties<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceVulkan12Properties;
 }
@@ -11939,6 +12055,7 @@ pub struct ImageFormatListCreateInfo<'a> {
     pub(crate) p_view_formats: *const Format,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ImageFormatListCreateInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for ImageFormatListCreateInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ImageFormatListCreateInfo;
 }
@@ -12003,6 +12120,7 @@ pub struct RenderPassCreateInfo2<'a> {
     pub(crate) p_correlated_view_masks: *const u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for RenderPassCreateInfo2<'a> {}
 unsafe impl<'a> ExtendableStructure for RenderPassCreateInfo2<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::RenderPassCreateInfo2;
 }
@@ -12121,6 +12239,7 @@ pub struct AttachmentDescription2<'a> {
     pub final_layout: ImageLayout,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for AttachmentDescription2<'a> {}
 unsafe impl<'a> ExtendableStructure for AttachmentDescription2<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::AttachmentDescription2;
 }
@@ -12208,6 +12327,7 @@ pub struct AttachmentReference2<'a> {
     pub aspect_mask: ImageAspectFlags,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for AttachmentReference2<'a> {}
 unsafe impl<'a> ExtendableStructure for AttachmentReference2<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::AttachmentReference2;
 }
@@ -12267,6 +12387,7 @@ pub struct SubpassDescription2<'a> {
     pub(crate) p_preserve_attachments: *const u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for SubpassDescription2<'a> {}
 unsafe impl<'a> ExtendableStructure for SubpassDescription2<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::SubpassDescription2;
 }
@@ -12408,6 +12529,7 @@ pub struct SubpassDependency2<'a> {
     pub view_offset: i32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for SubpassDependency2<'a> {}
 unsafe impl<'a> ExtendableStructure for SubpassDependency2<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::SubpassDependency2;
 }
@@ -12487,6 +12609,7 @@ pub struct SubpassBeginInfo<'a> {
     pub contents: SubpassContents,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for SubpassBeginInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for SubpassBeginInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::SubpassBeginInfo;
 }
@@ -12523,6 +12646,7 @@ pub struct SubpassEndInfo<'a> {
     pub(crate) p_next: Cell<*const Header>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for SubpassEndInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for SubpassEndInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::SubpassEndInfo;
 }
@@ -12556,6 +12680,7 @@ pub struct PhysicalDevice8BitStorageFeatures<'a> {
     pub storage_push_constant8: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDevice8BitStorageFeatures<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDevice8BitStorageFeatures<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDevice8BitStorageFeatures;
 }
@@ -12661,6 +12786,7 @@ pub struct PhysicalDeviceDriverProperties<'a> {
     pub conformance_version: ConformanceVersion,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceDriverProperties<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceDriverProperties<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceDriverProperties;
 }
@@ -12725,6 +12851,7 @@ pub struct PhysicalDeviceShaderAtomicInt64Features<'a> {
     pub shader_shared_int64_atomics: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceShaderAtomicInt64Features<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceShaderAtomicInt64Features<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceShaderAtomicInt64Features;
 }
@@ -12778,6 +12905,7 @@ pub struct PhysicalDeviceShaderFloat16Int8Features<'a> {
     pub shader_int8: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceShaderFloat16Int8Features<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceShaderFloat16Int8Features<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceShaderFloat16Int8Features;
 }
@@ -12847,6 +12975,7 @@ pub struct PhysicalDeviceFloatControlsProperties<'a> {
     pub shader_rounding_mode_rtzfloat64: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceFloatControlsProperties<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceFloatControlsProperties<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceFloatControlsProperties;
 }
@@ -12985,6 +13114,7 @@ pub struct DescriptorSetLayoutBindingFlagsCreateInfo<'a> {
     pub(crate) p_binding_flags: *const DescriptorBindingFlags,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DescriptorSetLayoutBindingFlagsCreateInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for DescriptorSetLayoutBindingFlagsCreateInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::DescriptorSetLayoutBindingFlagsCreateInfo;
 }
@@ -13064,6 +13194,7 @@ pub struct PhysicalDeviceDescriptorIndexingFeatures<'a> {
     pub runtime_descriptor_array: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceDescriptorIndexingFeatures<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceDescriptorIndexingFeatures<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceDescriptorIndexingFeatures;
 }
@@ -13300,6 +13431,7 @@ pub struct PhysicalDeviceDescriptorIndexingProperties<'a> {
     pub max_descriptor_set_update_after_bind_input_attachments: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceDescriptorIndexingProperties<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceDescriptorIndexingProperties<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceDescriptorIndexingProperties;
 }
@@ -13505,6 +13637,7 @@ pub struct DescriptorSetVariableDescriptorCountAllocateInfo<'a> {
     pub(crate) p_descriptor_counts: *const u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DescriptorSetVariableDescriptorCountAllocateInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for DescriptorSetVariableDescriptorCountAllocateInfo<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::DescriptorSetVariableDescriptorCountAllocateInfo;
@@ -13561,6 +13694,7 @@ pub struct DescriptorSetVariableDescriptorCountLayoutSupport<'a> {
     pub max_variable_descriptor_count: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DescriptorSetVariableDescriptorCountLayoutSupport<'a> {}
 unsafe impl<'a> ExtendableStructure for DescriptorSetVariableDescriptorCountLayoutSupport<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::DescriptorSetVariableDescriptorCountLayoutSupport;
@@ -13606,6 +13740,7 @@ pub struct SubpassDescriptionDepthStencilResolve<'a> {
     pub p_depth_stencil_resolve_attachment: *const AttachmentReference2<'a>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for SubpassDescriptionDepthStencilResolve<'a> {}
 unsafe impl<'a> ExtendableStructure for SubpassDescriptionDepthStencilResolve<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::SubpassDescriptionDepthStencilResolve;
 }
@@ -13666,6 +13801,7 @@ pub struct PhysicalDeviceDepthStencilResolveProperties<'a> {
     pub independent_resolve: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceDepthStencilResolveProperties<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceDepthStencilResolveProperties<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceDepthStencilResolveProperties;
@@ -13727,6 +13863,7 @@ pub struct PhysicalDeviceScalarBlockLayoutFeatures<'a> {
     pub scalar_block_layout: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceScalarBlockLayoutFeatures<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceScalarBlockLayoutFeatures<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceScalarBlockLayoutFeatures;
 }
@@ -13773,6 +13910,7 @@ pub struct ImageStencilUsageCreateInfo<'a> {
     pub stencil_usage: ImageUsageFlags,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ImageStencilUsageCreateInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for ImageStencilUsageCreateInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ImageStencilUsageCreateInfo;
 }
@@ -13815,6 +13953,7 @@ pub struct SamplerReductionModeCreateInfo<'a> {
     pub reduction_mode: SamplerReductionMode,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for SamplerReductionModeCreateInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for SamplerReductionModeCreateInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::SamplerReductionModeCreateInfo;
 }
@@ -13857,6 +13996,7 @@ pub struct PhysicalDeviceSamplerFilterMinmaxProperties<'a> {
     pub filter_minmax_image_component_mapping: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceSamplerFilterMinmaxProperties<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceSamplerFilterMinmaxProperties<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceSamplerFilterMinmaxProperties;
@@ -13908,6 +14048,7 @@ pub struct PhysicalDeviceVulkanMemoryModelFeatures<'a> {
     pub vulkan_memory_model_availability_visibility_chains: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceVulkanMemoryModelFeatures<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceVulkanMemoryModelFeatures<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceVulkanMemoryModelFeatures;
 }
@@ -13969,6 +14110,7 @@ pub struct PhysicalDeviceImagelessFramebufferFeatures<'a> {
     pub imageless_framebuffer: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceImagelessFramebufferFeatures<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceImagelessFramebufferFeatures<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceImagelessFramebufferFeatures;
 }
@@ -14016,6 +14158,7 @@ pub struct FramebufferAttachmentsCreateInfo<'a> {
     pub(crate) p_attachment_image_infos: *const FramebufferAttachmentImageInfo<'a>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for FramebufferAttachmentsCreateInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for FramebufferAttachmentsCreateInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::FramebufferAttachmentsCreateInfo;
 }
@@ -14079,6 +14222,7 @@ pub struct FramebufferAttachmentImageInfo<'a> {
     pub(crate) p_view_formats: *const Format,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for FramebufferAttachmentImageInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for FramebufferAttachmentImageInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::FramebufferAttachmentImageInfo;
 }
@@ -14157,6 +14301,7 @@ pub struct RenderPassAttachmentBeginInfo<'a> {
     pub(crate) p_attachments: *const ImageView,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for RenderPassAttachmentBeginInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for RenderPassAttachmentBeginInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::RenderPassAttachmentBeginInfo;
 }
@@ -14211,6 +14356,7 @@ pub struct PhysicalDeviceUniformBufferStandardLayoutFeatures<'a> {
     pub uniform_buffer_standard_layout: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceUniformBufferStandardLayoutFeatures<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceUniformBufferStandardLayoutFeatures<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceUniformBufferStandardLayoutFeatures;
@@ -14258,6 +14404,7 @@ pub struct PhysicalDeviceShaderSubgroupExtendedTypesFeatures<'a> {
     pub shader_subgroup_extended_types: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceShaderSubgroupExtendedTypesFeatures<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceShaderSubgroupExtendedTypesFeatures<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceShaderSubgroupExtendedTypesFeatures;
@@ -14305,6 +14452,7 @@ pub struct PhysicalDeviceSeparateDepthStencilLayoutsFeatures<'a> {
     pub separate_depth_stencil_layouts: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceSeparateDepthStencilLayoutsFeatures<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceSeparateDepthStencilLayoutsFeatures<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceSeparateDepthStencilLayoutsFeatures;
@@ -14352,6 +14500,7 @@ pub struct AttachmentReferenceStencilLayout<'a> {
     pub stencil_layout: ImageLayout,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for AttachmentReferenceStencilLayout<'a> {}
 unsafe impl<'a> ExtendableStructure for AttachmentReferenceStencilLayout<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::AttachmentReferenceStencilLayout;
 }
@@ -14394,6 +14543,7 @@ pub struct AttachmentDescriptionStencilLayout<'a> {
     pub stencil_final_layout: ImageLayout,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for AttachmentDescriptionStencilLayout<'a> {}
 unsafe impl<'a> ExtendableStructure for AttachmentDescriptionStencilLayout<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::AttachmentDescriptionStencilLayout;
 }
@@ -14441,6 +14591,7 @@ pub struct PhysicalDeviceHostQueryResetFeatures<'a> {
     pub host_query_reset: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceHostQueryResetFeatures<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceHostQueryResetFeatures<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceHostQueryResetFeatures;
 }
@@ -14486,6 +14637,7 @@ pub struct PhysicalDeviceTimelineSemaphoreFeatures<'a> {
     pub timeline_semaphore: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceTimelineSemaphoreFeatures<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceTimelineSemaphoreFeatures<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceTimelineSemaphoreFeatures;
 }
@@ -14532,6 +14684,7 @@ pub struct PhysicalDeviceTimelineSemaphoreProperties<'a> {
     pub max_timeline_semaphore_value_difference: u64,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceTimelineSemaphoreProperties<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceTimelineSemaphoreProperties<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceTimelineSemaphoreProperties;
 }
@@ -14575,6 +14728,7 @@ pub struct SemaphoreTypeCreateInfo<'a> {
     pub initial_value: u64,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for SemaphoreTypeCreateInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for SemaphoreTypeCreateInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::SemaphoreTypeCreateInfo;
 }
@@ -14626,6 +14780,7 @@ pub struct TimelineSemaphoreSubmitInfo<'a> {
     pub(crate) p_signal_semaphore_values: *const u64,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for TimelineSemaphoreSubmitInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for TimelineSemaphoreSubmitInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::TimelineSemaphoreSubmitInfo;
 }
@@ -14713,6 +14868,7 @@ pub struct SemaphoreWaitInfo<'a> {
     pub(crate) p_values: *const u64,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for SemaphoreWaitInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for SemaphoreWaitInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::SemaphoreWaitInfo;
 }
@@ -14781,6 +14937,7 @@ pub struct SemaphoreSignalInfo<'a> {
     pub value: u64,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for SemaphoreSignalInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for SemaphoreSignalInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::SemaphoreSignalInfo;
 }
@@ -14826,6 +14983,7 @@ pub struct PhysicalDeviceBufferDeviceAddressFeatures<'a> {
     pub buffer_device_address_multi_device: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceBufferDeviceAddressFeatures<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceBufferDeviceAddressFeatures<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceBufferDeviceAddressFeatures;
 }
@@ -14884,6 +15042,7 @@ pub struct BufferDeviceAddressInfo<'a> {
     pub buffer: Option<Buffer>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for BufferDeviceAddressInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for BufferDeviceAddressInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::BufferDeviceAddressInfo;
 }
@@ -14922,6 +15081,7 @@ pub struct BufferOpaqueCaptureAddressCreateInfo<'a> {
     pub opaque_capture_address: u64,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for BufferOpaqueCaptureAddressCreateInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for BufferOpaqueCaptureAddressCreateInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::BufferOpaqueCaptureAddressCreateInfo;
 }
@@ -14963,6 +15123,7 @@ pub struct MemoryOpaqueCaptureAddressAllocateInfo<'a> {
     pub opaque_capture_address: u64,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for MemoryOpaqueCaptureAddressAllocateInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for MemoryOpaqueCaptureAddressAllocateInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::MemoryOpaqueCaptureAddressAllocateInfo;
 }
@@ -15004,6 +15165,7 @@ pub struct DeviceMemoryOpaqueCaptureAddressInfo<'a> {
     pub memory: Option<DeviceMemory>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DeviceMemoryOpaqueCaptureAddressInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for DeviceMemoryOpaqueCaptureAddressInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::DeviceMemoryOpaqueCaptureAddressInfo;
 }
@@ -15058,6 +15220,7 @@ pub struct PhysicalDeviceVulkan13Features<'a> {
     pub maintenance4: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceVulkan13Features<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceVulkan13Features<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceVulkan13Features;
 }
@@ -15234,6 +15397,7 @@ pub struct PhysicalDeviceVulkan13Properties<'a> {
     pub max_buffer_size: DeviceSize,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceVulkan13Properties<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceVulkan13Properties<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceVulkan13Properties;
 }
@@ -15596,6 +15760,7 @@ pub struct PipelineCreationFeedbackCreateInfo<'a> {
     pub(crate) p_pipeline_stage_creation_feedbacks: *const PipelineCreationFeedback,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PipelineCreationFeedbackCreateInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for PipelineCreationFeedbackCreateInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PipelineCreationFeedbackCreateInfo;
 }
@@ -15710,6 +15875,7 @@ pub struct PhysicalDeviceShaderTerminateInvocationFeatures<'a> {
     pub shader_terminate_invocation: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceShaderTerminateInvocationFeatures<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceShaderTerminateInvocationFeatures<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceShaderTerminateInvocationFeatures;
@@ -15761,6 +15927,7 @@ pub struct PhysicalDeviceToolProperties<'a> {
     pub(crate) layer: [c_char; MAX_EXTENSION_NAME_SIZE as _],
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceToolProperties<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceToolProperties<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceToolProperties;
 }
@@ -15830,6 +15997,10 @@ pub struct PhysicalDeviceShaderDemoteToHelperInvocationFeatures<'a> {
     pub shader_demote_to_helper_invocation: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase
+    for PhysicalDeviceShaderDemoteToHelperInvocationFeatures<'a>
+{
+}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceShaderDemoteToHelperInvocationFeatures<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceShaderDemoteToHelperInvocationFeatures;
@@ -15877,6 +16048,7 @@ pub struct PhysicalDevicePrivateDataFeatures<'a> {
     pub private_data: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDevicePrivateDataFeatures<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDevicePrivateDataFeatures<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDevicePrivateDataFeatures;
 }
@@ -15922,6 +16094,7 @@ pub struct DevicePrivateDataCreateInfo<'a> {
     pub private_data_slot_request_count: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DevicePrivateDataCreateInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for DevicePrivateDataCreateInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::DevicePrivateDataCreateInfo;
 }
@@ -15960,6 +16133,7 @@ pub struct PrivateDataSlotCreateInfo<'a> {
     pub flags: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PrivateDataSlotCreateInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for PrivateDataSlotCreateInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PrivateDataSlotCreateInfo;
 }
@@ -15997,6 +16171,7 @@ pub struct PhysicalDevicePipelineCreationCacheControlFeatures<'a> {
     pub pipeline_creation_cache_control: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDevicePipelineCreationCacheControlFeatures<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDevicePipelineCreationCacheControlFeatures<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDevicePipelineCreationCacheControlFeatures;
@@ -16047,6 +16222,7 @@ pub struct MemoryBarrier2<'a> {
     pub dst_access_mask: AccessFlags2,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for MemoryBarrier2<'a> {}
 unsafe impl<'a> ExtendableStructure for MemoryBarrier2<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::MemoryBarrier2;
 }
@@ -16111,6 +16287,7 @@ pub struct BufferMemoryBarrier2<'a> {
     pub size: DeviceSize,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for BufferMemoryBarrier2<'a> {}
 unsafe impl<'a> ExtendableStructure for BufferMemoryBarrier2<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::BufferMemoryBarrier2;
 }
@@ -16205,6 +16382,7 @@ pub struct ImageMemoryBarrier2<'a> {
     pub subresource_range: ImageSubresourceRange,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ImageMemoryBarrier2<'a> {}
 unsafe impl<'a> ExtendableStructure for ImageMemoryBarrier2<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ImageMemoryBarrier2;
 }
@@ -16302,6 +16480,7 @@ pub struct DependencyInfo<'a> {
     pub(crate) p_image_memory_barriers: *const ImageMemoryBarrier2<'a>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DependencyInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for DependencyInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::DependencyInfo;
 }
@@ -16411,6 +16590,7 @@ pub struct SubmitInfo2<'a> {
     pub(crate) p_signal_semaphore_infos: *const SemaphoreSubmitInfo<'a>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for SubmitInfo2<'a> {}
 unsafe impl<'a> ExtendableStructure for SubmitInfo2<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::SubmitInfo2;
 }
@@ -16517,6 +16697,7 @@ pub struct SemaphoreSubmitInfo<'a> {
     pub device_index: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for SemaphoreSubmitInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for SemaphoreSubmitInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::SemaphoreSubmitInfo;
 }
@@ -16573,6 +16754,7 @@ pub struct CommandBufferSubmitInfo<'a> {
     pub device_mask: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for CommandBufferSubmitInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for CommandBufferSubmitInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::CommandBufferSubmitInfo;
 }
@@ -16616,6 +16798,7 @@ pub struct PhysicalDeviceSynchronization2Features<'a> {
     pub synchronization2: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceSynchronization2Features<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceSynchronization2Features<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceSynchronization2Features;
 }
@@ -16660,6 +16843,10 @@ pub struct PhysicalDeviceZeroInitializeWorkgroupMemoryFeatures<'a> {
     pub(crate) p_next: Cell<*const Header>,
     pub shader_zero_initialize_workgroup_memory: Bool32,
     phantom: PhantomData<&'a ()>,
+}
+unsafe impl<'a> ExtendableStructureBase
+    for PhysicalDeviceZeroInitializeWorkgroupMemoryFeatures<'a>
+{
 }
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceZeroInitializeWorkgroupMemoryFeatures<'a> {
     const STRUCTURE_TYPE: StructureType =
@@ -16708,6 +16895,7 @@ pub struct PhysicalDeviceImageRobustnessFeatures<'a> {
     pub robust_image_access: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceImageRobustnessFeatures<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceImageRobustnessFeatures<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceImageRobustnessFeatures;
 }
@@ -16756,6 +16944,7 @@ pub struct CopyBufferInfo2<'a> {
     pub(crate) p_regions: *const BufferCopy2<'a>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for CopyBufferInfo2<'a> {}
 unsafe impl<'a> ExtendableStructure for CopyBufferInfo2<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::CopyBufferInfo2;
 }
@@ -16820,6 +17009,7 @@ pub struct CopyImageInfo2<'a> {
     pub(crate) p_regions: *const ImageCopy2<'a>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for CopyImageInfo2<'a> {}
 unsafe impl<'a> ExtendableStructure for CopyImageInfo2<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::CopyImageInfo2;
 }
@@ -16895,6 +17085,7 @@ pub struct CopyBufferToImageInfo2<'a> {
     pub(crate) p_regions: *const BufferImageCopy2<'a>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for CopyBufferToImageInfo2<'a> {}
 unsafe impl<'a> ExtendableStructure for CopyBufferToImageInfo2<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::CopyBufferToImageInfo2;
 }
@@ -16964,6 +17155,7 @@ pub struct CopyImageToBufferInfo2<'a> {
     pub(crate) p_regions: *const BufferImageCopy2<'a>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for CopyImageToBufferInfo2<'a> {}
 unsafe impl<'a> ExtendableStructure for CopyImageToBufferInfo2<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::CopyImageToBufferInfo2;
 }
@@ -17035,6 +17227,7 @@ pub struct BlitImageInfo2<'a> {
     pub filter: Filter,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for BlitImageInfo2<'a> {}
 unsafe impl<'a> ExtendableStructure for BlitImageInfo2<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::BlitImageInfo2;
 }
@@ -17117,6 +17310,7 @@ pub struct ResolveImageInfo2<'a> {
     pub(crate) p_regions: *const ImageResolve2<'a>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ResolveImageInfo2<'a> {}
 unsafe impl<'a> ExtendableStructure for ResolveImageInfo2<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ResolveImageInfo2;
 }
@@ -17190,6 +17384,7 @@ pub struct BufferCopy2<'a> {
     pub size: DeviceSize,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for BufferCopy2<'a> {}
 unsafe impl<'a> ExtendableStructure for BufferCopy2<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::BufferCopy2;
 }
@@ -17243,6 +17438,7 @@ pub struct ImageCopy2<'a> {
     pub extent: Extent3D,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ImageCopy2<'a> {}
 unsafe impl<'a> ExtendableStructure for ImageCopy2<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ImageCopy2;
 }
@@ -17307,6 +17503,7 @@ pub struct ImageBlit2<'a> {
     pub dst_offsets: [Offset3D; 2u16 as _],
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ImageBlit2<'a> {}
 unsafe impl<'a> ExtendableStructure for ImageBlit2<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ImageBlit2;
 }
@@ -17367,6 +17564,7 @@ pub struct BufferImageCopy2<'a> {
     pub image_extent: Extent3D,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for BufferImageCopy2<'a> {}
 unsafe impl<'a> ExtendableStructure for BufferImageCopy2<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::BufferImageCopy2;
 }
@@ -17438,6 +17636,7 @@ pub struct ImageResolve2<'a> {
     pub extent: Extent3D,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ImageResolve2<'a> {}
 unsafe impl<'a> ExtendableStructure for ImageResolve2<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ImageResolve2;
 }
@@ -17500,6 +17699,7 @@ pub struct PhysicalDeviceSubgroupSizeControlFeatures<'a> {
     pub compute_full_subgroups: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceSubgroupSizeControlFeatures<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceSubgroupSizeControlFeatures<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceSubgroupSizeControlFeatures;
 }
@@ -17555,6 +17755,7 @@ pub struct PhysicalDeviceSubgroupSizeControlProperties<'a> {
     pub required_subgroup_size_stages: ShaderStageFlags,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceSubgroupSizeControlProperties<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceSubgroupSizeControlProperties<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceSubgroupSizeControlProperties;
@@ -17616,6 +17817,7 @@ pub struct PipelineShaderStageRequiredSubgroupSizeCreateInfo<'a> {
     pub required_subgroup_size: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PipelineShaderStageRequiredSubgroupSizeCreateInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for PipelineShaderStageRequiredSubgroupSizeCreateInfo<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PipelineShaderStageRequiredSubgroupSizeCreateInfo;
@@ -17666,6 +17868,7 @@ pub struct PhysicalDeviceInlineUniformBlockFeatures<'a> {
     pub descriptor_binding_inline_uniform_block_update_after_bind: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceInlineUniformBlockFeatures<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceInlineUniformBlockFeatures<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceInlineUniformBlockFeatures;
 }
@@ -17725,6 +17928,7 @@ pub struct PhysicalDeviceInlineUniformBlockProperties<'a> {
     pub max_descriptor_set_update_after_bind_inline_uniform_blocks: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceInlineUniformBlockProperties<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceInlineUniformBlockProperties<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceInlineUniformBlockProperties;
 }
@@ -17798,6 +18002,7 @@ pub struct WriteDescriptorSetInlineUniformBlock<'a> {
     pub(crate) p_data: VoidPtr,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for WriteDescriptorSetInlineUniformBlock<'a> {}
 unsafe impl<'a> ExtendableStructure for WriteDescriptorSetInlineUniformBlock<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::WriteDescriptorSetInlineUniformBlock;
 }
@@ -17849,6 +18054,7 @@ pub struct DescriptorPoolInlineUniformBlockCreateInfo<'a> {
     pub max_inline_uniform_block_bindings: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DescriptorPoolInlineUniformBlockCreateInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for DescriptorPoolInlineUniformBlockCreateInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::DescriptorPoolInlineUniformBlockCreateInfo;
 }
@@ -17891,6 +18097,7 @@ pub struct PhysicalDeviceTextureCompressionASTCHDRFeatures<'a> {
     pub texture_compression_astc_hdr: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceTextureCompressionASTCHDRFeatures<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceTextureCompressionASTCHDRFeatures<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceTextureCompressionAstcHdrFeatures;
@@ -17945,6 +18152,7 @@ pub struct RenderingInfo<'a> {
     pub p_stencil_attachment: *const RenderingAttachmentInfo<'a>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for RenderingInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for RenderingInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::RenderingInfo;
 }
@@ -18041,6 +18249,7 @@ pub struct RenderingAttachmentInfo<'a> {
     pub clear_value: ClearValue,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for RenderingAttachmentInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for RenderingAttachmentInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::RenderingAttachmentInfo;
 }
@@ -18124,6 +18333,7 @@ pub struct PipelineRenderingCreateInfo<'a> {
     pub stencil_attachment_format: Format,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PipelineRenderingCreateInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for PipelineRenderingCreateInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PipelineRenderingCreateInfo;
 }
@@ -18204,6 +18414,7 @@ pub struct PhysicalDeviceDynamicRenderingFeatures<'a> {
     pub dynamic_rendering: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceDynamicRenderingFeatures<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceDynamicRenderingFeatures<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceDynamicRenderingFeatures;
 }
@@ -18255,6 +18466,7 @@ pub struct CommandBufferInheritanceRenderingInfo<'a> {
     pub rasterization_samples: SampleCountFlags,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for CommandBufferInheritanceRenderingInfo<'a> {}
 unsafe impl<'a> ExtendableStructure for CommandBufferInheritanceRenderingInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::CommandBufferInheritanceRenderingInfo;
 }
@@ -18342,6 +18554,7 @@ pub struct PhysicalDeviceShaderIntegerDotProductFeatures<'a> {
     pub shader_integer_dot_product: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceShaderIntegerDotProductFeatures<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceShaderIntegerDotProductFeatures<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceShaderIntegerDotProductFeatures;
@@ -18419,6 +18632,7 @@ pub struct PhysicalDeviceShaderIntegerDotProductProperties<'a> {
     pub integer_dot_product_accumulating_saturating64_bit_mixed_signedness_accelerated: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceShaderIntegerDotProductProperties<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceShaderIntegerDotProductProperties<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceShaderIntegerDotProductProperties;
@@ -18698,6 +18912,7 @@ pub struct PhysicalDeviceTexelBufferAlignmentProperties<'a> {
     pub uniform_texel_buffer_offset_single_texel_alignment: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceTexelBufferAlignmentProperties<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceTexelBufferAlignmentProperties<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceTexelBufferAlignmentProperties;
@@ -18767,6 +18982,7 @@ pub struct FormatProperties3<'a> {
     pub buffer_features: FormatFeatureFlags2,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for FormatProperties3<'a> {}
 unsafe impl<'a> ExtendableStructure for FormatProperties3<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::FormatProperties3;
 }
@@ -18817,6 +19033,7 @@ pub struct PhysicalDeviceMaintenance4Features<'a> {
     pub maintenance4: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceMaintenance4Features<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceMaintenance4Features<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceMaintenance4Features;
 }
@@ -18862,6 +19079,7 @@ pub struct PhysicalDeviceMaintenance4Properties<'a> {
     pub max_buffer_size: DeviceSize,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceMaintenance4Properties<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceMaintenance4Properties<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceMaintenance4Properties;
 }
@@ -18903,6 +19121,7 @@ pub struct DeviceBufferMemoryRequirements<'a> {
     pub p_create_info: *const BufferCreateInfo<'a>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DeviceBufferMemoryRequirements<'a> {}
 unsafe impl<'a> ExtendableStructure for DeviceBufferMemoryRequirements<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::DeviceBufferMemoryRequirements;
 }
@@ -18941,6 +19160,7 @@ pub struct DeviceImageMemoryRequirements<'a> {
     pub plane_aspect: ImageAspectFlags,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DeviceImageMemoryRequirements<'a> {}
 unsafe impl<'a> ExtendableStructure for DeviceImageMemoryRequirements<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::DeviceImageMemoryRequirements;
 }
@@ -19115,6 +19335,7 @@ pub struct SwapchainCreateInfoKHR<'a> {
     pub old_swapchain: Option<SwapchainKHR>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for SwapchainCreateInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for SwapchainCreateInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::SwapchainCreateInfoKHR;
 }
@@ -19258,6 +19479,7 @@ pub struct PresentInfoKHR<'a> {
     pub(crate) p_results: *const Status,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PresentInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for PresentInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PresentInfoKHR;
 }
@@ -19353,6 +19575,7 @@ pub struct ImageSwapchainCreateInfoKHR<'a> {
     pub swapchain: Option<SwapchainKHR>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ImageSwapchainCreateInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for ImageSwapchainCreateInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ImageSwapchainCreateInfoKHR;
 }
@@ -19391,6 +19614,7 @@ pub struct BindImageMemorySwapchainInfoKHR<'a> {
     pub image_index: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for BindImageMemorySwapchainInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for BindImageMemorySwapchainInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::BindImageMemorySwapchainInfoKHR;
 }
@@ -19441,6 +19665,7 @@ pub struct AcquireNextImageInfoKHR<'a> {
     pub device_mask: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for AcquireNextImageInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for AcquireNextImageInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::AcquireNextImageInfoKHR;
 }
@@ -19502,6 +19727,7 @@ pub struct DeviceGroupPresentCapabilitiesKHR<'a> {
     pub modes: DeviceGroupPresentModeFlagsKHR,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DeviceGroupPresentCapabilitiesKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for DeviceGroupPresentCapabilitiesKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::DeviceGroupPresentCapabilitiesKHR;
 }
@@ -19546,6 +19772,7 @@ pub struct DeviceGroupPresentInfoKHR<'a> {
     pub mode: DeviceGroupPresentModeFlagsKHR,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DeviceGroupPresentInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for DeviceGroupPresentInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::DeviceGroupPresentInfoKHR;
 }
@@ -19599,6 +19826,7 @@ pub struct DeviceGroupSwapchainCreateInfoKHR<'a> {
     pub modes: DeviceGroupPresentModeFlagsKHR,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DeviceGroupSwapchainCreateInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for DeviceGroupSwapchainCreateInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::DeviceGroupSwapchainCreateInfoKHR;
 }
@@ -19640,6 +19868,7 @@ pub struct DisplayModeCreateInfoKHR<'a> {
     pub parameters: DisplayModeParametersKHR,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DisplayModeCreateInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for DisplayModeCreateInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::DisplayModeCreateInfoKHR;
 }
@@ -19926,6 +20155,7 @@ pub struct DisplaySurfaceCreateInfoKHR<'a> {
     pub image_extent: Extent2D,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DisplaySurfaceCreateInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for DisplaySurfaceCreateInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::DisplaySurfaceCreateInfoKHR;
 }
@@ -20006,6 +20236,7 @@ pub struct DisplayPresentInfoKHR<'a> {
     pub persistent: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DisplayPresentInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for DisplayPresentInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::DisplayPresentInfoKHR;
 }
@@ -20057,6 +20288,7 @@ pub struct XlibSurfaceCreateInfoKHR<'a> {
     pub window: c_ulong,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for XlibSurfaceCreateInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for XlibSurfaceCreateInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::XlibSurfaceCreateInfoKHR;
 }
@@ -20107,6 +20339,7 @@ pub struct XcbSurfaceCreateInfoKHR<'a> {
     pub window: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for XcbSurfaceCreateInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for XcbSurfaceCreateInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::XcbSurfaceCreateInfoKHR;
 }
@@ -20157,6 +20390,7 @@ pub struct WaylandSurfaceCreateInfoKHR<'a> {
     pub surface: *const VoidPtr,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for WaylandSurfaceCreateInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for WaylandSurfaceCreateInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::WaylandSurfaceCreateInfoKHR;
 }
@@ -20208,6 +20442,7 @@ pub struct AndroidSurfaceCreateInfoKHR<'a> {
     pub window: *const ANativeWindow,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for AndroidSurfaceCreateInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for AndroidSurfaceCreateInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::AndroidSurfaceCreateInfoKHR;
 }
@@ -20252,6 +20487,7 @@ pub struct Win32SurfaceCreateInfoKHR<'a> {
     pub hwnd: VoidPtr,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for Win32SurfaceCreateInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for Win32SurfaceCreateInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::Win32SurfaceCreateInfoKHR;
 }
@@ -20302,6 +20538,7 @@ pub struct DebugReportCallbackCreateInfoEXT<'a> {
     pub p_user_data: VoidPtr,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DebugReportCallbackCreateInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for DebugReportCallbackCreateInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::DebugReportCallbackCreateInfoEXT;
 }
@@ -20354,6 +20591,7 @@ pub struct PipelineRasterizationStateRasterizationOrderAMD<'a> {
     pub rasterization_order: RasterizationOrderAMD,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PipelineRasterizationStateRasterizationOrderAMD<'a> {}
 unsafe impl<'a> ExtendableStructure for PipelineRasterizationStateRasterizationOrderAMD<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PipelineRasterizationStateRasterizationOrderAMD;
@@ -20397,6 +20635,7 @@ pub struct DebugMarkerObjectNameInfoEXT<'a> {
     pub p_object_name: *const c_char,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DebugMarkerObjectNameInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for DebugMarkerObjectNameInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::DebugMarkerObjectNameInfoEXT;
 }
@@ -20449,6 +20688,7 @@ pub struct DebugMarkerObjectTagInfoEXT<'a> {
     pub(crate) p_tag: VoidPtr,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DebugMarkerObjectTagInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for DebugMarkerObjectTagInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::DebugMarkerObjectTagInfoEXT;
 }
@@ -20514,6 +20754,7 @@ pub struct DebugMarkerMarkerInfoEXT<'a> {
     pub color: [f32; 4u16 as _],
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DebugMarkerMarkerInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for DebugMarkerMarkerInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::DebugMarkerMarkerInfoEXT;
 }
@@ -20556,6 +20797,7 @@ pub struct DedicatedAllocationImageCreateInfoNV<'a> {
     pub dedicated_allocation: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DedicatedAllocationImageCreateInfoNV<'a> {}
 unsafe impl<'a> ExtendableStructure for DedicatedAllocationImageCreateInfoNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::DedicatedAllocationImageCreateInfoNV;
 }
@@ -20596,6 +20838,7 @@ pub struct DedicatedAllocationBufferCreateInfoNV<'a> {
     pub dedicated_allocation: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DedicatedAllocationBufferCreateInfoNV<'a> {}
 unsafe impl<'a> ExtendableStructure for DedicatedAllocationBufferCreateInfoNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::DedicatedAllocationBufferCreateInfoNV;
 }
@@ -20637,6 +20880,7 @@ pub struct DedicatedAllocationMemoryAllocateInfoNV<'a> {
     pub buffer: Option<Buffer>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DedicatedAllocationMemoryAllocateInfoNV<'a> {}
 unsafe impl<'a> ExtendableStructure for DedicatedAllocationMemoryAllocateInfoNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::DedicatedAllocationMemoryAllocateInfoNV;
 }
@@ -20684,6 +20928,7 @@ pub struct PhysicalDeviceTransformFeedbackFeaturesEXT<'a> {
     pub geometry_streams: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceTransformFeedbackFeaturesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceTransformFeedbackFeaturesEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceTransformFeedbackFeaturesEXT;
 }
@@ -20743,6 +20988,7 @@ pub struct PhysicalDeviceTransformFeedbackPropertiesEXT<'a> {
     pub transform_feedback_draw: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceTransformFeedbackPropertiesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceTransformFeedbackPropertiesEXT<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceTransformFeedbackPropertiesEXT;
@@ -20842,6 +21088,7 @@ pub struct PipelineRasterizationStateStreamCreateInfoEXT<'a> {
     pub rasterization_stream: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PipelineRasterizationStateStreamCreateInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PipelineRasterizationStateStreamCreateInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PipelineRasterizationStateStreamCreateInfoEXT;
@@ -20890,6 +21137,7 @@ pub struct CuModuleCreateInfoNVX<'a> {
     pub(crate) p_data: VoidPtr,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for CuModuleCreateInfoNVX<'a> {}
 unsafe impl<'a> ExtendableStructure for CuModuleCreateInfoNVX<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::CuModuleCreateInfoNVX;
 }
@@ -20937,6 +21185,7 @@ pub struct CuFunctionCreateInfoNVX<'a> {
     pub p_name: *const c_char,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for CuFunctionCreateInfoNVX<'a> {}
 unsafe impl<'a> ExtendableStructure for CuFunctionCreateInfoNVX<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::CuFunctionCreateInfoNVX;
 }
@@ -20990,6 +21239,7 @@ pub struct CuLaunchInfoNVX<'a> {
     pub(crate) p_extras: *const *const c_void,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for CuLaunchInfoNVX<'a> {}
 unsafe impl<'a> ExtendableStructure for CuLaunchInfoNVX<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::CuLaunchInfoNVX;
 }
@@ -21098,6 +21348,7 @@ pub struct ImageViewHandleInfoNVX<'a> {
     pub sampler: Option<Sampler>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ImageViewHandleInfoNVX<'a> {}
 unsafe impl<'a> ExtendableStructure for ImageViewHandleInfoNVX<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ImageViewHandleInfoNVX;
 }
@@ -21147,6 +21398,7 @@ pub struct ImageViewAddressPropertiesNVX<'a> {
     pub size: DeviceSize,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ImageViewAddressPropertiesNVX<'a> {}
 unsafe impl<'a> ExtendableStructure for ImageViewAddressPropertiesNVX<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ImageViewAddressPropertiesNVX;
 }
@@ -21189,6 +21441,7 @@ pub struct TextureLODGatherFormatPropertiesAMD<'a> {
     pub supports_texture_gather_lodbias_amd: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for TextureLODGatherFormatPropertiesAMD<'a> {}
 unsafe impl<'a> ExtendableStructure for TextureLODGatherFormatPropertiesAMD<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::TextureLodGatherFormatPropertiesAMD;
 }
@@ -21347,6 +21600,7 @@ pub struct RenderingFragmentShadingRateAttachmentInfoKHR<'a> {
     pub shading_rate_attachment_texel_size: Extent2D,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for RenderingFragmentShadingRateAttachmentInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for RenderingFragmentShadingRateAttachmentInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::RenderingFragmentShadingRateAttachmentInfoKHR;
@@ -21401,6 +21655,7 @@ pub struct RenderingFragmentDensityMapAttachmentInfoEXT<'a> {
     pub image_layout: ImageLayout,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for RenderingFragmentDensityMapAttachmentInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for RenderingFragmentDensityMapAttachmentInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::RenderingFragmentDensityMapAttachmentInfoEXT;
@@ -21450,6 +21705,7 @@ pub struct AttachmentSampleCountInfoAMD<'a> {
     pub depth_stencil_attachment_samples: SampleCountFlags,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for AttachmentSampleCountInfoAMD<'a> {}
 unsafe impl<'a> ExtendableStructure for AttachmentSampleCountInfoAMD<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::AttachmentSampleCountInfoAMD;
 }
@@ -21523,6 +21779,7 @@ pub struct MultiviewPerViewAttributesInfoNVX<'a> {
     pub per_view_attributes_position_xonly: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for MultiviewPerViewAttributesInfoNVX<'a> {}
 unsafe impl<'a> ExtendableStructure for MultiviewPerViewAttributesInfoNVX<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::MultiviewPerViewAttributesInfoNVX;
 }
@@ -21578,6 +21835,7 @@ pub struct StreamDescriptorSurfaceCreateInfoGGP<'a> {
     pub stream_descriptor: VoidPtr,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for StreamDescriptorSurfaceCreateInfoGGP<'a> {}
 unsafe impl<'a> ExtendableStructure for StreamDescriptorSurfaceCreateInfoGGP<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::StreamDescriptorSurfaceCreateInfoGGP;
 }
@@ -21620,6 +21878,7 @@ pub struct PhysicalDeviceCornerSampledImageFeaturesNV<'a> {
     pub corner_sampled_image: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceCornerSampledImageFeaturesNV<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceCornerSampledImageFeaturesNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceCornerSampledImageFeaturesNV;
 }
@@ -21711,6 +21970,7 @@ pub struct ExternalMemoryImageCreateInfoNV<'a> {
     pub handle_types: ExternalMemoryHandleTypeFlagsNV,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ExternalMemoryImageCreateInfoNV<'a> {}
 unsafe impl<'a> ExtendableStructure for ExternalMemoryImageCreateInfoNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ExternalMemoryImageCreateInfoNV;
 }
@@ -21751,6 +22011,7 @@ pub struct ExportMemoryAllocateInfoNV<'a> {
     pub handle_types: ExternalMemoryHandleTypeFlagsNV,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ExportMemoryAllocateInfoNV<'a> {}
 unsafe impl<'a> ExtendableStructure for ExportMemoryAllocateInfoNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ExportMemoryAllocateInfoNV;
 }
@@ -21789,6 +22050,7 @@ pub struct ImportMemoryWin32HandleInfoNV<'a> {
     pub handle: VoidPtr,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ImportMemoryWin32HandleInfoNV<'a> {}
 unsafe impl<'a> ExtendableStructure for ImportMemoryWin32HandleInfoNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ImportMemoryWin32HandleInfoNV;
 }
@@ -21836,6 +22098,7 @@ pub struct ExportMemoryWin32HandleInfoNV<'a> {
     pub dw_access: VoidPtr,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ExportMemoryWin32HandleInfoNV<'a> {}
 unsafe impl<'a> ExtendableStructure for ExportMemoryWin32HandleInfoNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ExportMemoryWin32HandleInfoNV;
 }
@@ -21888,6 +22151,7 @@ pub struct Win32KeyedMutexAcquireReleaseInfoNV<'a> {
     pub(crate) p_release_keys: *const u64,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for Win32KeyedMutexAcquireReleaseInfoNV<'a> {}
 unsafe impl<'a> ExtendableStructure for Win32KeyedMutexAcquireReleaseInfoNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::Win32KeyedMutexAcquireReleaseInfoNV;
 }
@@ -21999,6 +22263,7 @@ pub struct ValidationFlagsEXT<'a> {
     pub(crate) p_disabled_validation_checks: *const ValidationCheckEXT,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ValidationFlagsEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for ValidationFlagsEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ValidationFlagsEXT;
 }
@@ -22053,6 +22318,7 @@ pub struct ViSurfaceCreateInfoNN<'a> {
     pub window: VoidPtr,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ViSurfaceCreateInfoNN<'a> {}
 unsafe impl<'a> ExtendableStructure for ViSurfaceCreateInfoNN<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ViSurfaceCreateInfoNN;
 }
@@ -22095,6 +22361,7 @@ pub struct ImageViewASTCDecodeModeEXT<'a> {
     pub decode_mode: Format,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ImageViewASTCDecodeModeEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for ImageViewASTCDecodeModeEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ImageViewAstcDecodeModeEXT;
 }
@@ -22132,6 +22399,7 @@ pub struct PhysicalDeviceASTCDecodeFeaturesEXT<'a> {
     pub decode_mode_shared_exponent: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceASTCDecodeFeaturesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceASTCDecodeFeaturesEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceAstcDecodeFeaturesEXT;
 }
@@ -22176,6 +22444,7 @@ pub struct PhysicalDevicePipelineRobustnessFeaturesEXT<'a> {
     pub pipeline_robustness: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDevicePipelineRobustnessFeaturesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDevicePipelineRobustnessFeaturesEXT<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDevicePipelineRobustnessFeaturesEXT;
@@ -22224,6 +22493,7 @@ pub struct PhysicalDevicePipelineRobustnessPropertiesEXT<'a> {
     pub default_robustness_images: PipelineRobustnessImageBehaviorEXT,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDevicePipelineRobustnessPropertiesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDevicePipelineRobustnessPropertiesEXT<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDevicePipelineRobustnessPropertiesEXT;
@@ -22295,6 +22565,7 @@ pub struct PipelineRobustnessCreateInfoEXT<'a> {
     pub images: PipelineRobustnessImageBehaviorEXT,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PipelineRobustnessCreateInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PipelineRobustnessCreateInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PipelineRobustnessCreateInfoEXT;
 }
@@ -22367,6 +22638,7 @@ pub struct ImportMemoryWin32HandleInfoKHR<'a> {
     pub name: VoidPtr,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ImportMemoryWin32HandleInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for ImportMemoryWin32HandleInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ImportMemoryWin32HandleInfoKHR;
 }
@@ -22421,6 +22693,7 @@ pub struct ExportMemoryWin32HandleInfoKHR<'a> {
     pub name: VoidPtr,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ExportMemoryWin32HandleInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for ExportMemoryWin32HandleInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ExportMemoryWin32HandleInfoKHR;
 }
@@ -22473,6 +22746,7 @@ pub struct MemoryWin32HandlePropertiesKHR<'a> {
     pub memory_type_bits: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for MemoryWin32HandlePropertiesKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for MemoryWin32HandlePropertiesKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::MemoryWin32HandlePropertiesKHR;
 }
@@ -22510,6 +22784,7 @@ pub struct MemoryGetWin32HandleInfoKHR<'a> {
     pub handle_type: ExternalMemoryHandleTypeFlags,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for MemoryGetWin32HandleInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for MemoryGetWin32HandleInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::MemoryGetWin32HandleInfoKHR;
 }
@@ -22553,6 +22828,7 @@ pub struct ImportMemoryFdInfoKHR<'a> {
     pub fd: c_int,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ImportMemoryFdInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for ImportMemoryFdInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ImportMemoryFdInfoKHR;
 }
@@ -22596,6 +22872,7 @@ pub struct MemoryFdPropertiesKHR<'a> {
     pub memory_type_bits: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for MemoryFdPropertiesKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for MemoryFdPropertiesKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::MemoryFdPropertiesKHR;
 }
@@ -22633,6 +22910,7 @@ pub struct MemoryGetFdInfoKHR<'a> {
     pub handle_type: ExternalMemoryHandleTypeFlags,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for MemoryGetFdInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for MemoryGetFdInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::MemoryGetFdInfoKHR;
 }
@@ -22681,6 +22959,7 @@ pub struct Win32KeyedMutexAcquireReleaseInfoKHR<'a> {
     pub(crate) p_release_keys: *const u64,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for Win32KeyedMutexAcquireReleaseInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for Win32KeyedMutexAcquireReleaseInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::Win32KeyedMutexAcquireReleaseInfoKHR;
 }
@@ -22794,6 +23073,7 @@ pub struct ImportSemaphoreWin32HandleInfoKHR<'a> {
     pub name: VoidPtr,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ImportSemaphoreWin32HandleInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for ImportSemaphoreWin32HandleInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ImportSemaphoreWin32HandleInfoKHR;
 }
@@ -22856,6 +23136,7 @@ pub struct ExportSemaphoreWin32HandleInfoKHR<'a> {
     pub name: VoidPtr,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ExportSemaphoreWin32HandleInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for ExportSemaphoreWin32HandleInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ExportSemaphoreWin32HandleInfoKHR;
 }
@@ -22911,6 +23192,7 @@ pub struct D3D12FenceSubmitInfoKHR<'a> {
     pub(crate) p_signal_semaphore_values: *const u64,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for D3D12FenceSubmitInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for D3D12FenceSubmitInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::D3D12FenceSubmitInfoKHR;
 }
@@ -22994,6 +23276,7 @@ pub struct SemaphoreGetWin32HandleInfoKHR<'a> {
     pub handle_type: ExternalSemaphoreHandleTypeFlags,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for SemaphoreGetWin32HandleInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for SemaphoreGetWin32HandleInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::SemaphoreGetWin32HandleInfoKHR;
 }
@@ -23039,6 +23322,7 @@ pub struct ImportSemaphoreFdInfoKHR<'a> {
     pub fd: c_int,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ImportSemaphoreFdInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for ImportSemaphoreFdInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ImportSemaphoreFdInfoKHR;
 }
@@ -23094,6 +23378,7 @@ pub struct SemaphoreGetFdInfoKHR<'a> {
     pub handle_type: ExternalSemaphoreHandleTypeFlags,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for SemaphoreGetFdInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for SemaphoreGetFdInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::SemaphoreGetFdInfoKHR;
 }
@@ -23136,6 +23421,7 @@ pub struct PhysicalDevicePushDescriptorPropertiesKHR<'a> {
     pub max_push_descriptors: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDevicePushDescriptorPropertiesKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDevicePushDescriptorPropertiesKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDevicePushDescriptorPropertiesKHR;
 }
@@ -23178,6 +23464,7 @@ pub struct ConditionalRenderingBeginInfoEXT<'a> {
     pub flags: ConditionalRenderingFlagsEXT,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ConditionalRenderingBeginInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for ConditionalRenderingBeginInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ConditionalRenderingBeginInfoEXT;
 }
@@ -23227,6 +23514,7 @@ pub struct PhysicalDeviceConditionalRenderingFeaturesEXT<'a> {
     pub inherited_conditional_rendering: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceConditionalRenderingFeaturesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceConditionalRenderingFeaturesEXT<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceConditionalRenderingFeaturesEXT;
@@ -23278,6 +23566,10 @@ pub struct CommandBufferInheritanceConditionalRenderingInfoEXT<'a> {
     pub conditional_rendering_enable: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase
+    for CommandBufferInheritanceConditionalRenderingInfoEXT<'a>
+{
+}
 unsafe impl<'a> ExtendableStructure for CommandBufferInheritanceConditionalRenderingInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::CommandBufferInheritanceConditionalRenderingInfoEXT;
@@ -23320,6 +23612,7 @@ pub struct PresentRegionsKHR<'a> {
     pub(crate) p_regions: *const PresentRegionKHR<'a>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PresentRegionsKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for PresentRegionsKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PresentRegionsKHR;
 }
@@ -23481,6 +23774,7 @@ pub struct PipelineViewportWScalingStateCreateInfoNV<'a> {
     pub(crate) p_viewport_wscalings: *const ViewportWScalingNV,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PipelineViewportWScalingStateCreateInfoNV<'a> {}
 unsafe impl<'a> ExtendableStructure for PipelineViewportWScalingStateCreateInfoNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PipelineViewportWScalingStateCreateInfoNV;
 }
@@ -23555,6 +23849,7 @@ pub struct SurfaceCapabilities2EXT<'a> {
     pub supported_surface_counters: SurfaceCounterFlagsEXT,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for SurfaceCapabilities2EXT<'a> {}
 unsafe impl<'a> ExtendableStructure for SurfaceCapabilities2EXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::SurfaceCapabilities2EXT;
 }
@@ -23651,6 +23946,7 @@ pub struct DisplayPowerInfoEXT<'a> {
     pub power_state: DisplayPowerStateEXT,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DisplayPowerInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for DisplayPowerInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::DisplayPowerInfoEXT;
 }
@@ -23687,6 +23983,7 @@ pub struct DeviceEventInfoEXT<'a> {
     pub device_event: DeviceEventTypeEXT,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DeviceEventInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for DeviceEventInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::DeviceEventInfoEXT;
 }
@@ -23723,6 +24020,7 @@ pub struct DisplayEventInfoEXT<'a> {
     pub display_event: DisplayEventTypeEXT,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DisplayEventInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for DisplayEventInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::DisplayEventInfoEXT;
 }
@@ -23759,6 +24057,7 @@ pub struct SwapchainCounterCreateInfoEXT<'a> {
     pub surface_counters: SurfaceCounterFlagsEXT,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for SwapchainCounterCreateInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for SwapchainCounterCreateInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::SwapchainCounterCreateInfoEXT;
 }
@@ -23874,6 +24173,7 @@ pub struct PresentTimesInfoGOOGLE<'a> {
     pub(crate) p_times: *const PresentTimeGOOGLE,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PresentTimesInfoGOOGLE<'a> {}
 unsafe impl<'a> ExtendableStructure for PresentTimesInfoGOOGLE<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PresentTimesInfoGOOGLE;
 }
@@ -23955,6 +24255,10 @@ pub struct PhysicalDeviceMultiviewPerViewAttributesPropertiesNVX<'a> {
     pub(crate) p_next: Cell<*const Header>,
     pub per_view_position_all_components: Bool32,
     phantom: PhantomData<&'a ()>,
+}
+unsafe impl<'a> ExtendableStructureBase
+    for PhysicalDeviceMultiviewPerViewAttributesPropertiesNVX<'a>
+{
 }
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceMultiviewPerViewAttributesPropertiesNVX<'a> {
     const STRUCTURE_TYPE: StructureType =
@@ -24043,6 +24347,7 @@ pub struct PipelineViewportSwizzleStateCreateInfoNV<'a> {
     pub(crate) p_viewport_swizzles: *const ViewportSwizzleNV,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PipelineViewportSwizzleStateCreateInfoNV<'a> {}
 unsafe impl<'a> ExtendableStructure for PipelineViewportSwizzleStateCreateInfoNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PipelineViewportSwizzleStateCreateInfoNV;
 }
@@ -24102,6 +24407,7 @@ pub struct PhysicalDeviceDiscardRectanglePropertiesEXT<'a> {
     pub max_discard_rectangles: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceDiscardRectanglePropertiesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceDiscardRectanglePropertiesEXT<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceDiscardRectanglePropertiesEXT;
@@ -24146,6 +24452,7 @@ pub struct PipelineDiscardRectangleStateCreateInfoEXT<'a> {
     pub(crate) p_discard_rectangles: *const Rect2D,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PipelineDiscardRectangleStateCreateInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PipelineDiscardRectangleStateCreateInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PipelineDiscardRectangleStateCreateInfoEXT;
 }
@@ -24223,6 +24530,10 @@ pub struct PhysicalDeviceConservativeRasterizationPropertiesEXT<'a> {
     pub fully_covered_fragment_shader_input_variable: Bool32,
     pub conservative_rasterization_post_depth_coverage: Bool32,
     phantom: PhantomData<&'a ()>,
+}
+unsafe impl<'a> ExtendableStructureBase
+    for PhysicalDeviceConservativeRasterizationPropertiesEXT<'a>
+{
 }
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceConservativeRasterizationPropertiesEXT<'a> {
     const STRUCTURE_TYPE: StructureType =
@@ -24321,6 +24632,10 @@ pub struct PipelineRasterizationConservativeStateCreateInfoEXT<'a> {
     pub extra_primitive_overestimation_size: f32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase
+    for PipelineRasterizationConservativeStateCreateInfoEXT<'a>
+{
+}
 unsafe impl<'a> ExtendableStructure for PipelineRasterizationConservativeStateCreateInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PipelineRasterizationConservativeStateCreateInfoEXT;
@@ -24377,6 +24692,7 @@ pub struct PhysicalDeviceDepthClipEnableFeaturesEXT<'a> {
     pub depth_clip_enable: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceDepthClipEnableFeaturesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceDepthClipEnableFeaturesEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceDepthClipEnableFeaturesEXT;
 }
@@ -24422,6 +24738,7 @@ pub struct PipelineRasterizationDepthClipStateCreateInfoEXT<'a> {
     pub depth_clip_enable: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PipelineRasterizationDepthClipStateCreateInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PipelineRasterizationDepthClipStateCreateInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PipelineRasterizationDepthClipStateCreateInfoEXT;
@@ -24476,6 +24793,7 @@ pub struct HdrMetadataEXT<'a> {
     pub max_frame_average_light_level: f32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for HdrMetadataEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for HdrMetadataEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::HdrMetadataEXT;
 }
@@ -24584,6 +24902,7 @@ pub struct PhysicalDeviceRelaxedLineRasterizationFeaturesIMG<'a> {
     pub relaxed_line_rasterization: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceRelaxedLineRasterizationFeaturesIMG<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceRelaxedLineRasterizationFeaturesIMG<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceRelaxedLineRasterizationFeaturesIMG;
@@ -24629,6 +24948,7 @@ pub struct SharedPresentSurfaceCapabilitiesKHR<'a> {
     pub shared_present_supported_usage_flags: ImageUsageFlags,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for SharedPresentSurfaceCapabilitiesKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for SharedPresentSurfaceCapabilitiesKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::SharedPresentSurfaceCapabilitiesKHR;
 }
@@ -24673,6 +24993,7 @@ pub struct ImportFenceWin32HandleInfoKHR<'a> {
     pub name: VoidPtr,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ImportFenceWin32HandleInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for ImportFenceWin32HandleInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ImportFenceWin32HandleInfoKHR;
 }
@@ -24735,6 +25056,7 @@ pub struct ExportFenceWin32HandleInfoKHR<'a> {
     pub name: VoidPtr,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ExportFenceWin32HandleInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for ExportFenceWin32HandleInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ExportFenceWin32HandleInfoKHR;
 }
@@ -24785,6 +25107,7 @@ pub struct FenceGetWin32HandleInfoKHR<'a> {
     pub handle_type: ExternalFenceHandleTypeFlags,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for FenceGetWin32HandleInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for FenceGetWin32HandleInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::FenceGetWin32HandleInfoKHR;
 }
@@ -24830,6 +25153,7 @@ pub struct ImportFenceFdInfoKHR<'a> {
     pub fd: c_int,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ImportFenceFdInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for ImportFenceFdInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ImportFenceFdInfoKHR;
 }
@@ -24885,6 +25209,7 @@ pub struct FenceGetFdInfoKHR<'a> {
     pub handle_type: ExternalFenceHandleTypeFlags,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for FenceGetFdInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for FenceGetFdInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::FenceGetFdInfoKHR;
 }
@@ -24928,6 +25253,7 @@ pub struct PhysicalDevicePerformanceQueryFeaturesKHR<'a> {
     pub performance_counter_multiple_query_pools: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDevicePerformanceQueryFeaturesKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDevicePerformanceQueryFeaturesKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDevicePerformanceQueryFeaturesKHR;
 }
@@ -24978,6 +25304,7 @@ pub struct PhysicalDevicePerformanceQueryPropertiesKHR<'a> {
     pub allow_command_buffer_query_copies: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDevicePerformanceQueryPropertiesKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDevicePerformanceQueryPropertiesKHR<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDevicePerformanceQueryPropertiesKHR;
@@ -25022,6 +25349,7 @@ pub struct PerformanceCounterKHR<'a> {
     pub uuid: [u8; UUID_SIZE as _],
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PerformanceCounterKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for PerformanceCounterKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PerformanceCounterKHR;
 }
@@ -25079,6 +25407,7 @@ pub struct PerformanceCounterDescriptionKHR<'a> {
     pub(crate) description: [c_char; MAX_DESCRIPTION_SIZE as _],
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PerformanceCounterDescriptionKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for PerformanceCounterDescriptionKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PerformanceCounterDescriptionKHR;
 }
@@ -25140,6 +25469,7 @@ pub struct QueryPoolPerformanceCreateInfoKHR<'a> {
     pub(crate) p_counter_indices: *const u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for QueryPoolPerformanceCreateInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for QueryPoolPerformanceCreateInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::QueryPoolPerformanceCreateInfoKHR;
 }
@@ -25216,6 +25546,7 @@ pub struct AcquireProfilingLockInfoKHR<'a> {
     pub timeout: u64,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for AcquireProfilingLockInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for AcquireProfilingLockInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::AcquireProfilingLockInfoKHR;
 }
@@ -25258,6 +25589,7 @@ pub struct PerformanceQuerySubmitInfoKHR<'a> {
     pub counter_pass_index: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PerformanceQuerySubmitInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for PerformanceQuerySubmitInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PerformanceQuerySubmitInfoKHR;
 }
@@ -25296,6 +25628,7 @@ pub struct PerformanceQueryReservationInfoKHR<'a> {
     pub max_performance_queries_per_pool: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PerformanceQueryReservationInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for PerformanceQueryReservationInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PerformanceQueryReservationInfoKHR;
 }
@@ -25336,6 +25669,7 @@ pub struct PhysicalDeviceSurfaceInfo2KHR<'a> {
     pub surface: Option<SurfaceKHR>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceSurfaceInfo2KHR<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceSurfaceInfo2KHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceSurfaceInfo2KHR;
 }
@@ -25372,6 +25706,7 @@ pub struct SurfaceCapabilities2KHR<'a> {
     pub surface_capabilities: SurfaceCapabilitiesKHR,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for SurfaceCapabilities2KHR<'a> {}
 unsafe impl<'a> ExtendableStructure for SurfaceCapabilities2KHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::SurfaceCapabilities2KHR;
 }
@@ -25408,6 +25743,7 @@ pub struct SurfaceFormat2KHR<'a> {
     pub surface_format: SurfaceFormatKHR,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for SurfaceFormat2KHR<'a> {}
 unsafe impl<'a> ExtendableStructure for SurfaceFormat2KHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::SurfaceFormat2KHR;
 }
@@ -25444,6 +25780,7 @@ pub struct DisplayProperties2KHR<'a> {
     pub display_properties: DisplayPropertiesKHR<'a>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DisplayProperties2KHR<'a> {}
 unsafe impl<'a> ExtendableStructure for DisplayProperties2KHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::DisplayProperties2KHR;
 }
@@ -25480,6 +25817,7 @@ pub struct DisplayPlaneProperties2KHR<'a> {
     pub display_plane_properties: DisplayPlanePropertiesKHR<'a>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DisplayPlaneProperties2KHR<'a> {}
 unsafe impl<'a> ExtendableStructure for DisplayPlaneProperties2KHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::DisplayPlaneProperties2KHR;
 }
@@ -25516,6 +25854,7 @@ pub struct DisplayModeProperties2KHR<'a> {
     pub display_mode_properties: DisplayModePropertiesKHR<'a>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DisplayModeProperties2KHR<'a> {}
 unsafe impl<'a> ExtendableStructure for DisplayModeProperties2KHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::DisplayModeProperties2KHR;
 }
@@ -25553,6 +25892,7 @@ pub struct DisplayPlaneInfo2KHR<'a> {
     pub plane_index: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DisplayPlaneInfo2KHR<'a> {}
 unsafe impl<'a> ExtendableStructure for DisplayPlaneInfo2KHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::DisplayPlaneInfo2KHR;
 }
@@ -25595,6 +25935,7 @@ pub struct DisplayPlaneCapabilities2KHR<'a> {
     pub capabilities: DisplayPlaneCapabilitiesKHR,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DisplayPlaneCapabilities2KHR<'a> {}
 unsafe impl<'a> ExtendableStructure for DisplayPlaneCapabilities2KHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::DisplayPlaneCapabilities2KHR;
 }
@@ -25632,6 +25973,7 @@ pub struct IOSSurfaceCreateInfoMVK<'a> {
     pub p_view: VoidPtr,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for IOSSurfaceCreateInfoMVK<'a> {}
 unsafe impl<'a> ExtendableStructure for IOSSurfaceCreateInfoMVK<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::IosSurfaceCreateInfoMVK;
 }
@@ -25675,6 +26017,7 @@ pub struct MacOSSurfaceCreateInfoMVK<'a> {
     pub p_view: VoidPtr,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for MacOSSurfaceCreateInfoMVK<'a> {}
 unsafe impl<'a> ExtendableStructure for MacOSSurfaceCreateInfoMVK<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::MacosSurfaceCreateInfoMVK;
 }
@@ -25718,6 +26061,7 @@ pub struct DebugUtilsLabelEXT<'a> {
     pub color: [f32; 4u16 as _],
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DebugUtilsLabelEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for DebugUtilsLabelEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::DebugUtilsLabelEXT;
 }
@@ -25769,6 +26113,7 @@ pub struct DebugUtilsMessengerCallbackDataEXT<'a> {
     pub(crate) p_objects: *const DebugUtilsObjectNameInfoEXT<'a>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DebugUtilsMessengerCallbackDataEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for DebugUtilsMessengerCallbackDataEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::DebugUtilsMessengerCallbackDataEXT;
 }
@@ -25881,6 +26226,7 @@ pub struct DebugUtilsMessengerCreateInfoEXT<'a> {
     pub p_user_data: VoidPtr,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DebugUtilsMessengerCreateInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for DebugUtilsMessengerCreateInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::DebugUtilsMessengerCreateInfoEXT;
 }
@@ -25947,6 +26293,7 @@ pub struct DebugUtilsObjectNameInfoEXT<'a> {
     pub p_object_name: *const c_char,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DebugUtilsObjectNameInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for DebugUtilsObjectNameInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::DebugUtilsObjectNameInfoEXT;
 }
@@ -26003,6 +26350,7 @@ pub struct DebugUtilsObjectTagInfoEXT<'a> {
     pub(crate) p_tag: VoidPtr,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DebugUtilsObjectTagInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for DebugUtilsObjectTagInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::DebugUtilsObjectTagInfoEXT;
 }
@@ -26067,6 +26415,7 @@ pub struct AndroidHardwareBufferUsageANDROID<'a> {
     pub android_hardware_buffer_usage: u64,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for AndroidHardwareBufferUsageANDROID<'a> {}
 unsafe impl<'a> ExtendableStructure for AndroidHardwareBufferUsageANDROID<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::AndroidHardwareBufferUsageANDROID;
 }
@@ -26108,6 +26457,7 @@ pub struct AndroidHardwareBufferPropertiesANDROID<'a> {
     pub memory_type_bits: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for AndroidHardwareBufferPropertiesANDROID<'a> {}
 unsafe impl<'a> ExtendableStructure for AndroidHardwareBufferPropertiesANDROID<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::AndroidHardwareBufferPropertiesANDROID;
 }
@@ -26157,6 +26507,7 @@ pub struct AndroidHardwareBufferFormatPropertiesANDROID<'a> {
     pub suggested_ychroma_offset: ChromaLocation,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for AndroidHardwareBufferFormatPropertiesANDROID<'a> {}
 unsafe impl<'a> ExtendableStructure for AndroidHardwareBufferFormatPropertiesANDROID<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::AndroidHardwareBufferFormatPropertiesANDROID;
@@ -26240,6 +26591,7 @@ pub struct ImportAndroidHardwareBufferInfoANDROID<'a> {
     pub buffer: *const AHardwareBuffer,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ImportAndroidHardwareBufferInfoANDROID<'a> {}
 unsafe impl<'a> ExtendableStructure for ImportAndroidHardwareBufferInfoANDROID<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ImportAndroidHardwareBufferInfoANDROID;
 }
@@ -26280,6 +26632,7 @@ pub struct MemoryGetAndroidHardwareBufferInfoANDROID<'a> {
     pub memory: Option<DeviceMemory>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for MemoryGetAndroidHardwareBufferInfoANDROID<'a> {}
 unsafe impl<'a> ExtendableStructure for MemoryGetAndroidHardwareBufferInfoANDROID<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::MemoryGetAndroidHardwareBufferInfoANDROID;
 }
@@ -26316,6 +26669,7 @@ pub struct ExternalFormatANDROID<'a> {
     pub external_format: u64,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ExternalFormatANDROID<'a> {}
 unsafe impl<'a> ExtendableStructure for ExternalFormatANDROID<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ExternalFormatANDROID;
 }
@@ -26375,6 +26729,7 @@ pub struct AndroidHardwareBufferFormatProperties2ANDROID<'a> {
     pub suggested_ychroma_offset: ChromaLocation,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for AndroidHardwareBufferFormatProperties2ANDROID<'a> {}
 unsafe impl<'a> ExtendableStructure for AndroidHardwareBufferFormatProperties2ANDROID<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::AndroidHardwareBufferFormatProperties2ANDROID;
@@ -26458,6 +26813,7 @@ pub struct PhysicalDeviceShaderEnqueueFeaturesAMDX<'a> {
     pub shader_enqueue: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceShaderEnqueueFeaturesAMDX<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceShaderEnqueueFeaturesAMDX<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceShaderEnqueueFeaturesAMDX;
 }
@@ -26506,6 +26862,7 @@ pub struct PhysicalDeviceShaderEnqueuePropertiesAMDX<'a> {
     pub execution_graph_dispatch_address_alignment: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceShaderEnqueuePropertiesAMDX<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceShaderEnqueuePropertiesAMDX<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceShaderEnqueuePropertiesAMDX;
 }
@@ -26570,6 +26927,7 @@ pub struct ExecutionGraphPipelineScratchSizeAMDX<'a> {
     pub size: DeviceSize,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ExecutionGraphPipelineScratchSizeAMDX<'a> {}
 unsafe impl<'a> ExtendableStructure for ExecutionGraphPipelineScratchSizeAMDX<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ExecutionGraphPipelineScratchSizeAMDX;
 }
@@ -26612,6 +26970,7 @@ pub struct ExecutionGraphPipelineCreateInfoAMDX<'a> {
     pub base_pipeline_index: i32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ExecutionGraphPipelineCreateInfoAMDX<'a> {}
 unsafe impl<'a> ExtendableStructure for ExecutionGraphPipelineCreateInfoAMDX<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ExecutionGraphPipelineCreateInfoAMDX;
 }
@@ -26777,6 +27136,7 @@ pub struct PipelineShaderStageNodeCreateInfoAMDX<'a> {
     pub index: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PipelineShaderStageNodeCreateInfoAMDX<'a> {}
 unsafe impl<'a> ExtendableStructure for PipelineShaderStageNodeCreateInfoAMDX<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PipelineShaderStageNodeCreateInfoAMDX;
 }
@@ -26871,6 +27231,7 @@ pub struct SampleLocationsInfoEXT<'a> {
     pub(crate) p_sample_locations: *const SampleLocationEXT,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for SampleLocationsInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for SampleLocationsInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::SampleLocationsInfoEXT;
 }
@@ -27002,6 +27363,7 @@ pub struct RenderPassSampleLocationsBeginInfoEXT<'a> {
     pub(crate) p_post_subpass_sample_locations: *const SubpassSampleLocationsEXT<'a>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for RenderPassSampleLocationsBeginInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for RenderPassSampleLocationsBeginInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::RenderPassSampleLocationsBeginInfoEXT;
 }
@@ -27089,6 +27451,7 @@ pub struct PipelineSampleLocationsStateCreateInfoEXT<'a> {
     pub sample_locations_info: SampleLocationsInfoEXT<'a>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PipelineSampleLocationsStateCreateInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PipelineSampleLocationsStateCreateInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PipelineSampleLocationsStateCreateInfoEXT;
 }
@@ -27139,6 +27502,7 @@ pub struct PhysicalDeviceSampleLocationsPropertiesEXT<'a> {
     pub variable_sample_locations: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceSampleLocationsPropertiesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceSampleLocationsPropertiesEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceSampleLocationsPropertiesEXT;
 }
@@ -27203,6 +27567,7 @@ pub struct MultisamplePropertiesEXT<'a> {
     pub max_sample_location_grid_size: Extent2D,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for MultisamplePropertiesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for MultisamplePropertiesEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::MultisamplePropertiesEXT;
 }
@@ -27239,6 +27604,7 @@ pub struct PhysicalDeviceBlendOperationAdvancedFeaturesEXT<'a> {
     pub advanced_blend_coherent_operations: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceBlendOperationAdvancedFeaturesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceBlendOperationAdvancedFeaturesEXT<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceBlendOperationAdvancedFeaturesEXT;
@@ -27289,6 +27655,7 @@ pub struct PhysicalDeviceBlendOperationAdvancedPropertiesEXT<'a> {
     pub advanced_blend_all_operations: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceBlendOperationAdvancedPropertiesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceBlendOperationAdvancedPropertiesEXT<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceBlendOperationAdvancedPropertiesEXT;
@@ -27362,6 +27729,7 @@ pub struct PipelineColorBlendAdvancedStateCreateInfoEXT<'a> {
     pub blend_overlap: BlendOverlapEXT,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PipelineColorBlendAdvancedStateCreateInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PipelineColorBlendAdvancedStateCreateInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PipelineColorBlendAdvancedStateCreateInfoEXT;
@@ -27417,6 +27785,7 @@ pub struct PipelineCoverageToColorStateCreateInfoNV<'a> {
     pub coverage_to_color_location: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PipelineCoverageToColorStateCreateInfoNV<'a> {}
 unsafe impl<'a> ExtendableStructure for PipelineCoverageToColorStateCreateInfoNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PipelineCoverageToColorStateCreateInfoNV;
 }
@@ -27608,6 +27977,7 @@ pub struct AccelerationStructureGeometryTrianglesDataKHR<'a> {
     pub transform_data: DeviceOrHostAddressConstKHR,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for AccelerationStructureGeometryTrianglesDataKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for AccelerationStructureGeometryTrianglesDataKHR<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::AccelerationStructureGeometryTrianglesDataKHR;
@@ -27713,6 +28083,7 @@ pub struct AccelerationStructureBuildGeometryInfoKHR<'a> {
     pub scratch_data: DeviceOrHostAddressKHR,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for AccelerationStructureBuildGeometryInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for AccelerationStructureBuildGeometryInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::AccelerationStructureBuildGeometryInfoKHR;
 }
@@ -27825,6 +28196,7 @@ pub struct AccelerationStructureGeometryAabbsDataKHR<'a> {
     pub stride: DeviceSize,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for AccelerationStructureGeometryAabbsDataKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for AccelerationStructureGeometryAabbsDataKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::AccelerationStructureGeometryAabbsDataKHR;
 }
@@ -27928,6 +28300,7 @@ pub struct AccelerationStructureGeometryInstancesDataKHR<'a> {
     pub data: DeviceOrHostAddressConstKHR,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for AccelerationStructureGeometryInstancesDataKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for AccelerationStructureGeometryInstancesDataKHR<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::AccelerationStructureGeometryInstancesDataKHR;
@@ -27988,6 +28361,7 @@ pub struct AccelerationStructureGeometryKHR<'a> {
     pub flags: GeometryFlagsKHR,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for AccelerationStructureGeometryKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for AccelerationStructureGeometryKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::AccelerationStructureGeometryKHR;
 }
@@ -28041,6 +28415,7 @@ pub struct AccelerationStructureCreateInfoKHR<'a> {
     pub device_address: DeviceAddress,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for AccelerationStructureCreateInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for AccelerationStructureCreateInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::AccelerationStructureCreateInfoKHR;
 }
@@ -28108,6 +28483,7 @@ pub struct WriteDescriptorSetAccelerationStructureKHR<'a> {
     pub(crate) p_acceleration_structures: *const AccelerationStructureKHR,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for WriteDescriptorSetAccelerationStructureKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for WriteDescriptorSetAccelerationStructureKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::WriteDescriptorSetAccelerationStructureKHR;
 }
@@ -28175,6 +28551,7 @@ pub struct PhysicalDeviceAccelerationStructureFeaturesKHR<'a> {
     pub descriptor_binding_acceleration_structure_update_after_bind: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceAccelerationStructureFeaturesKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceAccelerationStructureFeaturesKHR<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceAccelerationStructureFeaturesKHR;
@@ -28254,6 +28631,7 @@ pub struct PhysicalDeviceAccelerationStructurePropertiesKHR<'a> {
     pub min_acceleration_structure_scratch_offset_alignment: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceAccelerationStructurePropertiesKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceAccelerationStructurePropertiesKHR<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceAccelerationStructurePropertiesKHR;
@@ -28343,6 +28721,7 @@ pub struct AccelerationStructureDeviceAddressInfoKHR<'a> {
     pub acceleration_structure: Option<AccelerationStructureKHR>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for AccelerationStructureDeviceAddressInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for AccelerationStructureDeviceAddressInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::AccelerationStructureDeviceAddressInfoKHR;
 }
@@ -28379,6 +28758,7 @@ pub struct AccelerationStructureVersionInfoKHR<'a> {
     pub(crate) p_version_data: *const u8,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for AccelerationStructureVersionInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for AccelerationStructureVersionInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::AccelerationStructureVersionInfoKHR;
 }
@@ -28417,6 +28797,7 @@ pub struct CopyAccelerationStructureToMemoryInfoKHR<'a> {
     pub mode: CopyAccelerationStructureModeKHR,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for CopyAccelerationStructureToMemoryInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for CopyAccelerationStructureToMemoryInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::CopyAccelerationStructureToMemoryInfoKHR;
 }
@@ -28467,6 +28848,7 @@ pub struct CopyMemoryToAccelerationStructureInfoKHR<'a> {
     pub mode: CopyAccelerationStructureModeKHR,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for CopyMemoryToAccelerationStructureInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for CopyMemoryToAccelerationStructureInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::CopyMemoryToAccelerationStructureInfoKHR;
 }
@@ -28517,6 +28899,7 @@ pub struct CopyAccelerationStructureInfoKHR<'a> {
     pub mode: CopyAccelerationStructureModeKHR,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for CopyAccelerationStructureInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for CopyAccelerationStructureInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::CopyAccelerationStructureInfoKHR;
 }
@@ -28567,6 +28950,7 @@ pub struct AccelerationStructureBuildSizesInfoKHR<'a> {
     pub build_scratch_size: DeviceSize,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for AccelerationStructureBuildSizesInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for AccelerationStructureBuildSizesInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::AccelerationStructureBuildSizesInfoKHR;
 }
@@ -28620,6 +29004,7 @@ pub struct RayTracingShaderGroupCreateInfoKHR<'a> {
     pub p_shader_group_capture_replay_handle: VoidPtr,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for RayTracingShaderGroupCreateInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for RayTracingShaderGroupCreateInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::RayTracingShaderGroupCreateInfoKHR;
 }
@@ -28697,6 +29082,7 @@ pub struct RayTracingPipelineCreateInfoKHR<'a> {
     pub base_pipeline_index: i32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for RayTracingPipelineCreateInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for RayTracingPipelineCreateInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::RayTracingPipelineCreateInfoKHR;
 }
@@ -28817,6 +29203,7 @@ pub struct PhysicalDeviceRayTracingPipelineFeaturesKHR<'a> {
     pub ray_traversal_primitive_culling: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceRayTracingPipelineFeaturesKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceRayTracingPipelineFeaturesKHR<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceRayTracingPipelineFeaturesKHR;
@@ -28899,6 +29286,7 @@ pub struct PhysicalDeviceRayTracingPipelinePropertiesKHR<'a> {
     pub max_ray_hit_attribute_size: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceRayTracingPipelinePropertiesKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceRayTracingPipelinePropertiesKHR<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceRayTracingPipelinePropertiesKHR;
@@ -29057,6 +29445,7 @@ pub struct RayTracingPipelineInterfaceCreateInfoKHR<'a> {
     pub max_pipeline_ray_hit_attribute_size: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for RayTracingPipelineInterfaceCreateInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for RayTracingPipelineInterfaceCreateInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::RayTracingPipelineInterfaceCreateInfoKHR;
 }
@@ -29099,6 +29488,7 @@ pub struct PhysicalDeviceRayQueryFeaturesKHR<'a> {
     pub ray_query: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceRayQueryFeaturesKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceRayQueryFeaturesKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceRayQueryFeaturesKHR;
 }
@@ -29147,6 +29537,7 @@ pub struct PipelineCoverageModulationStateCreateInfoNV<'a> {
     pub(crate) p_coverage_modulation_table: *const f32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PipelineCoverageModulationStateCreateInfoNV<'a> {}
 unsafe impl<'a> ExtendableStructure for PipelineCoverageModulationStateCreateInfoNV<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PipelineCoverageModulationStateCreateInfoNV;
@@ -29228,6 +29619,7 @@ pub struct PhysicalDeviceShaderSMBuiltinsPropertiesNV<'a> {
     pub shader_warps_per_sm: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceShaderSMBuiltinsPropertiesNV<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceShaderSMBuiltinsPropertiesNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceShaderSmBuiltinsPropertiesNV;
 }
@@ -29274,6 +29666,7 @@ pub struct PhysicalDeviceShaderSMBuiltinsFeaturesNV<'a> {
     pub shader_smbuiltins: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceShaderSMBuiltinsFeaturesNV<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceShaderSMBuiltinsFeaturesNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceShaderSmBuiltinsFeaturesNV;
 }
@@ -29319,6 +29712,7 @@ pub struct DrmFormatModifierPropertiesListEXT<'a> {
     pub(crate) p_drm_format_modifier_properties: *const DrmFormatModifierPropertiesEXT,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DrmFormatModifierPropertiesListEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for DrmFormatModifierPropertiesListEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::DrmFormatModifierPropertiesListEXT;
 }
@@ -29411,6 +29805,7 @@ pub struct PhysicalDeviceImageDrmFormatModifierInfoEXT<'a> {
     pub(crate) p_queue_family_indices: *const u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceImageDrmFormatModifierInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceImageDrmFormatModifierInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceImageDrmFormatModifierInfoEXT;
@@ -29483,6 +29878,7 @@ pub struct ImageDrmFormatModifierListCreateInfoEXT<'a> {
     pub(crate) p_drm_format_modifiers: *const u64,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ImageDrmFormatModifierListCreateInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for ImageDrmFormatModifierListCreateInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ImageDrmFormatModifierListCreateInfoEXT;
 }
@@ -29538,6 +29934,7 @@ pub struct ImageDrmFormatModifierExplicitCreateInfoEXT<'a> {
     pub(crate) p_plane_layouts: *const SubresourceLayout,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ImageDrmFormatModifierExplicitCreateInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for ImageDrmFormatModifierExplicitCreateInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::ImageDrmFormatModifierExplicitCreateInfoEXT;
@@ -29598,6 +29995,7 @@ pub struct ImageDrmFormatModifierPropertiesEXT<'a> {
     pub drm_format_modifier: u64,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ImageDrmFormatModifierPropertiesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for ImageDrmFormatModifierPropertiesEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ImageDrmFormatModifierPropertiesEXT;
 }
@@ -29635,6 +30033,7 @@ pub struct DrmFormatModifierPropertiesList2EXT<'a> {
     pub(crate) p_drm_format_modifier_properties: *const DrmFormatModifierProperties2EXT,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DrmFormatModifierPropertiesList2EXT<'a> {}
 unsafe impl<'a> ExtendableStructure for DrmFormatModifierPropertiesList2EXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::DrmFormatModifierPropertiesList2EXT;
 }
@@ -29726,6 +30125,7 @@ pub struct ValidationCacheCreateInfoEXT<'a> {
     pub(crate) p_initial_data: VoidPtr,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ValidationCacheCreateInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for ValidationCacheCreateInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ValidationCacheCreateInfoEXT;
 }
@@ -29781,6 +30181,7 @@ pub struct ShaderModuleValidationCacheCreateInfoEXT<'a> {
     pub validation_cache: Option<ValidationCacheEXT>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ShaderModuleValidationCacheCreateInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for ShaderModuleValidationCacheCreateInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ShaderModuleValidationCacheCreateInfoEXT;
 }
@@ -29839,6 +30240,7 @@ pub struct PhysicalDevicePortabilitySubsetFeaturesKHR<'a> {
     pub vertex_attribute_access_beyond_stride: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDevicePortabilitySubsetFeaturesKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDevicePortabilitySubsetFeaturesKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDevicePortabilitySubsetFeaturesKHR;
 }
@@ -29967,6 +30369,7 @@ pub struct PhysicalDevicePortabilitySubsetPropertiesKHR<'a> {
     pub min_vertex_input_binding_stride_alignment: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDevicePortabilitySubsetPropertiesKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDevicePortabilitySubsetPropertiesKHR<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDevicePortabilitySubsetPropertiesKHR;
@@ -30053,6 +30456,7 @@ pub struct PipelineViewportShadingRateImageStateCreateInfoNV<'a> {
     pub(crate) p_shading_rate_palettes: *const ShadingRatePaletteNV<'a>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PipelineViewportShadingRateImageStateCreateInfoNV<'a> {}
 unsafe impl<'a> ExtendableStructure for PipelineViewportShadingRateImageStateCreateInfoNV<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PipelineViewportShadingRateImageStateCreateInfoNV;
@@ -30122,6 +30526,7 @@ pub struct PhysicalDeviceShadingRateImageFeaturesNV<'a> {
     pub shading_rate_coarse_sample_order: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceShadingRateImageFeaturesNV<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceShadingRateImageFeaturesNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceShadingRateImageFeaturesNV;
 }
@@ -30174,6 +30579,7 @@ pub struct PhysicalDeviceShadingRateImagePropertiesNV<'a> {
     pub shading_rate_max_coarse_samples: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceShadingRateImagePropertiesNV<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceShadingRateImagePropertiesNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceShadingRateImagePropertiesNV;
 }
@@ -30320,6 +30726,7 @@ pub struct PipelineViewportCoarseSampleOrderStateCreateInfoNV<'a> {
     pub(crate) p_custom_sample_orders: *const CoarseSampleOrderCustomNV<'a>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PipelineViewportCoarseSampleOrderStateCreateInfoNV<'a> {}
 unsafe impl<'a> ExtendableStructure for PipelineViewportCoarseSampleOrderStateCreateInfoNV<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PipelineViewportCoarseSampleOrderStateCreateInfoNV;
@@ -30387,6 +30794,7 @@ pub struct RayTracingShaderGroupCreateInfoNV<'a> {
     pub intersection_shader: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for RayTracingShaderGroupCreateInfoNV<'a> {}
 unsafe impl<'a> ExtendableStructure for RayTracingShaderGroupCreateInfoNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::RayTracingShaderGroupCreateInfoNV;
 }
@@ -30455,6 +30863,7 @@ pub struct RayTracingPipelineCreateInfoNV<'a> {
     pub base_pipeline_index: i32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for RayTracingPipelineCreateInfoNV<'a> {}
 unsafe impl<'a> ExtendableStructure for RayTracingPipelineCreateInfoNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::RayTracingPipelineCreateInfoNV;
 }
@@ -30560,6 +30969,7 @@ pub struct GeometryTrianglesNV<'a> {
     pub transform_offset: DeviceSize,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for GeometryTrianglesNV<'a> {}
 unsafe impl<'a> ExtendableStructure for GeometryTrianglesNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::GeometryTrianglesNV;
 }
@@ -30659,6 +31069,7 @@ pub struct GeometryAABBNV<'a> {
     pub offset: DeviceSize,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for GeometryAABBNV<'a> {}
 unsafe impl<'a> ExtendableStructure for GeometryAABBNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::GeometryAabbNV;
 }
@@ -30746,6 +31157,7 @@ pub struct GeometryNV<'a> {
     pub flags: GeometryFlagsKHR,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for GeometryNV<'a> {}
 unsafe impl<'a> ExtendableStructure for GeometryNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::GeometryNV;
 }
@@ -30798,6 +31210,7 @@ pub struct AccelerationStructureInfoNV<'a> {
     pub(crate) p_geometries: *const GeometryNV<'a>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for AccelerationStructureInfoNV<'a> {}
 unsafe impl<'a> ExtendableStructure for AccelerationStructureInfoNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::AccelerationStructureInfoNV;
 }
@@ -30863,6 +31276,7 @@ pub struct AccelerationStructureCreateInfoNV<'a> {
     pub info: AccelerationStructureInfoNV<'a>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for AccelerationStructureCreateInfoNV<'a> {}
 unsafe impl<'a> ExtendableStructure for AccelerationStructureCreateInfoNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::AccelerationStructureCreateInfoNV;
 }
@@ -30909,6 +31323,7 @@ pub struct BindAccelerationStructureMemoryInfoNV<'a> {
     pub(crate) p_device_indices: *const u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for BindAccelerationStructureMemoryInfoNV<'a> {}
 unsafe impl<'a> ExtendableStructure for BindAccelerationStructureMemoryInfoNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::BindAccelerationStructureMemoryInfoNV;
 }
@@ -30974,6 +31389,7 @@ pub struct WriteDescriptorSetAccelerationStructureNV<'a> {
     pub(crate) p_acceleration_structures: *const AccelerationStructureNV,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for WriteDescriptorSetAccelerationStructureNV<'a> {}
 unsafe impl<'a> ExtendableStructure for WriteDescriptorSetAccelerationStructureNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::WriteDescriptorSetAccelerationStructureNV;
 }
@@ -31038,6 +31454,7 @@ pub struct AccelerationStructureMemoryRequirementsInfoNV<'a> {
     pub acceleration_structure: Option<AccelerationStructureNV>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for AccelerationStructureMemoryRequirementsInfoNV<'a> {}
 unsafe impl<'a> ExtendableStructure for AccelerationStructureMemoryRequirementsInfoNV<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::AccelerationStructureMemoryRequirementsInfoNV;
@@ -31088,6 +31505,7 @@ pub struct PhysicalDeviceRayTracingPropertiesNV<'a> {
     pub max_descriptor_set_acceleration_structures: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceRayTracingPropertiesNV<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceRayTracingPropertiesNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceRayTracingPropertiesNV;
 }
@@ -31170,6 +31588,7 @@ pub struct PhysicalDeviceRepresentativeFragmentTestFeaturesNV<'a> {
     pub representative_fragment_test: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceRepresentativeFragmentTestFeaturesNV<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceRepresentativeFragmentTestFeaturesNV<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceRepresentativeFragmentTestFeaturesNV;
@@ -31215,6 +31634,10 @@ pub struct PipelineRepresentativeFragmentTestStateCreateInfoNV<'a> {
     pub representative_fragment_test_enable: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase
+    for PipelineRepresentativeFragmentTestStateCreateInfoNV<'a>
+{
+}
 unsafe impl<'a> ExtendableStructure for PipelineRepresentativeFragmentTestStateCreateInfoNV<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PipelineRepresentativeFragmentTestStateCreateInfoNV;
@@ -31256,6 +31679,7 @@ pub struct PhysicalDeviceImageViewImageFormatInfoEXT<'a> {
     pub image_view_type: ImageViewType,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceImageViewImageFormatInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceImageViewImageFormatInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceImageViewImageFormatInfoEXT;
 }
@@ -31297,6 +31721,7 @@ pub struct FilterCubicImageViewImageFormatPropertiesEXT<'a> {
     pub filter_cubic_minmax: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for FilterCubicImageViewImageFormatPropertiesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for FilterCubicImageViewImageFormatPropertiesEXT<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::FilterCubicImageViewImageFormatPropertiesEXT;
@@ -31345,6 +31770,7 @@ pub struct ImportMemoryHostPointerInfoEXT<'a> {
     pub p_host_pointer: VoidPtr,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ImportMemoryHostPointerInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for ImportMemoryHostPointerInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ImportMemoryHostPointerInfoEXT;
 }
@@ -31391,6 +31817,7 @@ pub struct MemoryHostPointerPropertiesEXT<'a> {
     pub memory_type_bits: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for MemoryHostPointerPropertiesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for MemoryHostPointerPropertiesEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::MemoryHostPointerPropertiesEXT;
 }
@@ -31427,6 +31854,7 @@ pub struct PhysicalDeviceExternalMemoryHostPropertiesEXT<'a> {
     pub min_imported_host_pointer_alignment: DeviceSize,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceExternalMemoryHostPropertiesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceExternalMemoryHostPropertiesEXT<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceExternalMemoryHostPropertiesEXT;
@@ -31469,6 +31897,7 @@ pub struct PhysicalDeviceShaderClockFeaturesKHR<'a> {
     pub shader_device_clock: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceShaderClockFeaturesKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceShaderClockFeaturesKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceShaderClockFeaturesKHR;
 }
@@ -31519,6 +31948,7 @@ pub struct PipelineCompilerControlCreateInfoAMD<'a> {
     pub compiler_control_flags: PipelineCompilerControlFlagsAMD,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PipelineCompilerControlCreateInfoAMD<'a> {}
 unsafe impl<'a> ExtendableStructure for PipelineCompilerControlCreateInfoAMD<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PipelineCompilerControlCreateInfoAMD;
 }
@@ -31580,6 +32010,7 @@ pub struct PhysicalDeviceShaderCorePropertiesAMD<'a> {
     pub vgpr_allocation_granularity: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceShaderCorePropertiesAMD<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceShaderCorePropertiesAMD<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceShaderCorePropertiesAMD;
 }
@@ -31698,6 +32129,7 @@ pub struct DeviceQueueGlobalPriorityCreateInfoKHR<'a> {
     pub global_priority: QueueGlobalPriorityKHR,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DeviceQueueGlobalPriorityCreateInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for DeviceQueueGlobalPriorityCreateInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::DeviceQueueGlobalPriorityCreateInfoKHR;
 }
@@ -31739,6 +32171,7 @@ pub struct PhysicalDeviceGlobalPriorityQueryFeaturesKHR<'a> {
     pub global_priority_query: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceGlobalPriorityQueryFeaturesKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceGlobalPriorityQueryFeaturesKHR<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceGlobalPriorityQueryFeaturesKHR;
@@ -31787,6 +32220,7 @@ pub struct QueueFamilyGlobalPriorityPropertiesKHR<'a> {
     pub(crate) priorities: [QueueGlobalPriorityKHR; MAX_GLOBAL_PRIORITY_SIZE_KHR as _],
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for QueueFamilyGlobalPriorityPropertiesKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for QueueFamilyGlobalPriorityPropertiesKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::QueueFamilyGlobalPriorityPropertiesKHR;
 }
@@ -31828,6 +32262,7 @@ pub struct DeviceMemoryOverallocationCreateInfoAMD<'a> {
     pub overallocation_behavior: MemoryOverallocationBehaviorAMD,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DeviceMemoryOverallocationCreateInfoAMD<'a> {}
 unsafe impl<'a> ExtendableStructure for DeviceMemoryOverallocationCreateInfoAMD<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::DeviceMemoryOverallocationCreateInfoAMD;
 }
@@ -31868,6 +32303,7 @@ pub struct PhysicalDeviceVertexAttributeDivisorPropertiesEXT<'a> {
     pub max_vertex_attrib_divisor: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceVertexAttributeDivisorPropertiesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceVertexAttributeDivisorPropertiesEXT<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceVertexAttributeDivisorPropertiesEXT;
@@ -31909,6 +32345,7 @@ pub struct PresentFrameTokenGGP<'a> {
     pub frame_token: VoidPtr,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PresentFrameTokenGGP<'a> {}
 unsafe impl<'a> ExtendableStructure for PresentFrameTokenGGP<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PresentFrameTokenGGP;
 }
@@ -31947,6 +32384,7 @@ pub struct PhysicalDeviceComputeShaderDerivativesFeaturesNV<'a> {
     pub compute_derivative_group_linear: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceComputeShaderDerivativesFeaturesNV<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceComputeShaderDerivativesFeaturesNV<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceComputeShaderDerivativesFeaturesNV;
@@ -31999,6 +32437,7 @@ pub struct PhysicalDeviceMeshShaderFeaturesNV<'a> {
     pub mesh_shader: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceMeshShaderFeaturesNV<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceMeshShaderFeaturesNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceMeshShaderFeaturesNV;
 }
@@ -32061,6 +32500,7 @@ pub struct PhysicalDeviceMeshShaderPropertiesNV<'a> {
     pub mesh_output_per_primitive_granularity: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceMeshShaderPropertiesNV<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceMeshShaderPropertiesNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceMeshShaderPropertiesNV;
 }
@@ -32203,6 +32643,7 @@ pub struct PhysicalDeviceShaderImageFootprintFeaturesNV<'a> {
     pub image_footprint: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceShaderImageFootprintFeaturesNV<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceShaderImageFootprintFeaturesNV<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceShaderImageFootprintFeaturesNV;
@@ -32249,6 +32690,7 @@ pub struct PipelineViewportExclusiveScissorStateCreateInfoNV<'a> {
     pub(crate) p_exclusive_scissors: *const Rect2D,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PipelineViewportExclusiveScissorStateCreateInfoNV<'a> {}
 unsafe impl<'a> ExtendableStructure for PipelineViewportExclusiveScissorStateCreateInfoNV<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PipelineViewportExclusiveScissorStateCreateInfoNV;
@@ -32308,6 +32750,7 @@ pub struct PhysicalDeviceExclusiveScissorFeaturesNV<'a> {
     pub exclusive_scissor: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceExclusiveScissorFeaturesNV<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceExclusiveScissorFeaturesNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceExclusiveScissorFeaturesNV;
 }
@@ -32352,6 +32795,7 @@ pub struct QueueFamilyCheckpointPropertiesNV<'a> {
     pub checkpoint_execution_stage_mask: PipelineStageFlags,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for QueueFamilyCheckpointPropertiesNV<'a> {}
 unsafe impl<'a> ExtendableStructure for QueueFamilyCheckpointPropertiesNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::QueueFamilyCheckpointPropertiesNV;
 }
@@ -32393,6 +32837,7 @@ pub struct CheckpointDataNV<'a> {
     pub p_checkpoint_marker: VoidPtr,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for CheckpointDataNV<'a> {}
 unsafe impl<'a> ExtendableStructure for CheckpointDataNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::CheckpointDataNV;
 }
@@ -32435,6 +32880,7 @@ pub struct PhysicalDeviceShaderIntegerFunctions2FeaturesINTEL<'a> {
     pub shader_integer_functions2: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceShaderIntegerFunctions2FeaturesINTEL<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceShaderIntegerFunctions2FeaturesINTEL<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceShaderIntegerFunctions2FeaturesINTEL;
@@ -32528,6 +32974,7 @@ pub struct InitializePerformanceApiInfoINTEL<'a> {
     pub p_user_data: VoidPtr,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for InitializePerformanceApiInfoINTEL<'a> {}
 unsafe impl<'a> ExtendableStructure for InitializePerformanceApiInfoINTEL<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::InitializePerformanceApiInfoINTEL;
 }
@@ -32564,6 +33011,7 @@ pub struct QueryPoolPerformanceQueryCreateInfoINTEL<'a> {
     pub performance_counters_sampling: QueryPoolSamplingModeINTEL,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for QueryPoolPerformanceQueryCreateInfoINTEL<'a> {}
 unsafe impl<'a> ExtendableStructure for QueryPoolPerformanceQueryCreateInfoINTEL<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::QueryPoolPerformanceQueryCreateInfoINTEL;
 }
@@ -32605,6 +33053,7 @@ pub struct PerformanceMarkerInfoINTEL<'a> {
     pub marker: u64,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PerformanceMarkerInfoINTEL<'a> {}
 unsafe impl<'a> ExtendableStructure for PerformanceMarkerInfoINTEL<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PerformanceMarkerInfoINTEL;
 }
@@ -32641,6 +33090,7 @@ pub struct PerformanceStreamMarkerInfoINTEL<'a> {
     pub marker: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PerformanceStreamMarkerInfoINTEL<'a> {}
 unsafe impl<'a> ExtendableStructure for PerformanceStreamMarkerInfoINTEL<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PerformanceStreamMarkerInfoINTEL;
 }
@@ -32679,6 +33129,7 @@ pub struct PerformanceOverrideInfoINTEL<'a> {
     pub parameter: u64,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PerformanceOverrideInfoINTEL<'a> {}
 unsafe impl<'a> ExtendableStructure for PerformanceOverrideInfoINTEL<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PerformanceOverrideInfoINTEL;
 }
@@ -32727,6 +33178,7 @@ pub struct PerformanceConfigurationAcquireInfoINTEL<'a> {
     pub ty: PerformanceConfigurationTypeINTEL,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PerformanceConfigurationAcquireInfoINTEL<'a> {}
 unsafe impl<'a> ExtendableStructure for PerformanceConfigurationAcquireInfoINTEL<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PerformanceConfigurationAcquireInfoINTEL;
 }
@@ -32766,6 +33218,7 @@ pub struct PhysicalDevicePCIBusInfoPropertiesEXT<'a> {
     pub pci_function: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDevicePCIBusInfoPropertiesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDevicePCIBusInfoPropertiesEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDevicePciBusInfoPropertiesEXT;
 }
@@ -32824,6 +33277,7 @@ pub struct DisplayNativeHdrSurfaceCapabilitiesAMD<'a> {
     pub local_dimming_support: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DisplayNativeHdrSurfaceCapabilitiesAMD<'a> {}
 unsafe impl<'a> ExtendableStructure for DisplayNativeHdrSurfaceCapabilitiesAMD<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::DisplayNativeHdrSurfaceCapabilitiesAMD;
 }
@@ -32864,6 +33318,7 @@ pub struct SwapchainDisplayNativeHdrCreateInfoAMD<'a> {
     pub local_dimming_enable: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for SwapchainDisplayNativeHdrCreateInfoAMD<'a> {}
 unsafe impl<'a> ExtendableStructure for SwapchainDisplayNativeHdrCreateInfoAMD<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::SwapchainDisplayNativeHdrCreateInfoAMD;
 }
@@ -32905,6 +33360,7 @@ pub struct ImagePipeSurfaceCreateInfoFUCHSIA<'a> {
     pub image_pipe_handle: VoidPtr,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ImagePipeSurfaceCreateInfoFUCHSIA<'a> {}
 unsafe impl<'a> ExtendableStructure for ImagePipeSurfaceCreateInfoFUCHSIA<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ImagepipeSurfaceCreateInfoFUCHSIA;
 }
@@ -32948,6 +33404,7 @@ pub struct MetalSurfaceCreateInfoEXT<'a> {
     pub p_layer: *const CAMetalLayer,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for MetalSurfaceCreateInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for MetalSurfaceCreateInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::MetalSurfaceCreateInfoEXT;
 }
@@ -32994,6 +33451,7 @@ pub struct PhysicalDeviceFragmentDensityMapFeaturesEXT<'a> {
     pub fragment_density_map_non_subsampled_images: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceFragmentDensityMapFeaturesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceFragmentDensityMapFeaturesEXT<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceFragmentDensityMapFeaturesEXT;
@@ -33053,6 +33511,7 @@ pub struct PhysicalDeviceFragmentDensityMapPropertiesEXT<'a> {
     pub fragment_density_invocations: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceFragmentDensityMapPropertiesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceFragmentDensityMapPropertiesEXT<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceFragmentDensityMapPropertiesEXT;
@@ -33106,6 +33565,7 @@ pub struct RenderPassFragmentDensityMapCreateInfoEXT<'a> {
     pub fragment_density_map_attachment: AttachmentReference,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for RenderPassFragmentDensityMapCreateInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for RenderPassFragmentDensityMapCreateInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::RenderPassFragmentDensityMapCreateInfoEXT;
 }
@@ -33151,6 +33611,7 @@ pub struct FragmentShadingRateAttachmentInfoKHR<'a> {
     pub shading_rate_attachment_texel_size: Extent2D,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for FragmentShadingRateAttachmentInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for FragmentShadingRateAttachmentInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::FragmentShadingRateAttachmentInfoKHR;
 }
@@ -33202,6 +33663,7 @@ pub struct PipelineFragmentShadingRateStateCreateInfoKHR<'a> {
     pub combiner_ops: [FragmentShadingRateCombinerOpKHR; 2u16 as _],
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PipelineFragmentShadingRateStateCreateInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for PipelineFragmentShadingRateStateCreateInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PipelineFragmentShadingRateStateCreateInfoKHR;
@@ -33251,6 +33713,7 @@ pub struct PhysicalDeviceFragmentShadingRateFeaturesKHR<'a> {
     pub attachment_fragment_shading_rate: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceFragmentShadingRateFeaturesKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceFragmentShadingRateFeaturesKHR<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceFragmentShadingRateFeaturesKHR;
@@ -33324,6 +33787,7 @@ pub struct PhysicalDeviceFragmentShadingRatePropertiesKHR<'a> {
     pub fragment_shading_rate_strict_multiply_combiner: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceFragmentShadingRatePropertiesKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceFragmentShadingRatePropertiesKHR<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceFragmentShadingRatePropertiesKHR;
@@ -33492,6 +33956,7 @@ pub struct PhysicalDeviceFragmentShadingRateKHR<'a> {
     pub fragment_size: Extent2D,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceFragmentShadingRateKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceFragmentShadingRateKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceFragmentShadingRateKHR;
 }
@@ -33535,6 +34000,7 @@ pub struct PhysicalDeviceShaderCoreProperties2AMD<'a> {
     pub active_compute_unit_count: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceShaderCoreProperties2AMD<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceShaderCoreProperties2AMD<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceShaderCoreProperties2AMD;
 }
@@ -33581,6 +34047,7 @@ pub struct PhysicalDeviceCoherentMemoryFeaturesAMD<'a> {
     pub device_coherent_memory: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceCoherentMemoryFeaturesAMD<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceCoherentMemoryFeaturesAMD<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceCoherentMemoryFeaturesAMD;
 }
@@ -33625,6 +34092,7 @@ pub struct PhysicalDeviceDynamicRenderingLocalReadFeaturesKHR<'a> {
     pub dynamic_rendering_local_read: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceDynamicRenderingLocalReadFeaturesKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceDynamicRenderingLocalReadFeaturesKHR<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceDynamicRenderingLocalReadFeaturesKHR;
@@ -33671,6 +34139,7 @@ pub struct RenderingAttachmentLocationInfoKHR<'a> {
     pub(crate) p_color_attachment_locations: *const u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for RenderingAttachmentLocationInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for RenderingAttachmentLocationInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::RenderingAttachmentLocationInfoKHR;
 }
@@ -33739,6 +34208,7 @@ pub struct RenderingInputAttachmentIndexInfoKHR<'a> {
     pub p_stencil_input_attachment_index: *const u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for RenderingInputAttachmentIndexInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for RenderingInputAttachmentIndexInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::RenderingInputAttachmentIndexInfoKHR;
 }
@@ -33820,6 +34290,7 @@ pub struct PhysicalDeviceShaderImageAtomicInt64FeaturesEXT<'a> {
     pub sparse_image_int64_atomics: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceShaderImageAtomicInt64FeaturesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceShaderImageAtomicInt64FeaturesEXT<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceShaderImageAtomicInt64FeaturesEXT;
@@ -33871,6 +34342,7 @@ pub struct PhysicalDeviceShaderQuadControlFeaturesKHR<'a> {
     pub shader_quad_control: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceShaderQuadControlFeaturesKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceShaderQuadControlFeaturesKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceShaderQuadControlFeaturesKHR;
 }
@@ -33916,6 +34388,7 @@ pub struct PhysicalDeviceMemoryBudgetPropertiesEXT<'a> {
     pub heap_usage: [DeviceSize; MAX_MEMORY_HEAPS as _],
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceMemoryBudgetPropertiesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceMemoryBudgetPropertiesEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceMemoryBudgetPropertiesEXT;
 }
@@ -33962,6 +34435,7 @@ pub struct PhysicalDeviceMemoryPriorityFeaturesEXT<'a> {
     pub memory_priority: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceMemoryPriorityFeaturesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceMemoryPriorityFeaturesEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceMemoryPriorityFeaturesEXT;
 }
@@ -34006,6 +34480,7 @@ pub struct MemoryPriorityAllocateInfoEXT<'a> {
     pub priority: f32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for MemoryPriorityAllocateInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for MemoryPriorityAllocateInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::MemoryPriorityAllocateInfoEXT;
 }
@@ -34046,6 +34521,7 @@ pub struct SurfaceProtectedCapabilitiesKHR<'a> {
     pub supports_protected: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for SurfaceProtectedCapabilitiesKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for SurfaceProtectedCapabilitiesKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::SurfaceProtectedCapabilitiesKHR;
 }
@@ -34085,6 +34561,10 @@ pub struct PhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV<'a> {
     pub(crate) p_next: Cell<*const Header>,
     pub dedicated_allocation_image_aliasing: Bool32,
     phantom: PhantomData<&'a ()>,
+}
+unsafe impl<'a> ExtendableStructureBase
+    for PhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV<'a>
+{
 }
 unsafe impl<'a> ExtendableStructure
     for PhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV<'a>
@@ -34135,6 +34615,7 @@ pub struct PhysicalDeviceBufferDeviceAddressFeaturesEXT<'a> {
     pub buffer_device_address_multi_device: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceBufferDeviceAddressFeaturesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceBufferDeviceAddressFeaturesEXT<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceBufferDeviceAddressFeaturesEXT;
@@ -34194,6 +34675,7 @@ pub struct BufferDeviceAddressCreateInfoEXT<'a> {
     pub device_address: DeviceAddress,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for BufferDeviceAddressCreateInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for BufferDeviceAddressCreateInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::BufferDeviceAddressCreateInfoEXT;
 }
@@ -34237,6 +34719,7 @@ pub struct ValidationFeaturesEXT<'a> {
     pub(crate) p_disabled_validation_features: *const ValidationFeatureDisableEXT,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ValidationFeaturesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for ValidationFeaturesEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ValidationFeaturesEXT;
 }
@@ -34317,6 +34800,7 @@ pub struct PhysicalDevicePresentWaitFeaturesKHR<'a> {
     pub present_wait: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDevicePresentWaitFeaturesKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDevicePresentWaitFeaturesKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDevicePresentWaitFeaturesKHR;
 }
@@ -34368,6 +34852,7 @@ pub struct CooperativeMatrixPropertiesNV<'a> {
     pub scope: ScopeNV,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for CooperativeMatrixPropertiesNV<'a> {}
 unsafe impl<'a> ExtendableStructure for CooperativeMatrixPropertiesNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::CooperativeMatrixPropertiesNV;
 }
@@ -34447,6 +34932,7 @@ pub struct PhysicalDeviceCooperativeMatrixFeaturesNV<'a> {
     pub cooperative_matrix_robust_buffer_access: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceCooperativeMatrixFeaturesNV<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceCooperativeMatrixFeaturesNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceCooperativeMatrixFeaturesNV;
 }
@@ -34497,6 +34983,7 @@ pub struct PhysicalDeviceCooperativeMatrixPropertiesNV<'a> {
     pub cooperative_matrix_supported_stages: ShaderStageFlags,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceCooperativeMatrixPropertiesNV<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceCooperativeMatrixPropertiesNV<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceCooperativeMatrixPropertiesNV;
@@ -34538,6 +35025,7 @@ pub struct PhysicalDeviceCoverageReductionModeFeaturesNV<'a> {
     pub coverage_reduction_mode: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceCoverageReductionModeFeaturesNV<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceCoverageReductionModeFeaturesNV<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceCoverageReductionModeFeaturesNV;
@@ -34584,6 +35072,7 @@ pub struct PipelineCoverageReductionStateCreateInfoNV<'a> {
     pub coverage_reduction_mode: CoverageReductionModeNV,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PipelineCoverageReductionStateCreateInfoNV<'a> {}
 unsafe impl<'a> ExtendableStructure for PipelineCoverageReductionStateCreateInfoNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PipelineCoverageReductionStateCreateInfoNV;
 }
@@ -34633,6 +35122,7 @@ pub struct FramebufferMixedSamplesCombinationNV<'a> {
     pub color_samples: SampleCountFlags,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for FramebufferMixedSamplesCombinationNV<'a> {}
 unsafe impl<'a> ExtendableStructure for FramebufferMixedSamplesCombinationNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::FramebufferMixedSamplesCombinationNV;
 }
@@ -34689,6 +35179,7 @@ pub struct PhysicalDeviceFragmentShaderInterlockFeaturesEXT<'a> {
     pub fragment_shader_shading_rate_interlock: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceFragmentShaderInterlockFeaturesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceFragmentShaderInterlockFeaturesEXT<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceFragmentShaderInterlockFeaturesEXT;
@@ -34746,6 +35237,7 @@ pub struct PhysicalDeviceYcbcrImageArraysFeaturesEXT<'a> {
     pub ycbcr_image_arrays: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceYcbcrImageArraysFeaturesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceYcbcrImageArraysFeaturesEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceYcbcrImageArraysFeaturesEXT;
 }
@@ -34791,6 +35283,7 @@ pub struct PhysicalDeviceProvokingVertexFeaturesEXT<'a> {
     pub transform_feedback_preserves_provoking_vertex: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceProvokingVertexFeaturesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceProvokingVertexFeaturesEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceProvokingVertexFeaturesEXT;
 }
@@ -34845,6 +35338,7 @@ pub struct PhysicalDeviceProvokingVertexPropertiesEXT<'a> {
     pub transform_feedback_preserves_triangle_fan_provoking_vertex: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceProvokingVertexPropertiesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceProvokingVertexPropertiesEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceProvokingVertexPropertiesEXT;
 }
@@ -34894,6 +35388,10 @@ pub struct PipelineRasterizationProvokingVertexStateCreateInfoEXT<'a> {
     pub provoking_vertex_mode: ProvokingVertexModeEXT,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase
+    for PipelineRasterizationProvokingVertexStateCreateInfoEXT<'a>
+{
+}
 unsafe impl<'a> ExtendableStructure for PipelineRasterizationProvokingVertexStateCreateInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PipelineRasterizationProvokingVertexStateCreateInfoEXT;
@@ -34935,6 +35433,7 @@ pub struct SurfaceFullScreenExclusiveInfoEXT<'a> {
     pub full_screen_exclusive: FullScreenExclusiveEXT,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for SurfaceFullScreenExclusiveInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for SurfaceFullScreenExclusiveInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::SurfaceFullScreenExclusiveInfoEXT;
 }
@@ -34979,6 +35478,7 @@ pub struct SurfaceCapabilitiesFullScreenExclusiveEXT<'a> {
     pub full_screen_exclusive_supported: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for SurfaceCapabilitiesFullScreenExclusiveEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for SurfaceCapabilitiesFullScreenExclusiveEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::SurfaceCapabilitiesFullScreenExclusiveEXT;
 }
@@ -35019,6 +35519,7 @@ pub struct SurfaceFullScreenExclusiveWin32InfoEXT<'a> {
     pub hmonitor: VoidPtr,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for SurfaceFullScreenExclusiveWin32InfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for SurfaceFullScreenExclusiveWin32InfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::SurfaceFullScreenExclusiveWin32InfoEXT;
 }
@@ -35063,6 +35564,7 @@ pub struct HeadlessSurfaceCreateInfoEXT<'a> {
     pub flags: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for HeadlessSurfaceCreateInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for HeadlessSurfaceCreateInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::HeadlessSurfaceCreateInfoEXT;
 }
@@ -35110,6 +35612,7 @@ pub struct PhysicalDeviceShaderAtomicFloatFeaturesEXT<'a> {
     pub sparse_image_float32_atomic_add: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceShaderAtomicFloatFeaturesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceShaderAtomicFloatFeaturesEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceShaderAtomicFloatFeaturesEXT;
 }
@@ -35220,6 +35723,7 @@ pub struct PhysicalDeviceExtendedDynamicStateFeaturesEXT<'a> {
     pub extended_dynamic_state: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceExtendedDynamicStateFeaturesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceExtendedDynamicStateFeaturesEXT<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceExtendedDynamicStateFeaturesEXT;
@@ -35264,6 +35768,10 @@ pub struct PhysicalDevicePipelineExecutablePropertiesFeaturesKHR<'a> {
     pub(crate) p_next: Cell<*const Header>,
     pub pipeline_executable_info: Bool32,
     phantom: PhantomData<&'a ()>,
+}
+unsafe impl<'a> ExtendableStructureBase
+    for PhysicalDevicePipelineExecutablePropertiesFeaturesKHR<'a>
+{
 }
 unsafe impl<'a> ExtendableStructure for PhysicalDevicePipelineExecutablePropertiesFeaturesKHR<'a> {
     const STRUCTURE_TYPE: StructureType =
@@ -35310,6 +35818,7 @@ pub struct PipelineInfoKHR<'a> {
     pub pipeline: Option<Pipeline>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PipelineInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for PipelineInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PipelineInfoKHR;
 }
@@ -35350,6 +35859,7 @@ pub struct PipelineExecutablePropertiesKHR<'a> {
     pub subgroup_size: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PipelineExecutablePropertiesKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for PipelineExecutablePropertiesKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PipelineExecutablePropertiesKHR;
 }
@@ -35408,6 +35918,7 @@ pub struct PipelineExecutableInfoKHR<'a> {
     pub executable_index: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PipelineExecutableInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for PipelineExecutableInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PipelineExecutableInfoKHR;
 }
@@ -35470,6 +35981,7 @@ pub struct PipelineExecutableStatisticKHR<'a> {
     pub value: PipelineExecutableStatisticValueKHR,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PipelineExecutableStatisticKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for PipelineExecutableStatisticKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PipelineExecutableStatisticKHR;
 }
@@ -35531,6 +36043,7 @@ pub struct PipelineExecutableInternalRepresentationKHR<'a> {
     pub(crate) p_data: VoidPtr,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PipelineExecutableInternalRepresentationKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for PipelineExecutableInternalRepresentationKHR<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PipelineExecutableInternalRepresentationKHR;
@@ -35598,6 +36111,7 @@ pub struct PhysicalDeviceHostImageCopyFeaturesEXT<'a> {
     pub host_image_copy: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceHostImageCopyFeaturesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceHostImageCopyFeaturesEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceHostImageCopyFeaturesEXT;
 }
@@ -35647,6 +36161,7 @@ pub struct PhysicalDeviceHostImageCopyPropertiesEXT<'a> {
     pub identical_memory_type_requirements: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceHostImageCopyPropertiesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceHostImageCopyPropertiesEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceHostImageCopyPropertiesEXT;
 }
@@ -35746,6 +36261,7 @@ pub struct MemoryToImageCopyEXT<'a> {
     pub image_extent: Extent3D,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for MemoryToImageCopyEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for MemoryToImageCopyEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::MemoryToImageCopyEXT;
 }
@@ -35817,6 +36333,7 @@ pub struct ImageToMemoryCopyEXT<'a> {
     pub image_extent: Extent3D,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ImageToMemoryCopyEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for ImageToMemoryCopyEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ImageToMemoryCopyEXT;
 }
@@ -35887,6 +36404,7 @@ pub struct CopyMemoryToImageInfoEXT<'a> {
     pub(crate) p_regions: *const MemoryToImageCopyEXT<'a>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for CopyMemoryToImageInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for CopyMemoryToImageInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::CopyMemoryToImageInfoEXT;
 }
@@ -35955,6 +36473,7 @@ pub struct CopyImageToMemoryInfoEXT<'a> {
     pub(crate) p_regions: *const ImageToMemoryCopyEXT<'a>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for CopyImageToMemoryInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for CopyImageToMemoryInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::CopyImageToMemoryInfoEXT;
 }
@@ -36025,6 +36544,7 @@ pub struct CopyImageToImageInfoEXT<'a> {
     pub(crate) p_regions: *const ImageCopy2<'a>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for CopyImageToImageInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for CopyImageToImageInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::CopyImageToImageInfoEXT;
 }
@@ -36104,6 +36624,7 @@ pub struct HostImageLayoutTransitionInfoEXT<'a> {
     pub subresource_range: ImageSubresourceRange,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for HostImageLayoutTransitionInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for HostImageLayoutTransitionInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::HostImageLayoutTransitionInfoEXT;
 }
@@ -36158,6 +36679,7 @@ pub struct SubresourceHostMemcpySizeEXT<'a> {
     pub size: DeviceSize,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for SubresourceHostMemcpySizeEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for SubresourceHostMemcpySizeEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::SubresourceHostMemcpySizeEXT;
 }
@@ -36199,6 +36721,7 @@ pub struct HostImageCopyDevicePerformanceQueryEXT<'a> {
     pub identical_memory_layout: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for HostImageCopyDevicePerformanceQueryEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for HostImageCopyDevicePerformanceQueryEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::HostImageCopyDevicePerformanceQueryEXT;
 }
@@ -36248,6 +36771,7 @@ pub struct MemoryMapInfoKHR<'a> {
     pub size: DeviceSize,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for MemoryMapInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for MemoryMapInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::MemoryMapInfoKHR;
 }
@@ -36303,6 +36827,7 @@ pub struct MemoryUnmapInfoKHR<'a> {
     pub memory: Option<DeviceMemory>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for MemoryUnmapInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for MemoryUnmapInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::MemoryUnmapInfoKHR;
 }
@@ -36347,6 +36872,7 @@ pub struct PhysicalDeviceMapMemoryPlacedFeaturesEXT<'a> {
     pub memory_unmap_reserve: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceMapMemoryPlacedFeaturesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceMapMemoryPlacedFeaturesEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceMapMemoryPlacedFeaturesEXT;
 }
@@ -36403,6 +36929,7 @@ pub struct PhysicalDeviceMapMemoryPlacedPropertiesEXT<'a> {
     pub min_placed_memory_map_alignment: DeviceSize,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceMapMemoryPlacedPropertiesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceMapMemoryPlacedPropertiesEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceMapMemoryPlacedPropertiesEXT;
 }
@@ -36443,6 +36970,7 @@ pub struct MemoryMapPlacedInfoEXT<'a> {
     pub p_placed_address: VoidPtr,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for MemoryMapPlacedInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for MemoryMapPlacedInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::MemoryMapPlacedInfoEXT;
 }
@@ -36491,6 +37019,7 @@ pub struct PhysicalDeviceShaderAtomicFloat2FeaturesEXT<'a> {
     pub sparse_image_float32_atomic_min_max: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceShaderAtomicFloat2FeaturesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceShaderAtomicFloat2FeaturesEXT<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceShaderAtomicFloat2FeaturesEXT;
@@ -36602,6 +37131,7 @@ pub struct SurfacePresentModeEXT<'a> {
     pub present_mode: PresentModeKHR,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for SurfacePresentModeEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for SurfacePresentModeEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::SurfacePresentModeEXT;
 }
@@ -36646,6 +37176,7 @@ pub struct SurfacePresentScalingCapabilitiesEXT<'a> {
     pub max_scaled_image_extent: Extent2D,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for SurfacePresentScalingCapabilitiesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for SurfacePresentScalingCapabilitiesEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::SurfacePresentScalingCapabilitiesEXT;
 }
@@ -36711,6 +37242,7 @@ pub struct SurfacePresentModeCompatibilityEXT<'a> {
     pub(crate) p_present_modes: *const PresentModeKHR,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for SurfacePresentModeCompatibilityEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for SurfacePresentModeCompatibilityEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::SurfacePresentModeCompatibilityEXT;
 }
@@ -36766,6 +37298,7 @@ pub struct PhysicalDeviceSwapchainMaintenance1FeaturesEXT<'a> {
     pub swapchain_maintenance1: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceSwapchainMaintenance1FeaturesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceSwapchainMaintenance1FeaturesEXT<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceSwapchainMaintenance1FeaturesEXT;
@@ -36812,6 +37345,7 @@ pub struct SwapchainPresentFenceInfoEXT<'a> {
     pub(crate) p_fences: *const Fence,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for SwapchainPresentFenceInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for SwapchainPresentFenceInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::SwapchainPresentFenceInfoEXT;
 }
@@ -36860,6 +37394,7 @@ pub struct SwapchainPresentModesCreateInfoEXT<'a> {
     pub(crate) p_present_modes: *const PresentModeKHR,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for SwapchainPresentModesCreateInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for SwapchainPresentModesCreateInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::SwapchainPresentModesCreateInfoEXT;
 }
@@ -36911,6 +37446,7 @@ pub struct SwapchainPresentModeInfoEXT<'a> {
     pub(crate) p_present_modes: *const PresentModeKHR,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for SwapchainPresentModeInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for SwapchainPresentModeInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::SwapchainPresentModeInfoEXT;
 }
@@ -36960,6 +37496,7 @@ pub struct SwapchainPresentScalingCreateInfoEXT<'a> {
     pub present_gravity_y: PresentGravityFlagsEXT,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for SwapchainPresentScalingCreateInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for SwapchainPresentScalingCreateInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::SwapchainPresentScalingCreateInfoEXT;
 }
@@ -37014,6 +37551,7 @@ pub struct ReleaseSwapchainImagesInfoEXT<'a> {
     pub(crate) p_image_indices: *const u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ReleaseSwapchainImagesInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for ReleaseSwapchainImagesInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ReleaseSwapchainImagesInfoEXT;
 }
@@ -37074,6 +37612,7 @@ pub struct PhysicalDeviceDeviceGeneratedCommandsPropertiesNV<'a> {
     pub min_indirect_commands_buffer_offset_alignment: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceDeviceGeneratedCommandsPropertiesNV<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceDeviceGeneratedCommandsPropertiesNV<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceDeviceGeneratedCommandsPropertiesNV;
@@ -37163,6 +37702,7 @@ pub struct PhysicalDeviceDeviceGeneratedCommandsFeaturesNV<'a> {
     pub device_generated_commands: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceDeviceGeneratedCommandsFeaturesNV<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceDeviceGeneratedCommandsFeaturesNV<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceDeviceGeneratedCommandsFeaturesNV;
@@ -37211,6 +37751,7 @@ pub struct GraphicsShaderGroupCreateInfoNV<'a> {
     pub p_tessellation_state: *const PipelineTessellationStateCreateInfo<'a>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for GraphicsShaderGroupCreateInfoNV<'a> {}
 unsafe impl<'a> ExtendableStructure for GraphicsShaderGroupCreateInfoNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::GraphicsShaderGroupCreateInfoNV;
 }
@@ -37276,6 +37817,7 @@ pub struct GraphicsPipelineShaderGroupsCreateInfoNV<'a> {
     pub(crate) p_pipelines: *const Pipeline,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for GraphicsPipelineShaderGroupsCreateInfoNV<'a> {}
 unsafe impl<'a> ExtendableStructure for GraphicsPipelineShaderGroupsCreateInfoNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::GraphicsPipelineShaderGroupsCreateInfoNV;
 }
@@ -37509,6 +38051,7 @@ pub struct IndirectCommandsLayoutTokenNV<'a> {
     pub(crate) p_index_type_values: *const u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for IndirectCommandsLayoutTokenNV<'a> {}
 unsafe impl<'a> ExtendableStructure for IndirectCommandsLayoutTokenNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::IndirectCommandsLayoutTokenNV;
 }
@@ -37634,6 +38177,7 @@ pub struct IndirectCommandsLayoutCreateInfoNV<'a> {
     pub(crate) p_stream_strides: *const u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for IndirectCommandsLayoutCreateInfoNV<'a> {}
 unsafe impl<'a> ExtendableStructure for IndirectCommandsLayoutCreateInfoNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::IndirectCommandsLayoutCreateInfoNV;
 }
@@ -37718,6 +38262,7 @@ pub struct GeneratedCommandsInfoNV<'a> {
     pub sequences_index_offset: DeviceSize,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for GeneratedCommandsInfoNV<'a> {}
 unsafe impl<'a> ExtendableStructure for GeneratedCommandsInfoNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::GeneratedCommandsInfoNV;
 }
@@ -37833,6 +38378,7 @@ pub struct GeneratedCommandsMemoryRequirementsInfoNV<'a> {
     pub max_sequences_count: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for GeneratedCommandsMemoryRequirementsInfoNV<'a> {}
 unsafe impl<'a> ExtendableStructure for GeneratedCommandsMemoryRequirementsInfoNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::GeneratedCommandsMemoryRequirementsInfoNV;
 }
@@ -37887,6 +38433,7 @@ pub struct PhysicalDeviceInheritedViewportScissorFeaturesNV<'a> {
     pub inherited_viewport_scissor2_d: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceInheritedViewportScissorFeaturesNV<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceInheritedViewportScissorFeaturesNV<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceInheritedViewportScissorFeaturesNV;
@@ -37934,6 +38481,7 @@ pub struct CommandBufferInheritanceViewportScissorInfoNV<'a> {
     pub p_viewport_depths: *const Viewport,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for CommandBufferInheritanceViewportScissorInfoNV<'a> {}
 unsafe impl<'a> ExtendableStructure for CommandBufferInheritanceViewportScissorInfoNV<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::CommandBufferInheritanceViewportScissorInfoNV;
@@ -37987,6 +38535,7 @@ pub struct PhysicalDeviceTexelBufferAlignmentFeaturesEXT<'a> {
     pub texel_buffer_alignment: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceTexelBufferAlignmentFeaturesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceTexelBufferAlignmentFeaturesEXT<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceTexelBufferAlignmentFeaturesEXT;
@@ -38032,6 +38581,7 @@ pub struct RenderPassTransformBeginInfoQCOM<'a> {
     pub transform: SurfaceTransformFlagsKHR,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for RenderPassTransformBeginInfoQCOM<'a> {}
 unsafe impl<'a> ExtendableStructure for RenderPassTransformBeginInfoQCOM<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::RenderPassTransformBeginInfoQCOM;
 }
@@ -38072,6 +38622,10 @@ pub struct CommandBufferInheritanceRenderPassTransformInfoQCOM<'a> {
     pub transform: SurfaceTransformFlagsKHR,
     pub render_area: Rect2D,
     phantom: PhantomData<&'a ()>,
+}
+unsafe impl<'a> ExtendableStructureBase
+    for CommandBufferInheritanceRenderPassTransformInfoQCOM<'a>
+{
 }
 unsafe impl<'a> ExtendableStructure for CommandBufferInheritanceRenderPassTransformInfoQCOM<'a> {
     const STRUCTURE_TYPE: StructureType =
@@ -38123,6 +38677,7 @@ pub struct PhysicalDeviceDepthBiasControlFeaturesEXT<'a> {
     pub depth_bias_exact: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceDepthBiasControlFeaturesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceDepthBiasControlFeaturesEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceDepthBiasControlFeaturesEXT;
 }
@@ -38190,6 +38745,7 @@ pub struct DepthBiasInfoEXT<'a> {
     pub depth_bias_slope_factor: f32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DepthBiasInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for DepthBiasInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::DepthBiasInfoEXT;
 }
@@ -38239,6 +38795,7 @@ pub struct DepthBiasRepresentationInfoEXT<'a> {
     pub depth_bias_exact: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DepthBiasRepresentationInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for DepthBiasRepresentationInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::DepthBiasRepresentationInfoEXT;
 }
@@ -38289,6 +38846,7 @@ pub struct PhysicalDeviceDeviceMemoryReportFeaturesEXT<'a> {
     pub device_memory_report: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceDeviceMemoryReportFeaturesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceDeviceMemoryReportFeaturesEXT<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceDeviceMemoryReportFeaturesEXT;
@@ -38336,6 +38894,7 @@ pub struct DeviceDeviceMemoryReportCreateInfoEXT<'a> {
     pub p_user_data: VoidPtr,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DeviceDeviceMemoryReportCreateInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for DeviceDeviceMemoryReportCreateInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::DeviceDeviceMemoryReportCreateInfoEXT;
 }
@@ -38394,6 +38953,7 @@ pub struct DeviceMemoryReportCallbackDataEXT<'a> {
     pub heap_index: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DeviceMemoryReportCallbackDataEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for DeviceMemoryReportCallbackDataEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::DeviceMemoryReportCallbackDataEXT;
 }
@@ -38468,6 +39028,7 @@ pub struct PhysicalDeviceRobustness2FeaturesEXT<'a> {
     pub null_descriptor: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceRobustness2FeaturesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceRobustness2FeaturesEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceRobustness2FeaturesEXT;
 }
@@ -38525,6 +39086,7 @@ pub struct PhysicalDeviceRobustness2PropertiesEXT<'a> {
     pub robust_uniform_buffer_access_size_alignment: DeviceSize,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceRobustness2PropertiesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceRobustness2PropertiesEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceRobustness2PropertiesEXT;
 }
@@ -38572,6 +39134,7 @@ pub struct SamplerCustomBorderColorCreateInfoEXT<'a> {
     pub format: Format,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for SamplerCustomBorderColorCreateInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for SamplerCustomBorderColorCreateInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::SamplerCustomBorderColorCreateInfoEXT;
 }
@@ -38618,6 +39181,7 @@ pub struct PhysicalDeviceCustomBorderColorPropertiesEXT<'a> {
     pub max_custom_border_color_samplers: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceCustomBorderColorPropertiesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceCustomBorderColorPropertiesEXT<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceCustomBorderColorPropertiesEXT;
@@ -38660,6 +39224,7 @@ pub struct PhysicalDeviceCustomBorderColorFeaturesEXT<'a> {
     pub custom_border_color_without_format: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceCustomBorderColorFeaturesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceCustomBorderColorFeaturesEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceCustomBorderColorFeaturesEXT;
 }
@@ -38711,6 +39276,7 @@ pub struct PipelineLibraryCreateInfoKHR<'a> {
     pub(crate) p_libraries: *const Pipeline,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PipelineLibraryCreateInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for PipelineLibraryCreateInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PipelineLibraryCreateInfoKHR;
 }
@@ -38764,6 +39330,7 @@ pub struct PhysicalDevicePresentBarrierFeaturesNV<'a> {
     pub present_barrier: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDevicePresentBarrierFeaturesNV<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDevicePresentBarrierFeaturesNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDevicePresentBarrierFeaturesNV;
 }
@@ -38808,6 +39375,7 @@ pub struct SurfaceCapabilitiesPresentBarrierNV<'a> {
     pub present_barrier_supported: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for SurfaceCapabilitiesPresentBarrierNV<'a> {}
 unsafe impl<'a> ExtendableStructure for SurfaceCapabilitiesPresentBarrierNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::SurfaceCapabilitiesPresentBarrierNV;
 }
@@ -38848,6 +39416,7 @@ pub struct SwapchainPresentBarrierCreateInfoNV<'a> {
     pub present_barrier_enable: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for SwapchainPresentBarrierCreateInfoNV<'a> {}
 unsafe impl<'a> ExtendableStructure for SwapchainPresentBarrierCreateInfoNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::SwapchainPresentBarrierCreateInfoNV;
 }
@@ -38889,6 +39458,7 @@ pub struct PresentIdKHR<'a> {
     pub(crate) p_present_ids: *const u64,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PresentIdKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for PresentIdKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PresentIdKHR;
 }
@@ -38941,6 +39511,7 @@ pub struct PhysicalDevicePresentIdFeaturesKHR<'a> {
     pub present_id: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDevicePresentIdFeaturesKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDevicePresentIdFeaturesKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDevicePresentIdFeaturesKHR;
 }
@@ -38985,6 +39556,7 @@ pub struct PhysicalDeviceDiagnosticsConfigFeaturesNV<'a> {
     pub diagnostics_config: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceDiagnosticsConfigFeaturesNV<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceDiagnosticsConfigFeaturesNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceDiagnosticsConfigFeaturesNV;
 }
@@ -39029,6 +39601,7 @@ pub struct DeviceDiagnosticsConfigCreateInfoNV<'a> {
     pub flags: DeviceDiagnosticsConfigFlagsNV,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DeviceDiagnosticsConfigCreateInfoNV<'a> {}
 unsafe impl<'a> ExtendableStructure for DeviceDiagnosticsConfigCreateInfoNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::DeviceDiagnosticsConfigCreateInfoNV;
 }
@@ -39070,6 +39643,7 @@ pub struct CudaModuleCreateInfoNV<'a> {
     pub(crate) p_data: VoidPtr,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for CudaModuleCreateInfoNV<'a> {}
 unsafe impl<'a> ExtendableStructure for CudaModuleCreateInfoNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::CudaModuleCreateInfoNV;
 }
@@ -39117,6 +39691,7 @@ pub struct CudaFunctionCreateInfoNV<'a> {
     pub p_name: *const c_char,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for CudaFunctionCreateInfoNV<'a> {}
 unsafe impl<'a> ExtendableStructure for CudaFunctionCreateInfoNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::CudaFunctionCreateInfoNV;
 }
@@ -39170,6 +39745,7 @@ pub struct CudaLaunchInfoNV<'a> {
     pub(crate) p_extras: *const *const c_void,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for CudaLaunchInfoNV<'a> {}
 unsafe impl<'a> ExtendableStructure for CudaLaunchInfoNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::CudaLaunchInfoNV;
 }
@@ -39286,6 +39862,7 @@ pub struct PhysicalDeviceCudaKernelLaunchFeaturesNV<'a> {
     pub cuda_kernel_launch_features: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceCudaKernelLaunchFeaturesNV<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceCudaKernelLaunchFeaturesNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceCudaKernelLaunchFeaturesNV;
 }
@@ -39331,6 +39908,7 @@ pub struct PhysicalDeviceCudaKernelLaunchPropertiesNV<'a> {
     pub compute_capability_major: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceCudaKernelLaunchPropertiesNV<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceCudaKernelLaunchPropertiesNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceCudaKernelLaunchPropertiesNV;
 }
@@ -39377,6 +39955,7 @@ pub struct QueryLowLatencySupportNV<'a> {
     pub p_queried_low_latency_data: VoidPtr,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for QueryLowLatencySupportNV<'a> {}
 unsafe impl<'a> ExtendableStructure for QueryLowLatencySupportNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::QueryLowLatencySupportNV;
 }
@@ -39414,6 +39993,7 @@ pub struct ExportMetalObjectCreateInfoEXT<'a> {
     pub export_object_type: ExportMetalObjectTypeFlagsEXT,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ExportMetalObjectCreateInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for ExportMetalObjectCreateInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ExportMetalObjectCreateInfoEXT;
 }
@@ -39471,6 +40051,7 @@ pub struct ExportMetalObjectsInfoEXT<'a> {
     pub(crate) p_next: Cell<*const Header>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ExportMetalObjectsInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for ExportMetalObjectsInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ExportMetalObjectsInfoEXT;
 }
@@ -39501,6 +40082,7 @@ pub struct ExportMetalDeviceInfoEXT<'a> {
     pub mtl_device: MTLDeviceId,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ExportMetalDeviceInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for ExportMetalDeviceInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ExportMetalDeviceInfoEXT;
 }
@@ -39542,6 +40124,7 @@ pub struct ExportMetalCommandQueueInfoEXT<'a> {
     pub mtl_command_queue: MTLCommandQueueId,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ExportMetalCommandQueueInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for ExportMetalCommandQueueInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ExportMetalCommandQueueInfoEXT;
 }
@@ -39589,6 +40172,7 @@ pub struct ExportMetalBufferInfoEXT<'a> {
     pub mtl_buffer: MTLBufferId,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ExportMetalBufferInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for ExportMetalBufferInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ExportMetalBufferInfoEXT;
 }
@@ -39635,6 +40219,7 @@ pub struct ImportMetalBufferInfoEXT<'a> {
     pub mtl_buffer: MTLBufferId,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ImportMetalBufferInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for ImportMetalBufferInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ImportMetalBufferInfoEXT;
 }
@@ -39676,6 +40261,7 @@ pub struct ExportMetalTextureInfoEXT<'a> {
     pub mtl_texture: MTLTextureId,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ExportMetalTextureInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for ExportMetalTextureInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ExportMetalTextureInfoEXT;
 }
@@ -39741,6 +40327,7 @@ pub struct ImportMetalTextureInfoEXT<'a> {
     pub mtl_texture: MTLTextureId,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ImportMetalTextureInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for ImportMetalTextureInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ImportMetalTextureInfoEXT;
 }
@@ -39785,6 +40372,7 @@ pub struct ExportMetalIOSurfaceInfoEXT<'a> {
     pub io_surface: IOSurfaceRef,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ExportMetalIOSurfaceInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for ExportMetalIOSurfaceInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ExportMetalIoSurfaceInfoEXT;
 }
@@ -39831,6 +40419,7 @@ pub struct ImportMetalIOSurfaceInfoEXT<'a> {
     pub io_surface: IOSurfaceRef,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ImportMetalIOSurfaceInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for ImportMetalIOSurfaceInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ImportMetalIoSurfaceInfoEXT;
 }
@@ -39870,6 +40459,7 @@ pub struct ExportMetalSharedEventInfoEXT<'a> {
     pub mtl_shared_event: MTLSharedEventId,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ExportMetalSharedEventInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for ExportMetalSharedEventInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ExportMetalSharedEventInfoEXT;
 }
@@ -39922,6 +40512,7 @@ pub struct ImportMetalSharedEventInfoEXT<'a> {
     pub mtl_shared_event: MTLSharedEventId,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ImportMetalSharedEventInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for ImportMetalSharedEventInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ImportMetalSharedEventInfoEXT;
 }
@@ -39975,6 +40566,7 @@ pub struct QueueFamilyCheckpointProperties2NV<'a> {
     pub checkpoint_execution_stage_mask: PipelineStageFlags2,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for QueueFamilyCheckpointProperties2NV<'a> {}
 unsafe impl<'a> ExtendableStructure for QueueFamilyCheckpointProperties2NV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::QueueFamilyCheckpointProperties2NV;
 }
@@ -40016,6 +40608,7 @@ pub struct CheckpointData2NV<'a> {
     pub p_checkpoint_marker: VoidPtr,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for CheckpointData2NV<'a> {}
 unsafe impl<'a> ExtendableStructure for CheckpointData2NV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::CheckpointData2NV;
 }
@@ -40090,6 +40683,7 @@ pub struct PhysicalDeviceDescriptorBufferPropertiesEXT<'a> {
     pub descriptor_buffer_address_space_size: DeviceSize,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceDescriptorBufferPropertiesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceDescriptorBufferPropertiesEXT<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceDescriptorBufferPropertiesEXT;
@@ -40332,6 +40926,10 @@ pub struct PhysicalDeviceDescriptorBufferDensityMapPropertiesEXT<'a> {
     pub combined_image_sampler_density_map_descriptor_size: usize,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase
+    for PhysicalDeviceDescriptorBufferDensityMapPropertiesEXT<'a>
+{
+}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceDescriptorBufferDensityMapPropertiesEXT<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceDescriptorBufferDensityMapPropertiesEXT;
@@ -40376,6 +40974,7 @@ pub struct PhysicalDeviceDescriptorBufferFeaturesEXT<'a> {
     pub descriptor_buffer_push_descriptors: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceDescriptorBufferFeaturesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceDescriptorBufferFeaturesEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceDescriptorBufferFeaturesEXT;
 }
@@ -40440,6 +41039,7 @@ pub struct DescriptorAddressInfoEXT<'a> {
     pub format: Format,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DescriptorAddressInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for DescriptorAddressInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::DescriptorAddressInfoEXT;
 }
@@ -40489,6 +41089,7 @@ pub struct DescriptorBufferBindingInfoEXT<'a> {
     pub usage: BufferUsageFlags,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DescriptorBufferBindingInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for DescriptorBufferBindingInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::DescriptorBufferBindingInfoEXT;
 }
@@ -40530,6 +41131,10 @@ pub struct DescriptorBufferBindingPushDescriptorBufferHandleEXT<'a> {
     pub(crate) p_next: Cell<*const Header>,
     pub buffer: Option<Buffer>,
     phantom: PhantomData<&'a ()>,
+}
+unsafe impl<'a> ExtendableStructureBase
+    for DescriptorBufferBindingPushDescriptorBufferHandleEXT<'a>
+{
 }
 unsafe impl<'a> ExtendableStructure for DescriptorBufferBindingPushDescriptorBufferHandleEXT<'a> {
     const STRUCTURE_TYPE: StructureType =
@@ -40595,6 +41200,7 @@ pub struct DescriptorGetInfoEXT<'a> {
     pub data: DescriptorDataEXT<'a>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DescriptorGetInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for DescriptorGetInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::DescriptorGetInfoEXT;
 }
@@ -40637,6 +41243,7 @@ pub struct BufferCaptureDescriptorDataInfoEXT<'a> {
     pub buffer: Option<Buffer>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for BufferCaptureDescriptorDataInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for BufferCaptureDescriptorDataInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::BufferCaptureDescriptorDataInfoEXT;
 }
@@ -40673,6 +41280,7 @@ pub struct ImageCaptureDescriptorDataInfoEXT<'a> {
     pub image: Option<Image>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ImageCaptureDescriptorDataInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for ImageCaptureDescriptorDataInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ImageCaptureDescriptorDataInfoEXT;
 }
@@ -40709,6 +41317,7 @@ pub struct ImageViewCaptureDescriptorDataInfoEXT<'a> {
     pub image_view: Option<ImageView>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ImageViewCaptureDescriptorDataInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for ImageViewCaptureDescriptorDataInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ImageViewCaptureDescriptorDataInfoEXT;
 }
@@ -40745,6 +41354,7 @@ pub struct SamplerCaptureDescriptorDataInfoEXT<'a> {
     pub sampler: Option<Sampler>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for SamplerCaptureDescriptorDataInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for SamplerCaptureDescriptorDataInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::SamplerCaptureDescriptorDataInfoEXT;
 }
@@ -40781,6 +41391,7 @@ pub struct OpaqueCaptureDescriptorDataCreateInfoEXT<'a> {
     pub opaque_capture_descriptor_data: VoidPtr,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for OpaqueCaptureDescriptorDataCreateInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for OpaqueCaptureDescriptorDataCreateInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::OpaqueCaptureDescriptorDataCreateInfoEXT;
 }
@@ -40842,6 +41453,7 @@ pub struct AccelerationStructureCaptureDescriptorDataInfoEXT<'a> {
     pub acceleration_structure_nv: Option<AccelerationStructureNV>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for AccelerationStructureCaptureDescriptorDataInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for AccelerationStructureCaptureDescriptorDataInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::AccelerationStructureCaptureDescriptorDataInfoEXT;
@@ -40891,6 +41503,7 @@ pub struct PhysicalDeviceGraphicsPipelineLibraryFeaturesEXT<'a> {
     pub graphics_pipeline_library: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceGraphicsPipelineLibraryFeaturesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceGraphicsPipelineLibraryFeaturesEXT<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceGraphicsPipelineLibraryFeaturesEXT;
@@ -40937,6 +41550,7 @@ pub struct PhysicalDeviceGraphicsPipelineLibraryPropertiesEXT<'a> {
     pub graphics_pipeline_library_independent_interpolation_decoration: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceGraphicsPipelineLibraryPropertiesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceGraphicsPipelineLibraryPropertiesEXT<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceGraphicsPipelineLibraryPropertiesEXT;
@@ -40987,6 +41601,7 @@ pub struct GraphicsPipelineLibraryCreateInfoEXT<'a> {
     pub flags: GraphicsPipelineLibraryFlagsEXT,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for GraphicsPipelineLibraryCreateInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for GraphicsPipelineLibraryCreateInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::GraphicsPipelineLibraryCreateInfoEXT;
 }
@@ -41026,6 +41641,10 @@ pub struct PhysicalDeviceShaderEarlyAndLateFragmentTestsFeaturesAMD<'a> {
     pub(crate) p_next: Cell<*const Header>,
     pub shader_early_and_late_fragment_tests: Bool32,
     phantom: PhantomData<&'a ()>,
+}
+unsafe impl<'a> ExtendableStructureBase
+    for PhysicalDeviceShaderEarlyAndLateFragmentTestsFeaturesAMD<'a>
+{
 }
 unsafe impl<'a> ExtendableStructure
     for PhysicalDeviceShaderEarlyAndLateFragmentTestsFeaturesAMD<'a>
@@ -41074,6 +41693,7 @@ pub struct PhysicalDeviceFragmentShaderBarycentricFeaturesKHR<'a> {
     pub fragment_shader_barycentric: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceFragmentShaderBarycentricFeaturesKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceFragmentShaderBarycentricFeaturesKHR<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceFragmentShaderBarycentricFeaturesKHR;
@@ -41121,6 +41741,10 @@ pub struct PhysicalDeviceFragmentShaderBarycentricPropertiesKHR<'a> {
     pub tri_strip_vertex_order_independent_of_provoking_vertex: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase
+    for PhysicalDeviceFragmentShaderBarycentricPropertiesKHR<'a>
+{
+}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceFragmentShaderBarycentricPropertiesKHR<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceFragmentShaderBarycentricPropertiesKHR;
@@ -41164,6 +41788,10 @@ pub struct PhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR<'a> {
     pub(crate) p_next: Cell<*const Header>,
     pub shader_subgroup_uniform_control_flow: Bool32,
     phantom: PhantomData<&'a ()>,
+}
+unsafe impl<'a> ExtendableStructureBase
+    for PhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR<'a>
+{
 }
 unsafe impl<'a> ExtendableStructure
     for PhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR<'a>
@@ -41214,6 +41842,7 @@ pub struct PhysicalDeviceFragmentShadingRateEnumsFeaturesNV<'a> {
     pub no_invocation_fragment_shading_rates: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceFragmentShadingRateEnumsFeaturesNV<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceFragmentShadingRateEnumsFeaturesNV<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceFragmentShadingRateEnumsFeaturesNV;
@@ -41271,6 +41900,7 @@ pub struct PhysicalDeviceFragmentShadingRateEnumsPropertiesNV<'a> {
     pub max_fragment_shading_rate_invocation_count: SampleCountFlags,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceFragmentShadingRateEnumsPropertiesNV<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceFragmentShadingRateEnumsPropertiesNV<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceFragmentShadingRateEnumsPropertiesNV;
@@ -41314,6 +41944,7 @@ pub struct PipelineFragmentShadingRateEnumStateCreateInfoNV<'a> {
     pub combiner_ops: [FragmentShadingRateCombinerOpKHR; 2u16 as _],
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PipelineFragmentShadingRateEnumStateCreateInfoNV<'a> {}
 unsafe impl<'a> ExtendableStructure for PipelineFragmentShadingRateEnumStateCreateInfoNV<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PipelineFragmentShadingRateEnumStateCreateInfoNV;
@@ -41367,6 +41998,7 @@ pub struct AccelerationStructureGeometryMotionTrianglesDataNV<'a> {
     pub vertex_data: DeviceOrHostAddressConstKHR,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for AccelerationStructureGeometryMotionTrianglesDataNV<'a> {}
 unsafe impl<'a> ExtendableStructure for AccelerationStructureGeometryMotionTrianglesDataNV<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::AccelerationStructureGeometryMotionTrianglesDataNV;
@@ -41409,6 +42041,7 @@ pub struct AccelerationStructureMotionInfoNV<'a> {
     pub flags: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for AccelerationStructureMotionInfoNV<'a> {}
 unsafe impl<'a> ExtendableStructure for AccelerationStructureMotionInfoNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::AccelerationStructureMotionInfoNV;
 }
@@ -41769,6 +42402,7 @@ pub struct PhysicalDeviceRayTracingMotionBlurFeaturesNV<'a> {
     pub ray_tracing_motion_blur_pipeline_trace_rays_indirect: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceRayTracingMotionBlurFeaturesNV<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceRayTracingMotionBlurFeaturesNV<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceRayTracingMotionBlurFeaturesNV;
@@ -41827,6 +42461,7 @@ pub struct PhysicalDeviceMeshShaderFeaturesEXT<'a> {
     pub mesh_shader_queries: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceMeshShaderFeaturesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceMeshShaderFeaturesEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceMeshShaderFeaturesEXT;
 }
@@ -41922,6 +42557,7 @@ pub struct PhysicalDeviceMeshShaderPropertiesEXT<'a> {
     pub prefers_compact_primitive_output: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceMeshShaderPropertiesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceMeshShaderPropertiesEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceMeshShaderPropertiesEXT;
 }
@@ -42161,6 +42797,7 @@ pub struct PhysicalDeviceYcbcr2Plane444FormatsFeaturesEXT<'a> {
     pub ycbcr2plane444_formats: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceYcbcr2Plane444FormatsFeaturesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceYcbcr2Plane444FormatsFeaturesEXT<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceYcbcr2Plane444FormatsFeaturesEXT;
@@ -42206,6 +42843,7 @@ pub struct PhysicalDeviceFragmentDensityMap2FeaturesEXT<'a> {
     pub fragment_density_map_deferred: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceFragmentDensityMap2FeaturesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceFragmentDensityMap2FeaturesEXT<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceFragmentDensityMap2FeaturesEXT;
@@ -42254,6 +42892,7 @@ pub struct PhysicalDeviceFragmentDensityMap2PropertiesEXT<'a> {
     pub max_descriptor_set_subsampled_samplers: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceFragmentDensityMap2PropertiesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceFragmentDensityMap2PropertiesEXT<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceFragmentDensityMap2PropertiesEXT;
@@ -42316,6 +42955,7 @@ pub struct CopyCommandTransformInfoQCOM<'a> {
     pub transform: SurfaceTransformFlagsKHR,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for CopyCommandTransformInfoQCOM<'a> {}
 unsafe impl<'a> ExtendableStructure for CopyCommandTransformInfoQCOM<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::CopyCommandTransformInfoQCOM;
 }
@@ -42356,6 +42996,10 @@ pub struct PhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR<'a> {
     pub workgroup_memory_explicit_layout8_bit_access: Bool32,
     pub workgroup_memory_explicit_layout16_bit_access: Bool32,
     phantom: PhantomData<&'a ()>,
+}
+unsafe impl<'a> ExtendableStructureBase
+    for PhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR<'a>
+{
 }
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR<'a> {
     const STRUCTURE_TYPE: StructureType =
@@ -42429,6 +43073,7 @@ pub struct PhysicalDeviceImageCompressionControlFeaturesEXT<'a> {
     pub image_compression_control: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceImageCompressionControlFeaturesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceImageCompressionControlFeaturesEXT<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceImageCompressionControlFeaturesEXT;
@@ -42476,6 +43121,7 @@ pub struct ImageCompressionControlEXT<'a> {
     pub(crate) p_fixed_rate_flags: *const ImageCompressionFixedRateFlagsEXT,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ImageCompressionControlEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for ImageCompressionControlEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ImageCompressionControlEXT;
 }
@@ -42549,6 +43195,7 @@ pub struct ImageCompressionPropertiesEXT<'a> {
     pub image_compression_fixed_rate_flags: ImageCompressionFixedRateFlagsEXT,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ImageCompressionPropertiesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for ImageCompressionPropertiesEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ImageCompressionPropertiesEXT;
 }
@@ -42606,6 +43253,10 @@ pub struct PhysicalDeviceAttachmentFeedbackLoopLayoutFeaturesEXT<'a> {
     pub attachment_feedback_loop_layout: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase
+    for PhysicalDeviceAttachmentFeedbackLoopLayoutFeaturesEXT<'a>
+{
+}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceAttachmentFeedbackLoopLayoutFeaturesEXT<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceAttachmentFeedbackLoopLayoutFeaturesEXT;
@@ -42652,6 +43303,7 @@ pub struct PhysicalDevice4444FormatsFeaturesEXT<'a> {
     pub format_a4_b4_g4_r4: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDevice4444FormatsFeaturesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDevice4444FormatsFeaturesEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDevice4444FormatsFeaturesEXT;
 }
@@ -42703,6 +43355,7 @@ pub struct PhysicalDeviceFaultFeaturesEXT<'a> {
     pub device_fault_vendor_binary: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceFaultFeaturesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceFaultFeaturesEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceFaultFeaturesEXT;
 }
@@ -42755,6 +43408,7 @@ pub struct DeviceFaultCountsEXT<'a> {
     pub vendor_binary_size: DeviceSize,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DeviceFaultCountsEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for DeviceFaultCountsEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::DeviceFaultCountsEXT;
 }
@@ -42806,6 +43460,7 @@ pub struct DeviceFaultInfoEXT<'a> {
     pub p_vendor_binary_data: VoidPtr,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DeviceFaultInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for DeviceFaultInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::DeviceFaultInfoEXT;
 }
@@ -43031,6 +43686,7 @@ pub struct PhysicalDeviceRGBA10X6FormatsFeaturesEXT<'a> {
     pub format_rgba10x6_without_ycb_cr_sampler: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceRGBA10X6FormatsFeaturesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceRGBA10X6FormatsFeaturesEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceRgba10X6FormatsFeaturesEXT;
 }
@@ -43077,6 +43733,7 @@ pub struct DirectFBSurfaceCreateInfoEXT<'a> {
     pub surface: *const VoidPtr,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DirectFBSurfaceCreateInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for DirectFBSurfaceCreateInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::DirectfbSurfaceCreateInfoEXT;
 }
@@ -43125,6 +43782,7 @@ pub struct PhysicalDeviceVertexInputDynamicStateFeaturesEXT<'a> {
     pub vertex_input_dynamic_state: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceVertexInputDynamicStateFeaturesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceVertexInputDynamicStateFeaturesEXT<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceVertexInputDynamicStateFeaturesEXT;
@@ -43173,6 +43831,7 @@ pub struct VertexInputBindingDescription2EXT<'a> {
     pub divisor: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for VertexInputBindingDescription2EXT<'a> {}
 unsafe impl<'a> ExtendableStructure for VertexInputBindingDescription2EXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::VertexInputBindingDescription2EXT;
 }
@@ -43230,6 +43889,7 @@ pub struct VertexInputAttributeDescription2EXT<'a> {
     pub offset: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for VertexInputAttributeDescription2EXT<'a> {}
 unsafe impl<'a> ExtendableStructure for VertexInputAttributeDescription2EXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::VertexInputAttributeDescription2EXT;
 }
@@ -43289,6 +43949,7 @@ pub struct PhysicalDeviceDrmPropertiesEXT<'a> {
     pub render_minor: i64,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceDrmPropertiesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceDrmPropertiesEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceDrmPropertiesEXT;
 }
@@ -43359,6 +44020,7 @@ pub struct PhysicalDeviceAddressBindingReportFeaturesEXT<'a> {
     pub report_address_binding: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceAddressBindingReportFeaturesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceAddressBindingReportFeaturesEXT<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceAddressBindingReportFeaturesEXT;
@@ -43407,6 +44069,7 @@ pub struct DeviceAddressBindingCallbackDataEXT<'a> {
     pub binding_type: DeviceAddressBindingTypeEXT,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DeviceAddressBindingCallbackDataEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for DeviceAddressBindingCallbackDataEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::DeviceAddressBindingCallbackDataEXT;
 }
@@ -43465,6 +44128,7 @@ pub struct PhysicalDeviceDepthClipControlFeaturesEXT<'a> {
     pub depth_clip_control: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceDepthClipControlFeaturesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceDepthClipControlFeaturesEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceDepthClipControlFeaturesEXT;
 }
@@ -43509,6 +44173,7 @@ pub struct PipelineViewportDepthClipControlCreateInfoEXT<'a> {
     pub negative_one_to_one: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PipelineViewportDepthClipControlCreateInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PipelineViewportDepthClipControlCreateInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PipelineViewportDepthClipControlCreateInfoEXT;
@@ -43550,6 +44215,10 @@ pub struct PhysicalDevicePrimitiveTopologyListRestartFeaturesEXT<'a> {
     pub primitive_topology_list_restart: Bool32,
     pub primitive_topology_patch_list_restart: Bool32,
     phantom: PhantomData<&'a ()>,
+}
+unsafe impl<'a> ExtendableStructureBase
+    for PhysicalDevicePrimitiveTopologyListRestartFeaturesEXT<'a>
+{
 }
 unsafe impl<'a> ExtendableStructure for PhysicalDevicePrimitiveTopologyListRestartFeaturesEXT<'a> {
     const STRUCTURE_TYPE: StructureType =
@@ -43603,6 +44272,7 @@ pub struct ImportMemoryZirconHandleInfoFUCHSIA<'a> {
     pub handle: VoidPtr,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ImportMemoryZirconHandleInfoFUCHSIA<'a> {}
 unsafe impl<'a> ExtendableStructure for ImportMemoryZirconHandleInfoFUCHSIA<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ImportMemoryZirconHandleInfoFUCHSIA;
 }
@@ -43649,6 +44319,7 @@ pub struct MemoryZirconHandlePropertiesFUCHSIA<'a> {
     pub memory_type_bits: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for MemoryZirconHandlePropertiesFUCHSIA<'a> {}
 unsafe impl<'a> ExtendableStructure for MemoryZirconHandlePropertiesFUCHSIA<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::MemoryZirconHandlePropertiesFUCHSIA;
 }
@@ -43686,6 +44357,7 @@ pub struct MemoryGetZirconHandleInfoFUCHSIA<'a> {
     pub handle_type: ExternalMemoryHandleTypeFlags,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for MemoryGetZirconHandleInfoFUCHSIA<'a> {}
 unsafe impl<'a> ExtendableStructure for MemoryGetZirconHandleInfoFUCHSIA<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::MemoryGetZirconHandleInfoFUCHSIA;
 }
@@ -43731,6 +44403,7 @@ pub struct ImportSemaphoreZirconHandleInfoFUCHSIA<'a> {
     pub zircon_handle: VoidPtr,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ImportSemaphoreZirconHandleInfoFUCHSIA<'a> {}
 unsafe impl<'a> ExtendableStructure for ImportSemaphoreZirconHandleInfoFUCHSIA<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ImportSemaphoreZirconHandleInfoFUCHSIA;
 }
@@ -43786,6 +44459,7 @@ pub struct SemaphoreGetZirconHandleInfoFUCHSIA<'a> {
     pub handle_type: ExternalSemaphoreHandleTypeFlags,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for SemaphoreGetZirconHandleInfoFUCHSIA<'a> {}
 unsafe impl<'a> ExtendableStructure for SemaphoreGetZirconHandleInfoFUCHSIA<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::SemaphoreGetZirconHandleInfoFUCHSIA;
 }
@@ -43828,6 +44502,7 @@ pub struct BufferCollectionCreateInfoFUCHSIA<'a> {
     pub collection_token: VoidPtr,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for BufferCollectionCreateInfoFUCHSIA<'a> {}
 unsafe impl<'a> ExtendableStructure for BufferCollectionCreateInfoFUCHSIA<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::BufferCollectionCreateInfoFUCHSIA;
 }
@@ -43865,6 +44540,7 @@ pub struct ImportMemoryBufferCollectionFUCHSIA<'a> {
     pub index: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ImportMemoryBufferCollectionFUCHSIA<'a> {}
 unsafe impl<'a> ExtendableStructure for ImportMemoryBufferCollectionFUCHSIA<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ImportMemoryBufferCollectionFUCHSIA;
 }
@@ -43912,6 +44588,7 @@ pub struct BufferCollectionImageCreateInfoFUCHSIA<'a> {
     pub index: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for BufferCollectionImageCreateInfoFUCHSIA<'a> {}
 unsafe impl<'a> ExtendableStructure for BufferCollectionImageCreateInfoFUCHSIA<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::BufferCollectionImageCreateInfoFUCHSIA;
 }
@@ -43960,6 +44637,7 @@ pub struct BufferConstraintsInfoFUCHSIA<'a> {
     pub buffer_collection_constraints: BufferCollectionConstraintsInfoFUCHSIA<'a>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for BufferConstraintsInfoFUCHSIA<'a> {}
 unsafe impl<'a> ExtendableStructure for BufferConstraintsInfoFUCHSIA<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::BufferConstraintsInfoFUCHSIA;
 }
@@ -44012,6 +44690,7 @@ pub struct BufferCollectionBufferCreateInfoFUCHSIA<'a> {
     pub index: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for BufferCollectionBufferCreateInfoFUCHSIA<'a> {}
 unsafe impl<'a> ExtendableStructure for BufferCollectionBufferCreateInfoFUCHSIA<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::BufferCollectionBufferCreateInfoFUCHSIA;
 }
@@ -44068,6 +44747,7 @@ pub struct BufferCollectionPropertiesFUCHSIA<'a> {
     pub suggested_ychroma_offset: ChromaLocation,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for BufferCollectionPropertiesFUCHSIA<'a> {}
 unsafe impl<'a> ExtendableStructure for BufferCollectionPropertiesFUCHSIA<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::BufferCollectionPropertiesFUCHSIA;
 }
@@ -44164,6 +44844,7 @@ pub struct SysmemColorSpaceFUCHSIA<'a> {
     pub color_space: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for SysmemColorSpaceFUCHSIA<'a> {}
 unsafe impl<'a> ExtendableStructure for SysmemColorSpaceFUCHSIA<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::SysmemColorSpaceFUCHSIA;
 }
@@ -44203,6 +44884,7 @@ pub struct ImageConstraintsInfoFUCHSIA<'a> {
     pub flags: ImageConstraintsInfoFlagsFUCHSIA,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ImageConstraintsInfoFUCHSIA<'a> {}
 unsafe impl<'a> ExtendableStructure for ImageConstraintsInfoFUCHSIA<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ImageConstraintsInfoFUCHSIA;
 }
@@ -44275,6 +44957,7 @@ pub struct ImageFormatConstraintsInfoFUCHSIA<'a> {
     pub(crate) p_color_spaces: *const SysmemColorSpaceFUCHSIA<'a>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ImageFormatConstraintsInfoFUCHSIA<'a> {}
 unsafe impl<'a> ExtendableStructure for ImageFormatConstraintsInfoFUCHSIA<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ImageFormatConstraintsInfoFUCHSIA;
 }
@@ -44352,6 +45035,7 @@ pub struct BufferCollectionConstraintsInfoFUCHSIA<'a> {
     pub min_buffer_count_for_shared_slack: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for BufferCollectionConstraintsInfoFUCHSIA<'a> {}
 unsafe impl<'a> ExtendableStructure for BufferCollectionConstraintsInfoFUCHSIA<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::BufferCollectionConstraintsInfoFUCHSIA;
 }
@@ -44413,6 +45097,7 @@ pub struct SubpassShadingPipelineCreateInfoHUAWEI<'a> {
     pub subpass: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for SubpassShadingPipelineCreateInfoHUAWEI<'a> {}
 unsafe impl<'a> ExtendableStructure for SubpassShadingPipelineCreateInfoHUAWEI<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::SubpassShadingPipelineCreateInfoHUAWEI;
 }
@@ -44459,6 +45144,7 @@ pub struct PhysicalDeviceSubpassShadingFeaturesHUAWEI<'a> {
     pub subpass_shading: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceSubpassShadingFeaturesHUAWEI<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceSubpassShadingFeaturesHUAWEI<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceSubpassShadingFeaturesHUAWEI;
 }
@@ -44503,6 +45189,7 @@ pub struct PhysicalDeviceSubpassShadingPropertiesHUAWEI<'a> {
     pub max_subpass_shading_workgroup_size_aspect_ratio: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceSubpassShadingPropertiesHUAWEI<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceSubpassShadingPropertiesHUAWEI<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceSubpassShadingPropertiesHUAWEI;
@@ -44544,6 +45231,7 @@ pub struct PhysicalDeviceInvocationMaskFeaturesHUAWEI<'a> {
     pub invocation_mask: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceInvocationMaskFeaturesHUAWEI<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceInvocationMaskFeaturesHUAWEI<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceInvocationMaskFeaturesHUAWEI;
 }
@@ -44592,6 +45280,7 @@ pub struct MemoryGetRemoteAddressInfoNV<'a> {
     pub handle_type: ExternalMemoryHandleTypeFlags,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for MemoryGetRemoteAddressInfoNV<'a> {}
 unsafe impl<'a> ExtendableStructure for MemoryGetRemoteAddressInfoNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::MemoryGetRemoteAddressInfoNV;
 }
@@ -44634,6 +45323,7 @@ pub struct PhysicalDeviceExternalMemoryRDMAFeaturesNV<'a> {
     pub external_memory_rdma: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceExternalMemoryRDMAFeaturesNV<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceExternalMemoryRDMAFeaturesNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceExternalMemoryRdmaFeaturesNV;
 }
@@ -44678,6 +45368,7 @@ pub struct PipelinePropertiesIdentifierEXT<'a> {
     pub pipeline_identifier: [u8; UUID_SIZE as _],
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PipelinePropertiesIdentifierEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PipelinePropertiesIdentifierEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PipelinePropertiesIdentifierEXT;
 }
@@ -44714,6 +45405,7 @@ pub struct PhysicalDevicePipelinePropertiesFeaturesEXT<'a> {
     pub pipeline_properties_identifier: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDevicePipelinePropertiesFeaturesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDevicePipelinePropertiesFeaturesEXT<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDevicePipelinePropertiesFeaturesEXT;
@@ -44759,6 +45451,7 @@ pub struct PhysicalDeviceFrameBoundaryFeaturesEXT<'a> {
     pub frame_boundary: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceFrameBoundaryFeaturesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceFrameBoundaryFeaturesEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceFrameBoundaryFeaturesEXT;
 }
@@ -44811,6 +45504,7 @@ pub struct FrameBoundaryEXT<'a> {
     pub(crate) p_tag: VoidPtr,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for FrameBoundaryEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for FrameBoundaryEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::FrameBoundaryEXT;
 }
@@ -44924,6 +45618,10 @@ pub struct PhysicalDeviceMultisampledRenderToSingleSampledFeaturesEXT<'a> {
     pub multisampled_render_to_single_sampled: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase
+    for PhysicalDeviceMultisampledRenderToSingleSampledFeaturesEXT<'a>
+{
+}
 unsafe impl<'a> ExtendableStructure
     for PhysicalDeviceMultisampledRenderToSingleSampledFeaturesEXT<'a>
 {
@@ -44971,6 +45669,7 @@ pub struct SubpassResolvePerformanceQueryEXT<'a> {
     pub optimal: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for SubpassResolvePerformanceQueryEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for SubpassResolvePerformanceQueryEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::SubpassResolvePerformanceQueryEXT;
 }
@@ -45012,6 +45711,7 @@ pub struct MultisampledRenderToSingleSampledInfoEXT<'a> {
     pub rasterization_samples: SampleCountFlags,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for MultisampledRenderToSingleSampledInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for MultisampledRenderToSingleSampledInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::MultisampledRenderToSingleSampledInfoEXT;
 }
@@ -45067,6 +45767,7 @@ pub struct PhysicalDeviceExtendedDynamicState2FeaturesEXT<'a> {
     pub extended_dynamic_state2_patch_control_points: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceExtendedDynamicState2FeaturesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceExtendedDynamicState2FeaturesEXT<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceExtendedDynamicState2FeaturesEXT;
@@ -45129,6 +45830,7 @@ pub struct ScreenSurfaceCreateInfoQNX<'a> {
     pub window: *const VoidPtr,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ScreenSurfaceCreateInfoQNX<'a> {}
 unsafe impl<'a> ExtendableStructure for ScreenSurfaceCreateInfoQNX<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ScreenSurfaceCreateInfoQNX;
 }
@@ -45177,6 +45879,7 @@ pub struct PhysicalDeviceColorWriteEnableFeaturesEXT<'a> {
     pub color_write_enable: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceColorWriteEnableFeaturesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceColorWriteEnableFeaturesEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceColorWriteEnableFeaturesEXT;
 }
@@ -45222,6 +45925,7 @@ pub struct PipelineColorWriteCreateInfoEXT<'a> {
     pub(crate) p_color_write_enables: *const Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PipelineColorWriteCreateInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PipelineColorWriteCreateInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PipelineColorWriteCreateInfoEXT;
 }
@@ -45277,6 +45981,7 @@ pub struct PhysicalDevicePrimitivesGeneratedQueryFeaturesEXT<'a> {
     pub primitives_generated_query_with_non_zero_streams: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDevicePrimitivesGeneratedQueryFeaturesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDevicePrimitivesGeneratedQueryFeaturesEXT<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDevicePrimitivesGeneratedQueryFeaturesEXT;
@@ -45341,6 +46046,7 @@ pub struct PhysicalDeviceRayTracingMaintenance1FeaturesKHR<'a> {
     pub ray_tracing_pipeline_trace_rays_indirect2: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceRayTracingMaintenance1FeaturesKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceRayTracingMaintenance1FeaturesKHR<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceRayTracingMaintenance1FeaturesKHR;
@@ -45506,6 +46212,7 @@ pub struct PhysicalDeviceImageViewMinLodFeaturesEXT<'a> {
     pub min_lod: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceImageViewMinLodFeaturesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceImageViewMinLodFeaturesEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceImageViewMinLodFeaturesEXT;
 }
@@ -45550,6 +46257,7 @@ pub struct ImageViewMinLodCreateInfoEXT<'a> {
     pub min_lod: f32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ImageViewMinLodCreateInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for ImageViewMinLodCreateInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ImageViewMinLodCreateInfoEXT;
 }
@@ -45590,6 +46298,7 @@ pub struct PhysicalDeviceMultiDrawFeaturesEXT<'a> {
     pub multi_draw: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceMultiDrawFeaturesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceMultiDrawFeaturesEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceMultiDrawFeaturesEXT;
 }
@@ -45634,6 +46343,7 @@ pub struct PhysicalDeviceMultiDrawPropertiesEXT<'a> {
     pub max_multi_draw_count: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceMultiDrawPropertiesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceMultiDrawPropertiesEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceMultiDrawPropertiesEXT;
 }
@@ -45742,6 +46452,7 @@ pub struct PhysicalDeviceImage2DViewOf3DFeaturesEXT<'a> {
     pub sampler2_dview_of3_d: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceImage2DViewOf3DFeaturesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceImage2DViewOf3DFeaturesEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceImage2DViewOf3DFeaturesEXT;
 }
@@ -45794,6 +46505,7 @@ pub struct PhysicalDeviceShaderTileImageFeaturesEXT<'a> {
     pub shader_tile_image_stencil_read_access: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceShaderTileImageFeaturesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceShaderTileImageFeaturesEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceShaderTileImageFeaturesEXT;
 }
@@ -45852,6 +46564,7 @@ pub struct PhysicalDeviceShaderTileImagePropertiesEXT<'a> {
     pub shader_tile_image_read_from_helper_invocation: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceShaderTileImagePropertiesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceShaderTileImagePropertiesEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceShaderTileImagePropertiesEXT;
 }
@@ -45920,6 +46633,7 @@ pub struct MicromapBuildInfoEXT<'a> {
     pub triangle_array_stride: DeviceSize,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for MicromapBuildInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for MicromapBuildInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::MicromapBuildInfoEXT;
 }
@@ -46081,6 +46795,7 @@ pub struct MicromapCreateInfoEXT<'a> {
     pub device_address: DeviceAddress,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for MicromapCreateInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for MicromapCreateInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::MicromapCreateInfoEXT;
 }
@@ -46149,6 +46864,7 @@ pub struct PhysicalDeviceOpacityMicromapFeaturesEXT<'a> {
     pub micromap_host_commands: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceOpacityMicromapFeaturesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceOpacityMicromapFeaturesEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceOpacityMicromapFeaturesEXT;
 }
@@ -46206,6 +46922,7 @@ pub struct PhysicalDeviceOpacityMicromapPropertiesEXT<'a> {
     pub max_opacity4_state_subdivision_level: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceOpacityMicromapPropertiesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceOpacityMicromapPropertiesEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceOpacityMicromapPropertiesEXT;
 }
@@ -46252,6 +46969,7 @@ pub struct MicromapVersionInfoEXT<'a> {
     pub(crate) p_version_data: *const u8,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for MicromapVersionInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for MicromapVersionInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::MicromapVersionInfoEXT;
 }
@@ -46290,6 +47008,7 @@ pub struct CopyMicromapToMemoryInfoEXT<'a> {
     pub mode: CopyMicromapModeEXT,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for CopyMicromapToMemoryInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for CopyMicromapToMemoryInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::CopyMicromapToMemoryInfoEXT;
 }
@@ -46340,6 +47059,7 @@ pub struct CopyMemoryToMicromapInfoEXT<'a> {
     pub mode: CopyMicromapModeEXT,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for CopyMemoryToMicromapInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for CopyMemoryToMicromapInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::CopyMemoryToMicromapInfoEXT;
 }
@@ -46390,6 +47110,7 @@ pub struct CopyMicromapInfoEXT<'a> {
     pub mode: CopyMicromapModeEXT,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for CopyMicromapInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for CopyMicromapInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::CopyMicromapInfoEXT;
 }
@@ -46440,6 +47161,7 @@ pub struct MicromapBuildSizesInfoEXT<'a> {
     pub discardable: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for MicromapBuildSizesInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for MicromapBuildSizesInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::MicromapBuildSizesInfoEXT;
 }
@@ -46495,6 +47217,7 @@ pub struct AccelerationStructureTrianglesOpacityMicromapEXT<'a> {
     pub micromap: Option<MicromapEXT>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for AccelerationStructureTrianglesOpacityMicromapEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for AccelerationStructureTrianglesOpacityMicromapEXT<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::AccelerationStructureTrianglesOpacityMicromapEXT;
@@ -46638,6 +47361,7 @@ pub struct PhysicalDeviceDisplacementMicromapFeaturesNV<'a> {
     pub displacement_micromap: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceDisplacementMicromapFeaturesNV<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceDisplacementMicromapFeaturesNV<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceDisplacementMicromapFeaturesNV;
@@ -46683,6 +47407,7 @@ pub struct PhysicalDeviceDisplacementMicromapPropertiesNV<'a> {
     pub max_displacement_micromap_subdivision_level: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceDisplacementMicromapPropertiesNV<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceDisplacementMicromapPropertiesNV<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceDisplacementMicromapPropertiesNV;
@@ -46738,6 +47463,10 @@ pub struct AccelerationStructureTrianglesDisplacementMicromapNV<'a> {
     pub(crate) pp_usage_counts: *const *const MicromapUsageEXT,
     pub micromap: Option<MicromapEXT>,
     phantom: PhantomData<&'a ()>,
+}
+unsafe impl<'a> ExtendableStructureBase
+    for AccelerationStructureTrianglesDisplacementMicromapNV<'a>
+{
 }
 unsafe impl<'a> ExtendableStructure for AccelerationStructureTrianglesDisplacementMicromapNV<'a> {
     const STRUCTURE_TYPE: StructureType =
@@ -46900,6 +47629,7 @@ pub struct PhysicalDeviceClusterCullingShaderFeaturesHUAWEI<'a> {
     pub multiview_cluster_culling_shader: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceClusterCullingShaderFeaturesHUAWEI<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceClusterCullingShaderFeaturesHUAWEI<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceClusterCullingShaderFeaturesHUAWEI;
@@ -46954,6 +47684,7 @@ pub struct PhysicalDeviceClusterCullingShaderPropertiesHUAWEI<'a> {
     pub indirect_buffer_offset_alignment: DeviceSize,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceClusterCullingShaderPropertiesHUAWEI<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceClusterCullingShaderPropertiesHUAWEI<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceClusterCullingShaderPropertiesHUAWEI;
@@ -47013,6 +47744,10 @@ pub struct PhysicalDeviceClusterCullingShaderVrsFeaturesHUAWEI<'a> {
     pub cluster_shading_rate: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase
+    for PhysicalDeviceClusterCullingShaderVrsFeaturesHUAWEI<'a>
+{
+}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceClusterCullingShaderVrsFeaturesHUAWEI<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceClusterCullingShaderVrsFeaturesHUAWEI;
@@ -47055,6 +47790,7 @@ pub struct PhysicalDeviceBorderColorSwizzleFeaturesEXT<'a> {
     pub border_color_swizzle_from_image: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceBorderColorSwizzleFeaturesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceBorderColorSwizzleFeaturesEXT<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceBorderColorSwizzleFeaturesEXT;
@@ -47107,6 +47843,7 @@ pub struct SamplerBorderColorComponentMappingCreateInfoEXT<'a> {
     pub srgb: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for SamplerBorderColorComponentMappingCreateInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for SamplerBorderColorComponentMappingCreateInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::SamplerBorderColorComponentMappingCreateInfoEXT;
@@ -47154,6 +47891,7 @@ pub struct PhysicalDevicePageableDeviceLocalMemoryFeaturesEXT<'a> {
     pub pageable_device_local_memory: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDevicePageableDeviceLocalMemoryFeaturesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDevicePageableDeviceLocalMemoryFeaturesEXT<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDevicePageableDeviceLocalMemoryFeaturesEXT;
@@ -47201,6 +47939,7 @@ pub struct PhysicalDeviceShaderCorePropertiesARM<'a> {
     pub fma_rate: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceShaderCorePropertiesARM<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceShaderCorePropertiesARM<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceShaderCorePropertiesARM;
 }
@@ -47254,6 +47993,7 @@ pub struct PhysicalDeviceShaderSubgroupRotateFeaturesKHR<'a> {
     pub shader_subgroup_rotate_clustered: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceShaderSubgroupRotateFeaturesKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceShaderSubgroupRotateFeaturesKHR<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceShaderSubgroupRotateFeaturesKHR;
@@ -47305,6 +48045,7 @@ pub struct DeviceQueueShaderCoreControlCreateInfoARM<'a> {
     pub shader_core_count: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DeviceQueueShaderCoreControlCreateInfoARM<'a> {}
 unsafe impl<'a> ExtendableStructure for DeviceQueueShaderCoreControlCreateInfoARM<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::DeviceQueueShaderCoreControlCreateInfoARM;
 }
@@ -47349,6 +48090,7 @@ pub struct PhysicalDeviceSchedulingControlsFeaturesARM<'a> {
     pub scheduling_controls: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceSchedulingControlsFeaturesARM<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceSchedulingControlsFeaturesARM<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceSchedulingControlsFeaturesARM;
@@ -47394,6 +48136,7 @@ pub struct PhysicalDeviceSchedulingControlsPropertiesARM<'a> {
     pub scheduling_controls_flags: PhysicalDeviceSchedulingControlsFlagsARM,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceSchedulingControlsPropertiesARM<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceSchedulingControlsPropertiesARM<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceSchedulingControlsPropertiesARM;
@@ -47438,6 +48181,7 @@ pub struct PhysicalDeviceImageSlicedViewOf3DFeaturesEXT<'a> {
     pub image_sliced_view_of3_d: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceImageSlicedViewOf3DFeaturesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceImageSlicedViewOf3DFeaturesEXT<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceImageSlicedViewOf3DFeaturesEXT;
@@ -47484,6 +48228,7 @@ pub struct ImageViewSlicedCreateInfoEXT<'a> {
     pub slice_count: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ImageViewSlicedCreateInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for ImageViewSlicedCreateInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ImageViewSlicedCreateInfoEXT;
 }
@@ -47529,6 +48274,10 @@ pub struct PhysicalDeviceDescriptorSetHostMappingFeaturesVALVE<'a> {
     pub(crate) p_next: Cell<*const Header>,
     pub descriptor_set_host_mapping: Bool32,
     phantom: PhantomData<&'a ()>,
+}
+unsafe impl<'a> ExtendableStructureBase
+    for PhysicalDeviceDescriptorSetHostMappingFeaturesVALVE<'a>
+{
 }
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceDescriptorSetHostMappingFeaturesVALVE<'a> {
     const STRUCTURE_TYPE: StructureType =
@@ -47576,6 +48325,7 @@ pub struct DescriptorSetBindingReferenceVALVE<'a> {
     pub binding: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DescriptorSetBindingReferenceVALVE<'a> {}
 unsafe impl<'a> ExtendableStructure for DescriptorSetBindingReferenceVALVE<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::DescriptorSetBindingReferenceVALVE;
 }
@@ -47619,6 +48369,7 @@ pub struct DescriptorSetLayoutHostMappingInfoVALVE<'a> {
     pub descriptor_size: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DescriptorSetLayoutHostMappingInfoVALVE<'a> {}
 unsafe impl<'a> ExtendableStructure for DescriptorSetLayoutHostMappingInfoVALVE<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::DescriptorSetLayoutHostMappingInfoVALVE;
 }
@@ -47661,6 +48412,7 @@ pub struct PhysicalDeviceDepthClampZeroOneFeaturesEXT<'a> {
     pub depth_clamp_zero_one: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceDepthClampZeroOneFeaturesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceDepthClampZeroOneFeaturesEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceDepthClampZeroOneFeaturesEXT;
 }
@@ -47705,6 +48457,7 @@ pub struct PhysicalDeviceNonSeamlessCubeMapFeaturesEXT<'a> {
     pub non_seamless_cube_map: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceNonSeamlessCubeMapFeaturesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceNonSeamlessCubeMapFeaturesEXT<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceNonSeamlessCubeMapFeaturesEXT;
@@ -47750,6 +48503,7 @@ pub struct PhysicalDeviceRenderPassStripedFeaturesARM<'a> {
     pub render_pass_striped: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceRenderPassStripedFeaturesARM<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceRenderPassStripedFeaturesARM<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceRenderPassStripedFeaturesARM;
 }
@@ -47795,6 +48549,7 @@ pub struct PhysicalDeviceRenderPassStripedPropertiesARM<'a> {
     pub max_render_pass_stripes: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceRenderPassStripedPropertiesARM<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceRenderPassStripedPropertiesARM<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceRenderPassStripedPropertiesARM;
@@ -47843,6 +48598,7 @@ pub struct RenderPassStripeBeginInfoARM<'a> {
     pub(crate) p_stripe_infos: *const RenderPassStripeInfoARM<'a>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for RenderPassStripeBeginInfoARM<'a> {}
 unsafe impl<'a> ExtendableStructure for RenderPassStripeBeginInfoARM<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::RenderPassStripeBeginInfoARM;
 }
@@ -47897,6 +48653,7 @@ pub struct RenderPassStripeInfoARM<'a> {
     pub stripe_area: Rect2D,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for RenderPassStripeInfoARM<'a> {}
 unsafe impl<'a> ExtendableStructure for RenderPassStripeInfoARM<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::RenderPassStripeInfoARM;
 }
@@ -47934,6 +48691,7 @@ pub struct RenderPassStripeSubmitInfoARM<'a> {
     pub(crate) p_stripe_semaphore_infos: *const SemaphoreSubmitInfo<'a>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for RenderPassStripeSubmitInfoARM<'a> {}
 unsafe impl<'a> ExtendableStructure for RenderPassStripeSubmitInfoARM<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::RenderPassStripeSubmitInfoARM;
 }
@@ -47990,6 +48748,7 @@ pub struct PhysicalDeviceFragmentDensityMapOffsetFeaturesQCOM<'a> {
     pub fragment_density_map_offset: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceFragmentDensityMapOffsetFeaturesQCOM<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceFragmentDensityMapOffsetFeaturesQCOM<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceFragmentDensityMapOffsetFeaturesQCOM;
@@ -48035,6 +48794,10 @@ pub struct PhysicalDeviceFragmentDensityMapOffsetPropertiesQCOM<'a> {
     pub fragment_density_offset_granularity: Extent2D,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase
+    for PhysicalDeviceFragmentDensityMapOffsetPropertiesQCOM<'a>
+{
+}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceFragmentDensityMapOffsetPropertiesQCOM<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceFragmentDensityMapOffsetPropertiesQCOM;
@@ -48077,6 +48840,7 @@ pub struct SubpassFragmentDensityMapOffsetEndInfoQCOM<'a> {
     pub(crate) p_fragment_density_offsets: *const Offset2D,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for SubpassFragmentDensityMapOffsetEndInfoQCOM<'a> {}
 unsafe impl<'a> ExtendableStructure for SubpassFragmentDensityMapOffsetEndInfoQCOM<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::SubpassFragmentDensityMapOffsetEndInfoQCOM;
 }
@@ -48228,6 +48992,7 @@ pub struct PhysicalDeviceCopyMemoryIndirectFeaturesNV<'a> {
     pub indirect_copy: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceCopyMemoryIndirectFeaturesNV<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceCopyMemoryIndirectFeaturesNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceCopyMemoryIndirectFeaturesNV;
 }
@@ -48272,6 +49037,7 @@ pub struct PhysicalDeviceCopyMemoryIndirectPropertiesNV<'a> {
     pub supported_queues: QueueFlags,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceCopyMemoryIndirectPropertiesNV<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceCopyMemoryIndirectPropertiesNV<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceCopyMemoryIndirectPropertiesNV;
@@ -48364,6 +49130,7 @@ pub struct PhysicalDeviceMemoryDecompressionFeaturesNV<'a> {
     pub memory_decompression: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceMemoryDecompressionFeaturesNV<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceMemoryDecompressionFeaturesNV<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceMemoryDecompressionFeaturesNV;
@@ -48410,6 +49177,7 @@ pub struct PhysicalDeviceMemoryDecompressionPropertiesNV<'a> {
     pub max_decompression_indirect_count: u64,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceMemoryDecompressionPropertiesNV<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceMemoryDecompressionPropertiesNV<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceMemoryDecompressionPropertiesNV;
@@ -48458,6 +49226,10 @@ pub struct PhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV<'a> {
     pub device_generated_compute_pipelines: Bool32,
     pub device_generated_compute_capture_replay: Bool32,
     phantom: PhantomData<&'a ()>,
+}
+unsafe impl<'a> ExtendableStructureBase
+    for PhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV<'a>
+{
 }
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV<'a> {
     const STRUCTURE_TYPE: StructureType =
@@ -48518,6 +49290,7 @@ pub struct ComputePipelineIndirectBufferInfoNV<'a> {
     pub pipeline_device_address_capture_replay: DeviceAddress,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ComputePipelineIndirectBufferInfoNV<'a> {}
 unsafe impl<'a> ExtendableStructure for ComputePipelineIndirectBufferInfoNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ComputePipelineIndirectBufferInfoNV;
 }
@@ -48571,6 +49344,7 @@ pub struct PipelineIndirectDeviceAddressInfoNV<'a> {
     pub pipeline: Option<Pipeline>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PipelineIndirectDeviceAddressInfoNV<'a> {}
 unsafe impl<'a> ExtendableStructure for PipelineIndirectDeviceAddressInfoNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PipelineIndirectDeviceAddressInfoNV;
 }
@@ -48636,6 +49410,7 @@ pub struct PhysicalDeviceLinearColorAttachmentFeaturesNV<'a> {
     pub linear_color_attachment: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceLinearColorAttachmentFeaturesNV<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceLinearColorAttachmentFeaturesNV<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceLinearColorAttachmentFeaturesNV;
@@ -48681,6 +49456,10 @@ pub struct PhysicalDeviceShaderMaximalReconvergenceFeaturesKHR<'a> {
     pub shader_maximal_reconvergence: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase
+    for PhysicalDeviceShaderMaximalReconvergenceFeaturesKHR<'a>
+{
+}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceShaderMaximalReconvergenceFeaturesKHR<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceShaderMaximalReconvergenceFeaturesKHR;
@@ -48725,6 +49504,10 @@ pub struct PhysicalDeviceImageCompressionControlSwapchainFeaturesEXT<'a> {
     pub(crate) p_next: Cell<*const Header>,
     pub image_compression_control_swapchain: Bool32,
     phantom: PhantomData<&'a ()>,
+}
+unsafe impl<'a> ExtendableStructureBase
+    for PhysicalDeviceImageCompressionControlSwapchainFeaturesEXT<'a>
+{
 }
 unsafe impl<'a> ExtendableStructure
     for PhysicalDeviceImageCompressionControlSwapchainFeaturesEXT<'a>
@@ -48775,6 +49558,7 @@ pub struct ImageViewSampleWeightCreateInfoQCOM<'a> {
     pub num_phases: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ImageViewSampleWeightCreateInfoQCOM<'a> {}
 unsafe impl<'a> ExtendableStructure for ImageViewSampleWeightCreateInfoQCOM<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ImageViewSampleWeightCreateInfoQCOM;
 }
@@ -48829,6 +49613,7 @@ pub struct PhysicalDeviceImageProcessingFeaturesQCOM<'a> {
     pub texture_block_match: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceImageProcessingFeaturesQCOM<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceImageProcessingFeaturesQCOM<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceImageProcessingFeaturesQCOM;
 }
@@ -48888,6 +49673,7 @@ pub struct PhysicalDeviceImageProcessingPropertiesQCOM<'a> {
     pub max_box_filter_block_size: Extent2D,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceImageProcessingPropertiesQCOM<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceImageProcessingPropertiesQCOM<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceImageProcessingPropertiesQCOM;
@@ -48949,6 +49735,7 @@ pub struct PhysicalDeviceNestedCommandBufferFeaturesEXT<'a> {
     pub nested_command_buffer_simultaneous_use: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceNestedCommandBufferFeaturesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceNestedCommandBufferFeaturesEXT<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceNestedCommandBufferFeaturesEXT;
@@ -49006,6 +49793,7 @@ pub struct PhysicalDeviceNestedCommandBufferPropertiesEXT<'a> {
     pub max_command_buffer_nesting_level: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceNestedCommandBufferPropertiesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceNestedCommandBufferPropertiesEXT<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceNestedCommandBufferPropertiesEXT;
@@ -49047,6 +49835,7 @@ pub struct ExternalMemoryAcquireUnmodifiedEXT<'a> {
     pub acquire_unmodified_memory: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ExternalMemoryAcquireUnmodifiedEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for ExternalMemoryAcquireUnmodifiedEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ExternalMemoryAcquireUnmodifiedEXT;
 }
@@ -49129,6 +49918,7 @@ pub struct PhysicalDeviceExtendedDynamicState3FeaturesEXT<'a> {
     pub extended_dynamic_state3_shading_rate_image_enable: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceExtendedDynamicState3FeaturesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceExtendedDynamicState3FeaturesEXT<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceExtendedDynamicState3FeaturesEXT;
@@ -49417,6 +50207,7 @@ pub struct PhysicalDeviceExtendedDynamicState3PropertiesEXT<'a> {
     pub dynamic_primitive_topology_unrestricted: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceExtendedDynamicState3PropertiesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceExtendedDynamicState3PropertiesEXT<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceExtendedDynamicState3PropertiesEXT;
@@ -49567,6 +50358,7 @@ pub struct PhysicalDeviceSubpassMergeFeedbackFeaturesEXT<'a> {
     pub subpass_merge_feedback: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceSubpassMergeFeedbackFeaturesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceSubpassMergeFeedbackFeaturesEXT<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceSubpassMergeFeedbackFeaturesEXT;
@@ -49612,6 +50404,7 @@ pub struct RenderPassCreationControlEXT<'a> {
     pub disallow_merging: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for RenderPassCreationControlEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for RenderPassCreationControlEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::RenderPassCreationControlEXT;
 }
@@ -49679,6 +50472,7 @@ pub struct RenderPassCreationFeedbackCreateInfoEXT<'a> {
     pub p_render_pass_feedback: *const RenderPassCreationFeedbackInfoEXT,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for RenderPassCreationFeedbackCreateInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for RenderPassCreationFeedbackCreateInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::RenderPassCreationFeedbackCreateInfoEXT;
 }
@@ -49758,6 +50552,7 @@ pub struct RenderPassSubpassFeedbackCreateInfoEXT<'a> {
     pub p_subpass_feedback: *const RenderPassSubpassFeedbackInfoEXT,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for RenderPassSubpassFeedbackCreateInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for RenderPassSubpassFeedbackCreateInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::RenderPassSubpassFeedbackCreateInfoEXT;
 }
@@ -49799,6 +50594,7 @@ pub struct DirectDriverLoadingInfoLUNARG<'a> {
     pub pfn_get_instance_proc_addr: FuncPtr,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DirectDriverLoadingInfoLUNARG<'a> {}
 unsafe impl<'a> ExtendableStructure for DirectDriverLoadingInfoLUNARG<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::DirectDriverLoadingInfoLUNARG;
 }
@@ -49843,6 +50639,7 @@ pub struct DirectDriverLoadingListLUNARG<'a> {
     pub(crate) p_drivers: *const DirectDriverLoadingInfoLUNARG<'a>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DirectDriverLoadingListLUNARG<'a> {}
 unsafe impl<'a> ExtendableStructure for DirectDriverLoadingListLUNARG<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::DirectDriverLoadingListLUNARG;
 }
@@ -49902,6 +50699,7 @@ pub struct PhysicalDeviceShaderModuleIdentifierFeaturesEXT<'a> {
     pub shader_module_identifier: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceShaderModuleIdentifierFeaturesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceShaderModuleIdentifierFeaturesEXT<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceShaderModuleIdentifierFeaturesEXT;
@@ -49947,6 +50745,7 @@ pub struct PhysicalDeviceShaderModuleIdentifierPropertiesEXT<'a> {
     pub shader_module_identifier_algorithm_uuid: [u8; UUID_SIZE as _],
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceShaderModuleIdentifierPropertiesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceShaderModuleIdentifierPropertiesEXT<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceShaderModuleIdentifierPropertiesEXT;
@@ -49989,6 +50788,7 @@ pub struct PipelineShaderStageModuleIdentifierCreateInfoEXT<'a> {
     pub(crate) p_identifier: *const u8,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PipelineShaderStageModuleIdentifierCreateInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PipelineShaderStageModuleIdentifierCreateInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PipelineShaderStageModuleIdentifierCreateInfoEXT;
@@ -50041,6 +50841,7 @@ pub struct ShaderModuleIdentifierEXT<'a> {
     pub(crate) identifier: [u8; MAX_SHADER_MODULE_IDENTIFIER_SIZE_EXT as _],
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ShaderModuleIdentifierEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for ShaderModuleIdentifierEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ShaderModuleIdentifierEXT;
 }
@@ -50078,6 +50879,10 @@ pub struct PhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT<'a> {
     pub rasterization_order_depth_attachment_access: Bool32,
     pub rasterization_order_stencil_attachment_access: Bool32,
     phantom: PhantomData<&'a ()>,
+}
+unsafe impl<'a> ExtendableStructureBase
+    for PhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT<'a>
+{
 }
 unsafe impl<'a> ExtendableStructure
     for PhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT<'a>
@@ -50143,6 +50948,7 @@ pub struct PhysicalDeviceOpticalFlowFeaturesNV<'a> {
     pub optical_flow: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceOpticalFlowFeaturesNV<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceOpticalFlowFeaturesNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceOpticalFlowFeaturesNV;
 }
@@ -50197,6 +51003,7 @@ pub struct PhysicalDeviceOpticalFlowPropertiesNV<'a> {
     pub max_num_regions_of_interest: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceOpticalFlowPropertiesNV<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceOpticalFlowPropertiesNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceOpticalFlowPropertiesNV;
 }
@@ -50297,6 +51104,7 @@ pub struct OpticalFlowImageFormatInfoNV<'a> {
     pub usage: OpticalFlowUsageFlagsNV,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for OpticalFlowImageFormatInfoNV<'a> {}
 unsafe impl<'a> ExtendableStructure for OpticalFlowImageFormatInfoNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::OpticalFlowImageFormatInfoNV;
 }
@@ -50338,6 +51146,7 @@ pub struct OpticalFlowImageFormatPropertiesNV<'a> {
     pub format: Format,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for OpticalFlowImageFormatPropertiesNV<'a> {}
 unsafe impl<'a> ExtendableStructure for OpticalFlowImageFormatPropertiesNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::OpticalFlowImageFormatPropertiesNV;
 }
@@ -50382,6 +51191,7 @@ pub struct OpticalFlowSessionCreateInfoNV<'a> {
     pub flags: OpticalFlowSessionCreateFlagsNV,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for OpticalFlowSessionCreateInfoNV<'a> {}
 unsafe impl<'a> ExtendableStructure for OpticalFlowSessionCreateInfoNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::OpticalFlowSessionCreateInfoNV;
 }
@@ -50468,6 +51278,7 @@ pub struct OpticalFlowSessionCreatePrivateDataInfoNV<'a> {
     pub p_private_data: VoidPtr,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for OpticalFlowSessionCreatePrivateDataInfoNV<'a> {}
 unsafe impl<'a> ExtendableStructure for OpticalFlowSessionCreatePrivateDataInfoNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::OpticalFlowSessionCreatePrivateDataInfoNV;
 }
@@ -50522,6 +51333,7 @@ pub struct OpticalFlowExecuteInfoNV<'a> {
     pub(crate) p_regions: *const Rect2D,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for OpticalFlowExecuteInfoNV<'a> {}
 unsafe impl<'a> ExtendableStructure for OpticalFlowExecuteInfoNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::OpticalFlowExecuteInfoNV;
 }
@@ -50574,6 +51386,7 @@ pub struct PhysicalDeviceLegacyDitheringFeaturesEXT<'a> {
     pub legacy_dithering: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceLegacyDitheringFeaturesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceLegacyDitheringFeaturesEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceLegacyDitheringFeaturesEXT;
 }
@@ -50618,6 +51431,7 @@ pub struct PhysicalDevicePipelineProtectedAccessFeaturesEXT<'a> {
     pub pipeline_protected_access: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDevicePipelineProtectedAccessFeaturesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDevicePipelineProtectedAccessFeaturesEXT<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDevicePipelineProtectedAccessFeaturesEXT;
@@ -50663,6 +51477,7 @@ pub struct PhysicalDeviceExternalFormatResolveFeaturesANDROID<'a> {
     pub external_format_resolve: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceExternalFormatResolveFeaturesANDROID<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceExternalFormatResolveFeaturesANDROID<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceExternalFormatResolveFeaturesANDROID;
@@ -50709,6 +51524,10 @@ pub struct PhysicalDeviceExternalFormatResolvePropertiesANDROID<'a> {
     pub external_format_resolve_chroma_offset_x: ChromaLocation,
     pub external_format_resolve_chroma_offset_y: ChromaLocation,
     phantom: PhantomData<&'a ()>,
+}
+unsafe impl<'a> ExtendableStructureBase
+    for PhysicalDeviceExternalFormatResolvePropertiesANDROID<'a>
+{
 }
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceExternalFormatResolvePropertiesANDROID<'a> {
     const STRUCTURE_TYPE: StructureType =
@@ -50766,6 +51585,10 @@ pub struct AndroidHardwareBufferFormatResolvePropertiesANDROID<'a> {
     pub color_attachment_format: Format,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase
+    for AndroidHardwareBufferFormatResolvePropertiesANDROID<'a>
+{
+}
 unsafe impl<'a> ExtendableStructure for AndroidHardwareBufferFormatResolvePropertiesANDROID<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::AndroidHardwareBufferFormatResolvePropertiesANDROID;
@@ -50807,6 +51630,7 @@ pub struct PhysicalDeviceMaintenance5FeaturesKHR<'a> {
     pub maintenance5: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceMaintenance5FeaturesKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceMaintenance5FeaturesKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceMaintenance5FeaturesKHR;
 }
@@ -50856,6 +51680,7 @@ pub struct PhysicalDeviceMaintenance5PropertiesKHR<'a> {
     pub non_strict_wide_lines_use_parallelogram: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceMaintenance5PropertiesKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceMaintenance5PropertiesKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceMaintenance5PropertiesKHR;
 }
@@ -50939,6 +51764,7 @@ pub struct RenderingAreaInfoKHR<'a> {
     pub stencil_attachment_format: Format,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for RenderingAreaInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for RenderingAreaInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::RenderingAreaInfoKHR;
 }
@@ -51015,6 +51841,7 @@ pub struct DeviceImageSubresourceInfoKHR<'a> {
     pub p_subresource: *const ImageSubresource2KHR<'a>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DeviceImageSubresourceInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for DeviceImageSubresourceInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::DeviceImageSubresourceInfoKHR;
 }
@@ -51057,6 +51884,7 @@ pub struct ImageSubresource2KHR<'a> {
     pub image_subresource: ImageSubresource,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ImageSubresource2KHR<'a> {}
 unsafe impl<'a> ExtendableStructure for ImageSubresource2KHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ImageSubresource2KHR;
 }
@@ -51094,6 +51922,7 @@ pub struct SubresourceLayout2KHR<'a> {
     pub subresource_layout: SubresourceLayout,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for SubresourceLayout2KHR<'a> {}
 unsafe impl<'a> ExtendableStructure for SubresourceLayout2KHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::SubresourceLayout2KHR;
 }
@@ -51131,6 +51960,7 @@ pub struct PipelineCreateFlags2CreateInfoKHR<'a> {
     pub flags: PipelineCreateFlags2KHR,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PipelineCreateFlags2CreateInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for PipelineCreateFlags2CreateInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PipelineCreateFlags2CreateInfoKHR;
 }
@@ -51183,6 +52013,7 @@ pub struct BufferUsageFlags2CreateInfoKHR<'a> {
     pub usage: BufferUsageFlags2KHR,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for BufferUsageFlags2CreateInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for BufferUsageFlags2CreateInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::BufferUsageFlags2CreateInfoKHR;
 }
@@ -51235,6 +52066,7 @@ pub struct PhysicalDeviceAntiLagFeaturesAMD<'a> {
     pub anti_lag: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceAntiLagFeaturesAMD<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceAntiLagFeaturesAMD<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceAntiLagFeaturesAMD;
 }
@@ -51281,6 +52113,7 @@ pub struct AntiLagDataAMD<'a> {
     pub p_presentation_info: *const AntiLagPresentationInfoAMD<'a>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for AntiLagDataAMD<'a> {}
 unsafe impl<'a> ExtendableStructure for AntiLagDataAMD<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::AntiLagDataAMD;
 }
@@ -51330,6 +52163,7 @@ pub struct AntiLagPresentationInfoAMD<'a> {
     pub frame_index: u64,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for AntiLagPresentationInfoAMD<'a> {}
 unsafe impl<'a> ExtendableStructure for AntiLagPresentationInfoAMD<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::AntiLagPresentationInfoAMD;
 }
@@ -51372,6 +52206,7 @@ pub struct PhysicalDeviceRayTracingPositionFetchFeaturesKHR<'a> {
     pub ray_tracing_position_fetch: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceRayTracingPositionFetchFeaturesKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceRayTracingPositionFetchFeaturesKHR<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceRayTracingPositionFetchFeaturesKHR;
@@ -51417,6 +52252,7 @@ pub struct PhysicalDeviceShaderObjectFeaturesEXT<'a> {
     pub shader_object: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceShaderObjectFeaturesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceShaderObjectFeaturesEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceShaderObjectFeaturesEXT;
 }
@@ -51462,6 +52298,7 @@ pub struct PhysicalDeviceShaderObjectPropertiesEXT<'a> {
     pub shader_binary_version: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceShaderObjectPropertiesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceShaderObjectPropertiesEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceShaderObjectPropertiesEXT;
 }
@@ -51519,6 +52356,7 @@ pub struct ShaderCreateInfoEXT<'a> {
     pub p_specialization_info: *const SpecializationInfo<'a>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ShaderCreateInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for ShaderCreateInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ShaderCreateInfoEXT;
 }
@@ -51652,6 +52490,7 @@ pub struct PhysicalDevicePipelineBinaryFeaturesKHR<'a> {
     pub pipeline_binaries: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDevicePipelineBinaryFeaturesKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDevicePipelineBinaryFeaturesKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDevicePipelineBinaryFeaturesKHR;
 }
@@ -51700,6 +52539,7 @@ pub struct PhysicalDevicePipelineBinaryPropertiesKHR<'a> {
     pub pipeline_binary_compressed_data: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDevicePipelineBinaryPropertiesKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDevicePipelineBinaryPropertiesKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDevicePipelineBinaryPropertiesKHR;
 }
@@ -51764,6 +52604,7 @@ pub struct DevicePipelineBinaryInternalCacheControlKHR<'a> {
     pub disable_internal_cache: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for DevicePipelineBinaryInternalCacheControlKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for DevicePipelineBinaryInternalCacheControlKHR<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::DevicePipelineBinaryInternalCacheControlKHR;
@@ -51806,6 +52647,7 @@ pub struct PipelineBinaryKeyKHR<'a> {
     pub key: [u8; MAX_PIPELINE_BINARY_KEY_SIZE_KHR as _],
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PipelineBinaryKeyKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for PipelineBinaryKeyKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PipelineBinaryKeyKHR;
 }
@@ -51935,6 +52777,7 @@ pub struct PipelineBinaryCreateInfoKHR<'a> {
     pub p_pipeline_create_info: *const PipelineCreateInfoKHR<'a>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PipelineBinaryCreateInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for PipelineBinaryCreateInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PipelineBinaryCreateInfoKHR;
 }
@@ -51987,6 +52830,7 @@ pub struct PipelineBinaryInfoKHR<'a> {
     pub(crate) p_pipeline_binaries: *const PipelineBinaryKHR,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PipelineBinaryInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for PipelineBinaryInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PipelineBinaryInfoKHR;
 }
@@ -52048,6 +52892,7 @@ pub struct ReleaseCapturedPipelineDataInfoKHR<'a> {
     pub pipeline: Option<Pipeline>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ReleaseCapturedPipelineDataInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for ReleaseCapturedPipelineDataInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ReleaseCapturedPipelineDataInfoKHR;
 }
@@ -52084,6 +52929,7 @@ pub struct PipelineBinaryDataInfoKHR<'a> {
     pub pipeline_binary: Option<PipelineBinaryKHR>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PipelineBinaryDataInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for PipelineBinaryDataInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PipelineBinaryDataInfoKHR;
 }
@@ -52119,6 +52965,7 @@ pub struct PipelineCreateInfoKHR<'a> {
     pub(crate) p_next: Cell<*const Header>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PipelineCreateInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for PipelineCreateInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PipelineCreateInfoKHR;
 }
@@ -52150,6 +52997,7 @@ pub struct PipelineBinaryHandlesInfoKHR<'a> {
     pub(crate) p_pipeline_binaries: *const PipelineBinaryKHR,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PipelineBinaryHandlesInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for PipelineBinaryHandlesInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PipelineBinaryHandlesInfoKHR;
 }
@@ -52207,6 +53055,7 @@ pub struct PhysicalDeviceTilePropertiesFeaturesQCOM<'a> {
     pub tile_properties: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceTilePropertiesFeaturesQCOM<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceTilePropertiesFeaturesQCOM<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceTilePropertiesFeaturesQCOM;
 }
@@ -52253,6 +53102,7 @@ pub struct TilePropertiesQCOM<'a> {
     pub origin: Offset2D,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for TilePropertiesQCOM<'a> {}
 unsafe impl<'a> ExtendableStructure for TilePropertiesQCOM<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::TilePropertiesQCOM;
 }
@@ -52301,6 +53151,7 @@ pub struct PhysicalDeviceAmigoProfilingFeaturesSEC<'a> {
     pub amigo_profiling: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceAmigoProfilingFeaturesSEC<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceAmigoProfilingFeaturesSEC<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceAmigoProfilingFeaturesSEC;
 }
@@ -52346,6 +53197,7 @@ pub struct AmigoProfilingSubmitInfoSEC<'a> {
     pub swap_buffer_timestamp: u64,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for AmigoProfilingSubmitInfoSEC<'a> {}
 unsafe impl<'a> ExtendableStructure for AmigoProfilingSubmitInfoSEC<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::AmigoProfilingSubmitInfoSEC;
 }
@@ -52388,6 +53240,10 @@ pub struct PhysicalDeviceMultiviewPerViewViewportsFeaturesQCOM<'a> {
     pub(crate) p_next: Cell<*const Header>,
     pub multiview_per_view_viewports: Bool32,
     phantom: PhantomData<&'a ()>,
+}
+unsafe impl<'a> ExtendableStructureBase
+    for PhysicalDeviceMultiviewPerViewViewportsFeaturesQCOM<'a>
+{
 }
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceMultiviewPerViewViewportsFeaturesQCOM<'a> {
     const STRUCTURE_TYPE: StructureType =
@@ -52434,6 +53290,10 @@ pub struct PhysicalDeviceRayTracingInvocationReorderPropertiesNV<'a> {
     pub ray_tracing_invocation_reorder_reordering_hint: RayTracingInvocationReorderModeNV,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase
+    for PhysicalDeviceRayTracingInvocationReorderPropertiesNV<'a>
+{
+}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceRayTracingInvocationReorderPropertiesNV<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceRayTracingInvocationReorderPropertiesNV;
@@ -52477,6 +53337,10 @@ pub struct PhysicalDeviceRayTracingInvocationReorderFeaturesNV<'a> {
     pub(crate) p_next: Cell<*const Header>,
     pub ray_tracing_invocation_reorder: Bool32,
     phantom: PhantomData<&'a ()>,
+}
+unsafe impl<'a> ExtendableStructureBase
+    for PhysicalDeviceRayTracingInvocationReorderFeaturesNV<'a>
+{
 }
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceRayTracingInvocationReorderFeaturesNV<'a> {
     const STRUCTURE_TYPE: StructureType =
@@ -52523,6 +53387,7 @@ pub struct PhysicalDeviceExtendedSparseAddressSpaceFeaturesNV<'a> {
     pub extended_sparse_address_space: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceExtendedSparseAddressSpaceFeaturesNV<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceExtendedSparseAddressSpaceFeaturesNV<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceExtendedSparseAddressSpaceFeaturesNV;
@@ -52569,6 +53434,10 @@ pub struct PhysicalDeviceExtendedSparseAddressSpacePropertiesNV<'a> {
     pub extended_sparse_image_usage_flags: ImageUsageFlags,
     pub extended_sparse_buffer_usage_flags: BufferUsageFlags,
     phantom: PhantomData<&'a ()>,
+}
+unsafe impl<'a> ExtendableStructureBase
+    for PhysicalDeviceExtendedSparseAddressSpacePropertiesNV<'a>
+{
 }
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceExtendedSparseAddressSpacePropertiesNV<'a> {
     const STRUCTURE_TYPE: StructureType =
@@ -52623,6 +53492,7 @@ pub struct PhysicalDeviceMutableDescriptorTypeFeaturesEXT<'a> {
     pub mutable_descriptor_type: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceMutableDescriptorTypeFeaturesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceMutableDescriptorTypeFeaturesEXT<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceMutableDescriptorTypeFeaturesEXT;
@@ -52713,6 +53583,7 @@ pub struct MutableDescriptorTypeCreateInfoEXT<'a> {
     pub(crate) p_mutable_descriptor_type_lists: *const MutableDescriptorTypeListEXT<'a>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for MutableDescriptorTypeCreateInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for MutableDescriptorTypeCreateInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::MutableDescriptorTypeCreateInfoEXT;
 }
@@ -52776,6 +53647,7 @@ pub struct PhysicalDeviceLegacyVertexAttributesFeaturesEXT<'a> {
     pub legacy_vertex_attributes: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceLegacyVertexAttributesFeaturesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceLegacyVertexAttributesFeaturesEXT<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceLegacyVertexAttributesFeaturesEXT;
@@ -52821,6 +53693,7 @@ pub struct PhysicalDeviceLegacyVertexAttributesPropertiesEXT<'a> {
     pub native_unaligned_performance: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceLegacyVertexAttributesPropertiesEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceLegacyVertexAttributesPropertiesEXT<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceLegacyVertexAttributesPropertiesEXT;
@@ -52863,6 +53736,7 @@ pub struct LayerSettingsCreateInfoEXT<'a> {
     pub(crate) p_settings: *const LayerSettingEXT<'a>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for LayerSettingsCreateInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for LayerSettingsCreateInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::LayerSettingsCreateInfoEXT;
 }
@@ -52971,6 +53845,7 @@ pub struct PhysicalDeviceShaderCoreBuiltinsFeaturesARM<'a> {
     pub shader_core_builtins: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceShaderCoreBuiltinsFeaturesARM<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceShaderCoreBuiltinsFeaturesARM<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceShaderCoreBuiltinsFeaturesARM;
@@ -53018,6 +53893,7 @@ pub struct PhysicalDeviceShaderCoreBuiltinsPropertiesARM<'a> {
     pub shader_warps_per_core: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceShaderCoreBuiltinsPropertiesARM<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceShaderCoreBuiltinsPropertiesARM<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceShaderCoreBuiltinsPropertiesARM;
@@ -53071,6 +53947,10 @@ pub struct PhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT<'a> {
     pub pipeline_library_group_handles: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase
+    for PhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT<'a>
+{
+}
 unsafe impl<'a> ExtendableStructure for PhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT;
@@ -53115,6 +53995,10 @@ pub struct PhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT<'a> {
     pub(crate) p_next: Cell<*const Header>,
     pub dynamic_rendering_unused_attachments: Bool32,
     phantom: PhantomData<&'a ()>,
+}
+unsafe impl<'a> ExtendableStructureBase
+    for PhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT<'a>
+{
 }
 unsafe impl<'a> ExtendableStructure
     for PhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT<'a>
@@ -53165,6 +54049,7 @@ pub struct LatencySleepModeInfoNV<'a> {
     pub minimum_interval_us: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for LatencySleepModeInfoNV<'a> {}
 unsafe impl<'a> ExtendableStructure for LatencySleepModeInfoNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::LatencySleepModeInfoNV;
 }
@@ -53214,6 +54099,7 @@ pub struct LatencySleepInfoNV<'a> {
     pub value: u64,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for LatencySleepInfoNV<'a> {}
 unsafe impl<'a> ExtendableStructure for LatencySleepInfoNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::LatencySleepInfoNV;
 }
@@ -53257,6 +54143,7 @@ pub struct SetLatencyMarkerInfoNV<'a> {
     pub marker: LatencyMarkerNV,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for SetLatencyMarkerInfoNV<'a> {}
 unsafe impl<'a> ExtendableStructure for SetLatencyMarkerInfoNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::SetLatencyMarkerInfoNV;
 }
@@ -53300,6 +54187,7 @@ pub struct GetLatencyMarkerInfoNV<'a> {
     pub(crate) p_timings: *const LatencyTimingsFrameReportNV<'a>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for GetLatencyMarkerInfoNV<'a> {}
 unsafe impl<'a> ExtendableStructure for GetLatencyMarkerInfoNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::GetLatencyMarkerInfoNV;
 }
@@ -53364,6 +54252,7 @@ pub struct LatencyTimingsFrameReportNV<'a> {
     pub gpu_render_end_time_us: u64,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for LatencyTimingsFrameReportNV<'a> {}
 unsafe impl<'a> ExtendableStructure for LatencyTimingsFrameReportNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::LatencyTimingsFrameReportNV;
 }
@@ -53478,6 +54367,7 @@ pub struct LatencySubmissionPresentIdNV<'a> {
     pub present_id: u64,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for LatencySubmissionPresentIdNV<'a> {}
 unsafe impl<'a> ExtendableStructure for LatencySubmissionPresentIdNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::LatencySubmissionPresentIdNV;
 }
@@ -53516,6 +54406,7 @@ pub struct SwapchainLatencyCreateInfoNV<'a> {
     pub latency_mode_enable: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for SwapchainLatencyCreateInfoNV<'a> {}
 unsafe impl<'a> ExtendableStructure for SwapchainLatencyCreateInfoNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::SwapchainLatencyCreateInfoNV;
 }
@@ -53556,6 +54447,7 @@ pub struct OutOfBandQueueTypeInfoNV<'a> {
     pub queue_type: OutOfBandQueueTypeNV,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for OutOfBandQueueTypeInfoNV<'a> {}
 unsafe impl<'a> ExtendableStructure for OutOfBandQueueTypeInfoNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::OutOfBandQueueTypeInfoNV;
 }
@@ -53593,6 +54485,7 @@ pub struct LatencySurfaceCapabilitiesNV<'a> {
     pub(crate) p_present_modes: *const PresentModeKHR,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for LatencySurfaceCapabilitiesNV<'a> {}
 unsafe impl<'a> ExtendableStructure for LatencySurfaceCapabilitiesNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::LatencySurfaceCapabilitiesNV;
 }
@@ -53656,6 +54549,7 @@ pub struct CooperativeMatrixPropertiesKHR<'a> {
     pub scope: ScopeKHR,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for CooperativeMatrixPropertiesKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for CooperativeMatrixPropertiesKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::CooperativeMatrixPropertiesKHR;
 }
@@ -53741,6 +54635,7 @@ pub struct PhysicalDeviceCooperativeMatrixFeaturesKHR<'a> {
     pub cooperative_matrix_robust_buffer_access: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceCooperativeMatrixFeaturesKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceCooperativeMatrixFeaturesKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceCooperativeMatrixFeaturesKHR;
 }
@@ -53791,6 +54686,7 @@ pub struct PhysicalDeviceCooperativeMatrixPropertiesKHR<'a> {
     pub cooperative_matrix_supported_stages: ShaderStageFlags,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceCooperativeMatrixPropertiesKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceCooperativeMatrixPropertiesKHR<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceCooperativeMatrixPropertiesKHR;
@@ -53831,6 +54727,10 @@ pub struct PhysicalDeviceMultiviewPerViewRenderAreasFeaturesQCOM<'a> {
     pub(crate) p_next: Cell<*const Header>,
     pub multiview_per_view_render_areas: Bool32,
     phantom: PhantomData<&'a ()>,
+}
+unsafe impl<'a> ExtendableStructureBase
+    for PhysicalDeviceMultiviewPerViewRenderAreasFeaturesQCOM<'a>
+{
 }
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceMultiviewPerViewRenderAreasFeaturesQCOM<'a> {
     const STRUCTURE_TYPE: StructureType =
@@ -53878,6 +54778,7 @@ pub struct MultiviewPerViewRenderAreasRenderPassBeginInfoQCOM<'a> {
     pub(crate) p_per_view_render_areas: *const Rect2D,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for MultiviewPerViewRenderAreasRenderPassBeginInfoQCOM<'a> {}
 unsafe impl<'a> ExtendableStructure for MultiviewPerViewRenderAreasRenderPassBeginInfoQCOM<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::MultiviewPerViewRenderAreasRenderPassBeginInfoQCOM;
@@ -53940,6 +54841,7 @@ pub struct PhysicalDevicePerStageDescriptorSetFeaturesNV<'a> {
     pub dynamic_pipeline_layout: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDevicePerStageDescriptorSetFeaturesNV<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDevicePerStageDescriptorSetFeaturesNV<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDevicePerStageDescriptorSetFeaturesNV;
@@ -53991,6 +54893,7 @@ pub struct PhysicalDeviceImageProcessing2FeaturesQCOM<'a> {
     pub texture_block_match2: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceImageProcessing2FeaturesQCOM<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceImageProcessing2FeaturesQCOM<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceImageProcessing2FeaturesQCOM;
 }
@@ -54035,6 +54938,7 @@ pub struct PhysicalDeviceImageProcessing2PropertiesQCOM<'a> {
     pub max_block_match_window: Extent2D,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceImageProcessing2PropertiesQCOM<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceImageProcessing2PropertiesQCOM<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceImageProcessing2PropertiesQCOM;
@@ -54077,6 +54981,7 @@ pub struct SamplerBlockMatchWindowCreateInfoQCOM<'a> {
     pub window_compare_mode: BlockMatchWindowCompareModeQCOM,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for SamplerBlockMatchWindowCreateInfoQCOM<'a> {}
 unsafe impl<'a> ExtendableStructure for SamplerBlockMatchWindowCreateInfoQCOM<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::SamplerBlockMatchWindowCreateInfoQCOM;
 }
@@ -54123,6 +55028,7 @@ pub struct PhysicalDeviceCubicWeightsFeaturesQCOM<'a> {
     pub selectable_cubic_weights: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceCubicWeightsFeaturesQCOM<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceCubicWeightsFeaturesQCOM<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceCubicWeightsFeaturesQCOM;
 }
@@ -54167,6 +55073,7 @@ pub struct SamplerCubicWeightsCreateInfoQCOM<'a> {
     pub cubic_weights: CubicFilterWeightsQCOM,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for SamplerCubicWeightsCreateInfoQCOM<'a> {}
 unsafe impl<'a> ExtendableStructure for SamplerCubicWeightsCreateInfoQCOM<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::SamplerCubicWeightsCreateInfoQCOM;
 }
@@ -54207,6 +55114,7 @@ pub struct BlitImageCubicWeightsInfoQCOM<'a> {
     pub cubic_weights: CubicFilterWeightsQCOM,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for BlitImageCubicWeightsInfoQCOM<'a> {}
 unsafe impl<'a> ExtendableStructure for BlitImageCubicWeightsInfoQCOM<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::BlitImageCubicWeightsInfoQCOM;
 }
@@ -54244,6 +55152,7 @@ pub struct PhysicalDeviceYcbcrDegammaFeaturesQCOM<'a> {
     pub ycbcr_degamma: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceYcbcrDegammaFeaturesQCOM<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceYcbcrDegammaFeaturesQCOM<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceYcbcrDegammaFeaturesQCOM;
 }
@@ -54289,6 +55198,7 @@ pub struct SamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM<'a> {
     pub enable_cb_cr_degamma: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for SamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM<'a> {}
 unsafe impl<'a> ExtendableStructure for SamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::SamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM;
@@ -54336,6 +55246,7 @@ pub struct PhysicalDeviceCubicClampFeaturesQCOM<'a> {
     pub cubic_range_clamp: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceCubicClampFeaturesQCOM<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceCubicClampFeaturesQCOM<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceCubicClampFeaturesQCOM;
 }
@@ -54379,6 +55290,10 @@ pub struct PhysicalDeviceAttachmentFeedbackLoopDynamicStateFeaturesEXT<'a> {
     pub(crate) p_next: Cell<*const Header>,
     pub attachment_feedback_loop_dynamic_state: Bool32,
     phantom: PhantomData<&'a ()>,
+}
+unsafe impl<'a> ExtendableStructureBase
+    for PhysicalDeviceAttachmentFeedbackLoopDynamicStateFeaturesEXT<'a>
+{
 }
 unsafe impl<'a> ExtendableStructure
     for PhysicalDeviceAttachmentFeedbackLoopDynamicStateFeaturesEXT<'a>
@@ -54428,6 +55343,7 @@ pub struct PhysicalDeviceVertexAttributeDivisorPropertiesKHR<'a> {
     pub supports_non_zero_first_instance: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceVertexAttributeDivisorPropertiesKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceVertexAttributeDivisorPropertiesKHR<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceVertexAttributeDivisorPropertiesKHR;
@@ -54507,6 +55423,7 @@ pub struct PipelineVertexInputDivisorStateCreateInfoKHR<'a> {
     pub(crate) p_vertex_binding_divisors: *const VertexInputBindingDivisorDescriptionKHR,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PipelineVertexInputDivisorStateCreateInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for PipelineVertexInputDivisorStateCreateInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PipelineVertexInputDivisorStateCreateInfoKHR;
@@ -54567,6 +55484,7 @@ pub struct PhysicalDeviceVertexAttributeDivisorFeaturesKHR<'a> {
     pub vertex_attribute_instance_rate_zero_divisor: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceVertexAttributeDivisorFeaturesKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceVertexAttributeDivisorFeaturesKHR<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceVertexAttributeDivisorFeaturesKHR;
@@ -54620,6 +55538,7 @@ pub struct PhysicalDeviceShaderFloatControls2FeaturesKHR<'a> {
     pub shader_float_controls2: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceShaderFloatControls2FeaturesKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceShaderFloatControls2FeaturesKHR<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceShaderFloatControls2FeaturesKHR;
@@ -54666,6 +55585,7 @@ pub struct ScreenBufferPropertiesQNX<'a> {
     pub memory_type_bits: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ScreenBufferPropertiesQNX<'a> {}
 unsafe impl<'a> ExtendableStructure for ScreenBufferPropertiesQNX<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ScreenBufferPropertiesQNX;
 }
@@ -54716,6 +55636,7 @@ pub struct ScreenBufferFormatPropertiesQNX<'a> {
     pub suggested_ychroma_offset: ChromaLocation,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ScreenBufferFormatPropertiesQNX<'a> {}
 unsafe impl<'a> ExtendableStructure for ScreenBufferFormatPropertiesQNX<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ScreenBufferFormatPropertiesQNX;
 }
@@ -54804,6 +55725,7 @@ pub struct ImportScreenBufferInfoQNX<'a> {
     pub buffer: *const VoidPtr,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ImportScreenBufferInfoQNX<'a> {}
 unsafe impl<'a> ExtendableStructure for ImportScreenBufferInfoQNX<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ImportScreenBufferInfoQNX;
 }
@@ -54841,6 +55763,7 @@ pub struct ExternalFormatQNX<'a> {
     pub external_format: u64,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ExternalFormatQNX<'a> {}
 unsafe impl<'a> ExtendableStructure for ExternalFormatQNX<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ExternalFormatQNX;
 }
@@ -54881,6 +55804,10 @@ pub struct PhysicalDeviceExternalMemoryScreenBufferFeaturesQNX<'a> {
     pub(crate) p_next: Cell<*const Header>,
     pub screen_buffer_import: Bool32,
     phantom: PhantomData<&'a ()>,
+}
+unsafe impl<'a> ExtendableStructureBase
+    for PhysicalDeviceExternalMemoryScreenBufferFeaturesQNX<'a>
+{
 }
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceExternalMemoryScreenBufferFeaturesQNX<'a> {
     const STRUCTURE_TYPE: StructureType =
@@ -54927,6 +55854,7 @@ pub struct PhysicalDeviceLayeredDriverPropertiesMSFT<'a> {
     pub underlying_api: LayeredDriverUnderlyingApiMSFT,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceLayeredDriverPropertiesMSFT<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceLayeredDriverPropertiesMSFT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceLayeredDriverPropertiesMSFT;
 }
@@ -54967,6 +55895,7 @@ pub struct PhysicalDeviceIndexTypeUint8FeaturesKHR<'a> {
     pub index_type_uint8: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceIndexTypeUint8FeaturesKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceIndexTypeUint8FeaturesKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceIndexTypeUint8FeaturesKHR;
 }
@@ -55017,6 +55946,7 @@ pub struct PhysicalDeviceLineRasterizationFeaturesKHR<'a> {
     pub stippled_smooth_lines: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceLineRasterizationFeaturesKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceLineRasterizationFeaturesKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceLineRasterizationFeaturesKHR;
 }
@@ -55093,6 +56023,7 @@ pub struct PhysicalDeviceLineRasterizationPropertiesKHR<'a> {
     pub line_sub_pixel_precision_bits: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceLineRasterizationPropertiesKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceLineRasterizationPropertiesKHR<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceLineRasterizationPropertiesKHR;
@@ -55139,6 +56070,7 @@ pub struct PipelineRasterizationLineStateCreateInfoKHR<'a> {
     pub line_stipple_pattern: u16,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PipelineRasterizationLineStateCreateInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for PipelineRasterizationLineStateCreateInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PipelineRasterizationLineStateCreateInfoKHR;
@@ -55200,6 +56132,7 @@ pub struct CalibratedTimestampInfoKHR<'a> {
     pub time_domain: TimeDomainKHR,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for CalibratedTimestampInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for CalibratedTimestampInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::CalibratedTimestampInfoKHR;
 }
@@ -55237,6 +56170,7 @@ pub struct PhysicalDeviceShaderExpectAssumeFeaturesKHR<'a> {
     pub shader_expect_assume: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceShaderExpectAssumeFeaturesKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceShaderExpectAssumeFeaturesKHR<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceShaderExpectAssumeFeaturesKHR;
@@ -55282,6 +56216,7 @@ pub struct PhysicalDeviceMaintenance6FeaturesKHR<'a> {
     pub maintenance6: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceMaintenance6FeaturesKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceMaintenance6FeaturesKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceMaintenance6FeaturesKHR;
 }
@@ -55328,6 +56263,7 @@ pub struct PhysicalDeviceMaintenance6PropertiesKHR<'a> {
     pub fragment_shading_rate_clamp_combiner_inputs: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceMaintenance6PropertiesKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceMaintenance6PropertiesKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceMaintenance6PropertiesKHR;
 }
@@ -55380,6 +56316,7 @@ pub struct BindMemoryStatusKHR<'a> {
     pub p_result: *const Status,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for BindMemoryStatusKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for BindMemoryStatusKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::BindMemoryStatusKHR;
 }
@@ -55424,6 +56361,7 @@ pub struct BindDescriptorSetsInfoKHR<'a> {
     pub(crate) p_dynamic_offsets: *const u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for BindDescriptorSetsInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for BindDescriptorSetsInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::BindDescriptorSetsInfoKHR;
 }
@@ -55522,6 +56460,7 @@ pub struct PushConstantsInfoKHR<'a> {
     pub(crate) p_values: VoidPtr,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PushConstantsInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for PushConstantsInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PushConstantsInfoKHR;
 }
@@ -55590,6 +56529,7 @@ pub struct PushDescriptorSetInfoKHR<'a> {
     pub(crate) p_descriptor_writes: *const WriteDescriptorSet<'a>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PushDescriptorSetInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for PushDescriptorSetInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PushDescriptorSetInfoKHR;
 }
@@ -55663,6 +56603,7 @@ pub struct PushDescriptorSetWithTemplateInfoKHR<'a> {
     pub p_data: VoidPtr,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PushDescriptorSetWithTemplateInfoKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for PushDescriptorSetWithTemplateInfoKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PushDescriptorSetWithTemplateInfoKHR;
 }
@@ -55722,6 +56663,7 @@ pub struct SetDescriptorBufferOffsetsInfoEXT<'a> {
     pub(crate) p_offsets: *const DeviceSize,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for SetDescriptorBufferOffsetsInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for SetDescriptorBufferOffsetsInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::SetDescriptorBufferOffsetsInfoEXT;
 }
@@ -55800,6 +56742,7 @@ pub struct BindDescriptorBufferEmbeddedSamplersInfoEXT<'a> {
     pub set: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for BindDescriptorBufferEmbeddedSamplersInfoEXT<'a> {}
 unsafe impl<'a> ExtendableStructure for BindDescriptorBufferEmbeddedSamplersInfoEXT<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::BindDescriptorBufferEmbeddedSamplersInfoEXT;
@@ -55849,6 +56792,10 @@ pub struct PhysicalDeviceDescriptorPoolOverallocationFeaturesNV<'a> {
     pub descriptor_pool_overallocation: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase
+    for PhysicalDeviceDescriptorPoolOverallocationFeaturesNV<'a>
+{
+}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceDescriptorPoolOverallocationFeaturesNV<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceDescriptorPoolOverallocationFeaturesNV;
@@ -55894,6 +56841,7 @@ pub struct PhysicalDeviceRawAccessChainsFeaturesNV<'a> {
     pub shader_raw_access_chains: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceRawAccessChainsFeaturesNV<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceRawAccessChainsFeaturesNV<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceRawAccessChainsFeaturesNV;
 }
@@ -55937,6 +56885,10 @@ pub struct PhysicalDeviceShaderRelaxedExtendedInstructionFeaturesKHR<'a> {
     pub(crate) p_next: Cell<*const Header>,
     pub shader_relaxed_extended_instruction: Bool32,
     phantom: PhantomData<&'a ()>,
+}
+unsafe impl<'a> ExtendableStructureBase
+    for PhysicalDeviceShaderRelaxedExtendedInstructionFeaturesKHR<'a>
+{
 }
 unsafe impl<'a> ExtendableStructure
     for PhysicalDeviceShaderRelaxedExtendedInstructionFeaturesKHR<'a>
@@ -55985,6 +56937,7 @@ pub struct PhysicalDeviceCommandBufferInheritanceFeaturesNV<'a> {
     pub command_buffer_inheritance: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceCommandBufferInheritanceFeaturesNV<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceCommandBufferInheritanceFeaturesNV<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceCommandBufferInheritanceFeaturesNV;
@@ -56030,6 +56983,7 @@ pub struct PhysicalDeviceMaintenance7FeaturesKHR<'a> {
     pub maintenance7: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceMaintenance7FeaturesKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceMaintenance7FeaturesKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceMaintenance7FeaturesKHR;
 }
@@ -56081,6 +57035,7 @@ pub struct PhysicalDeviceMaintenance7PropertiesKHR<'a> {
     pub max_descriptor_set_update_after_bind_total_buffers_dynamic: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceMaintenance7PropertiesKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceMaintenance7PropertiesKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceMaintenance7PropertiesKHR;
 }
@@ -56176,6 +57131,7 @@ pub struct PhysicalDeviceLayeredApiPropertiesListKHR<'a> {
     pub(crate) p_layered_apis: *const PhysicalDeviceLayeredApiPropertiesKHR<'a>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceLayeredApiPropertiesListKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceLayeredApiPropertiesListKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceLayeredApiPropertiesListKHR;
 }
@@ -56237,6 +57193,7 @@ pub struct PhysicalDeviceLayeredApiPropertiesKHR<'a> {
     pub device_name: [c_char; MAX_PHYSICAL_DEVICE_NAME_SIZE as _],
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceLayeredApiPropertiesKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceLayeredApiPropertiesKHR<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceLayeredApiPropertiesKHR;
 }
@@ -56291,6 +57248,7 @@ pub struct PhysicalDeviceLayeredApiVulkanPropertiesKHR<'a> {
     pub properties: PhysicalDeviceProperties2<'a>,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceLayeredApiVulkanPropertiesKHR<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceLayeredApiVulkanPropertiesKHR<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceLayeredApiVulkanPropertiesKHR;
@@ -56332,6 +57290,7 @@ pub struct PhysicalDeviceShaderAtomicFloat16VectorFeaturesNV<'a> {
     pub shader_float16_vector_atomics: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceShaderAtomicFloat16VectorFeaturesNV<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceShaderAtomicFloat16VectorFeaturesNV<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceShaderAtomicFloat16VectorFeaturesNV;
@@ -56376,6 +57335,10 @@ pub struct PhysicalDeviceShaderReplicatedCompositesFeaturesEXT<'a> {
     pub(crate) p_next: Cell<*const Header>,
     pub shader_replicated_composites: Bool32,
     phantom: PhantomData<&'a ()>,
+}
+unsafe impl<'a> ExtendableStructureBase
+    for PhysicalDeviceShaderReplicatedCompositesFeaturesEXT<'a>
+{
 }
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceShaderReplicatedCompositesFeaturesEXT<'a> {
     const STRUCTURE_TYPE: StructureType =
@@ -56422,6 +57385,7 @@ pub struct PhysicalDeviceRayTracingValidationFeaturesNV<'a> {
     pub ray_tracing_validation: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceRayTracingValidationFeaturesNV<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceRayTracingValidationFeaturesNV<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceRayTracingValidationFeaturesNV;
@@ -56467,6 +57431,7 @@ pub struct PhysicalDeviceImageAlignmentControlFeaturesMESA<'a> {
     pub image_alignment_control: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceImageAlignmentControlFeaturesMESA<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceImageAlignmentControlFeaturesMESA<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceImageAlignmentControlFeaturesMESA;
@@ -56512,6 +57477,7 @@ pub struct PhysicalDeviceImageAlignmentControlPropertiesMESA<'a> {
     pub supported_image_alignment_mask: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceImageAlignmentControlPropertiesMESA<'a> {}
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceImageAlignmentControlPropertiesMESA<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceImageAlignmentControlPropertiesMESA;
@@ -56553,6 +57519,7 @@ pub struct ImageAlignmentControlCreateInfoMESA<'a> {
     pub maximum_requested_alignment: u32,
     phantom: PhantomData<&'a ()>,
 }
+unsafe impl<'a> ExtendableStructureBase for ImageAlignmentControlCreateInfoMESA<'a> {}
 unsafe impl<'a> ExtendableStructure for ImageAlignmentControlCreateInfoMESA<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::ImageAlignmentControlCreateInfoMESA;
 }

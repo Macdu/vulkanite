@@ -402,6 +402,7 @@ fn generate_struct<'a>(
             .unwrap();
         (
             Some(quote! {
+                unsafe impl #lifetime ExtendableStructureBase for #name #lifetime {}
                 unsafe impl #lifetime ExtendableStructure for #name #lifetime {
                     const STRUCTURE_TYPE: StructureType = #s_type_value;
                 }
