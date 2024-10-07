@@ -146,6 +146,7 @@ let device = physical_device.create_device(device_info.as_ref())?;
 The following features are available:
 - `loaded`: Allow the crate to dynamically load the vulkan library using the `libloading` crate, see [Dispatcher::new_loaded]
 - `smallvec`: Add support for the smallvec crate to minimize heap allocations, enabling this feature allows the following: `let physical_devices: SmallVec<[_; 3]> = instance.enumerate_physical_devices()?;`.
+- `arrayvec`: Add support for the arrayvec crate to minimize heap allocations, enabling this feature allows the following: `let pipeline: ArrayVec<_; 1> = device.create_compute_pipelines(None, &create_info)?;`.
 - `raw-window-handle`: Add interoperability with the raw-window-handle crate, to create surfaces from raw handles, see the [window] module
 
 # MSRV
