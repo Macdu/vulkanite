@@ -1,7 +1,7 @@
 use super::{
     ApiVersion, DeviceExtension, DeviceExtensionName, InstanceExtension, InstanceExtensionName,
 };
-pub const HEADER_VERSION: ApiVersion = ApiVersion::new(0, 1, 3, 294u32);
+pub const HEADER_VERSION: ApiVersion = ApiVersion::new(0, 1, 3, 297u32);
 pub const KHR_SURFACE: InstanceExtension = InstanceExtension {
     name: unsafe { InstanceExtensionName::new(c"VK_KHR_surface") },
     spec: 25u32,
@@ -1084,6 +1084,10 @@ pub const KHR_FORMAT_FEATURE_FLAGS2: DeviceExtension = DeviceExtension {
     name: unsafe { DeviceExtensionName::new(c"VK_KHR_format_feature_flags2") },
     spec: 2u32,
 };
+pub const EXT_PRESENT_MODE_FIFO_LATEST_READY: DeviceExtension = DeviceExtension {
+    name: unsafe { DeviceExtensionName::new(c"VK_EXT_present_mode_fifo_latest_ready") },
+    spec: 1u32,
+};
 pub const FUCHSIA_EXTERNAL_MEMORY: DeviceExtension = DeviceExtension {
     name: unsafe { DeviceExtensionName::new(c"VK_FUCHSIA_external_memory") },
     spec: 1u32,
@@ -1380,6 +1384,10 @@ pub const QCOM_MULTIVIEW_PER_VIEW_RENDER_AREAS: DeviceExtension = DeviceExtensio
     name: unsafe { DeviceExtensionName::new(c"VK_QCOM_multiview_per_view_render_areas") },
     spec: 1u32,
 };
+pub const KHR_COMPUTE_SHADER_DERIVATIVES: DeviceExtension = DeviceExtension {
+    name: unsafe { DeviceExtensionName::new(c"VK_KHR_compute_shader_derivatives") },
+    spec: 1u32,
+};
 pub const NV_PER_STAGE_DESCRIPTOR_SET: DeviceExtension = DeviceExtension {
     name: unsafe { DeviceExtensionName::new(c"VK_NV_per_stage_descriptor_set") },
     spec: 1u32,
@@ -1476,7 +1484,15 @@ pub const NV_RAY_TRACING_VALIDATION: DeviceExtension = DeviceExtension {
     name: unsafe { DeviceExtensionName::new(c"VK_NV_ray_tracing_validation") },
     spec: 1u32,
 };
+pub const EXT_DEVICE_GENERATED_COMMANDS: DeviceExtension = DeviceExtension {
+    name: unsafe { DeviceExtensionName::new(c"VK_EXT_device_generated_commands") },
+    spec: 1u32,
+};
 pub const MESA_IMAGE_ALIGNMENT_CONTROL: DeviceExtension = DeviceExtension {
     name: unsafe { DeviceExtensionName::new(c"VK_MESA_image_alignment_control") },
+    spec: 1u32,
+};
+pub const EXT_DEPTH_CLAMP_CONTROL: DeviceExtension = DeviceExtension {
+    name: unsafe { DeviceExtensionName::new(c"VK_EXT_depth_clamp_control") },
     spec: 1u32,
 };

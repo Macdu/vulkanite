@@ -62,3 +62,5 @@ handle_nondispatchable! { MicromapEXT , MicromapEXT , doc = "<https://www.khrono
 handle_nondispatchable! { OpticalFlowSessionNV , OpticalFlowSessionNV , doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkOpticalFlowSessionNV.html>" , "VkOpticalFlowSessionNV" }
 handle_nondispatchable! { ShaderEXT , ShaderEXT , doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkShaderEXT.html>" , "VkShaderEXT" }
 handle_nondispatchable! { PipelineBinaryKHR , PipelineBinaryKHR , doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkPipelineBinaryKHR.html>" , "VkPipelineBinaryKHR" }
+handle_nondispatchable! { IndirectCommandsLayoutEXT , IndirectCommandsLayoutEXT , doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkIndirectCommandsLayoutEXT.html>" , "VkIndirectCommandsLayoutEXT" }
+handle_nondispatchable! { IndirectExecutionSetEXT , IndirectExecutionSetEXT , doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkIndirectExecutionSetEXT.html>" , "VkIndirectExecutionSetEXT" }

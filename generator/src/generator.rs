@@ -808,18 +808,10 @@ impl<'a> Generator<'a> {
                 lifetime
             }
             Struct::Standard(union_type) if union_type.is_union => {
-                let lifetime = union_type.fields.iter().any(|field| {
-                    self.compute_type_lifetime(&field.ty)
-                        // we must have an internal lifetime for unions (pointer to basetypes do not count)
-                        // we assume the basetype has already been added to the mapping
-                        && match field.ty {
-                            Type::Ptr(name) => !self
-                                .mapping
-                                .borrow()
-                                .get(name)
-                                .is_some_and(|entry| matches!(entry.ty, MappingType::BaseType)),
-                            _ => true
-                        }
+                let lifetime = union_type.fields.iter().any(|field| match field.ty {
+                    // Unions use raw pointers, so for them add a lifetime only if the pointee requires one
+                    Type::Ptr(name) => self.compute_name_lifetime(name),
+                    _ => self.compute_type_lifetime(&field.ty),
                 });
                 union_type.has_lifetime.set(Some(lifetime));
                 lifetime

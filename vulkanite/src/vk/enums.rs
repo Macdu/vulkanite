@@ -482,7 +482,6 @@ pub enum StructureType {
     DeviceMemoryOverallocationCreateInfoAMD = 1000189000,
     PhysicalDeviceVertexAttributeDivisorPropertiesEXT = 1000190000,
     PresentFrameTokenGGP = 1000191000,
-    PhysicalDeviceComputeShaderDerivativesFeaturesNV = 1000201000,
     PhysicalDeviceMeshShaderFeaturesNV = 1000202000,
     PhysicalDeviceMeshShaderPropertiesNV = 1000202001,
     PhysicalDeviceShaderImageFootprintFeaturesNV = 1000204000,
@@ -678,6 +677,7 @@ pub enum StructureType {
     PhysicalDeviceDepthClipControlFeaturesEXT = 1000355000,
     PipelineViewportDepthClipControlCreateInfoEXT = 1000355001,
     PhysicalDevicePrimitiveTopologyListRestartFeaturesEXT = 1000356000,
+    PhysicalDevicePresentModeFifoLatestReadyFeaturesEXT = 1000361000,
     ImportMemoryZirconHandleInfoFUCHSIA = 1000364000,
     MemoryZirconHandlePropertiesFUCHSIA = 1000364001,
     MemoryGetZirconHandleInfoFUCHSIA = 1000364002,
@@ -856,6 +856,8 @@ pub enum StructureType {
     PhysicalDeviceCooperativeMatrixPropertiesKHR = 1000506002,
     PhysicalDeviceMultiviewPerViewRenderAreasFeaturesQCOM = 1000510000,
     MultiviewPerViewRenderAreasRenderPassBeginInfoQCOM = 1000510001,
+    PhysicalDeviceComputeShaderDerivativesFeaturesKHR = 1000201000,
+    PhysicalDeviceComputeShaderDerivativesPropertiesKHR = 1000511000,
     PhysicalDevicePerStageDescriptorSetFeaturesNV = 1000516000,
     PhysicalDeviceImageProcessing2FeaturesQCOM = 1000518000,
     PhysicalDeviceImageProcessing2PropertiesQCOM = 1000518001,
@@ -904,9 +906,25 @@ pub enum StructureType {
     PhysicalDeviceShaderAtomicFloat16VectorFeaturesNV = 1000563000,
     PhysicalDeviceShaderReplicatedCompositesFeaturesEXT = 1000564000,
     PhysicalDeviceRayTracingValidationFeaturesNV = 1000568000,
+    PhysicalDeviceDeviceGeneratedCommandsFeaturesEXT = 1000572000,
+    PhysicalDeviceDeviceGeneratedCommandsPropertiesEXT = 1000572001,
+    GeneratedCommandsMemoryRequirementsInfoEXT = 1000572002,
+    IndirectExecutionSetCreateInfoEXT = 1000572003,
+    GeneratedCommandsInfoEXT = 1000572004,
+    IndirectCommandsLayoutCreateInfoEXT = 1000572006,
+    IndirectCommandsLayoutTokenEXT = 1000572007,
+    WriteIndirectExecutionSetPipelineEXT = 1000572008,
+    WriteIndirectExecutionSetShaderEXT = 1000572009,
+    IndirectExecutionSetPipelineInfoEXT = 1000572010,
+    IndirectExecutionSetShaderInfoEXT = 1000572011,
+    IndirectExecutionSetShaderLayoutInfoEXT = 1000572012,
+    GeneratedCommandsPipelineInfoEXT = 1000572013,
+    GeneratedCommandsShaderInfoEXT = 1000572014,
     PhysicalDeviceImageAlignmentControlFeaturesMESA = 1000575000,
     PhysicalDeviceImageAlignmentControlPropertiesMESA = 1000575001,
     ImageAlignmentControlCreateInfoMESA = 1000575002,
+    PhysicalDeviceDepthClampControlFeaturesEXT = 1000582000,
+    PipelineViewportDepthClampControlCreateInfoEXT = 1000582001,
 }
 #[allow(non_upper_case_globals)]
 impl StructureType {
@@ -1058,6 +1076,8 @@ impl StructureType {
         Self::PhysicalDeviceDepthStencilResolveProperties;
     pub const SubpassDescriptionDepthStencilResolveKHR: Self =
         Self::SubpassDescriptionDepthStencilResolve;
+    pub const PhysicalDeviceComputeShaderDerivativesFeaturesNV: Self =
+        Self::PhysicalDeviceComputeShaderDerivativesFeaturesKHR;
     pub const PhysicalDeviceFragmentShaderBarycentricFeaturesNV: Self =
         Self::PhysicalDeviceFragmentShaderBarycentricFeaturesKHR;
     pub const PhysicalDeviceTimelineSemaphoreFeaturesKHR: Self =
@@ -1272,6 +1292,8 @@ pub enum ObjectType {
     OpticalFlowSessionNV = 1000464000,
     ShaderEXT = 1000482000,
     PipelineBinaryKHR = 1000483000,
+    IndirectCommandsLayoutEXT = 1000572000,
+    IndirectExecutionSetEXT = 1000572001,
 }
 #[allow(non_upper_case_globals)]
 impl ObjectType {
@@ -1887,6 +1909,7 @@ bitflags! {
         const NoneKHR = Self::None.bits();
         const TaskShaderEXT = 1u32 << 19;
         const MeshShaderEXT = 1u32 << 20;
+        const CommandPreprocessEXT = Self::CommandPreprocessNV.bits();
     }
 }
 bitflags! {
@@ -2363,6 +2386,7 @@ pub enum DynamicState {
     CoverageReductionModeNV = 1000455032,
     AttachmentFeedbackLoopEnableEXT = 1000524000,
     LineStippleKHR = 1000259000,
+    DepthClampRangeEXT = 1000582000,
 }
 #[allow(non_upper_case_globals)]
 impl DynamicState {
@@ -2722,6 +2746,8 @@ bitflags! {
         const CommandPreprocessReadNV = 1u32 << 17;
         const CommandPreprocessWriteNV = 1u32 << 18;
         const NoneKHR = Self::None.bits();
+        const CommandPreprocessReadEXT = Self::CommandPreprocessReadNV.bits();
+        const CommandPreprocessWriteEXT = Self::CommandPreprocessWriteNV.bits();
     }
 }
 bitflags! {
@@ -3541,6 +3567,7 @@ bitflags! {
         const TransformFeedbackEXT = 1u64 << 24;
         const ConditionalRenderingEXT = 1u64 << 18;
         const CommandPreprocessNV = 1u64 << 17;
+        const CommandPreprocessEXT = Self::CommandPreprocessNV.bits();
         const FragmentShadingRateAttachmentKHR = 1u64 << 22;
         const ShadingRateImageNV = Self::FragmentShadingRateAttachmentKHR.bits();
         const AccelerationStructureBuildKHR = 1u64 << 25;
@@ -3619,6 +3646,8 @@ bitflags! {
         const ConditionalRenderingReadEXT = 1u64 << 20;
         const CommandPreprocessReadNV = 1u64 << 17;
         const CommandPreprocessWriteNV = 1u64 << 18;
+        const CommandPreprocessReadEXT = Self::CommandPreprocessReadNV.bits();
+        const CommandPreprocessWriteEXT = Self::CommandPreprocessWriteNV.bits();
         const FragmentShadingRateAttachmentReadKHR = 1u64 << 23;
         const ShadingRateImageReadNV = Self::FragmentShadingRateAttachmentReadKHR.bits();
         const AccelerationStructureReadKHR = 1u64 << 21;
@@ -3781,6 +3810,7 @@ pub enum PresentModeKHR {
     FifoRelaxed = 3,
     SharedDemandRefresh = 1000111000,
     SharedContinuousRefresh = 1000111001,
+    FifoLatestReadyEXT = 1000361000,
 }
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkColorSpaceKHR.html>"]
@@ -5182,6 +5212,7 @@ bitflags! {
         const RayTracingDisplacementMicromapNV = 1u64 << 28;
         const DescriptorBufferEXT = 1u64 << 29;
         const CaptureData = 1u64 << 31;
+        const IndirectBindableEXT = 1u64 << 38;
     }
 }
 bitflags! {
@@ -5218,6 +5249,7 @@ bitflags! {
         const PushDescriptorsDescriptorBufferEXT = 1u64 << 26;
         const MicromapBuildInputReadOnlyEXT = 1u64 << 23;
         const MicromapStorageEXT = 1u64 << 24;
+        const PreprocessBufferEXT = 1u64 << 31;
     }
 }
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -5251,6 +5283,7 @@ bitflags! {
         const DispatchBase = 1u32 << 4;
         const FragmentShadingRateAttachment = 1u32 << 5;
         const FragmentDensityMapAttachment = 1u32 << 6;
+        const IndirectBindable = 1u32 << 7;
     }
 }
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -5442,4 +5475,63 @@ pub enum PhysicalDeviceLayeredApiKHR {
     Metal = 2,
     Opengl = 3,
     Opengles = 4,
+}
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkIndirectCommandsTokenTypeEXT.html>"]
+#[doc(alias = "VkIndirectCommandsTokenTypeEXT")]
+#[repr(u32)]
+pub enum IndirectCommandsTokenTypeEXT {
+    ExecutionSet = 0,
+    PushConstant = 1,
+    SequenceIndex = 2,
+    IndexBuffer = 3,
+    VertexBuffer = 4,
+    DrawIndexed = 5,
+    Draw = 6,
+    DrawIndexedCount = 7,
+    DrawCount = 8,
+    Dispatch = 9,
+    DrawMeshTasksNV = 1000202002,
+    DrawMeshTasksCountNV = 1000202003,
+    DrawMeshTasks = 1000328000,
+    DrawMeshTasksCount = 1000328001,
+    TraceRays2 = 1000386004,
+}
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkIndirectExecutionSetInfoTypeEXT.html>"]
+#[doc(alias = "VkIndirectExecutionSetInfoTypeEXT")]
+#[repr(u32)]
+pub enum IndirectExecutionSetInfoTypeEXT {
+    Pipelines = 0,
+    ShaderObjects = 1,
+}
+bitflags! {
+    #[derive(Default)]
+    #[repr(transparent)]
+    #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+    #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkIndirectCommandsLayoutUsageFlagBitsEXT.html>"]
+    #[doc(alias = "VkIndirectCommandsLayoutUsageFlagBitsEXT")]
+    pub struct IndirectCommandsLayoutUsageFlagsEXT : u32 {
+        const ExplicitPreprocess = 1u32 << 0;
+        const UnorderedSequences = 1u32 << 1;
+    }
+}
+bitflags! {
+    #[derive(Default)]
+    #[repr(transparent)]
+    #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+    #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkIndirectCommandsInputModeFlagBitsEXT.html>"]
+    #[doc(alias = "VkIndirectCommandsInputModeFlagBitsEXT")]
+    pub struct IndirectCommandsInputModeFlagsEXT : u32 {
+        const VulkanIndexBuffer = 1u32 << 0;
+        const DxgiIndexBuffer = 1u32 << 1;
+    }
+}
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkDepthClampModeEXT.html>"]
+#[doc(alias = "VkDepthClampModeEXT")]
+#[repr(u32)]
+pub enum DepthClampModeEXT {
+    ViewportRange = 0,
+    UserDefinedRange = 1,
 }

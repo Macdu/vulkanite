@@ -4577,6 +4577,15 @@ pub struct CommandsDispatcher {
             ),
         >,
     >,
+    pub cmd_set_depth_clamp_range_ext: Cell<
+        Option<
+            unsafe extern "system" fn(
+                Option<CommandBuffer>,
+                DepthClampModeEXT,
+                *const DepthClampRangeEXT,
+            ),
+        >,
+    >,
     pub create_pipeline_binaries_khr: Cell<
         Option<
             unsafe extern "system" fn(
@@ -4775,6 +4784,91 @@ pub struct CommandsDispatcher {
             unsafe extern "system" fn(
                 Option<CommandBuffer>,
                 *const BindDescriptorBufferEmbeddedSamplersInfoEXT,
+            ),
+        >,
+    >,
+    pub get_generated_commands_memory_requirements_ext: Cell<
+        Option<
+            unsafe extern "system" fn(
+                Option<Device>,
+                *const GeneratedCommandsMemoryRequirementsInfoEXT,
+                *const MemoryRequirements2,
+            ),
+        >,
+    >,
+    pub cmd_preprocess_generated_commands_ext: Cell<
+        Option<
+            unsafe extern "system" fn(
+                Option<CommandBuffer>,
+                *const GeneratedCommandsInfoEXT,
+                Option<CommandBuffer>,
+            ),
+        >,
+    >,
+    pub cmd_execute_generated_commands_ext: Cell<
+        Option<
+            unsafe extern "system" fn(
+                Option<CommandBuffer>,
+                Bool32,
+                *const GeneratedCommandsInfoEXT,
+            ),
+        >,
+    >,
+    pub create_indirect_commands_layout_ext: Cell<
+        Option<
+            unsafe extern "system" fn(
+                Option<Device>,
+                *const IndirectCommandsLayoutCreateInfoEXT,
+                *const AllocationCallbacks,
+                *const IndirectCommandsLayoutEXT,
+            ) -> Status,
+        >,
+    >,
+    pub destroy_indirect_commands_layout_ext: Cell<
+        Option<
+            unsafe extern "system" fn(
+                Option<Device>,
+                Option<IndirectCommandsLayoutEXT>,
+                *const AllocationCallbacks,
+            ),
+        >,
+    >,
+    pub create_indirect_execution_set_ext: Cell<
+        Option<
+            unsafe extern "system" fn(
+                Option<Device>,
+                *const IndirectExecutionSetCreateInfoEXT,
+                *const AllocationCallbacks,
+                *const IndirectExecutionSetEXT,
+            ) -> Status,
+        >,
+    >,
+    pub destroy_indirect_execution_set_ext: Cell<
+        Option<
+            unsafe extern "system" fn(
+                Option<Device>,
+                Option<IndirectExecutionSetEXT>,
+                *const AllocationCallbacks,
+            ),
+        >,
+    >,
+    pub update_indirect_execution_set_pipeline_ext: Cell<
+        Option<
+            unsafe extern "system" fn(
+                Option<Device>,
+                Option<IndirectExecutionSetEXT>,
+                u32,
+                *const WriteIndirectExecutionSetPipelineEXT,
+            ),
+        >,
+    >,
+    pub update_indirect_execution_set_shader_ext: Cell<
+        Option<
+            unsafe extern "system" fn(
+                Option<Device>,
+                Option<IndirectExecutionSetEXT>,
+                u32,
+                *const WriteIndirectExecutionSetShaderEXT,
             ),
         >,
     >,
@@ -8407,6 +8501,11 @@ impl CommandsDispatcher {
                 get_instance(),
                 c"vkCmdBindShadersEXT".as_ptr(),
             )));
+        self.cmd_set_depth_clamp_range_ext
+            .set(mem::transmute(get_instance_proc_addr(
+                get_instance(),
+                c"vkCmdSetDepthClampRangeEXT".as_ptr(),
+            )));
         self.create_pipeline_binaries_khr
             .set(mem::transmute(get_instance_proc_addr(
                 get_instance(),
@@ -8558,6 +8657,51 @@ impl CommandsDispatcher {
             .set(mem::transmute(get_instance_proc_addr(
                 get_instance(),
                 c"vkCmdBindDescriptorBufferEmbeddedSamplers2EXT".as_ptr(),
+            )));
+        self.get_generated_commands_memory_requirements_ext
+            .set(mem::transmute(get_instance_proc_addr(
+                get_instance(),
+                c"vkGetGeneratedCommandsMemoryRequirementsEXT".as_ptr(),
+            )));
+        self.cmd_preprocess_generated_commands_ext
+            .set(mem::transmute(get_instance_proc_addr(
+                get_instance(),
+                c"vkCmdPreprocessGeneratedCommandsEXT".as_ptr(),
+            )));
+        self.cmd_execute_generated_commands_ext
+            .set(mem::transmute(get_instance_proc_addr(
+                get_instance(),
+                c"vkCmdExecuteGeneratedCommandsEXT".as_ptr(),
+            )));
+        self.create_indirect_commands_layout_ext
+            .set(mem::transmute(get_instance_proc_addr(
+                get_instance(),
+                c"vkCreateIndirectCommandsLayoutEXT".as_ptr(),
+            )));
+        self.destroy_indirect_commands_layout_ext
+            .set(mem::transmute(get_instance_proc_addr(
+                get_instance(),
+                c"vkDestroyIndirectCommandsLayoutEXT".as_ptr(),
+            )));
+        self.create_indirect_execution_set_ext
+            .set(mem::transmute(get_instance_proc_addr(
+                get_instance(),
+                c"vkCreateIndirectExecutionSetEXT".as_ptr(),
+            )));
+        self.destroy_indirect_execution_set_ext
+            .set(mem::transmute(get_instance_proc_addr(
+                get_instance(),
+                c"vkDestroyIndirectExecutionSetEXT".as_ptr(),
+            )));
+        self.update_indirect_execution_set_pipeline_ext
+            .set(mem::transmute(get_instance_proc_addr(
+                get_instance(),
+                c"vkUpdateIndirectExecutionSetPipelineEXT".as_ptr(),
+            )));
+        self.update_indirect_execution_set_shader_ext
+            .set(mem::transmute(get_instance_proc_addr(
+                get_instance(),
+                c"vkUpdateIndirectExecutionSetShaderEXT".as_ptr(),
             )));
     }
     pub unsafe fn load_device(&self, device: &Device) {
@@ -11580,6 +11724,11 @@ impl CommandsDispatcher {
                 get_device(),
                 c"vkCmdBindShadersEXT".as_ptr(),
             )));
+        self.cmd_set_depth_clamp_range_ext
+            .set(mem::transmute(get_device_proc_addr(
+                get_device(),
+                c"vkCmdSetDepthClampRangeEXT".as_ptr(),
+            )));
         self.create_pipeline_binaries_khr
             .set(mem::transmute(get_device_proc_addr(
                 get_device(),
@@ -11709,6 +11858,51 @@ impl CommandsDispatcher {
             .set(mem::transmute(get_device_proc_addr(
                 get_device(),
                 c"vkCmdBindDescriptorBufferEmbeddedSamplers2EXT".as_ptr(),
+            )));
+        self.get_generated_commands_memory_requirements_ext
+            .set(mem::transmute(get_device_proc_addr(
+                get_device(),
+                c"vkGetGeneratedCommandsMemoryRequirementsEXT".as_ptr(),
+            )));
+        self.cmd_preprocess_generated_commands_ext
+            .set(mem::transmute(get_device_proc_addr(
+                get_device(),
+                c"vkCmdPreprocessGeneratedCommandsEXT".as_ptr(),
+            )));
+        self.cmd_execute_generated_commands_ext
+            .set(mem::transmute(get_device_proc_addr(
+                get_device(),
+                c"vkCmdExecuteGeneratedCommandsEXT".as_ptr(),
+            )));
+        self.create_indirect_commands_layout_ext
+            .set(mem::transmute(get_device_proc_addr(
+                get_device(),
+                c"vkCreateIndirectCommandsLayoutEXT".as_ptr(),
+            )));
+        self.destroy_indirect_commands_layout_ext
+            .set(mem::transmute(get_device_proc_addr(
+                get_device(),
+                c"vkDestroyIndirectCommandsLayoutEXT".as_ptr(),
+            )));
+        self.create_indirect_execution_set_ext
+            .set(mem::transmute(get_device_proc_addr(
+                get_device(),
+                c"vkCreateIndirectExecutionSetEXT".as_ptr(),
+            )));
+        self.destroy_indirect_execution_set_ext
+            .set(mem::transmute(get_device_proc_addr(
+                get_device(),
+                c"vkDestroyIndirectExecutionSetEXT".as_ptr(),
+            )));
+        self.update_indirect_execution_set_pipeline_ext
+            .set(mem::transmute(get_device_proc_addr(
+                get_device(),
+                c"vkUpdateIndirectExecutionSetPipelineEXT".as_ptr(),
+            )));
+        self.update_indirect_execution_set_shader_ext
+            .set(mem::transmute(get_device_proc_addr(
+                get_device(),
+                c"vkUpdateIndirectExecutionSetShaderEXT".as_ptr(),
             )));
     }
 }

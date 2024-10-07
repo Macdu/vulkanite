@@ -5792,6 +5792,116 @@ impl<D: Dispatcher, A: Allocator> Device<D, A> {
             raw::get_screen_buffer_properties_qnx(self, buffer, self.disp.get_command_dispatcher())
         }
     }
+    #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetGeneratedCommandsMemoryRequirementsEXT.html>"]
+    #[doc(alias = "vkGetGeneratedCommandsMemoryRequirementsEXT")]
+    pub fn get_generated_commands_memory_requirements_ext<
+        S: StructureChainOut<MemoryRequirements2<'static>>,
+    >(
+        &self,
+        p_info: &GeneratedCommandsMemoryRequirementsInfoEXT,
+    ) -> S {
+        unsafe {
+            raw::get_generated_commands_memory_requirements_ext(
+                self,
+                p_info,
+                self.disp.get_command_dispatcher(),
+            )
+        }
+    }
+    #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCreateIndirectCommandsLayoutEXT.html>"]
+    #[doc(alias = "vkCreateIndirectCommandsLayoutEXT")]
+    pub fn create_indirect_commands_layout_ext(
+        &self,
+        p_create_info: &IndirectCommandsLayoutCreateInfoEXT,
+    ) -> Result<IndirectCommandsLayoutEXT> {
+        let vk_result = unsafe {
+            raw::create_indirect_commands_layout_ext(
+                self,
+                p_create_info,
+                self.alloc.get_allocation_callbacks().as_ref(),
+                self.disp.get_command_dispatcher(),
+            )
+        };
+        vk_result.map(|vk_result| unsafe { IndirectCommandsLayoutEXT::from_inner(vk_result) })
+    }
+    #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkDestroyIndirectCommandsLayoutEXT.html>"]
+    #[doc(alias = "vkDestroyIndirectCommandsLayoutEXT")]
+    pub unsafe fn destroy_indirect_commands_layout_ext(
+        &self,
+        indirect_commands_layout: Option<&raw::IndirectCommandsLayoutEXT>,
+    ) {
+        unsafe {
+            raw::destroy_indirect_commands_layout_ext(
+                self,
+                indirect_commands_layout,
+                self.alloc.get_allocation_callbacks().as_ref(),
+                self.disp.get_command_dispatcher(),
+            )
+        }
+    }
+    #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCreateIndirectExecutionSetEXT.html>"]
+    #[doc(alias = "vkCreateIndirectExecutionSetEXT")]
+    pub fn create_indirect_execution_set_ext(
+        &self,
+        p_create_info: &IndirectExecutionSetCreateInfoEXT,
+    ) -> Result<IndirectExecutionSetEXT> {
+        let vk_result = unsafe {
+            raw::create_indirect_execution_set_ext(
+                self,
+                p_create_info,
+                self.alloc.get_allocation_callbacks().as_ref(),
+                self.disp.get_command_dispatcher(),
+            )
+        };
+        vk_result.map(|vk_result| unsafe { IndirectExecutionSetEXT::from_inner(vk_result) })
+    }
+    #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkDestroyIndirectExecutionSetEXT.html>"]
+    #[doc(alias = "vkDestroyIndirectExecutionSetEXT")]
+    pub unsafe fn destroy_indirect_execution_set_ext(
+        &self,
+        indirect_execution_set: Option<&raw::IndirectExecutionSetEXT>,
+    ) {
+        unsafe {
+            raw::destroy_indirect_execution_set_ext(
+                self,
+                indirect_execution_set,
+                self.alloc.get_allocation_callbacks().as_ref(),
+                self.disp.get_command_dispatcher(),
+            )
+        }
+    }
+    #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkUpdateIndirectExecutionSetPipelineEXT.html>"]
+    #[doc(alias = "vkUpdateIndirectExecutionSetPipelineEXT")]
+    pub fn update_indirect_execution_set_pipeline_ext<'a>(
+        &self,
+        indirect_execution_set: &raw::IndirectExecutionSetEXT,
+        p_execution_set_writes: impl AsSlice<'a, WriteIndirectExecutionSetPipelineEXT<'a>>,
+    ) {
+        unsafe {
+            raw::update_indirect_execution_set_pipeline_ext(
+                self,
+                indirect_execution_set,
+                p_execution_set_writes,
+                self.disp.get_command_dispatcher(),
+            )
+        }
+    }
+    #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkUpdateIndirectExecutionSetShaderEXT.html>"]
+    #[doc(alias = "vkUpdateIndirectExecutionSetShaderEXT")]
+    pub fn update_indirect_execution_set_shader_ext<'a>(
+        &self,
+        indirect_execution_set: &raw::IndirectExecutionSetEXT,
+        p_execution_set_writes: impl AsSlice<'a, WriteIndirectExecutionSetShaderEXT<'a>>,
+    ) {
+        unsafe {
+            raw::update_indirect_execution_set_shader_ext(
+                self,
+                indirect_execution_set,
+                p_execution_set_writes,
+                self.disp.get_command_dispatcher(),
+            )
+        }
+    }
 }
 #[repr(C)]
 #[derive(Clone)]
@@ -9784,6 +9894,22 @@ impl<D: Dispatcher, A: Allocator> CommandBuffer<D, A> {
             )
         }
     }
+    #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetDepthClampRangeEXT.html>"]
+    #[doc(alias = "vkCmdSetDepthClampRangeEXT")]
+    pub fn set_depth_clamp_range_ext(
+        &self,
+        depth_clamp_mode: DepthClampModeEXT,
+        p_depth_clamp_range: Option<&DepthClampRangeEXT>,
+    ) {
+        unsafe {
+            raw::cmd_set_depth_clamp_range_ext(
+                self,
+                depth_clamp_mode,
+                p_depth_clamp_range,
+                self.disp.get_command_dispatcher(),
+            )
+        }
+    }
     #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetAttachmentFeedbackLoopEnableEXT.html>"]
     #[doc(alias = "vkCmdSetAttachmentFeedbackLoopEnableEXT")]
     pub fn set_attachment_feedback_loop_enable_ext(&self, aspect_mask: ImageAspectFlags) {
@@ -9893,6 +10019,38 @@ impl<D: Dispatcher, A: Allocator> CommandBuffer<D, A> {
             raw::cmd_bind_descriptor_buffer_embedded_samplers2_ext(
                 self,
                 p_bind_descriptor_buffer_embedded_samplers_info,
+                self.disp.get_command_dispatcher(),
+            )
+        }
+    }
+    #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdPreprocessGeneratedCommandsEXT.html>"]
+    #[doc(alias = "vkCmdPreprocessGeneratedCommandsEXT")]
+    pub fn preprocess_generated_commands_ext(
+        &self,
+        p_generated_commands_info: &GeneratedCommandsInfoEXT,
+        state_command_buffer: &raw::CommandBuffer,
+    ) {
+        unsafe {
+            raw::cmd_preprocess_generated_commands_ext(
+                self,
+                p_generated_commands_info,
+                state_command_buffer,
+                self.disp.get_command_dispatcher(),
+            )
+        }
+    }
+    #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdExecuteGeneratedCommandsEXT.html>"]
+    #[doc(alias = "vkCmdExecuteGeneratedCommandsEXT")]
+    pub fn execute_generated_commands_ext(
+        &self,
+        is_preprocessed: impl Into<Bool32>,
+        p_generated_commands_info: &GeneratedCommandsInfoEXT,
+    ) {
+        unsafe {
+            raw::cmd_execute_generated_commands_ext(
+                self,
+                is_preprocessed,
+                p_generated_commands_info,
                 self.disp.get_command_dispatcher(),
             )
         }
@@ -10406,6 +10564,48 @@ impl Deref for PipelineBinaryKHR {
 }
 impl PipelineBinaryKHR {
     pub fn from_inner(handle: raw::PipelineBinaryKHR) -> Self {
+        Self {
+            inner: handle.as_raw(),
+        }
+    }
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+#[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkIndirectCommandsLayoutEXT.html>"]
+#[doc(alias = "VkIndirectCommandsLayoutEXT")]
+pub struct IndirectCommandsLayoutEXT {
+    inner: <raw::IndirectCommandsLayoutEXT as Handle>::InnerType,
+}
+unsafe impl Alias<raw::IndirectCommandsLayoutEXT> for IndirectCommandsLayoutEXT {}
+impl Deref for IndirectCommandsLayoutEXT {
+    type Target = raw::IndirectCommandsLayoutEXT;
+    fn deref(&self) -> &Self::Target {
+        unsafe { std::mem::transmute(&self.inner) }
+    }
+}
+impl IndirectCommandsLayoutEXT {
+    pub fn from_inner(handle: raw::IndirectCommandsLayoutEXT) -> Self {
+        Self {
+            inner: handle.as_raw(),
+        }
+    }
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+#[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkIndirectExecutionSetEXT.html>"]
+#[doc(alias = "VkIndirectExecutionSetEXT")]
+pub struct IndirectExecutionSetEXT {
+    inner: <raw::IndirectExecutionSetEXT as Handle>::InnerType,
+}
+unsafe impl Alias<raw::IndirectExecutionSetEXT> for IndirectExecutionSetEXT {}
+impl Deref for IndirectExecutionSetEXT {
+    type Target = raw::IndirectExecutionSetEXT;
+    fn deref(&self) -> &Self::Target {
+        unsafe { std::mem::transmute(&self.inner) }
+    }
+}
+impl IndirectExecutionSetEXT {
+    pub fn from_inner(handle: raw::IndirectExecutionSetEXT) -> Self {
         Self {
             inner: handle.as_raw(),
         }

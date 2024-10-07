@@ -13305,6 +13305,26 @@ pub unsafe fn cmd_bind_shaders_ext<'a, V3: Alias<raw::ShaderEXT> + 'a>(
         p_shaders.as_slice().as_ptr().cast(),
     )
 }
+#[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdSetDepthClampRangeEXT.html>"]
+#[doc(alias = "vkCmdSetDepthClampRangeEXT")]
+pub unsafe fn cmd_set_depth_clamp_range_ext(
+    command_buffer: &raw::CommandBuffer,
+    depth_clamp_mode: DepthClampModeEXT,
+    p_depth_clamp_range: Option<&DepthClampRangeEXT>,
+    dispatcher: &CommandsDispatcher,
+) {
+    let vulkan_command = dispatcher
+        .cmd_set_depth_clamp_range_ext
+        .get()
+        .expect("Vulkan command not loaded.");
+    vulkan_command(
+        Some(unsafe { command_buffer.clone() }),
+        depth_clamp_mode,
+        p_depth_clamp_range
+            .map(|v| ptr::from_ref(v))
+            .unwrap_or(ptr::null()),
+    )
+}
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCreatePipelineBinariesKHR.html>"]
 #[doc(alias = "vkCreatePipelineBinariesKHR")]
 pub unsafe fn create_pipeline_binaries_khr<
@@ -13849,5 +13869,180 @@ pub unsafe fn cmd_bind_descriptor_buffer_embedded_samplers2_ext(
     vulkan_command(
         Some(unsafe { command_buffer.clone() }),
         ptr::from_ref(p_bind_descriptor_buffer_embedded_samplers_info),
+    )
+}
+#[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkGetGeneratedCommandsMemoryRequirementsEXT.html>"]
+#[doc(alias = "vkGetGeneratedCommandsMemoryRequirementsEXT")]
+pub unsafe fn get_generated_commands_memory_requirements_ext<
+    S: StructureChainOut<MemoryRequirements2<'static>>,
+>(
+    device: &raw::Device,
+    p_info: &GeneratedCommandsMemoryRequirementsInfoEXT,
+    dispatcher: &CommandsDispatcher,
+) -> S {
+    let vulkan_command = dispatcher
+        .get_generated_commands_memory_requirements_ext
+        .get()
+        .expect("Vulkan command not loaded.");
+    let mut p_memory_requirements = MaybeUninit::uninit();
+    S::setup_uninit(&mut p_memory_requirements);
+    vulkan_command(
+        Some(unsafe { device.clone() }),
+        ptr::from_ref(p_info),
+        S::get_uninit_head_ptr(p_memory_requirements.as_mut_ptr()),
+    );
+    S::setup_cleanup(p_memory_requirements.as_mut_ptr());
+    p_memory_requirements.assume_init()
+}
+#[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdPreprocessGeneratedCommandsEXT.html>"]
+#[doc(alias = "vkCmdPreprocessGeneratedCommandsEXT")]
+pub unsafe fn cmd_preprocess_generated_commands_ext(
+    command_buffer: &raw::CommandBuffer,
+    p_generated_commands_info: &GeneratedCommandsInfoEXT,
+    state_command_buffer: &raw::CommandBuffer,
+    dispatcher: &CommandsDispatcher,
+) {
+    let vulkan_command = dispatcher
+        .cmd_preprocess_generated_commands_ext
+        .get()
+        .expect("Vulkan command not loaded.");
+    vulkan_command(
+        Some(unsafe { command_buffer.clone() }),
+        ptr::from_ref(p_generated_commands_info),
+        Some(unsafe { state_command_buffer.clone() }),
+    )
+}
+#[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdExecuteGeneratedCommandsEXT.html>"]
+#[doc(alias = "vkCmdExecuteGeneratedCommandsEXT")]
+pub unsafe fn cmd_execute_generated_commands_ext(
+    command_buffer: &raw::CommandBuffer,
+    is_preprocessed: impl Into<Bool32>,
+    p_generated_commands_info: &GeneratedCommandsInfoEXT,
+    dispatcher: &CommandsDispatcher,
+) {
+    let vulkan_command = dispatcher
+        .cmd_execute_generated_commands_ext
+        .get()
+        .expect("Vulkan command not loaded.");
+    vulkan_command(
+        Some(unsafe { command_buffer.clone() }),
+        is_preprocessed.into(),
+        ptr::from_ref(p_generated_commands_info),
+    )
+}
+#[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCreateIndirectCommandsLayoutEXT.html>"]
+#[doc(alias = "vkCreateIndirectCommandsLayoutEXT")]
+pub unsafe fn create_indirect_commands_layout_ext(
+    device: &raw::Device,
+    p_create_info: &IndirectCommandsLayoutCreateInfoEXT,
+    p_allocator: Option<&AllocationCallbacks>,
+    dispatcher: &CommandsDispatcher,
+) -> Result<IndirectCommandsLayoutEXT> {
+    let vulkan_command = dispatcher
+        .create_indirect_commands_layout_ext
+        .get()
+        .expect("Vulkan command not loaded.");
+    let mut p_indirect_commands_layout = MaybeUninit::uninit();
+    let vk_status = vulkan_command(
+        Some(unsafe { device.clone() }),
+        ptr::from_ref(p_create_info),
+        p_allocator.map(|v| ptr::from_ref(v)).unwrap_or(ptr::null()),
+        p_indirect_commands_layout.as_mut_ptr(),
+    );
+    vk_status.map_success(|| p_indirect_commands_layout.assume_init())
+}
+#[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkDestroyIndirectCommandsLayoutEXT.html>"]
+#[doc(alias = "vkDestroyIndirectCommandsLayoutEXT")]
+pub unsafe fn destroy_indirect_commands_layout_ext(
+    device: &raw::Device,
+    indirect_commands_layout: Option<&raw::IndirectCommandsLayoutEXT>,
+    p_allocator: Option<&AllocationCallbacks>,
+    dispatcher: &CommandsDispatcher,
+) {
+    let vulkan_command = dispatcher
+        .destroy_indirect_commands_layout_ext
+        .get()
+        .expect("Vulkan command not loaded.");
+    vulkan_command(
+        Some(unsafe { device.clone() }),
+        indirect_commands_layout.map(|v| unsafe { v.clone() }),
+        p_allocator.map(|v| ptr::from_ref(v)).unwrap_or(ptr::null()),
+    )
+}
+#[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCreateIndirectExecutionSetEXT.html>"]
+#[doc(alias = "vkCreateIndirectExecutionSetEXT")]
+pub unsafe fn create_indirect_execution_set_ext(
+    device: &raw::Device,
+    p_create_info: &IndirectExecutionSetCreateInfoEXT,
+    p_allocator: Option<&AllocationCallbacks>,
+    dispatcher: &CommandsDispatcher,
+) -> Result<IndirectExecutionSetEXT> {
+    let vulkan_command = dispatcher
+        .create_indirect_execution_set_ext
+        .get()
+        .expect("Vulkan command not loaded.");
+    let mut p_indirect_execution_set = MaybeUninit::uninit();
+    let vk_status = vulkan_command(
+        Some(unsafe { device.clone() }),
+        ptr::from_ref(p_create_info),
+        p_allocator.map(|v| ptr::from_ref(v)).unwrap_or(ptr::null()),
+        p_indirect_execution_set.as_mut_ptr(),
+    );
+    vk_status.map_success(|| p_indirect_execution_set.assume_init())
+}
+#[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkDestroyIndirectExecutionSetEXT.html>"]
+#[doc(alias = "vkDestroyIndirectExecutionSetEXT")]
+pub unsafe fn destroy_indirect_execution_set_ext(
+    device: &raw::Device,
+    indirect_execution_set: Option<&raw::IndirectExecutionSetEXT>,
+    p_allocator: Option<&AllocationCallbacks>,
+    dispatcher: &CommandsDispatcher,
+) {
+    let vulkan_command = dispatcher
+        .destroy_indirect_execution_set_ext
+        .get()
+        .expect("Vulkan command not loaded.");
+    vulkan_command(
+        Some(unsafe { device.clone() }),
+        indirect_execution_set.map(|v| unsafe { v.clone() }),
+        p_allocator.map(|v| ptr::from_ref(v)).unwrap_or(ptr::null()),
+    )
+}
+#[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkUpdateIndirectExecutionSetPipelineEXT.html>"]
+#[doc(alias = "vkUpdateIndirectExecutionSetPipelineEXT")]
+pub unsafe fn update_indirect_execution_set_pipeline_ext<'a>(
+    device: &raw::Device,
+    indirect_execution_set: &raw::IndirectExecutionSetEXT,
+    p_execution_set_writes: impl AsSlice<'a, WriteIndirectExecutionSetPipelineEXT<'a>>,
+    dispatcher: &CommandsDispatcher,
+) {
+    let vulkan_command = dispatcher
+        .update_indirect_execution_set_pipeline_ext
+        .get()
+        .expect("Vulkan command not loaded.");
+    vulkan_command(
+        Some(unsafe { device.clone() }),
+        Some(unsafe { indirect_execution_set.clone() }),
+        p_execution_set_writes.as_slice().len() as _,
+        p_execution_set_writes.as_slice().as_ptr().cast(),
+    )
+}
+#[doc = "<https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkUpdateIndirectExecutionSetShaderEXT.html>"]
+#[doc(alias = "vkUpdateIndirectExecutionSetShaderEXT")]
+pub unsafe fn update_indirect_execution_set_shader_ext<'a>(
+    device: &raw::Device,
+    indirect_execution_set: &raw::IndirectExecutionSetEXT,
+    p_execution_set_writes: impl AsSlice<'a, WriteIndirectExecutionSetShaderEXT<'a>>,
+    dispatcher: &CommandsDispatcher,
+) {
+    let vulkan_command = dispatcher
+        .update_indirect_execution_set_shader_ext
+        .get()
+        .expect("Vulkan command not loaded.");
+    vulkan_command(
+        Some(unsafe { device.clone() }),
+        Some(unsafe { indirect_execution_set.clone() }),
+        p_execution_set_writes.as_slice().len() as _,
+        p_execution_set_writes.as_slice().as_ptr().cast(),
     )
 }
