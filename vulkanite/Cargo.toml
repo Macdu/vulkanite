@@ -21,6 +21,7 @@ rust-version = "1.77"
 bitflags = "2.5"
 libloading = { version = "0.8", optional = true }
 smallvec = { version = "1.13", optional = true, features = ["const_generics"] }
+arrayvec = { version = "0.7", optional = true }
 raw-window-handle = { version = "0.6", optional = true }
 
 [target.'cfg(any(target_os = "macos", target_os = "ios"))'.dependencies]
@@ -29,6 +30,7 @@ raw-window-metal = { version = "0.4", optional = true }
 [features]
 loaded = ["dep:libloading"]
 smallvec = ["dep:smallvec"]
+arrayvec = ["dep:arrayvec"]
 raw-window-handle = ["dep:raw-window-handle"]
 
 [package.metadata.docs.rs]

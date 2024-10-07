@@ -144,6 +144,7 @@
 //! The following features are available:
 //! - `loaded`: Allow the crate to dynamically load the vulkan library using the `libloading` crate, see [Dispatcher::new_loaded]
 //! - `smallvec`: Add support for the smallvec crate to minimize heap allocations, enabling this feature allows the following: `let physical_devices: SmallVec<[_; 3]> = instance.enumerate_physical_devices()?;`.
+//! - `arrayvec`: Add support for the arrayvec crate to minimize heap allocations, enabling this feature allows the following: `let pipeline: ArrayVec<_; 1> = device.create_compute_pipelines(None, &create_info)?;`.
 //! - `raw-window-handle`: Add interoperability with the raw-window-handle crate, to create surfaces from raw handles, see the [window] module
 //!
 //! # MSRV
@@ -169,6 +170,9 @@ use std::ptr::{self};
 
 #[cfg(feature = "smallvec")]
 use smallvec::SmallVec;
+
+#[cfg(feature = "arrayvec")]
+use arrayvec::ArrayVec;
 
 /// <https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/PFN_vkGetInstanceProcAddr.html>
 /// Entry point of the vulkan library, this is used to retrieve Vulkan functions
@@ -1252,7 +1256,7 @@ macro_rules! include_spirv {
 
 /// A trait implemented by types which can allocate memory for an array of given size in a contiguous memory
 /// This is used for vulkan commands returning arrays
-/// [`Vec<T>`] implements this trait as well as [SmallVec] is the small-vec feature is enabled
+/// [`Vec<T>`] implements this trait as well as [SmallVec] if the smallvec feature is enabled and [ArrayVec] if the arrayvec feature is enabled
 /// This trait is unsafe because no allocating a memory area of the proper size when calling
 /// allocate_with_capacity can cause undefined behavior when using this library
 pub unsafe trait DynamicArray<T>: IntoIterator<Item = T> {
@@ -1333,6 +1337,36 @@ impl<T, S, const N: usize> AdvancedDynamicArray<T, S> for SmallVec<[T; N]> {
     type InnerArrayType = SmallVec<[S; N]>;
 }
 
+#[cfg(feature = "arrayvec")]
+unsafe impl<T, const N: usize> DynamicArray<T> for ArrayVec<T, N> {
+    fn create_with_capacity(capacity: usize) -> Self {
+        if capacity > N {
+            panic!("Trying to use an ArrayVec of size {N} with capacity {capacity}")
+        }
+        Self::new()
+    }
+
+    fn update_with_capacity(&mut self, new_capacity: usize) {
+        if new_capacity > N {
+            panic!("Trying to use an ArrayVec of size {N} with capacity {new_capacity}")
+        }
+        // ArrayVecs always have a fixed capacity
+    }
+
+    fn get_content_mut_ptr(&mut self) -> *mut T {
+        self.as_mut_ptr()
+    }
+
+    unsafe fn resize_with_len(&mut self, len: usize) {
+        self.set_len(len)
+    }
+}
+
+#[cfg(feature = "arrayvec")]
+impl<T, S, const N: usize> AdvancedDynamicArray<T, S> for ArrayVec<T, N> {
+    type InnerArrayType = ArrayVec<S, N>;
+}
+
 /// Custom type which represents types that can be seen as slices
 /// This is especially useful for this crate as there are multiple commands/structs
 /// which accept slices but for which one would usually only supply one element
@@ -1405,6 +1439,13 @@ impl<'a, T> AsSlice<'a, T> for () {
 
 #[cfg(feature = "smallvec")]
 impl<'a, T, const N: usize> AsSlice<'a, T> for &'a SmallVec<[T; N]> {
+    fn as_slice(self) -> &'a [T] {
+        self.as_slice()
+    }
+}
+
+#[cfg(feature = "arrayvec")]
+impl<'a, T, const N: usize> AsSlice<'a, T> for &'a ArrayVec<T, N> {
     fn as_slice(self) -> &'a [T] {
         self.as_slice()
     }
