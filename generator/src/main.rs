@@ -12,7 +12,18 @@ mod structs;
 mod xml;
 
 fn main() -> Result<(), Box<dyn Error>> {
-    let file = std::fs::File::open("../vk.xml")?;
+    let Some(xml_path) = std::env::args().nth(1) else {
+        eprintln!(
+            "Usage: {} <path/to/vk.xml>",
+            std::env::args()
+                .next()
+                .unwrap_or_else(|| "generator".to_string())
+        );
+        return Ok(());
+    };
+
+    println!("Parsing vk.xml from \"{xml_path}\"");
+    let file = std::fs::File::open(&xml_path).context("Failed to open vk.xml file")?;
     let reader = BufReader::new(file);
     let registry: Registry = from_reader(reader)?;
 
@@ -21,6 +32,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     let main_crate_name = "vulkanite";
     let crate_vk = PathBuf::from(&format!("{main_crate_name}/src/vk"));
 
+    println!("Generating code");
     let cargo_path = PathBuf::from(&format!("{main_crate_name}/Cargo.toml"));
     let cargo_file = fs::read_to_string(&cargo_path).context("Failed to read Cargo.toml file")?;
     fs::write(cargo_path, generator.generate_features(cargo_file)?)?;
@@ -49,5 +61,6 @@ fn main() -> Result<(), Box<dyn Error>> {
     let basic_commands = generator.generate_advanced_commands(GeneratedCommandType::Basic)?;
     fs::write(crate_vk.join("rs/commands.rs"), basic_commands)?;
 
+    println!("Code generation completed successfully");
     Ok(())
 }
