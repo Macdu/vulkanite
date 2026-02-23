@@ -2,7 +2,10 @@ use std::{collections::HashSet, convert::identity};
 
 use anyhow::{Context, Result};
 
-use crate::generator::{remove_ext_prefix, Generator};
+use crate::{
+    generator::Generator,
+    structs::{is_subfeature, remove_featext_prefix},
+};
 
 const CONFIG_DELIMITER: &str =
     "# Features below are automatically generated, do not edit them manually";
@@ -16,7 +19,11 @@ pub fn generate(gen: &Generator<'_>, cargo_file: String) -> Result<String> {
     let mut last_feature = None;
     let versions = gen
         .filtered_features()
-        .map(|feat| gen.extensions_features.get(feat.name.as_str()))
+        .filter(|feat| !is_subfeature(&feat.name))
+        .map(|feat| {
+            gen.extensions_features
+                .get(remove_featext_prefix(&feat.name))
+        })
         .filter_map(identity)
         .filter(|feat| feat.is_non_trivial.get())
         .map(|feat| {
@@ -34,7 +41,10 @@ pub fn generate(gen: &Generator<'_>, cargo_file: String) -> Result<String> {
     let mut ext_seen = HashSet::new();
     let extensions = gen
         .filtered_extensions()
-        .map(|ext| gen.extensions_features.get(remove_ext_prefix(&ext.name)))
+        .map(|ext| {
+            gen.extensions_features
+                .get(remove_featext_prefix(&ext.name))
+        })
         .filter_map(identity)
         .filter(|feat| feat.is_non_trivial.get())
         .filter(|feat| ext_seen.insert(&feat.name))

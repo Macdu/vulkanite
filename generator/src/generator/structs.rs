@@ -39,10 +39,13 @@ pub fn generate<'a>(gen: &Generator<'a>) -> Result<String> {
                             let ty = gen
                                 .generate_type_inner(&advanced_type, true)
                                 .expect("Failed to get type");
+                            let allow_tag = name
+                                .contains('_')
+                                .then(|| quote! {#[allow(non_camel_case_types)]});
                             let name = format_ident!("{name}");
                             let doc_tag = make_doc_link(ty_name);
                             let lifetime = has_lifetime.get().unwrap().then(|| quote! (<'a>));
-                            Ok(quote! (#doc_tag pub type #name #lifetime = #ty;))
+                            Ok(quote! (#doc_tag #allow_tag pub type #name #lifetime = #ty;))
                         }
                         Struct::Standard(my_struct) => generate_struct(gen, my_struct, ty_name),
                     }),

@@ -3,7 +3,6 @@ use std::{
     cell::RefCell,
     collections::HashMap,
     io::Write,
-    ops::Deref,
 };
 
 use anyhow::{anyhow, bail, Context, Result};
@@ -14,10 +13,10 @@ use syn::Ident;
 use crate::{
     helpers::camel_case_to_snake_case,
     structs::{
-        convert_field_to_snake_case, remove_ext_prefix, AdvancedType, Api, CType, Command,
-        CommandParam, CommandParamsParsed, Constant, Dependencies, Enum, EnumAliased, EnumFlag,
-        EnumValue, EnumVariant, ExtFeature, Handle, MappingEntry, MappingType, SliceType, Struct,
-        StructBasetype, StructStandard, Type,
+        convert_field_to_snake_case, is_subfeature, remove_featext_prefix, AdvancedType, Api,
+        CType, Command, CommandParam, CommandParamsParsed, Constant, Dependencies, Enum,
+        EnumAliased, EnumFlag, EnumValue, EnumVariant, ExtFeature, Handle, MappingEntry,
+        MappingType, SliceType, Struct, StructBasetype, StructStandard, Type,
     },
     xml,
 };
@@ -64,22 +63,23 @@ impl<'a> Generator<'a> {
             ));
         }
 
-        let features_list = Self::filter_features(&registry.features).map(|feat| {
-            Ok((
-                feat.name.deref(),
+        let features_list = Self::filter_features(&registry.features).filter_map(|feat| {
+            if is_subfeature(&feat.name) {
+                // Only keep the main version as a dependency
+                return None;
+            }
+            let feat_name = remove_featext_prefix(&feat.name);
+            Some(Ok((
+                feat_name,
                 ExtFeature {
-                    name: feat
-                        .name
-                        .strip_prefix("VK_")
-                        .unwrap_or("INVALID_FEATURE_NAME")
-                        .to_ascii_lowercase(),
+                    name: feat_name.to_ascii_lowercase(),
                     is_non_trivial: false.into(),
                     dependencies: Dependencies::None,
                 },
-            ))
+            )))
         });
         let extensions_list = Self::filter_extensions(&registry.extensions).map(|ext| {
-            let ext_simplified = remove_ext_prefix(&ext.name);
+            let ext_simplified = remove_featext_prefix(&ext.name);
             let dependencies = ext
                 .depends
                 .as_ref()
@@ -154,7 +154,7 @@ impl<'a> Generator<'a> {
                     .is_some_and(|cat| cat == "basetype" || cat == "struct" || cat == "union")
                     && ty.alias.is_none()
             })
-            .filter(|ty| ty.api != Some(xml::Api::Vulkansc))
+            .filter(|ty| !matches!(&ty.apis[..], [xml::Api::Vulkansc]))
             .map(|ty| {
                 let my_struct = Struct::try_from(ty)?;
                 let name = ty
@@ -171,7 +171,7 @@ impl<'a> Generator<'a> {
             .commands
             .iter()
             .flat_map(|cmds| &cmds.command)
-            .filter(|cmd| cmd.alias.is_none() && cmd.api != Some(xml::Api::Vulkansc))
+            .filter(|cmd| cmd.alias.is_none() && !matches!(&cmd.apis[..], [xml::Api::Vulkansc]))
             .map(|cmd| Command::try_from(cmd).map(|cmd| (cmd.vk_name, cmd)))
             .collect::<Result<_>>()?;
 
@@ -573,8 +573,14 @@ impl<'a> Generator<'a> {
                 .content
                 .iter()
                 .find_map(|cnt| match cnt {
-                    xml::TypeContent::Name(name) => Some(name.as_str()),
+                    xml::TypeContent::Proto(param) => Some(param),
                     _ => None,
+                })
+                .and_then(|param| {
+                    param.content.iter().find_map(|cnt| match cnt {
+                        xml::ParamContent::Name(name) => Some(name.as_str()),
+                        _ => None,
+                    })
                 })
                 .context("Failed to find name for funcptr")?;
             assert!(mapping
@@ -795,13 +801,13 @@ impl<'a> Generator<'a> {
         let requires = self
             .filtered_extensions()
             .flat_map(|ext| {
-                let name = remove_ext_prefix(&ext.name);
+                let name = remove_featext_prefix(&ext.name);
                 ext.require.iter().map(move |req| (name, req))
             })
-            .chain(
-                self.filtered_features()
-                    .flat_map(|feat| feat.requires().map(|req| (feat.name.as_str(), req))),
-            )
+            .chain(self.filtered_features().flat_map(|feat| {
+                feat.requires()
+                    .map(|req| (remove_featext_prefix(&feat.name), req))
+            }))
             .flat_map(|(name, req)| {
                 let mut deps = Dependencies::Single(name);
                 if let Some(depends) = &req.depends {
@@ -876,7 +882,7 @@ impl<'a> Generator<'a> {
         // We always have vulkan 1.0 enabled by default
         // so set this extension as trivial
         self.extensions_features
-            .get("VK_VERSION_1_0")
+            .get("VERSION_1_0")
             .context("Failed to find vulkan 1.0")?
             .is_non_trivial
             .set(false);
@@ -1102,7 +1108,7 @@ impl<'a> Generator<'a> {
             .types
             .iter()
             .flat_map(|ty| &ty.types)
-            .filter(|ty| ty.api != Some(xml::Api::Vulkansc))
+            .filter(|ty| !matches!(&ty.apis[..], [xml::Api::Vulkansc]))
     }
 
     fn all_commands(&self) -> impl Iterator<Item = &'a xml::Command> {
@@ -1110,7 +1116,7 @@ impl<'a> Generator<'a> {
             .commands
             .iter()
             .flat_map(|cmd| &cmd.command)
-            .filter(|cmd| cmd.api != Some(xml::Api::Vulkansc))
+            .filter(|cmd| !matches!(&cmd.apis[..], [xml::Api::Vulkansc]))
     }
 
     fn parse_cmd_params<'b>(&'b self, cmd: &'b Command<'a>) -> Result<CommandParamsParsed<'a, 'b>> {
@@ -1157,6 +1163,7 @@ impl<'a> Generator<'a> {
                 "wl_display",
                 "xcb_connection_t",
                 "_screen_window",
+                "ubm_device",
             ]
             .contains(&ptr_content)
             {
@@ -1870,7 +1877,7 @@ fn parse_value(value: &str, ty: CType) -> TokenStream {
     let mut rust_value = match ty {
         CType::Uint32 => value.replace("U", "u32"),
         CType::Uint64 => value.replace("ULL", "u64"),
-        CType::Float => value.replace("F", "f32"),
+        CType::Float => value.to_ascii_uppercase().replace("F", "f32"),
         CType::Int32 | CType::Int64 => value,
     };
     if rust_value.starts_with("(") && rust_value.ends_with(")") {

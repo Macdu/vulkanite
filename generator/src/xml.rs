@@ -121,8 +121,8 @@ pub struct Type {
     pub requires: Option<String>,
     #[serde(rename = "@bitvalues")]
     pub bitvalues: Option<String>,
-    #[serde(rename = "@api")]
-    pub api: Option<Api>,
+    #[serde(default, rename = "@api", deserialize_with = "comma_separated")]
+    pub apis: Vec<Api>,
     #[serde(rename = "@deprecated")]
     pub deprecated: Option<Deprecated>,
     #[serde(rename = "@allowduplicate")]
@@ -145,6 +145,8 @@ pub enum TypeContent {
     Name(String),
     Enum(String),
     Type(String),
+    Proto(Param),
+    Param(Param),
     Member(Member),
     Comment(String),
     #[serde(rename = "$text")]
@@ -155,8 +157,8 @@ pub enum TypeContent {
 pub struct Member {
     #[serde(rename = "@altlen")]
     pub alt_len: Option<String>,
-    #[serde(rename = "@api")]
-    pub api: Option<Api>,
+    #[serde(default, rename = "@api", deserialize_with = "comma_separated")]
+    pub apis: Vec<Api>,
     #[serde(rename = "@deprecated")]
     pub deprecated: Option<Deprecated>,
     #[serde(rename = "@externsync")]
@@ -203,6 +205,7 @@ pub enum Deprecated {
 #[serde(rename_all = "snake_case")]
 pub enum Api {
     Vulkan,
+    Vulkanbase,
     Vulkansc,
 }
 
@@ -282,8 +285,8 @@ pub struct Command {
     pub name: Option<String>,
     #[serde(rename = "@alias")]
     pub alias: Option<String>,
-    #[serde(rename = "@api")]
-    pub api: Option<Api>,
+    #[serde(default, rename = "@api", deserialize_with = "comma_separated")]
+    pub apis: Vec<Api>,
     #[serde(
         default,
         rename = "@successcodes",
@@ -322,15 +325,22 @@ pub enum CmdBufferLevel {
 }
 
 #[derive(Deserialize, Debug)]
-#[serde(rename_all = "snake_case")]
 pub enum Queue {
+    #[serde(rename = "VK_QUEUE_COMPUTE_BIT")]
     Compute,
-    Decode,
-    Encode,
+    #[serde(rename = "VK_QUEUE_GRAPHICS_BIT")]
     Graphics,
+    #[serde(rename = "VK_QUEUE_VIDEO_DECODE_BIT_KHR")]
+    Decode,
+    #[serde(rename = "VK_QUEUE_VIDEO_ENCODE_BIT_KHR")]
+    Encode,
+    #[serde(rename = "VK_QUEUE_OPTICAL_FLOW_BIT_NV")]
     Opticalflow,
+    #[serde(rename = "VK_QUEUE_SPARSE_BINDING_BIT")]
     SparseBinding,
+    #[serde(rename = "VK_QUEUE_TRANSFER_BIT")]
     Transfer,
+    #[serde(rename = "VK_QUEUE_DATA_GRAPH_BIT_ARM")]
     DataGraph,
 }
 
@@ -372,8 +382,8 @@ pub struct Proto {
 pub struct Param {
     #[serde(rename = "@altlen")]
     pub altlen: Option<String>,
-    #[serde(rename = "@api")]
-    pub api: Option<Api>,
+    #[serde(default, rename = "@api", deserialize_with = "comma_separated")]
+    pub apis: Vec<Api>,
     #[serde(rename = "@externsync")]
     pub externsync: Option<()>,
     #[serde(rename = "@len")]

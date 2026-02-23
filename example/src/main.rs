@@ -103,8 +103,8 @@ extern "system" fn debug_callback(
     data: &vk::DebugUtilsMessengerCallbackDataEXT,
     _: *const (),
 ) -> vk::Bool32 {
-    eprintln!("Validation layer: {:?}", unsafe {
-        CStr::from_ptr(data.p_message)
+    eprintln!("Validation layer: {}", unsafe {
+        CStr::from_ptr(data.p_message).to_string_lossy()
     });
     vk::FALSE
 }

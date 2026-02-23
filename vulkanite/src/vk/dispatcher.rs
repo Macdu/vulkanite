@@ -280,39 +280,6 @@ pub struct CommandsDispatcher {
             *const AllocationCallbacks,
         ),
     >,
-    pub create_event: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, Device>>,
-            *const EventCreateInfo,
-            *const AllocationCallbacks,
-            *const Event,
-        ) -> Status,
-    >,
-    pub destroy_event: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, Device>>,
-            Option<BorrowedHandle<'_, Event>>,
-            *const AllocationCallbacks,
-        ),
-    >,
-    pub get_event_status: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, Device>>,
-            Option<BorrowedHandle<'_, Event>>,
-        ) -> Status,
-    >,
-    pub set_event: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, Device>>,
-            Option<BorrowedHandle<'_, Event>>,
-        ) -> Status,
-    >,
-    pub reset_event: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, Device>>,
-            Option<BorrowedHandle<'_, Event>>,
-        ) -> Status,
-    >,
     pub create_query_pool: Cell<
         unsafe extern "system" fn(
             Option<BorrowedHandle<'_, Device>>,
@@ -355,21 +322,6 @@ pub struct CommandsDispatcher {
             *const AllocationCallbacks,
         ),
     >,
-    pub create_buffer_view: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, Device>>,
-            *const BufferViewCreateInfo,
-            *const AllocationCallbacks,
-            *const BufferView,
-        ) -> Status,
-    >,
-    pub destroy_buffer_view: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, Device>>,
-            Option<BorrowedHandle<'_, BufferView>>,
-            *const AllocationCallbacks,
-        ),
-    >,
     pub create_image: Cell<
         unsafe extern "system" fn(
             Option<BorrowedHandle<'_, Device>>,
@@ -405,6 +357,227 @@ pub struct CommandsDispatcher {
         unsafe extern "system" fn(
             Option<BorrowedHandle<'_, Device>>,
             Option<BorrowedHandle<'_, ImageView>>,
+            *const AllocationCallbacks,
+        ),
+    >,
+    pub create_command_pool: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            *const CommandPoolCreateInfo,
+            *const AllocationCallbacks,
+            *const CommandPool,
+        ) -> Status,
+    >,
+    pub destroy_command_pool: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            Option<BorrowedHandle<'_, CommandPool>>,
+            *const AllocationCallbacks,
+        ),
+    >,
+    pub reset_command_pool: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            Option<BorrowedHandle<'_, CommandPool>>,
+            CommandPoolResetFlags,
+        ) -> Status,
+    >,
+    pub allocate_command_buffers: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            *const CommandBufferAllocateInfo,
+            *const CommandBuffer,
+        ) -> Status,
+    >,
+    pub free_command_buffers: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            Option<BorrowedHandle<'_, CommandPool>>,
+            u32,
+            *const CommandBuffer,
+        ),
+    >,
+    pub begin_command_buffer: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            *const CommandBufferBeginInfo,
+        ) -> Status,
+    >,
+    pub end_command_buffer:
+        Cell<unsafe extern "system" fn(Option<BorrowedHandle<'_, CommandBuffer>>) -> Status>,
+    pub reset_command_buffer: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            CommandBufferResetFlags,
+        ) -> Status,
+    >,
+    pub cmd_copy_buffer: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            Option<BorrowedHandle<'_, Buffer>>,
+            Option<BorrowedHandle<'_, Buffer>>,
+            u32,
+            *const BufferCopy,
+        ),
+    >,
+    pub cmd_copy_image: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            Option<BorrowedHandle<'_, Image>>,
+            ImageLayout,
+            Option<BorrowedHandle<'_, Image>>,
+            ImageLayout,
+            u32,
+            *const ImageCopy,
+        ),
+    >,
+    pub cmd_copy_buffer_to_image: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            Option<BorrowedHandle<'_, Buffer>>,
+            Option<BorrowedHandle<'_, Image>>,
+            ImageLayout,
+            u32,
+            *const BufferImageCopy,
+        ),
+    >,
+    pub cmd_copy_image_to_buffer: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            Option<BorrowedHandle<'_, Image>>,
+            ImageLayout,
+            Option<BorrowedHandle<'_, Buffer>>,
+            u32,
+            *const BufferImageCopy,
+        ),
+    >,
+    pub cmd_update_buffer: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            Option<BorrowedHandle<'_, Buffer>>,
+            DeviceSize,
+            DeviceSize,
+            VoidPtr,
+        ),
+    >,
+    pub cmd_fill_buffer: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            Option<BorrowedHandle<'_, Buffer>>,
+            DeviceSize,
+            DeviceSize,
+            u32,
+        ),
+    >,
+    pub cmd_pipeline_barrier: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            PipelineStageFlags,
+            PipelineStageFlags,
+            DependencyFlags,
+            u32,
+            *const MemoryBarrier,
+            u32,
+            *const BufferMemoryBarrier,
+            u32,
+            *const ImageMemoryBarrier,
+        ),
+    >,
+    pub cmd_begin_query: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            Option<BorrowedHandle<'_, QueryPool>>,
+            u32,
+            QueryControlFlags,
+        ),
+    >,
+    pub cmd_end_query: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            Option<BorrowedHandle<'_, QueryPool>>,
+            u32,
+        ),
+    >,
+    pub cmd_reset_query_pool: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            Option<BorrowedHandle<'_, QueryPool>>,
+            u32,
+            u32,
+        ),
+    >,
+    pub cmd_write_timestamp: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            PipelineStageFlags,
+            Option<BorrowedHandle<'_, QueryPool>>,
+            u32,
+        ),
+    >,
+    pub cmd_copy_query_pool_results: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            Option<BorrowedHandle<'_, QueryPool>>,
+            u32,
+            u32,
+            Option<BorrowedHandle<'_, Buffer>>,
+            DeviceSize,
+            DeviceSize,
+            QueryResultFlags,
+        ),
+    >,
+    pub cmd_execute_commands: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            u32,
+            *const CommandBuffer,
+        ),
+    >,
+    pub create_event: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            *const EventCreateInfo,
+            *const AllocationCallbacks,
+            *const Event,
+        ) -> Status,
+    >,
+    pub destroy_event: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            Option<BorrowedHandle<'_, Event>>,
+            *const AllocationCallbacks,
+        ),
+    >,
+    pub get_event_status: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            Option<BorrowedHandle<'_, Event>>,
+        ) -> Status,
+    >,
+    pub set_event: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            Option<BorrowedHandle<'_, Event>>,
+        ) -> Status,
+    >,
+    pub reset_event: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            Option<BorrowedHandle<'_, Event>>,
+        ) -> Status,
+    >,
+    pub create_buffer_view: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            *const BufferViewCreateInfo,
+            *const AllocationCallbacks,
+            *const BufferView,
+        ) -> Status,
+    >,
+    pub destroy_buffer_view: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            Option<BorrowedHandle<'_, BufferView>>,
             *const AllocationCallbacks,
         ),
     >,
@@ -452,16 +625,6 @@ pub struct CommandsDispatcher {
             Option<BorrowedHandle<'_, PipelineCache>>,
             u32,
             *const PipelineCache,
-        ) -> Status,
-    >,
-    pub create_graphics_pipelines: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, Device>>,
-            Option<BorrowedHandle<'_, PipelineCache>>,
-            u32,
-            *const GraphicsPipelineCreateInfo,
-            *const AllocationCallbacks,
-            *const Pipeline,
         ) -> Status,
     >,
     pub create_compute_pipelines: Cell<
@@ -572,6 +735,93 @@ pub struct CommandsDispatcher {
             *const CopyDescriptorSet,
         ),
     >,
+    pub cmd_bind_pipeline: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            PipelineBindPoint,
+            Option<BorrowedHandle<'_, Pipeline>>,
+        ),
+    >,
+    pub cmd_bind_descriptor_sets: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            PipelineBindPoint,
+            Option<BorrowedHandle<'_, PipelineLayout>>,
+            u32,
+            u32,
+            *const DescriptorSet,
+            u32,
+            *const u32,
+        ),
+    >,
+    pub cmd_clear_color_image: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            Option<BorrowedHandle<'_, Image>>,
+            ImageLayout,
+            *const ClearColorValue,
+            u32,
+            *const ImageSubresourceRange,
+        ),
+    >,
+    pub cmd_dispatch:
+        Cell<unsafe extern "system" fn(Option<BorrowedHandle<'_, CommandBuffer>>, u32, u32, u32)>,
+    pub cmd_dispatch_indirect: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            Option<BorrowedHandle<'_, Buffer>>,
+            DeviceSize,
+        ),
+    >,
+    pub cmd_set_event: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            Option<BorrowedHandle<'_, Event>>,
+            PipelineStageFlags,
+        ),
+    >,
+    pub cmd_reset_event: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            Option<BorrowedHandle<'_, Event>>,
+            PipelineStageFlags,
+        ),
+    >,
+    pub cmd_wait_events: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            u32,
+            *const Event,
+            PipelineStageFlags,
+            PipelineStageFlags,
+            u32,
+            *const MemoryBarrier,
+            u32,
+            *const BufferMemoryBarrier,
+            u32,
+            *const ImageMemoryBarrier,
+        ),
+    >,
+    pub cmd_push_constants: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            Option<BorrowedHandle<'_, PipelineLayout>>,
+            ShaderStageFlags,
+            u32,
+            u32,
+            VoidPtr,
+        ),
+    >,
+    pub create_graphics_pipelines: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            Option<BorrowedHandle<'_, PipelineCache>>,
+            u32,
+            *const GraphicsPipelineCreateInfo,
+            *const AllocationCallbacks,
+            *const Pipeline,
+        ) -> Status,
+    >,
     pub create_framebuffer: Cell<
         unsafe extern "system" fn(
             Option<BorrowedHandle<'_, Device>>,
@@ -609,64 +859,6 @@ pub struct CommandsDispatcher {
             *const Extent2D,
         ),
     >,
-    pub create_command_pool: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, Device>>,
-            *const CommandPoolCreateInfo,
-            *const AllocationCallbacks,
-            *const CommandPool,
-        ) -> Status,
-    >,
-    pub destroy_command_pool: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, Device>>,
-            Option<BorrowedHandle<'_, CommandPool>>,
-            *const AllocationCallbacks,
-        ),
-    >,
-    pub reset_command_pool: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, Device>>,
-            Option<BorrowedHandle<'_, CommandPool>>,
-            CommandPoolResetFlags,
-        ) -> Status,
-    >,
-    pub allocate_command_buffers: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, Device>>,
-            *const CommandBufferAllocateInfo,
-            *const CommandBuffer,
-        ) -> Status,
-    >,
-    pub free_command_buffers: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, Device>>,
-            Option<BorrowedHandle<'_, CommandPool>>,
-            u32,
-            *const CommandBuffer,
-        ),
-    >,
-    pub begin_command_buffer: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, CommandBuffer>>,
-            *const CommandBufferBeginInfo,
-        ) -> Status,
-    >,
-    pub end_command_buffer:
-        Cell<unsafe extern "system" fn(Option<BorrowedHandle<'_, CommandBuffer>>) -> Status>,
-    pub reset_command_buffer: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, CommandBuffer>>,
-            CommandBufferResetFlags,
-        ) -> Status,
-    >,
-    pub cmd_bind_pipeline: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, CommandBuffer>>,
-            PipelineBindPoint,
-            Option<BorrowedHandle<'_, Pipeline>>,
-        ),
-    >,
     pub cmd_set_viewport: Cell<
         unsafe extern "system" fn(
             Option<BorrowedHandle<'_, CommandBuffer>>,
@@ -700,18 +892,6 @@ pub struct CommandsDispatcher {
     >,
     pub cmd_set_stencil_reference: Cell<
         unsafe extern "system" fn(Option<BorrowedHandle<'_, CommandBuffer>>, StencilFaceFlags, u32),
-    >,
-    pub cmd_bind_descriptor_sets: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, CommandBuffer>>,
-            PipelineBindPoint,
-            Option<BorrowedHandle<'_, PipelineLayout>>,
-            u32,
-            u32,
-            *const DescriptorSet,
-            u32,
-            *const u32,
-        ),
     >,
     pub cmd_bind_index_buffer: Cell<
         unsafe extern "system" fn(
@@ -761,35 +941,6 @@ pub struct CommandsDispatcher {
             u32,
         ),
     >,
-    pub cmd_dispatch:
-        Cell<unsafe extern "system" fn(Option<BorrowedHandle<'_, CommandBuffer>>, u32, u32, u32)>,
-    pub cmd_dispatch_indirect: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, CommandBuffer>>,
-            Option<BorrowedHandle<'_, Buffer>>,
-            DeviceSize,
-        ),
-    >,
-    pub cmd_copy_buffer: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, CommandBuffer>>,
-            Option<BorrowedHandle<'_, Buffer>>,
-            Option<BorrowedHandle<'_, Buffer>>,
-            u32,
-            *const BufferCopy,
-        ),
-    >,
-    pub cmd_copy_image: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, CommandBuffer>>,
-            Option<BorrowedHandle<'_, Image>>,
-            ImageLayout,
-            Option<BorrowedHandle<'_, Image>>,
-            ImageLayout,
-            u32,
-            *const ImageCopy,
-        ),
-    >,
     pub cmd_blit_image: Cell<
         unsafe extern "system" fn(
             Option<BorrowedHandle<'_, CommandBuffer>>,
@@ -800,54 +951,6 @@ pub struct CommandsDispatcher {
             u32,
             *const ImageBlit,
             Filter,
-        ),
-    >,
-    pub cmd_copy_buffer_to_image: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, CommandBuffer>>,
-            Option<BorrowedHandle<'_, Buffer>>,
-            Option<BorrowedHandle<'_, Image>>,
-            ImageLayout,
-            u32,
-            *const BufferImageCopy,
-        ),
-    >,
-    pub cmd_copy_image_to_buffer: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, CommandBuffer>>,
-            Option<BorrowedHandle<'_, Image>>,
-            ImageLayout,
-            Option<BorrowedHandle<'_, Buffer>>,
-            u32,
-            *const BufferImageCopy,
-        ),
-    >,
-    pub cmd_update_buffer: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, CommandBuffer>>,
-            Option<BorrowedHandle<'_, Buffer>>,
-            DeviceSize,
-            DeviceSize,
-            VoidPtr,
-        ),
-    >,
-    pub cmd_fill_buffer: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, CommandBuffer>>,
-            Option<BorrowedHandle<'_, Buffer>>,
-            DeviceSize,
-            DeviceSize,
-            u32,
-        ),
-    >,
-    pub cmd_clear_color_image: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, CommandBuffer>>,
-            Option<BorrowedHandle<'_, Image>>,
-            ImageLayout,
-            *const ClearColorValue,
-            u32,
-            *const ImageSubresourceRange,
         ),
     >,
     pub cmd_clear_depth_stencil_image: Cell<
@@ -880,102 +983,6 @@ pub struct CommandsDispatcher {
             *const ImageResolve,
         ),
     >,
-    pub cmd_set_event: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, CommandBuffer>>,
-            Option<BorrowedHandle<'_, Event>>,
-            PipelineStageFlags,
-        ),
-    >,
-    pub cmd_reset_event: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, CommandBuffer>>,
-            Option<BorrowedHandle<'_, Event>>,
-            PipelineStageFlags,
-        ),
-    >,
-    pub cmd_wait_events: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, CommandBuffer>>,
-            u32,
-            *const Event,
-            PipelineStageFlags,
-            PipelineStageFlags,
-            u32,
-            *const MemoryBarrier,
-            u32,
-            *const BufferMemoryBarrier,
-            u32,
-            *const ImageMemoryBarrier,
-        ),
-    >,
-    pub cmd_pipeline_barrier: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, CommandBuffer>>,
-            PipelineStageFlags,
-            PipelineStageFlags,
-            DependencyFlags,
-            u32,
-            *const MemoryBarrier,
-            u32,
-            *const BufferMemoryBarrier,
-            u32,
-            *const ImageMemoryBarrier,
-        ),
-    >,
-    pub cmd_begin_query: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, CommandBuffer>>,
-            Option<BorrowedHandle<'_, QueryPool>>,
-            u32,
-            QueryControlFlags,
-        ),
-    >,
-    pub cmd_end_query: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, CommandBuffer>>,
-            Option<BorrowedHandle<'_, QueryPool>>,
-            u32,
-        ),
-    >,
-    pub cmd_reset_query_pool: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, CommandBuffer>>,
-            Option<BorrowedHandle<'_, QueryPool>>,
-            u32,
-            u32,
-        ),
-    >,
-    pub cmd_write_timestamp: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, CommandBuffer>>,
-            PipelineStageFlags,
-            Option<BorrowedHandle<'_, QueryPool>>,
-            u32,
-        ),
-    >,
-    pub cmd_copy_query_pool_results: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, CommandBuffer>>,
-            Option<BorrowedHandle<'_, QueryPool>>,
-            u32,
-            u32,
-            Option<BorrowedHandle<'_, Buffer>>,
-            DeviceSize,
-            DeviceSize,
-            QueryResultFlags,
-        ),
-    >,
-    pub cmd_push_constants: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, CommandBuffer>>,
-            Option<BorrowedHandle<'_, PipelineLayout>>,
-            ShaderStageFlags,
-            u32,
-            u32,
-            VoidPtr,
-        ),
-    >,
     pub cmd_begin_render_pass: Cell<
         unsafe extern "system" fn(
             Option<BorrowedHandle<'_, CommandBuffer>>,
@@ -987,13 +994,6 @@ pub struct CommandsDispatcher {
         Cell<unsafe extern "system" fn(Option<BorrowedHandle<'_, CommandBuffer>>, SubpassContents)>,
     pub cmd_end_render_pass:
         Cell<unsafe extern "system" fn(Option<BorrowedHandle<'_, CommandBuffer>>)>,
-    pub cmd_execute_commands: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, CommandBuffer>>,
-            u32,
-            *const CommandBuffer,
-        ),
-    >,
     #[cfg(feature = "version_1_1")]
     pub enumerate_instance_version: Cell<unsafe extern "system" fn(*const u32) -> Status>,
     #[cfg(any(feature = "ext_bind_memory2", feature = "version_1_1"))]
@@ -1054,30 +1054,6 @@ pub struct CommandsDispatcher {
     #[cfg(any(feature = "ext_device_group", feature = "version_1_1"))]
     pub cmd_set_device_mask:
         Cell<unsafe extern "system" fn(Option<BorrowedHandle<'_, CommandBuffer>>, u32)>,
-    #[cfg(any(feature = "ext_device_group", feature = "version_1_1"))]
-    pub cmd_dispatch_base_khr: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, CommandBuffer>>,
-            u32,
-            u32,
-            u32,
-            u32,
-            u32,
-            u32,
-        ),
-    >,
-    #[cfg(any(feature = "ext_device_group", feature = "version_1_1"))]
-    pub cmd_dispatch_base: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, CommandBuffer>>,
-            u32,
-            u32,
-            u32,
-            u32,
-            u32,
-            u32,
-        ),
-    >,
     #[cfg(any(feature = "ext_device_group_creation", feature = "version_1_1"))]
     pub enumerate_physical_device_groups_khr: Cell<
         unsafe extern "system" fn(
@@ -1318,92 +1294,6 @@ pub struct CommandsDispatcher {
             *const Queue,
         ),
     >,
-    #[cfg(any(feature = "ext_sampler_ycbcr_conversion", feature = "version_1_1"))]
-    pub create_sampler_ycbcr_conversion_khr: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, Device>>,
-            *const SamplerYcbcrConversionCreateInfo,
-            *const AllocationCallbacks,
-            *const SamplerYcbcrConversion,
-        ) -> Status,
-    >,
-    #[cfg(any(feature = "ext_sampler_ycbcr_conversion", feature = "version_1_1"))]
-    pub create_sampler_ycbcr_conversion: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, Device>>,
-            *const SamplerYcbcrConversionCreateInfo,
-            *const AllocationCallbacks,
-            *const SamplerYcbcrConversion,
-        ) -> Status,
-    >,
-    #[cfg(any(feature = "ext_sampler_ycbcr_conversion", feature = "version_1_1"))]
-    pub destroy_sampler_ycbcr_conversion_khr: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, Device>>,
-            Option<BorrowedHandle<'_, SamplerYcbcrConversion>>,
-            *const AllocationCallbacks,
-        ),
-    >,
-    #[cfg(any(feature = "ext_sampler_ycbcr_conversion", feature = "version_1_1"))]
-    pub destroy_sampler_ycbcr_conversion: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, Device>>,
-            Option<BorrowedHandle<'_, SamplerYcbcrConversion>>,
-            *const AllocationCallbacks,
-        ),
-    >,
-    #[cfg(any(feature = "ext_descriptor_update_template", feature = "version_1_1"))]
-    pub create_descriptor_update_template_khr: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, Device>>,
-            *const DescriptorUpdateTemplateCreateInfo,
-            *const AllocationCallbacks,
-            *const DescriptorUpdateTemplate,
-        ) -> Status,
-    >,
-    #[cfg(any(feature = "ext_descriptor_update_template", feature = "version_1_1"))]
-    pub create_descriptor_update_template: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, Device>>,
-            *const DescriptorUpdateTemplateCreateInfo,
-            *const AllocationCallbacks,
-            *const DescriptorUpdateTemplate,
-        ) -> Status,
-    >,
-    #[cfg(any(feature = "ext_descriptor_update_template", feature = "version_1_1"))]
-    pub destroy_descriptor_update_template_khr: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, Device>>,
-            Option<BorrowedHandle<'_, DescriptorUpdateTemplate>>,
-            *const AllocationCallbacks,
-        ),
-    >,
-    #[cfg(any(feature = "ext_descriptor_update_template", feature = "version_1_1"))]
-    pub destroy_descriptor_update_template: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, Device>>,
-            Option<BorrowedHandle<'_, DescriptorUpdateTemplate>>,
-            *const AllocationCallbacks,
-        ),
-    >,
-    #[cfg(any(feature = "ext_descriptor_update_template", feature = "version_1_1"))]
-    pub update_descriptor_set_with_template_khr: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, Device>>,
-            Option<BorrowedHandle<'_, DescriptorSet>>,
-            Option<BorrowedHandle<'_, DescriptorUpdateTemplate>>,
-            VoidPtr,
-        ),
-    >,
-    #[cfg(any(feature = "ext_descriptor_update_template", feature = "version_1_1"))]
-    pub update_descriptor_set_with_template: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, Device>>,
-            Option<BorrowedHandle<'_, DescriptorSet>>,
-            Option<BorrowedHandle<'_, DescriptorUpdateTemplate>>,
-            VoidPtr,
-        ),
-    >,
     #[cfg(any(feature = "ext_external_memory_capabilities", feature = "version_1_1"))]
     pub get_physical_device_external_buffer_properties_khr: Cell<
         unsafe extern "system" fn(
@@ -1458,6 +1348,82 @@ pub struct CommandsDispatcher {
             *const ExternalSemaphoreProperties,
         ),
     >,
+    #[cfg(any(feature = "ext_device_group", feature = "version_1_1"))]
+    pub cmd_dispatch_base_khr: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            u32,
+            u32,
+            u32,
+            u32,
+            u32,
+            u32,
+        ),
+    >,
+    #[cfg(any(feature = "ext_device_group", feature = "version_1_1"))]
+    pub cmd_dispatch_base: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            u32,
+            u32,
+            u32,
+            u32,
+            u32,
+            u32,
+        ),
+    >,
+    #[cfg(any(feature = "ext_descriptor_update_template", feature = "version_1_1"))]
+    pub create_descriptor_update_template_khr: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            *const DescriptorUpdateTemplateCreateInfo,
+            *const AllocationCallbacks,
+            *const DescriptorUpdateTemplate,
+        ) -> Status,
+    >,
+    #[cfg(any(feature = "ext_descriptor_update_template", feature = "version_1_1"))]
+    pub create_descriptor_update_template: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            *const DescriptorUpdateTemplateCreateInfo,
+            *const AllocationCallbacks,
+            *const DescriptorUpdateTemplate,
+        ) -> Status,
+    >,
+    #[cfg(any(feature = "ext_descriptor_update_template", feature = "version_1_1"))]
+    pub destroy_descriptor_update_template_khr: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            Option<BorrowedHandle<'_, DescriptorUpdateTemplate>>,
+            *const AllocationCallbacks,
+        ),
+    >,
+    #[cfg(any(feature = "ext_descriptor_update_template", feature = "version_1_1"))]
+    pub destroy_descriptor_update_template: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            Option<BorrowedHandle<'_, DescriptorUpdateTemplate>>,
+            *const AllocationCallbacks,
+        ),
+    >,
+    #[cfg(any(feature = "ext_descriptor_update_template", feature = "version_1_1"))]
+    pub update_descriptor_set_with_template_khr: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            Option<BorrowedHandle<'_, DescriptorSet>>,
+            Option<BorrowedHandle<'_, DescriptorUpdateTemplate>>,
+            VoidPtr,
+        ),
+    >,
+    #[cfg(any(feature = "ext_descriptor_update_template", feature = "version_1_1"))]
+    pub update_descriptor_set_with_template: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            Option<BorrowedHandle<'_, DescriptorSet>>,
+            Option<BorrowedHandle<'_, DescriptorUpdateTemplate>>,
+            VoidPtr,
+        ),
+    >,
     #[cfg(any(feature = "ext_maintenance3", feature = "version_1_1"))]
     pub get_descriptor_set_layout_support_khr: Cell<
         unsafe extern "system" fn(
@@ -1473,6 +1439,153 @@ pub struct CommandsDispatcher {
             *const DescriptorSetLayoutCreateInfo,
             *const DescriptorSetLayoutSupport,
         ),
+    >,
+    #[cfg(any(feature = "ext_sampler_ycbcr_conversion", feature = "version_1_1"))]
+    pub create_sampler_ycbcr_conversion_khr: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            *const SamplerYcbcrConversionCreateInfo,
+            *const AllocationCallbacks,
+            *const SamplerYcbcrConversion,
+        ) -> Status,
+    >,
+    #[cfg(any(feature = "ext_sampler_ycbcr_conversion", feature = "version_1_1"))]
+    pub create_sampler_ycbcr_conversion: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            *const SamplerYcbcrConversionCreateInfo,
+            *const AllocationCallbacks,
+            *const SamplerYcbcrConversion,
+        ) -> Status,
+    >,
+    #[cfg(any(feature = "ext_sampler_ycbcr_conversion", feature = "version_1_1"))]
+    pub destroy_sampler_ycbcr_conversion_khr: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            Option<BorrowedHandle<'_, SamplerYcbcrConversion>>,
+            *const AllocationCallbacks,
+        ),
+    >,
+    #[cfg(any(feature = "ext_sampler_ycbcr_conversion", feature = "version_1_1"))]
+    pub destroy_sampler_ycbcr_conversion: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            Option<BorrowedHandle<'_, SamplerYcbcrConversion>>,
+            *const AllocationCallbacks,
+        ),
+    >,
+    #[cfg(any(feature = "ext_host_query_reset", feature = "version_1_2"))]
+    pub reset_query_pool_ext: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            Option<BorrowedHandle<'_, QueryPool>>,
+            u32,
+            u32,
+        ),
+    >,
+    #[cfg(any(feature = "ext_host_query_reset", feature = "version_1_2"))]
+    pub reset_query_pool: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            Option<BorrowedHandle<'_, QueryPool>>,
+            u32,
+            u32,
+        ),
+    >,
+    #[cfg(any(feature = "ext_timeline_semaphore", feature = "version_1_2"))]
+    pub get_semaphore_counter_value_khr: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            Option<BorrowedHandle<'_, Semaphore>>,
+            *const u64,
+        ) -> Status,
+    >,
+    #[cfg(any(feature = "ext_timeline_semaphore", feature = "version_1_2"))]
+    pub get_semaphore_counter_value: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            Option<BorrowedHandle<'_, Semaphore>>,
+            *const u64,
+        ) -> Status,
+    >,
+    #[cfg(any(feature = "ext_timeline_semaphore", feature = "version_1_2"))]
+    pub wait_semaphores_khr: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            *const SemaphoreWaitInfo,
+            u64,
+        ) -> Status,
+    >,
+    #[cfg(any(feature = "ext_timeline_semaphore", feature = "version_1_2"))]
+    pub wait_semaphores: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            *const SemaphoreWaitInfo,
+            u64,
+        ) -> Status,
+    >,
+    #[cfg(any(feature = "ext_timeline_semaphore", feature = "version_1_2"))]
+    pub signal_semaphore_khr: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            *const SemaphoreSignalInfo,
+        ) -> Status,
+    >,
+    #[cfg(any(feature = "ext_timeline_semaphore", feature = "version_1_2"))]
+    pub signal_semaphore: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            *const SemaphoreSignalInfo,
+        ) -> Status,
+    >,
+    #[cfg(any(feature = "ext_buffer_device_address", feature = "version_1_2"))]
+    pub get_buffer_device_address_ext: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            *const BufferDeviceAddressInfo,
+        ) -> DeviceAddress,
+    >,
+    #[cfg(any(feature = "ext_buffer_device_address", feature = "version_1_2"))]
+    pub get_buffer_device_address_khr: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            *const BufferDeviceAddressInfo,
+        ) -> DeviceAddress,
+    >,
+    #[cfg(any(feature = "ext_buffer_device_address", feature = "version_1_2"))]
+    pub get_buffer_device_address: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            *const BufferDeviceAddressInfo,
+        ) -> DeviceAddress,
+    >,
+    #[cfg(any(feature = "ext_buffer_device_address", feature = "version_1_2"))]
+    pub get_buffer_opaque_capture_address_khr: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            *const BufferDeviceAddressInfo,
+        ) -> u64,
+    >,
+    #[cfg(any(feature = "ext_buffer_device_address", feature = "version_1_2"))]
+    pub get_buffer_opaque_capture_address: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            *const BufferDeviceAddressInfo,
+        ) -> u64,
+    >,
+    #[cfg(any(feature = "ext_buffer_device_address", feature = "version_1_2"))]
+    pub get_device_memory_opaque_capture_address_khr: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            *const DeviceMemoryOpaqueCaptureAddressInfo,
+        ) -> u64,
+    >,
+    #[cfg(any(feature = "ext_buffer_device_address", feature = "version_1_2"))]
+    pub get_device_memory_opaque_capture_address: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            *const DeviceMemoryOpaqueCaptureAddressInfo,
+        ) -> u64,
     >,
     #[cfg(any(feature = "ext_draw_indirect_count", feature = "version_1_2"))]
     pub cmd_draw_indirect_count_amd: Cell<
@@ -1604,119 +1717,6 @@ pub struct CommandsDispatcher {
     pub cmd_end_render_pass2: Cell<
         unsafe extern "system" fn(Option<BorrowedHandle<'_, CommandBuffer>>, *const SubpassEndInfo),
     >,
-    #[cfg(any(feature = "ext_host_query_reset", feature = "version_1_2"))]
-    pub reset_query_pool_ext: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, Device>>,
-            Option<BorrowedHandle<'_, QueryPool>>,
-            u32,
-            u32,
-        ),
-    >,
-    #[cfg(any(feature = "ext_host_query_reset", feature = "version_1_2"))]
-    pub reset_query_pool: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, Device>>,
-            Option<BorrowedHandle<'_, QueryPool>>,
-            u32,
-            u32,
-        ),
-    >,
-    #[cfg(any(feature = "ext_timeline_semaphore", feature = "version_1_2"))]
-    pub get_semaphore_counter_value_khr: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, Device>>,
-            Option<BorrowedHandle<'_, Semaphore>>,
-            *const u64,
-        ) -> Status,
-    >,
-    #[cfg(any(feature = "ext_timeline_semaphore", feature = "version_1_2"))]
-    pub get_semaphore_counter_value: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, Device>>,
-            Option<BorrowedHandle<'_, Semaphore>>,
-            *const u64,
-        ) -> Status,
-    >,
-    #[cfg(any(feature = "ext_timeline_semaphore", feature = "version_1_2"))]
-    pub wait_semaphores_khr: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, Device>>,
-            *const SemaphoreWaitInfo,
-            u64,
-        ) -> Status,
-    >,
-    #[cfg(any(feature = "ext_timeline_semaphore", feature = "version_1_2"))]
-    pub wait_semaphores: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, Device>>,
-            *const SemaphoreWaitInfo,
-            u64,
-        ) -> Status,
-    >,
-    #[cfg(any(feature = "ext_timeline_semaphore", feature = "version_1_2"))]
-    pub signal_semaphore_khr: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, Device>>,
-            *const SemaphoreSignalInfo,
-        ) -> Status,
-    >,
-    #[cfg(any(feature = "ext_timeline_semaphore", feature = "version_1_2"))]
-    pub signal_semaphore: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, Device>>,
-            *const SemaphoreSignalInfo,
-        ) -> Status,
-    >,
-    #[cfg(any(feature = "ext_buffer_device_address", feature = "version_1_2"))]
-    pub get_buffer_device_address_ext: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, Device>>,
-            *const BufferDeviceAddressInfo,
-        ) -> DeviceAddress,
-    >,
-    #[cfg(any(feature = "ext_buffer_device_address", feature = "version_1_2"))]
-    pub get_buffer_device_address_khr: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, Device>>,
-            *const BufferDeviceAddressInfo,
-        ) -> DeviceAddress,
-    >,
-    #[cfg(any(feature = "ext_buffer_device_address", feature = "version_1_2"))]
-    pub get_buffer_device_address: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, Device>>,
-            *const BufferDeviceAddressInfo,
-        ) -> DeviceAddress,
-    >,
-    #[cfg(any(feature = "ext_buffer_device_address", feature = "version_1_2"))]
-    pub get_buffer_opaque_capture_address_khr: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, Device>>,
-            *const BufferDeviceAddressInfo,
-        ) -> u64,
-    >,
-    #[cfg(any(feature = "ext_buffer_device_address", feature = "version_1_2"))]
-    pub get_buffer_opaque_capture_address: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, Device>>,
-            *const BufferDeviceAddressInfo,
-        ) -> u64,
-    >,
-    #[cfg(any(feature = "ext_buffer_device_address", feature = "version_1_2"))]
-    pub get_device_memory_opaque_capture_address_khr: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, Device>>,
-            *const DeviceMemoryOpaqueCaptureAddressInfo,
-        ) -> u64,
-    >,
-    #[cfg(any(feature = "ext_buffer_device_address", feature = "version_1_2"))]
-    pub get_device_memory_opaque_capture_address: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, Device>>,
-            *const DeviceMemoryOpaqueCaptureAddressInfo,
-        ) -> u64,
-    >,
     #[cfg(any(feature = "ext_tooling_info", feature = "version_1_3"))]
     pub get_physical_device_tool_properties_ext: Cell<
         unsafe extern "system" fn(
@@ -1805,56 +1805,6 @@ pub struct CommandsDispatcher {
             u64,
             Option<BorrowedHandle<'_, PrivateDataSlot>>,
             *const u64,
-        ),
-    >,
-    #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
-    pub cmd_set_event2_khr: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, CommandBuffer>>,
-            Option<BorrowedHandle<'_, Event>>,
-            *const DependencyInfo,
-        ),
-    >,
-    #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
-    pub cmd_set_event2: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, CommandBuffer>>,
-            Option<BorrowedHandle<'_, Event>>,
-            *const DependencyInfo,
-        ),
-    >,
-    #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
-    pub cmd_reset_event2_khr: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, CommandBuffer>>,
-            Option<BorrowedHandle<'_, Event>>,
-            PipelineStageFlags2,
-        ),
-    >,
-    #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
-    pub cmd_reset_event2: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, CommandBuffer>>,
-            Option<BorrowedHandle<'_, Event>>,
-            PipelineStageFlags2,
-        ),
-    >,
-    #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
-    pub cmd_wait_events2_khr: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, CommandBuffer>>,
-            u32,
-            *const Event,
-            *const DependencyInfo,
-        ),
-    >,
-    #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
-    pub cmd_wait_events2: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, CommandBuffer>>,
-            u32,
-            *const Event,
-            *const DependencyInfo,
         ),
     >,
     #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
@@ -1949,6 +1899,106 @@ pub struct CommandsDispatcher {
         unsafe extern "system" fn(
             Option<BorrowedHandle<'_, CommandBuffer>>,
             *const CopyImageToBufferInfo2,
+        ),
+    >,
+    #[cfg(any(feature = "ext_maintenance4", feature = "version_1_3"))]
+    pub get_device_buffer_memory_requirements_khr: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            *const DeviceBufferMemoryRequirements,
+            *const MemoryRequirements2,
+        ),
+    >,
+    #[cfg(any(feature = "ext_maintenance4", feature = "version_1_3"))]
+    pub get_device_buffer_memory_requirements: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            *const DeviceBufferMemoryRequirements,
+            *const MemoryRequirements2,
+        ),
+    >,
+    #[cfg(any(feature = "ext_maintenance4", feature = "version_1_3"))]
+    pub get_device_image_memory_requirements_khr: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            *const DeviceImageMemoryRequirements,
+            *const MemoryRequirements2,
+        ),
+    >,
+    #[cfg(any(feature = "ext_maintenance4", feature = "version_1_3"))]
+    pub get_device_image_memory_requirements: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            *const DeviceImageMemoryRequirements,
+            *const MemoryRequirements2,
+        ),
+    >,
+    #[cfg(any(feature = "ext_maintenance4", feature = "version_1_3"))]
+    pub get_device_image_sparse_memory_requirements_khr: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            *const DeviceImageMemoryRequirements,
+            *const u32,
+            *const SparseImageMemoryRequirements2,
+        ),
+    >,
+    #[cfg(any(feature = "ext_maintenance4", feature = "version_1_3"))]
+    pub get_device_image_sparse_memory_requirements: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            *const DeviceImageMemoryRequirements,
+            *const u32,
+            *const SparseImageMemoryRequirements2,
+        ),
+    >,
+    #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
+    pub cmd_set_event2_khr: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            Option<BorrowedHandle<'_, Event>>,
+            *const DependencyInfo,
+        ),
+    >,
+    #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
+    pub cmd_set_event2: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            Option<BorrowedHandle<'_, Event>>,
+            *const DependencyInfo,
+        ),
+    >,
+    #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
+    pub cmd_reset_event2_khr: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            Option<BorrowedHandle<'_, Event>>,
+            PipelineStageFlags2,
+        ),
+    >,
+    #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
+    pub cmd_reset_event2: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            Option<BorrowedHandle<'_, Event>>,
+            PipelineStageFlags2,
+        ),
+    >,
+    #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
+    pub cmd_wait_events2_khr: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            u32,
+            *const Event,
+            *const DependencyInfo,
+        ),
+    >,
+    #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
+    pub cmd_wait_events2: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            u32,
+            *const Event,
+            *const DependencyInfo,
         ),
     >,
     #[cfg(any(feature = "ext_copy_commands2", feature = "version_1_3"))]
@@ -2237,65 +2287,6 @@ pub struct CommandsDispatcher {
     ))]
     pub cmd_set_primitive_restart_enable:
         Cell<unsafe extern "system" fn(Option<BorrowedHandle<'_, CommandBuffer>>, Bool32)>,
-    #[cfg(any(feature = "ext_maintenance4", feature = "version_1_3"))]
-    pub get_device_buffer_memory_requirements_khr: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, Device>>,
-            *const DeviceBufferMemoryRequirements,
-            *const MemoryRequirements2,
-        ),
-    >,
-    #[cfg(any(feature = "ext_maintenance4", feature = "version_1_3"))]
-    pub get_device_buffer_memory_requirements: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, Device>>,
-            *const DeviceBufferMemoryRequirements,
-            *const MemoryRequirements2,
-        ),
-    >,
-    #[cfg(any(feature = "ext_maintenance4", feature = "version_1_3"))]
-    pub get_device_image_memory_requirements_khr: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, Device>>,
-            *const DeviceImageMemoryRequirements,
-            *const MemoryRequirements2,
-        ),
-    >,
-    #[cfg(any(feature = "ext_maintenance4", feature = "version_1_3"))]
-    pub get_device_image_memory_requirements: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, Device>>,
-            *const DeviceImageMemoryRequirements,
-            *const MemoryRequirements2,
-        ),
-    >,
-    #[cfg(any(feature = "ext_maintenance4", feature = "version_1_3"))]
-    pub get_device_image_sparse_memory_requirements_khr: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, Device>>,
-            *const DeviceImageMemoryRequirements,
-            *const u32,
-            *const SparseImageMemoryRequirements2,
-        ),
-    >,
-    #[cfg(any(feature = "ext_maintenance4", feature = "version_1_3"))]
-    pub get_device_image_sparse_memory_requirements: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, Device>>,
-            *const DeviceImageMemoryRequirements,
-            *const u32,
-            *const SparseImageMemoryRequirements2,
-        ),
-    >,
-    #[cfg(any(feature = "ext_line_rasterization", feature = "version_1_4"))]
-    pub cmd_set_line_stipple_ext:
-        Cell<unsafe extern "system" fn(Option<BorrowedHandle<'_, CommandBuffer>>, u32, u16)>,
-    #[cfg(any(feature = "ext_line_rasterization", feature = "version_1_4"))]
-    pub cmd_set_line_stipple_khr:
-        Cell<unsafe extern "system" fn(Option<BorrowedHandle<'_, CommandBuffer>>, u32, u16)>,
-    #[cfg(any(feature = "ext_line_rasterization", feature = "version_1_4"))]
-    pub cmd_set_line_stipple:
-        Cell<unsafe extern "system" fn(Option<BorrowedHandle<'_, CommandBuffer>>, u32, u16)>,
     #[cfg(any(feature = "ext_map_memory2", feature = "version_1_4"))]
     pub map_memory2_khr: Cell<
         unsafe extern "system" fn(
@@ -2325,42 +2316,6 @@ pub struct CommandsDispatcher {
             Option<BorrowedHandle<'_, Device>>,
             *const MemoryUnmapInfo,
         ) -> Status,
-    >,
-    #[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
-    pub cmd_bind_index_buffer2_khr: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, CommandBuffer>>,
-            Option<BorrowedHandle<'_, Buffer>>,
-            DeviceSize,
-            DeviceSize,
-            IndexType,
-        ),
-    >,
-    #[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
-    pub cmd_bind_index_buffer2: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, CommandBuffer>>,
-            Option<BorrowedHandle<'_, Buffer>>,
-            DeviceSize,
-            DeviceSize,
-            IndexType,
-        ),
-    >,
-    #[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
-    pub get_rendering_area_granularity_khr: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, Device>>,
-            *const RenderingAreaInfo,
-            *const Extent2D,
-        ),
-    >,
-    #[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
-    pub get_rendering_area_granularity: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, Device>>,
-            *const RenderingAreaInfo,
-            *const Extent2D,
-        ),
     >,
     #[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
     pub get_device_image_subresource_layout_khr: Cell<
@@ -2419,6 +2374,64 @@ pub struct CommandsDispatcher {
             *const ImageSubresource2,
             *const SubresourceLayout2,
         ),
+    >,
+    #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
+    pub copy_memory_to_image_ext: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            *const CopyMemoryToImageInfo,
+        ) -> Status,
+    >,
+    #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
+    pub copy_memory_to_image: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            *const CopyMemoryToImageInfo,
+        ) -> Status,
+    >,
+    #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
+    pub copy_image_to_memory_ext: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            *const CopyImageToMemoryInfo,
+        ) -> Status,
+    >,
+    #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
+    pub copy_image_to_memory: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            *const CopyImageToMemoryInfo,
+        ) -> Status,
+    >,
+    #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
+    pub copy_image_to_image_ext: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            *const CopyImageToImageInfo,
+        ) -> Status,
+    >,
+    #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
+    pub copy_image_to_image: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            *const CopyImageToImageInfo,
+        ) -> Status,
+    >,
+    #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
+    pub transition_image_layout_ext: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            u32,
+            *const HostImageLayoutTransitionInfo,
+        ) -> Status,
+    >,
+    #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
+    pub transition_image_layout: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            u32,
+            *const HostImageLayoutTransitionInfo,
+        ) -> Status,
     >,
     #[cfg(any(feature = "ext_push_descriptor", feature = "version_1_4"))]
     pub cmd_push_descriptor_set_khr: Cell<
@@ -2480,34 +2493,6 @@ pub struct CommandsDispatcher {
             Option<BorrowedHandle<'_, PipelineLayout>>,
             u32,
             VoidPtr,
-        ),
-    >,
-    #[cfg(any(feature = "ext_dynamic_rendering_local_read", feature = "version_1_4"))]
-    pub cmd_set_rendering_attachment_locations_khr: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, CommandBuffer>>,
-            *const RenderingAttachmentLocationInfo,
-        ),
-    >,
-    #[cfg(any(feature = "ext_dynamic_rendering_local_read", feature = "version_1_4"))]
-    pub cmd_set_rendering_attachment_locations: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, CommandBuffer>>,
-            *const RenderingAttachmentLocationInfo,
-        ),
-    >,
-    #[cfg(any(feature = "ext_dynamic_rendering_local_read", feature = "version_1_4"))]
-    pub cmd_set_rendering_input_attachment_indices_khr: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, CommandBuffer>>,
-            *const RenderingInputAttachmentIndexInfo,
-        ),
-    >,
-    #[cfg(any(feature = "ext_dynamic_rendering_local_read", feature = "version_1_4"))]
-    pub cmd_set_rendering_input_attachment_indices: Cell<
-        unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, CommandBuffer>>,
-            *const RenderingInputAttachmentIndexInfo,
         ),
     >,
     #[cfg(any(feature = "ext_maintenance6", feature = "version_1_4"))]
@@ -2578,63 +2563,78 @@ pub struct CommandsDispatcher {
             *const PushDescriptorSetWithTemplateInfo,
         ),
     >,
-    #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
-    pub copy_memory_to_image_ext: Cell<
+    #[cfg(any(feature = "ext_line_rasterization", feature = "version_1_4"))]
+    pub cmd_set_line_stipple_ext:
+        Cell<unsafe extern "system" fn(Option<BorrowedHandle<'_, CommandBuffer>>, u32, u16)>,
+    #[cfg(any(feature = "ext_line_rasterization", feature = "version_1_4"))]
+    pub cmd_set_line_stipple_khr:
+        Cell<unsafe extern "system" fn(Option<BorrowedHandle<'_, CommandBuffer>>, u32, u16)>,
+    #[cfg(any(feature = "ext_line_rasterization", feature = "version_1_4"))]
+    pub cmd_set_line_stipple:
+        Cell<unsafe extern "system" fn(Option<BorrowedHandle<'_, CommandBuffer>>, u32, u16)>,
+    #[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
+    pub cmd_bind_index_buffer2_khr: Cell<
         unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, Device>>,
-            *const CopyMemoryToImageInfo,
-        ) -> Status,
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            Option<BorrowedHandle<'_, Buffer>>,
+            DeviceSize,
+            DeviceSize,
+            IndexType,
+        ),
     >,
-    #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
-    pub copy_memory_to_image: Cell<
+    #[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
+    pub cmd_bind_index_buffer2: Cell<
         unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, Device>>,
-            *const CopyMemoryToImageInfo,
-        ) -> Status,
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            Option<BorrowedHandle<'_, Buffer>>,
+            DeviceSize,
+            DeviceSize,
+            IndexType,
+        ),
     >,
-    #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
-    pub copy_image_to_memory_ext: Cell<
+    #[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
+    pub get_rendering_area_granularity_khr: Cell<
         unsafe extern "system" fn(
             Option<BorrowedHandle<'_, Device>>,
-            *const CopyImageToMemoryInfo,
-        ) -> Status,
+            *const RenderingAreaInfo,
+            *const Extent2D,
+        ),
     >,
-    #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
-    pub copy_image_to_memory: Cell<
+    #[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
+    pub get_rendering_area_granularity: Cell<
         unsafe extern "system" fn(
             Option<BorrowedHandle<'_, Device>>,
-            *const CopyImageToMemoryInfo,
-        ) -> Status,
+            *const RenderingAreaInfo,
+            *const Extent2D,
+        ),
     >,
-    #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
-    pub copy_image_to_image_ext: Cell<
+    #[cfg(any(feature = "ext_dynamic_rendering_local_read", feature = "version_1_4"))]
+    pub cmd_set_rendering_attachment_locations_khr: Cell<
         unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, Device>>,
-            *const CopyImageToImageInfo,
-        ) -> Status,
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            *const RenderingAttachmentLocationInfo,
+        ),
     >,
-    #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
-    pub copy_image_to_image: Cell<
+    #[cfg(any(feature = "ext_dynamic_rendering_local_read", feature = "version_1_4"))]
+    pub cmd_set_rendering_attachment_locations: Cell<
         unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, Device>>,
-            *const CopyImageToImageInfo,
-        ) -> Status,
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            *const RenderingAttachmentLocationInfo,
+        ),
     >,
-    #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
-    pub transition_image_layout_ext: Cell<
+    #[cfg(any(feature = "ext_dynamic_rendering_local_read", feature = "version_1_4"))]
+    pub cmd_set_rendering_input_attachment_indices_khr: Cell<
         unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, Device>>,
-            u32,
-            *const HostImageLayoutTransitionInfo,
-        ) -> Status,
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            *const RenderingInputAttachmentIndexInfo,
+        ),
     >,
-    #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
-    pub transition_image_layout: Cell<
+    #[cfg(any(feature = "ext_dynamic_rendering_local_read", feature = "version_1_4"))]
+    pub cmd_set_rendering_input_attachment_indices: Cell<
         unsafe extern "system" fn(
-            Option<BorrowedHandle<'_, Device>>,
-            u32,
-            *const HostImageLayoutTransitionInfo,
-        ) -> Status,
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            *const RenderingInputAttachmentIndexInfo,
+        ),
     >,
     #[cfg(feature = "ext_surface")]
     pub destroy_surface_khr: Cell<
@@ -3099,6 +3099,9 @@ pub struct CommandsDispatcher {
             *const ImageViewAddressPropertiesNVX,
         ) -> Status,
     >,
+    #[cfg(feature = "ext_image_view_handle")]
+    pub get_device_combined_image_sampler_index_nvx:
+        Cell<unsafe extern "system" fn(Option<BorrowedHandle<'_, Device>>, u64, u64) -> u64>,
     #[cfg(feature = "ext_shader_info")]
     pub get_shader_info_amd: Cell<
         unsafe extern "system" fn(
@@ -3627,6 +3630,82 @@ pub struct CommandsDispatcher {
             DeviceAddress,
         ),
     >,
+    #[cfg(feature = "ext_descriptor_heap")]
+    pub write_sampler_descriptors_ext: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            u32,
+            *const SamplerCreateInfo,
+            *const HostAddressRangeEXT,
+        ) -> Status,
+    >,
+    #[cfg(feature = "ext_descriptor_heap")]
+    pub write_resource_descriptors_ext: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            u32,
+            *const ResourceDescriptorInfoEXT,
+            *const HostAddressRangeEXT,
+        ) -> Status,
+    >,
+    #[cfg(feature = "ext_descriptor_heap")]
+    pub cmd_bind_sampler_heap_ext: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            *const BindHeapInfoEXT,
+        ),
+    >,
+    #[cfg(feature = "ext_descriptor_heap")]
+    pub cmd_bind_resource_heap_ext: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            *const BindHeapInfoEXT,
+        ),
+    >,
+    #[cfg(feature = "ext_descriptor_heap")]
+    pub cmd_push_data_ext: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            *const PushDataInfoEXT,
+        ),
+    >,
+    #[cfg(feature = "ext_descriptor_heap")]
+    pub get_image_opaque_capture_data_ext: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            u32,
+            *const Image,
+            *const HostAddressRangeEXT,
+        ) -> Status,
+    >,
+    #[cfg(feature = "ext_descriptor_heap")]
+    pub get_physical_device_descriptor_size_ext: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, PhysicalDevice>>,
+            DescriptorType,
+        ) -> DeviceSize,
+    >,
+    #[cfg(all(feature = "ext_descriptor_heap", feature = "ext_custom_border_color"))]
+    pub register_custom_border_color_ext: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            *const SamplerCustomBorderColorCreateInfoEXT,
+            Bool32,
+            *const u32,
+        ) -> Status,
+    >,
+    #[cfg(all(feature = "ext_descriptor_heap", feature = "ext_custom_border_color"))]
+    pub unregister_custom_border_color_ext:
+        Cell<unsafe extern "system" fn(Option<BorrowedHandle<'_, Device>>, u32)>,
+    #[cfg(all(feature = "ext_descriptor_heap", feature = "ext_tensors"))]
+    pub get_tensor_opaque_capture_data_arm: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            u32,
+            *const TensorARM,
+            *const HostAddressRangeEXT,
+        ) -> Status,
+    >,
     #[cfg(feature = "ext_sample_locations")]
     pub cmd_set_sample_locations_ext: Cell<
         unsafe extern "system" fn(
@@ -4094,7 +4173,7 @@ pub struct CommandsDispatcher {
     >,
     #[cfg(all(
         feature = "ext_mesh_shader",
-        any(feature = "ext_draw_indirect_count", feature = "version_1_2")
+        any(feature = "version_1_2", feature = "ext_draw_indirect_count")
     ))]
     pub cmd_draw_mesh_tasks_indirect_count_nv: Cell<
         unsafe extern "system" fn(
@@ -4146,6 +4225,40 @@ pub struct CommandsDispatcher {
             *const u32,
             *const CheckpointData2NV,
         ),
+    >,
+    #[cfg(feature = "ext_present_timing")]
+    pub set_swapchain_present_timing_queue_size_ext: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            Option<BorrowedHandle<'_, SwapchainKHR>>,
+            u32,
+        ) -> Status,
+    >,
+    #[cfg(feature = "ext_present_timing")]
+    pub get_swapchain_timing_properties_ext: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            Option<BorrowedHandle<'_, SwapchainKHR>>,
+            *const SwapchainTimingPropertiesEXT,
+            *const u64,
+        ) -> Status,
+    >,
+    #[cfg(feature = "ext_present_timing")]
+    pub get_swapchain_time_domain_properties_ext: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            Option<BorrowedHandle<'_, SwapchainKHR>>,
+            *const SwapchainTimeDomainPropertiesEXT,
+            *const u64,
+        ) -> Status,
+    >,
+    #[cfg(feature = "ext_present_timing")]
+    pub get_past_presentation_timing_ext: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            *const PastPresentationTimingInfoEXT,
+            *const PastPresentationTimingPropertiesEXT,
+        ) -> Status,
     >,
     #[cfg(feature = "ext_performance_query")]
     pub initialize_performance_api_intel: Cell<
@@ -4654,7 +4767,7 @@ pub struct CommandsDispatcher {
     >,
     #[cfg(all(
         feature = "ext_mesh_shader",
-        any(feature = "ext_draw_indirect_count", feature = "version_1_2")
+        any(feature = "version_1_2", feature = "ext_draw_indirect_count")
     ))]
     pub cmd_draw_mesh_tasks_indirect_count_ext: Cell<
         unsafe extern "system" fn(
@@ -5098,6 +5211,22 @@ pub struct CommandsDispatcher {
             Option<BorrowedHandle<'_, Device>>,
             *const PipelineIndirectDeviceAddressInfoNV,
         ) -> DeviceAddress,
+    >,
+    #[cfg(feature = "ext_ohos_external_memory")]
+    pub get_native_buffer_properties_ohos: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            *const OH_NativeBuffer,
+            *const NativeBufferPropertiesOHOS,
+        ) -> Status,
+    >,
+    #[cfg(feature = "ext_ohos_external_memory")]
+    pub get_memory_native_buffer_ohos: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            *const MemoryGetNativeBufferInfoOHOS,
+            *const *const OH_NativeBuffer,
+        ) -> Status,
     >,
     #[cfg(any(feature = "ext_extended_dynamic_state3", feature = "ext_shader_object"))]
     pub cmd_set_depth_clamp_enable_ext:
@@ -5919,6 +6048,38 @@ pub struct CommandsDispatcher {
             *const TileMemoryBindInfoQCOM,
         ),
     >,
+    #[cfg(feature = "ext_copy_memory_indirect")]
+    pub cmd_copy_memory_indirect_khr: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            *const CopyMemoryIndirectInfoKHR,
+        ),
+    >,
+    #[cfg(feature = "ext_copy_memory_indirect")]
+    pub cmd_copy_memory_to_image_indirect_khr: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            *const CopyMemoryToImageIndirectInfoKHR,
+        ),
+    >,
+    #[cfg(feature = "ext_memory_decompression")]
+    pub cmd_decompress_memory_ext: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            *const DecompressMemoryInfoEXT,
+        ),
+    >,
+    #[cfg(feature = "ext_memory_decompression")]
+    pub cmd_decompress_memory_indirect_count_ext: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            MemoryDecompressionMethodFlagsEXT,
+            DeviceAddress,
+            DeviceAddress,
+            u32,
+            u32,
+        ),
+    >,
     #[cfg(feature = "ext_external_compute_queue")]
     pub create_external_compute_queue_nv: Cell<
         unsafe extern "system" fn(
@@ -6084,12 +6245,69 @@ pub struct CommandsDispatcher {
             *const MemoryMetalHandlePropertiesEXT,
         ) -> Status,
     >,
-    #[cfg(feature = "ext_fragment_density_map_offset")]
+    #[cfg(feature = "ext_performance_counters_by_region")]
+    pub enumerate_physical_device_queue_family_performance_counters_by_region_arm: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, PhysicalDevice>>,
+            u32,
+            *const u32,
+            *const PerformanceCounterARM,
+            *const PerformanceCounterDescriptionARM,
+        ) -> Status,
+    >,
+    #[cfg(all(
+        feature = "ext_custom_resolve",
+        any(feature = "ext_dynamic_rendering", feature = "version_1_3")
+    ))]
+    pub cmd_begin_custom_resolve_ext: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            *const BeginCustomResolveInfoEXT,
+        ),
+    >,
+    #[cfg(any(
+        feature = "ext_fragment_density_map_offset",
+        feature = "ext_maintenance10"
+    ))]
     pub cmd_end_rendering2_ext: Cell<
         unsafe extern "system" fn(
             Option<BorrowedHandle<'_, CommandBuffer>>,
-            *const RenderingEndInfoEXT,
+            *const RenderingEndInfoKHR,
         ),
+    >,
+    #[cfg(any(
+        feature = "ext_fragment_density_map_offset",
+        feature = "ext_maintenance10"
+    ))]
+    pub cmd_end_rendering2_khr: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            *const RenderingEndInfoKHR,
+        ),
+    >,
+    #[cfg(feature = "ext_compute_occupancy_priority")]
+    pub cmd_set_compute_occupancy_priority_nv: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            *const ComputeOccupancyPriorityParametersNV,
+        ),
+    >,
+    #[cfg(feature = "ext_ubm_surface")]
+    pub create_ubm_surface_sec: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Instance>>,
+            *const UbmSurfaceCreateInfoSEC,
+            *const AllocationCallbacks,
+            *const SurfaceKHR,
+        ) -> Status,
+    >,
+    #[cfg(feature = "ext_ubm_surface")]
+    pub get_physical_device_ubm_presentation_support_sec: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, PhysicalDevice>>,
+            u32,
+            *const VoidPtr,
+        ) -> Bool32,
     >,
 }
 #[doc = r" SAFETY: This trait is safe to implement assuming setting an aligned pointer-size value is coherent (another thread can see the previous value"]
@@ -6534,51 +6752,6 @@ impl CommandsDispatcher {
             self.destroy_semaphore.set(vk_func_ptr);
         }
         {
-            let mut vk_func_ptr = self.create_event.get();
-            let loaded_ptr =
-                get_instance_proc_addr(Some(instance.borrow()), c"vkCreateEvent".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.create_event.set(vk_func_ptr);
-        }
-        {
-            let mut vk_func_ptr = self.destroy_event.get();
-            let loaded_ptr =
-                get_instance_proc_addr(Some(instance.borrow()), c"vkDestroyEvent".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.destroy_event.set(vk_func_ptr);
-        }
-        {
-            let mut vk_func_ptr = self.get_event_status.get();
-            let loaded_ptr =
-                get_instance_proc_addr(Some(instance.borrow()), c"vkGetEventStatus".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.get_event_status.set(vk_func_ptr);
-        }
-        {
-            let mut vk_func_ptr = self.set_event.get();
-            let loaded_ptr =
-                get_instance_proc_addr(Some(instance.borrow()), c"vkSetEvent".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.set_event.set(vk_func_ptr);
-        }
-        {
-            let mut vk_func_ptr = self.reset_event.get();
-            let loaded_ptr =
-                get_instance_proc_addr(Some(instance.borrow()), c"vkResetEvent".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.reset_event.set(vk_func_ptr);
-        }
-        {
             let mut vk_func_ptr = self.create_query_pool.get();
             let loaded_ptr =
                 get_instance_proc_addr(Some(instance.borrow()), c"vkCreateQueryPool".as_ptr());
@@ -6622,24 +6795,6 @@ impl CommandsDispatcher {
                 vk_func_ptr = mem::transmute(loaded_ptr);
             }
             self.destroy_buffer.set(vk_func_ptr);
-        }
-        {
-            let mut vk_func_ptr = self.create_buffer_view.get();
-            let loaded_ptr =
-                get_instance_proc_addr(Some(instance.borrow()), c"vkCreateBufferView".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.create_buffer_view.set(vk_func_ptr);
-        }
-        {
-            let mut vk_func_ptr = self.destroy_buffer_view.get();
-            let loaded_ptr =
-                get_instance_proc_addr(Some(instance.borrow()), c"vkDestroyBufferView".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.destroy_buffer_view.set(vk_func_ptr);
         }
         {
             let mut vk_func_ptr = self.create_image.get();
@@ -6687,6 +6842,262 @@ impl CommandsDispatcher {
                 vk_func_ptr = mem::transmute(loaded_ptr);
             }
             self.destroy_image_view.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.create_command_pool.get();
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkCreateCommandPool".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.create_command_pool.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.destroy_command_pool.get();
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkDestroyCommandPool".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.destroy_command_pool.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.reset_command_pool.get();
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkResetCommandPool".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.reset_command_pool.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.allocate_command_buffers.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkAllocateCommandBuffers".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.allocate_command_buffers.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.free_command_buffers.get();
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkFreeCommandBuffers".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.free_command_buffers.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.begin_command_buffer.get();
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkBeginCommandBuffer".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.begin_command_buffer.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.end_command_buffer.get();
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkEndCommandBuffer".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.end_command_buffer.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.reset_command_buffer.get();
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkResetCommandBuffer".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.reset_command_buffer.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.cmd_copy_buffer.get();
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdCopyBuffer".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_copy_buffer.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.cmd_copy_image.get();
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdCopyImage".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_copy_image.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.cmd_copy_buffer_to_image.get();
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdCopyBufferToImage".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_copy_buffer_to_image.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.cmd_copy_image_to_buffer.get();
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdCopyImageToBuffer".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_copy_image_to_buffer.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.cmd_update_buffer.get();
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdUpdateBuffer".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_update_buffer.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.cmd_fill_buffer.get();
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdFillBuffer".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_fill_buffer.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.cmd_pipeline_barrier.get();
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdPipelineBarrier".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_pipeline_barrier.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.cmd_begin_query.get();
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdBeginQuery".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_begin_query.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.cmd_end_query.get();
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdEndQuery".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_end_query.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.cmd_reset_query_pool.get();
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdResetQueryPool".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_reset_query_pool.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.cmd_write_timestamp.get();
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdWriteTimestamp".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_write_timestamp.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.cmd_copy_query_pool_results.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkCmdCopyQueryPoolResults".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_copy_query_pool_results.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.cmd_execute_commands.get();
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdExecuteCommands".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_execute_commands.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.create_event.get();
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkCreateEvent".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.create_event.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.destroy_event.get();
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkDestroyEvent".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.destroy_event.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.get_event_status.get();
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkGetEventStatus".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.get_event_status.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.set_event.get();
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkSetEvent".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.set_event.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.reset_event.get();
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkResetEvent".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.reset_event.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.create_buffer_view.get();
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkCreateBufferView".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.create_buffer_view.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.destroy_buffer_view.get();
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkDestroyBufferView".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.destroy_buffer_view.set(vk_func_ptr);
         }
         {
             let mut vk_func_ptr = self.create_shader_module.get();
@@ -6741,17 +7152,6 @@ impl CommandsDispatcher {
                 vk_func_ptr = mem::transmute(loaded_ptr);
             }
             self.merge_pipeline_caches.set(vk_func_ptr);
-        }
-        {
-            let mut vk_func_ptr = self.create_graphics_pipelines.get();
-            let loaded_ptr = get_instance_proc_addr(
-                Some(instance.borrow()),
-                c"vkCreateGraphicsPipelines".as_ptr(),
-            );
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.create_graphics_pipelines.set(vk_func_ptr);
         }
         {
             let mut vk_func_ptr = self.create_compute_pipelines.get();
@@ -6892,6 +7292,100 @@ impl CommandsDispatcher {
             self.update_descriptor_sets.set(vk_func_ptr);
         }
         {
+            let mut vk_func_ptr = self.cmd_bind_pipeline.get();
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdBindPipeline".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_bind_pipeline.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.cmd_bind_descriptor_sets.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkCmdBindDescriptorSets".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_bind_descriptor_sets.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.cmd_clear_color_image.get();
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdClearColorImage".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_clear_color_image.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.cmd_dispatch.get();
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdDispatch".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_dispatch.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.cmd_dispatch_indirect.get();
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdDispatchIndirect".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_dispatch_indirect.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.cmd_set_event.get();
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdSetEvent".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_set_event.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.cmd_reset_event.get();
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdResetEvent".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_reset_event.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.cmd_wait_events.get();
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdWaitEvents".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_wait_events.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.cmd_push_constants.get();
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdPushConstants".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_push_constants.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.create_graphics_pipelines.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkCreateGraphicsPipelines".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.create_graphics_pipelines.set(vk_func_ptr);
+        }
+        {
             let mut vk_func_ptr = self.create_framebuffer.get();
             let loaded_ptr =
                 get_instance_proc_addr(Some(instance.borrow()), c"vkCreateFramebuffer".as_ptr());
@@ -6937,89 +7431,6 @@ impl CommandsDispatcher {
                 vk_func_ptr = mem::transmute(loaded_ptr);
             }
             self.get_render_area_granularity.set(vk_func_ptr);
-        }
-        {
-            let mut vk_func_ptr = self.create_command_pool.get();
-            let loaded_ptr =
-                get_instance_proc_addr(Some(instance.borrow()), c"vkCreateCommandPool".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.create_command_pool.set(vk_func_ptr);
-        }
-        {
-            let mut vk_func_ptr = self.destroy_command_pool.get();
-            let loaded_ptr =
-                get_instance_proc_addr(Some(instance.borrow()), c"vkDestroyCommandPool".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.destroy_command_pool.set(vk_func_ptr);
-        }
-        {
-            let mut vk_func_ptr = self.reset_command_pool.get();
-            let loaded_ptr =
-                get_instance_proc_addr(Some(instance.borrow()), c"vkResetCommandPool".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.reset_command_pool.set(vk_func_ptr);
-        }
-        {
-            let mut vk_func_ptr = self.allocate_command_buffers.get();
-            let loaded_ptr = get_instance_proc_addr(
-                Some(instance.borrow()),
-                c"vkAllocateCommandBuffers".as_ptr(),
-            );
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.allocate_command_buffers.set(vk_func_ptr);
-        }
-        {
-            let mut vk_func_ptr = self.free_command_buffers.get();
-            let loaded_ptr =
-                get_instance_proc_addr(Some(instance.borrow()), c"vkFreeCommandBuffers".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.free_command_buffers.set(vk_func_ptr);
-        }
-        {
-            let mut vk_func_ptr = self.begin_command_buffer.get();
-            let loaded_ptr =
-                get_instance_proc_addr(Some(instance.borrow()), c"vkBeginCommandBuffer".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.begin_command_buffer.set(vk_func_ptr);
-        }
-        {
-            let mut vk_func_ptr = self.end_command_buffer.get();
-            let loaded_ptr =
-                get_instance_proc_addr(Some(instance.borrow()), c"vkEndCommandBuffer".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.end_command_buffer.set(vk_func_ptr);
-        }
-        {
-            let mut vk_func_ptr = self.reset_command_buffer.get();
-            let loaded_ptr =
-                get_instance_proc_addr(Some(instance.borrow()), c"vkResetCommandBuffer".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.reset_command_buffer.set(vk_func_ptr);
-        }
-        {
-            let mut vk_func_ptr = self.cmd_bind_pipeline.get();
-            let loaded_ptr =
-                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdBindPipeline".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_bind_pipeline.set(vk_func_ptr);
         }
         {
             let mut vk_func_ptr = self.cmd_set_viewport.get();
@@ -7109,17 +7520,6 @@ impl CommandsDispatcher {
             self.cmd_set_stencil_reference.set(vk_func_ptr);
         }
         {
-            let mut vk_func_ptr = self.cmd_bind_descriptor_sets.get();
-            let loaded_ptr = get_instance_proc_addr(
-                Some(instance.borrow()),
-                c"vkCmdBindDescriptorSets".as_ptr(),
-            );
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_bind_descriptor_sets.set(vk_func_ptr);
-        }
-        {
             let mut vk_func_ptr = self.cmd_bind_index_buffer.get();
             let loaded_ptr =
                 get_instance_proc_addr(Some(instance.borrow()), c"vkCmdBindIndexBuffer".as_ptr());
@@ -7175,42 +7575,6 @@ impl CommandsDispatcher {
             self.cmd_draw_indexed_indirect.set(vk_func_ptr);
         }
         {
-            let mut vk_func_ptr = self.cmd_dispatch.get();
-            let loaded_ptr =
-                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdDispatch".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_dispatch.set(vk_func_ptr);
-        }
-        {
-            let mut vk_func_ptr = self.cmd_dispatch_indirect.get();
-            let loaded_ptr =
-                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdDispatchIndirect".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_dispatch_indirect.set(vk_func_ptr);
-        }
-        {
-            let mut vk_func_ptr = self.cmd_copy_buffer.get();
-            let loaded_ptr =
-                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdCopyBuffer".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_copy_buffer.set(vk_func_ptr);
-        }
-        {
-            let mut vk_func_ptr = self.cmd_copy_image.get();
-            let loaded_ptr =
-                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdCopyImage".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_copy_image.set(vk_func_ptr);
-        }
-        {
             let mut vk_func_ptr = self.cmd_blit_image.get();
             let loaded_ptr =
                 get_instance_proc_addr(Some(instance.borrow()), c"vkCmdBlitImage".as_ptr());
@@ -7218,51 +7582,6 @@ impl CommandsDispatcher {
                 vk_func_ptr = mem::transmute(loaded_ptr);
             }
             self.cmd_blit_image.set(vk_func_ptr);
-        }
-        {
-            let mut vk_func_ptr = self.cmd_copy_buffer_to_image.get();
-            let loaded_ptr =
-                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdCopyBufferToImage".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_copy_buffer_to_image.set(vk_func_ptr);
-        }
-        {
-            let mut vk_func_ptr = self.cmd_copy_image_to_buffer.get();
-            let loaded_ptr =
-                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdCopyImageToBuffer".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_copy_image_to_buffer.set(vk_func_ptr);
-        }
-        {
-            let mut vk_func_ptr = self.cmd_update_buffer.get();
-            let loaded_ptr =
-                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdUpdateBuffer".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_update_buffer.set(vk_func_ptr);
-        }
-        {
-            let mut vk_func_ptr = self.cmd_fill_buffer.get();
-            let loaded_ptr =
-                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdFillBuffer".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_fill_buffer.set(vk_func_ptr);
-        }
-        {
-            let mut vk_func_ptr = self.cmd_clear_color_image.get();
-            let loaded_ptr =
-                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdClearColorImage".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_clear_color_image.set(vk_func_ptr);
         }
         {
             let mut vk_func_ptr = self.cmd_clear_depth_stencil_image.get();
@@ -7294,98 +7613,6 @@ impl CommandsDispatcher {
             self.cmd_resolve_image.set(vk_func_ptr);
         }
         {
-            let mut vk_func_ptr = self.cmd_set_event.get();
-            let loaded_ptr =
-                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdSetEvent".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_set_event.set(vk_func_ptr);
-        }
-        {
-            let mut vk_func_ptr = self.cmd_reset_event.get();
-            let loaded_ptr =
-                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdResetEvent".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_reset_event.set(vk_func_ptr);
-        }
-        {
-            let mut vk_func_ptr = self.cmd_wait_events.get();
-            let loaded_ptr =
-                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdWaitEvents".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_wait_events.set(vk_func_ptr);
-        }
-        {
-            let mut vk_func_ptr = self.cmd_pipeline_barrier.get();
-            let loaded_ptr =
-                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdPipelineBarrier".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_pipeline_barrier.set(vk_func_ptr);
-        }
-        {
-            let mut vk_func_ptr = self.cmd_begin_query.get();
-            let loaded_ptr =
-                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdBeginQuery".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_begin_query.set(vk_func_ptr);
-        }
-        {
-            let mut vk_func_ptr = self.cmd_end_query.get();
-            let loaded_ptr =
-                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdEndQuery".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_end_query.set(vk_func_ptr);
-        }
-        {
-            let mut vk_func_ptr = self.cmd_reset_query_pool.get();
-            let loaded_ptr =
-                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdResetQueryPool".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_reset_query_pool.set(vk_func_ptr);
-        }
-        {
-            let mut vk_func_ptr = self.cmd_write_timestamp.get();
-            let loaded_ptr =
-                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdWriteTimestamp".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_write_timestamp.set(vk_func_ptr);
-        }
-        {
-            let mut vk_func_ptr = self.cmd_copy_query_pool_results.get();
-            let loaded_ptr = get_instance_proc_addr(
-                Some(instance.borrow()),
-                c"vkCmdCopyQueryPoolResults".as_ptr(),
-            );
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_copy_query_pool_results.set(vk_func_ptr);
-        }
-        {
-            let mut vk_func_ptr = self.cmd_push_constants.get();
-            let loaded_ptr =
-                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdPushConstants".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_push_constants.set(vk_func_ptr);
-        }
-        {
             let mut vk_func_ptr = self.cmd_begin_render_pass.get();
             let loaded_ptr =
                 get_instance_proc_addr(Some(instance.borrow()), c"vkCmdBeginRenderPass".as_ptr());
@@ -7411,15 +7638,6 @@ impl CommandsDispatcher {
                 vk_func_ptr = mem::transmute(loaded_ptr);
             }
             self.cmd_end_render_pass.set(vk_func_ptr);
-        }
-        {
-            let mut vk_func_ptr = self.cmd_execute_commands.get();
-            let loaded_ptr =
-                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdExecuteCommands".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_execute_commands.set(vk_func_ptr);
         }
         #[cfg(any(feature = "ext_bind_memory2", feature = "version_1_1"))]
         {
@@ -7489,22 +7707,6 @@ impl CommandsDispatcher {
                 vk_func_ptr = mem::transmute(loaded_ptr);
             }
             self.cmd_set_device_mask.set(vk_func_ptr);
-        }
-        #[cfg(any(feature = "ext_device_group", feature = "version_1_1"))]
-        {
-            let mut vk_func_ptr = self.cmd_dispatch_base.get();
-            let loaded_ptr =
-                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdDispatchBaseKHR".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_dispatch_base_khr.set(vk_func_ptr);
-            let loaded_ptr =
-                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdDispatchBase".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_dispatch_base.set(vk_func_ptr);
         }
         #[cfg(any(feature = "ext_device_group_creation", feature = "version_1_1"))]
         {
@@ -7784,107 +7986,6 @@ impl CommandsDispatcher {
             }
             self.get_device_queue2.set(vk_func_ptr);
         }
-        #[cfg(any(feature = "ext_sampler_ycbcr_conversion", feature = "version_1_1"))]
-        {
-            let mut vk_func_ptr = self.create_sampler_ycbcr_conversion.get();
-            let loaded_ptr = get_instance_proc_addr(
-                Some(instance.borrow()),
-                c"vkCreateSamplerYcbcrConversionKHR".as_ptr(),
-            );
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.create_sampler_ycbcr_conversion_khr.set(vk_func_ptr);
-            let loaded_ptr = get_instance_proc_addr(
-                Some(instance.borrow()),
-                c"vkCreateSamplerYcbcrConversion".as_ptr(),
-            );
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.create_sampler_ycbcr_conversion.set(vk_func_ptr);
-        }
-        #[cfg(any(feature = "ext_sampler_ycbcr_conversion", feature = "version_1_1"))]
-        {
-            let mut vk_func_ptr = self.destroy_sampler_ycbcr_conversion.get();
-            let loaded_ptr = get_instance_proc_addr(
-                Some(instance.borrow()),
-                c"vkDestroySamplerYcbcrConversionKHR".as_ptr(),
-            );
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.destroy_sampler_ycbcr_conversion_khr.set(vk_func_ptr);
-            let loaded_ptr = get_instance_proc_addr(
-                Some(instance.borrow()),
-                c"vkDestroySamplerYcbcrConversion".as_ptr(),
-            );
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.destroy_sampler_ycbcr_conversion.set(vk_func_ptr);
-        }
-        #[cfg(any(feature = "ext_descriptor_update_template", feature = "version_1_1"))]
-        {
-            let mut vk_func_ptr = self.create_descriptor_update_template.get();
-            let loaded_ptr = get_instance_proc_addr(
-                Some(instance.borrow()),
-                c"vkCreateDescriptorUpdateTemplateKHR".as_ptr(),
-            );
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.create_descriptor_update_template_khr.set(vk_func_ptr);
-            let loaded_ptr = get_instance_proc_addr(
-                Some(instance.borrow()),
-                c"vkCreateDescriptorUpdateTemplate".as_ptr(),
-            );
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.create_descriptor_update_template.set(vk_func_ptr);
-        }
-        #[cfg(any(feature = "ext_descriptor_update_template", feature = "version_1_1"))]
-        {
-            let mut vk_func_ptr = self.destroy_descriptor_update_template.get();
-            let loaded_ptr = get_instance_proc_addr(
-                Some(instance.borrow()),
-                c"vkDestroyDescriptorUpdateTemplateKHR".as_ptr(),
-            );
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.destroy_descriptor_update_template_khr.set(vk_func_ptr);
-            let loaded_ptr = get_instance_proc_addr(
-                Some(instance.borrow()),
-                c"vkDestroyDescriptorUpdateTemplate".as_ptr(),
-            );
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.destroy_descriptor_update_template.set(vk_func_ptr);
-        }
-        #[cfg(any(feature = "ext_descriptor_update_template", feature = "version_1_1"))]
-        {
-            let mut vk_func_ptr = self.update_descriptor_set_with_template.get();
-            let loaded_ptr = get_instance_proc_addr(
-                Some(instance.borrow()),
-                c"vkUpdateDescriptorSetWithTemplateKHR".as_ptr(),
-            );
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.update_descriptor_set_with_template_khr
-                .set(vk_func_ptr);
-            let loaded_ptr = get_instance_proc_addr(
-                Some(instance.borrow()),
-                c"vkUpdateDescriptorSetWithTemplate".as_ptr(),
-            );
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.update_descriptor_set_with_template.set(vk_func_ptr);
-        }
         #[cfg(any(feature = "ext_external_memory_capabilities", feature = "version_1_1"))]
         {
             let mut vk_func_ptr = self.get_physical_device_external_buffer_properties.get();
@@ -7954,6 +8055,83 @@ impl CommandsDispatcher {
             self.get_physical_device_external_semaphore_properties
                 .set(vk_func_ptr);
         }
+        #[cfg(any(feature = "ext_device_group", feature = "version_1_1"))]
+        {
+            let mut vk_func_ptr = self.cmd_dispatch_base.get();
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdDispatchBaseKHR".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_dispatch_base_khr.set(vk_func_ptr);
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdDispatchBase".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_dispatch_base.set(vk_func_ptr);
+        }
+        #[cfg(any(feature = "ext_descriptor_update_template", feature = "version_1_1"))]
+        {
+            let mut vk_func_ptr = self.create_descriptor_update_template.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkCreateDescriptorUpdateTemplateKHR".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.create_descriptor_update_template_khr.set(vk_func_ptr);
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkCreateDescriptorUpdateTemplate".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.create_descriptor_update_template.set(vk_func_ptr);
+        }
+        #[cfg(any(feature = "ext_descriptor_update_template", feature = "version_1_1"))]
+        {
+            let mut vk_func_ptr = self.destroy_descriptor_update_template.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkDestroyDescriptorUpdateTemplateKHR".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.destroy_descriptor_update_template_khr.set(vk_func_ptr);
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkDestroyDescriptorUpdateTemplate".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.destroy_descriptor_update_template.set(vk_func_ptr);
+        }
+        #[cfg(any(feature = "ext_descriptor_update_template", feature = "version_1_1"))]
+        {
+            let mut vk_func_ptr = self.update_descriptor_set_with_template.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkUpdateDescriptorSetWithTemplateKHR".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.update_descriptor_set_with_template_khr
+                .set(vk_func_ptr);
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkUpdateDescriptorSetWithTemplate".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.update_descriptor_set_with_template.set(vk_func_ptr);
+        }
         #[cfg(any(feature = "ext_maintenance3", feature = "version_1_1"))]
         {
             let mut vk_func_ptr = self.get_descriptor_set_layout_support.get();
@@ -7974,125 +8152,45 @@ impl CommandsDispatcher {
             }
             self.get_descriptor_set_layout_support.set(vk_func_ptr);
         }
-        #[cfg(any(feature = "ext_draw_indirect_count", feature = "version_1_2"))]
+        #[cfg(any(feature = "ext_sampler_ycbcr_conversion", feature = "version_1_1"))]
         {
-            let mut vk_func_ptr = self.cmd_draw_indirect_count.get();
+            let mut vk_func_ptr = self.create_sampler_ycbcr_conversion.get();
             let loaded_ptr = get_instance_proc_addr(
                 Some(instance.borrow()),
-                c"vkCmdDrawIndirectCountAMD".as_ptr(),
+                c"vkCreateSamplerYcbcrConversionKHR".as_ptr(),
             );
             if !loaded_ptr.is_null() {
                 vk_func_ptr = mem::transmute(loaded_ptr);
             }
-            self.cmd_draw_indirect_count_amd.set(vk_func_ptr);
+            self.create_sampler_ycbcr_conversion_khr.set(vk_func_ptr);
             let loaded_ptr = get_instance_proc_addr(
                 Some(instance.borrow()),
-                c"vkCmdDrawIndirectCountKHR".as_ptr(),
+                c"vkCreateSamplerYcbcrConversion".as_ptr(),
             );
             if !loaded_ptr.is_null() {
                 vk_func_ptr = mem::transmute(loaded_ptr);
             }
-            self.cmd_draw_indirect_count_khr.set(vk_func_ptr);
-            let loaded_ptr =
-                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdDrawIndirectCount".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_draw_indirect_count.set(vk_func_ptr);
+            self.create_sampler_ycbcr_conversion.set(vk_func_ptr);
         }
-        #[cfg(any(feature = "ext_draw_indirect_count", feature = "version_1_2"))]
+        #[cfg(any(feature = "ext_sampler_ycbcr_conversion", feature = "version_1_1"))]
         {
-            let mut vk_func_ptr = self.cmd_draw_indexed_indirect_count.get();
+            let mut vk_func_ptr = self.destroy_sampler_ycbcr_conversion.get();
             let loaded_ptr = get_instance_proc_addr(
                 Some(instance.borrow()),
-                c"vkCmdDrawIndexedIndirectCountAMD".as_ptr(),
+                c"vkDestroySamplerYcbcrConversionKHR".as_ptr(),
             );
             if !loaded_ptr.is_null() {
                 vk_func_ptr = mem::transmute(loaded_ptr);
             }
-            self.cmd_draw_indexed_indirect_count_amd.set(vk_func_ptr);
+            self.destroy_sampler_ycbcr_conversion_khr.set(vk_func_ptr);
             let loaded_ptr = get_instance_proc_addr(
                 Some(instance.borrow()),
-                c"vkCmdDrawIndexedIndirectCountKHR".as_ptr(),
+                c"vkDestroySamplerYcbcrConversion".as_ptr(),
             );
             if !loaded_ptr.is_null() {
                 vk_func_ptr = mem::transmute(loaded_ptr);
             }
-            self.cmd_draw_indexed_indirect_count_khr.set(vk_func_ptr);
-            let loaded_ptr = get_instance_proc_addr(
-                Some(instance.borrow()),
-                c"vkCmdDrawIndexedIndirectCount".as_ptr(),
-            );
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_draw_indexed_indirect_count.set(vk_func_ptr);
-        }
-        #[cfg(any(feature = "ext_create_renderpass2", feature = "version_1_2"))]
-        {
-            let mut vk_func_ptr = self.create_render_pass2.get();
-            let loaded_ptr =
-                get_instance_proc_addr(Some(instance.borrow()), c"vkCreateRenderPass2KHR".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.create_render_pass2_khr.set(vk_func_ptr);
-            let loaded_ptr =
-                get_instance_proc_addr(Some(instance.borrow()), c"vkCreateRenderPass2".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.create_render_pass2.set(vk_func_ptr);
-        }
-        #[cfg(any(feature = "ext_create_renderpass2", feature = "version_1_2"))]
-        {
-            let mut vk_func_ptr = self.cmd_begin_render_pass2.get();
-            let loaded_ptr = get_instance_proc_addr(
-                Some(instance.borrow()),
-                c"vkCmdBeginRenderPass2KHR".as_ptr(),
-            );
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_begin_render_pass2_khr.set(vk_func_ptr);
-            let loaded_ptr =
-                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdBeginRenderPass2".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_begin_render_pass2.set(vk_func_ptr);
-        }
-        #[cfg(any(feature = "ext_create_renderpass2", feature = "version_1_2"))]
-        {
-            let mut vk_func_ptr = self.cmd_next_subpass2.get();
-            let loaded_ptr =
-                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdNextSubpass2KHR".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_next_subpass2_khr.set(vk_func_ptr);
-            let loaded_ptr =
-                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdNextSubpass2".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_next_subpass2.set(vk_func_ptr);
-        }
-        #[cfg(any(feature = "ext_create_renderpass2", feature = "version_1_2"))]
-        {
-            let mut vk_func_ptr = self.cmd_end_render_pass2.get();
-            let loaded_ptr =
-                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdEndRenderPass2KHR".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_end_render_pass2_khr.set(vk_func_ptr);
-            let loaded_ptr =
-                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdEndRenderPass2".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_end_render_pass2.set(vk_func_ptr);
+            self.destroy_sampler_ycbcr_conversion.set(vk_func_ptr);
         }
         #[cfg(any(feature = "ext_host_query_reset", feature = "version_1_2"))]
         {
@@ -8232,6 +8330,126 @@ impl CommandsDispatcher {
             self.get_device_memory_opaque_capture_address
                 .set(vk_func_ptr);
         }
+        #[cfg(any(feature = "ext_draw_indirect_count", feature = "version_1_2"))]
+        {
+            let mut vk_func_ptr = self.cmd_draw_indirect_count.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkCmdDrawIndirectCountAMD".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_draw_indirect_count_amd.set(vk_func_ptr);
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkCmdDrawIndirectCountKHR".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_draw_indirect_count_khr.set(vk_func_ptr);
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdDrawIndirectCount".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_draw_indirect_count.set(vk_func_ptr);
+        }
+        #[cfg(any(feature = "ext_draw_indirect_count", feature = "version_1_2"))]
+        {
+            let mut vk_func_ptr = self.cmd_draw_indexed_indirect_count.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkCmdDrawIndexedIndirectCountAMD".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_draw_indexed_indirect_count_amd.set(vk_func_ptr);
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkCmdDrawIndexedIndirectCountKHR".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_draw_indexed_indirect_count_khr.set(vk_func_ptr);
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkCmdDrawIndexedIndirectCount".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_draw_indexed_indirect_count.set(vk_func_ptr);
+        }
+        #[cfg(any(feature = "ext_create_renderpass2", feature = "version_1_2"))]
+        {
+            let mut vk_func_ptr = self.create_render_pass2.get();
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkCreateRenderPass2KHR".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.create_render_pass2_khr.set(vk_func_ptr);
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkCreateRenderPass2".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.create_render_pass2.set(vk_func_ptr);
+        }
+        #[cfg(any(feature = "ext_create_renderpass2", feature = "version_1_2"))]
+        {
+            let mut vk_func_ptr = self.cmd_begin_render_pass2.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkCmdBeginRenderPass2KHR".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_begin_render_pass2_khr.set(vk_func_ptr);
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdBeginRenderPass2".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_begin_render_pass2.set(vk_func_ptr);
+        }
+        #[cfg(any(feature = "ext_create_renderpass2", feature = "version_1_2"))]
+        {
+            let mut vk_func_ptr = self.cmd_next_subpass2.get();
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdNextSubpass2KHR".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_next_subpass2_khr.set(vk_func_ptr);
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdNextSubpass2".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_next_subpass2.set(vk_func_ptr);
+        }
+        #[cfg(any(feature = "ext_create_renderpass2", feature = "version_1_2"))]
+        {
+            let mut vk_func_ptr = self.cmd_end_render_pass2.get();
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdEndRenderPass2KHR".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_end_render_pass2_khr.set(vk_func_ptr);
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdEndRenderPass2".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_end_render_pass2.set(vk_func_ptr);
+        }
         #[cfg(any(feature = "ext_tooling_info", feature = "version_1_3"))]
         {
             let mut vk_func_ptr = self.get_physical_device_tool_properties.get();
@@ -8324,54 +8542,6 @@ impl CommandsDispatcher {
                 vk_func_ptr = mem::transmute(loaded_ptr);
             }
             self.get_private_data.set(vk_func_ptr);
-        }
-        #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
-        {
-            let mut vk_func_ptr = self.cmd_set_event2.get();
-            let loaded_ptr =
-                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdSetEvent2KHR".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_set_event2_khr.set(vk_func_ptr);
-            let loaded_ptr =
-                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdSetEvent2".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_set_event2.set(vk_func_ptr);
-        }
-        #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
-        {
-            let mut vk_func_ptr = self.cmd_reset_event2.get();
-            let loaded_ptr =
-                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdResetEvent2KHR".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_reset_event2_khr.set(vk_func_ptr);
-            let loaded_ptr =
-                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdResetEvent2".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_reset_event2.set(vk_func_ptr);
-        }
-        #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
-        {
-            let mut vk_func_ptr = self.cmd_wait_events2.get();
-            let loaded_ptr =
-                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdWaitEvents2KHR".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_wait_events2_khr.set(vk_func_ptr);
-            let loaded_ptr =
-                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdWaitEvents2".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_wait_events2.set(vk_func_ptr);
         }
         #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
         {
@@ -8496,6 +8666,118 @@ impl CommandsDispatcher {
                 vk_func_ptr = mem::transmute(loaded_ptr);
             }
             self.cmd_copy_image_to_buffer2.set(vk_func_ptr);
+        }
+        #[cfg(any(feature = "ext_maintenance4", feature = "version_1_3"))]
+        {
+            let mut vk_func_ptr = self.get_device_buffer_memory_requirements.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkGetDeviceBufferMemoryRequirementsKHR".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.get_device_buffer_memory_requirements_khr
+                .set(vk_func_ptr);
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkGetDeviceBufferMemoryRequirements".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.get_device_buffer_memory_requirements.set(vk_func_ptr);
+        }
+        #[cfg(any(feature = "ext_maintenance4", feature = "version_1_3"))]
+        {
+            let mut vk_func_ptr = self.get_device_image_memory_requirements.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkGetDeviceImageMemoryRequirementsKHR".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.get_device_image_memory_requirements_khr
+                .set(vk_func_ptr);
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkGetDeviceImageMemoryRequirements".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.get_device_image_memory_requirements.set(vk_func_ptr);
+        }
+        #[cfg(any(feature = "ext_maintenance4", feature = "version_1_3"))]
+        {
+            let mut vk_func_ptr = self.get_device_image_sparse_memory_requirements.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkGetDeviceImageSparseMemoryRequirementsKHR".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.get_device_image_sparse_memory_requirements_khr
+                .set(vk_func_ptr);
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkGetDeviceImageSparseMemoryRequirements".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.get_device_image_sparse_memory_requirements
+                .set(vk_func_ptr);
+        }
+        #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
+        {
+            let mut vk_func_ptr = self.cmd_set_event2.get();
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdSetEvent2KHR".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_set_event2_khr.set(vk_func_ptr);
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdSetEvent2".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_set_event2.set(vk_func_ptr);
+        }
+        #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
+        {
+            let mut vk_func_ptr = self.cmd_reset_event2.get();
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdResetEvent2KHR".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_reset_event2_khr.set(vk_func_ptr);
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdResetEvent2".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_reset_event2.set(vk_func_ptr);
+        }
+        #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
+        {
+            let mut vk_func_ptr = self.cmd_wait_events2.get();
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdWaitEvents2KHR".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_wait_events2_khr.set(vk_func_ptr);
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdWaitEvents2".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_wait_events2.set(vk_func_ptr);
         }
         #[cfg(any(feature = "ext_copy_commands2", feature = "version_1_3"))]
         {
@@ -8907,92 +9189,6 @@ impl CommandsDispatcher {
             }
             self.cmd_set_primitive_restart_enable.set(vk_func_ptr);
         }
-        #[cfg(any(feature = "ext_maintenance4", feature = "version_1_3"))]
-        {
-            let mut vk_func_ptr = self.get_device_buffer_memory_requirements.get();
-            let loaded_ptr = get_instance_proc_addr(
-                Some(instance.borrow()),
-                c"vkGetDeviceBufferMemoryRequirementsKHR".as_ptr(),
-            );
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.get_device_buffer_memory_requirements_khr
-                .set(vk_func_ptr);
-            let loaded_ptr = get_instance_proc_addr(
-                Some(instance.borrow()),
-                c"vkGetDeviceBufferMemoryRequirements".as_ptr(),
-            );
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.get_device_buffer_memory_requirements.set(vk_func_ptr);
-        }
-        #[cfg(any(feature = "ext_maintenance4", feature = "version_1_3"))]
-        {
-            let mut vk_func_ptr = self.get_device_image_memory_requirements.get();
-            let loaded_ptr = get_instance_proc_addr(
-                Some(instance.borrow()),
-                c"vkGetDeviceImageMemoryRequirementsKHR".as_ptr(),
-            );
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.get_device_image_memory_requirements_khr
-                .set(vk_func_ptr);
-            let loaded_ptr = get_instance_proc_addr(
-                Some(instance.borrow()),
-                c"vkGetDeviceImageMemoryRequirements".as_ptr(),
-            );
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.get_device_image_memory_requirements.set(vk_func_ptr);
-        }
-        #[cfg(any(feature = "ext_maintenance4", feature = "version_1_3"))]
-        {
-            let mut vk_func_ptr = self.get_device_image_sparse_memory_requirements.get();
-            let loaded_ptr = get_instance_proc_addr(
-                Some(instance.borrow()),
-                c"vkGetDeviceImageSparseMemoryRequirementsKHR".as_ptr(),
-            );
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.get_device_image_sparse_memory_requirements_khr
-                .set(vk_func_ptr);
-            let loaded_ptr = get_instance_proc_addr(
-                Some(instance.borrow()),
-                c"vkGetDeviceImageSparseMemoryRequirements".as_ptr(),
-            );
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.get_device_image_sparse_memory_requirements
-                .set(vk_func_ptr);
-        }
-        #[cfg(any(feature = "ext_line_rasterization", feature = "version_1_4"))]
-        {
-            let mut vk_func_ptr = self.cmd_set_line_stipple.get();
-            let loaded_ptr =
-                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdSetLineStippleEXT".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_set_line_stipple_ext.set(vk_func_ptr);
-            let loaded_ptr =
-                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdSetLineStippleKHR".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_set_line_stipple_khr.set(vk_func_ptr);
-            let loaded_ptr =
-                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdSetLineStipple".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_set_line_stipple.set(vk_func_ptr);
-        }
         #[cfg(any(feature = "ext_map_memory2", feature = "version_1_4"))]
         {
             let mut vk_func_ptr = self.map_memory2.get();
@@ -9024,44 +9220,6 @@ impl CommandsDispatcher {
                 vk_func_ptr = mem::transmute(loaded_ptr);
             }
             self.unmap_memory2.set(vk_func_ptr);
-        }
-        #[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
-        {
-            let mut vk_func_ptr = self.cmd_bind_index_buffer2.get();
-            let loaded_ptr = get_instance_proc_addr(
-                Some(instance.borrow()),
-                c"vkCmdBindIndexBuffer2KHR".as_ptr(),
-            );
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_bind_index_buffer2_khr.set(vk_func_ptr);
-            let loaded_ptr =
-                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdBindIndexBuffer2".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_bind_index_buffer2.set(vk_func_ptr);
-        }
-        #[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
-        {
-            let mut vk_func_ptr = self.get_rendering_area_granularity.get();
-            let loaded_ptr = get_instance_proc_addr(
-                Some(instance.borrow()),
-                c"vkGetRenderingAreaGranularityKHR".as_ptr(),
-            );
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.get_rendering_area_granularity_khr.set(vk_func_ptr);
-            let loaded_ptr = get_instance_proc_addr(
-                Some(instance.borrow()),
-                c"vkGetRenderingAreaGranularity".as_ptr(),
-            );
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.get_rendering_area_granularity.set(vk_func_ptr);
         }
         #[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
         {
@@ -9117,6 +9275,74 @@ impl CommandsDispatcher {
             }
             self.get_image_subresource_layout2.set(vk_func_ptr);
         }
+        #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
+        {
+            let mut vk_func_ptr = self.copy_memory_to_image.get();
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkCopyMemoryToImageEXT".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.copy_memory_to_image_ext.set(vk_func_ptr);
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkCopyMemoryToImage".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.copy_memory_to_image.set(vk_func_ptr);
+        }
+        #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
+        {
+            let mut vk_func_ptr = self.copy_image_to_memory.get();
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkCopyImageToMemoryEXT".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.copy_image_to_memory_ext.set(vk_func_ptr);
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkCopyImageToMemory".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.copy_image_to_memory.set(vk_func_ptr);
+        }
+        #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
+        {
+            let mut vk_func_ptr = self.copy_image_to_image.get();
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkCopyImageToImageEXT".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.copy_image_to_image_ext.set(vk_func_ptr);
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkCopyImageToImage".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.copy_image_to_image.set(vk_func_ptr);
+        }
+        #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
+        {
+            let mut vk_func_ptr = self.transition_image_layout.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkTransitionImageLayoutEXT".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.transition_image_layout_ext.set(vk_func_ptr);
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkTransitionImageLayout".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.transition_image_layout.set(vk_func_ptr);
+        }
         #[cfg(any(feature = "ext_push_descriptor", feature = "version_1_4"))]
         {
             let mut vk_func_ptr = self.cmd_push_descriptor_set.get();
@@ -9165,49 +9391,6 @@ impl CommandsDispatcher {
                 vk_func_ptr = mem::transmute(loaded_ptr);
             }
             self.cmd_push_descriptor_set_with_template.set(vk_func_ptr);
-        }
-        #[cfg(any(feature = "ext_dynamic_rendering_local_read", feature = "version_1_4"))]
-        {
-            let mut vk_func_ptr = self.cmd_set_rendering_attachment_locations.get();
-            let loaded_ptr = get_instance_proc_addr(
-                Some(instance.borrow()),
-                c"vkCmdSetRenderingAttachmentLocationsKHR".as_ptr(),
-            );
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_set_rendering_attachment_locations_khr
-                .set(vk_func_ptr);
-            let loaded_ptr = get_instance_proc_addr(
-                Some(instance.borrow()),
-                c"vkCmdSetRenderingAttachmentLocations".as_ptr(),
-            );
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_set_rendering_attachment_locations.set(vk_func_ptr);
-        }
-        #[cfg(any(feature = "ext_dynamic_rendering_local_read", feature = "version_1_4"))]
-        {
-            let mut vk_func_ptr = self.cmd_set_rendering_input_attachment_indices.get();
-            let loaded_ptr = get_instance_proc_addr(
-                Some(instance.borrow()),
-                c"vkCmdSetRenderingInputAttachmentIndicesKHR".as_ptr(),
-            );
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_set_rendering_input_attachment_indices_khr
-                .set(vk_func_ptr);
-            let loaded_ptr = get_instance_proc_addr(
-                Some(instance.borrow()),
-                c"vkCmdSetRenderingInputAttachmentIndices".as_ptr(),
-            );
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_set_rendering_input_attachment_indices
-                .set(vk_func_ptr);
         }
         #[cfg(any(feature = "ext_maintenance6", feature = "version_1_4"))]
         {
@@ -9292,73 +9475,108 @@ impl CommandsDispatcher {
             }
             self.cmd_push_descriptor_set_with_template2.set(vk_func_ptr);
         }
-        #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
+        #[cfg(any(feature = "ext_line_rasterization", feature = "version_1_4"))]
         {
-            let mut vk_func_ptr = self.copy_memory_to_image.get();
+            let mut vk_func_ptr = self.cmd_set_line_stipple.get();
             let loaded_ptr =
-                get_instance_proc_addr(Some(instance.borrow()), c"vkCopyMemoryToImageEXT".as_ptr());
+                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdSetLineStippleEXT".as_ptr());
             if !loaded_ptr.is_null() {
                 vk_func_ptr = mem::transmute(loaded_ptr);
             }
-            self.copy_memory_to_image_ext.set(vk_func_ptr);
+            self.cmd_set_line_stipple_ext.set(vk_func_ptr);
             let loaded_ptr =
-                get_instance_proc_addr(Some(instance.borrow()), c"vkCopyMemoryToImage".as_ptr());
+                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdSetLineStippleKHR".as_ptr());
             if !loaded_ptr.is_null() {
                 vk_func_ptr = mem::transmute(loaded_ptr);
             }
-            self.copy_memory_to_image.set(vk_func_ptr);
+            self.cmd_set_line_stipple_khr.set(vk_func_ptr);
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdSetLineStipple".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_set_line_stipple.set(vk_func_ptr);
         }
-        #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
+        #[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
         {
-            let mut vk_func_ptr = self.copy_image_to_memory.get();
-            let loaded_ptr =
-                get_instance_proc_addr(Some(instance.borrow()), c"vkCopyImageToMemoryEXT".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.copy_image_to_memory_ext.set(vk_func_ptr);
-            let loaded_ptr =
-                get_instance_proc_addr(Some(instance.borrow()), c"vkCopyImageToMemory".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.copy_image_to_memory.set(vk_func_ptr);
-        }
-        #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
-        {
-            let mut vk_func_ptr = self.copy_image_to_image.get();
-            let loaded_ptr =
-                get_instance_proc_addr(Some(instance.borrow()), c"vkCopyImageToImageEXT".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.copy_image_to_image_ext.set(vk_func_ptr);
-            let loaded_ptr =
-                get_instance_proc_addr(Some(instance.borrow()), c"vkCopyImageToImage".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.copy_image_to_image.set(vk_func_ptr);
-        }
-        #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
-        {
-            let mut vk_func_ptr = self.transition_image_layout.get();
+            let mut vk_func_ptr = self.cmd_bind_index_buffer2.get();
             let loaded_ptr = get_instance_proc_addr(
                 Some(instance.borrow()),
-                c"vkTransitionImageLayoutEXT".as_ptr(),
+                c"vkCmdBindIndexBuffer2KHR".as_ptr(),
             );
             if !loaded_ptr.is_null() {
                 vk_func_ptr = mem::transmute(loaded_ptr);
             }
-            self.transition_image_layout_ext.set(vk_func_ptr);
+            self.cmd_bind_index_buffer2_khr.set(vk_func_ptr);
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdBindIndexBuffer2".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_bind_index_buffer2.set(vk_func_ptr);
+        }
+        #[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
+        {
+            let mut vk_func_ptr = self.get_rendering_area_granularity.get();
             let loaded_ptr = get_instance_proc_addr(
                 Some(instance.borrow()),
-                c"vkTransitionImageLayout".as_ptr(),
+                c"vkGetRenderingAreaGranularityKHR".as_ptr(),
             );
             if !loaded_ptr.is_null() {
                 vk_func_ptr = mem::transmute(loaded_ptr);
             }
-            self.transition_image_layout.set(vk_func_ptr);
+            self.get_rendering_area_granularity_khr.set(vk_func_ptr);
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkGetRenderingAreaGranularity".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.get_rendering_area_granularity.set(vk_func_ptr);
+        }
+        #[cfg(any(feature = "ext_dynamic_rendering_local_read", feature = "version_1_4"))]
+        {
+            let mut vk_func_ptr = self.cmd_set_rendering_attachment_locations.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkCmdSetRenderingAttachmentLocationsKHR".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_set_rendering_attachment_locations_khr
+                .set(vk_func_ptr);
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkCmdSetRenderingAttachmentLocations".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_set_rendering_attachment_locations.set(vk_func_ptr);
+        }
+        #[cfg(any(feature = "ext_dynamic_rendering_local_read", feature = "version_1_4"))]
+        {
+            let mut vk_func_ptr = self.cmd_set_rendering_input_attachment_indices.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkCmdSetRenderingInputAttachmentIndicesKHR".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_set_rendering_input_attachment_indices_khr
+                .set(vk_func_ptr);
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkCmdSetRenderingInputAttachmentIndices".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_set_rendering_input_attachment_indices
+                .set(vk_func_ptr);
         }
         #[cfg(feature = "ext_surface")]
         {
@@ -9996,6 +10214,19 @@ impl CommandsDispatcher {
                 vk_func_ptr = mem::transmute(loaded_ptr);
             }
             self.get_image_view_address_nvx.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_image_view_handle")]
+        {
+            let mut vk_func_ptr = self.get_device_combined_image_sampler_index_nvx.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkGetDeviceCombinedImageSamplerIndexNVX".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.get_device_combined_image_sampler_index_nvx
+                .set(vk_func_ptr);
         }
         #[cfg(feature = "ext_shader_info")]
         {
@@ -10798,6 +11029,125 @@ impl CommandsDispatcher {
             }
             self.cmd_dispatch_graph_indirect_count_amdx.set(vk_func_ptr);
         }
+        #[cfg(feature = "ext_descriptor_heap")]
+        {
+            let mut vk_func_ptr = self.write_sampler_descriptors_ext.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkWriteSamplerDescriptorsEXT".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.write_sampler_descriptors_ext.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_descriptor_heap")]
+        {
+            let mut vk_func_ptr = self.write_resource_descriptors_ext.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkWriteResourceDescriptorsEXT".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.write_resource_descriptors_ext.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_descriptor_heap")]
+        {
+            let mut vk_func_ptr = self.cmd_bind_sampler_heap_ext.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkCmdBindSamplerHeapEXT".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_bind_sampler_heap_ext.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_descriptor_heap")]
+        {
+            let mut vk_func_ptr = self.cmd_bind_resource_heap_ext.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkCmdBindResourceHeapEXT".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_bind_resource_heap_ext.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_descriptor_heap")]
+        {
+            let mut vk_func_ptr = self.cmd_push_data_ext.get();
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdPushDataEXT".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_push_data_ext.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_descriptor_heap")]
+        {
+            let mut vk_func_ptr = self.get_image_opaque_capture_data_ext.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkGetImageOpaqueCaptureDataEXT".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.get_image_opaque_capture_data_ext.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_descriptor_heap")]
+        {
+            let mut vk_func_ptr = self.get_physical_device_descriptor_size_ext.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkGetPhysicalDeviceDescriptorSizeEXT".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.get_physical_device_descriptor_size_ext
+                .set(vk_func_ptr);
+        }
+        #[cfg(all(feature = "ext_descriptor_heap", feature = "ext_custom_border_color"))]
+        {
+            let mut vk_func_ptr = self.register_custom_border_color_ext.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkRegisterCustomBorderColorEXT".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.register_custom_border_color_ext.set(vk_func_ptr);
+        }
+        #[cfg(all(feature = "ext_descriptor_heap", feature = "ext_custom_border_color"))]
+        {
+            let mut vk_func_ptr = self.unregister_custom_border_color_ext.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkUnregisterCustomBorderColorEXT".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.unregister_custom_border_color_ext.set(vk_func_ptr);
+        }
+        #[cfg(all(feature = "ext_descriptor_heap", feature = "ext_tensors"))]
+        {
+            let mut vk_func_ptr = self.get_tensor_opaque_capture_data_arm.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkGetTensorOpaqueCaptureDataARM".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.get_tensor_opaque_capture_data_arm.set(vk_func_ptr);
+        }
         #[cfg(feature = "ext_sample_locations")]
         {
             let mut vk_func_ptr = self.cmd_set_sample_locations_ext.get();
@@ -11415,7 +11765,7 @@ impl CommandsDispatcher {
         }
         #[cfg(all(
             feature = "ext_mesh_shader",
-            any(feature = "ext_draw_indirect_count", feature = "version_1_2")
+            any(feature = "version_1_2", feature = "ext_draw_indirect_count")
         ))]
         {
             let mut vk_func_ptr = self.cmd_draw_mesh_tasks_indirect_count_nv.get();
@@ -11488,6 +11838,56 @@ impl CommandsDispatcher {
                 vk_func_ptr = mem::transmute(loaded_ptr);
             }
             self.get_queue_checkpoint_data2_nv.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_present_timing")]
+        {
+            let mut vk_func_ptr = self.set_swapchain_present_timing_queue_size_ext.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkSetSwapchainPresentTimingQueueSizeEXT".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.set_swapchain_present_timing_queue_size_ext
+                .set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_present_timing")]
+        {
+            let mut vk_func_ptr = self.get_swapchain_timing_properties_ext.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkGetSwapchainTimingPropertiesEXT".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.get_swapchain_timing_properties_ext.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_present_timing")]
+        {
+            let mut vk_func_ptr = self.get_swapchain_time_domain_properties_ext.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkGetSwapchainTimeDomainPropertiesEXT".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.get_swapchain_time_domain_properties_ext
+                .set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_present_timing")]
+        {
+            let mut vk_func_ptr = self.get_past_presentation_timing_ext.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkGetPastPresentationTimingEXT".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.get_past_presentation_timing_ext.set(vk_func_ptr);
         }
         #[cfg(feature = "ext_performance_query")]
         {
@@ -12256,7 +12656,7 @@ impl CommandsDispatcher {
         }
         #[cfg(all(
             feature = "ext_mesh_shader",
-            any(feature = "ext_draw_indirect_count", feature = "version_1_2")
+            any(feature = "version_1_2", feature = "ext_draw_indirect_count")
         ))]
         {
             let mut vk_func_ptr = self.cmd_draw_mesh_tasks_indirect_count_ext.get();
@@ -12917,6 +13317,30 @@ impl CommandsDispatcher {
             }
             self.get_pipeline_indirect_device_address_nv
                 .set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_ohos_external_memory")]
+        {
+            let mut vk_func_ptr = self.get_native_buffer_properties_ohos.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkGetNativeBufferPropertiesOHOS".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.get_native_buffer_properties_ohos.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_ohos_external_memory")]
+        {
+            let mut vk_func_ptr = self.get_memory_native_buffer_ohos.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkGetMemoryNativeBufferOHOS".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.get_memory_native_buffer_ohos.set(vk_func_ptr);
         }
         #[cfg(any(feature = "ext_extended_dynamic_state3", feature = "ext_shader_object"))]
         {
@@ -14197,6 +14621,55 @@ impl CommandsDispatcher {
             }
             self.cmd_bind_tile_memory_qcom.set(vk_func_ptr);
         }
+        #[cfg(feature = "ext_copy_memory_indirect")]
+        {
+            let mut vk_func_ptr = self.cmd_copy_memory_indirect_khr.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkCmdCopyMemoryIndirectKHR".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_copy_memory_indirect_khr.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_copy_memory_indirect")]
+        {
+            let mut vk_func_ptr = self.cmd_copy_memory_to_image_indirect_khr.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkCmdCopyMemoryToImageIndirectKHR".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_copy_memory_to_image_indirect_khr.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_memory_decompression")]
+        {
+            let mut vk_func_ptr = self.cmd_decompress_memory_ext.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkCmdDecompressMemoryEXT".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_decompress_memory_ext.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_memory_decompression")]
+        {
+            let mut vk_func_ptr = self.cmd_decompress_memory_indirect_count_ext.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkCmdDecompressMemoryIndirectCountEXT".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_decompress_memory_indirect_count_ext
+                .set(vk_func_ptr);
+        }
         #[cfg(feature = "ext_external_compute_queue")]
         {
             let mut vk_func_ptr = self.create_external_compute_queue_nv.get();
@@ -14449,15 +14922,89 @@ impl CommandsDispatcher {
             }
             self.get_memory_metal_handle_properties_ext.set(vk_func_ptr);
         }
-        #[cfg(feature = "ext_fragment_density_map_offset")]
+        #[cfg(feature = "ext_performance_counters_by_region")]
         {
-            let mut vk_func_ptr = self.cmd_end_rendering2_ext.get();
+            let mut vk_func_ptr = self
+                .enumerate_physical_device_queue_family_performance_counters_by_region_arm
+                .get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkEnumeratePhysicalDeviceQueueFamilyPerformanceCountersByRegionARM".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.enumerate_physical_device_queue_family_performance_counters_by_region_arm
+                .set(vk_func_ptr);
+        }
+        #[cfg(all(
+            feature = "ext_custom_resolve",
+            any(feature = "ext_dynamic_rendering", feature = "version_1_3")
+        ))]
+        {
+            let mut vk_func_ptr = self.cmd_begin_custom_resolve_ext.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkCmdBeginCustomResolveEXT".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_begin_custom_resolve_ext.set(vk_func_ptr);
+        }
+        #[cfg(any(
+            feature = "ext_fragment_density_map_offset",
+            feature = "ext_maintenance10"
+        ))]
+        {
+            let mut vk_func_ptr = self.cmd_end_rendering2_khr.get();
             let loaded_ptr =
                 get_instance_proc_addr(Some(instance.borrow()), c"vkCmdEndRendering2EXT".as_ptr());
             if !loaded_ptr.is_null() {
                 vk_func_ptr = mem::transmute(loaded_ptr);
             }
             self.cmd_end_rendering2_ext.set(vk_func_ptr);
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdEndRendering2KHR".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_end_rendering2_khr.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_compute_occupancy_priority")]
+        {
+            let mut vk_func_ptr = self.cmd_set_compute_occupancy_priority_nv.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkCmdSetComputeOccupancyPriorityNV".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_set_compute_occupancy_priority_nv.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_ubm_surface")]
+        {
+            let mut vk_func_ptr = self.create_ubm_surface_sec.get();
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkCreateUbmSurfaceSEC".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.create_ubm_surface_sec.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_ubm_surface")]
+        {
+            let mut vk_func_ptr = self.get_physical_device_ubm_presentation_support_sec.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkGetPhysicalDeviceUbmPresentationSupportSEC".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.get_physical_device_ubm_presentation_support_sec
+                .set(vk_func_ptr);
         }
     }
     pub unsafe fn load_device(&self, device: &Device) {
@@ -14701,48 +15248,6 @@ impl CommandsDispatcher {
             self.destroy_semaphore.set(vk_func_ptr);
         }
         {
-            let mut vk_func_ptr = self.create_event.get();
-            let loaded_ptr = get_device_proc_addr(Some(device.borrow()), c"vkCreateEvent".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.create_event.set(vk_func_ptr);
-        }
-        {
-            let mut vk_func_ptr = self.destroy_event.get();
-            let loaded_ptr =
-                get_device_proc_addr(Some(device.borrow()), c"vkDestroyEvent".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.destroy_event.set(vk_func_ptr);
-        }
-        {
-            let mut vk_func_ptr = self.get_event_status.get();
-            let loaded_ptr =
-                get_device_proc_addr(Some(device.borrow()), c"vkGetEventStatus".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.get_event_status.set(vk_func_ptr);
-        }
-        {
-            let mut vk_func_ptr = self.set_event.get();
-            let loaded_ptr = get_device_proc_addr(Some(device.borrow()), c"vkSetEvent".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.set_event.set(vk_func_ptr);
-        }
-        {
-            let mut vk_func_ptr = self.reset_event.get();
-            let loaded_ptr = get_device_proc_addr(Some(device.borrow()), c"vkResetEvent".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.reset_event.set(vk_func_ptr);
-        }
-        {
             let mut vk_func_ptr = self.create_query_pool.get();
             let loaded_ptr =
                 get_device_proc_addr(Some(device.borrow()), c"vkCreateQueryPool".as_ptr());
@@ -14786,24 +15291,6 @@ impl CommandsDispatcher {
                 vk_func_ptr = mem::transmute(loaded_ptr);
             }
             self.destroy_buffer.set(vk_func_ptr);
-        }
-        {
-            let mut vk_func_ptr = self.create_buffer_view.get();
-            let loaded_ptr =
-                get_device_proc_addr(Some(device.borrow()), c"vkCreateBufferView".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.create_buffer_view.set(vk_func_ptr);
-        }
-        {
-            let mut vk_func_ptr = self.destroy_buffer_view.get();
-            let loaded_ptr =
-                get_device_proc_addr(Some(device.borrow()), c"vkDestroyBufferView".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.destroy_buffer_view.set(vk_func_ptr);
         }
         {
             let mut vk_func_ptr = self.create_image.get();
@@ -14850,6 +15337,254 @@ impl CommandsDispatcher {
                 vk_func_ptr = mem::transmute(loaded_ptr);
             }
             self.destroy_image_view.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.create_command_pool.get();
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkCreateCommandPool".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.create_command_pool.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.destroy_command_pool.get();
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkDestroyCommandPool".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.destroy_command_pool.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.reset_command_pool.get();
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkResetCommandPool".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.reset_command_pool.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.allocate_command_buffers.get();
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkAllocateCommandBuffers".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.allocate_command_buffers.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.free_command_buffers.get();
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkFreeCommandBuffers".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.free_command_buffers.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.begin_command_buffer.get();
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkBeginCommandBuffer".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.begin_command_buffer.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.end_command_buffer.get();
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkEndCommandBuffer".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.end_command_buffer.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.reset_command_buffer.get();
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkResetCommandBuffer".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.reset_command_buffer.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.cmd_copy_buffer.get();
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkCmdCopyBuffer".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_copy_buffer.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.cmd_copy_image.get();
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkCmdCopyImage".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_copy_image.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.cmd_copy_buffer_to_image.get();
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkCmdCopyBufferToImage".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_copy_buffer_to_image.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.cmd_copy_image_to_buffer.get();
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkCmdCopyImageToBuffer".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_copy_image_to_buffer.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.cmd_update_buffer.get();
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkCmdUpdateBuffer".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_update_buffer.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.cmd_fill_buffer.get();
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkCmdFillBuffer".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_fill_buffer.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.cmd_pipeline_barrier.get();
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkCmdPipelineBarrier".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_pipeline_barrier.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.cmd_begin_query.get();
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkCmdBeginQuery".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_begin_query.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.cmd_end_query.get();
+            let loaded_ptr = get_device_proc_addr(Some(device.borrow()), c"vkCmdEndQuery".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_end_query.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.cmd_reset_query_pool.get();
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkCmdResetQueryPool".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_reset_query_pool.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.cmd_write_timestamp.get();
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkCmdWriteTimestamp".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_write_timestamp.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.cmd_copy_query_pool_results.get();
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkCmdCopyQueryPoolResults".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_copy_query_pool_results.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.cmd_execute_commands.get();
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkCmdExecuteCommands".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_execute_commands.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.create_event.get();
+            let loaded_ptr = get_device_proc_addr(Some(device.borrow()), c"vkCreateEvent".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.create_event.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.destroy_event.get();
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkDestroyEvent".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.destroy_event.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.get_event_status.get();
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkGetEventStatus".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.get_event_status.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.set_event.get();
+            let loaded_ptr = get_device_proc_addr(Some(device.borrow()), c"vkSetEvent".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.set_event.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.reset_event.get();
+            let loaded_ptr = get_device_proc_addr(Some(device.borrow()), c"vkResetEvent".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.reset_event.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.create_buffer_view.get();
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkCreateBufferView".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.create_buffer_view.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.destroy_buffer_view.get();
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkDestroyBufferView".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.destroy_buffer_view.set(vk_func_ptr);
         }
         {
             let mut vk_func_ptr = self.create_shader_module.get();
@@ -14904,15 +15639,6 @@ impl CommandsDispatcher {
                 vk_func_ptr = mem::transmute(loaded_ptr);
             }
             self.merge_pipeline_caches.set(vk_func_ptr);
-        }
-        {
-            let mut vk_func_ptr = self.create_graphics_pipelines.get();
-            let loaded_ptr =
-                get_device_proc_addr(Some(device.borrow()), c"vkCreateGraphicsPipelines".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.create_graphics_pipelines.set(vk_func_ptr);
         }
         {
             let mut vk_func_ptr = self.create_compute_pipelines.get();
@@ -15045,6 +15771,94 @@ impl CommandsDispatcher {
             self.update_descriptor_sets.set(vk_func_ptr);
         }
         {
+            let mut vk_func_ptr = self.cmd_bind_pipeline.get();
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkCmdBindPipeline".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_bind_pipeline.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.cmd_bind_descriptor_sets.get();
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkCmdBindDescriptorSets".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_bind_descriptor_sets.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.cmd_clear_color_image.get();
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkCmdClearColorImage".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_clear_color_image.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.cmd_dispatch.get();
+            let loaded_ptr = get_device_proc_addr(Some(device.borrow()), c"vkCmdDispatch".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_dispatch.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.cmd_dispatch_indirect.get();
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkCmdDispatchIndirect".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_dispatch_indirect.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.cmd_set_event.get();
+            let loaded_ptr = get_device_proc_addr(Some(device.borrow()), c"vkCmdSetEvent".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_set_event.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.cmd_reset_event.get();
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkCmdResetEvent".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_reset_event.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.cmd_wait_events.get();
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkCmdWaitEvents".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_wait_events.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.cmd_push_constants.get();
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkCmdPushConstants".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_push_constants.set(vk_func_ptr);
+        }
+        {
+            let mut vk_func_ptr = self.create_graphics_pipelines.get();
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkCreateGraphicsPipelines".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.create_graphics_pipelines.set(vk_func_ptr);
+        }
+        {
             let mut vk_func_ptr = self.create_framebuffer.get();
             let loaded_ptr =
                 get_device_proc_addr(Some(device.borrow()), c"vkCreateFramebuffer".as_ptr());
@@ -15090,87 +15904,6 @@ impl CommandsDispatcher {
                 vk_func_ptr = mem::transmute(loaded_ptr);
             }
             self.get_render_area_granularity.set(vk_func_ptr);
-        }
-        {
-            let mut vk_func_ptr = self.create_command_pool.get();
-            let loaded_ptr =
-                get_device_proc_addr(Some(device.borrow()), c"vkCreateCommandPool".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.create_command_pool.set(vk_func_ptr);
-        }
-        {
-            let mut vk_func_ptr = self.destroy_command_pool.get();
-            let loaded_ptr =
-                get_device_proc_addr(Some(device.borrow()), c"vkDestroyCommandPool".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.destroy_command_pool.set(vk_func_ptr);
-        }
-        {
-            let mut vk_func_ptr = self.reset_command_pool.get();
-            let loaded_ptr =
-                get_device_proc_addr(Some(device.borrow()), c"vkResetCommandPool".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.reset_command_pool.set(vk_func_ptr);
-        }
-        {
-            let mut vk_func_ptr = self.allocate_command_buffers.get();
-            let loaded_ptr =
-                get_device_proc_addr(Some(device.borrow()), c"vkAllocateCommandBuffers".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.allocate_command_buffers.set(vk_func_ptr);
-        }
-        {
-            let mut vk_func_ptr = self.free_command_buffers.get();
-            let loaded_ptr =
-                get_device_proc_addr(Some(device.borrow()), c"vkFreeCommandBuffers".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.free_command_buffers.set(vk_func_ptr);
-        }
-        {
-            let mut vk_func_ptr = self.begin_command_buffer.get();
-            let loaded_ptr =
-                get_device_proc_addr(Some(device.borrow()), c"vkBeginCommandBuffer".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.begin_command_buffer.set(vk_func_ptr);
-        }
-        {
-            let mut vk_func_ptr = self.end_command_buffer.get();
-            let loaded_ptr =
-                get_device_proc_addr(Some(device.borrow()), c"vkEndCommandBuffer".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.end_command_buffer.set(vk_func_ptr);
-        }
-        {
-            let mut vk_func_ptr = self.reset_command_buffer.get();
-            let loaded_ptr =
-                get_device_proc_addr(Some(device.borrow()), c"vkResetCommandBuffer".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.reset_command_buffer.set(vk_func_ptr);
-        }
-        {
-            let mut vk_func_ptr = self.cmd_bind_pipeline.get();
-            let loaded_ptr =
-                get_device_proc_addr(Some(device.borrow()), c"vkCmdBindPipeline".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_bind_pipeline.set(vk_func_ptr);
         }
         {
             let mut vk_func_ptr = self.cmd_set_viewport.get();
@@ -15256,15 +15989,6 @@ impl CommandsDispatcher {
             self.cmd_set_stencil_reference.set(vk_func_ptr);
         }
         {
-            let mut vk_func_ptr = self.cmd_bind_descriptor_sets.get();
-            let loaded_ptr =
-                get_device_proc_addr(Some(device.borrow()), c"vkCmdBindDescriptorSets".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_bind_descriptor_sets.set(vk_func_ptr);
-        }
-        {
             let mut vk_func_ptr = self.cmd_bind_index_buffer.get();
             let loaded_ptr =
                 get_device_proc_addr(Some(device.borrow()), c"vkCmdBindIndexBuffer".as_ptr());
@@ -15318,41 +16042,6 @@ impl CommandsDispatcher {
             self.cmd_draw_indexed_indirect.set(vk_func_ptr);
         }
         {
-            let mut vk_func_ptr = self.cmd_dispatch.get();
-            let loaded_ptr = get_device_proc_addr(Some(device.borrow()), c"vkCmdDispatch".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_dispatch.set(vk_func_ptr);
-        }
-        {
-            let mut vk_func_ptr = self.cmd_dispatch_indirect.get();
-            let loaded_ptr =
-                get_device_proc_addr(Some(device.borrow()), c"vkCmdDispatchIndirect".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_dispatch_indirect.set(vk_func_ptr);
-        }
-        {
-            let mut vk_func_ptr = self.cmd_copy_buffer.get();
-            let loaded_ptr =
-                get_device_proc_addr(Some(device.borrow()), c"vkCmdCopyBuffer".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_copy_buffer.set(vk_func_ptr);
-        }
-        {
-            let mut vk_func_ptr = self.cmd_copy_image.get();
-            let loaded_ptr =
-                get_device_proc_addr(Some(device.borrow()), c"vkCmdCopyImage".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_copy_image.set(vk_func_ptr);
-        }
-        {
             let mut vk_func_ptr = self.cmd_blit_image.get();
             let loaded_ptr =
                 get_device_proc_addr(Some(device.borrow()), c"vkCmdBlitImage".as_ptr());
@@ -15360,51 +16049,6 @@ impl CommandsDispatcher {
                 vk_func_ptr = mem::transmute(loaded_ptr);
             }
             self.cmd_blit_image.set(vk_func_ptr);
-        }
-        {
-            let mut vk_func_ptr = self.cmd_copy_buffer_to_image.get();
-            let loaded_ptr =
-                get_device_proc_addr(Some(device.borrow()), c"vkCmdCopyBufferToImage".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_copy_buffer_to_image.set(vk_func_ptr);
-        }
-        {
-            let mut vk_func_ptr = self.cmd_copy_image_to_buffer.get();
-            let loaded_ptr =
-                get_device_proc_addr(Some(device.borrow()), c"vkCmdCopyImageToBuffer".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_copy_image_to_buffer.set(vk_func_ptr);
-        }
-        {
-            let mut vk_func_ptr = self.cmd_update_buffer.get();
-            let loaded_ptr =
-                get_device_proc_addr(Some(device.borrow()), c"vkCmdUpdateBuffer".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_update_buffer.set(vk_func_ptr);
-        }
-        {
-            let mut vk_func_ptr = self.cmd_fill_buffer.get();
-            let loaded_ptr =
-                get_device_proc_addr(Some(device.borrow()), c"vkCmdFillBuffer".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_fill_buffer.set(vk_func_ptr);
-        }
-        {
-            let mut vk_func_ptr = self.cmd_clear_color_image.get();
-            let loaded_ptr =
-                get_device_proc_addr(Some(device.borrow()), c"vkCmdClearColorImage".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_clear_color_image.set(vk_func_ptr);
         }
         {
             let mut vk_func_ptr = self.cmd_clear_depth_stencil_image.get();
@@ -15436,94 +16080,6 @@ impl CommandsDispatcher {
             self.cmd_resolve_image.set(vk_func_ptr);
         }
         {
-            let mut vk_func_ptr = self.cmd_set_event.get();
-            let loaded_ptr = get_device_proc_addr(Some(device.borrow()), c"vkCmdSetEvent".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_set_event.set(vk_func_ptr);
-        }
-        {
-            let mut vk_func_ptr = self.cmd_reset_event.get();
-            let loaded_ptr =
-                get_device_proc_addr(Some(device.borrow()), c"vkCmdResetEvent".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_reset_event.set(vk_func_ptr);
-        }
-        {
-            let mut vk_func_ptr = self.cmd_wait_events.get();
-            let loaded_ptr =
-                get_device_proc_addr(Some(device.borrow()), c"vkCmdWaitEvents".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_wait_events.set(vk_func_ptr);
-        }
-        {
-            let mut vk_func_ptr = self.cmd_pipeline_barrier.get();
-            let loaded_ptr =
-                get_device_proc_addr(Some(device.borrow()), c"vkCmdPipelineBarrier".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_pipeline_barrier.set(vk_func_ptr);
-        }
-        {
-            let mut vk_func_ptr = self.cmd_begin_query.get();
-            let loaded_ptr =
-                get_device_proc_addr(Some(device.borrow()), c"vkCmdBeginQuery".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_begin_query.set(vk_func_ptr);
-        }
-        {
-            let mut vk_func_ptr = self.cmd_end_query.get();
-            let loaded_ptr = get_device_proc_addr(Some(device.borrow()), c"vkCmdEndQuery".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_end_query.set(vk_func_ptr);
-        }
-        {
-            let mut vk_func_ptr = self.cmd_reset_query_pool.get();
-            let loaded_ptr =
-                get_device_proc_addr(Some(device.borrow()), c"vkCmdResetQueryPool".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_reset_query_pool.set(vk_func_ptr);
-        }
-        {
-            let mut vk_func_ptr = self.cmd_write_timestamp.get();
-            let loaded_ptr =
-                get_device_proc_addr(Some(device.borrow()), c"vkCmdWriteTimestamp".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_write_timestamp.set(vk_func_ptr);
-        }
-        {
-            let mut vk_func_ptr = self.cmd_copy_query_pool_results.get();
-            let loaded_ptr =
-                get_device_proc_addr(Some(device.borrow()), c"vkCmdCopyQueryPoolResults".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_copy_query_pool_results.set(vk_func_ptr);
-        }
-        {
-            let mut vk_func_ptr = self.cmd_push_constants.get();
-            let loaded_ptr =
-                get_device_proc_addr(Some(device.borrow()), c"vkCmdPushConstants".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_push_constants.set(vk_func_ptr);
-        }
-        {
             let mut vk_func_ptr = self.cmd_begin_render_pass.get();
             let loaded_ptr =
                 get_device_proc_addr(Some(device.borrow()), c"vkCmdBeginRenderPass".as_ptr());
@@ -15549,15 +16105,6 @@ impl CommandsDispatcher {
                 vk_func_ptr = mem::transmute(loaded_ptr);
             }
             self.cmd_end_render_pass.set(vk_func_ptr);
-        }
-        {
-            let mut vk_func_ptr = self.cmd_execute_commands.get();
-            let loaded_ptr =
-                get_device_proc_addr(Some(device.borrow()), c"vkCmdExecuteCommands".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_execute_commands.set(vk_func_ptr);
         }
         #[cfg(any(feature = "ext_bind_memory2", feature = "version_1_1"))]
         {
@@ -15627,22 +16174,6 @@ impl CommandsDispatcher {
                 vk_func_ptr = mem::transmute(loaded_ptr);
             }
             self.cmd_set_device_mask.set(vk_func_ptr);
-        }
-        #[cfg(any(feature = "ext_device_group", feature = "version_1_1"))]
-        {
-            let mut vk_func_ptr = self.cmd_dispatch_base.get();
-            let loaded_ptr =
-                get_device_proc_addr(Some(device.borrow()), c"vkCmdDispatchBaseKHR".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_dispatch_base_khr.set(vk_func_ptr);
-            let loaded_ptr =
-                get_device_proc_addr(Some(device.borrow()), c"vkCmdDispatchBase".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_dispatch_base.set(vk_func_ptr);
         }
         #[cfg(any(feature = "ext_get_memory_requirements2", feature = "version_1_1"))]
         {
@@ -15731,45 +16262,21 @@ impl CommandsDispatcher {
             }
             self.get_device_queue2.set(vk_func_ptr);
         }
-        #[cfg(any(feature = "ext_sampler_ycbcr_conversion", feature = "version_1_1"))]
+        #[cfg(any(feature = "ext_device_group", feature = "version_1_1"))]
         {
-            let mut vk_func_ptr = self.create_sampler_ycbcr_conversion.get();
-            let loaded_ptr = get_device_proc_addr(
-                Some(device.borrow()),
-                c"vkCreateSamplerYcbcrConversionKHR".as_ptr(),
-            );
+            let mut vk_func_ptr = self.cmd_dispatch_base.get();
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkCmdDispatchBaseKHR".as_ptr());
             if !loaded_ptr.is_null() {
                 vk_func_ptr = mem::transmute(loaded_ptr);
             }
-            self.create_sampler_ycbcr_conversion_khr.set(vk_func_ptr);
-            let loaded_ptr = get_device_proc_addr(
-                Some(device.borrow()),
-                c"vkCreateSamplerYcbcrConversion".as_ptr(),
-            );
+            self.cmd_dispatch_base_khr.set(vk_func_ptr);
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkCmdDispatchBase".as_ptr());
             if !loaded_ptr.is_null() {
                 vk_func_ptr = mem::transmute(loaded_ptr);
             }
-            self.create_sampler_ycbcr_conversion.set(vk_func_ptr);
-        }
-        #[cfg(any(feature = "ext_sampler_ycbcr_conversion", feature = "version_1_1"))]
-        {
-            let mut vk_func_ptr = self.destroy_sampler_ycbcr_conversion.get();
-            let loaded_ptr = get_device_proc_addr(
-                Some(device.borrow()),
-                c"vkDestroySamplerYcbcrConversionKHR".as_ptr(),
-            );
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.destroy_sampler_ycbcr_conversion_khr.set(vk_func_ptr);
-            let loaded_ptr = get_device_proc_addr(
-                Some(device.borrow()),
-                c"vkDestroySamplerYcbcrConversion".as_ptr(),
-            );
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.destroy_sampler_ycbcr_conversion.set(vk_func_ptr);
+            self.cmd_dispatch_base.set(vk_func_ptr);
         }
         #[cfg(any(feature = "ext_descriptor_update_template", feature = "version_1_1"))]
         {
@@ -15852,119 +16359,45 @@ impl CommandsDispatcher {
             }
             self.get_descriptor_set_layout_support.set(vk_func_ptr);
         }
-        #[cfg(any(feature = "ext_draw_indirect_count", feature = "version_1_2"))]
+        #[cfg(any(feature = "ext_sampler_ycbcr_conversion", feature = "version_1_1"))]
         {
-            let mut vk_func_ptr = self.cmd_draw_indirect_count.get();
-            let loaded_ptr =
-                get_device_proc_addr(Some(device.borrow()), c"vkCmdDrawIndirectCountAMD".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_draw_indirect_count_amd.set(vk_func_ptr);
-            let loaded_ptr =
-                get_device_proc_addr(Some(device.borrow()), c"vkCmdDrawIndirectCountKHR".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_draw_indirect_count_khr.set(vk_func_ptr);
-            let loaded_ptr =
-                get_device_proc_addr(Some(device.borrow()), c"vkCmdDrawIndirectCount".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_draw_indirect_count.set(vk_func_ptr);
-        }
-        #[cfg(any(feature = "ext_draw_indirect_count", feature = "version_1_2"))]
-        {
-            let mut vk_func_ptr = self.cmd_draw_indexed_indirect_count.get();
+            let mut vk_func_ptr = self.create_sampler_ycbcr_conversion.get();
             let loaded_ptr = get_device_proc_addr(
                 Some(device.borrow()),
-                c"vkCmdDrawIndexedIndirectCountAMD".as_ptr(),
+                c"vkCreateSamplerYcbcrConversionKHR".as_ptr(),
             );
             if !loaded_ptr.is_null() {
                 vk_func_ptr = mem::transmute(loaded_ptr);
             }
-            self.cmd_draw_indexed_indirect_count_amd.set(vk_func_ptr);
+            self.create_sampler_ycbcr_conversion_khr.set(vk_func_ptr);
             let loaded_ptr = get_device_proc_addr(
                 Some(device.borrow()),
-                c"vkCmdDrawIndexedIndirectCountKHR".as_ptr(),
+                c"vkCreateSamplerYcbcrConversion".as_ptr(),
             );
             if !loaded_ptr.is_null() {
                 vk_func_ptr = mem::transmute(loaded_ptr);
             }
-            self.cmd_draw_indexed_indirect_count_khr.set(vk_func_ptr);
+            self.create_sampler_ycbcr_conversion.set(vk_func_ptr);
+        }
+        #[cfg(any(feature = "ext_sampler_ycbcr_conversion", feature = "version_1_1"))]
+        {
+            let mut vk_func_ptr = self.destroy_sampler_ycbcr_conversion.get();
             let loaded_ptr = get_device_proc_addr(
                 Some(device.borrow()),
-                c"vkCmdDrawIndexedIndirectCount".as_ptr(),
+                c"vkDestroySamplerYcbcrConversionKHR".as_ptr(),
             );
             if !loaded_ptr.is_null() {
                 vk_func_ptr = mem::transmute(loaded_ptr);
             }
-            self.cmd_draw_indexed_indirect_count.set(vk_func_ptr);
-        }
-        #[cfg(any(feature = "ext_create_renderpass2", feature = "version_1_2"))]
-        {
-            let mut vk_func_ptr = self.create_render_pass2.get();
-            let loaded_ptr =
-                get_device_proc_addr(Some(device.borrow()), c"vkCreateRenderPass2KHR".as_ptr());
+            self.destroy_sampler_ycbcr_conversion_khr.set(vk_func_ptr);
+            let loaded_ptr = get_device_proc_addr(
+                Some(device.borrow()),
+                c"vkDestroySamplerYcbcrConversion".as_ptr(),
+            );
             if !loaded_ptr.is_null() {
                 vk_func_ptr = mem::transmute(loaded_ptr);
             }
-            self.create_render_pass2_khr.set(vk_func_ptr);
-            let loaded_ptr =
-                get_device_proc_addr(Some(device.borrow()), c"vkCreateRenderPass2".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.create_render_pass2.set(vk_func_ptr);
-        }
-        #[cfg(any(feature = "ext_create_renderpass2", feature = "version_1_2"))]
-        {
-            let mut vk_func_ptr = self.cmd_begin_render_pass2.get();
-            let loaded_ptr =
-                get_device_proc_addr(Some(device.borrow()), c"vkCmdBeginRenderPass2KHR".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_begin_render_pass2_khr.set(vk_func_ptr);
-            let loaded_ptr =
-                get_device_proc_addr(Some(device.borrow()), c"vkCmdBeginRenderPass2".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_begin_render_pass2.set(vk_func_ptr);
-        }
-        #[cfg(any(feature = "ext_create_renderpass2", feature = "version_1_2"))]
-        {
-            let mut vk_func_ptr = self.cmd_next_subpass2.get();
-            let loaded_ptr =
-                get_device_proc_addr(Some(device.borrow()), c"vkCmdNextSubpass2KHR".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_next_subpass2_khr.set(vk_func_ptr);
-            let loaded_ptr =
-                get_device_proc_addr(Some(device.borrow()), c"vkCmdNextSubpass2".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_next_subpass2.set(vk_func_ptr);
-        }
-        #[cfg(any(feature = "ext_create_renderpass2", feature = "version_1_2"))]
-        {
-            let mut vk_func_ptr = self.cmd_end_render_pass2.get();
-            let loaded_ptr =
-                get_device_proc_addr(Some(device.borrow()), c"vkCmdEndRenderPass2KHR".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_end_render_pass2_khr.set(vk_func_ptr);
-            let loaded_ptr =
-                get_device_proc_addr(Some(device.borrow()), c"vkCmdEndRenderPass2".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_end_render_pass2.set(vk_func_ptr);
+            self.destroy_sampler_ycbcr_conversion.set(vk_func_ptr);
         }
         #[cfg(any(feature = "ext_host_query_reset", feature = "version_1_2"))]
         {
@@ -16102,6 +16535,120 @@ impl CommandsDispatcher {
             self.get_device_memory_opaque_capture_address
                 .set(vk_func_ptr);
         }
+        #[cfg(any(feature = "ext_draw_indirect_count", feature = "version_1_2"))]
+        {
+            let mut vk_func_ptr = self.cmd_draw_indirect_count.get();
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkCmdDrawIndirectCountAMD".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_draw_indirect_count_amd.set(vk_func_ptr);
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkCmdDrawIndirectCountKHR".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_draw_indirect_count_khr.set(vk_func_ptr);
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkCmdDrawIndirectCount".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_draw_indirect_count.set(vk_func_ptr);
+        }
+        #[cfg(any(feature = "ext_draw_indirect_count", feature = "version_1_2"))]
+        {
+            let mut vk_func_ptr = self.cmd_draw_indexed_indirect_count.get();
+            let loaded_ptr = get_device_proc_addr(
+                Some(device.borrow()),
+                c"vkCmdDrawIndexedIndirectCountAMD".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_draw_indexed_indirect_count_amd.set(vk_func_ptr);
+            let loaded_ptr = get_device_proc_addr(
+                Some(device.borrow()),
+                c"vkCmdDrawIndexedIndirectCountKHR".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_draw_indexed_indirect_count_khr.set(vk_func_ptr);
+            let loaded_ptr = get_device_proc_addr(
+                Some(device.borrow()),
+                c"vkCmdDrawIndexedIndirectCount".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_draw_indexed_indirect_count.set(vk_func_ptr);
+        }
+        #[cfg(any(feature = "ext_create_renderpass2", feature = "version_1_2"))]
+        {
+            let mut vk_func_ptr = self.create_render_pass2.get();
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkCreateRenderPass2KHR".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.create_render_pass2_khr.set(vk_func_ptr);
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkCreateRenderPass2".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.create_render_pass2.set(vk_func_ptr);
+        }
+        #[cfg(any(feature = "ext_create_renderpass2", feature = "version_1_2"))]
+        {
+            let mut vk_func_ptr = self.cmd_begin_render_pass2.get();
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkCmdBeginRenderPass2KHR".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_begin_render_pass2_khr.set(vk_func_ptr);
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkCmdBeginRenderPass2".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_begin_render_pass2.set(vk_func_ptr);
+        }
+        #[cfg(any(feature = "ext_create_renderpass2", feature = "version_1_2"))]
+        {
+            let mut vk_func_ptr = self.cmd_next_subpass2.get();
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkCmdNextSubpass2KHR".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_next_subpass2_khr.set(vk_func_ptr);
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkCmdNextSubpass2".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_next_subpass2.set(vk_func_ptr);
+        }
+        #[cfg(any(feature = "ext_create_renderpass2", feature = "version_1_2"))]
+        {
+            let mut vk_func_ptr = self.cmd_end_render_pass2.get();
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkCmdEndRenderPass2KHR".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_end_render_pass2_khr.set(vk_func_ptr);
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkCmdEndRenderPass2".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_end_render_pass2.set(vk_func_ptr);
+        }
         #[cfg(any(feature = "ext_private_data", feature = "version_1_3"))]
         {
             let mut vk_func_ptr = self.create_private_data_slot.get();
@@ -16169,54 +16716,6 @@ impl CommandsDispatcher {
                 vk_func_ptr = mem::transmute(loaded_ptr);
             }
             self.get_private_data.set(vk_func_ptr);
-        }
-        #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
-        {
-            let mut vk_func_ptr = self.cmd_set_event2.get();
-            let loaded_ptr =
-                get_device_proc_addr(Some(device.borrow()), c"vkCmdSetEvent2KHR".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_set_event2_khr.set(vk_func_ptr);
-            let loaded_ptr =
-                get_device_proc_addr(Some(device.borrow()), c"vkCmdSetEvent2".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_set_event2.set(vk_func_ptr);
-        }
-        #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
-        {
-            let mut vk_func_ptr = self.cmd_reset_event2.get();
-            let loaded_ptr =
-                get_device_proc_addr(Some(device.borrow()), c"vkCmdResetEvent2KHR".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_reset_event2_khr.set(vk_func_ptr);
-            let loaded_ptr =
-                get_device_proc_addr(Some(device.borrow()), c"vkCmdResetEvent2".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_reset_event2.set(vk_func_ptr);
-        }
-        #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
-        {
-            let mut vk_func_ptr = self.cmd_wait_events2.get();
-            let loaded_ptr =
-                get_device_proc_addr(Some(device.borrow()), c"vkCmdWaitEvents2KHR".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_wait_events2_khr.set(vk_func_ptr);
-            let loaded_ptr =
-                get_device_proc_addr(Some(device.borrow()), c"vkCmdWaitEvents2".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_wait_events2.set(vk_func_ptr);
         }
         #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
         {
@@ -16333,6 +16832,118 @@ impl CommandsDispatcher {
                 vk_func_ptr = mem::transmute(loaded_ptr);
             }
             self.cmd_copy_image_to_buffer2.set(vk_func_ptr);
+        }
+        #[cfg(any(feature = "ext_maintenance4", feature = "version_1_3"))]
+        {
+            let mut vk_func_ptr = self.get_device_buffer_memory_requirements.get();
+            let loaded_ptr = get_device_proc_addr(
+                Some(device.borrow()),
+                c"vkGetDeviceBufferMemoryRequirementsKHR".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.get_device_buffer_memory_requirements_khr
+                .set(vk_func_ptr);
+            let loaded_ptr = get_device_proc_addr(
+                Some(device.borrow()),
+                c"vkGetDeviceBufferMemoryRequirements".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.get_device_buffer_memory_requirements.set(vk_func_ptr);
+        }
+        #[cfg(any(feature = "ext_maintenance4", feature = "version_1_3"))]
+        {
+            let mut vk_func_ptr = self.get_device_image_memory_requirements.get();
+            let loaded_ptr = get_device_proc_addr(
+                Some(device.borrow()),
+                c"vkGetDeviceImageMemoryRequirementsKHR".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.get_device_image_memory_requirements_khr
+                .set(vk_func_ptr);
+            let loaded_ptr = get_device_proc_addr(
+                Some(device.borrow()),
+                c"vkGetDeviceImageMemoryRequirements".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.get_device_image_memory_requirements.set(vk_func_ptr);
+        }
+        #[cfg(any(feature = "ext_maintenance4", feature = "version_1_3"))]
+        {
+            let mut vk_func_ptr = self.get_device_image_sparse_memory_requirements.get();
+            let loaded_ptr = get_device_proc_addr(
+                Some(device.borrow()),
+                c"vkGetDeviceImageSparseMemoryRequirementsKHR".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.get_device_image_sparse_memory_requirements_khr
+                .set(vk_func_ptr);
+            let loaded_ptr = get_device_proc_addr(
+                Some(device.borrow()),
+                c"vkGetDeviceImageSparseMemoryRequirements".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.get_device_image_sparse_memory_requirements
+                .set(vk_func_ptr);
+        }
+        #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
+        {
+            let mut vk_func_ptr = self.cmd_set_event2.get();
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkCmdSetEvent2KHR".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_set_event2_khr.set(vk_func_ptr);
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkCmdSetEvent2".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_set_event2.set(vk_func_ptr);
+        }
+        #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
+        {
+            let mut vk_func_ptr = self.cmd_reset_event2.get();
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkCmdResetEvent2KHR".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_reset_event2_khr.set(vk_func_ptr);
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkCmdResetEvent2".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_reset_event2.set(vk_func_ptr);
+        }
+        #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
+        {
+            let mut vk_func_ptr = self.cmd_wait_events2.get();
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkCmdWaitEvents2KHR".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_wait_events2_khr.set(vk_func_ptr);
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkCmdWaitEvents2".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_wait_events2.set(vk_func_ptr);
         }
         #[cfg(any(feature = "ext_copy_commands2", feature = "version_1_3"))]
         {
@@ -16726,92 +17337,6 @@ impl CommandsDispatcher {
             }
             self.cmd_set_primitive_restart_enable.set(vk_func_ptr);
         }
-        #[cfg(any(feature = "ext_maintenance4", feature = "version_1_3"))]
-        {
-            let mut vk_func_ptr = self.get_device_buffer_memory_requirements.get();
-            let loaded_ptr = get_device_proc_addr(
-                Some(device.borrow()),
-                c"vkGetDeviceBufferMemoryRequirementsKHR".as_ptr(),
-            );
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.get_device_buffer_memory_requirements_khr
-                .set(vk_func_ptr);
-            let loaded_ptr = get_device_proc_addr(
-                Some(device.borrow()),
-                c"vkGetDeviceBufferMemoryRequirements".as_ptr(),
-            );
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.get_device_buffer_memory_requirements.set(vk_func_ptr);
-        }
-        #[cfg(any(feature = "ext_maintenance4", feature = "version_1_3"))]
-        {
-            let mut vk_func_ptr = self.get_device_image_memory_requirements.get();
-            let loaded_ptr = get_device_proc_addr(
-                Some(device.borrow()),
-                c"vkGetDeviceImageMemoryRequirementsKHR".as_ptr(),
-            );
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.get_device_image_memory_requirements_khr
-                .set(vk_func_ptr);
-            let loaded_ptr = get_device_proc_addr(
-                Some(device.borrow()),
-                c"vkGetDeviceImageMemoryRequirements".as_ptr(),
-            );
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.get_device_image_memory_requirements.set(vk_func_ptr);
-        }
-        #[cfg(any(feature = "ext_maintenance4", feature = "version_1_3"))]
-        {
-            let mut vk_func_ptr = self.get_device_image_sparse_memory_requirements.get();
-            let loaded_ptr = get_device_proc_addr(
-                Some(device.borrow()),
-                c"vkGetDeviceImageSparseMemoryRequirementsKHR".as_ptr(),
-            );
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.get_device_image_sparse_memory_requirements_khr
-                .set(vk_func_ptr);
-            let loaded_ptr = get_device_proc_addr(
-                Some(device.borrow()),
-                c"vkGetDeviceImageSparseMemoryRequirements".as_ptr(),
-            );
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.get_device_image_sparse_memory_requirements
-                .set(vk_func_ptr);
-        }
-        #[cfg(any(feature = "ext_line_rasterization", feature = "version_1_4"))]
-        {
-            let mut vk_func_ptr = self.cmd_set_line_stipple.get();
-            let loaded_ptr =
-                get_device_proc_addr(Some(device.borrow()), c"vkCmdSetLineStippleEXT".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_set_line_stipple_ext.set(vk_func_ptr);
-            let loaded_ptr =
-                get_device_proc_addr(Some(device.borrow()), c"vkCmdSetLineStippleKHR".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_set_line_stipple_khr.set(vk_func_ptr);
-            let loaded_ptr =
-                get_device_proc_addr(Some(device.borrow()), c"vkCmdSetLineStipple".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_set_line_stipple.set(vk_func_ptr);
-        }
         #[cfg(any(feature = "ext_map_memory2", feature = "version_1_4"))]
         {
             let mut vk_func_ptr = self.map_memory2.get();
@@ -16842,42 +17367,6 @@ impl CommandsDispatcher {
                 vk_func_ptr = mem::transmute(loaded_ptr);
             }
             self.unmap_memory2.set(vk_func_ptr);
-        }
-        #[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
-        {
-            let mut vk_func_ptr = self.cmd_bind_index_buffer2.get();
-            let loaded_ptr =
-                get_device_proc_addr(Some(device.borrow()), c"vkCmdBindIndexBuffer2KHR".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_bind_index_buffer2_khr.set(vk_func_ptr);
-            let loaded_ptr =
-                get_device_proc_addr(Some(device.borrow()), c"vkCmdBindIndexBuffer2".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_bind_index_buffer2.set(vk_func_ptr);
-        }
-        #[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
-        {
-            let mut vk_func_ptr = self.get_rendering_area_granularity.get();
-            let loaded_ptr = get_device_proc_addr(
-                Some(device.borrow()),
-                c"vkGetRenderingAreaGranularityKHR".as_ptr(),
-            );
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.get_rendering_area_granularity_khr.set(vk_func_ptr);
-            let loaded_ptr = get_device_proc_addr(
-                Some(device.borrow()),
-                c"vkGetRenderingAreaGranularity".as_ptr(),
-            );
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.get_rendering_area_granularity.set(vk_func_ptr);
         }
         #[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
         {
@@ -16933,6 +17422,72 @@ impl CommandsDispatcher {
             }
             self.get_image_subresource_layout2.set(vk_func_ptr);
         }
+        #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
+        {
+            let mut vk_func_ptr = self.copy_memory_to_image.get();
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkCopyMemoryToImageEXT".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.copy_memory_to_image_ext.set(vk_func_ptr);
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkCopyMemoryToImage".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.copy_memory_to_image.set(vk_func_ptr);
+        }
+        #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
+        {
+            let mut vk_func_ptr = self.copy_image_to_memory.get();
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkCopyImageToMemoryEXT".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.copy_image_to_memory_ext.set(vk_func_ptr);
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkCopyImageToMemory".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.copy_image_to_memory.set(vk_func_ptr);
+        }
+        #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
+        {
+            let mut vk_func_ptr = self.copy_image_to_image.get();
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkCopyImageToImageEXT".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.copy_image_to_image_ext.set(vk_func_ptr);
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkCopyImageToImage".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.copy_image_to_image.set(vk_func_ptr);
+        }
+        #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
+        {
+            let mut vk_func_ptr = self.transition_image_layout.get();
+            let loaded_ptr = get_device_proc_addr(
+                Some(device.borrow()),
+                c"vkTransitionImageLayoutEXT".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.transition_image_layout_ext.set(vk_func_ptr);
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkTransitionImageLayout".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.transition_image_layout.set(vk_func_ptr);
+        }
         #[cfg(any(feature = "ext_push_descriptor", feature = "version_1_4"))]
         {
             let mut vk_func_ptr = self.cmd_push_descriptor_set.get();
@@ -16979,49 +17534,6 @@ impl CommandsDispatcher {
                 vk_func_ptr = mem::transmute(loaded_ptr);
             }
             self.cmd_push_descriptor_set_with_template.set(vk_func_ptr);
-        }
-        #[cfg(any(feature = "ext_dynamic_rendering_local_read", feature = "version_1_4"))]
-        {
-            let mut vk_func_ptr = self.cmd_set_rendering_attachment_locations.get();
-            let loaded_ptr = get_device_proc_addr(
-                Some(device.borrow()),
-                c"vkCmdSetRenderingAttachmentLocationsKHR".as_ptr(),
-            );
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_set_rendering_attachment_locations_khr
-                .set(vk_func_ptr);
-            let loaded_ptr = get_device_proc_addr(
-                Some(device.borrow()),
-                c"vkCmdSetRenderingAttachmentLocations".as_ptr(),
-            );
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_set_rendering_attachment_locations.set(vk_func_ptr);
-        }
-        #[cfg(any(feature = "ext_dynamic_rendering_local_read", feature = "version_1_4"))]
-        {
-            let mut vk_func_ptr = self.cmd_set_rendering_input_attachment_indices.get();
-            let loaded_ptr = get_device_proc_addr(
-                Some(device.borrow()),
-                c"vkCmdSetRenderingInputAttachmentIndicesKHR".as_ptr(),
-            );
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_set_rendering_input_attachment_indices_khr
-                .set(vk_func_ptr);
-            let loaded_ptr = get_device_proc_addr(
-                Some(device.borrow()),
-                c"vkCmdSetRenderingInputAttachmentIndices".as_ptr(),
-            );
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.cmd_set_rendering_input_attachment_indices
-                .set(vk_func_ptr);
         }
         #[cfg(any(feature = "ext_maintenance6", feature = "version_1_4"))]
         {
@@ -17102,71 +17614,106 @@ impl CommandsDispatcher {
             }
             self.cmd_push_descriptor_set_with_template2.set(vk_func_ptr);
         }
-        #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
+        #[cfg(any(feature = "ext_line_rasterization", feature = "version_1_4"))]
         {
-            let mut vk_func_ptr = self.copy_memory_to_image.get();
+            let mut vk_func_ptr = self.cmd_set_line_stipple.get();
             let loaded_ptr =
-                get_device_proc_addr(Some(device.borrow()), c"vkCopyMemoryToImageEXT".as_ptr());
+                get_device_proc_addr(Some(device.borrow()), c"vkCmdSetLineStippleEXT".as_ptr());
             if !loaded_ptr.is_null() {
                 vk_func_ptr = mem::transmute(loaded_ptr);
             }
-            self.copy_memory_to_image_ext.set(vk_func_ptr);
+            self.cmd_set_line_stipple_ext.set(vk_func_ptr);
             let loaded_ptr =
-                get_device_proc_addr(Some(device.borrow()), c"vkCopyMemoryToImage".as_ptr());
+                get_device_proc_addr(Some(device.borrow()), c"vkCmdSetLineStippleKHR".as_ptr());
             if !loaded_ptr.is_null() {
                 vk_func_ptr = mem::transmute(loaded_ptr);
             }
-            self.copy_memory_to_image.set(vk_func_ptr);
+            self.cmd_set_line_stipple_khr.set(vk_func_ptr);
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkCmdSetLineStipple".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_set_line_stipple.set(vk_func_ptr);
         }
-        #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
+        #[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
         {
-            let mut vk_func_ptr = self.copy_image_to_memory.get();
+            let mut vk_func_ptr = self.cmd_bind_index_buffer2.get();
             let loaded_ptr =
-                get_device_proc_addr(Some(device.borrow()), c"vkCopyImageToMemoryEXT".as_ptr());
+                get_device_proc_addr(Some(device.borrow()), c"vkCmdBindIndexBuffer2KHR".as_ptr());
             if !loaded_ptr.is_null() {
                 vk_func_ptr = mem::transmute(loaded_ptr);
             }
-            self.copy_image_to_memory_ext.set(vk_func_ptr);
+            self.cmd_bind_index_buffer2_khr.set(vk_func_ptr);
             let loaded_ptr =
-                get_device_proc_addr(Some(device.borrow()), c"vkCopyImageToMemory".as_ptr());
+                get_device_proc_addr(Some(device.borrow()), c"vkCmdBindIndexBuffer2".as_ptr());
             if !loaded_ptr.is_null() {
                 vk_func_ptr = mem::transmute(loaded_ptr);
             }
-            self.copy_image_to_memory.set(vk_func_ptr);
+            self.cmd_bind_index_buffer2.set(vk_func_ptr);
         }
-        #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
+        #[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
         {
-            let mut vk_func_ptr = self.copy_image_to_image.get();
-            let loaded_ptr =
-                get_device_proc_addr(Some(device.borrow()), c"vkCopyImageToImageEXT".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.copy_image_to_image_ext.set(vk_func_ptr);
-            let loaded_ptr =
-                get_device_proc_addr(Some(device.borrow()), c"vkCopyImageToImage".as_ptr());
-            if !loaded_ptr.is_null() {
-                vk_func_ptr = mem::transmute(loaded_ptr);
-            }
-            self.copy_image_to_image.set(vk_func_ptr);
-        }
-        #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
-        {
-            let mut vk_func_ptr = self.transition_image_layout.get();
+            let mut vk_func_ptr = self.get_rendering_area_granularity.get();
             let loaded_ptr = get_device_proc_addr(
                 Some(device.borrow()),
-                c"vkTransitionImageLayoutEXT".as_ptr(),
+                c"vkGetRenderingAreaGranularityKHR".as_ptr(),
             );
             if !loaded_ptr.is_null() {
                 vk_func_ptr = mem::transmute(loaded_ptr);
             }
-            self.transition_image_layout_ext.set(vk_func_ptr);
-            let loaded_ptr =
-                get_device_proc_addr(Some(device.borrow()), c"vkTransitionImageLayout".as_ptr());
+            self.get_rendering_area_granularity_khr.set(vk_func_ptr);
+            let loaded_ptr = get_device_proc_addr(
+                Some(device.borrow()),
+                c"vkGetRenderingAreaGranularity".as_ptr(),
+            );
             if !loaded_ptr.is_null() {
                 vk_func_ptr = mem::transmute(loaded_ptr);
             }
-            self.transition_image_layout.set(vk_func_ptr);
+            self.get_rendering_area_granularity.set(vk_func_ptr);
+        }
+        #[cfg(any(feature = "ext_dynamic_rendering_local_read", feature = "version_1_4"))]
+        {
+            let mut vk_func_ptr = self.cmd_set_rendering_attachment_locations.get();
+            let loaded_ptr = get_device_proc_addr(
+                Some(device.borrow()),
+                c"vkCmdSetRenderingAttachmentLocationsKHR".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_set_rendering_attachment_locations_khr
+                .set(vk_func_ptr);
+            let loaded_ptr = get_device_proc_addr(
+                Some(device.borrow()),
+                c"vkCmdSetRenderingAttachmentLocations".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_set_rendering_attachment_locations.set(vk_func_ptr);
+        }
+        #[cfg(any(feature = "ext_dynamic_rendering_local_read", feature = "version_1_4"))]
+        {
+            let mut vk_func_ptr = self.cmd_set_rendering_input_attachment_indices.get();
+            let loaded_ptr = get_device_proc_addr(
+                Some(device.borrow()),
+                c"vkCmdSetRenderingInputAttachmentIndicesKHR".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_set_rendering_input_attachment_indices_khr
+                .set(vk_func_ptr);
+            let loaded_ptr = get_device_proc_addr(
+                Some(device.borrow()),
+                c"vkCmdSetRenderingInputAttachmentIndices".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_set_rendering_input_attachment_indices
+                .set(vk_func_ptr);
         }
         #[cfg(feature = "ext_swapchain")]
         {
@@ -17477,6 +18024,19 @@ impl CommandsDispatcher {
                 vk_func_ptr = mem::transmute(loaded_ptr);
             }
             self.get_image_view_address_nvx.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_image_view_handle")]
+        {
+            let mut vk_func_ptr = self.get_device_combined_image_sampler_index_nvx.get();
+            let loaded_ptr = get_device_proc_addr(
+                Some(device.borrow()),
+                c"vkGetDeviceCombinedImageSamplerIndexNVX".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.get_device_combined_image_sampler_index_nvx
+                .set(vk_func_ptr);
         }
         #[cfg(feature = "ext_shader_info")]
         {
@@ -18010,6 +18570,108 @@ impl CommandsDispatcher {
                 vk_func_ptr = mem::transmute(loaded_ptr);
             }
             self.cmd_dispatch_graph_indirect_count_amdx.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_descriptor_heap")]
+        {
+            let mut vk_func_ptr = self.write_sampler_descriptors_ext.get();
+            let loaded_ptr = get_device_proc_addr(
+                Some(device.borrow()),
+                c"vkWriteSamplerDescriptorsEXT".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.write_sampler_descriptors_ext.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_descriptor_heap")]
+        {
+            let mut vk_func_ptr = self.write_resource_descriptors_ext.get();
+            let loaded_ptr = get_device_proc_addr(
+                Some(device.borrow()),
+                c"vkWriteResourceDescriptorsEXT".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.write_resource_descriptors_ext.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_descriptor_heap")]
+        {
+            let mut vk_func_ptr = self.cmd_bind_sampler_heap_ext.get();
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkCmdBindSamplerHeapEXT".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_bind_sampler_heap_ext.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_descriptor_heap")]
+        {
+            let mut vk_func_ptr = self.cmd_bind_resource_heap_ext.get();
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkCmdBindResourceHeapEXT".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_bind_resource_heap_ext.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_descriptor_heap")]
+        {
+            let mut vk_func_ptr = self.cmd_push_data_ext.get();
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkCmdPushDataEXT".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_push_data_ext.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_descriptor_heap")]
+        {
+            let mut vk_func_ptr = self.get_image_opaque_capture_data_ext.get();
+            let loaded_ptr = get_device_proc_addr(
+                Some(device.borrow()),
+                c"vkGetImageOpaqueCaptureDataEXT".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.get_image_opaque_capture_data_ext.set(vk_func_ptr);
+        }
+        #[cfg(all(feature = "ext_descriptor_heap", feature = "ext_custom_border_color"))]
+        {
+            let mut vk_func_ptr = self.register_custom_border_color_ext.get();
+            let loaded_ptr = get_device_proc_addr(
+                Some(device.borrow()),
+                c"vkRegisterCustomBorderColorEXT".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.register_custom_border_color_ext.set(vk_func_ptr);
+        }
+        #[cfg(all(feature = "ext_descriptor_heap", feature = "ext_custom_border_color"))]
+        {
+            let mut vk_func_ptr = self.unregister_custom_border_color_ext.get();
+            let loaded_ptr = get_device_proc_addr(
+                Some(device.borrow()),
+                c"vkUnregisterCustomBorderColorEXT".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.unregister_custom_border_color_ext.set(vk_func_ptr);
+        }
+        #[cfg(all(feature = "ext_descriptor_heap", feature = "ext_tensors"))]
+        {
+            let mut vk_func_ptr = self.get_tensor_opaque_capture_data_arm.get();
+            let loaded_ptr = get_device_proc_addr(
+                Some(device.borrow()),
+                c"vkGetTensorOpaqueCaptureDataARM".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.get_tensor_opaque_capture_data_arm.set(vk_func_ptr);
         }
         #[cfg(feature = "ext_sample_locations")]
         {
@@ -18611,7 +19273,7 @@ impl CommandsDispatcher {
         }
         #[cfg(all(
             feature = "ext_mesh_shader",
-            any(feature = "ext_draw_indirect_count", feature = "version_1_2")
+            any(feature = "version_1_2", feature = "ext_draw_indirect_count")
         ))]
         {
             let mut vk_func_ptr = self.cmd_draw_mesh_tasks_indirect_count_nv.get();
@@ -18684,6 +19346,56 @@ impl CommandsDispatcher {
                 vk_func_ptr = mem::transmute(loaded_ptr);
             }
             self.get_queue_checkpoint_data2_nv.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_present_timing")]
+        {
+            let mut vk_func_ptr = self.set_swapchain_present_timing_queue_size_ext.get();
+            let loaded_ptr = get_device_proc_addr(
+                Some(device.borrow()),
+                c"vkSetSwapchainPresentTimingQueueSizeEXT".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.set_swapchain_present_timing_queue_size_ext
+                .set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_present_timing")]
+        {
+            let mut vk_func_ptr = self.get_swapchain_timing_properties_ext.get();
+            let loaded_ptr = get_device_proc_addr(
+                Some(device.borrow()),
+                c"vkGetSwapchainTimingPropertiesEXT".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.get_swapchain_timing_properties_ext.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_present_timing")]
+        {
+            let mut vk_func_ptr = self.get_swapchain_time_domain_properties_ext.get();
+            let loaded_ptr = get_device_proc_addr(
+                Some(device.borrow()),
+                c"vkGetSwapchainTimeDomainPropertiesEXT".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.get_swapchain_time_domain_properties_ext
+                .set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_present_timing")]
+        {
+            let mut vk_func_ptr = self.get_past_presentation_timing_ext.get();
+            let loaded_ptr = get_device_proc_addr(
+                Some(device.borrow()),
+                c"vkGetPastPresentationTimingEXT".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.get_past_presentation_timing_ext.set(vk_func_ptr);
         }
         #[cfg(feature = "ext_performance_query")]
         {
@@ -19334,7 +20046,7 @@ impl CommandsDispatcher {
         }
         #[cfg(all(
             feature = "ext_mesh_shader",
-            any(feature = "ext_draw_indirect_count", feature = "version_1_2")
+            any(feature = "version_1_2", feature = "ext_draw_indirect_count")
         ))]
         {
             let mut vk_func_ptr = self.cmd_draw_mesh_tasks_indirect_count_ext.get();
@@ -19905,6 +20617,30 @@ impl CommandsDispatcher {
             }
             self.get_pipeline_indirect_device_address_nv
                 .set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_ohos_external_memory")]
+        {
+            let mut vk_func_ptr = self.get_native_buffer_properties_ohos.get();
+            let loaded_ptr = get_device_proc_addr(
+                Some(device.borrow()),
+                c"vkGetNativeBufferPropertiesOHOS".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.get_native_buffer_properties_ohos.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_ohos_external_memory")]
+        {
+            let mut vk_func_ptr = self.get_memory_native_buffer_ohos.get();
+            let loaded_ptr = get_device_proc_addr(
+                Some(device.borrow()),
+                c"vkGetMemoryNativeBufferOHOS".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.get_memory_native_buffer_ohos.set(vk_func_ptr);
         }
         #[cfg(any(feature = "ext_extended_dynamic_state3", feature = "ext_shader_object"))]
         {
@@ -21055,6 +21791,53 @@ impl CommandsDispatcher {
             }
             self.cmd_bind_tile_memory_qcom.set(vk_func_ptr);
         }
+        #[cfg(feature = "ext_copy_memory_indirect")]
+        {
+            let mut vk_func_ptr = self.cmd_copy_memory_indirect_khr.get();
+            let loaded_ptr = get_device_proc_addr(
+                Some(device.borrow()),
+                c"vkCmdCopyMemoryIndirectKHR".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_copy_memory_indirect_khr.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_copy_memory_indirect")]
+        {
+            let mut vk_func_ptr = self.cmd_copy_memory_to_image_indirect_khr.get();
+            let loaded_ptr = get_device_proc_addr(
+                Some(device.borrow()),
+                c"vkCmdCopyMemoryToImageIndirectKHR".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_copy_memory_to_image_indirect_khr.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_memory_decompression")]
+        {
+            let mut vk_func_ptr = self.cmd_decompress_memory_ext.get();
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkCmdDecompressMemoryEXT".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_decompress_memory_ext.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_memory_decompression")]
+        {
+            let mut vk_func_ptr = self.cmd_decompress_memory_indirect_count_ext.get();
+            let loaded_ptr = get_device_proc_addr(
+                Some(device.borrow()),
+                c"vkCmdDecompressMemoryIndirectCountEXT".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_decompress_memory_indirect_count_ext
+                .set(vk_func_ptr);
+        }
         #[cfg(feature = "ext_external_compute_queue")]
         {
             let mut vk_func_ptr = self.create_external_compute_queue_nv.get();
@@ -21280,15 +22063,51 @@ impl CommandsDispatcher {
             }
             self.get_memory_metal_handle_properties_ext.set(vk_func_ptr);
         }
-        #[cfg(feature = "ext_fragment_density_map_offset")]
+        #[cfg(all(
+            feature = "ext_custom_resolve",
+            any(feature = "ext_dynamic_rendering", feature = "version_1_3")
+        ))]
         {
-            let mut vk_func_ptr = self.cmd_end_rendering2_ext.get();
+            let mut vk_func_ptr = self.cmd_begin_custom_resolve_ext.get();
+            let loaded_ptr = get_device_proc_addr(
+                Some(device.borrow()),
+                c"vkCmdBeginCustomResolveEXT".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_begin_custom_resolve_ext.set(vk_func_ptr);
+        }
+        #[cfg(any(
+            feature = "ext_fragment_density_map_offset",
+            feature = "ext_maintenance10"
+        ))]
+        {
+            let mut vk_func_ptr = self.cmd_end_rendering2_khr.get();
             let loaded_ptr =
                 get_device_proc_addr(Some(device.borrow()), c"vkCmdEndRendering2EXT".as_ptr());
             if !loaded_ptr.is_null() {
                 vk_func_ptr = mem::transmute(loaded_ptr);
             }
             self.cmd_end_rendering2_ext.set(vk_func_ptr);
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkCmdEndRendering2KHR".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_end_rendering2_khr.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_compute_occupancy_priority")]
+        {
+            let mut vk_func_ptr = self.cmd_set_compute_occupancy_priority_nv.get();
+            let loaded_ptr = get_device_proc_addr(
+                Some(device.borrow()),
+                c"vkCmdSetComputeOccupancyPriorityNV".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_set_compute_occupancy_priority_nv.set(vk_func_ptr);
         };
     }
 }
@@ -21371,30 +22190,50 @@ impl CommandsDispatcher {
                 wait_for_fences: Cell::new(mem::transmute(unload_cmd)),
                 create_semaphore: Cell::new(mem::transmute(unload_cmd)),
                 destroy_semaphore: Cell::new(mem::transmute(unload_cmd)),
-                create_event: Cell::new(mem::transmute(unload_cmd)),
-                destroy_event: Cell::new(mem::transmute(unload_cmd)),
-                get_event_status: Cell::new(mem::transmute(unload_cmd)),
-                set_event: Cell::new(mem::transmute(unload_cmd)),
-                reset_event: Cell::new(mem::transmute(unload_cmd)),
                 create_query_pool: Cell::new(mem::transmute(unload_cmd)),
                 destroy_query_pool: Cell::new(mem::transmute(unload_cmd)),
                 get_query_pool_results: Cell::new(mem::transmute(unload_cmd)),
                 create_buffer: Cell::new(mem::transmute(unload_cmd)),
                 destroy_buffer: Cell::new(mem::transmute(unload_cmd)),
-                create_buffer_view: Cell::new(mem::transmute(unload_cmd)),
-                destroy_buffer_view: Cell::new(mem::transmute(unload_cmd)),
                 create_image: Cell::new(mem::transmute(unload_cmd)),
                 destroy_image: Cell::new(mem::transmute(unload_cmd)),
                 get_image_subresource_layout: Cell::new(mem::transmute(unload_cmd)),
                 create_image_view: Cell::new(mem::transmute(unload_cmd)),
                 destroy_image_view: Cell::new(mem::transmute(unload_cmd)),
+                create_command_pool: Cell::new(mem::transmute(unload_cmd)),
+                destroy_command_pool: Cell::new(mem::transmute(unload_cmd)),
+                reset_command_pool: Cell::new(mem::transmute(unload_cmd)),
+                allocate_command_buffers: Cell::new(mem::transmute(unload_cmd)),
+                free_command_buffers: Cell::new(mem::transmute(unload_cmd)),
+                begin_command_buffer: Cell::new(mem::transmute(unload_cmd)),
+                end_command_buffer: Cell::new(mem::transmute(unload_cmd)),
+                reset_command_buffer: Cell::new(mem::transmute(unload_cmd)),
+                cmd_copy_buffer: Cell::new(mem::transmute(unload_cmd)),
+                cmd_copy_image: Cell::new(mem::transmute(unload_cmd)),
+                cmd_copy_buffer_to_image: Cell::new(mem::transmute(unload_cmd)),
+                cmd_copy_image_to_buffer: Cell::new(mem::transmute(unload_cmd)),
+                cmd_update_buffer: Cell::new(mem::transmute(unload_cmd)),
+                cmd_fill_buffer: Cell::new(mem::transmute(unload_cmd)),
+                cmd_pipeline_barrier: Cell::new(mem::transmute(unload_cmd)),
+                cmd_begin_query: Cell::new(mem::transmute(unload_cmd)),
+                cmd_end_query: Cell::new(mem::transmute(unload_cmd)),
+                cmd_reset_query_pool: Cell::new(mem::transmute(unload_cmd)),
+                cmd_write_timestamp: Cell::new(mem::transmute(unload_cmd)),
+                cmd_copy_query_pool_results: Cell::new(mem::transmute(unload_cmd)),
+                cmd_execute_commands: Cell::new(mem::transmute(unload_cmd)),
+                create_event: Cell::new(mem::transmute(unload_cmd)),
+                destroy_event: Cell::new(mem::transmute(unload_cmd)),
+                get_event_status: Cell::new(mem::transmute(unload_cmd)),
+                set_event: Cell::new(mem::transmute(unload_cmd)),
+                reset_event: Cell::new(mem::transmute(unload_cmd)),
+                create_buffer_view: Cell::new(mem::transmute(unload_cmd)),
+                destroy_buffer_view: Cell::new(mem::transmute(unload_cmd)),
                 create_shader_module: Cell::new(mem::transmute(unload_cmd)),
                 destroy_shader_module: Cell::new(mem::transmute(unload_cmd)),
                 create_pipeline_cache: Cell::new(mem::transmute(unload_cmd)),
                 destroy_pipeline_cache: Cell::new(mem::transmute(unload_cmd)),
                 get_pipeline_cache_data: Cell::new(mem::transmute(unload_cmd)),
                 merge_pipeline_caches: Cell::new(mem::transmute(unload_cmd)),
-                create_graphics_pipelines: Cell::new(mem::transmute(unload_cmd)),
                 create_compute_pipelines: Cell::new(mem::transmute(unload_cmd)),
                 destroy_pipeline: Cell::new(mem::transmute(unload_cmd)),
                 create_pipeline_layout: Cell::new(mem::transmute(unload_cmd)),
@@ -21409,20 +22248,21 @@ impl CommandsDispatcher {
                 allocate_descriptor_sets: Cell::new(mem::transmute(unload_cmd)),
                 free_descriptor_sets: Cell::new(mem::transmute(unload_cmd)),
                 update_descriptor_sets: Cell::new(mem::transmute(unload_cmd)),
+                cmd_bind_pipeline: Cell::new(mem::transmute(unload_cmd)),
+                cmd_bind_descriptor_sets: Cell::new(mem::transmute(unload_cmd)),
+                cmd_clear_color_image: Cell::new(mem::transmute(unload_cmd)),
+                cmd_dispatch: Cell::new(mem::transmute(unload_cmd)),
+                cmd_dispatch_indirect: Cell::new(mem::transmute(unload_cmd)),
+                cmd_set_event: Cell::new(mem::transmute(unload_cmd)),
+                cmd_reset_event: Cell::new(mem::transmute(unload_cmd)),
+                cmd_wait_events: Cell::new(mem::transmute(unload_cmd)),
+                cmd_push_constants: Cell::new(mem::transmute(unload_cmd)),
+                create_graphics_pipelines: Cell::new(mem::transmute(unload_cmd)),
                 create_framebuffer: Cell::new(mem::transmute(unload_cmd)),
                 destroy_framebuffer: Cell::new(mem::transmute(unload_cmd)),
                 create_render_pass: Cell::new(mem::transmute(unload_cmd)),
                 destroy_render_pass: Cell::new(mem::transmute(unload_cmd)),
                 get_render_area_granularity: Cell::new(mem::transmute(unload_cmd)),
-                create_command_pool: Cell::new(mem::transmute(unload_cmd)),
-                destroy_command_pool: Cell::new(mem::transmute(unload_cmd)),
-                reset_command_pool: Cell::new(mem::transmute(unload_cmd)),
-                allocate_command_buffers: Cell::new(mem::transmute(unload_cmd)),
-                free_command_buffers: Cell::new(mem::transmute(unload_cmd)),
-                begin_command_buffer: Cell::new(mem::transmute(unload_cmd)),
-                end_command_buffer: Cell::new(mem::transmute(unload_cmd)),
-                reset_command_buffer: Cell::new(mem::transmute(unload_cmd)),
-                cmd_bind_pipeline: Cell::new(mem::transmute(unload_cmd)),
                 cmd_set_viewport: Cell::new(mem::transmute(unload_cmd)),
                 cmd_set_scissor: Cell::new(mem::transmute(unload_cmd)),
                 cmd_set_line_width: Cell::new(mem::transmute(unload_cmd)),
@@ -21432,40 +22272,19 @@ impl CommandsDispatcher {
                 cmd_set_stencil_compare_mask: Cell::new(mem::transmute(unload_cmd)),
                 cmd_set_stencil_write_mask: Cell::new(mem::transmute(unload_cmd)),
                 cmd_set_stencil_reference: Cell::new(mem::transmute(unload_cmd)),
-                cmd_bind_descriptor_sets: Cell::new(mem::transmute(unload_cmd)),
                 cmd_bind_index_buffer: Cell::new(mem::transmute(unload_cmd)),
                 cmd_bind_vertex_buffers: Cell::new(mem::transmute(unload_cmd)),
                 cmd_draw: Cell::new(mem::transmute(unload_cmd)),
                 cmd_draw_indexed: Cell::new(mem::transmute(unload_cmd)),
                 cmd_draw_indirect: Cell::new(mem::transmute(unload_cmd)),
                 cmd_draw_indexed_indirect: Cell::new(mem::transmute(unload_cmd)),
-                cmd_dispatch: Cell::new(mem::transmute(unload_cmd)),
-                cmd_dispatch_indirect: Cell::new(mem::transmute(unload_cmd)),
-                cmd_copy_buffer: Cell::new(mem::transmute(unload_cmd)),
-                cmd_copy_image: Cell::new(mem::transmute(unload_cmd)),
                 cmd_blit_image: Cell::new(mem::transmute(unload_cmd)),
-                cmd_copy_buffer_to_image: Cell::new(mem::transmute(unload_cmd)),
-                cmd_copy_image_to_buffer: Cell::new(mem::transmute(unload_cmd)),
-                cmd_update_buffer: Cell::new(mem::transmute(unload_cmd)),
-                cmd_fill_buffer: Cell::new(mem::transmute(unload_cmd)),
-                cmd_clear_color_image: Cell::new(mem::transmute(unload_cmd)),
                 cmd_clear_depth_stencil_image: Cell::new(mem::transmute(unload_cmd)),
                 cmd_clear_attachments: Cell::new(mem::transmute(unload_cmd)),
                 cmd_resolve_image: Cell::new(mem::transmute(unload_cmd)),
-                cmd_set_event: Cell::new(mem::transmute(unload_cmd)),
-                cmd_reset_event: Cell::new(mem::transmute(unload_cmd)),
-                cmd_wait_events: Cell::new(mem::transmute(unload_cmd)),
-                cmd_pipeline_barrier: Cell::new(mem::transmute(unload_cmd)),
-                cmd_begin_query: Cell::new(mem::transmute(unload_cmd)),
-                cmd_end_query: Cell::new(mem::transmute(unload_cmd)),
-                cmd_reset_query_pool: Cell::new(mem::transmute(unload_cmd)),
-                cmd_write_timestamp: Cell::new(mem::transmute(unload_cmd)),
-                cmd_copy_query_pool_results: Cell::new(mem::transmute(unload_cmd)),
-                cmd_push_constants: Cell::new(mem::transmute(unload_cmd)),
                 cmd_begin_render_pass: Cell::new(mem::transmute(unload_cmd)),
                 cmd_next_subpass: Cell::new(mem::transmute(unload_cmd)),
                 cmd_end_render_pass: Cell::new(mem::transmute(unload_cmd)),
-                cmd_execute_commands: Cell::new(mem::transmute(unload_cmd)),
                 #[cfg(feature = "version_1_1")]
                 enumerate_instance_version: Cell::new(mem::transmute(unload_cmd)),
                 #[cfg(any(feature = "ext_bind_memory2", feature = "version_1_1"))]
@@ -21484,10 +22303,6 @@ impl CommandsDispatcher {
                 cmd_set_device_mask_khr: Cell::new(mem::transmute(unload_cmd)),
                 #[cfg(any(feature = "ext_device_group", feature = "version_1_1"))]
                 cmd_set_device_mask: Cell::new(mem::transmute(unload_cmd)),
-                #[cfg(any(feature = "ext_device_group", feature = "version_1_1"))]
-                cmd_dispatch_base_khr: Cell::new(mem::transmute(unload_cmd)),
-                #[cfg(any(feature = "ext_device_group", feature = "version_1_1"))]
-                cmd_dispatch_base: Cell::new(mem::transmute(unload_cmd)),
                 #[cfg(any(feature = "ext_device_group_creation", feature = "version_1_1"))]
                 enumerate_physical_device_groups_khr: Cell::new(mem::transmute(unload_cmd)),
                 #[cfg(any(feature = "ext_device_group_creation", feature = "version_1_1"))]
@@ -21588,26 +22403,6 @@ impl CommandsDispatcher {
                 trim_command_pool: Cell::new(mem::transmute(unload_cmd)),
                 #[cfg(feature = "version_1_1")]
                 get_device_queue2: Cell::new(mem::transmute(unload_cmd)),
-                #[cfg(any(feature = "ext_sampler_ycbcr_conversion", feature = "version_1_1"))]
-                create_sampler_ycbcr_conversion_khr: Cell::new(mem::transmute(unload_cmd)),
-                #[cfg(any(feature = "ext_sampler_ycbcr_conversion", feature = "version_1_1"))]
-                create_sampler_ycbcr_conversion: Cell::new(mem::transmute(unload_cmd)),
-                #[cfg(any(feature = "ext_sampler_ycbcr_conversion", feature = "version_1_1"))]
-                destroy_sampler_ycbcr_conversion_khr: Cell::new(mem::transmute(unload_cmd)),
-                #[cfg(any(feature = "ext_sampler_ycbcr_conversion", feature = "version_1_1"))]
-                destroy_sampler_ycbcr_conversion: Cell::new(mem::transmute(unload_cmd)),
-                #[cfg(any(feature = "ext_descriptor_update_template", feature = "version_1_1"))]
-                create_descriptor_update_template_khr: Cell::new(mem::transmute(unload_cmd)),
-                #[cfg(any(feature = "ext_descriptor_update_template", feature = "version_1_1"))]
-                create_descriptor_update_template: Cell::new(mem::transmute(unload_cmd)),
-                #[cfg(any(feature = "ext_descriptor_update_template", feature = "version_1_1"))]
-                destroy_descriptor_update_template_khr: Cell::new(mem::transmute(unload_cmd)),
-                #[cfg(any(feature = "ext_descriptor_update_template", feature = "version_1_1"))]
-                destroy_descriptor_update_template: Cell::new(mem::transmute(unload_cmd)),
-                #[cfg(any(feature = "ext_descriptor_update_template", feature = "version_1_1"))]
-                update_descriptor_set_with_template_khr: Cell::new(mem::transmute(unload_cmd)),
-                #[cfg(any(feature = "ext_descriptor_update_template", feature = "version_1_1"))]
-                update_descriptor_set_with_template: Cell::new(mem::transmute(unload_cmd)),
                 #[cfg(any(feature = "ext_external_memory_capabilities", feature = "version_1_1"))]
                 get_physical_device_external_buffer_properties_khr: Cell::new(mem::transmute(
                     unload_cmd,
@@ -21638,38 +22433,34 @@ impl CommandsDispatcher {
                 get_physical_device_external_semaphore_properties: Cell::new(mem::transmute(
                     unload_cmd,
                 )),
+                #[cfg(any(feature = "ext_device_group", feature = "version_1_1"))]
+                cmd_dispatch_base_khr: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(any(feature = "ext_device_group", feature = "version_1_1"))]
+                cmd_dispatch_base: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(any(feature = "ext_descriptor_update_template", feature = "version_1_1"))]
+                create_descriptor_update_template_khr: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(any(feature = "ext_descriptor_update_template", feature = "version_1_1"))]
+                create_descriptor_update_template: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(any(feature = "ext_descriptor_update_template", feature = "version_1_1"))]
+                destroy_descriptor_update_template_khr: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(any(feature = "ext_descriptor_update_template", feature = "version_1_1"))]
+                destroy_descriptor_update_template: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(any(feature = "ext_descriptor_update_template", feature = "version_1_1"))]
+                update_descriptor_set_with_template_khr: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(any(feature = "ext_descriptor_update_template", feature = "version_1_1"))]
+                update_descriptor_set_with_template: Cell::new(mem::transmute(unload_cmd)),
                 #[cfg(any(feature = "ext_maintenance3", feature = "version_1_1"))]
                 get_descriptor_set_layout_support_khr: Cell::new(mem::transmute(unload_cmd)),
                 #[cfg(any(feature = "ext_maintenance3", feature = "version_1_1"))]
                 get_descriptor_set_layout_support: Cell::new(mem::transmute(unload_cmd)),
-                #[cfg(any(feature = "ext_draw_indirect_count", feature = "version_1_2"))]
-                cmd_draw_indirect_count_amd: Cell::new(mem::transmute(unload_cmd)),
-                #[cfg(any(feature = "ext_draw_indirect_count", feature = "version_1_2"))]
-                cmd_draw_indirect_count_khr: Cell::new(mem::transmute(unload_cmd)),
-                #[cfg(any(feature = "ext_draw_indirect_count", feature = "version_1_2"))]
-                cmd_draw_indirect_count: Cell::new(mem::transmute(unload_cmd)),
-                #[cfg(any(feature = "ext_draw_indirect_count", feature = "version_1_2"))]
-                cmd_draw_indexed_indirect_count_amd: Cell::new(mem::transmute(unload_cmd)),
-                #[cfg(any(feature = "ext_draw_indirect_count", feature = "version_1_2"))]
-                cmd_draw_indexed_indirect_count_khr: Cell::new(mem::transmute(unload_cmd)),
-                #[cfg(any(feature = "ext_draw_indirect_count", feature = "version_1_2"))]
-                cmd_draw_indexed_indirect_count: Cell::new(mem::transmute(unload_cmd)),
-                #[cfg(any(feature = "ext_create_renderpass2", feature = "version_1_2"))]
-                create_render_pass2_khr: Cell::new(mem::transmute(unload_cmd)),
-                #[cfg(any(feature = "ext_create_renderpass2", feature = "version_1_2"))]
-                create_render_pass2: Cell::new(mem::transmute(unload_cmd)),
-                #[cfg(any(feature = "ext_create_renderpass2", feature = "version_1_2"))]
-                cmd_begin_render_pass2_khr: Cell::new(mem::transmute(unload_cmd)),
-                #[cfg(any(feature = "ext_create_renderpass2", feature = "version_1_2"))]
-                cmd_begin_render_pass2: Cell::new(mem::transmute(unload_cmd)),
-                #[cfg(any(feature = "ext_create_renderpass2", feature = "version_1_2"))]
-                cmd_next_subpass2_khr: Cell::new(mem::transmute(unload_cmd)),
-                #[cfg(any(feature = "ext_create_renderpass2", feature = "version_1_2"))]
-                cmd_next_subpass2: Cell::new(mem::transmute(unload_cmd)),
-                #[cfg(any(feature = "ext_create_renderpass2", feature = "version_1_2"))]
-                cmd_end_render_pass2_khr: Cell::new(mem::transmute(unload_cmd)),
-                #[cfg(any(feature = "ext_create_renderpass2", feature = "version_1_2"))]
-                cmd_end_render_pass2: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(any(feature = "ext_sampler_ycbcr_conversion", feature = "version_1_1"))]
+                create_sampler_ycbcr_conversion_khr: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(any(feature = "ext_sampler_ycbcr_conversion", feature = "version_1_1"))]
+                create_sampler_ycbcr_conversion: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(any(feature = "ext_sampler_ycbcr_conversion", feature = "version_1_1"))]
+                destroy_sampler_ycbcr_conversion_khr: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(any(feature = "ext_sampler_ycbcr_conversion", feature = "version_1_1"))]
+                destroy_sampler_ycbcr_conversion: Cell::new(mem::transmute(unload_cmd)),
                 #[cfg(any(feature = "ext_host_query_reset", feature = "version_1_2"))]
                 reset_query_pool_ext: Cell::new(mem::transmute(unload_cmd)),
                 #[cfg(any(feature = "ext_host_query_reset", feature = "version_1_2"))]
@@ -21700,6 +22491,34 @@ impl CommandsDispatcher {
                 get_device_memory_opaque_capture_address_khr: Cell::new(mem::transmute(unload_cmd)),
                 #[cfg(any(feature = "ext_buffer_device_address", feature = "version_1_2"))]
                 get_device_memory_opaque_capture_address: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(any(feature = "ext_draw_indirect_count", feature = "version_1_2"))]
+                cmd_draw_indirect_count_amd: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(any(feature = "ext_draw_indirect_count", feature = "version_1_2"))]
+                cmd_draw_indirect_count_khr: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(any(feature = "ext_draw_indirect_count", feature = "version_1_2"))]
+                cmd_draw_indirect_count: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(any(feature = "ext_draw_indirect_count", feature = "version_1_2"))]
+                cmd_draw_indexed_indirect_count_amd: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(any(feature = "ext_draw_indirect_count", feature = "version_1_2"))]
+                cmd_draw_indexed_indirect_count_khr: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(any(feature = "ext_draw_indirect_count", feature = "version_1_2"))]
+                cmd_draw_indexed_indirect_count: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(any(feature = "ext_create_renderpass2", feature = "version_1_2"))]
+                create_render_pass2_khr: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(any(feature = "ext_create_renderpass2", feature = "version_1_2"))]
+                create_render_pass2: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(any(feature = "ext_create_renderpass2", feature = "version_1_2"))]
+                cmd_begin_render_pass2_khr: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(any(feature = "ext_create_renderpass2", feature = "version_1_2"))]
+                cmd_begin_render_pass2: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(any(feature = "ext_create_renderpass2", feature = "version_1_2"))]
+                cmd_next_subpass2_khr: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(any(feature = "ext_create_renderpass2", feature = "version_1_2"))]
+                cmd_next_subpass2: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(any(feature = "ext_create_renderpass2", feature = "version_1_2"))]
+                cmd_end_render_pass2_khr: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(any(feature = "ext_create_renderpass2", feature = "version_1_2"))]
+                cmd_end_render_pass2: Cell::new(mem::transmute(unload_cmd)),
                 #[cfg(any(feature = "ext_tooling_info", feature = "version_1_3"))]
                 get_physical_device_tool_properties_ext: Cell::new(mem::transmute(unload_cmd)),
                 #[cfg(any(feature = "ext_tooling_info", feature = "version_1_3"))]
@@ -21720,18 +22539,6 @@ impl CommandsDispatcher {
                 get_private_data_ext: Cell::new(mem::transmute(unload_cmd)),
                 #[cfg(any(feature = "ext_private_data", feature = "version_1_3"))]
                 get_private_data: Cell::new(mem::transmute(unload_cmd)),
-                #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
-                cmd_set_event2_khr: Cell::new(mem::transmute(unload_cmd)),
-                #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
-                cmd_set_event2: Cell::new(mem::transmute(unload_cmd)),
-                #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
-                cmd_reset_event2_khr: Cell::new(mem::transmute(unload_cmd)),
-                #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
-                cmd_reset_event2: Cell::new(mem::transmute(unload_cmd)),
-                #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
-                cmd_wait_events2_khr: Cell::new(mem::transmute(unload_cmd)),
-                #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
-                cmd_wait_events2: Cell::new(mem::transmute(unload_cmd)),
                 #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
                 cmd_pipeline_barrier2_khr: Cell::new(mem::transmute(unload_cmd)),
                 #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
@@ -21760,6 +22567,32 @@ impl CommandsDispatcher {
                 cmd_copy_image_to_buffer2_khr: Cell::new(mem::transmute(unload_cmd)),
                 #[cfg(any(feature = "ext_copy_commands2", feature = "version_1_3"))]
                 cmd_copy_image_to_buffer2: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(any(feature = "ext_maintenance4", feature = "version_1_3"))]
+                get_device_buffer_memory_requirements_khr: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(any(feature = "ext_maintenance4", feature = "version_1_3"))]
+                get_device_buffer_memory_requirements: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(any(feature = "ext_maintenance4", feature = "version_1_3"))]
+                get_device_image_memory_requirements_khr: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(any(feature = "ext_maintenance4", feature = "version_1_3"))]
+                get_device_image_memory_requirements: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(any(feature = "ext_maintenance4", feature = "version_1_3"))]
+                get_device_image_sparse_memory_requirements_khr: Cell::new(mem::transmute(
+                    unload_cmd,
+                )),
+                #[cfg(any(feature = "ext_maintenance4", feature = "version_1_3"))]
+                get_device_image_sparse_memory_requirements: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
+                cmd_set_event2_khr: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
+                cmd_set_event2: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
+                cmd_reset_event2_khr: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
+                cmd_reset_event2: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
+                cmd_wait_events2_khr: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
+                cmd_wait_events2: Cell::new(mem::transmute(unload_cmd)),
                 #[cfg(any(feature = "ext_copy_commands2", feature = "version_1_3"))]
                 cmd_blit_image2_khr: Cell::new(mem::transmute(unload_cmd)),
                 #[cfg(any(feature = "ext_copy_commands2", feature = "version_1_3"))]
@@ -21956,26 +22789,6 @@ impl CommandsDispatcher {
                     feature = "version_1_3"
                 ))]
                 cmd_set_primitive_restart_enable: Cell::new(mem::transmute(unload_cmd)),
-                #[cfg(any(feature = "ext_maintenance4", feature = "version_1_3"))]
-                get_device_buffer_memory_requirements_khr: Cell::new(mem::transmute(unload_cmd)),
-                #[cfg(any(feature = "ext_maintenance4", feature = "version_1_3"))]
-                get_device_buffer_memory_requirements: Cell::new(mem::transmute(unload_cmd)),
-                #[cfg(any(feature = "ext_maintenance4", feature = "version_1_3"))]
-                get_device_image_memory_requirements_khr: Cell::new(mem::transmute(unload_cmd)),
-                #[cfg(any(feature = "ext_maintenance4", feature = "version_1_3"))]
-                get_device_image_memory_requirements: Cell::new(mem::transmute(unload_cmd)),
-                #[cfg(any(feature = "ext_maintenance4", feature = "version_1_3"))]
-                get_device_image_sparse_memory_requirements_khr: Cell::new(mem::transmute(
-                    unload_cmd,
-                )),
-                #[cfg(any(feature = "ext_maintenance4", feature = "version_1_3"))]
-                get_device_image_sparse_memory_requirements: Cell::new(mem::transmute(unload_cmd)),
-                #[cfg(any(feature = "ext_line_rasterization", feature = "version_1_4"))]
-                cmd_set_line_stipple_ext: Cell::new(mem::transmute(unload_cmd)),
-                #[cfg(any(feature = "ext_line_rasterization", feature = "version_1_4"))]
-                cmd_set_line_stipple_khr: Cell::new(mem::transmute(unload_cmd)),
-                #[cfg(any(feature = "ext_line_rasterization", feature = "version_1_4"))]
-                cmd_set_line_stipple: Cell::new(mem::transmute(unload_cmd)),
                 #[cfg(any(feature = "ext_map_memory2", feature = "version_1_4"))]
                 map_memory2_khr: Cell::new(mem::transmute(unload_cmd)),
                 #[cfg(any(feature = "ext_map_memory2", feature = "version_1_4"))]
@@ -21984,14 +22797,6 @@ impl CommandsDispatcher {
                 unmap_memory2_khr: Cell::new(mem::transmute(unload_cmd)),
                 #[cfg(any(feature = "ext_map_memory2", feature = "version_1_4"))]
                 unmap_memory2: Cell::new(mem::transmute(unload_cmd)),
-                #[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
-                cmd_bind_index_buffer2_khr: Cell::new(mem::transmute(unload_cmd)),
-                #[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
-                cmd_bind_index_buffer2: Cell::new(mem::transmute(unload_cmd)),
-                #[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
-                get_rendering_area_granularity_khr: Cell::new(mem::transmute(unload_cmd)),
-                #[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
-                get_rendering_area_granularity: Cell::new(mem::transmute(unload_cmd)),
                 #[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
                 get_device_image_subresource_layout_khr: Cell::new(mem::transmute(unload_cmd)),
                 #[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
@@ -22017,6 +22822,22 @@ impl CommandsDispatcher {
                     feature = "version_1_4"
                 ))]
                 get_image_subresource_layout2: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
+                copy_memory_to_image_ext: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
+                copy_memory_to_image: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
+                copy_image_to_memory_ext: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
+                copy_image_to_memory: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
+                copy_image_to_image_ext: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
+                copy_image_to_image: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
+                transition_image_layout_ext: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
+                transition_image_layout: Cell::new(mem::transmute(unload_cmd)),
                 #[cfg(any(feature = "ext_push_descriptor", feature = "version_1_4"))]
                 cmd_push_descriptor_set_khr: Cell::new(mem::transmute(unload_cmd)),
                 #[cfg(any(feature = "ext_push_descriptor", feature = "version_1_4"))]
@@ -22045,16 +22866,6 @@ impl CommandsDispatcher {
                     feature = "version_1_4"
                 ))]
                 cmd_push_descriptor_set_with_template: Cell::new(mem::transmute(unload_cmd)),
-                #[cfg(any(feature = "ext_dynamic_rendering_local_read", feature = "version_1_4"))]
-                cmd_set_rendering_attachment_locations_khr: Cell::new(mem::transmute(unload_cmd)),
-                #[cfg(any(feature = "ext_dynamic_rendering_local_read", feature = "version_1_4"))]
-                cmd_set_rendering_attachment_locations: Cell::new(mem::transmute(unload_cmd)),
-                #[cfg(any(feature = "ext_dynamic_rendering_local_read", feature = "version_1_4"))]
-                cmd_set_rendering_input_attachment_indices_khr: Cell::new(mem::transmute(
-                    unload_cmd,
-                )),
-                #[cfg(any(feature = "ext_dynamic_rendering_local_read", feature = "version_1_4"))]
-                cmd_set_rendering_input_attachment_indices: Cell::new(mem::transmute(unload_cmd)),
                 #[cfg(any(feature = "ext_maintenance6", feature = "version_1_4"))]
                 cmd_bind_descriptor_sets2_khr: Cell::new(mem::transmute(unload_cmd)),
                 #[cfg(any(feature = "ext_maintenance6", feature = "version_1_4"))]
@@ -22083,22 +22894,30 @@ impl CommandsDispatcher {
                     feature = "version_1_4"
                 ))]
                 cmd_push_descriptor_set_with_template2: Cell::new(mem::transmute(unload_cmd)),
-                #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
-                copy_memory_to_image_ext: Cell::new(mem::transmute(unload_cmd)),
-                #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
-                copy_memory_to_image: Cell::new(mem::transmute(unload_cmd)),
-                #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
-                copy_image_to_memory_ext: Cell::new(mem::transmute(unload_cmd)),
-                #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
-                copy_image_to_memory: Cell::new(mem::transmute(unload_cmd)),
-                #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
-                copy_image_to_image_ext: Cell::new(mem::transmute(unload_cmd)),
-                #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
-                copy_image_to_image: Cell::new(mem::transmute(unload_cmd)),
-                #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
-                transition_image_layout_ext: Cell::new(mem::transmute(unload_cmd)),
-                #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
-                transition_image_layout: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(any(feature = "ext_line_rasterization", feature = "version_1_4"))]
+                cmd_set_line_stipple_ext: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(any(feature = "ext_line_rasterization", feature = "version_1_4"))]
+                cmd_set_line_stipple_khr: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(any(feature = "ext_line_rasterization", feature = "version_1_4"))]
+                cmd_set_line_stipple: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
+                cmd_bind_index_buffer2_khr: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
+                cmd_bind_index_buffer2: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
+                get_rendering_area_granularity_khr: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
+                get_rendering_area_granularity: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(any(feature = "ext_dynamic_rendering_local_read", feature = "version_1_4"))]
+                cmd_set_rendering_attachment_locations_khr: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(any(feature = "ext_dynamic_rendering_local_read", feature = "version_1_4"))]
+                cmd_set_rendering_attachment_locations: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(any(feature = "ext_dynamic_rendering_local_read", feature = "version_1_4"))]
+                cmd_set_rendering_input_attachment_indices_khr: Cell::new(mem::transmute(
+                    unload_cmd,
+                )),
+                #[cfg(any(feature = "ext_dynamic_rendering_local_read", feature = "version_1_4"))]
+                cmd_set_rendering_input_attachment_indices: Cell::new(mem::transmute(unload_cmd)),
                 #[cfg(feature = "ext_surface")]
                 destroy_surface_khr: Cell::new(mem::transmute(unload_cmd)),
                 #[cfg(feature = "ext_surface")]
@@ -22229,6 +23048,8 @@ impl CommandsDispatcher {
                 get_image_view_handle64_nvx: Cell::new(mem::transmute(unload_cmd)),
                 #[cfg(feature = "ext_image_view_handle")]
                 get_image_view_address_nvx: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(feature = "ext_image_view_handle")]
+                get_device_combined_image_sampler_index_nvx: Cell::new(mem::transmute(unload_cmd)),
                 #[cfg(feature = "ext_shader_info")]
                 get_shader_info_amd: Cell::new(mem::transmute(unload_cmd)),
                 #[cfg(feature = "ext_stream_descriptor_surface")]
@@ -22379,6 +23200,26 @@ impl CommandsDispatcher {
                 cmd_dispatch_graph_indirect_amdx: Cell::new(mem::transmute(unload_cmd)),
                 #[cfg(feature = "ext_shader_enqueue")]
                 cmd_dispatch_graph_indirect_count_amdx: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(feature = "ext_descriptor_heap")]
+                write_sampler_descriptors_ext: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(feature = "ext_descriptor_heap")]
+                write_resource_descriptors_ext: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(feature = "ext_descriptor_heap")]
+                cmd_bind_sampler_heap_ext: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(feature = "ext_descriptor_heap")]
+                cmd_bind_resource_heap_ext: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(feature = "ext_descriptor_heap")]
+                cmd_push_data_ext: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(feature = "ext_descriptor_heap")]
+                get_image_opaque_capture_data_ext: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(feature = "ext_descriptor_heap")]
+                get_physical_device_descriptor_size_ext: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(all(feature = "ext_descriptor_heap", feature = "ext_custom_border_color"))]
+                register_custom_border_color_ext: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(all(feature = "ext_descriptor_heap", feature = "ext_custom_border_color"))]
+                unregister_custom_border_color_ext: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(all(feature = "ext_descriptor_heap", feature = "ext_tensors"))]
+                get_tensor_opaque_capture_data_arm: Cell::new(mem::transmute(unload_cmd)),
                 #[cfg(feature = "ext_sample_locations")]
                 cmd_set_sample_locations_ext: Cell::new(mem::transmute(unload_cmd)),
                 #[cfg(feature = "ext_sample_locations")]
@@ -22504,7 +23345,7 @@ impl CommandsDispatcher {
                 cmd_draw_mesh_tasks_indirect_nv: Cell::new(mem::transmute(unload_cmd)),
                 #[cfg(all(
                     feature = "ext_mesh_shader",
-                    any(feature = "ext_draw_indirect_count", feature = "version_1_2")
+                    any(feature = "version_1_2", feature = "ext_draw_indirect_count")
                 ))]
                 cmd_draw_mesh_tasks_indirect_count_nv: Cell::new(mem::transmute(unload_cmd)),
                 #[cfg(feature = "ext_scissor_exclusive")]
@@ -22520,6 +23361,14 @@ impl CommandsDispatcher {
                     any(feature = "version_1_3", feature = "ext_synchronization2")
                 ))]
                 get_queue_checkpoint_data2_nv: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(feature = "ext_present_timing")]
+                set_swapchain_present_timing_queue_size_ext: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(feature = "ext_present_timing")]
+                get_swapchain_timing_properties_ext: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(feature = "ext_present_timing")]
+                get_swapchain_time_domain_properties_ext: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(feature = "ext_present_timing")]
+                get_past_presentation_timing_ext: Cell::new(mem::transmute(unload_cmd)),
                 #[cfg(feature = "ext_performance_query")]
                 initialize_performance_api_intel: Cell::new(mem::transmute(unload_cmd)),
                 #[cfg(feature = "ext_performance_query")]
@@ -22676,7 +23525,7 @@ impl CommandsDispatcher {
                 cmd_draw_mesh_tasks_indirect_ext: Cell::new(mem::transmute(unload_cmd)),
                 #[cfg(all(
                     feature = "ext_mesh_shader",
-                    any(feature = "ext_draw_indirect_count", feature = "version_1_2")
+                    any(feature = "version_1_2", feature = "ext_draw_indirect_count")
                 ))]
                 cmd_draw_mesh_tasks_indirect_count_ext: Cell::new(mem::transmute(unload_cmd)),
                 #[cfg(feature = "ext_device_fault")]
@@ -22811,6 +23660,10 @@ impl CommandsDispatcher {
                 cmd_update_pipeline_indirect_buffer_nv: Cell::new(mem::transmute(unload_cmd)),
                 #[cfg(feature = "ext_device_generated_commands_compute")]
                 get_pipeline_indirect_device_address_nv: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(feature = "ext_ohos_external_memory")]
+                get_native_buffer_properties_ohos: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(feature = "ext_ohos_external_memory")]
+                get_memory_native_buffer_ohos: Cell::new(mem::transmute(unload_cmd)),
                 #[cfg(any(
                     feature = "ext_extended_dynamic_state3",
                     feature = "ext_shader_object"
@@ -23213,6 +24066,14 @@ impl CommandsDispatcher {
                 )),
                 #[cfg(feature = "ext_tile_memory_heap")]
                 cmd_bind_tile_memory_qcom: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(feature = "ext_copy_memory_indirect")]
+                cmd_copy_memory_indirect_khr: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(feature = "ext_copy_memory_indirect")]
+                cmd_copy_memory_to_image_indirect_khr: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(feature = "ext_memory_decompression")]
+                cmd_decompress_memory_ext: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(feature = "ext_memory_decompression")]
+                cmd_decompress_memory_indirect_count_ext: Cell::new(mem::transmute(unload_cmd)),
                 #[cfg(feature = "ext_external_compute_queue")]
                 create_external_compute_queue_nv: Cell::new(mem::transmute(unload_cmd)),
                 #[cfg(feature = "ext_external_compute_queue")]
@@ -23265,8 +24126,32 @@ impl CommandsDispatcher {
                 get_memory_metal_handle_ext: Cell::new(mem::transmute(unload_cmd)),
                 #[cfg(feature = "ext_external_memory_metal")]
                 get_memory_metal_handle_properties_ext: Cell::new(mem::transmute(unload_cmd)),
-                #[cfg(feature = "ext_fragment_density_map_offset")]
+                #[cfg(feature = "ext_performance_counters_by_region")]
+                enumerate_physical_device_queue_family_performance_counters_by_region_arm:
+                    Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(all(
+                    feature = "ext_custom_resolve",
+                    any(feature = "ext_dynamic_rendering", feature = "version_1_3")
+                ))]
+                cmd_begin_custom_resolve_ext: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(any(
+                    feature = "ext_fragment_density_map_offset",
+                    feature = "ext_maintenance10"
+                ))]
                 cmd_end_rendering2_ext: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(any(
+                    feature = "ext_fragment_density_map_offset",
+                    feature = "ext_maintenance10"
+                ))]
+                cmd_end_rendering2_khr: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(feature = "ext_compute_occupancy_priority")]
+                cmd_set_compute_occupancy_priority_nv: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(feature = "ext_ubm_surface")]
+                create_ubm_surface_sec: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(feature = "ext_ubm_surface")]
+                get_physical_device_ubm_presentation_support_sec: Cell::new(mem::transmute(
+                    unload_cmd,
+                )),
             }
         }
     }
@@ -23584,39 +24469,6 @@ impl CommandsDispatcher {
         ) {
             panic!("Trying to call an unloaded Vulkan command");
         }
-        extern "system" fn create_event(
-            _: Option<BorrowedHandle<'_, Device>>,
-            _: *const EventCreateInfo,
-            _: *const AllocationCallbacks,
-            _: *const Event,
-        ) -> Status {
-            panic!("Trying to call an unloaded Vulkan command");
-        }
-        extern "system" fn destroy_event(
-            _: Option<BorrowedHandle<'_, Device>>,
-            _: Option<BorrowedHandle<'_, Event>>,
-            _: *const AllocationCallbacks,
-        ) {
-            panic!("Trying to call an unloaded Vulkan command");
-        }
-        extern "system" fn get_event_status(
-            _: Option<BorrowedHandle<'_, Device>>,
-            _: Option<BorrowedHandle<'_, Event>>,
-        ) -> Status {
-            panic!("Trying to call an unloaded Vulkan command");
-        }
-        extern "system" fn set_event(
-            _: Option<BorrowedHandle<'_, Device>>,
-            _: Option<BorrowedHandle<'_, Event>>,
-        ) -> Status {
-            panic!("Trying to call an unloaded Vulkan command");
-        }
-        extern "system" fn reset_event(
-            _: Option<BorrowedHandle<'_, Device>>,
-            _: Option<BorrowedHandle<'_, Event>>,
-        ) -> Status {
-            panic!("Trying to call an unloaded Vulkan command");
-        }
         extern "system" fn create_query_pool(
             _: Option<BorrowedHandle<'_, Device>>,
             _: *const QueryPoolCreateInfo,
@@ -23659,21 +24511,6 @@ impl CommandsDispatcher {
         ) {
             panic!("Trying to call an unloaded Vulkan command");
         }
-        extern "system" fn create_buffer_view(
-            _: Option<BorrowedHandle<'_, Device>>,
-            _: *const BufferViewCreateInfo,
-            _: *const AllocationCallbacks,
-            _: *const BufferView,
-        ) -> Status {
-            panic!("Trying to call an unloaded Vulkan command");
-        }
-        extern "system" fn destroy_buffer_view(
-            _: Option<BorrowedHandle<'_, Device>>,
-            _: Option<BorrowedHandle<'_, BufferView>>,
-            _: *const AllocationCallbacks,
-        ) {
-            panic!("Trying to call an unloaded Vulkan command");
-        }
         extern "system" fn create_image(
             _: Option<BorrowedHandle<'_, Device>>,
             _: *const ImageCreateInfo,
@@ -23708,6 +24545,230 @@ impl CommandsDispatcher {
         extern "system" fn destroy_image_view(
             _: Option<BorrowedHandle<'_, Device>>,
             _: Option<BorrowedHandle<'_, ImageView>>,
+            _: *const AllocationCallbacks,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        extern "system" fn create_command_pool(
+            _: Option<BorrowedHandle<'_, Device>>,
+            _: *const CommandPoolCreateInfo,
+            _: *const AllocationCallbacks,
+            _: *const CommandPool,
+        ) -> Status {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        extern "system" fn destroy_command_pool(
+            _: Option<BorrowedHandle<'_, Device>>,
+            _: Option<BorrowedHandle<'_, CommandPool>>,
+            _: *const AllocationCallbacks,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        extern "system" fn reset_command_pool(
+            _: Option<BorrowedHandle<'_, Device>>,
+            _: Option<BorrowedHandle<'_, CommandPool>>,
+            _: CommandPoolResetFlags,
+        ) -> Status {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        extern "system" fn allocate_command_buffers(
+            _: Option<BorrowedHandle<'_, Device>>,
+            _: *const CommandBufferAllocateInfo,
+            _: *const CommandBuffer,
+        ) -> Status {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        extern "system" fn free_command_buffers(
+            _: Option<BorrowedHandle<'_, Device>>,
+            _: Option<BorrowedHandle<'_, CommandPool>>,
+            _: u32,
+            _: *const CommandBuffer,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        extern "system" fn begin_command_buffer(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
+            _: *const CommandBufferBeginInfo,
+        ) -> Status {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        extern "system" fn end_command_buffer(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
+        ) -> Status {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        extern "system" fn reset_command_buffer(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
+            _: CommandBufferResetFlags,
+        ) -> Status {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        extern "system" fn cmd_copy_buffer(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
+            _: Option<BorrowedHandle<'_, Buffer>>,
+            _: Option<BorrowedHandle<'_, Buffer>>,
+            _: u32,
+            _: *const BufferCopy,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        extern "system" fn cmd_copy_image(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
+            _: Option<BorrowedHandle<'_, Image>>,
+            _: ImageLayout,
+            _: Option<BorrowedHandle<'_, Image>>,
+            _: ImageLayout,
+            _: u32,
+            _: *const ImageCopy,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        extern "system" fn cmd_copy_buffer_to_image(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
+            _: Option<BorrowedHandle<'_, Buffer>>,
+            _: Option<BorrowedHandle<'_, Image>>,
+            _: ImageLayout,
+            _: u32,
+            _: *const BufferImageCopy,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        extern "system" fn cmd_copy_image_to_buffer(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
+            _: Option<BorrowedHandle<'_, Image>>,
+            _: ImageLayout,
+            _: Option<BorrowedHandle<'_, Buffer>>,
+            _: u32,
+            _: *const BufferImageCopy,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        extern "system" fn cmd_update_buffer(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
+            _: Option<BorrowedHandle<'_, Buffer>>,
+            _: DeviceSize,
+            _: DeviceSize,
+            _: VoidPtr,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        extern "system" fn cmd_fill_buffer(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
+            _: Option<BorrowedHandle<'_, Buffer>>,
+            _: DeviceSize,
+            _: DeviceSize,
+            _: u32,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        extern "system" fn cmd_pipeline_barrier(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
+            _: PipelineStageFlags,
+            _: PipelineStageFlags,
+            _: DependencyFlags,
+            _: u32,
+            _: *const MemoryBarrier,
+            _: u32,
+            _: *const BufferMemoryBarrier,
+            _: u32,
+            _: *const ImageMemoryBarrier,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        extern "system" fn cmd_begin_query(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
+            _: Option<BorrowedHandle<'_, QueryPool>>,
+            _: u32,
+            _: QueryControlFlags,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        extern "system" fn cmd_end_query(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
+            _: Option<BorrowedHandle<'_, QueryPool>>,
+            _: u32,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        extern "system" fn cmd_reset_query_pool(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
+            _: Option<BorrowedHandle<'_, QueryPool>>,
+            _: u32,
+            _: u32,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        extern "system" fn cmd_write_timestamp(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
+            _: PipelineStageFlags,
+            _: Option<BorrowedHandle<'_, QueryPool>>,
+            _: u32,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        extern "system" fn cmd_copy_query_pool_results(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
+            _: Option<BorrowedHandle<'_, QueryPool>>,
+            _: u32,
+            _: u32,
+            _: Option<BorrowedHandle<'_, Buffer>>,
+            _: DeviceSize,
+            _: DeviceSize,
+            _: QueryResultFlags,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        extern "system" fn cmd_execute_commands(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
+            _: u32,
+            _: *const CommandBuffer,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        extern "system" fn create_event(
+            _: Option<BorrowedHandle<'_, Device>>,
+            _: *const EventCreateInfo,
+            _: *const AllocationCallbacks,
+            _: *const Event,
+        ) -> Status {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        extern "system" fn destroy_event(
+            _: Option<BorrowedHandle<'_, Device>>,
+            _: Option<BorrowedHandle<'_, Event>>,
+            _: *const AllocationCallbacks,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        extern "system" fn get_event_status(
+            _: Option<BorrowedHandle<'_, Device>>,
+            _: Option<BorrowedHandle<'_, Event>>,
+        ) -> Status {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        extern "system" fn set_event(
+            _: Option<BorrowedHandle<'_, Device>>,
+            _: Option<BorrowedHandle<'_, Event>>,
+        ) -> Status {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        extern "system" fn reset_event(
+            _: Option<BorrowedHandle<'_, Device>>,
+            _: Option<BorrowedHandle<'_, Event>>,
+        ) -> Status {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        extern "system" fn create_buffer_view(
+            _: Option<BorrowedHandle<'_, Device>>,
+            _: *const BufferViewCreateInfo,
+            _: *const AllocationCallbacks,
+            _: *const BufferView,
+        ) -> Status {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        extern "system" fn destroy_buffer_view(
+            _: Option<BorrowedHandle<'_, Device>>,
+            _: Option<BorrowedHandle<'_, BufferView>>,
             _: *const AllocationCallbacks,
         ) {
             panic!("Trying to call an unloaded Vulkan command");
@@ -23755,16 +24816,6 @@ impl CommandsDispatcher {
             _: Option<BorrowedHandle<'_, PipelineCache>>,
             _: u32,
             _: *const PipelineCache,
-        ) -> Status {
-            panic!("Trying to call an unloaded Vulkan command");
-        }
-        extern "system" fn create_graphics_pipelines(
-            _: Option<BorrowedHandle<'_, Device>>,
-            _: Option<BorrowedHandle<'_, PipelineCache>>,
-            _: u32,
-            _: *const GraphicsPipelineCreateInfo,
-            _: *const AllocationCallbacks,
-            _: *const Pipeline,
         ) -> Status {
             panic!("Trying to call an unloaded Vulkan command");
         }
@@ -23876,6 +24927,99 @@ impl CommandsDispatcher {
         ) {
             panic!("Trying to call an unloaded Vulkan command");
         }
+        extern "system" fn cmd_bind_pipeline(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
+            _: PipelineBindPoint,
+            _: Option<BorrowedHandle<'_, Pipeline>>,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        extern "system" fn cmd_bind_descriptor_sets(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
+            _: PipelineBindPoint,
+            _: Option<BorrowedHandle<'_, PipelineLayout>>,
+            _: u32,
+            _: u32,
+            _: *const DescriptorSet,
+            _: u32,
+            _: *const u32,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        extern "system" fn cmd_clear_color_image(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
+            _: Option<BorrowedHandle<'_, Image>>,
+            _: ImageLayout,
+            _: *const ClearColorValue,
+            _: u32,
+            _: *const ImageSubresourceRange,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        extern "system" fn cmd_dispatch(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
+            _: u32,
+            _: u32,
+            _: u32,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        extern "system" fn cmd_dispatch_indirect(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
+            _: Option<BorrowedHandle<'_, Buffer>>,
+            _: DeviceSize,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        extern "system" fn cmd_set_event(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
+            _: Option<BorrowedHandle<'_, Event>>,
+            _: PipelineStageFlags,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        extern "system" fn cmd_reset_event(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
+            _: Option<BorrowedHandle<'_, Event>>,
+            _: PipelineStageFlags,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        extern "system" fn cmd_wait_events(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
+            _: u32,
+            _: *const Event,
+            _: PipelineStageFlags,
+            _: PipelineStageFlags,
+            _: u32,
+            _: *const MemoryBarrier,
+            _: u32,
+            _: *const BufferMemoryBarrier,
+            _: u32,
+            _: *const ImageMemoryBarrier,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        extern "system" fn cmd_push_constants(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
+            _: Option<BorrowedHandle<'_, PipelineLayout>>,
+            _: ShaderStageFlags,
+            _: u32,
+            _: u32,
+            _: VoidPtr,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        extern "system" fn create_graphics_pipelines(
+            _: Option<BorrowedHandle<'_, Device>>,
+            _: Option<BorrowedHandle<'_, PipelineCache>>,
+            _: u32,
+            _: *const GraphicsPipelineCreateInfo,
+            _: *const AllocationCallbacks,
+            _: *const Pipeline,
+        ) -> Status {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
         extern "system" fn create_framebuffer(
             _: Option<BorrowedHandle<'_, Device>>,
             _: *const FramebufferCreateInfo,
@@ -23910,67 +25054,6 @@ impl CommandsDispatcher {
             _: Option<BorrowedHandle<'_, Device>>,
             _: Option<BorrowedHandle<'_, RenderPass>>,
             _: *const Extent2D,
-        ) {
-            panic!("Trying to call an unloaded Vulkan command");
-        }
-        extern "system" fn create_command_pool(
-            _: Option<BorrowedHandle<'_, Device>>,
-            _: *const CommandPoolCreateInfo,
-            _: *const AllocationCallbacks,
-            _: *const CommandPool,
-        ) -> Status {
-            panic!("Trying to call an unloaded Vulkan command");
-        }
-        extern "system" fn destroy_command_pool(
-            _: Option<BorrowedHandle<'_, Device>>,
-            _: Option<BorrowedHandle<'_, CommandPool>>,
-            _: *const AllocationCallbacks,
-        ) {
-            panic!("Trying to call an unloaded Vulkan command");
-        }
-        extern "system" fn reset_command_pool(
-            _: Option<BorrowedHandle<'_, Device>>,
-            _: Option<BorrowedHandle<'_, CommandPool>>,
-            _: CommandPoolResetFlags,
-        ) -> Status {
-            panic!("Trying to call an unloaded Vulkan command");
-        }
-        extern "system" fn allocate_command_buffers(
-            _: Option<BorrowedHandle<'_, Device>>,
-            _: *const CommandBufferAllocateInfo,
-            _: *const CommandBuffer,
-        ) -> Status {
-            panic!("Trying to call an unloaded Vulkan command");
-        }
-        extern "system" fn free_command_buffers(
-            _: Option<BorrowedHandle<'_, Device>>,
-            _: Option<BorrowedHandle<'_, CommandPool>>,
-            _: u32,
-            _: *const CommandBuffer,
-        ) {
-            panic!("Trying to call an unloaded Vulkan command");
-        }
-        extern "system" fn begin_command_buffer(
-            _: Option<BorrowedHandle<'_, CommandBuffer>>,
-            _: *const CommandBufferBeginInfo,
-        ) -> Status {
-            panic!("Trying to call an unloaded Vulkan command");
-        }
-        extern "system" fn end_command_buffer(
-            _: Option<BorrowedHandle<'_, CommandBuffer>>,
-        ) -> Status {
-            panic!("Trying to call an unloaded Vulkan command");
-        }
-        extern "system" fn reset_command_buffer(
-            _: Option<BorrowedHandle<'_, CommandBuffer>>,
-            _: CommandBufferResetFlags,
-        ) -> Status {
-            panic!("Trying to call an unloaded Vulkan command");
-        }
-        extern "system" fn cmd_bind_pipeline(
-            _: Option<BorrowedHandle<'_, CommandBuffer>>,
-            _: PipelineBindPoint,
-            _: Option<BorrowedHandle<'_, Pipeline>>,
         ) {
             panic!("Trying to call an unloaded Vulkan command");
         }
@@ -24038,18 +25121,6 @@ impl CommandsDispatcher {
         ) {
             panic!("Trying to call an unloaded Vulkan command");
         }
-        extern "system" fn cmd_bind_descriptor_sets(
-            _: Option<BorrowedHandle<'_, CommandBuffer>>,
-            _: PipelineBindPoint,
-            _: Option<BorrowedHandle<'_, PipelineLayout>>,
-            _: u32,
-            _: u32,
-            _: *const DescriptorSet,
-            _: u32,
-            _: *const u32,
-        ) {
-            panic!("Trying to call an unloaded Vulkan command");
-        }
         extern "system" fn cmd_bind_index_buffer(
             _: Option<BorrowedHandle<'_, CommandBuffer>>,
             _: Option<BorrowedHandle<'_, Buffer>>,
@@ -24104,41 +25175,6 @@ impl CommandsDispatcher {
         ) {
             panic!("Trying to call an unloaded Vulkan command");
         }
-        extern "system" fn cmd_dispatch(
-            _: Option<BorrowedHandle<'_, CommandBuffer>>,
-            _: u32,
-            _: u32,
-            _: u32,
-        ) {
-            panic!("Trying to call an unloaded Vulkan command");
-        }
-        extern "system" fn cmd_dispatch_indirect(
-            _: Option<BorrowedHandle<'_, CommandBuffer>>,
-            _: Option<BorrowedHandle<'_, Buffer>>,
-            _: DeviceSize,
-        ) {
-            panic!("Trying to call an unloaded Vulkan command");
-        }
-        extern "system" fn cmd_copy_buffer(
-            _: Option<BorrowedHandle<'_, CommandBuffer>>,
-            _: Option<BorrowedHandle<'_, Buffer>>,
-            _: Option<BorrowedHandle<'_, Buffer>>,
-            _: u32,
-            _: *const BufferCopy,
-        ) {
-            panic!("Trying to call an unloaded Vulkan command");
-        }
-        extern "system" fn cmd_copy_image(
-            _: Option<BorrowedHandle<'_, CommandBuffer>>,
-            _: Option<BorrowedHandle<'_, Image>>,
-            _: ImageLayout,
-            _: Option<BorrowedHandle<'_, Image>>,
-            _: ImageLayout,
-            _: u32,
-            _: *const ImageCopy,
-        ) {
-            panic!("Trying to call an unloaded Vulkan command");
-        }
         extern "system" fn cmd_blit_image(
             _: Option<BorrowedHandle<'_, CommandBuffer>>,
             _: Option<BorrowedHandle<'_, Image>>,
@@ -24148,54 +25184,6 @@ impl CommandsDispatcher {
             _: u32,
             _: *const ImageBlit,
             _: Filter,
-        ) {
-            panic!("Trying to call an unloaded Vulkan command");
-        }
-        extern "system" fn cmd_copy_buffer_to_image(
-            _: Option<BorrowedHandle<'_, CommandBuffer>>,
-            _: Option<BorrowedHandle<'_, Buffer>>,
-            _: Option<BorrowedHandle<'_, Image>>,
-            _: ImageLayout,
-            _: u32,
-            _: *const BufferImageCopy,
-        ) {
-            panic!("Trying to call an unloaded Vulkan command");
-        }
-        extern "system" fn cmd_copy_image_to_buffer(
-            _: Option<BorrowedHandle<'_, CommandBuffer>>,
-            _: Option<BorrowedHandle<'_, Image>>,
-            _: ImageLayout,
-            _: Option<BorrowedHandle<'_, Buffer>>,
-            _: u32,
-            _: *const BufferImageCopy,
-        ) {
-            panic!("Trying to call an unloaded Vulkan command");
-        }
-        extern "system" fn cmd_update_buffer(
-            _: Option<BorrowedHandle<'_, CommandBuffer>>,
-            _: Option<BorrowedHandle<'_, Buffer>>,
-            _: DeviceSize,
-            _: DeviceSize,
-            _: VoidPtr,
-        ) {
-            panic!("Trying to call an unloaded Vulkan command");
-        }
-        extern "system" fn cmd_fill_buffer(
-            _: Option<BorrowedHandle<'_, CommandBuffer>>,
-            _: Option<BorrowedHandle<'_, Buffer>>,
-            _: DeviceSize,
-            _: DeviceSize,
-            _: u32,
-        ) {
-            panic!("Trying to call an unloaded Vulkan command");
-        }
-        extern "system" fn cmd_clear_color_image(
-            _: Option<BorrowedHandle<'_, CommandBuffer>>,
-            _: Option<BorrowedHandle<'_, Image>>,
-            _: ImageLayout,
-            _: *const ClearColorValue,
-            _: u32,
-            _: *const ImageSubresourceRange,
         ) {
             panic!("Trying to call an unloaded Vulkan command");
         }
@@ -24229,102 +25217,6 @@ impl CommandsDispatcher {
         ) {
             panic!("Trying to call an unloaded Vulkan command");
         }
-        extern "system" fn cmd_set_event(
-            _: Option<BorrowedHandle<'_, CommandBuffer>>,
-            _: Option<BorrowedHandle<'_, Event>>,
-            _: PipelineStageFlags,
-        ) {
-            panic!("Trying to call an unloaded Vulkan command");
-        }
-        extern "system" fn cmd_reset_event(
-            _: Option<BorrowedHandle<'_, CommandBuffer>>,
-            _: Option<BorrowedHandle<'_, Event>>,
-            _: PipelineStageFlags,
-        ) {
-            panic!("Trying to call an unloaded Vulkan command");
-        }
-        extern "system" fn cmd_wait_events(
-            _: Option<BorrowedHandle<'_, CommandBuffer>>,
-            _: u32,
-            _: *const Event,
-            _: PipelineStageFlags,
-            _: PipelineStageFlags,
-            _: u32,
-            _: *const MemoryBarrier,
-            _: u32,
-            _: *const BufferMemoryBarrier,
-            _: u32,
-            _: *const ImageMemoryBarrier,
-        ) {
-            panic!("Trying to call an unloaded Vulkan command");
-        }
-        extern "system" fn cmd_pipeline_barrier(
-            _: Option<BorrowedHandle<'_, CommandBuffer>>,
-            _: PipelineStageFlags,
-            _: PipelineStageFlags,
-            _: DependencyFlags,
-            _: u32,
-            _: *const MemoryBarrier,
-            _: u32,
-            _: *const BufferMemoryBarrier,
-            _: u32,
-            _: *const ImageMemoryBarrier,
-        ) {
-            panic!("Trying to call an unloaded Vulkan command");
-        }
-        extern "system" fn cmd_begin_query(
-            _: Option<BorrowedHandle<'_, CommandBuffer>>,
-            _: Option<BorrowedHandle<'_, QueryPool>>,
-            _: u32,
-            _: QueryControlFlags,
-        ) {
-            panic!("Trying to call an unloaded Vulkan command");
-        }
-        extern "system" fn cmd_end_query(
-            _: Option<BorrowedHandle<'_, CommandBuffer>>,
-            _: Option<BorrowedHandle<'_, QueryPool>>,
-            _: u32,
-        ) {
-            panic!("Trying to call an unloaded Vulkan command");
-        }
-        extern "system" fn cmd_reset_query_pool(
-            _: Option<BorrowedHandle<'_, CommandBuffer>>,
-            _: Option<BorrowedHandle<'_, QueryPool>>,
-            _: u32,
-            _: u32,
-        ) {
-            panic!("Trying to call an unloaded Vulkan command");
-        }
-        extern "system" fn cmd_write_timestamp(
-            _: Option<BorrowedHandle<'_, CommandBuffer>>,
-            _: PipelineStageFlags,
-            _: Option<BorrowedHandle<'_, QueryPool>>,
-            _: u32,
-        ) {
-            panic!("Trying to call an unloaded Vulkan command");
-        }
-        extern "system" fn cmd_copy_query_pool_results(
-            _: Option<BorrowedHandle<'_, CommandBuffer>>,
-            _: Option<BorrowedHandle<'_, QueryPool>>,
-            _: u32,
-            _: u32,
-            _: Option<BorrowedHandle<'_, Buffer>>,
-            _: DeviceSize,
-            _: DeviceSize,
-            _: QueryResultFlags,
-        ) {
-            panic!("Trying to call an unloaded Vulkan command");
-        }
-        extern "system" fn cmd_push_constants(
-            _: Option<BorrowedHandle<'_, CommandBuffer>>,
-            _: Option<BorrowedHandle<'_, PipelineLayout>>,
-            _: ShaderStageFlags,
-            _: u32,
-            _: u32,
-            _: VoidPtr,
-        ) {
-            panic!("Trying to call an unloaded Vulkan command");
-        }
         extern "system" fn cmd_begin_render_pass(
             _: Option<BorrowedHandle<'_, CommandBuffer>>,
             _: *const RenderPassBeginInfo,
@@ -24339,13 +25231,6 @@ impl CommandsDispatcher {
             panic!("Trying to call an unloaded Vulkan command");
         }
         extern "system" fn cmd_end_render_pass(_: Option<BorrowedHandle<'_, CommandBuffer>>) {
-            panic!("Trying to call an unloaded Vulkan command");
-        }
-        extern "system" fn cmd_execute_commands(
-            _: Option<BorrowedHandle<'_, CommandBuffer>>,
-            _: u32,
-            _: *const CommandBuffer,
-        ) {
             panic!("Trying to call an unloaded Vulkan command");
         }
         #[cfg(feature = "version_1_1")]
@@ -24381,18 +25266,6 @@ impl CommandsDispatcher {
         #[cfg(any(feature = "ext_device_group", feature = "version_1_1"))]
         extern "system" fn cmd_set_device_mask(
             _: Option<BorrowedHandle<'_, CommandBuffer>>,
-            _: u32,
-        ) {
-            panic!("Trying to call an unloaded Vulkan command");
-        }
-        #[cfg(any(feature = "ext_device_group", feature = "version_1_1"))]
-        extern "system" fn cmd_dispatch_base(
-            _: Option<BorrowedHandle<'_, CommandBuffer>>,
-            _: u32,
-            _: u32,
-            _: u32,
-            _: u32,
-            _: u32,
             _: u32,
         ) {
             panic!("Trying to call an unloaded Vulkan command");
@@ -24521,20 +25394,42 @@ impl CommandsDispatcher {
         ) {
             panic!("Trying to call an unloaded Vulkan command");
         }
-        #[cfg(any(feature = "ext_sampler_ycbcr_conversion", feature = "version_1_1"))]
-        extern "system" fn create_sampler_ycbcr_conversion(
-            _: Option<BorrowedHandle<'_, Device>>,
-            _: *const SamplerYcbcrConversionCreateInfo,
-            _: *const AllocationCallbacks,
-            _: *const SamplerYcbcrConversion,
-        ) -> Status {
+        #[cfg(any(feature = "ext_external_memory_capabilities", feature = "version_1_1"))]
+        extern "system" fn get_physical_device_external_buffer_properties(
+            _: Option<BorrowedHandle<'_, PhysicalDevice>>,
+            _: *const PhysicalDeviceExternalBufferInfo,
+            _: *const ExternalBufferProperties,
+        ) {
             panic!("Trying to call an unloaded Vulkan command");
         }
-        #[cfg(any(feature = "ext_sampler_ycbcr_conversion", feature = "version_1_1"))]
-        extern "system" fn destroy_sampler_ycbcr_conversion(
-            _: Option<BorrowedHandle<'_, Device>>,
-            _: Option<BorrowedHandle<'_, SamplerYcbcrConversion>>,
-            _: *const AllocationCallbacks,
+        #[cfg(any(feature = "ext_external_fence_capabilities", feature = "version_1_1"))]
+        extern "system" fn get_physical_device_external_fence_properties(
+            _: Option<BorrowedHandle<'_, PhysicalDevice>>,
+            _: *const PhysicalDeviceExternalFenceInfo,
+            _: *const ExternalFenceProperties,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(any(
+            feature = "ext_external_semaphore_capabilities",
+            feature = "version_1_1"
+        ))]
+        extern "system" fn get_physical_device_external_semaphore_properties(
+            _: Option<BorrowedHandle<'_, PhysicalDevice>>,
+            _: *const PhysicalDeviceExternalSemaphoreInfo,
+            _: *const ExternalSemaphoreProperties,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(any(feature = "ext_device_group", feature = "version_1_1"))]
+        extern "system" fn cmd_dispatch_base(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
+            _: u32,
+            _: u32,
+            _: u32,
+            _: u32,
+            _: u32,
+            _: u32,
         ) {
             panic!("Trying to call an unloaded Vulkan command");
         }
@@ -24564,39 +25459,82 @@ impl CommandsDispatcher {
         ) {
             panic!("Trying to call an unloaded Vulkan command");
         }
-        #[cfg(any(feature = "ext_external_memory_capabilities", feature = "version_1_1"))]
-        extern "system" fn get_physical_device_external_buffer_properties(
-            _: Option<BorrowedHandle<'_, PhysicalDevice>>,
-            _: *const PhysicalDeviceExternalBufferInfo,
-            _: *const ExternalBufferProperties,
-        ) {
-            panic!("Trying to call an unloaded Vulkan command");
-        }
-        #[cfg(any(feature = "ext_external_fence_capabilities", feature = "version_1_1"))]
-        extern "system" fn get_physical_device_external_fence_properties(
-            _: Option<BorrowedHandle<'_, PhysicalDevice>>,
-            _: *const PhysicalDeviceExternalFenceInfo,
-            _: *const ExternalFenceProperties,
-        ) {
-            panic!("Trying to call an unloaded Vulkan command");
-        }
-        #[cfg(any(
-            feature = "ext_external_semaphore_capabilities",
-            feature = "version_1_1"
-        ))]
-        extern "system" fn get_physical_device_external_semaphore_properties(
-            _: Option<BorrowedHandle<'_, PhysicalDevice>>,
-            _: *const PhysicalDeviceExternalSemaphoreInfo,
-            _: *const ExternalSemaphoreProperties,
-        ) {
-            panic!("Trying to call an unloaded Vulkan command");
-        }
         #[cfg(any(feature = "ext_maintenance3", feature = "version_1_1"))]
         extern "system" fn get_descriptor_set_layout_support(
             _: Option<BorrowedHandle<'_, Device>>,
             _: *const DescriptorSetLayoutCreateInfo,
             _: *const DescriptorSetLayoutSupport,
         ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(any(feature = "ext_sampler_ycbcr_conversion", feature = "version_1_1"))]
+        extern "system" fn create_sampler_ycbcr_conversion(
+            _: Option<BorrowedHandle<'_, Device>>,
+            _: *const SamplerYcbcrConversionCreateInfo,
+            _: *const AllocationCallbacks,
+            _: *const SamplerYcbcrConversion,
+        ) -> Status {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(any(feature = "ext_sampler_ycbcr_conversion", feature = "version_1_1"))]
+        extern "system" fn destroy_sampler_ycbcr_conversion(
+            _: Option<BorrowedHandle<'_, Device>>,
+            _: Option<BorrowedHandle<'_, SamplerYcbcrConversion>>,
+            _: *const AllocationCallbacks,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(any(feature = "ext_host_query_reset", feature = "version_1_2"))]
+        extern "system" fn reset_query_pool(
+            _: Option<BorrowedHandle<'_, Device>>,
+            _: Option<BorrowedHandle<'_, QueryPool>>,
+            _: u32,
+            _: u32,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(any(feature = "ext_timeline_semaphore", feature = "version_1_2"))]
+        extern "system" fn get_semaphore_counter_value(
+            _: Option<BorrowedHandle<'_, Device>>,
+            _: Option<BorrowedHandle<'_, Semaphore>>,
+            _: *const u64,
+        ) -> Status {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(any(feature = "ext_timeline_semaphore", feature = "version_1_2"))]
+        extern "system" fn wait_semaphores(
+            _: Option<BorrowedHandle<'_, Device>>,
+            _: *const SemaphoreWaitInfo,
+            _: u64,
+        ) -> Status {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(any(feature = "ext_timeline_semaphore", feature = "version_1_2"))]
+        extern "system" fn signal_semaphore(
+            _: Option<BorrowedHandle<'_, Device>>,
+            _: *const SemaphoreSignalInfo,
+        ) -> Status {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(any(feature = "ext_buffer_device_address", feature = "version_1_2"))]
+        extern "system" fn get_buffer_device_address(
+            _: Option<BorrowedHandle<'_, Device>>,
+            _: *const BufferDeviceAddressInfo,
+        ) -> DeviceAddress {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(any(feature = "ext_buffer_device_address", feature = "version_1_2"))]
+        extern "system" fn get_buffer_opaque_capture_address(
+            _: Option<BorrowedHandle<'_, Device>>,
+            _: *const BufferDeviceAddressInfo,
+        ) -> u64 {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(any(feature = "ext_buffer_device_address", feature = "version_1_2"))]
+        extern "system" fn get_device_memory_opaque_capture_address(
+            _: Option<BorrowedHandle<'_, Device>>,
+            _: *const DeviceMemoryOpaqueCaptureAddressInfo,
+        ) -> u64 {
             panic!("Trying to call an unloaded Vulkan command");
         }
         #[cfg(any(feature = "ext_draw_indirect_count", feature = "version_1_2"))]
@@ -24655,59 +25593,6 @@ impl CommandsDispatcher {
         ) {
             panic!("Trying to call an unloaded Vulkan command");
         }
-        #[cfg(any(feature = "ext_host_query_reset", feature = "version_1_2"))]
-        extern "system" fn reset_query_pool(
-            _: Option<BorrowedHandle<'_, Device>>,
-            _: Option<BorrowedHandle<'_, QueryPool>>,
-            _: u32,
-            _: u32,
-        ) {
-            panic!("Trying to call an unloaded Vulkan command");
-        }
-        #[cfg(any(feature = "ext_timeline_semaphore", feature = "version_1_2"))]
-        extern "system" fn get_semaphore_counter_value(
-            _: Option<BorrowedHandle<'_, Device>>,
-            _: Option<BorrowedHandle<'_, Semaphore>>,
-            _: *const u64,
-        ) -> Status {
-            panic!("Trying to call an unloaded Vulkan command");
-        }
-        #[cfg(any(feature = "ext_timeline_semaphore", feature = "version_1_2"))]
-        extern "system" fn wait_semaphores(
-            _: Option<BorrowedHandle<'_, Device>>,
-            _: *const SemaphoreWaitInfo,
-            _: u64,
-        ) -> Status {
-            panic!("Trying to call an unloaded Vulkan command");
-        }
-        #[cfg(any(feature = "ext_timeline_semaphore", feature = "version_1_2"))]
-        extern "system" fn signal_semaphore(
-            _: Option<BorrowedHandle<'_, Device>>,
-            _: *const SemaphoreSignalInfo,
-        ) -> Status {
-            panic!("Trying to call an unloaded Vulkan command");
-        }
-        #[cfg(any(feature = "ext_buffer_device_address", feature = "version_1_2"))]
-        extern "system" fn get_buffer_device_address(
-            _: Option<BorrowedHandle<'_, Device>>,
-            _: *const BufferDeviceAddressInfo,
-        ) -> DeviceAddress {
-            panic!("Trying to call an unloaded Vulkan command");
-        }
-        #[cfg(any(feature = "ext_buffer_device_address", feature = "version_1_2"))]
-        extern "system" fn get_buffer_opaque_capture_address(
-            _: Option<BorrowedHandle<'_, Device>>,
-            _: *const BufferDeviceAddressInfo,
-        ) -> u64 {
-            panic!("Trying to call an unloaded Vulkan command");
-        }
-        #[cfg(any(feature = "ext_buffer_device_address", feature = "version_1_2"))]
-        extern "system" fn get_device_memory_opaque_capture_address(
-            _: Option<BorrowedHandle<'_, Device>>,
-            _: *const DeviceMemoryOpaqueCaptureAddressInfo,
-        ) -> u64 {
-            panic!("Trying to call an unloaded Vulkan command");
-        }
         #[cfg(any(feature = "ext_tooling_info", feature = "version_1_3"))]
         extern "system" fn get_physical_device_tool_properties(
             _: Option<BorrowedHandle<'_, PhysicalDevice>>,
@@ -24750,31 +25635,6 @@ impl CommandsDispatcher {
             _: u64,
             _: Option<BorrowedHandle<'_, PrivateDataSlot>>,
             _: *const u64,
-        ) {
-            panic!("Trying to call an unloaded Vulkan command");
-        }
-        #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
-        extern "system" fn cmd_set_event2(
-            _: Option<BorrowedHandle<'_, CommandBuffer>>,
-            _: Option<BorrowedHandle<'_, Event>>,
-            _: *const DependencyInfo,
-        ) {
-            panic!("Trying to call an unloaded Vulkan command");
-        }
-        #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
-        extern "system" fn cmd_reset_event2(
-            _: Option<BorrowedHandle<'_, CommandBuffer>>,
-            _: Option<BorrowedHandle<'_, Event>>,
-            _: PipelineStageFlags2,
-        ) {
-            panic!("Trying to call an unloaded Vulkan command");
-        }
-        #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
-        extern "system" fn cmd_wait_events2(
-            _: Option<BorrowedHandle<'_, CommandBuffer>>,
-            _: u32,
-            _: *const Event,
-            _: *const DependencyInfo,
         ) {
             panic!("Trying to call an unloaded Vulkan command");
         }
@@ -24828,6 +25688,56 @@ impl CommandsDispatcher {
         extern "system" fn cmd_copy_image_to_buffer2(
             _: Option<BorrowedHandle<'_, CommandBuffer>>,
             _: *const CopyImageToBufferInfo2,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(any(feature = "ext_maintenance4", feature = "version_1_3"))]
+        extern "system" fn get_device_buffer_memory_requirements(
+            _: Option<BorrowedHandle<'_, Device>>,
+            _: *const DeviceBufferMemoryRequirements,
+            _: *const MemoryRequirements2,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(any(feature = "ext_maintenance4", feature = "version_1_3"))]
+        extern "system" fn get_device_image_memory_requirements(
+            _: Option<BorrowedHandle<'_, Device>>,
+            _: *const DeviceImageMemoryRequirements,
+            _: *const MemoryRequirements2,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(any(feature = "ext_maintenance4", feature = "version_1_3"))]
+        extern "system" fn get_device_image_sparse_memory_requirements(
+            _: Option<BorrowedHandle<'_, Device>>,
+            _: *const DeviceImageMemoryRequirements,
+            _: *const u32,
+            _: *const SparseImageMemoryRequirements2,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
+        extern "system" fn cmd_set_event2(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
+            _: Option<BorrowedHandle<'_, Event>>,
+            _: *const DependencyInfo,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
+        extern "system" fn cmd_reset_event2(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
+            _: Option<BorrowedHandle<'_, Event>>,
+            _: PipelineStageFlags2,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
+        extern "system" fn cmd_wait_events2(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
+            _: u32,
+            _: *const Event,
+            _: *const DependencyInfo,
         ) {
             panic!("Trying to call an unloaded Vulkan command");
         }
@@ -25032,39 +25942,6 @@ impl CommandsDispatcher {
         ) {
             panic!("Trying to call an unloaded Vulkan command");
         }
-        #[cfg(any(feature = "ext_maintenance4", feature = "version_1_3"))]
-        extern "system" fn get_device_buffer_memory_requirements(
-            _: Option<BorrowedHandle<'_, Device>>,
-            _: *const DeviceBufferMemoryRequirements,
-            _: *const MemoryRequirements2,
-        ) {
-            panic!("Trying to call an unloaded Vulkan command");
-        }
-        #[cfg(any(feature = "ext_maintenance4", feature = "version_1_3"))]
-        extern "system" fn get_device_image_memory_requirements(
-            _: Option<BorrowedHandle<'_, Device>>,
-            _: *const DeviceImageMemoryRequirements,
-            _: *const MemoryRequirements2,
-        ) {
-            panic!("Trying to call an unloaded Vulkan command");
-        }
-        #[cfg(any(feature = "ext_maintenance4", feature = "version_1_3"))]
-        extern "system" fn get_device_image_sparse_memory_requirements(
-            _: Option<BorrowedHandle<'_, Device>>,
-            _: *const DeviceImageMemoryRequirements,
-            _: *const u32,
-            _: *const SparseImageMemoryRequirements2,
-        ) {
-            panic!("Trying to call an unloaded Vulkan command");
-        }
-        #[cfg(any(feature = "ext_line_rasterization", feature = "version_1_4"))]
-        extern "system" fn cmd_set_line_stipple(
-            _: Option<BorrowedHandle<'_, CommandBuffer>>,
-            _: u32,
-            _: u16,
-        ) {
-            panic!("Trying to call an unloaded Vulkan command");
-        }
         #[cfg(any(feature = "ext_map_memory2", feature = "version_1_4"))]
         extern "system" fn map_memory2(
             _: Option<BorrowedHandle<'_, Device>>,
@@ -25078,24 +25955,6 @@ impl CommandsDispatcher {
             _: Option<BorrowedHandle<'_, Device>>,
             _: *const MemoryUnmapInfo,
         ) -> Status {
-            panic!("Trying to call an unloaded Vulkan command");
-        }
-        #[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
-        extern "system" fn cmd_bind_index_buffer2(
-            _: Option<BorrowedHandle<'_, CommandBuffer>>,
-            _: Option<BorrowedHandle<'_, Buffer>>,
-            _: DeviceSize,
-            _: DeviceSize,
-            _: IndexType,
-        ) {
-            panic!("Trying to call an unloaded Vulkan command");
-        }
-        #[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
-        extern "system" fn get_rendering_area_granularity(
-            _: Option<BorrowedHandle<'_, Device>>,
-            _: *const RenderingAreaInfo,
-            _: *const Extent2D,
-        ) {
             panic!("Trying to call an unloaded Vulkan command");
         }
         #[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
@@ -25118,6 +25977,35 @@ impl CommandsDispatcher {
             _: *const ImageSubresource2,
             _: *const SubresourceLayout2,
         ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
+        extern "system" fn copy_memory_to_image(
+            _: Option<BorrowedHandle<'_, Device>>,
+            _: *const CopyMemoryToImageInfo,
+        ) -> Status {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
+        extern "system" fn copy_image_to_memory(
+            _: Option<BorrowedHandle<'_, Device>>,
+            _: *const CopyImageToMemoryInfo,
+        ) -> Status {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
+        extern "system" fn copy_image_to_image(
+            _: Option<BorrowedHandle<'_, Device>>,
+            _: *const CopyImageToImageInfo,
+        ) -> Status {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
+        extern "system" fn transition_image_layout(
+            _: Option<BorrowedHandle<'_, Device>>,
+            _: u32,
+            _: *const HostImageLayoutTransitionInfo,
+        ) -> Status {
             panic!("Trying to call an unloaded Vulkan command");
         }
         #[cfg(any(feature = "ext_push_descriptor", feature = "version_1_4"))]
@@ -25148,20 +26036,6 @@ impl CommandsDispatcher {
             _: Option<BorrowedHandle<'_, PipelineLayout>>,
             _: u32,
             _: VoidPtr,
-        ) {
-            panic!("Trying to call an unloaded Vulkan command");
-        }
-        #[cfg(any(feature = "ext_dynamic_rendering_local_read", feature = "version_1_4"))]
-        extern "system" fn cmd_set_rendering_attachment_locations(
-            _: Option<BorrowedHandle<'_, CommandBuffer>>,
-            _: *const RenderingAttachmentLocationInfo,
-        ) {
-            panic!("Trying to call an unloaded Vulkan command");
-        }
-        #[cfg(any(feature = "ext_dynamic_rendering_local_read", feature = "version_1_4"))]
-        extern "system" fn cmd_set_rendering_input_attachment_indices(
-            _: Option<BorrowedHandle<'_, CommandBuffer>>,
-            _: *const RenderingInputAttachmentIndexInfo,
         ) {
             panic!("Trying to call an unloaded Vulkan command");
         }
@@ -25199,33 +26073,44 @@ impl CommandsDispatcher {
         ) {
             panic!("Trying to call an unloaded Vulkan command");
         }
-        #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
-        extern "system" fn copy_memory_to_image(
-            _: Option<BorrowedHandle<'_, Device>>,
-            _: *const CopyMemoryToImageInfo,
-        ) -> Status {
-            panic!("Trying to call an unloaded Vulkan command");
-        }
-        #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
-        extern "system" fn copy_image_to_memory(
-            _: Option<BorrowedHandle<'_, Device>>,
-            _: *const CopyImageToMemoryInfo,
-        ) -> Status {
-            panic!("Trying to call an unloaded Vulkan command");
-        }
-        #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
-        extern "system" fn copy_image_to_image(
-            _: Option<BorrowedHandle<'_, Device>>,
-            _: *const CopyImageToImageInfo,
-        ) -> Status {
-            panic!("Trying to call an unloaded Vulkan command");
-        }
-        #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
-        extern "system" fn transition_image_layout(
-            _: Option<BorrowedHandle<'_, Device>>,
+        #[cfg(any(feature = "ext_line_rasterization", feature = "version_1_4"))]
+        extern "system" fn cmd_set_line_stipple(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
             _: u32,
-            _: *const HostImageLayoutTransitionInfo,
-        ) -> Status {
+            _: u16,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
+        extern "system" fn cmd_bind_index_buffer2(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
+            _: Option<BorrowedHandle<'_, Buffer>>,
+            _: DeviceSize,
+            _: DeviceSize,
+            _: IndexType,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
+        extern "system" fn get_rendering_area_granularity(
+            _: Option<BorrowedHandle<'_, Device>>,
+            _: *const RenderingAreaInfo,
+            _: *const Extent2D,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(any(feature = "ext_dynamic_rendering_local_read", feature = "version_1_4"))]
+        extern "system" fn cmd_set_rendering_attachment_locations(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
+            _: *const RenderingAttachmentLocationInfo,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(any(feature = "ext_dynamic_rendering_local_read", feature = "version_1_4"))]
+        extern "system" fn cmd_set_rendering_input_attachment_indices(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
+            _: *const RenderingInputAttachmentIndexInfo,
+        ) {
             panic!("Trying to call an unloaded Vulkan command");
         }
         #[cfg(feature = "ext_surface")]
@@ -25694,6 +26579,14 @@ impl CommandsDispatcher {
             _: Option<BorrowedHandle<'_, ImageView>>,
             _: *const ImageViewAddressPropertiesNVX,
         ) -> Status {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(feature = "ext_image_view_handle")]
+        extern "system" fn get_device_combined_image_sampler_index_nvx(
+            _: Option<BorrowedHandle<'_, Device>>,
+            _: u64,
+            _: u64,
+        ) -> u64 {
             panic!("Trying to call an unloaded Vulkan command");
         }
         #[cfg(feature = "ext_shader_info")]
@@ -26242,6 +27135,86 @@ impl CommandsDispatcher {
         ) {
             panic!("Trying to call an unloaded Vulkan command");
         }
+        #[cfg(feature = "ext_descriptor_heap")]
+        extern "system" fn write_sampler_descriptors_ext(
+            _: Option<BorrowedHandle<'_, Device>>,
+            _: u32,
+            _: *const SamplerCreateInfo,
+            _: *const HostAddressRangeEXT,
+        ) -> Status {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(feature = "ext_descriptor_heap")]
+        extern "system" fn write_resource_descriptors_ext(
+            _: Option<BorrowedHandle<'_, Device>>,
+            _: u32,
+            _: *const ResourceDescriptorInfoEXT,
+            _: *const HostAddressRangeEXT,
+        ) -> Status {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(feature = "ext_descriptor_heap")]
+        extern "system" fn cmd_bind_sampler_heap_ext(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
+            _: *const BindHeapInfoEXT,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(feature = "ext_descriptor_heap")]
+        extern "system" fn cmd_bind_resource_heap_ext(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
+            _: *const BindHeapInfoEXT,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(feature = "ext_descriptor_heap")]
+        extern "system" fn cmd_push_data_ext(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
+            _: *const PushDataInfoEXT,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(feature = "ext_descriptor_heap")]
+        extern "system" fn get_image_opaque_capture_data_ext(
+            _: Option<BorrowedHandle<'_, Device>>,
+            _: u32,
+            _: *const Image,
+            _: *const HostAddressRangeEXT,
+        ) -> Status {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(feature = "ext_descriptor_heap")]
+        extern "system" fn get_physical_device_descriptor_size_ext(
+            _: Option<BorrowedHandle<'_, PhysicalDevice>>,
+            _: DescriptorType,
+        ) -> DeviceSize {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(all(feature = "ext_descriptor_heap", feature = "ext_custom_border_color"))]
+        extern "system" fn register_custom_border_color_ext(
+            _: Option<BorrowedHandle<'_, Device>>,
+            _: *const SamplerCustomBorderColorCreateInfoEXT,
+            _: Bool32,
+            _: *const u32,
+        ) -> Status {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(all(feature = "ext_descriptor_heap", feature = "ext_custom_border_color"))]
+        extern "system" fn unregister_custom_border_color_ext(
+            _: Option<BorrowedHandle<'_, Device>>,
+            _: u32,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(all(feature = "ext_descriptor_heap", feature = "ext_tensors"))]
+        extern "system" fn get_tensor_opaque_capture_data_arm(
+            _: Option<BorrowedHandle<'_, Device>>,
+            _: u32,
+            _: *const TensorARM,
+            _: *const HostAddressRangeEXT,
+        ) -> Status {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
         #[cfg(feature = "ext_sample_locations")]
         extern "system" fn cmd_set_sample_locations_ext(
             _: Option<BorrowedHandle<'_, CommandBuffer>>,
@@ -26707,7 +27680,7 @@ impl CommandsDispatcher {
         }
         #[cfg(all(
             feature = "ext_mesh_shader",
-            any(feature = "ext_draw_indirect_count", feature = "version_1_2")
+            any(feature = "version_1_2", feature = "ext_draw_indirect_count")
         ))]
         extern "system" fn cmd_draw_mesh_tasks_indirect_count_nv(
             _: Option<BorrowedHandle<'_, CommandBuffer>>,
@@ -26762,6 +27735,40 @@ impl CommandsDispatcher {
             _: *const u32,
             _: *const CheckpointData2NV,
         ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(feature = "ext_present_timing")]
+        extern "system" fn set_swapchain_present_timing_queue_size_ext(
+            _: Option<BorrowedHandle<'_, Device>>,
+            _: Option<BorrowedHandle<'_, SwapchainKHR>>,
+            _: u32,
+        ) -> Status {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(feature = "ext_present_timing")]
+        extern "system" fn get_swapchain_timing_properties_ext(
+            _: Option<BorrowedHandle<'_, Device>>,
+            _: Option<BorrowedHandle<'_, SwapchainKHR>>,
+            _: *const SwapchainTimingPropertiesEXT,
+            _: *const u64,
+        ) -> Status {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(feature = "ext_present_timing")]
+        extern "system" fn get_swapchain_time_domain_properties_ext(
+            _: Option<BorrowedHandle<'_, Device>>,
+            _: Option<BorrowedHandle<'_, SwapchainKHR>>,
+            _: *const SwapchainTimeDomainPropertiesEXT,
+            _: *const u64,
+        ) -> Status {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(feature = "ext_present_timing")]
+        extern "system" fn get_past_presentation_timing_ext(
+            _: Option<BorrowedHandle<'_, Device>>,
+            _: *const PastPresentationTimingInfoEXT,
+            _: *const PastPresentationTimingPropertiesEXT,
+        ) -> Status {
             panic!("Trying to call an unloaded Vulkan command");
         }
         #[cfg(feature = "ext_performance_query")]
@@ -27280,7 +28287,7 @@ impl CommandsDispatcher {
         }
         #[cfg(all(
             feature = "ext_mesh_shader",
-            any(feature = "ext_draw_indirect_count", feature = "version_1_2")
+            any(feature = "version_1_2", feature = "ext_draw_indirect_count")
         ))]
         extern "system" fn cmd_draw_mesh_tasks_indirect_count_ext(
             _: Option<BorrowedHandle<'_, CommandBuffer>>,
@@ -27748,6 +28755,22 @@ impl CommandsDispatcher {
             _: Option<BorrowedHandle<'_, Device>>,
             _: *const PipelineIndirectDeviceAddressInfoNV,
         ) -> DeviceAddress {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(feature = "ext_ohos_external_memory")]
+        extern "system" fn get_native_buffer_properties_ohos(
+            _: Option<BorrowedHandle<'_, Device>>,
+            _: *const OH_NativeBuffer,
+            _: *const NativeBufferPropertiesOHOS,
+        ) -> Status {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(feature = "ext_ohos_external_memory")]
+        extern "system" fn get_memory_native_buffer_ohos(
+            _: Option<BorrowedHandle<'_, Device>>,
+            _: *const MemoryGetNativeBufferInfoOHOS,
+            _: *const *const OH_NativeBuffer,
+        ) -> Status {
             panic!("Trying to call an unloaded Vulkan command");
         }
         #[cfg(any(feature = "ext_extended_dynamic_state3", feature = "ext_shader_object"))]
@@ -28628,6 +29651,38 @@ impl CommandsDispatcher {
         ) {
             panic!("Trying to call an unloaded Vulkan command");
         }
+        #[cfg(feature = "ext_copy_memory_indirect")]
+        extern "system" fn cmd_copy_memory_indirect_khr(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
+            _: *const CopyMemoryIndirectInfoKHR,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(feature = "ext_copy_memory_indirect")]
+        extern "system" fn cmd_copy_memory_to_image_indirect_khr(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
+            _: *const CopyMemoryToImageIndirectInfoKHR,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(feature = "ext_memory_decompression")]
+        extern "system" fn cmd_decompress_memory_ext(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
+            _: *const DecompressMemoryInfoEXT,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(feature = "ext_memory_decompression")]
+        extern "system" fn cmd_decompress_memory_indirect_count_ext(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
+            _: MemoryDecompressionMethodFlagsEXT,
+            _: DeviceAddress,
+            _: DeviceAddress,
+            _: u32,
+            _: u32,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
         #[cfg(feature = "ext_external_compute_queue")]
         extern "system" fn create_external_compute_queue_nv(
             _: Option<BorrowedHandle<'_, Device>>,
@@ -28793,11 +29848,58 @@ impl CommandsDispatcher {
         ) -> Status {
             panic!("Trying to call an unloaded Vulkan command");
         }
-        #[cfg(feature = "ext_fragment_density_map_offset")]
-        extern "system" fn cmd_end_rendering2_ext(
+        #[cfg(feature = "ext_performance_counters_by_region")]
+        extern "system" fn enumerate_physical_device_queue_family_performance_counters_by_region_arm(
+            _: Option<BorrowedHandle<'_, PhysicalDevice>>,
+            _: u32,
+            _: *const u32,
+            _: *const PerformanceCounterARM,
+            _: *const PerformanceCounterDescriptionARM,
+        ) -> Status {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(all(
+            feature = "ext_custom_resolve",
+            any(feature = "ext_dynamic_rendering", feature = "version_1_3")
+        ))]
+        extern "system" fn cmd_begin_custom_resolve_ext(
             _: Option<BorrowedHandle<'_, CommandBuffer>>,
-            _: *const RenderingEndInfoEXT,
+            _: *const BeginCustomResolveInfoEXT,
         ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(any(
+            feature = "ext_fragment_density_map_offset",
+            feature = "ext_maintenance10"
+        ))]
+        extern "system" fn cmd_end_rendering2_khr(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
+            _: *const RenderingEndInfoKHR,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(feature = "ext_compute_occupancy_priority")]
+        extern "system" fn cmd_set_compute_occupancy_priority_nv(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
+            _: *const ComputeOccupancyPriorityParametersNV,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(feature = "ext_ubm_surface")]
+        extern "system" fn create_ubm_surface_sec(
+            _: Option<BorrowedHandle<'_, Instance>>,
+            _: *const UbmSurfaceCreateInfoSEC,
+            _: *const AllocationCallbacks,
+            _: *const SurfaceKHR,
+        ) -> Status {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(feature = "ext_ubm_surface")]
+        extern "system" fn get_physical_device_ubm_presentation_support_sec(
+            _: Option<BorrowedHandle<'_, PhysicalDevice>>,
+            _: u32,
+            _: *const VoidPtr,
+        ) -> Bool32 {
             panic!("Trying to call an unloaded Vulkan command");
         }
         Self {
@@ -28851,30 +29953,50 @@ impl CommandsDispatcher {
             wait_for_fences: Cell::new(wait_for_fences),
             create_semaphore: Cell::new(create_semaphore),
             destroy_semaphore: Cell::new(destroy_semaphore),
-            create_event: Cell::new(create_event),
-            destroy_event: Cell::new(destroy_event),
-            get_event_status: Cell::new(get_event_status),
-            set_event: Cell::new(set_event),
-            reset_event: Cell::new(reset_event),
             create_query_pool: Cell::new(create_query_pool),
             destroy_query_pool: Cell::new(destroy_query_pool),
             get_query_pool_results: Cell::new(get_query_pool_results),
             create_buffer: Cell::new(create_buffer),
             destroy_buffer: Cell::new(destroy_buffer),
-            create_buffer_view: Cell::new(create_buffer_view),
-            destroy_buffer_view: Cell::new(destroy_buffer_view),
             create_image: Cell::new(create_image),
             destroy_image: Cell::new(destroy_image),
             get_image_subresource_layout: Cell::new(get_image_subresource_layout),
             create_image_view: Cell::new(create_image_view),
             destroy_image_view: Cell::new(destroy_image_view),
+            create_command_pool: Cell::new(create_command_pool),
+            destroy_command_pool: Cell::new(destroy_command_pool),
+            reset_command_pool: Cell::new(reset_command_pool),
+            allocate_command_buffers: Cell::new(allocate_command_buffers),
+            free_command_buffers: Cell::new(free_command_buffers),
+            begin_command_buffer: Cell::new(begin_command_buffer),
+            end_command_buffer: Cell::new(end_command_buffer),
+            reset_command_buffer: Cell::new(reset_command_buffer),
+            cmd_copy_buffer: Cell::new(cmd_copy_buffer),
+            cmd_copy_image: Cell::new(cmd_copy_image),
+            cmd_copy_buffer_to_image: Cell::new(cmd_copy_buffer_to_image),
+            cmd_copy_image_to_buffer: Cell::new(cmd_copy_image_to_buffer),
+            cmd_update_buffer: Cell::new(cmd_update_buffer),
+            cmd_fill_buffer: Cell::new(cmd_fill_buffer),
+            cmd_pipeline_barrier: Cell::new(cmd_pipeline_barrier),
+            cmd_begin_query: Cell::new(cmd_begin_query),
+            cmd_end_query: Cell::new(cmd_end_query),
+            cmd_reset_query_pool: Cell::new(cmd_reset_query_pool),
+            cmd_write_timestamp: Cell::new(cmd_write_timestamp),
+            cmd_copy_query_pool_results: Cell::new(cmd_copy_query_pool_results),
+            cmd_execute_commands: Cell::new(cmd_execute_commands),
+            create_event: Cell::new(create_event),
+            destroy_event: Cell::new(destroy_event),
+            get_event_status: Cell::new(get_event_status),
+            set_event: Cell::new(set_event),
+            reset_event: Cell::new(reset_event),
+            create_buffer_view: Cell::new(create_buffer_view),
+            destroy_buffer_view: Cell::new(destroy_buffer_view),
             create_shader_module: Cell::new(create_shader_module),
             destroy_shader_module: Cell::new(destroy_shader_module),
             create_pipeline_cache: Cell::new(create_pipeline_cache),
             destroy_pipeline_cache: Cell::new(destroy_pipeline_cache),
             get_pipeline_cache_data: Cell::new(get_pipeline_cache_data),
             merge_pipeline_caches: Cell::new(merge_pipeline_caches),
-            create_graphics_pipelines: Cell::new(create_graphics_pipelines),
             create_compute_pipelines: Cell::new(create_compute_pipelines),
             destroy_pipeline: Cell::new(destroy_pipeline),
             create_pipeline_layout: Cell::new(create_pipeline_layout),
@@ -28889,20 +30011,21 @@ impl CommandsDispatcher {
             allocate_descriptor_sets: Cell::new(allocate_descriptor_sets),
             free_descriptor_sets: Cell::new(free_descriptor_sets),
             update_descriptor_sets: Cell::new(update_descriptor_sets),
+            cmd_bind_pipeline: Cell::new(cmd_bind_pipeline),
+            cmd_bind_descriptor_sets: Cell::new(cmd_bind_descriptor_sets),
+            cmd_clear_color_image: Cell::new(cmd_clear_color_image),
+            cmd_dispatch: Cell::new(cmd_dispatch),
+            cmd_dispatch_indirect: Cell::new(cmd_dispatch_indirect),
+            cmd_set_event: Cell::new(cmd_set_event),
+            cmd_reset_event: Cell::new(cmd_reset_event),
+            cmd_wait_events: Cell::new(cmd_wait_events),
+            cmd_push_constants: Cell::new(cmd_push_constants),
+            create_graphics_pipelines: Cell::new(create_graphics_pipelines),
             create_framebuffer: Cell::new(create_framebuffer),
             destroy_framebuffer: Cell::new(destroy_framebuffer),
             create_render_pass: Cell::new(create_render_pass),
             destroy_render_pass: Cell::new(destroy_render_pass),
             get_render_area_granularity: Cell::new(get_render_area_granularity),
-            create_command_pool: Cell::new(create_command_pool),
-            destroy_command_pool: Cell::new(destroy_command_pool),
-            reset_command_pool: Cell::new(reset_command_pool),
-            allocate_command_buffers: Cell::new(allocate_command_buffers),
-            free_command_buffers: Cell::new(free_command_buffers),
-            begin_command_buffer: Cell::new(begin_command_buffer),
-            end_command_buffer: Cell::new(end_command_buffer),
-            reset_command_buffer: Cell::new(reset_command_buffer),
-            cmd_bind_pipeline: Cell::new(cmd_bind_pipeline),
             cmd_set_viewport: Cell::new(cmd_set_viewport),
             cmd_set_scissor: Cell::new(cmd_set_scissor),
             cmd_set_line_width: Cell::new(cmd_set_line_width),
@@ -28912,40 +30035,19 @@ impl CommandsDispatcher {
             cmd_set_stencil_compare_mask: Cell::new(cmd_set_stencil_compare_mask),
             cmd_set_stencil_write_mask: Cell::new(cmd_set_stencil_write_mask),
             cmd_set_stencil_reference: Cell::new(cmd_set_stencil_reference),
-            cmd_bind_descriptor_sets: Cell::new(cmd_bind_descriptor_sets),
             cmd_bind_index_buffer: Cell::new(cmd_bind_index_buffer),
             cmd_bind_vertex_buffers: Cell::new(cmd_bind_vertex_buffers),
             cmd_draw: Cell::new(cmd_draw),
             cmd_draw_indexed: Cell::new(cmd_draw_indexed),
             cmd_draw_indirect: Cell::new(cmd_draw_indirect),
             cmd_draw_indexed_indirect: Cell::new(cmd_draw_indexed_indirect),
-            cmd_dispatch: Cell::new(cmd_dispatch),
-            cmd_dispatch_indirect: Cell::new(cmd_dispatch_indirect),
-            cmd_copy_buffer: Cell::new(cmd_copy_buffer),
-            cmd_copy_image: Cell::new(cmd_copy_image),
             cmd_blit_image: Cell::new(cmd_blit_image),
-            cmd_copy_buffer_to_image: Cell::new(cmd_copy_buffer_to_image),
-            cmd_copy_image_to_buffer: Cell::new(cmd_copy_image_to_buffer),
-            cmd_update_buffer: Cell::new(cmd_update_buffer),
-            cmd_fill_buffer: Cell::new(cmd_fill_buffer),
-            cmd_clear_color_image: Cell::new(cmd_clear_color_image),
             cmd_clear_depth_stencil_image: Cell::new(cmd_clear_depth_stencil_image),
             cmd_clear_attachments: Cell::new(cmd_clear_attachments),
             cmd_resolve_image: Cell::new(cmd_resolve_image),
-            cmd_set_event: Cell::new(cmd_set_event),
-            cmd_reset_event: Cell::new(cmd_reset_event),
-            cmd_wait_events: Cell::new(cmd_wait_events),
-            cmd_pipeline_barrier: Cell::new(cmd_pipeline_barrier),
-            cmd_begin_query: Cell::new(cmd_begin_query),
-            cmd_end_query: Cell::new(cmd_end_query),
-            cmd_reset_query_pool: Cell::new(cmd_reset_query_pool),
-            cmd_write_timestamp: Cell::new(cmd_write_timestamp),
-            cmd_copy_query_pool_results: Cell::new(cmd_copy_query_pool_results),
-            cmd_push_constants: Cell::new(cmd_push_constants),
             cmd_begin_render_pass: Cell::new(cmd_begin_render_pass),
             cmd_next_subpass: Cell::new(cmd_next_subpass),
             cmd_end_render_pass: Cell::new(cmd_end_render_pass),
-            cmd_execute_commands: Cell::new(cmd_execute_commands),
             #[cfg(feature = "version_1_1")]
             enumerate_instance_version: Cell::new(enumerate_instance_version),
             #[cfg(any(feature = "ext_bind_memory2", feature = "version_1_1"))]
@@ -28966,10 +30068,6 @@ impl CommandsDispatcher {
             cmd_set_device_mask_khr: Cell::new(cmd_set_device_mask),
             #[cfg(any(feature = "ext_device_group", feature = "version_1_1"))]
             cmd_set_device_mask: Cell::new(cmd_set_device_mask),
-            #[cfg(any(feature = "ext_device_group", feature = "version_1_1"))]
-            cmd_dispatch_base_khr: Cell::new(cmd_dispatch_base),
-            #[cfg(any(feature = "ext_device_group", feature = "version_1_1"))]
-            cmd_dispatch_base: Cell::new(cmd_dispatch_base),
             #[cfg(any(feature = "ext_device_group_creation", feature = "version_1_1"))]
             enumerate_physical_device_groups_khr: Cell::new(enumerate_physical_device_groups),
             #[cfg(any(feature = "ext_device_group_creation", feature = "version_1_1"))]
@@ -29084,26 +30182,6 @@ impl CommandsDispatcher {
             trim_command_pool: Cell::new(trim_command_pool),
             #[cfg(feature = "version_1_1")]
             get_device_queue2: Cell::new(get_device_queue2),
-            #[cfg(any(feature = "ext_sampler_ycbcr_conversion", feature = "version_1_1"))]
-            create_sampler_ycbcr_conversion_khr: Cell::new(create_sampler_ycbcr_conversion),
-            #[cfg(any(feature = "ext_sampler_ycbcr_conversion", feature = "version_1_1"))]
-            create_sampler_ycbcr_conversion: Cell::new(create_sampler_ycbcr_conversion),
-            #[cfg(any(feature = "ext_sampler_ycbcr_conversion", feature = "version_1_1"))]
-            destroy_sampler_ycbcr_conversion_khr: Cell::new(destroy_sampler_ycbcr_conversion),
-            #[cfg(any(feature = "ext_sampler_ycbcr_conversion", feature = "version_1_1"))]
-            destroy_sampler_ycbcr_conversion: Cell::new(destroy_sampler_ycbcr_conversion),
-            #[cfg(any(feature = "ext_descriptor_update_template", feature = "version_1_1"))]
-            create_descriptor_update_template_khr: Cell::new(create_descriptor_update_template),
-            #[cfg(any(feature = "ext_descriptor_update_template", feature = "version_1_1"))]
-            create_descriptor_update_template: Cell::new(create_descriptor_update_template),
-            #[cfg(any(feature = "ext_descriptor_update_template", feature = "version_1_1"))]
-            destroy_descriptor_update_template_khr: Cell::new(destroy_descriptor_update_template),
-            #[cfg(any(feature = "ext_descriptor_update_template", feature = "version_1_1"))]
-            destroy_descriptor_update_template: Cell::new(destroy_descriptor_update_template),
-            #[cfg(any(feature = "ext_descriptor_update_template", feature = "version_1_1"))]
-            update_descriptor_set_with_template_khr: Cell::new(update_descriptor_set_with_template),
-            #[cfg(any(feature = "ext_descriptor_update_template", feature = "version_1_1"))]
-            update_descriptor_set_with_template: Cell::new(update_descriptor_set_with_template),
             #[cfg(any(feature = "ext_external_memory_capabilities", feature = "version_1_1"))]
             get_physical_device_external_buffer_properties_khr: Cell::new(
                 get_physical_device_external_buffer_properties,
@@ -29134,38 +30212,34 @@ impl CommandsDispatcher {
             get_physical_device_external_semaphore_properties: Cell::new(
                 get_physical_device_external_semaphore_properties,
             ),
+            #[cfg(any(feature = "ext_device_group", feature = "version_1_1"))]
+            cmd_dispatch_base_khr: Cell::new(cmd_dispatch_base),
+            #[cfg(any(feature = "ext_device_group", feature = "version_1_1"))]
+            cmd_dispatch_base: Cell::new(cmd_dispatch_base),
+            #[cfg(any(feature = "ext_descriptor_update_template", feature = "version_1_1"))]
+            create_descriptor_update_template_khr: Cell::new(create_descriptor_update_template),
+            #[cfg(any(feature = "ext_descriptor_update_template", feature = "version_1_1"))]
+            create_descriptor_update_template: Cell::new(create_descriptor_update_template),
+            #[cfg(any(feature = "ext_descriptor_update_template", feature = "version_1_1"))]
+            destroy_descriptor_update_template_khr: Cell::new(destroy_descriptor_update_template),
+            #[cfg(any(feature = "ext_descriptor_update_template", feature = "version_1_1"))]
+            destroy_descriptor_update_template: Cell::new(destroy_descriptor_update_template),
+            #[cfg(any(feature = "ext_descriptor_update_template", feature = "version_1_1"))]
+            update_descriptor_set_with_template_khr: Cell::new(update_descriptor_set_with_template),
+            #[cfg(any(feature = "ext_descriptor_update_template", feature = "version_1_1"))]
+            update_descriptor_set_with_template: Cell::new(update_descriptor_set_with_template),
             #[cfg(any(feature = "ext_maintenance3", feature = "version_1_1"))]
             get_descriptor_set_layout_support_khr: Cell::new(get_descriptor_set_layout_support),
             #[cfg(any(feature = "ext_maintenance3", feature = "version_1_1"))]
             get_descriptor_set_layout_support: Cell::new(get_descriptor_set_layout_support),
-            #[cfg(any(feature = "ext_draw_indirect_count", feature = "version_1_2"))]
-            cmd_draw_indirect_count_amd: Cell::new(cmd_draw_indirect_count),
-            #[cfg(any(feature = "ext_draw_indirect_count", feature = "version_1_2"))]
-            cmd_draw_indirect_count_khr: Cell::new(cmd_draw_indirect_count),
-            #[cfg(any(feature = "ext_draw_indirect_count", feature = "version_1_2"))]
-            cmd_draw_indirect_count: Cell::new(cmd_draw_indirect_count),
-            #[cfg(any(feature = "ext_draw_indirect_count", feature = "version_1_2"))]
-            cmd_draw_indexed_indirect_count_amd: Cell::new(cmd_draw_indexed_indirect_count),
-            #[cfg(any(feature = "ext_draw_indirect_count", feature = "version_1_2"))]
-            cmd_draw_indexed_indirect_count_khr: Cell::new(cmd_draw_indexed_indirect_count),
-            #[cfg(any(feature = "ext_draw_indirect_count", feature = "version_1_2"))]
-            cmd_draw_indexed_indirect_count: Cell::new(cmd_draw_indexed_indirect_count),
-            #[cfg(any(feature = "ext_create_renderpass2", feature = "version_1_2"))]
-            create_render_pass2_khr: Cell::new(create_render_pass2),
-            #[cfg(any(feature = "ext_create_renderpass2", feature = "version_1_2"))]
-            create_render_pass2: Cell::new(create_render_pass2),
-            #[cfg(any(feature = "ext_create_renderpass2", feature = "version_1_2"))]
-            cmd_begin_render_pass2_khr: Cell::new(cmd_begin_render_pass2),
-            #[cfg(any(feature = "ext_create_renderpass2", feature = "version_1_2"))]
-            cmd_begin_render_pass2: Cell::new(cmd_begin_render_pass2),
-            #[cfg(any(feature = "ext_create_renderpass2", feature = "version_1_2"))]
-            cmd_next_subpass2_khr: Cell::new(cmd_next_subpass2),
-            #[cfg(any(feature = "ext_create_renderpass2", feature = "version_1_2"))]
-            cmd_next_subpass2: Cell::new(cmd_next_subpass2),
-            #[cfg(any(feature = "ext_create_renderpass2", feature = "version_1_2"))]
-            cmd_end_render_pass2_khr: Cell::new(cmd_end_render_pass2),
-            #[cfg(any(feature = "ext_create_renderpass2", feature = "version_1_2"))]
-            cmd_end_render_pass2: Cell::new(cmd_end_render_pass2),
+            #[cfg(any(feature = "ext_sampler_ycbcr_conversion", feature = "version_1_1"))]
+            create_sampler_ycbcr_conversion_khr: Cell::new(create_sampler_ycbcr_conversion),
+            #[cfg(any(feature = "ext_sampler_ycbcr_conversion", feature = "version_1_1"))]
+            create_sampler_ycbcr_conversion: Cell::new(create_sampler_ycbcr_conversion),
+            #[cfg(any(feature = "ext_sampler_ycbcr_conversion", feature = "version_1_1"))]
+            destroy_sampler_ycbcr_conversion_khr: Cell::new(destroy_sampler_ycbcr_conversion),
+            #[cfg(any(feature = "ext_sampler_ycbcr_conversion", feature = "version_1_1"))]
+            destroy_sampler_ycbcr_conversion: Cell::new(destroy_sampler_ycbcr_conversion),
             #[cfg(any(feature = "ext_host_query_reset", feature = "version_1_2"))]
             reset_query_pool_ext: Cell::new(reset_query_pool),
             #[cfg(any(feature = "ext_host_query_reset", feature = "version_1_2"))]
@@ -29200,6 +30274,34 @@ impl CommandsDispatcher {
             get_device_memory_opaque_capture_address: Cell::new(
                 get_device_memory_opaque_capture_address,
             ),
+            #[cfg(any(feature = "ext_draw_indirect_count", feature = "version_1_2"))]
+            cmd_draw_indirect_count_amd: Cell::new(cmd_draw_indirect_count),
+            #[cfg(any(feature = "ext_draw_indirect_count", feature = "version_1_2"))]
+            cmd_draw_indirect_count_khr: Cell::new(cmd_draw_indirect_count),
+            #[cfg(any(feature = "ext_draw_indirect_count", feature = "version_1_2"))]
+            cmd_draw_indirect_count: Cell::new(cmd_draw_indirect_count),
+            #[cfg(any(feature = "ext_draw_indirect_count", feature = "version_1_2"))]
+            cmd_draw_indexed_indirect_count_amd: Cell::new(cmd_draw_indexed_indirect_count),
+            #[cfg(any(feature = "ext_draw_indirect_count", feature = "version_1_2"))]
+            cmd_draw_indexed_indirect_count_khr: Cell::new(cmd_draw_indexed_indirect_count),
+            #[cfg(any(feature = "ext_draw_indirect_count", feature = "version_1_2"))]
+            cmd_draw_indexed_indirect_count: Cell::new(cmd_draw_indexed_indirect_count),
+            #[cfg(any(feature = "ext_create_renderpass2", feature = "version_1_2"))]
+            create_render_pass2_khr: Cell::new(create_render_pass2),
+            #[cfg(any(feature = "ext_create_renderpass2", feature = "version_1_2"))]
+            create_render_pass2: Cell::new(create_render_pass2),
+            #[cfg(any(feature = "ext_create_renderpass2", feature = "version_1_2"))]
+            cmd_begin_render_pass2_khr: Cell::new(cmd_begin_render_pass2),
+            #[cfg(any(feature = "ext_create_renderpass2", feature = "version_1_2"))]
+            cmd_begin_render_pass2: Cell::new(cmd_begin_render_pass2),
+            #[cfg(any(feature = "ext_create_renderpass2", feature = "version_1_2"))]
+            cmd_next_subpass2_khr: Cell::new(cmd_next_subpass2),
+            #[cfg(any(feature = "ext_create_renderpass2", feature = "version_1_2"))]
+            cmd_next_subpass2: Cell::new(cmd_next_subpass2),
+            #[cfg(any(feature = "ext_create_renderpass2", feature = "version_1_2"))]
+            cmd_end_render_pass2_khr: Cell::new(cmd_end_render_pass2),
+            #[cfg(any(feature = "ext_create_renderpass2", feature = "version_1_2"))]
+            cmd_end_render_pass2: Cell::new(cmd_end_render_pass2),
             #[cfg(any(feature = "ext_tooling_info", feature = "version_1_3"))]
             get_physical_device_tool_properties_ext: Cell::new(get_physical_device_tool_properties),
             #[cfg(any(feature = "ext_tooling_info", feature = "version_1_3"))]
@@ -29220,18 +30322,6 @@ impl CommandsDispatcher {
             get_private_data_ext: Cell::new(get_private_data),
             #[cfg(any(feature = "ext_private_data", feature = "version_1_3"))]
             get_private_data: Cell::new(get_private_data),
-            #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
-            cmd_set_event2_khr: Cell::new(cmd_set_event2),
-            #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
-            cmd_set_event2: Cell::new(cmd_set_event2),
-            #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
-            cmd_reset_event2_khr: Cell::new(cmd_reset_event2),
-            #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
-            cmd_reset_event2: Cell::new(cmd_reset_event2),
-            #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
-            cmd_wait_events2_khr: Cell::new(cmd_wait_events2),
-            #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
-            cmd_wait_events2: Cell::new(cmd_wait_events2),
             #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
             cmd_pipeline_barrier2_khr: Cell::new(cmd_pipeline_barrier2),
             #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
@@ -29260,6 +30350,38 @@ impl CommandsDispatcher {
             cmd_copy_image_to_buffer2_khr: Cell::new(cmd_copy_image_to_buffer2),
             #[cfg(any(feature = "ext_copy_commands2", feature = "version_1_3"))]
             cmd_copy_image_to_buffer2: Cell::new(cmd_copy_image_to_buffer2),
+            #[cfg(any(feature = "ext_maintenance4", feature = "version_1_3"))]
+            get_device_buffer_memory_requirements_khr: Cell::new(
+                get_device_buffer_memory_requirements,
+            ),
+            #[cfg(any(feature = "ext_maintenance4", feature = "version_1_3"))]
+            get_device_buffer_memory_requirements: Cell::new(get_device_buffer_memory_requirements),
+            #[cfg(any(feature = "ext_maintenance4", feature = "version_1_3"))]
+            get_device_image_memory_requirements_khr: Cell::new(
+                get_device_image_memory_requirements,
+            ),
+            #[cfg(any(feature = "ext_maintenance4", feature = "version_1_3"))]
+            get_device_image_memory_requirements: Cell::new(get_device_image_memory_requirements),
+            #[cfg(any(feature = "ext_maintenance4", feature = "version_1_3"))]
+            get_device_image_sparse_memory_requirements_khr: Cell::new(
+                get_device_image_sparse_memory_requirements,
+            ),
+            #[cfg(any(feature = "ext_maintenance4", feature = "version_1_3"))]
+            get_device_image_sparse_memory_requirements: Cell::new(
+                get_device_image_sparse_memory_requirements,
+            ),
+            #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
+            cmd_set_event2_khr: Cell::new(cmd_set_event2),
+            #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
+            cmd_set_event2: Cell::new(cmd_set_event2),
+            #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
+            cmd_reset_event2_khr: Cell::new(cmd_reset_event2),
+            #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
+            cmd_reset_event2: Cell::new(cmd_reset_event2),
+            #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
+            cmd_wait_events2_khr: Cell::new(cmd_wait_events2),
+            #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
+            cmd_wait_events2: Cell::new(cmd_wait_events2),
             #[cfg(any(feature = "ext_copy_commands2", feature = "version_1_3"))]
             cmd_blit_image2_khr: Cell::new(cmd_blit_image2),
             #[cfg(any(feature = "ext_copy_commands2", feature = "version_1_3"))]
@@ -29456,32 +30578,6 @@ impl CommandsDispatcher {
                 feature = "version_1_3"
             ))]
             cmd_set_primitive_restart_enable: Cell::new(cmd_set_primitive_restart_enable),
-            #[cfg(any(feature = "ext_maintenance4", feature = "version_1_3"))]
-            get_device_buffer_memory_requirements_khr: Cell::new(
-                get_device_buffer_memory_requirements,
-            ),
-            #[cfg(any(feature = "ext_maintenance4", feature = "version_1_3"))]
-            get_device_buffer_memory_requirements: Cell::new(get_device_buffer_memory_requirements),
-            #[cfg(any(feature = "ext_maintenance4", feature = "version_1_3"))]
-            get_device_image_memory_requirements_khr: Cell::new(
-                get_device_image_memory_requirements,
-            ),
-            #[cfg(any(feature = "ext_maintenance4", feature = "version_1_3"))]
-            get_device_image_memory_requirements: Cell::new(get_device_image_memory_requirements),
-            #[cfg(any(feature = "ext_maintenance4", feature = "version_1_3"))]
-            get_device_image_sparse_memory_requirements_khr: Cell::new(
-                get_device_image_sparse_memory_requirements,
-            ),
-            #[cfg(any(feature = "ext_maintenance4", feature = "version_1_3"))]
-            get_device_image_sparse_memory_requirements: Cell::new(
-                get_device_image_sparse_memory_requirements,
-            ),
-            #[cfg(any(feature = "ext_line_rasterization", feature = "version_1_4"))]
-            cmd_set_line_stipple_ext: Cell::new(cmd_set_line_stipple),
-            #[cfg(any(feature = "ext_line_rasterization", feature = "version_1_4"))]
-            cmd_set_line_stipple_khr: Cell::new(cmd_set_line_stipple),
-            #[cfg(any(feature = "ext_line_rasterization", feature = "version_1_4"))]
-            cmd_set_line_stipple: Cell::new(cmd_set_line_stipple),
             #[cfg(any(feature = "ext_map_memory2", feature = "version_1_4"))]
             map_memory2_khr: Cell::new(map_memory2),
             #[cfg(any(feature = "ext_map_memory2", feature = "version_1_4"))]
@@ -29490,14 +30586,6 @@ impl CommandsDispatcher {
             unmap_memory2_khr: Cell::new(unmap_memory2),
             #[cfg(any(feature = "ext_map_memory2", feature = "version_1_4"))]
             unmap_memory2: Cell::new(unmap_memory2),
-            #[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
-            cmd_bind_index_buffer2_khr: Cell::new(cmd_bind_index_buffer2),
-            #[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
-            cmd_bind_index_buffer2: Cell::new(cmd_bind_index_buffer2),
-            #[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
-            get_rendering_area_granularity_khr: Cell::new(get_rendering_area_granularity),
-            #[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
-            get_rendering_area_granularity: Cell::new(get_rendering_area_granularity),
             #[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
             get_device_image_subresource_layout_khr: Cell::new(get_device_image_subresource_layout),
             #[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
@@ -29523,6 +30611,22 @@ impl CommandsDispatcher {
                 feature = "version_1_4"
             ))]
             get_image_subresource_layout2: Cell::new(get_image_subresource_layout2),
+            #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
+            copy_memory_to_image_ext: Cell::new(copy_memory_to_image),
+            #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
+            copy_memory_to_image: Cell::new(copy_memory_to_image),
+            #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
+            copy_image_to_memory_ext: Cell::new(copy_image_to_memory),
+            #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
+            copy_image_to_memory: Cell::new(copy_image_to_memory),
+            #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
+            copy_image_to_image_ext: Cell::new(copy_image_to_image),
+            #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
+            copy_image_to_image: Cell::new(copy_image_to_image),
+            #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
+            transition_image_layout_ext: Cell::new(transition_image_layout),
+            #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
+            transition_image_layout: Cell::new(transition_image_layout),
             #[cfg(any(feature = "ext_push_descriptor", feature = "version_1_4"))]
             cmd_push_descriptor_set_khr: Cell::new(cmd_push_descriptor_set),
             #[cfg(any(feature = "ext_push_descriptor", feature = "version_1_4"))]
@@ -29553,22 +30657,6 @@ impl CommandsDispatcher {
                 feature = "version_1_4"
             ))]
             cmd_push_descriptor_set_with_template: Cell::new(cmd_push_descriptor_set_with_template),
-            #[cfg(any(feature = "ext_dynamic_rendering_local_read", feature = "version_1_4"))]
-            cmd_set_rendering_attachment_locations_khr: Cell::new(
-                cmd_set_rendering_attachment_locations,
-            ),
-            #[cfg(any(feature = "ext_dynamic_rendering_local_read", feature = "version_1_4"))]
-            cmd_set_rendering_attachment_locations: Cell::new(
-                cmd_set_rendering_attachment_locations,
-            ),
-            #[cfg(any(feature = "ext_dynamic_rendering_local_read", feature = "version_1_4"))]
-            cmd_set_rendering_input_attachment_indices_khr: Cell::new(
-                cmd_set_rendering_input_attachment_indices,
-            ),
-            #[cfg(any(feature = "ext_dynamic_rendering_local_read", feature = "version_1_4"))]
-            cmd_set_rendering_input_attachment_indices: Cell::new(
-                cmd_set_rendering_input_attachment_indices,
-            ),
             #[cfg(any(feature = "ext_maintenance6", feature = "version_1_4"))]
             cmd_bind_descriptor_sets2_khr: Cell::new(cmd_bind_descriptor_sets2),
             #[cfg(any(feature = "ext_maintenance6", feature = "version_1_4"))]
@@ -29601,22 +30689,36 @@ impl CommandsDispatcher {
             cmd_push_descriptor_set_with_template2: Cell::new(
                 cmd_push_descriptor_set_with_template2,
             ),
-            #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
-            copy_memory_to_image_ext: Cell::new(copy_memory_to_image),
-            #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
-            copy_memory_to_image: Cell::new(copy_memory_to_image),
-            #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
-            copy_image_to_memory_ext: Cell::new(copy_image_to_memory),
-            #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
-            copy_image_to_memory: Cell::new(copy_image_to_memory),
-            #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
-            copy_image_to_image_ext: Cell::new(copy_image_to_image),
-            #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
-            copy_image_to_image: Cell::new(copy_image_to_image),
-            #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
-            transition_image_layout_ext: Cell::new(transition_image_layout),
-            #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
-            transition_image_layout: Cell::new(transition_image_layout),
+            #[cfg(any(feature = "ext_line_rasterization", feature = "version_1_4"))]
+            cmd_set_line_stipple_ext: Cell::new(cmd_set_line_stipple),
+            #[cfg(any(feature = "ext_line_rasterization", feature = "version_1_4"))]
+            cmd_set_line_stipple_khr: Cell::new(cmd_set_line_stipple),
+            #[cfg(any(feature = "ext_line_rasterization", feature = "version_1_4"))]
+            cmd_set_line_stipple: Cell::new(cmd_set_line_stipple),
+            #[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
+            cmd_bind_index_buffer2_khr: Cell::new(cmd_bind_index_buffer2),
+            #[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
+            cmd_bind_index_buffer2: Cell::new(cmd_bind_index_buffer2),
+            #[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
+            get_rendering_area_granularity_khr: Cell::new(get_rendering_area_granularity),
+            #[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
+            get_rendering_area_granularity: Cell::new(get_rendering_area_granularity),
+            #[cfg(any(feature = "ext_dynamic_rendering_local_read", feature = "version_1_4"))]
+            cmd_set_rendering_attachment_locations_khr: Cell::new(
+                cmd_set_rendering_attachment_locations,
+            ),
+            #[cfg(any(feature = "ext_dynamic_rendering_local_read", feature = "version_1_4"))]
+            cmd_set_rendering_attachment_locations: Cell::new(
+                cmd_set_rendering_attachment_locations,
+            ),
+            #[cfg(any(feature = "ext_dynamic_rendering_local_read", feature = "version_1_4"))]
+            cmd_set_rendering_input_attachment_indices_khr: Cell::new(
+                cmd_set_rendering_input_attachment_indices,
+            ),
+            #[cfg(any(feature = "ext_dynamic_rendering_local_read", feature = "version_1_4"))]
+            cmd_set_rendering_input_attachment_indices: Cell::new(
+                cmd_set_rendering_input_attachment_indices,
+            ),
             #[cfg(feature = "ext_surface")]
             destroy_surface_khr: Cell::new(destroy_surface_khr),
             #[cfg(feature = "ext_surface")]
@@ -29765,6 +30867,10 @@ impl CommandsDispatcher {
             get_image_view_handle64_nvx: Cell::new(get_image_view_handle64_nvx),
             #[cfg(feature = "ext_image_view_handle")]
             get_image_view_address_nvx: Cell::new(get_image_view_address_nvx),
+            #[cfg(feature = "ext_image_view_handle")]
+            get_device_combined_image_sampler_index_nvx: Cell::new(
+                get_device_combined_image_sampler_index_nvx,
+            ),
             #[cfg(feature = "ext_shader_info")]
             get_shader_info_amd: Cell::new(get_shader_info_amd),
             #[cfg(feature = "ext_stream_descriptor_surface")]
@@ -29929,6 +31035,28 @@ impl CommandsDispatcher {
             cmd_dispatch_graph_indirect_count_amdx: Cell::new(
                 cmd_dispatch_graph_indirect_count_amdx,
             ),
+            #[cfg(feature = "ext_descriptor_heap")]
+            write_sampler_descriptors_ext: Cell::new(write_sampler_descriptors_ext),
+            #[cfg(feature = "ext_descriptor_heap")]
+            write_resource_descriptors_ext: Cell::new(write_resource_descriptors_ext),
+            #[cfg(feature = "ext_descriptor_heap")]
+            cmd_bind_sampler_heap_ext: Cell::new(cmd_bind_sampler_heap_ext),
+            #[cfg(feature = "ext_descriptor_heap")]
+            cmd_bind_resource_heap_ext: Cell::new(cmd_bind_resource_heap_ext),
+            #[cfg(feature = "ext_descriptor_heap")]
+            cmd_push_data_ext: Cell::new(cmd_push_data_ext),
+            #[cfg(feature = "ext_descriptor_heap")]
+            get_image_opaque_capture_data_ext: Cell::new(get_image_opaque_capture_data_ext),
+            #[cfg(feature = "ext_descriptor_heap")]
+            get_physical_device_descriptor_size_ext: Cell::new(
+                get_physical_device_descriptor_size_ext,
+            ),
+            #[cfg(all(feature = "ext_descriptor_heap", feature = "ext_custom_border_color"))]
+            register_custom_border_color_ext: Cell::new(register_custom_border_color_ext),
+            #[cfg(all(feature = "ext_descriptor_heap", feature = "ext_custom_border_color"))]
+            unregister_custom_border_color_ext: Cell::new(unregister_custom_border_color_ext),
+            #[cfg(all(feature = "ext_descriptor_heap", feature = "ext_tensors"))]
+            get_tensor_opaque_capture_data_arm: Cell::new(get_tensor_opaque_capture_data_arm),
             #[cfg(feature = "ext_sample_locations")]
             cmd_set_sample_locations_ext: Cell::new(cmd_set_sample_locations_ext),
             #[cfg(feature = "ext_sample_locations")]
@@ -30076,7 +31204,7 @@ impl CommandsDispatcher {
             cmd_draw_mesh_tasks_indirect_nv: Cell::new(cmd_draw_mesh_tasks_indirect_nv),
             #[cfg(all(
                 feature = "ext_mesh_shader",
-                any(feature = "ext_draw_indirect_count", feature = "version_1_2")
+                any(feature = "version_1_2", feature = "ext_draw_indirect_count")
             ))]
             cmd_draw_mesh_tasks_indirect_count_nv: Cell::new(cmd_draw_mesh_tasks_indirect_count_nv),
             #[cfg(feature = "ext_scissor_exclusive")]
@@ -30092,6 +31220,18 @@ impl CommandsDispatcher {
                 any(feature = "version_1_3", feature = "ext_synchronization2")
             ))]
             get_queue_checkpoint_data2_nv: Cell::new(get_queue_checkpoint_data2_nv),
+            #[cfg(feature = "ext_present_timing")]
+            set_swapchain_present_timing_queue_size_ext: Cell::new(
+                set_swapchain_present_timing_queue_size_ext,
+            ),
+            #[cfg(feature = "ext_present_timing")]
+            get_swapchain_timing_properties_ext: Cell::new(get_swapchain_timing_properties_ext),
+            #[cfg(feature = "ext_present_timing")]
+            get_swapchain_time_domain_properties_ext: Cell::new(
+                get_swapchain_time_domain_properties_ext,
+            ),
+            #[cfg(feature = "ext_present_timing")]
+            get_past_presentation_timing_ext: Cell::new(get_past_presentation_timing_ext),
             #[cfg(feature = "ext_performance_query")]
             initialize_performance_api_intel: Cell::new(initialize_performance_api_intel),
             #[cfg(feature = "ext_performance_query")]
@@ -30272,7 +31412,7 @@ impl CommandsDispatcher {
             cmd_draw_mesh_tasks_indirect_ext: Cell::new(cmd_draw_mesh_tasks_indirect_ext),
             #[cfg(all(
                 feature = "ext_mesh_shader",
-                any(feature = "ext_draw_indirect_count", feature = "version_1_2")
+                any(feature = "version_1_2", feature = "ext_draw_indirect_count")
             ))]
             cmd_draw_mesh_tasks_indirect_count_ext: Cell::new(
                 cmd_draw_mesh_tasks_indirect_count_ext,
@@ -30417,6 +31557,10 @@ impl CommandsDispatcher {
             get_pipeline_indirect_device_address_nv: Cell::new(
                 get_pipeline_indirect_device_address_nv,
             ),
+            #[cfg(feature = "ext_ohos_external_memory")]
+            get_native_buffer_properties_ohos: Cell::new(get_native_buffer_properties_ohos),
+            #[cfg(feature = "ext_ohos_external_memory")]
+            get_memory_native_buffer_ohos: Cell::new(get_memory_native_buffer_ohos),
             #[cfg(any(feature = "ext_extended_dynamic_state3", feature = "ext_shader_object"))]
             cmd_set_depth_clamp_enable_ext: Cell::new(cmd_set_depth_clamp_enable_ext),
             #[cfg(any(feature = "ext_extended_dynamic_state3", feature = "ext_shader_object"))]
@@ -30818,6 +31962,16 @@ impl CommandsDispatcher {
             ),
             #[cfg(feature = "ext_tile_memory_heap")]
             cmd_bind_tile_memory_qcom: Cell::new(cmd_bind_tile_memory_qcom),
+            #[cfg(feature = "ext_copy_memory_indirect")]
+            cmd_copy_memory_indirect_khr: Cell::new(cmd_copy_memory_indirect_khr),
+            #[cfg(feature = "ext_copy_memory_indirect")]
+            cmd_copy_memory_to_image_indirect_khr: Cell::new(cmd_copy_memory_to_image_indirect_khr),
+            #[cfg(feature = "ext_memory_decompression")]
+            cmd_decompress_memory_ext: Cell::new(cmd_decompress_memory_ext),
+            #[cfg(feature = "ext_memory_decompression")]
+            cmd_decompress_memory_indirect_count_ext: Cell::new(
+                cmd_decompress_memory_indirect_count_ext,
+            ),
             #[cfg(feature = "ext_external_compute_queue")]
             create_external_compute_queue_nv: Cell::new(create_external_compute_queue_nv),
             #[cfg(feature = "ext_external_compute_queue")]
@@ -30876,8 +32030,33 @@ impl CommandsDispatcher {
             get_memory_metal_handle_properties_ext: Cell::new(
                 get_memory_metal_handle_properties_ext,
             ),
-            #[cfg(feature = "ext_fragment_density_map_offset")]
-            cmd_end_rendering2_ext: Cell::new(cmd_end_rendering2_ext),
+            #[cfg(feature = "ext_performance_counters_by_region")]
+            enumerate_physical_device_queue_family_performance_counters_by_region_arm: Cell::new(
+                enumerate_physical_device_queue_family_performance_counters_by_region_arm,
+            ),
+            #[cfg(all(
+                feature = "ext_custom_resolve",
+                any(feature = "ext_dynamic_rendering", feature = "version_1_3")
+            ))]
+            cmd_begin_custom_resolve_ext: Cell::new(cmd_begin_custom_resolve_ext),
+            #[cfg(any(
+                feature = "ext_fragment_density_map_offset",
+                feature = "ext_maintenance10"
+            ))]
+            cmd_end_rendering2_ext: Cell::new(cmd_end_rendering2_khr),
+            #[cfg(any(
+                feature = "ext_fragment_density_map_offset",
+                feature = "ext_maintenance10"
+            ))]
+            cmd_end_rendering2_khr: Cell::new(cmd_end_rendering2_khr),
+            #[cfg(feature = "ext_compute_occupancy_priority")]
+            cmd_set_compute_occupancy_priority_nv: Cell::new(cmd_set_compute_occupancy_priority_nv),
+            #[cfg(feature = "ext_ubm_surface")]
+            create_ubm_surface_sec: Cell::new(create_ubm_surface_sec),
+            #[cfg(feature = "ext_ubm_surface")]
+            get_physical_device_ubm_presentation_support_sec: Cell::new(
+                get_physical_device_ubm_presentation_support_sec,
+            ),
         }
     }
 }

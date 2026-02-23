@@ -5,7 +5,7 @@ use proc_macro2::Span;
 use quote::{format_ident, quote};
 use syn::LitCStr;
 
-use crate::{generator::remove_ext_prefix, xml};
+use crate::{structs::remove_featext_prefix, xml};
 
 use super::Generator;
 
@@ -82,7 +82,7 @@ pub fn generate(gen: &Generator) -> Result<String> {
             let ext_ident = format_ident!("{}", ext.name["VK_".len()..].to_ascii_uppercase());
             let ext_feature = gen
                 .extensions_features
-                .get(remove_ext_prefix(&ext.name))
+                .get(remove_featext_prefix(&ext.name))
                 .context("Failed to find extension")?;
             let feat_name = &ext_feature.name;
             let config = ext_feature.is_non_trivial.get().then(|| {

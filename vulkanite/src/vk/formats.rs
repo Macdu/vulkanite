@@ -248,6 +248,36 @@ impl Format {
             Format::Astc10x10SfloatBlock => 4u8,
             Format::Astc12x10SfloatBlock => 4u8,
             Format::Astc12x12SfloatBlock => 4u8,
+            Format::Astc3x3x3UnormBlockEXT => 4u8,
+            Format::Astc3x3x3SrgbBlockEXT => 4u8,
+            Format::Astc3x3x3SfloatBlockEXT => 4u8,
+            Format::Astc4x3x3UnormBlockEXT => 4u8,
+            Format::Astc4x3x3SrgbBlockEXT => 4u8,
+            Format::Astc4x3x3SfloatBlockEXT => 4u8,
+            Format::Astc4x4x3UnormBlockEXT => 4u8,
+            Format::Astc4x4x3SrgbBlockEXT => 4u8,
+            Format::Astc4x4x3SfloatBlockEXT => 4u8,
+            Format::Astc4x4x4UnormBlockEXT => 4u8,
+            Format::Astc4x4x4SrgbBlockEXT => 4u8,
+            Format::Astc4x4x4SfloatBlockEXT => 4u8,
+            Format::Astc5x4x4UnormBlockEXT => 4u8,
+            Format::Astc5x4x4SrgbBlockEXT => 4u8,
+            Format::Astc5x4x4SfloatBlockEXT => 4u8,
+            Format::Astc5x5x4UnormBlockEXT => 4u8,
+            Format::Astc5x5x4SrgbBlockEXT => 4u8,
+            Format::Astc5x5x4SfloatBlockEXT => 4u8,
+            Format::Astc5x5x5UnormBlockEXT => 4u8,
+            Format::Astc5x5x5SrgbBlockEXT => 4u8,
+            Format::Astc5x5x5SfloatBlockEXT => 4u8,
+            Format::Astc6x5x5UnormBlockEXT => 4u8,
+            Format::Astc6x5x5SrgbBlockEXT => 4u8,
+            Format::Astc6x5x5SfloatBlockEXT => 4u8,
+            Format::Astc6x6x5UnormBlockEXT => 4u8,
+            Format::Astc6x6x5SrgbBlockEXT => 4u8,
+            Format::Astc6x6x5SfloatBlockEXT => 4u8,
+            Format::Astc6x6x6UnormBlockEXT => 4u8,
+            Format::Astc6x6x6SrgbBlockEXT => 4u8,
+            Format::Astc6x6x6SfloatBlockEXT => 4u8,
             Format::G8B8R82Plane444Unorm => 3u8,
             Format::G10X6B10X6R10X62Plane444Unorm3Pack16 => 3u8,
             Format::G12X4B12X4R12X42Plane444Unorm3Pack16 => 3u8,
@@ -270,6 +300,9 @@ impl Format {
             Format::G14X2B14X2R14X22Plane420Unorm3Pack16ARM => 3u8,
             Format::G14X2B14X2R14X22Plane422Unorm3Pack16ARM => 3u8,
             Format::R8BoolARM => 1u8,
+            Format::R16SfloatFpencodingBfloat16ARM => 1u8,
+            Format::R8SfloatFpencodingFloat8E4M3ARM => 1u8,
+            Format::R8SfloatFpencodingFloat8E5M2ARM => 1u8,
         }
     }
     #[doc = r" Return the texel block size of this format in bytes"]
@@ -518,6 +551,36 @@ impl Format {
             Format::Astc10x10SfloatBlock => 16u8,
             Format::Astc12x10SfloatBlock => 16u8,
             Format::Astc12x12SfloatBlock => 16u8,
+            Format::Astc3x3x3UnormBlockEXT => 16u8,
+            Format::Astc3x3x3SrgbBlockEXT => 16u8,
+            Format::Astc3x3x3SfloatBlockEXT => 16u8,
+            Format::Astc4x3x3UnormBlockEXT => 16u8,
+            Format::Astc4x3x3SrgbBlockEXT => 16u8,
+            Format::Astc4x3x3SfloatBlockEXT => 16u8,
+            Format::Astc4x4x3UnormBlockEXT => 16u8,
+            Format::Astc4x4x3SrgbBlockEXT => 16u8,
+            Format::Astc4x4x3SfloatBlockEXT => 16u8,
+            Format::Astc4x4x4UnormBlockEXT => 16u8,
+            Format::Astc4x4x4SrgbBlockEXT => 16u8,
+            Format::Astc4x4x4SfloatBlockEXT => 16u8,
+            Format::Astc5x4x4UnormBlockEXT => 16u8,
+            Format::Astc5x4x4SrgbBlockEXT => 16u8,
+            Format::Astc5x4x4SfloatBlockEXT => 16u8,
+            Format::Astc5x5x4UnormBlockEXT => 16u8,
+            Format::Astc5x5x4SrgbBlockEXT => 16u8,
+            Format::Astc5x5x4SfloatBlockEXT => 16u8,
+            Format::Astc5x5x5UnormBlockEXT => 16u8,
+            Format::Astc5x5x5SrgbBlockEXT => 16u8,
+            Format::Astc5x5x5SfloatBlockEXT => 16u8,
+            Format::Astc6x5x5UnormBlockEXT => 16u8,
+            Format::Astc6x5x5SrgbBlockEXT => 16u8,
+            Format::Astc6x5x5SfloatBlockEXT => 16u8,
+            Format::Astc6x6x5UnormBlockEXT => 16u8,
+            Format::Astc6x6x5SrgbBlockEXT => 16u8,
+            Format::Astc6x6x5SfloatBlockEXT => 16u8,
+            Format::Astc6x6x6UnormBlockEXT => 16u8,
+            Format::Astc6x6x6SrgbBlockEXT => 16u8,
+            Format::Astc6x6x6SfloatBlockEXT => 16u8,
             Format::G8B8R82Plane444Unorm => 3u8,
             Format::G10X6B10X6R10X62Plane444Unorm3Pack16 => 6u8,
             Format::G12X4B12X4R12X42Plane444Unorm3Pack16 => 6u8,
@@ -540,6 +603,9 @@ impl Format {
             Format::G14X2B14X2R14X22Plane420Unorm3Pack16ARM => 6u8,
             Format::G14X2B14X2R14X22Plane422Unorm3Pack16ARM => 6u8,
             Format::R8BoolARM => 1u8,
+            Format::R16SfloatFpencodingBfloat16ARM => 2u8,
+            Format::R8SfloatFpencodingFloat8E4M3ARM => 1u8,
+            Format::R8SfloatFpencodingFloat8E5M2ARM => 1u8,
         }
     }
     #[doc = r" Return the number of texels in a texel block"]
@@ -616,6 +682,36 @@ impl Format {
             Format::Astc10x10SfloatBlock => 100u8,
             Format::Astc12x10SfloatBlock => 120u8,
             Format::Astc12x12SfloatBlock => 144u8,
+            Format::Astc3x3x3UnormBlockEXT => 27u8,
+            Format::Astc3x3x3SrgbBlockEXT => 27u8,
+            Format::Astc3x3x3SfloatBlockEXT => 27u8,
+            Format::Astc4x3x3UnormBlockEXT => 36u8,
+            Format::Astc4x3x3SrgbBlockEXT => 36u8,
+            Format::Astc4x3x3SfloatBlockEXT => 36u8,
+            Format::Astc4x4x3UnormBlockEXT => 48u8,
+            Format::Astc4x4x3SrgbBlockEXT => 48u8,
+            Format::Astc4x4x3SfloatBlockEXT => 48u8,
+            Format::Astc4x4x4UnormBlockEXT => 64u8,
+            Format::Astc4x4x4SrgbBlockEXT => 64u8,
+            Format::Astc4x4x4SfloatBlockEXT => 64u8,
+            Format::Astc5x4x4UnormBlockEXT => 80u8,
+            Format::Astc5x4x4SrgbBlockEXT => 80u8,
+            Format::Astc5x4x4SfloatBlockEXT => 80u8,
+            Format::Astc5x5x4UnormBlockEXT => 100u8,
+            Format::Astc5x5x4SrgbBlockEXT => 100u8,
+            Format::Astc5x5x4SfloatBlockEXT => 100u8,
+            Format::Astc5x5x5UnormBlockEXT => 125u8,
+            Format::Astc5x5x5SrgbBlockEXT => 125u8,
+            Format::Astc5x5x5SfloatBlockEXT => 125u8,
+            Format::Astc6x5x5UnormBlockEXT => 150u8,
+            Format::Astc6x5x5SrgbBlockEXT => 150u8,
+            Format::Astc6x5x5SfloatBlockEXT => 150u8,
+            Format::Astc6x6x5UnormBlockEXT => 180u8,
+            Format::Astc6x6x5SrgbBlockEXT => 180u8,
+            Format::Astc6x6x5SfloatBlockEXT => 180u8,
+            Format::Astc6x6x6UnormBlockEXT => 216u8,
+            Format::Astc6x6x6SrgbBlockEXT => 216u8,
+            Format::Astc6x6x6SfloatBlockEXT => 216u8,
             _ => 1,
         }
     }
@@ -707,6 +803,36 @@ impl Format {
             Format::Astc10x10SfloatBlock => [10u8, 10u8, 1u8],
             Format::Astc12x10SfloatBlock => [12u8, 10u8, 1u8],
             Format::Astc12x12SfloatBlock => [12u8, 12u8, 1u8],
+            Format::Astc3x3x3UnormBlockEXT => [3u8, 3u8, 3u8],
+            Format::Astc3x3x3SrgbBlockEXT => [3u8, 3u8, 3u8],
+            Format::Astc3x3x3SfloatBlockEXT => [3u8, 3u8, 3u8],
+            Format::Astc4x3x3UnormBlockEXT => [4u8, 3u8, 3u8],
+            Format::Astc4x3x3SrgbBlockEXT => [4u8, 3u8, 3u8],
+            Format::Astc4x3x3SfloatBlockEXT => [4u8, 3u8, 3u8],
+            Format::Astc4x4x3UnormBlockEXT => [4u8, 4u8, 3u8],
+            Format::Astc4x4x3SrgbBlockEXT => [4u8, 4u8, 3u8],
+            Format::Astc4x4x3SfloatBlockEXT => [4u8, 4u8, 3u8],
+            Format::Astc4x4x4UnormBlockEXT => [4u8, 4u8, 4u8],
+            Format::Astc4x4x4SrgbBlockEXT => [4u8, 4u8, 4u8],
+            Format::Astc4x4x4SfloatBlockEXT => [4u8, 4u8, 4u8],
+            Format::Astc5x4x4UnormBlockEXT => [5u8, 4u8, 4u8],
+            Format::Astc5x4x4SrgbBlockEXT => [5u8, 4u8, 4u8],
+            Format::Astc5x4x4SfloatBlockEXT => [5u8, 4u8, 4u8],
+            Format::Astc5x5x4UnormBlockEXT => [5u8, 5u8, 4u8],
+            Format::Astc5x5x4SrgbBlockEXT => [5u8, 5u8, 4u8],
+            Format::Astc5x5x4SfloatBlockEXT => [5u8, 5u8, 4u8],
+            Format::Astc5x5x5UnormBlockEXT => [5u8, 5u8, 5u8],
+            Format::Astc5x5x5SrgbBlockEXT => [5u8, 5u8, 5u8],
+            Format::Astc5x5x5SfloatBlockEXT => [5u8, 5u8, 5u8],
+            Format::Astc6x5x5UnormBlockEXT => [6u8, 5u8, 5u8],
+            Format::Astc6x5x5SrgbBlockEXT => [6u8, 5u8, 5u8],
+            Format::Astc6x5x5SfloatBlockEXT => [6u8, 5u8, 5u8],
+            Format::Astc6x6x5UnormBlockEXT => [6u8, 6u8, 5u8],
+            Format::Astc6x6x5SrgbBlockEXT => [6u8, 6u8, 5u8],
+            Format::Astc6x6x5SfloatBlockEXT => [6u8, 6u8, 5u8],
+            Format::Astc6x6x6UnormBlockEXT => [6u8, 6u8, 6u8],
+            Format::Astc6x6x6SrgbBlockEXT => [6u8, 6u8, 6u8],
+            Format::Astc6x6x6SfloatBlockEXT => [6u8, 6u8, 6u8],
             _ => [1, 1, 1],
         }
     }
@@ -788,7 +914,37 @@ impl Format {
             | Format::Astc10x8SfloatBlock
             | Format::Astc10x10SfloatBlock
             | Format::Astc12x10SfloatBlock
-            | Format::Astc12x12SfloatBlock => true,
+            | Format::Astc12x12SfloatBlock
+            | Format::Astc3x3x3UnormBlockEXT
+            | Format::Astc3x3x3SrgbBlockEXT
+            | Format::Astc3x3x3SfloatBlockEXT
+            | Format::Astc4x3x3UnormBlockEXT
+            | Format::Astc4x3x3SrgbBlockEXT
+            | Format::Astc4x3x3SfloatBlockEXT
+            | Format::Astc4x4x3UnormBlockEXT
+            | Format::Astc4x4x3SrgbBlockEXT
+            | Format::Astc4x4x3SfloatBlockEXT
+            | Format::Astc4x4x4UnormBlockEXT
+            | Format::Astc4x4x4SrgbBlockEXT
+            | Format::Astc4x4x4SfloatBlockEXT
+            | Format::Astc5x4x4UnormBlockEXT
+            | Format::Astc5x4x4SrgbBlockEXT
+            | Format::Astc5x4x4SfloatBlockEXT
+            | Format::Astc5x5x4UnormBlockEXT
+            | Format::Astc5x5x4SrgbBlockEXT
+            | Format::Astc5x5x4SfloatBlockEXT
+            | Format::Astc5x5x5UnormBlockEXT
+            | Format::Astc5x5x5SrgbBlockEXT
+            | Format::Astc5x5x5SfloatBlockEXT
+            | Format::Astc6x5x5UnormBlockEXT
+            | Format::Astc6x5x5SrgbBlockEXT
+            | Format::Astc6x5x5SfloatBlockEXT
+            | Format::Astc6x6x5UnormBlockEXT
+            | Format::Astc6x6x5SrgbBlockEXT
+            | Format::Astc6x6x5SfloatBlockEXT
+            | Format::Astc6x6x6UnormBlockEXT
+            | Format::Astc6x6x6SrgbBlockEXT
+            | Format::Astc6x6x6SfloatBlockEXT => true,
             _ => false,
         }
     }

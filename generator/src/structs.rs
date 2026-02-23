@@ -342,7 +342,7 @@ impl<'a> TryFrom<&'a xml::Type> for Struct<'a> {
                     .iter()
                     .filter_map(|cnt| match cnt {
                         xml::TypeContent::Member(mem) => {
-                            if mem.api == Some(xml::Api::Vulkansc) {
+                            if matches!(&mem.apis[..], [xml::Api::Vulkansc]) {
                                 None
                             } else {
                                 Some(StructField::try_from(mem, &name))
@@ -549,7 +549,7 @@ impl<'a> TryFrom<&'a xml::Command> for Command<'a> {
         let params = value
             .param
             .iter()
-            .filter(|param| param.api != Some(xml::Api::Vulkansc))
+            .filter(|param| !matches!(&param.apis[..], [xml::Api::Vulkansc]))
             .map(|param| CommandParam::try_from(param))
             .collect::<Result<_>>()?;
 
@@ -858,24 +858,16 @@ impl<'a> Dependencies<'a> {
             is_or: false,
         };
 
-        let get_dep_name = |name: &'a str| -> Option<_> {
-            if name.starts_with("VK_VERSION_") {
-                Some(Dependencies::Single(name))
-            } else if name.starts_with("VK_") {
-                Some(Dependencies::Single(remove_ext_prefix(name)))
-            } else {
-                None
-            }
-        };
         let add_last_dep = |state: &mut ParseState<'a>| {
             let dep_name = &dep[state.dep_start..state.pos];
-            if let Some(feat_name) = get_dep_name(dep_name) {
-                if state.is_or {
-                    state.res.add_or(feat_name);
-                } else {
-                    state.res.add_and(feat_name);
-                }
+            let feat_name = remove_featext_prefix(dep_name);
+            let feat = Dependencies::Single(feat_name);
+            if state.is_or {
+                state.res.add_or(feat);
+            } else {
+                state.res.add_and(feat);
             }
+
             state.pos += 1;
             state.dep_start = state.pos;
         };
@@ -924,26 +916,46 @@ impl<'a> Dependencies<'a> {
     }
 }
 
-pub fn remove_ext_prefix(name: &str) -> &str {
+pub fn is_subfeature(name: &str) -> bool {
+    let Some(name) = name.strip_prefix("VK_") else {
+        return false;
+    };
+
+    name.starts_with("GRAPHICS_") || name.starts_with("COMPUTE_") || name.starts_with("BASE_")
+}
+
+pub fn remove_featext_prefix(name: &str) -> &str {
+    let Some(name) = name.strip_prefix("VK_") else {
+        return "invalid_vk_extension";
+    };
+
+    // Handle features first
+    if let Some(suffix) = name.strip_prefix("GRAPHICS_") {
+        return suffix;
+    } else if let Some(suffix) = name.strip_prefix("COMPUTE_") {
+        return suffix;
+    } else if let Some(suffix) = name.strip_prefix("BASE_") {
+        return suffix;
+    } else if name.starts_with("VERSION") {
+        return name;
+    }
+
     // Some extensions only have a different vendor while they provide
     // completely different functionalities, so handle them separately
     for (ext_name, ret) in [
-        ("VK_OHOS_surface", "ohos_surface"),
-        ("VK_FUCHSIA_external_memory", "fuchsia_external_memory"),
-        (
-            "VK_FUCHSIA_external_semaphore",
-            "fuchsia_external_semaphore",
-        ),
+        ("OHOS_surface", "ohos_surface"),
+        ("OHOS_external_memory", "ohos_external_memory"),
+        ("FUCHSIA_external_memory", "fuchsia_external_memory"),
+        ("FUCHSIA_external_semaphore", "fuchsia_external_semaphore"),
     ] {
         if name == ext_name {
             return ret;
         }
     }
 
-    name.strip_prefix("VK_")
-        .and_then(|n| n.split_once('_'))
-        .map(|(_, s)| s)
-        .unwrap_or("invalid_extension_name")
+    name.split_once('_')
+        .map(|(_, suffix)| suffix)
+        .unwrap_or("invalid_vk_extension")
 }
 
 /// Performs screaming snake case to pascal case conversion
@@ -1043,7 +1055,7 @@ pub fn convert_field_to_snake_case(
         // add something relevant in front
         [
             "Type", "Count", "Depth", "Size", "Rate", "Format", "Result", "Controls", "Chroma",
-            "Image",
+            "Image", "Pipeline", "Shader",
         ]
         .into_iter()
         .find(|kw| container_name.contains(kw))
