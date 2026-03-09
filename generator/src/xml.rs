@@ -567,8 +567,11 @@ pub struct Extension {
     #[serde(rename = "@type")]
     pub ty: Option<ExtensionType>,
 
+    #[serde(rename = "$value", deserialize_with = "deserialize_ext_requires")]
     pub require: Vec<Require>,
 }
+
+deserialize_skip! {deserialize_ext_requires, Require, "remove" => Remove, "deprecate" => Deprecate }
 
 #[derive(Deserialize, Debug, PartialEq)]
 #[serde(rename_all = "snake_case")]

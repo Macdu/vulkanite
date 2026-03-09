@@ -81646,11 +81646,11 @@ impl<'a> PerformanceCounterDescriptionARM<'a> {
 pub struct RenderPassPerformanceCountersByRegionBeginInfoARM<'a> {
     pub(crate) s_type: StructureType,
     pub(crate) p_next: Cell<*const Header>,
-    pub counter_address_count: u32,
-    pub p_counter_addresses: *const DeviceAddress,
+    pub(crate) counter_address_count: u32,
+    pub(crate) p_counter_addresses: *const DeviceAddress,
     pub serialize_regions: Bool32,
-    pub counter_index_count: u32,
-    pub p_counter_indices: *const u32,
+    pub(crate) counter_index_count: u32,
+    pub(crate) p_counter_indices: *const u32,
     phantom: PhantomData<&'a ()>,
 }
 #[cfg(feature = "ext_performance_counters_by_region")]
@@ -81702,33 +81702,311 @@ impl<'a> Default for RenderPassPerformanceCountersByRegionBeginInfoARM<'a> {
 #[cfg(feature = "ext_performance_counters_by_region")]
 impl<'a> RenderPassPerformanceCountersByRegionBeginInfoARM<'a> {
     #[inline]
-    pub fn counter_address_count(mut self, value: u32) -> Self {
-        self.counter_address_count = value;
-        self
-    }
-    #[inline]
-    pub fn counter_addresses(mut self, value: &'a DeviceAddress) -> Self {
-        self.p_counter_addresses = ptr::from_ref(value);
-        self
-    }
-    #[inline]
     pub fn serialize_regions(mut self, value: impl Into<Bool32>) -> Self {
         self.serialize_regions = value.into();
         self
     }
     #[inline]
-    pub fn counter_index_count(mut self, value: u32) -> Self {
-        self.counter_index_count = value;
+    pub fn counter_addresses(
+        mut self,
+        p_counter_addresses: impl AsSlice<'a, DeviceAddress>,
+    ) -> Self {
+        self.p_counter_addresses = p_counter_addresses.as_slice().as_ptr().cast();
+        self.counter_address_count = p_counter_addresses.as_slice().len() as _;
         self
     }
     #[inline]
-    pub fn counter_indices(mut self, value: &'a u32) -> Self {
-        self.p_counter_indices = ptr::from_ref(value);
+    pub fn get_counter_addresses(&self) -> &'a [DeviceAddress] {
+        (!self.p_counter_addresses.is_null())
+            .then(|| unsafe {
+                slice::from_raw_parts(
+                    self.p_counter_addresses.cast(),
+                    self.counter_address_count as _,
+                )
+            })
+            .unwrap_or(&[])
+    }
+    #[inline]
+    pub fn counter_indices(mut self, p_counter_indices: impl AsSlice<'a, u32>) -> Self {
+        self.p_counter_indices = p_counter_indices.as_slice().as_ptr().cast();
+        self.counter_index_count = p_counter_indices.as_slice().len() as _;
+        self
+    }
+    #[inline]
+    pub fn get_counter_indices(&self) -> &'a [u32] {
+        (!self.p_counter_indices.is_null())
+            .then(|| unsafe {
+                slice::from_raw_parts(self.p_counter_indices.cast(), self.counter_index_count as _)
+            })
+            .unwrap_or(&[])
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[cfg(feature = "ext_shader_instrumentation")]
+#[repr(C)]
+#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderInstrumentationFeaturesARM.html>"]
+#[doc(alias = "VkPhysicalDeviceShaderInstrumentationFeaturesARM")]
+pub struct PhysicalDeviceShaderInstrumentationFeaturesARM<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub shader_instrumentation: Bool32,
+    phantom: PhantomData<&'a ()>,
+}
+#[cfg(feature = "ext_shader_instrumentation")]
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceShaderInstrumentationFeaturesARM<'a> {}
+#[cfg(feature = "ext_shader_instrumentation")]
+unsafe impl<'a> ExtendableStructure for PhysicalDeviceShaderInstrumentationFeaturesARM<'a> {
+    const STRUCTURE_TYPE: StructureType =
+        StructureType::PhysicalDeviceShaderInstrumentationFeaturesARM;
+}
+#[cfg(feature = "ext_shader_instrumentation")]
+unsafe impl<'a> Send for PhysicalDeviceShaderInstrumentationFeaturesARM<'a> {}
+#[cfg(feature = "ext_shader_instrumentation")]
+unsafe impl<'a> Sync for PhysicalDeviceShaderInstrumentationFeaturesARM<'a> {}
+#[cfg(all(
+    feature = "ext_shader_instrumentation",
+    any(
+        feature = "ext_get_physical_device_properties2",
+        feature = "version_1_1"
+    )
+))]
+unsafe impl<'a, 'b> ExtendingStructure<PhysicalDeviceFeatures2<'b>>
+    for PhysicalDeviceShaderInstrumentationFeaturesARM<'a>
+{
+}
+#[cfg(all(feature = "ext_shader_instrumentation",))]
+unsafe impl<'a, 'b> ExtendingStructure<DeviceCreateInfo<'b>>
+    for PhysicalDeviceShaderInstrumentationFeaturesARM<'a>
+{
+}
+#[cfg(feature = "ext_shader_instrumentation")]
+impl<'a> Default for PhysicalDeviceShaderInstrumentationFeaturesARM<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            shader_instrumentation: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+#[cfg(feature = "ext_shader_instrumentation")]
+impl<'a> PhysicalDeviceShaderInstrumentationFeaturesARM<'a> {
+    #[inline]
+    pub fn shader_instrumentation(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_instrumentation = value.into();
         self
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
         unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[cfg(feature = "ext_shader_instrumentation")]
+#[repr(C)]
+#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderInstrumentationPropertiesARM.html>"]
+#[doc(alias = "VkPhysicalDeviceShaderInstrumentationPropertiesARM")]
+pub struct PhysicalDeviceShaderInstrumentationPropertiesARM<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub num_metrics: u32,
+    pub per_basic_block_granularity: Bool32,
+    phantom: PhantomData<&'a ()>,
+}
+#[cfg(feature = "ext_shader_instrumentation")]
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceShaderInstrumentationPropertiesARM<'a> {}
+#[cfg(feature = "ext_shader_instrumentation")]
+unsafe impl<'a> ExtendableStructure for PhysicalDeviceShaderInstrumentationPropertiesARM<'a> {
+    const STRUCTURE_TYPE: StructureType =
+        StructureType::PhysicalDeviceShaderInstrumentationPropertiesARM;
+}
+#[cfg(feature = "ext_shader_instrumentation")]
+unsafe impl<'a> Send for PhysicalDeviceShaderInstrumentationPropertiesARM<'a> {}
+#[cfg(feature = "ext_shader_instrumentation")]
+unsafe impl<'a> Sync for PhysicalDeviceShaderInstrumentationPropertiesARM<'a> {}
+#[cfg(all(
+    feature = "ext_shader_instrumentation",
+    any(
+        feature = "ext_get_physical_device_properties2",
+        feature = "version_1_1"
+    )
+))]
+unsafe impl<'a, 'b> ExtendingStructure<PhysicalDeviceProperties2<'b>>
+    for PhysicalDeviceShaderInstrumentationPropertiesARM<'a>
+{
+}
+#[cfg(feature = "ext_shader_instrumentation")]
+impl<'a> Default for PhysicalDeviceShaderInstrumentationPropertiesARM<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            num_metrics: Default::default(),
+            per_basic_block_granularity: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+#[cfg(feature = "ext_shader_instrumentation")]
+impl<'a> PhysicalDeviceShaderInstrumentationPropertiesARM<'a> {
+    #[inline]
+    pub fn num_metrics(mut self, value: u32) -> Self {
+        self.num_metrics = value;
+        self
+    }
+    #[inline]
+    pub fn per_basic_block_granularity(mut self, value: impl Into<Bool32>) -> Self {
+        self.per_basic_block_granularity = value.into();
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[cfg(feature = "ext_shader_instrumentation")]
+#[repr(C)]
+#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkShaderInstrumentationCreateInfoARM.html>"]
+#[doc(alias = "VkShaderInstrumentationCreateInfoARM")]
+pub struct ShaderInstrumentationCreateInfoARM<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    phantom: PhantomData<&'a ()>,
+}
+#[cfg(feature = "ext_shader_instrumentation")]
+unsafe impl<'a> ExtendableStructureBase for ShaderInstrumentationCreateInfoARM<'a> {}
+#[cfg(feature = "ext_shader_instrumentation")]
+unsafe impl<'a> ExtendableStructure for ShaderInstrumentationCreateInfoARM<'a> {
+    const STRUCTURE_TYPE: StructureType = StructureType::ShaderInstrumentationCreateInfoARM;
+}
+#[cfg(feature = "ext_shader_instrumentation")]
+unsafe impl<'a> Send for ShaderInstrumentationCreateInfoARM<'a> {}
+#[cfg(feature = "ext_shader_instrumentation")]
+unsafe impl<'a> Sync for ShaderInstrumentationCreateInfoARM<'a> {}
+#[cfg(feature = "ext_shader_instrumentation")]
+impl<'a> Default for ShaderInstrumentationCreateInfoARM<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            phantom: PhantomData,
+        }
+    }
+}
+#[cfg(feature = "ext_shader_instrumentation")]
+impl<'a> ShaderInstrumentationCreateInfoARM<'a> {
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[cfg(feature = "ext_shader_instrumentation")]
+#[repr(C)]
+#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkShaderInstrumentationMetricDescriptionARM.html>"]
+#[doc(alias = "VkShaderInstrumentationMetricDescriptionARM")]
+pub struct ShaderInstrumentationMetricDescriptionARM<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub(crate) name: [c_char; MAX_DESCRIPTION_SIZE as _],
+    pub(crate) description: [c_char; MAX_DESCRIPTION_SIZE as _],
+    phantom: PhantomData<&'a ()>,
+}
+#[cfg(feature = "ext_shader_instrumentation")]
+unsafe impl<'a> ExtendableStructureBase for ShaderInstrumentationMetricDescriptionARM<'a> {}
+#[cfg(feature = "ext_shader_instrumentation")]
+unsafe impl<'a> ExtendableStructure for ShaderInstrumentationMetricDescriptionARM<'a> {
+    const STRUCTURE_TYPE: StructureType = StructureType::ShaderInstrumentationMetricDescriptionARM;
+}
+#[cfg(feature = "ext_shader_instrumentation")]
+unsafe impl<'a> Send for ShaderInstrumentationMetricDescriptionARM<'a> {}
+#[cfg(feature = "ext_shader_instrumentation")]
+unsafe impl<'a> Sync for ShaderInstrumentationMetricDescriptionARM<'a> {}
+#[cfg(feature = "ext_shader_instrumentation")]
+impl<'a> Default for ShaderInstrumentationMetricDescriptionARM<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            name: array::from_fn(|_| Default::default()),
+            description: array::from_fn(|_| Default::default()),
+            phantom: PhantomData,
+        }
+    }
+}
+#[cfg(feature = "ext_shader_instrumentation")]
+impl<'a> ShaderInstrumentationMetricDescriptionARM<'a> {
+    pub fn get_name(&self) -> &CStr {
+        CStr::from_bytes_until_nul(
+            unsafe { mem::transmute::<_, &[u8; MAX_DESCRIPTION_SIZE as _]>(&self.name) }.as_slice(),
+        )
+        .unwrap()
+    }
+    pub fn get_description(&self) -> &CStr {
+        CStr::from_bytes_until_nul(
+            unsafe { mem::transmute::<_, &[u8; MAX_DESCRIPTION_SIZE as _]>(&self.description) }
+                .as_slice(),
+        )
+        .unwrap()
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[cfg(feature = "ext_shader_instrumentation")]
+#[repr(C)]
+#[derive(Clone, Copy)]
+#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkShaderInstrumentationMetricDataHeaderARM.html>"]
+#[doc(alias = "VkShaderInstrumentationMetricDataHeaderARM")]
+pub struct ShaderInstrumentationMetricDataHeaderARM {
+    pub result_index: u32,
+    pub result_sub_index: u32,
+    pub stages: ShaderStageFlags,
+    pub basic_block_index: u32,
+}
+#[cfg(feature = "ext_shader_instrumentation")]
+unsafe impl Send for ShaderInstrumentationMetricDataHeaderARM {}
+#[cfg(feature = "ext_shader_instrumentation")]
+unsafe impl Sync for ShaderInstrumentationMetricDataHeaderARM {}
+#[cfg(feature = "ext_shader_instrumentation")]
+impl Default for ShaderInstrumentationMetricDataHeaderARM {
+    fn default() -> Self {
+        Self {
+            result_index: Default::default(),
+            result_sub_index: Default::default(),
+            stages: Default::default(),
+            basic_block_index: Default::default(),
+        }
+    }
+}
+#[cfg(feature = "ext_shader_instrumentation")]
+impl ShaderInstrumentationMetricDataHeaderARM {
+    #[inline]
+    pub fn result_index(mut self, value: u32) -> Self {
+        self.result_index = value;
+        self
+    }
+    #[inline]
+    pub fn result_sub_index(mut self, value: u32) -> Self {
+        self.result_sub_index = value;
+        self
+    }
+    #[inline]
+    pub fn stages(mut self, value: ShaderStageFlags) -> Self {
+        self.stages = value;
+        self
+    }
+    #[inline]
+    pub fn basic_block_index(mut self, value: u32) -> Self {
+        self.basic_block_index = value;
         self
     }
 }

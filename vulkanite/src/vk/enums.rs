@@ -1088,6 +1088,10 @@ pub enum StructureType {
     PerformanceCounterARM = 1000605002,
     PerformanceCounterDescriptionARM = 1000605003,
     RenderPassPerformanceCountersByRegionBeginInfoARM = 1000605004,
+    PhysicalDeviceShaderInstrumentationFeaturesARM = 1000607000,
+    PhysicalDeviceShaderInstrumentationPropertiesARM = 1000607001,
+    ShaderInstrumentationCreateInfoARM = 1000607002,
+    ShaderInstrumentationMetricDescriptionARM = 1000607003,
     PhysicalDeviceVertexAttributeRobustnessFeaturesEXT = 1000608000,
     PhysicalDeviceFormatPackFeaturesARM = 1000609000,
     PhysicalDeviceFragmentDensityMapLayeredFeaturesVALVE = 1000611000,
@@ -1588,6 +1592,7 @@ pub enum ObjectType {
     ExternalComputeQueueNV = 1000556000,
     IndirectCommandsLayoutEXT = 1000572000,
     IndirectExecutionSetEXT = 1000572001,
+    ShaderInstrumentationARM = 1000607000,
 }
 #[allow(non_upper_case_globals)]
 impl ObjectType {
@@ -4533,6 +4538,7 @@ bitflags! {
         const RayTracingDisplacementMicromapNV = 1u64 << 28;
         const DescriptorBufferEXT = 1u64 << 29;
         const DisallowOpacityMicromapARM = 1u64 << 37;
+        const InstrumentShadersARM = 1u64 << 39;
         const CaptureDataKHR = 1u64 << 31;
         const IndirectBindableEXT = 1u64 << 38;
         const PerLayerFragmentDensityVALVE = 1u64 << 40;
@@ -6208,6 +6214,7 @@ bitflags! {
     pub struct ShaderCreateFlagsEXT : u32 {
         const LinkStage = 1u32 << 0;
         const DescriptorHeap = 1u32 << 10;
+        const InstrumentShaderARM = 1u32 << 11;
         const AllowVaryingSubgroupSize = 1u32 << 1;
         const RequireFullSubgroups = 1u32 << 2;
         const NoTaskShader = 1u32 << 3;

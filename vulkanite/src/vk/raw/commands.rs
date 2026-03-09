@@ -14824,6 +14824,144 @@ pub unsafe fn get_memory_metal_handle_properties_ext<
         p_memory_metal_handle_properties.assume_init()
     })
 }
+#[cfg(feature = "ext_shader_instrumentation")]
+#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkEnumeratePhysicalDeviceShaderInstrumentationMetricsARM.html>"]
+#[doc(alias = "vkEnumeratePhysicalDeviceShaderInstrumentationMetricsARM")]
+pub unsafe fn enumerate_physical_device_shader_instrumentation_metrics_arm<
+    R: DynamicArray<ShaderInstrumentationMetricDescriptionARM<'static>>,
+>(
+    physical_device: &raw::PhysicalDevice,
+    dispatcher: &CommandsDispatcher,
+) -> Result<R> {
+    let vulkan_command = dispatcher
+        .enumerate_physical_device_shader_instrumentation_metrics_arm
+        .get();
+    let mut vk_len = MaybeUninit::uninit();
+    let p_description_count = vk_len.as_mut_ptr();
+    let p_descriptions = ptr::null_mut();
+    vulkan_command(
+        Some(physical_device.borrow()),
+        p_description_count,
+        p_descriptions,
+    )
+    .map_success(|| ())?;
+    let mut vk_len = vk_len.assume_init();
+    let mut vk_vec = R::create_with_capacity(vk_len as _);
+    let mut p_description_count = ptr::from_mut(&mut vk_len);
+    let mut p_descriptions = vk_vec.get_content_mut_ptr();
+    let vk_status = loop {
+        let status = vulkan_command(
+            Some(physical_device.borrow()),
+            p_description_count,
+            p_descriptions,
+        );
+        if status != Status::Incomplete {
+            break status;
+        }
+        vk_vec.update_with_capacity(vk_len as _);
+        p_description_count = ptr::from_mut(&mut vk_len);
+        p_descriptions = vk_vec.get_content_mut_ptr();
+    };
+    vk_status.map_success(|| {
+        vk_vec.resize_with_len(vk_len as _);
+        vk_vec
+    })
+}
+#[cfg(feature = "ext_shader_instrumentation")]
+#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateShaderInstrumentationARM.html>"]
+#[doc(alias = "vkCreateShaderInstrumentationARM")]
+pub unsafe fn create_shader_instrumentation_arm(
+    device: &raw::Device,
+    p_create_info: &ShaderInstrumentationCreateInfoARM,
+    p_allocator: Option<&AllocationCallbacks>,
+    dispatcher: &CommandsDispatcher,
+) -> Result<ShaderInstrumentationARM> {
+    let vulkan_command = dispatcher.create_shader_instrumentation_arm.get();
+    let mut p_instrumentation = MaybeUninit::uninit();
+    let vk_status = vulkan_command(
+        Some(device.borrow()),
+        ptr::from_ref(p_create_info),
+        p_allocator.map(|v| ptr::from_ref(v)).unwrap_or(ptr::null()),
+        p_instrumentation.as_mut_ptr(),
+    );
+    vk_status.map_success(|| p_instrumentation.assume_init())
+}
+#[cfg(feature = "ext_shader_instrumentation")]
+#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkDestroyShaderInstrumentationARM.html>"]
+#[doc(alias = "vkDestroyShaderInstrumentationARM")]
+#[inline]
+pub unsafe fn destroy_shader_instrumentation_arm(
+    device: &raw::Device,
+    instrumentation: Option<&raw::ShaderInstrumentationARM>,
+    p_allocator: Option<&AllocationCallbacks>,
+    dispatcher: &CommandsDispatcher,
+) {
+    let vulkan_command = dispatcher.destroy_shader_instrumentation_arm.get();
+    vulkan_command(
+        Some(device.borrow()),
+        instrumentation.map(|v| v.borrow()),
+        p_allocator.map(|v| ptr::from_ref(v)).unwrap_or(ptr::null()),
+    )
+}
+#[cfg(feature = "ext_shader_instrumentation")]
+#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdBeginShaderInstrumentationARM.html>"]
+#[doc(alias = "vkCmdBeginShaderInstrumentationARM")]
+#[inline]
+pub unsafe fn cmd_begin_shader_instrumentation_arm(
+    command_buffer: &raw::CommandBuffer,
+    instrumentation: &raw::ShaderInstrumentationARM,
+    dispatcher: &CommandsDispatcher,
+) {
+    let vulkan_command = dispatcher.cmd_begin_shader_instrumentation_arm.get();
+    vulkan_command(
+        Some(command_buffer.borrow()),
+        Some(instrumentation.borrow()),
+    )
+}
+#[cfg(feature = "ext_shader_instrumentation")]
+#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdEndShaderInstrumentationARM.html>"]
+#[doc(alias = "vkCmdEndShaderInstrumentationARM")]
+#[inline]
+pub unsafe fn cmd_end_shader_instrumentation_arm(
+    command_buffer: &raw::CommandBuffer,
+    dispatcher: &CommandsDispatcher,
+) {
+    let vulkan_command = dispatcher.cmd_end_shader_instrumentation_arm.get();
+    vulkan_command(Some(command_buffer.borrow()))
+}
+#[cfg(feature = "ext_shader_instrumentation")]
+#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetShaderInstrumentationValuesARM.html>"]
+#[doc(alias = "vkGetShaderInstrumentationValuesARM")]
+pub unsafe fn get_shader_instrumentation_values_arm(
+    device: &raw::Device,
+    instrumentation: &raw::ShaderInstrumentationARM,
+    p_metric_values: VoidPtr,
+    flags: u32,
+    dispatcher: &CommandsDispatcher,
+) -> Result<u32> {
+    let vulkan_command = dispatcher.get_shader_instrumentation_values_arm.get();
+    let mut p_metric_block_count = MaybeUninit::uninit();
+    let vk_status = vulkan_command(
+        Some(device.borrow()),
+        Some(instrumentation.borrow()),
+        p_metric_block_count.as_mut_ptr(),
+        p_metric_values,
+        flags,
+    );
+    vk_status.map_success(|| p_metric_block_count.assume_init())
+}
+#[cfg(feature = "ext_shader_instrumentation")]
+#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkClearShaderInstrumentationMetricsARM.html>"]
+#[doc(alias = "vkClearShaderInstrumentationMetricsARM")]
+#[inline]
+pub unsafe fn clear_shader_instrumentation_metrics_arm(
+    device: &raw::Device,
+    instrumentation: &raw::ShaderInstrumentationARM,
+    dispatcher: &CommandsDispatcher,
+) {
+    let vulkan_command = dispatcher.clear_shader_instrumentation_metrics_arm.get();
+    vulkan_command(Some(device.borrow()), Some(instrumentation.borrow()))
+}
 #[cfg(all(
     feature = "ext_custom_resolve",
     any(feature = "ext_dynamic_rendering", feature = "version_1_3")

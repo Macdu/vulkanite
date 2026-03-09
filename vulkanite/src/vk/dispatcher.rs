@@ -6255,6 +6255,58 @@ pub struct CommandsDispatcher {
             *const PerformanceCounterDescriptionARM,
         ) -> Status,
     >,
+    #[cfg(feature = "ext_shader_instrumentation")]
+    pub enumerate_physical_device_shader_instrumentation_metrics_arm: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, PhysicalDevice>>,
+            *const u32,
+            *const ShaderInstrumentationMetricDescriptionARM,
+        ) -> Status,
+    >,
+    #[cfg(feature = "ext_shader_instrumentation")]
+    pub create_shader_instrumentation_arm: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            *const ShaderInstrumentationCreateInfoARM,
+            *const AllocationCallbacks,
+            *const ShaderInstrumentationARM,
+        ) -> Status,
+    >,
+    #[cfg(feature = "ext_shader_instrumentation")]
+    pub destroy_shader_instrumentation_arm: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            Option<BorrowedHandle<'_, ShaderInstrumentationARM>>,
+            *const AllocationCallbacks,
+        ),
+    >,
+    #[cfg(feature = "ext_shader_instrumentation")]
+    pub cmd_begin_shader_instrumentation_arm: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            Option<BorrowedHandle<'_, ShaderInstrumentationARM>>,
+        ),
+    >,
+    #[cfg(feature = "ext_shader_instrumentation")]
+    pub cmd_end_shader_instrumentation_arm:
+        Cell<unsafe extern "system" fn(Option<BorrowedHandle<'_, CommandBuffer>>)>,
+    #[cfg(feature = "ext_shader_instrumentation")]
+    pub get_shader_instrumentation_values_arm: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            Option<BorrowedHandle<'_, ShaderInstrumentationARM>>,
+            *const u32,
+            VoidPtr,
+            u32,
+        ) -> Status,
+    >,
+    #[cfg(feature = "ext_shader_instrumentation")]
+    pub clear_shader_instrumentation_metrics_arm: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            Option<BorrowedHandle<'_, ShaderInstrumentationARM>>,
+        ),
+    >,
     #[cfg(all(
         feature = "ext_custom_resolve",
         any(feature = "ext_dynamic_rendering", feature = "version_1_3")
@@ -14937,6 +14989,94 @@ impl CommandsDispatcher {
             self.enumerate_physical_device_queue_family_performance_counters_by_region_arm
                 .set(vk_func_ptr);
         }
+        #[cfg(feature = "ext_shader_instrumentation")]
+        {
+            let mut vk_func_ptr = self
+                .enumerate_physical_device_shader_instrumentation_metrics_arm
+                .get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkEnumeratePhysicalDeviceShaderInstrumentationMetricsARM".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.enumerate_physical_device_shader_instrumentation_metrics_arm
+                .set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_shader_instrumentation")]
+        {
+            let mut vk_func_ptr = self.create_shader_instrumentation_arm.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkCreateShaderInstrumentationARM".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.create_shader_instrumentation_arm.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_shader_instrumentation")]
+        {
+            let mut vk_func_ptr = self.destroy_shader_instrumentation_arm.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkDestroyShaderInstrumentationARM".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.destroy_shader_instrumentation_arm.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_shader_instrumentation")]
+        {
+            let mut vk_func_ptr = self.cmd_begin_shader_instrumentation_arm.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkCmdBeginShaderInstrumentationARM".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_begin_shader_instrumentation_arm.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_shader_instrumentation")]
+        {
+            let mut vk_func_ptr = self.cmd_end_shader_instrumentation_arm.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkCmdEndShaderInstrumentationARM".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_end_shader_instrumentation_arm.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_shader_instrumentation")]
+        {
+            let mut vk_func_ptr = self.get_shader_instrumentation_values_arm.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkGetShaderInstrumentationValuesARM".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.get_shader_instrumentation_values_arm.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_shader_instrumentation")]
+        {
+            let mut vk_func_ptr = self.clear_shader_instrumentation_metrics_arm.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkClearShaderInstrumentationMetricsARM".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.clear_shader_instrumentation_metrics_arm
+                .set(vk_func_ptr);
+        }
         #[cfg(all(
             feature = "ext_custom_resolve",
             any(feature = "ext_dynamic_rendering", feature = "version_1_3")
@@ -22063,6 +22203,79 @@ impl CommandsDispatcher {
             }
             self.get_memory_metal_handle_properties_ext.set(vk_func_ptr);
         }
+        #[cfg(feature = "ext_shader_instrumentation")]
+        {
+            let mut vk_func_ptr = self.create_shader_instrumentation_arm.get();
+            let loaded_ptr = get_device_proc_addr(
+                Some(device.borrow()),
+                c"vkCreateShaderInstrumentationARM".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.create_shader_instrumentation_arm.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_shader_instrumentation")]
+        {
+            let mut vk_func_ptr = self.destroy_shader_instrumentation_arm.get();
+            let loaded_ptr = get_device_proc_addr(
+                Some(device.borrow()),
+                c"vkDestroyShaderInstrumentationARM".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.destroy_shader_instrumentation_arm.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_shader_instrumentation")]
+        {
+            let mut vk_func_ptr = self.cmd_begin_shader_instrumentation_arm.get();
+            let loaded_ptr = get_device_proc_addr(
+                Some(device.borrow()),
+                c"vkCmdBeginShaderInstrumentationARM".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_begin_shader_instrumentation_arm.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_shader_instrumentation")]
+        {
+            let mut vk_func_ptr = self.cmd_end_shader_instrumentation_arm.get();
+            let loaded_ptr = get_device_proc_addr(
+                Some(device.borrow()),
+                c"vkCmdEndShaderInstrumentationARM".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_end_shader_instrumentation_arm.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_shader_instrumentation")]
+        {
+            let mut vk_func_ptr = self.get_shader_instrumentation_values_arm.get();
+            let loaded_ptr = get_device_proc_addr(
+                Some(device.borrow()),
+                c"vkGetShaderInstrumentationValuesARM".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.get_shader_instrumentation_values_arm.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_shader_instrumentation")]
+        {
+            let mut vk_func_ptr = self.clear_shader_instrumentation_metrics_arm.get();
+            let loaded_ptr = get_device_proc_addr(
+                Some(device.borrow()),
+                c"vkClearShaderInstrumentationMetricsARM".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.clear_shader_instrumentation_metrics_arm
+                .set(vk_func_ptr);
+        }
         #[cfg(all(
             feature = "ext_custom_resolve",
             any(feature = "ext_dynamic_rendering", feature = "version_1_3")
@@ -24129,6 +24342,22 @@ impl CommandsDispatcher {
                 #[cfg(feature = "ext_performance_counters_by_region")]
                 enumerate_physical_device_queue_family_performance_counters_by_region_arm:
                     Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(feature = "ext_shader_instrumentation")]
+                enumerate_physical_device_shader_instrumentation_metrics_arm: Cell::new(
+                    mem::transmute(unload_cmd),
+                ),
+                #[cfg(feature = "ext_shader_instrumentation")]
+                create_shader_instrumentation_arm: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(feature = "ext_shader_instrumentation")]
+                destroy_shader_instrumentation_arm: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(feature = "ext_shader_instrumentation")]
+                cmd_begin_shader_instrumentation_arm: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(feature = "ext_shader_instrumentation")]
+                cmd_end_shader_instrumentation_arm: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(feature = "ext_shader_instrumentation")]
+                get_shader_instrumentation_values_arm: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(feature = "ext_shader_instrumentation")]
+                clear_shader_instrumentation_metrics_arm: Cell::new(mem::transmute(unload_cmd)),
                 #[cfg(all(
                     feature = "ext_custom_resolve",
                     any(feature = "ext_dynamic_rendering", feature = "version_1_3")
@@ -29858,6 +30087,61 @@ impl CommandsDispatcher {
         ) -> Status {
             panic!("Trying to call an unloaded Vulkan command");
         }
+        #[cfg(feature = "ext_shader_instrumentation")]
+        extern "system" fn enumerate_physical_device_shader_instrumentation_metrics_arm(
+            _: Option<BorrowedHandle<'_, PhysicalDevice>>,
+            _: *const u32,
+            _: *const ShaderInstrumentationMetricDescriptionARM,
+        ) -> Status {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(feature = "ext_shader_instrumentation")]
+        extern "system" fn create_shader_instrumentation_arm(
+            _: Option<BorrowedHandle<'_, Device>>,
+            _: *const ShaderInstrumentationCreateInfoARM,
+            _: *const AllocationCallbacks,
+            _: *const ShaderInstrumentationARM,
+        ) -> Status {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(feature = "ext_shader_instrumentation")]
+        extern "system" fn destroy_shader_instrumentation_arm(
+            _: Option<BorrowedHandle<'_, Device>>,
+            _: Option<BorrowedHandle<'_, ShaderInstrumentationARM>>,
+            _: *const AllocationCallbacks,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(feature = "ext_shader_instrumentation")]
+        extern "system" fn cmd_begin_shader_instrumentation_arm(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
+            _: Option<BorrowedHandle<'_, ShaderInstrumentationARM>>,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(feature = "ext_shader_instrumentation")]
+        extern "system" fn cmd_end_shader_instrumentation_arm(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(feature = "ext_shader_instrumentation")]
+        extern "system" fn get_shader_instrumentation_values_arm(
+            _: Option<BorrowedHandle<'_, Device>>,
+            _: Option<BorrowedHandle<'_, ShaderInstrumentationARM>>,
+            _: *const u32,
+            _: VoidPtr,
+            _: u32,
+        ) -> Status {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(feature = "ext_shader_instrumentation")]
+        extern "system" fn clear_shader_instrumentation_metrics_arm(
+            _: Option<BorrowedHandle<'_, Device>>,
+            _: Option<BorrowedHandle<'_, ShaderInstrumentationARM>>,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
         #[cfg(all(
             feature = "ext_custom_resolve",
             any(feature = "ext_dynamic_rendering", feature = "version_1_3")
@@ -32033,6 +32317,24 @@ impl CommandsDispatcher {
             #[cfg(feature = "ext_performance_counters_by_region")]
             enumerate_physical_device_queue_family_performance_counters_by_region_arm: Cell::new(
                 enumerate_physical_device_queue_family_performance_counters_by_region_arm,
+            ),
+            #[cfg(feature = "ext_shader_instrumentation")]
+            enumerate_physical_device_shader_instrumentation_metrics_arm: Cell::new(
+                enumerate_physical_device_shader_instrumentation_metrics_arm,
+            ),
+            #[cfg(feature = "ext_shader_instrumentation")]
+            create_shader_instrumentation_arm: Cell::new(create_shader_instrumentation_arm),
+            #[cfg(feature = "ext_shader_instrumentation")]
+            destroy_shader_instrumentation_arm: Cell::new(destroy_shader_instrumentation_arm),
+            #[cfg(feature = "ext_shader_instrumentation")]
+            cmd_begin_shader_instrumentation_arm: Cell::new(cmd_begin_shader_instrumentation_arm),
+            #[cfg(feature = "ext_shader_instrumentation")]
+            cmd_end_shader_instrumentation_arm: Cell::new(cmd_end_shader_instrumentation_arm),
+            #[cfg(feature = "ext_shader_instrumentation")]
+            get_shader_instrumentation_values_arm: Cell::new(get_shader_instrumentation_values_arm),
+            #[cfg(feature = "ext_shader_instrumentation")]
+            clear_shader_instrumentation_metrics_arm: Cell::new(
+                clear_shader_instrumentation_metrics_arm,
             ),
             #[cfg(all(
                 feature = "ext_custom_resolve",

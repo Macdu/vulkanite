@@ -1,7 +1,7 @@
 use super::{
     ApiVersion, DeviceExtension, DeviceExtensionName, InstanceExtension, InstanceExtensionName,
 };
-pub const HEADER_VERSION: ApiVersion = ApiVersion::new(0, 1, 4, 344u32);
+pub const HEADER_VERSION: ApiVersion = ApiVersion::new(0, 1, 4, 345u32);
 #[cfg(feature = "ext_surface")]
 pub const KHR_SURFACE: InstanceExtension = InstanceExtension {
     name: unsafe { InstanceExtensionName::new(c"VK_KHR_surface") },
@@ -3491,6 +3491,19 @@ pub const ARM_PERFORMANCE_COUNTERS_BY_REGION: DeviceExtension = DeviceExtension 
     ))
 ))]
 compile_error ! ("The feature ext_performance_counters_by_region requires (ext_get_physical_device_properties2 or version_1_1) to be enabled.") ;
+#[cfg(feature = "ext_shader_instrumentation")]
+pub const ARM_SHADER_INSTRUMENTATION: DeviceExtension = DeviceExtension {
+    name: unsafe { DeviceExtensionName::new(c"VK_ARM_shader_instrumentation") },
+    spec: 1u32,
+};
+#[cfg(all(
+    feature = "ext_shader_instrumentation",
+    not(any(
+        feature = "ext_get_physical_device_properties2",
+        feature = "version_1_1"
+    ))
+))]
+compile_error ! ("The feature ext_shader_instrumentation requires (ext_get_physical_device_properties2 or version_1_1) to be enabled.") ;
 pub const EXT_VERTEX_ATTRIBUTE_ROBUSTNESS: DeviceExtension = DeviceExtension {
     name: unsafe { DeviceExtensionName::new(c"VK_EXT_vertex_attribute_robustness") },
     spec: 1u32,

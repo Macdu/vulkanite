@@ -101,3 +101,5 @@ handle_dispatchable! { ExternalComputeQueueNV , ExternalComputeQueueNV , doc = "
 handle_nondispatchable! { IndirectCommandsLayoutEXT , IndirectCommandsLayoutEXT , doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkIndirectCommandsLayoutEXT.html>" , "VkIndirectCommandsLayoutEXT" }
 #[cfg(feature = "ext_device_generated_commands")]
 handle_nondispatchable! { IndirectExecutionSetEXT , IndirectExecutionSetEXT , doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkIndirectExecutionSetEXT.html>" , "VkIndirectExecutionSetEXT" }
+#[cfg(feature = "ext_shader_instrumentation")]
+handle_nondispatchable! { ShaderInstrumentationARM , ShaderInstrumentationARM , doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkShaderInstrumentationARM.html>" , "VkShaderInstrumentationARM" }

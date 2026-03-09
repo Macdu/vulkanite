@@ -1850,6 +1850,21 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
             )
         }
     }
+    #[cfg(feature = "ext_shader_instrumentation")]
+    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkEnumeratePhysicalDeviceShaderInstrumentationMetricsARM.html>"]
+    #[doc(alias = "vkEnumeratePhysicalDeviceShaderInstrumentationMetricsARM")]
+    pub fn enumerate_shader_instrumentation_metrics_arm<
+        R: DynamicArray<ShaderInstrumentationMetricDescriptionARM<'static>>,
+    >(
+        &self,
+    ) -> Result<R> {
+        unsafe {
+            raw::enumerate_physical_device_shader_instrumentation_metrics_arm(
+                self,
+                self.disp.get_command_dispatcher(),
+            )
+        }
+    }
     #[cfg(feature = "ext_ubm_surface")]
     #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceUbmPresentationSupportSEC.html>"]
     #[doc(alias = "vkGetPhysicalDeviceUbmPresentationSupportSEC")]
@@ -7525,6 +7540,77 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
             )
         }
     }
+    #[cfg(feature = "ext_shader_instrumentation")]
+    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateShaderInstrumentationARM.html>"]
+    #[doc(alias = "vkCreateShaderInstrumentationARM")]
+    #[inline]
+    pub fn create_shader_instrumentation_arm(
+        &self,
+        p_create_info: &ShaderInstrumentationCreateInfoARM,
+    ) -> Result<ShaderInstrumentationARM> {
+        let vk_result = unsafe {
+            raw::create_shader_instrumentation_arm(
+                self,
+                p_create_info,
+                self.alloc.get_allocation_callbacks().as_ref(),
+                self.disp.get_command_dispatcher(),
+            )
+        };
+        vk_result.map(|vk_result| unsafe { ShaderInstrumentationARM::from_inner(vk_result) })
+    }
+    #[cfg(feature = "ext_shader_instrumentation")]
+    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkDestroyShaderInstrumentationARM.html>"]
+    #[doc(alias = "vkDestroyShaderInstrumentationARM")]
+    #[inline]
+    pub unsafe fn destroy_shader_instrumentation_arm(
+        &self,
+        instrumentation: Option<&raw::ShaderInstrumentationARM>,
+    ) {
+        unsafe {
+            raw::destroy_shader_instrumentation_arm(
+                self,
+                instrumentation,
+                self.alloc.get_allocation_callbacks().as_ref(),
+                self.disp.get_command_dispatcher(),
+            )
+        }
+    }
+    #[cfg(feature = "ext_shader_instrumentation")]
+    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetShaderInstrumentationValuesARM.html>"]
+    #[doc(alias = "vkGetShaderInstrumentationValuesARM")]
+    #[inline]
+    pub fn get_shader_instrumentation_values_arm(
+        &self,
+        instrumentation: &raw::ShaderInstrumentationARM,
+        p_metric_values: VoidPtr,
+        flags: u32,
+    ) -> Result<u32> {
+        unsafe {
+            raw::get_shader_instrumentation_values_arm(
+                self,
+                instrumentation,
+                p_metric_values,
+                flags,
+                self.disp.get_command_dispatcher(),
+            )
+        }
+    }
+    #[cfg(feature = "ext_shader_instrumentation")]
+    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkClearShaderInstrumentationMetricsARM.html>"]
+    #[doc(alias = "vkClearShaderInstrumentationMetricsARM")]
+    #[inline]
+    pub fn clear_shader_instrumentation_metrics_arm(
+        &self,
+        instrumentation: &raw::ShaderInstrumentationARM,
+    ) {
+        unsafe {
+            raw::clear_shader_instrumentation_metrics_arm(
+                self,
+                instrumentation,
+                self.disp.get_command_dispatcher(),
+            )
+        }
+    }
 }
 #[repr(C)]
 #[derive(Clone)]
@@ -12637,6 +12723,29 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
             )
         }
     }
+    #[cfg(feature = "ext_shader_instrumentation")]
+    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdBeginShaderInstrumentationARM.html>"]
+    #[doc(alias = "vkCmdBeginShaderInstrumentationARM")]
+    #[inline]
+    pub fn begin_shader_instrumentation_arm(
+        &self,
+        instrumentation: &raw::ShaderInstrumentationARM,
+    ) {
+        unsafe {
+            raw::cmd_begin_shader_instrumentation_arm(
+                self,
+                instrumentation,
+                self.disp.get_command_dispatcher(),
+            )
+        }
+    }
+    #[cfg(feature = "ext_shader_instrumentation")]
+    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdEndShaderInstrumentationARM.html>"]
+    #[doc(alias = "vkCmdEndShaderInstrumentationARM")]
+    #[inline]
+    pub fn end_shader_instrumentation_arm(&self) {
+        unsafe { raw::cmd_end_shader_instrumentation_arm(self, self.disp.get_command_dispatcher()) }
+    }
     #[cfg(all(
         feature = "ext_custom_resolve",
         any(feature = "ext_dynamic_rendering", feature = "version_1_3")
@@ -13754,6 +13863,31 @@ impl Deref for IndirectExecutionSetEXT {
 #[cfg(feature = "ext_device_generated_commands")]
 impl IndirectExecutionSetEXT {
     pub fn from_inner(handle: raw::IndirectExecutionSetEXT) -> Self {
+        Self {
+            inner: handle.as_raw(),
+        }
+    }
+}
+#[cfg(feature = "ext_shader_instrumentation")]
+#[repr(C)]
+#[derive(Clone, Copy)]
+#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkShaderInstrumentationARM.html>"]
+#[doc(alias = "VkShaderInstrumentationARM")]
+pub struct ShaderInstrumentationARM {
+    inner: <raw::ShaderInstrumentationARM as Handle>::InnerType,
+}
+#[cfg(feature = "ext_shader_instrumentation")]
+unsafe impl Alias<raw::ShaderInstrumentationARM> for ShaderInstrumentationARM {}
+#[cfg(feature = "ext_shader_instrumentation")]
+impl Deref for ShaderInstrumentationARM {
+    type Target = raw::ShaderInstrumentationARM;
+    fn deref(&self) -> &Self::Target {
+        unsafe { std::mem::transmute(&self.inner) }
+    }
+}
+#[cfg(feature = "ext_shader_instrumentation")]
+impl ShaderInstrumentationARM {
+    pub fn from_inner(handle: raw::ShaderInstrumentationARM) -> Self {
         Self {
             inner: handle.as_raw(),
         }
