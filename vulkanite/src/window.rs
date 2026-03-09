@@ -138,10 +138,10 @@ pub mod raw {
 pub mod rs {
     use raw_window_handle::{RawDisplayHandle, RawWindowHandle};
 
-    use crate::{vk, Allocator, Dispatcher};
+    use crate::{vk, BaseAllocator, Dispatcher};
 
     /// See [crate::window::raw::create_surface]
-    pub fn create_surface<D: Dispatcher, A: Allocator>(
+    pub fn create_surface<D: Dispatcher, A: BaseAllocator>(
         instance: &vk::rs::Instance<D, A>,
         display_handle: &RawDisplayHandle,
         window_handle: &RawWindowHandle,

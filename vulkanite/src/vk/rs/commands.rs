@@ -2,7 +2,7 @@
 #[allow(unused_imports)]
 use crate::StructureChainOut;
 use crate::{
-    vk::*, AdvancedDynamicArray, Alias, Allocator, AsSlice, DefaultAllocator, Dispatcher,
+    vk::*, AdvancedDynamicArray, Alias, AsSlice, BaseAllocator, DefaultAllocator, Dispatcher,
     DynamicArray, DynamicDispatcher, Handle,
 };
 #[allow(unused_imports)]
@@ -11,17 +11,17 @@ use std::{
     ops::Deref,
 };
 #[derive(Clone)]
-pub struct Entry<D: Dispatcher = DynamicDispatcher, A: Allocator = DefaultAllocator> {
+pub struct Entry<D: Dispatcher = DynamicDispatcher, A: BaseAllocator = DefaultAllocator> {
     disp: D,
     alloc: A,
 }
-impl<D: Dispatcher, A: Allocator> Copy for Entry<D, A>
+impl<D: Dispatcher, A: BaseAllocator> Copy for Entry<D, A>
 where
     D: Copy,
     A: Copy,
 {
 }
-impl<D: Dispatcher, A: Allocator> Entry<D, A> {
+impl<D: Dispatcher, A: BaseAllocator> Entry<D, A> {
     pub fn new(disp: D, alloc: A) -> Self {
         Self { disp, alloc }
     }
@@ -81,26 +81,26 @@ impl<D: Dispatcher, A: Allocator> Entry<D, A> {
 #[derive(Clone)]
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkInstance.html>"]
 #[doc(alias = "VkInstance")]
-pub struct Instance<D: Dispatcher = DynamicDispatcher, A: Allocator = DefaultAllocator> {
+pub struct Instance<D: Dispatcher = DynamicDispatcher, A: BaseAllocator = DefaultAllocator> {
     inner: <raw::Instance as Handle>::InnerType,
     disp: D,
     alloc: A,
 }
 unsafe impl Alias<raw::Instance> for Instance {}
-impl<D: Dispatcher, A: Allocator> Copy for Instance<D, A>
+impl<D: Dispatcher, A: BaseAllocator> Copy for Instance<D, A>
 where
     D: Copy,
     A: Copy,
 {
 }
-impl<D: Dispatcher, A: Allocator> Deref for Instance<D, A> {
+impl<D: Dispatcher, A: BaseAllocator> Deref for Instance<D, A> {
     type Target = raw::Instance;
     #[inline(always)]
     fn deref(&self) -> &Self::Target {
         unsafe { std::mem::transmute(&self.inner) }
     }
 }
-impl<D: Dispatcher, A: Allocator> Instance<D, A> {
+impl<D: Dispatcher, A: BaseAllocator> Instance<D, A> {
     pub unsafe fn from_inner(handle: raw::Instance, disp: D, alloc: A) -> Self {
         Self {
             inner: handle.as_raw(),
@@ -616,26 +616,26 @@ impl<D: Dispatcher, A: Allocator> Instance<D, A> {
 #[derive(Clone)]
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDevice.html>"]
 #[doc(alias = "VkPhysicalDevice")]
-pub struct PhysicalDevice<D: Dispatcher = DynamicDispatcher, A: Allocator = DefaultAllocator> {
+pub struct PhysicalDevice<D: Dispatcher = DynamicDispatcher, A: BaseAllocator = DefaultAllocator> {
     inner: <raw::PhysicalDevice as Handle>::InnerType,
     disp: D,
     alloc: A,
 }
 unsafe impl Alias<raw::PhysicalDevice> for PhysicalDevice {}
-impl<D: Dispatcher, A: Allocator> Copy for PhysicalDevice<D, A>
+impl<D: Dispatcher, A: BaseAllocator> Copy for PhysicalDevice<D, A>
 where
     D: Copy,
     A: Copy,
 {
 }
-impl<D: Dispatcher, A: Allocator> Deref for PhysicalDevice<D, A> {
+impl<D: Dispatcher, A: BaseAllocator> Deref for PhysicalDevice<D, A> {
     type Target = raw::PhysicalDevice;
     #[inline(always)]
     fn deref(&self) -> &Self::Target {
         unsafe { std::mem::transmute(&self.inner) }
     }
 }
-impl<D: Dispatcher, A: Allocator> PhysicalDevice<D, A> {
+impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
     pub unsafe fn from_inner(handle: raw::PhysicalDevice, disp: D, alloc: A) -> Self {
         Self {
             inner: handle.as_raw(),
@@ -1873,26 +1873,26 @@ impl<D: Dispatcher, A: Allocator> PhysicalDevice<D, A> {
 #[derive(Clone)]
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDevice.html>"]
 #[doc(alias = "VkDevice")]
-pub struct Device<D: Dispatcher = DynamicDispatcher, A: Allocator = DefaultAllocator> {
+pub struct Device<D: Dispatcher = DynamicDispatcher, A: BaseAllocator = DefaultAllocator> {
     inner: <raw::Device as Handle>::InnerType,
     disp: D,
     alloc: A,
 }
 unsafe impl Alias<raw::Device> for Device {}
-impl<D: Dispatcher, A: Allocator> Copy for Device<D, A>
+impl<D: Dispatcher, A: BaseAllocator> Copy for Device<D, A>
 where
     D: Copy,
     A: Copy,
 {
 }
-impl<D: Dispatcher, A: Allocator> Deref for Device<D, A> {
+impl<D: Dispatcher, A: BaseAllocator> Deref for Device<D, A> {
     type Target = raw::Device;
     #[inline(always)]
     fn deref(&self) -> &Self::Target {
         unsafe { std::mem::transmute(&self.inner) }
     }
 }
-impl<D: Dispatcher, A: Allocator> Device<D, A> {
+impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
     pub unsafe fn from_inner(handle: raw::Device, disp: D, alloc: A) -> Self {
         Self {
             inner: handle.as_raw(),
@@ -7530,26 +7530,26 @@ impl<D: Dispatcher, A: Allocator> Device<D, A> {
 #[derive(Clone)]
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkQueue.html>"]
 #[doc(alias = "VkQueue")]
-pub struct Queue<D: Dispatcher = DynamicDispatcher, A: Allocator = DefaultAllocator> {
+pub struct Queue<D: Dispatcher = DynamicDispatcher, A: BaseAllocator = DefaultAllocator> {
     inner: <raw::Queue as Handle>::InnerType,
     disp: D,
     alloc: A,
 }
 unsafe impl Alias<raw::Queue> for Queue {}
-impl<D: Dispatcher, A: Allocator> Copy for Queue<D, A>
+impl<D: Dispatcher, A: BaseAllocator> Copy for Queue<D, A>
 where
     D: Copy,
     A: Copy,
 {
 }
-impl<D: Dispatcher, A: Allocator> Deref for Queue<D, A> {
+impl<D: Dispatcher, A: BaseAllocator> Deref for Queue<D, A> {
     type Target = raw::Queue;
     #[inline(always)]
     fn deref(&self) -> &Self::Target {
         unsafe { std::mem::transmute(&self.inner) }
     }
 }
-impl<D: Dispatcher, A: Allocator> Queue<D, A> {
+impl<D: Dispatcher, A: BaseAllocator> Queue<D, A> {
     pub unsafe fn from_inner(handle: raw::Queue, disp: D, alloc: A) -> Self {
         Self {
             inner: handle.as_raw(),
@@ -7874,26 +7874,26 @@ impl CommandPool {
 #[derive(Clone)]
 #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCommandBuffer.html>"]
 #[doc(alias = "VkCommandBuffer")]
-pub struct CommandBuffer<D: Dispatcher = DynamicDispatcher, A: Allocator = DefaultAllocator> {
+pub struct CommandBuffer<D: Dispatcher = DynamicDispatcher, A: BaseAllocator = DefaultAllocator> {
     inner: <raw::CommandBuffer as Handle>::InnerType,
     disp: D,
     alloc: A,
 }
 unsafe impl Alias<raw::CommandBuffer> for CommandBuffer {}
-impl<D: Dispatcher, A: Allocator> Copy for CommandBuffer<D, A>
+impl<D: Dispatcher, A: BaseAllocator> Copy for CommandBuffer<D, A>
 where
     D: Copy,
     A: Copy,
 {
 }
-impl<D: Dispatcher, A: Allocator> Deref for CommandBuffer<D, A> {
+impl<D: Dispatcher, A: BaseAllocator> Deref for CommandBuffer<D, A> {
     type Target = raw::CommandBuffer;
     #[inline(always)]
     fn deref(&self) -> &Self::Target {
         unsafe { std::mem::transmute(&self.inner) }
     }
 }
-impl<D: Dispatcher, A: Allocator> CommandBuffer<D, A> {
+impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
     pub unsafe fn from_inner(handle: raw::CommandBuffer, disp: D, alloc: A) -> Self {
         Self {
             inner: handle.as_raw(),
@@ -13651,7 +13651,7 @@ impl DataGraphPipelineSessionARM {
 #[doc(alias = "VkExternalComputeQueueNV")]
 pub struct ExternalComputeQueueNV<
     D: Dispatcher = DynamicDispatcher,
-    A: Allocator = DefaultAllocator,
+    A: BaseAllocator = DefaultAllocator,
 > {
     inner: <raw::ExternalComputeQueueNV as Handle>::InnerType,
     disp: D,
@@ -13660,14 +13660,14 @@ pub struct ExternalComputeQueueNV<
 #[cfg(feature = "ext_external_compute_queue")]
 unsafe impl Alias<raw::ExternalComputeQueueNV> for ExternalComputeQueueNV {}
 #[cfg(feature = "ext_external_compute_queue")]
-impl<D: Dispatcher, A: Allocator> Copy for ExternalComputeQueueNV<D, A>
+impl<D: Dispatcher, A: BaseAllocator> Copy for ExternalComputeQueueNV<D, A>
 where
     D: Copy,
     A: Copy,
 {
 }
 #[cfg(feature = "ext_external_compute_queue")]
-impl<D: Dispatcher, A: Allocator> Deref for ExternalComputeQueueNV<D, A> {
+impl<D: Dispatcher, A: BaseAllocator> Deref for ExternalComputeQueueNV<D, A> {
     type Target = raw::ExternalComputeQueueNV;
     #[inline(always)]
     fn deref(&self) -> &Self::Target {
@@ -13675,7 +13675,7 @@ impl<D: Dispatcher, A: Allocator> Deref for ExternalComputeQueueNV<D, A> {
     }
 }
 #[cfg(feature = "ext_external_compute_queue")]
-impl<D: Dispatcher, A: Allocator> ExternalComputeQueueNV<D, A> {
+impl<D: Dispatcher, A: BaseAllocator> ExternalComputeQueueNV<D, A> {
     pub unsafe fn from_inner(handle: raw::ExternalComputeQueueNV, disp: D, alloc: A) -> Self {
         Self {
             inner: handle.as_raw(),

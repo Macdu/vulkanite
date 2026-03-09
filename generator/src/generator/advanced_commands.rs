@@ -96,19 +96,19 @@ pub fn generate<'a, 'b>(gen: &'b Generator<'a>, gen_ty: GeneratedCommandType) ->
     let entry_methods = create_methods(entry_cmds)?;
     result.push(quote! {
         #[derive(Clone)]
-        pub struct Entry<D: Dispatcher = DynamicDispatcher, A: Allocator = DefaultAllocator> {
+        pub struct Entry<D: Dispatcher = DynamicDispatcher, A: BaseAllocator = DefaultAllocator> {
             disp: D,
             alloc: A,
         }
 
-        impl<D: Dispatcher, A: Allocator> Copy for Entry<D, A>
+        impl<D: Dispatcher, A: BaseAllocator> Copy for Entry<D, A>
         where
             D: Copy,
             A: Copy,
         {
         }
 
-        impl<D: Dispatcher, A: Allocator> Entry<D, A> {
+        impl<D: Dispatcher, A: BaseAllocator> Entry<D, A> {
             pub fn new(disp: D, alloc: A) -> Self {
                 Self {
                     disp,
@@ -155,7 +155,7 @@ pub fn generate<'a, 'b>(gen: &'b Generator<'a>, gen_ty: GeneratedCommandType) ->
                 #[repr(C)]
                 #[derive(Clone)]
                 #doc_tag
-                pub struct #id_name<D: Dispatcher = DynamicDispatcher, A: Allocator = DefaultAllocator> {
+                pub struct #id_name<D: Dispatcher = DynamicDispatcher, A: BaseAllocator = DefaultAllocator> {
                     inner: <raw::#id_name as Handle>::InnerType,
                     disp: D,
                     alloc: A,
@@ -163,14 +163,14 @@ pub fn generate<'a, 'b>(gen: &'b Generator<'a>, gen_ty: GeneratedCommandType) ->
 
                 #alias_impl
                 #config_tag
-                impl<D: Dispatcher, A:Allocator> Copy for #id_name<D,A> where
+                impl<D: Dispatcher, A:BaseAllocator> Copy for #id_name<D,A> where
                 D: Copy,
                 A: Copy,
                 {
                 }
 
                 #config_tag
-                impl<D: Dispatcher, A: Allocator> Deref for #id_name<D,A> {
+                impl<D: Dispatcher, A: BaseAllocator> Deref for #id_name<D,A> {
                     type Target = raw::#id_name;
 
                     #[inline(always)]
@@ -181,7 +181,7 @@ pub fn generate<'a, 'b>(gen: &'b Generator<'a>, gen_ty: GeneratedCommandType) ->
                 }
 
                 #config_tag
-                impl<D: Dispatcher, A: Allocator> #id_name<D, A> {
+                impl<D: Dispatcher, A: BaseAllocator> #id_name<D, A> {
                     pub unsafe fn from_inner(handle: raw::#id_name, disp: D, alloc: A) -> Self {
                         Self {
                             inner: handle.as_raw(),
@@ -253,7 +253,7 @@ pub fn generate<'a, 'b>(gen: &'b Generator<'a>, gen_ty: GeneratedCommandType) ->
             ffi::{c_int, CStr},
             ops::Deref,
         };
-        use crate::{vk::*, Alias, Allocator, AdvancedDynamicArray, AsSlice, DefaultAllocator, Dispatcher, DynamicArray, DynamicDispatcher, Handle};
+        use crate::{vk::*, Alias, AdvancedDynamicArray, AsSlice, BaseAllocator, DefaultAllocator, Dispatcher, DynamicArray, DynamicDispatcher, Handle};
         #[allow(unused_imports)]
         use crate::StructureChainOut;
 

@@ -208,14 +208,27 @@ impl Dispatcher for MultiDispatcher {
 
 /// See <https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#memory-allocation>
 /// Cost-free allocator implementation for Vulkan
-/// Vulkan allows a custom memory allocator to be specified for host allocations
+/// Vulkan allows a custom memory allocator to be specified for host allocations with the [vk::AllocationCallbacks] object
+/// If possible, please look at and use [Allocator] instead for a nicer interface to implement
+///
+/// # Safety
+/// Any implementation must return a [vk::AllocationCallbacks] object that follows the specification.
+/// See link above.
+pub unsafe trait BaseAllocator: Clone {
+    /// SAFETY: If not None, the returned [vk::AllocationCallbacks] object must not outlive self
+    unsafe fn get_allocation_callbacks(&self) -> Option<vk::AllocationCallbacks>;
+}
+
+/// Easier to implement allocator trait for vulkan. Any trait implementing [Allocator] will automatically implement [BaseAllocator]
 /// Note that the vulkan implementation is not required to use this allocator (for example it might have to allocate
-/// memory with execute permissions), but you will at least receive the [Allocator::on_internal_alloc] and [Allocator::on_internal_free]
-/// notifications
+/// memory with execute permissions), but if [Allocator::TRACK_INTERNAL_ALLOCATIONS] is true you will at least receive the
+/// [Allocator::on_internal_alloc] and [Allocator::on_internal_free] notifications
+///
 /// # Safety
 /// The implementations of alloc/realloc/free must satisfy an allocator behavior and the requirements of the specification
-/// If for some reason you choose the re-implement the pfn_* functions, they also need to follow the specification
-pub unsafe trait Allocator: Sized + Clone {
+pub trait Allocator: Sized + Clone {
+    const TRACK_INTERNAL_ALLOCATIONS: bool = false;
+
     /// <https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/PFN_vkAllocationFunction.html>
     fn alloc(
         &self,
@@ -234,118 +247,103 @@ pub unsafe trait Allocator: Sized + Clone {
     /// <https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/PFN_vkFreeFunction.html>
     fn free(&self, memory: *mut ());
     /// <https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/PFN_vkInternalAllocationNotification.html>
+    #[allow(unused_variables)]
     fn on_internal_alloc(
         &self,
         size: usize,
         allocation_type: vk::InternalAllocationType,
         allocation_scope: vk::SystemAllocationScope,
-    );
+    ) {
+    }
     /// <https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/PFN_vkInternalFreeNotification.html>
+    #[allow(unused_variables)]
     fn on_internal_free(
         &self,
         size: usize,
         allocation_type: vk::InternalAllocationType,
         allocation_scope: vk::SystemAllocationScope,
-    );
-
-    extern "system" fn pfn_allocation(
-        user_data: *mut (),
-        size: usize,
-        alignment: usize,
-        allocation_scope: vk::SystemAllocationScope,
-    ) -> *mut () {
-        let allocator: &Self = unsafe { &*user_data.cast() };
-        allocator.alloc(size, alignment, allocation_scope)
-    }
-
-    extern "system" fn pfn_reallocation(
-        user_data: *mut (),
-        original: *mut (),
-        size: usize,
-        alignment: usize,
-        allocation_scope: vk::SystemAllocationScope,
-    ) -> *mut () {
-        let allocator: &Self = unsafe { &*user_data.cast() };
-        allocator.realloc(original, size, alignment, allocation_scope)
-    }
-
-    extern "system" fn pfn_free(user_data: *mut (), memory: *mut ()) {
-        let allocator: &Self = unsafe { &*user_data.cast() };
-        allocator.free(memory)
-    }
-
-    extern "system" fn pfn_internal_allocation(
-        user_data: *mut (),
-        size: usize,
-        allocation_type: vk::InternalAllocationType,
-        allocation_scope: vk::SystemAllocationScope,
     ) {
-        let allocator: &Self = unsafe { &*user_data.cast() };
-        allocator.on_internal_alloc(size, allocation_type, allocation_scope)
     }
+}
 
-    extern "system" fn pfn_internal_free(
-        user_data: *mut (),
-        size: usize,
-        allocation_type: vk::InternalAllocationType,
-        allocation_scope: vk::SystemAllocationScope,
-    ) {
-        let allocator: &Self = unsafe { &*user_data.cast() };
-        allocator.on_internal_free(size, allocation_type, allocation_scope)
-    }
+// SAFETY: Assuming alloc/realloc/free must satisfy an allocator behavior, then the returned [vk::AllocationCallbacks] satisfies the specification
+unsafe impl<A: Allocator> BaseAllocator for A {
+    unsafe fn get_allocation_callbacks(&self) -> Option<vk::AllocationCallbacks> {
+        extern "system" fn pfn_allocation<A: Allocator>(
+            user_data: *mut (),
+            size: usize,
+            alignment: usize,
+            allocation_scope: vk::SystemAllocationScope,
+        ) -> *mut () {
+            let allocator: &A = unsafe { &*user_data.cast() };
+            allocator.alloc(size, alignment, allocation_scope)
+        }
 
-    /// SAFETY:
-    /// When re-implementing this function and using the provided pfn_* functions, you must ensure that the user_data value is a reference
-    /// to self that lives as long as the allocation callback
-    /// Moreover, as stated in <https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkAllocationCallbacks.html>
-    /// pfn_internal_allocation and pfn_internal_free can only either be both None or be both Some
-    fn get_allocation_callbacks(&self) -> Option<vk::AllocationCallbacks> {
+        extern "system" fn pfn_reallocation<A: Allocator>(
+            user_data: *mut (),
+            original: *mut (),
+            size: usize,
+            alignment: usize,
+            allocation_scope: vk::SystemAllocationScope,
+        ) -> *mut () {
+            let allocator: &A = unsafe { &*user_data.cast() };
+            allocator.realloc(original, size, alignment, allocation_scope)
+        }
+
+        extern "system" fn pfn_free<A: Allocator>(user_data: *mut (), memory: *mut ()) {
+            let allocator: &A = unsafe { &*user_data.cast() };
+            allocator.free(memory)
+        }
+
+        extern "system" fn pfn_internal_allocation<A: Allocator>(
+            user_data: *mut (),
+            size: usize,
+            allocation_type: vk::InternalAllocationType,
+            allocation_scope: vk::SystemAllocationScope,
+        ) {
+            let allocator: &A = unsafe { &*user_data.cast() };
+            allocator.on_internal_alloc(size, allocation_type, allocation_scope)
+        }
+
+        extern "system" fn pfn_internal_free<A: Allocator>(
+            user_data: *mut (),
+            size: usize,
+            allocation_type: vk::InternalAllocationType,
+            allocation_scope: vk::SystemAllocationScope,
+        ) {
+            let allocator: &A = unsafe { &*user_data.cast() };
+            allocator.on_internal_free(size, allocation_type, allocation_scope)
+        }
+
         Some(vk::AllocationCallbacks {
             p_user_data: (self as *const Self).cast(),
-            pfn_allocation: Self::pfn_allocation as *const (),
-            pfn_reallocation: Self::pfn_reallocation as *const (),
-            pfn_free: Self::pfn_free as *const (),
-            pfn_internal_allocation: Self::pfn_internal_allocation as *const (),
-            pfn_internal_free: Self::pfn_free as *const (),
+            pfn_allocation: pfn_allocation::<A> as *const (),
+            pfn_reallocation: pfn_reallocation::<A> as *const (),
+            pfn_free: pfn_free::<A> as *const (),
+            pfn_internal_allocation: if Self::TRACK_INTERNAL_ALLOCATIONS {
+                pfn_internal_allocation::<A> as *const ()
+            } else {
+                ptr::null()
+            },
+            pfn_internal_free: if Self::TRACK_INTERNAL_ALLOCATIONS {
+                pfn_internal_free::<A> as *const ()
+            } else {
+                ptr::null()
+            },
         })
     }
 }
 
 /// The default vulkan allocator, Using this allocator will let Vulkan use the default allocator
-/// It is the same as specifying NULL (on C) or None (on Ash) every time the parameter pAllocator is required
+/// It is the same as specifying NULL (in C) or None (with Ash) every time the parameter pAllocator is required
 #[derive(Clone, Copy)]
 pub struct DefaultAllocator;
 
-unsafe impl Allocator for DefaultAllocator {
-    fn alloc(&self, _: usize, _: usize, _: vk::SystemAllocationScope) -> *mut () {
-        ptr::null_mut()
-    }
-
-    fn realloc(&self, _: *mut (), _: usize, _: usize, _: vk::SystemAllocationScope) -> *mut () {
-        ptr::null_mut()
-    }
-
-    fn free(&self, _: *mut ()) {}
-
-    fn on_internal_alloc(
-        &self,
-        _: usize,
-        _: vk::InternalAllocationType,
-        _: vk::SystemAllocationScope,
-    ) {
-    }
-
-    fn on_internal_free(
-        &self,
-        _: usize,
-        _: vk::InternalAllocationType,
-        _: vk::SystemAllocationScope,
-    ) {
-    }
-
+unsafe impl BaseAllocator for DefaultAllocator {
     #[inline(always)]
-    /// By returning None, we ask Vulkan to use its default allocator
-    fn get_allocation_callbacks(&self) -> Option<vk::AllocationCallbacks> {
+    // SAFETY: We return None, so this always satisfies the safety requirements
+    unsafe fn get_allocation_callbacks(&self) -> Option<vk::AllocationCallbacks> {
+        // By returning None, we ask Vulkan to use its default allocator
         None
     }
 }
