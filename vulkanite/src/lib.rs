@@ -18,7 +18,7 @@ use smallvec::SmallVec;
 #[cfg(feature = "arrayvec")]
 use arrayvec::ArrayVec;
 
-/// <https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/PFN_vkGetInstanceProcAddr.html>
+/// <https://docs.vulkan.org/refpages/latest/refpages/source/vkGetInstanceProcAddr.html>
 /// Entry point of the vulkan library, this is used to retrieve Vulkan functions
 /// This function can be retrieved by loading the library using [Dispatcher::new_loaded], using your own library
 /// loading code or some external libraries provide it like SDL with `SDL_Vulkan_GetVkGetInstanceProcAddr`
@@ -206,7 +206,7 @@ impl Dispatcher for MultiDispatcher {
     }
 }
 
-/// See <https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#memory-allocation>
+/// See <https://docs.vulkan.org/spec/latest/chapters/memory.html>
 /// Cost-free allocator implementation for Vulkan
 /// Vulkan allows a custom memory allocator to be specified for host allocations with the [vk::AllocationCallbacks] object
 /// If possible, please look at and use [Allocator] instead for a nicer interface to implement
@@ -229,14 +229,14 @@ pub unsafe trait BaseAllocator: Clone {
 pub trait Allocator: Sized + Clone {
     const TRACK_INTERNAL_ALLOCATIONS: bool = false;
 
-    /// <https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/PFN_vkAllocationFunction.html>
+    /// <https://docs.vulkan.org/refpages/latest/refpages/source/PFN_vkAllocationFunction.html>
     fn alloc(
         &self,
         size: usize,
         alignment: usize,
         allocation_scope: vk::SystemAllocationScope,
     ) -> *mut ();
-    /// <https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/PFN_vkReallocationFunction.html>
+    /// <https://docs.vulkan.org/refpages/latest/refpages/source/PFN_vkReallocationFunction.html>
     fn realloc(
         &self,
         original: *mut (),
@@ -244,9 +244,9 @@ pub trait Allocator: Sized + Clone {
         alignment: usize,
         allocation_scope: vk::SystemAllocationScope,
     ) -> *mut ();
-    /// <https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/PFN_vkFreeFunction.html>
+    /// <https://docs.vulkan.org/refpages/latest/refpages/source/PFN_vkFreeFunction.html>
     fn free(&self, memory: *mut ());
-    /// <https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/PFN_vkInternalAllocationNotification.html>
+    /// <https://docs.vulkan.org/refpages/latest/refpages/source/PFN_vkInternalAllocationNotification.html>
     #[allow(unused_variables)]
     fn on_internal_alloc(
         &self,
@@ -255,7 +255,7 @@ pub trait Allocator: Sized + Clone {
         allocation_scope: vk::SystemAllocationScope,
     ) {
     }
-    /// <https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/PFN_vkInternalFreeNotification.html>
+    /// <https://docs.vulkan.org/refpages/latest/refpages/source/PFN_vkInternalFreeNotification.html>
     #[allow(unused_variables)]
     fn on_internal_free(
         &self,

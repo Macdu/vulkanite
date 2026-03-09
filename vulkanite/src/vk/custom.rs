@@ -8,7 +8,7 @@ pub(crate) type FuncPtr = *const ();
 
 #[repr(u32)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
-/// <https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkBool32.html>
+/// <https://docs.vulkan.org/refpages/latest/refpages/source/VkBool32.html>
 ///
 /// According to the Vulkan specification:
 /// - All values returned from a Vulkan implementation in a VkBool32 will be either VK_TRUE or VK_FALSE.
@@ -189,9 +189,9 @@ pub struct DeviceExtension {
     pub spec: u32,
 }
 
-/// Replacement for PFN_vkDebugUtilsMessengerCallbackEXT (<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/PFN_vkDebugUtilsMessengerCallbackEXT.html>)
+/// Replacement for PFN_vkDebugUtilsMessengerCallbackEXT (<https://docs.vulkan.org/refpages/latest/refpages/source/PFN_vkDebugUtilsMessengerCallbackEXT.html>)
 ///
-/// Used by [vk::DebugUtilsMessengerCreateInfoEXT]
+/// Used by [crate::vk::DebugUtilsMessengerCreateInfoEXT]
 #[cfg(feature = "ext_debug_utils")]
 pub type DebugUtilsMessengerCallbackEXT = Option<
     extern "system" fn(

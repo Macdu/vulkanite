@@ -9,15 +9,15 @@ use std::{
     mem::ManuallyDrop,
     ptr, slice,
 };
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDeviceAddress.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceAddress.html>"]
 #[doc(alias = "VkDeviceAddress")]
 pub type DeviceAddress = u64;
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDeviceSize.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceSize.html>"]
 #[doc(alias = "VkDeviceSize")]
 pub type DeviceSize = u64;
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkExtent2D.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkExtent2D.html>"]
 #[doc(alias = "VkExtent2D")]
 pub struct Extent2D {
     pub width: u32,
@@ -47,7 +47,7 @@ impl Extent2D {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkExtent3D.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkExtent3D.html>"]
 #[doc(alias = "VkExtent3D")]
 pub struct Extent3D {
     pub width: u32,
@@ -82,12 +82,12 @@ impl Extent3D {
         self
     }
 }
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkFlags.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkFlags.html>"]
 #[doc(alias = "VkFlags")]
 pub type Flags = u32;
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkOffset2D.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkOffset2D.html>"]
 #[doc(alias = "VkOffset2D")]
 pub struct Offset2D {
     pub x: i32,
@@ -117,7 +117,7 @@ impl Offset2D {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkOffset3D.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkOffset3D.html>"]
 #[doc(alias = "VkOffset3D")]
 pub struct Offset3D {
     pub x: i32,
@@ -154,7 +154,7 @@ impl Offset3D {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkRect2D.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkRect2D.html>"]
 #[doc(alias = "VkRect2D")]
 pub struct Rect2D {
     pub offset: Offset2D,
@@ -183,7 +183,7 @@ impl Rect2D {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkBaseInStructure.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkBaseInStructure.html>"]
 #[doc(alias = "VkBaseInStructure")]
 pub struct BaseInStructure<'a> {
     pub s_type: StructureType,
@@ -214,7 +214,7 @@ impl<'a> BaseInStructure<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkBaseOutStructure.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkBaseOutStructure.html>"]
 #[doc(alias = "VkBaseOutStructure")]
 pub struct BaseOutStructure<'a> {
     pub s_type: StructureType,
@@ -246,7 +246,7 @@ impl<'a> BaseOutStructure<'a> {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAllocationCallbacks.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAllocationCallbacks.html>"]
 #[doc(alias = "VkAllocationCallbacks")]
 pub struct AllocationCallbacks {
     pub p_user_data: VoidPtr,
@@ -303,7 +303,7 @@ impl AllocationCallbacks {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkApplicationInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkApplicationInfo.html>"]
 #[doc(alias = "VkApplicationInfo")]
 pub struct ApplicationInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -369,7 +369,7 @@ impl<'a> ApplicationInfo<'a> {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkFormatProperties.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkFormatProperties.html>"]
 #[doc(alias = "VkFormatProperties")]
 pub struct FormatProperties {
     pub linear_tiling_features: FormatFeatureFlags,
@@ -406,7 +406,7 @@ impl FormatProperties {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImageFormatProperties.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImageFormatProperties.html>"]
 #[doc(alias = "VkImageFormatProperties")]
 pub struct ImageFormatProperties {
     pub max_extent: Extent3D,
@@ -456,7 +456,7 @@ impl ImageFormatProperties {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkInstanceCreateInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkInstanceCreateInfo.html>"]
 #[doc(alias = "VkInstanceCreateInfo")]
 pub struct InstanceCreateInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -549,7 +549,7 @@ impl<'a> InstanceCreateInfo<'a> {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkMemoryHeap.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkMemoryHeap.html>"]
 #[doc(alias = "VkMemoryHeap")]
 pub struct MemoryHeap {
     pub size: DeviceSize,
@@ -579,7 +579,7 @@ impl MemoryHeap {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkMemoryType.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkMemoryType.html>"]
 #[doc(alias = "VkMemoryType")]
 pub struct MemoryType {
     pub property_flags: MemoryPropertyFlags,
@@ -609,7 +609,7 @@ impl MemoryType {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceFeatures.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceFeatures.html>"]
 #[doc(alias = "VkPhysicalDeviceFeatures")]
 pub struct PhysicalDeviceFeatures {
     pub robust_buffer_access: Bool32,
@@ -1016,7 +1016,7 @@ impl PhysicalDeviceFeatures {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceLimits.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceLimits.html>"]
 #[doc(alias = "VkPhysicalDeviceLimits")]
 pub struct PhysicalDeviceLimits {
     pub max_image_dimension1_d: u32,
@@ -1774,7 +1774,7 @@ impl PhysicalDeviceLimits {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceMemoryProperties.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceMemoryProperties.html>"]
 #[doc(alias = "VkPhysicalDeviceMemoryProperties")]
 pub struct PhysicalDeviceMemoryProperties {
     pub(crate) memory_type_count: u32,
@@ -1806,7 +1806,7 @@ impl PhysicalDeviceMemoryProperties {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceSparseProperties.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceSparseProperties.html>"]
 #[doc(alias = "VkPhysicalDeviceSparseProperties")]
 pub struct PhysicalDeviceSparseProperties {
     pub residency_standard2_dblock_shape: Bool32,
@@ -1860,7 +1860,7 @@ impl PhysicalDeviceSparseProperties {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceProperties.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceProperties.html>"]
 #[doc(alias = "VkPhysicalDeviceProperties")]
 pub struct PhysicalDeviceProperties {
     pub api_version: ApiVersion,
@@ -1943,7 +1943,7 @@ impl PhysicalDeviceProperties {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkQueueFamilyProperties.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkQueueFamilyProperties.html>"]
 #[doc(alias = "VkQueueFamilyProperties")]
 pub struct QueueFamilyProperties {
     pub queue_flags: QueueFlags,
@@ -1986,7 +1986,7 @@ impl QueueFamilyProperties {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDeviceQueueCreateInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceQueueCreateInfo.html>"]
 #[doc(alias = "VkDeviceQueueCreateInfo")]
 pub struct DeviceQueueCreateInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -2048,7 +2048,7 @@ impl<'a> DeviceQueueCreateInfo<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDeviceCreateInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceCreateInfo.html>"]
 #[doc(alias = "VkDeviceCreateInfo")]
 pub struct DeviceCreateInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -2170,7 +2170,7 @@ impl<'a> DeviceCreateInfo<'a> {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkExtensionProperties.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkExtensionProperties.html>"]
 #[doc(alias = "VkExtensionProperties")]
 pub struct ExtensionProperties {
     pub(crate) extension_name: [c_char; MAX_EXTENSION_NAME_SIZE as _],
@@ -2204,7 +2204,7 @@ impl ExtensionProperties {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkLayerProperties.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkLayerProperties.html>"]
 #[doc(alias = "VkLayerProperties")]
 pub struct LayerProperties {
     pub(crate) layer_name: [c_char; MAX_EXTENSION_NAME_SIZE as _],
@@ -2251,7 +2251,7 @@ impl LayerProperties {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSubmitInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSubmitInfo.html>"]
 #[doc(alias = "VkSubmitInfo")]
 pub struct SubmitInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -2370,7 +2370,7 @@ impl<'a> SubmitInfo<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkMappedMemoryRange.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkMappedMemoryRange.html>"]
 #[doc(alias = "VkMappedMemoryRange")]
 pub struct MappedMemoryRange<'a> {
     pub(crate) s_type: StructureType,
@@ -2421,7 +2421,7 @@ impl<'a> MappedMemoryRange<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkMemoryAllocateInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkMemoryAllocateInfo.html>"]
 #[doc(alias = "VkMemoryAllocateInfo")]
 pub struct MemoryAllocateInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -2466,7 +2466,7 @@ impl<'a> MemoryAllocateInfo<'a> {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkMemoryRequirements.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkMemoryRequirements.html>"]
 #[doc(alias = "VkMemoryRequirements")]
 pub struct MemoryRequirements {
     pub size: DeviceSize,
@@ -2503,7 +2503,7 @@ impl MemoryRequirements {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImageSubresource.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImageSubresource.html>"]
 #[doc(alias = "VkImageSubresource")]
 pub struct ImageSubresource {
     pub aspect_mask: ImageAspectFlags,
@@ -2540,7 +2540,7 @@ impl ImageSubresource {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSparseImageFormatProperties.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSparseImageFormatProperties.html>"]
 #[doc(alias = "VkSparseImageFormatProperties")]
 pub struct SparseImageFormatProperties {
     pub aspect_mask: ImageAspectFlags,
@@ -2576,7 +2576,7 @@ impl SparseImageFormatProperties {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSparseImageMemoryBind.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSparseImageMemoryBind.html>"]
 #[doc(alias = "VkSparseImageMemoryBind")]
 pub struct SparseImageMemoryBind<'a> {
     pub subresource: ImageSubresource,
@@ -2635,7 +2635,7 @@ impl<'a> SparseImageMemoryBind<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSparseImageMemoryBindInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSparseImageMemoryBindInfo.html>"]
 #[doc(alias = "VkSparseImageMemoryBindInfo")]
 pub struct SparseImageMemoryBindInfo<'a> {
     pub image: Option<BorrowedHandle<'a, Image>>,
@@ -2676,7 +2676,7 @@ impl<'a> SparseImageMemoryBindInfo<'a> {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSparseImageMemoryRequirements.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSparseImageMemoryRequirements.html>"]
 #[doc(alias = "VkSparseImageMemoryRequirements")]
 pub struct SparseImageMemoryRequirements {
     pub format_properties: SparseImageFormatProperties,
@@ -2726,7 +2726,7 @@ impl SparseImageMemoryRequirements {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSparseMemoryBind.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSparseMemoryBind.html>"]
 #[doc(alias = "VkSparseMemoryBind")]
 pub struct SparseMemoryBind<'a> {
     pub resource_offset: DeviceSize,
@@ -2778,7 +2778,7 @@ impl<'a> SparseMemoryBind<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSparseBufferMemoryBindInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSparseBufferMemoryBindInfo.html>"]
 #[doc(alias = "VkSparseBufferMemoryBindInfo")]
 pub struct SparseBufferMemoryBindInfo<'a> {
     pub buffer: Option<BorrowedHandle<'a, Buffer>>,
@@ -2818,7 +2818,7 @@ impl<'a> SparseBufferMemoryBindInfo<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSparseImageOpaqueMemoryBindInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSparseImageOpaqueMemoryBindInfo.html>"]
 #[doc(alias = "VkSparseImageOpaqueMemoryBindInfo")]
 pub struct SparseImageOpaqueMemoryBindInfo<'a> {
     pub image: Option<BorrowedHandle<'a, Image>>,
@@ -2858,7 +2858,7 @@ impl<'a> SparseImageOpaqueMemoryBindInfo<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkBindSparseInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkBindSparseInfo.html>"]
 #[doc(alias = "VkBindSparseInfo")]
 pub struct BindSparseInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -3002,7 +3002,7 @@ impl<'a> BindSparseInfo<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkFenceCreateInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkFenceCreateInfo.html>"]
 #[doc(alias = "VkFenceCreateInfo")]
 pub struct FenceCreateInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -3039,7 +3039,7 @@ impl<'a> FenceCreateInfo<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSemaphoreCreateInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSemaphoreCreateInfo.html>"]
 #[doc(alias = "VkSemaphoreCreateInfo")]
 pub struct SemaphoreCreateInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -3076,7 +3076,7 @@ impl<'a> SemaphoreCreateInfo<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkQueryPoolCreateInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkQueryPoolCreateInfo.html>"]
 #[doc(alias = "VkQueryPoolCreateInfo")]
 pub struct QueryPoolCreateInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -3134,7 +3134,7 @@ impl<'a> QueryPoolCreateInfo<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkBufferCreateInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkBufferCreateInfo.html>"]
 #[doc(alias = "VkBufferCreateInfo")]
 pub struct BufferCreateInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -3218,7 +3218,7 @@ impl<'a> BufferCreateInfo<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImageCreateInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImageCreateInfo.html>"]
 #[doc(alias = "VkImageCreateInfo")]
 pub struct ImageCreateInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -3352,7 +3352,7 @@ impl<'a> ImageCreateInfo<'a> {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSubresourceLayout.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSubresourceLayout.html>"]
 #[doc(alias = "VkSubresourceLayout")]
 pub struct SubresourceLayout {
     pub offset: DeviceSize,
@@ -3403,7 +3403,7 @@ impl SubresourceLayout {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkComponentMapping.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkComponentMapping.html>"]
 #[doc(alias = "VkComponentMapping")]
 pub struct ComponentMapping {
     pub r: ComponentSwizzle,
@@ -3447,7 +3447,7 @@ impl ComponentMapping {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImageSubresourceRange.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImageSubresourceRange.html>"]
 #[doc(alias = "VkImageSubresourceRange")]
 pub struct ImageSubresourceRange {
     pub aspect_mask: ImageAspectFlags,
@@ -3497,7 +3497,7 @@ impl ImageSubresourceRange {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImageViewCreateInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImageViewCreateInfo.html>"]
 #[doc(alias = "VkImageViewCreateInfo")]
 pub struct ImageViewCreateInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -3569,7 +3569,7 @@ impl<'a> ImageViewCreateInfo<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCommandPoolCreateInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCommandPoolCreateInfo.html>"]
 #[doc(alias = "VkCommandPoolCreateInfo")]
 pub struct CommandPoolCreateInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -3613,7 +3613,7 @@ impl<'a> CommandPoolCreateInfo<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCommandBufferAllocateInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCommandBufferAllocateInfo.html>"]
 #[doc(alias = "VkCommandBufferAllocateInfo")]
 pub struct CommandBufferAllocateInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -3664,7 +3664,7 @@ impl<'a> CommandBufferAllocateInfo<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCommandBufferInheritanceInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCommandBufferInheritanceInfo.html>"]
 #[doc(alias = "VkCommandBufferInheritanceInfo")]
 pub struct CommandBufferInheritanceInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -3736,7 +3736,7 @@ impl<'a> CommandBufferInheritanceInfo<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCommandBufferBeginInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCommandBufferBeginInfo.html>"]
 #[doc(alias = "VkCommandBufferBeginInfo")]
 pub struct CommandBufferBeginInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -3781,7 +3781,7 @@ impl<'a> CommandBufferBeginInfo<'a> {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkBufferCopy.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkBufferCopy.html>"]
 #[doc(alias = "VkBufferCopy")]
 pub struct BufferCopy {
     pub src_offset: DeviceSize,
@@ -3818,7 +3818,7 @@ impl BufferCopy {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImageSubresourceLayers.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImageSubresourceLayers.html>"]
 #[doc(alias = "VkImageSubresourceLayers")]
 pub struct ImageSubresourceLayers {
     pub aspect_mask: ImageAspectFlags,
@@ -3862,7 +3862,7 @@ impl ImageSubresourceLayers {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkBufferImageCopy.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkBufferImageCopy.html>"]
 #[doc(alias = "VkBufferImageCopy")]
 pub struct BufferImageCopy {
     pub buffer_offset: DeviceSize,
@@ -3920,7 +3920,7 @@ impl BufferImageCopy {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImageCopy.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImageCopy.html>"]
 #[doc(alias = "VkImageCopy")]
 pub struct ImageCopy {
     pub src_subresource: ImageSubresourceLayers,
@@ -3970,7 +3970,7 @@ impl ImageCopy {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkBufferMemoryBarrier.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkBufferMemoryBarrier.html>"]
 #[doc(alias = "VkBufferMemoryBarrier")]
 pub struct BufferMemoryBarrier<'a> {
     pub(crate) s_type: StructureType,
@@ -4049,7 +4049,7 @@ impl<'a> BufferMemoryBarrier<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImageMemoryBarrier.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImageMemoryBarrier.html>"]
 #[doc(alias = "VkImageMemoryBarrier")]
 pub struct ImageMemoryBarrier<'a> {
     pub(crate) s_type: StructureType,
@@ -4135,7 +4135,7 @@ impl<'a> ImageMemoryBarrier<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkMemoryBarrier.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkMemoryBarrier.html>"]
 #[doc(alias = "VkMemoryBarrier")]
 pub struct MemoryBarrier<'a> {
     pub(crate) s_type: StructureType,
@@ -4180,7 +4180,7 @@ impl<'a> MemoryBarrier<'a> {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDispatchIndirectCommand.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDispatchIndirectCommand.html>"]
 #[doc(alias = "VkDispatchIndirectCommand")]
 pub struct DispatchIndirectCommand {
     pub x: u32,
@@ -4217,7 +4217,7 @@ impl DispatchIndirectCommand {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineCacheHeaderVersionOne.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineCacheHeaderVersionOne.html>"]
 #[doc(alias = "VkPipelineCacheHeaderVersionOne")]
 pub struct PipelineCacheHeaderVersionOne {
     pub header_size: u32,
@@ -4267,7 +4267,7 @@ impl PipelineCacheHeaderVersionOne {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkEventCreateInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkEventCreateInfo.html>"]
 #[doc(alias = "VkEventCreateInfo")]
 pub struct EventCreateInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -4304,7 +4304,7 @@ impl<'a> EventCreateInfo<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkBufferViewCreateInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkBufferViewCreateInfo.html>"]
 #[doc(alias = "VkBufferViewCreateInfo")]
 pub struct BufferViewCreateInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -4369,7 +4369,7 @@ impl<'a> BufferViewCreateInfo<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkShaderModuleCreateInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkShaderModuleCreateInfo.html>"]
 #[doc(alias = "VkShaderModuleCreateInfo")]
 pub struct ShaderModuleCreateInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -4426,7 +4426,7 @@ impl<'a> ShaderModuleCreateInfo<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineCacheCreateInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineCacheCreateInfo.html>"]
 #[doc(alias = "VkPipelineCacheCreateInfo")]
 pub struct PipelineCacheCreateInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -4485,7 +4485,7 @@ impl<'a> PipelineCacheCreateInfo<'a> {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSpecializationMapEntry.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSpecializationMapEntry.html>"]
 #[doc(alias = "VkSpecializationMapEntry")]
 pub struct SpecializationMapEntry {
     pub constant_id: u32,
@@ -4521,7 +4521,7 @@ impl SpecializationMapEntry {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSpecializationInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSpecializationInfo.html>"]
 #[doc(alias = "VkSpecializationInfo")]
 pub struct SpecializationInfo<'a> {
     pub(crate) map_entry_count: u32,
@@ -4574,7 +4574,7 @@ impl<'a> SpecializationInfo<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineShaderStageCreateInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineShaderStageCreateInfo.html>"]
 #[doc(alias = "VkPipelineShaderStageCreateInfo")]
 pub struct PipelineShaderStageCreateInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -4639,7 +4639,7 @@ impl<'a> PipelineShaderStageCreateInfo<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkComputePipelineCreateInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkComputePipelineCreateInfo.html>"]
 #[doc(alias = "VkComputePipelineCreateInfo")]
 pub struct ComputePipelineCreateInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -4705,7 +4705,7 @@ impl<'a> ComputePipelineCreateInfo<'a> {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPushConstantRange.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPushConstantRange.html>"]
 #[doc(alias = "VkPushConstantRange")]
 pub struct PushConstantRange {
     pub stage_flags: ShaderStageFlags,
@@ -4741,7 +4741,7 @@ impl PushConstantRange {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineLayoutCreateInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineLayoutCreateInfo.html>"]
 #[doc(alias = "VkPipelineLayoutCreateInfo")]
 pub struct PipelineLayoutCreateInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -4875,7 +4875,7 @@ impl<'a> PipelineLayoutCreateInfo<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSamplerCreateInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSamplerCreateInfo.html>"]
 #[doc(alias = "VkSamplerCreateInfo")]
 pub struct SamplerCreateInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -5017,7 +5017,7 @@ impl<'a> SamplerCreateInfo<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCopyDescriptorSet.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCopyDescriptorSet.html>"]
 #[doc(alias = "VkCopyDescriptorSet")]
 pub struct CopyDescriptorSet<'a> {
     pub(crate) s_type: StructureType,
@@ -5096,7 +5096,7 @@ impl<'a> CopyDescriptorSet<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDescriptorBufferInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDescriptorBufferInfo.html>"]
 #[doc(alias = "VkDescriptorBufferInfo")]
 pub struct DescriptorBufferInfo<'a> {
     pub buffer: Option<BorrowedHandle<'a, Buffer>>,
@@ -5134,7 +5134,7 @@ impl<'a> DescriptorBufferInfo<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDescriptorImageInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDescriptorImageInfo.html>"]
 #[doc(alias = "VkDescriptorImageInfo")]
 pub struct DescriptorImageInfo<'a> {
     pub sampler: Option<BorrowedHandle<'a, Sampler>>,
@@ -5173,7 +5173,7 @@ impl<'a> DescriptorImageInfo<'a> {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDescriptorPoolSize.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDescriptorPoolSize.html>"]
 #[doc(alias = "VkDescriptorPoolSize")]
 pub struct DescriptorPoolSize {
     pub ty: DescriptorType,
@@ -5202,7 +5202,7 @@ impl DescriptorPoolSize {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDescriptorPoolCreateInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDescriptorPoolCreateInfo.html>"]
 #[doc(alias = "VkDescriptorPoolCreateInfo")]
 pub struct DescriptorPoolCreateInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -5264,7 +5264,7 @@ impl<'a> DescriptorPoolCreateInfo<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDescriptorSetAllocateInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDescriptorSetAllocateInfo.html>"]
 #[doc(alias = "VkDescriptorSetAllocateInfo")]
 pub struct DescriptorSetAllocateInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -5322,7 +5322,7 @@ impl<'a> DescriptorSetAllocateInfo<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDescriptorSetLayoutBinding.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDescriptorSetLayoutBinding.html>"]
 #[doc(alias = "VkDescriptorSetLayoutBinding")]
 pub struct DescriptorSetLayoutBinding<'a> {
     pub binding: u32,
@@ -5386,7 +5386,7 @@ impl<'a> DescriptorSetLayoutBinding<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDescriptorSetLayoutCreateInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDescriptorSetLayoutCreateInfo.html>"]
 #[doc(alias = "VkDescriptorSetLayoutCreateInfo")]
 pub struct DescriptorSetLayoutCreateInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -5444,7 +5444,7 @@ impl<'a> DescriptorSetLayoutCreateInfo<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkWriteDescriptorSet.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkWriteDescriptorSet.html>"]
 #[doc(alias = "VkWriteDescriptorSet")]
 pub struct WriteDescriptorSet<'a> {
     pub(crate) s_type: StructureType,
@@ -5559,7 +5559,7 @@ impl<'a> WriteDescriptorSet<'a> {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkClearColorValue.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkClearColorValue.html>"]
 #[doc(alias = "VkClearColorValue")]
 pub union ClearColorValue {
     pub float32: [f32; 4u16 as _],
@@ -5575,7 +5575,7 @@ impl Default for ClearColorValue {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDrawIndexedIndirectCommand.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDrawIndexedIndirectCommand.html>"]
 #[doc(alias = "VkDrawIndexedIndirectCommand")]
 pub struct DrawIndexedIndirectCommand {
     pub index_count: u32,
@@ -5626,7 +5626,7 @@ impl DrawIndexedIndirectCommand {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDrawIndirectCommand.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDrawIndirectCommand.html>"]
 #[doc(alias = "VkDrawIndirectCommand")]
 pub struct DrawIndirectCommand {
     pub vertex_count: u32,
@@ -5670,7 +5670,7 @@ impl DrawIndirectCommand {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkStencilOpState.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkStencilOpState.html>"]
 #[doc(alias = "VkStencilOpState")]
 pub struct StencilOpState {
     pub fail_op: StencilOp,
@@ -5735,7 +5735,7 @@ impl StencilOpState {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkVertexInputAttributeDescription.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkVertexInputAttributeDescription.html>"]
 #[doc(alias = "VkVertexInputAttributeDescription")]
 pub struct VertexInputAttributeDescription {
     pub location: u32,
@@ -5779,7 +5779,7 @@ impl VertexInputAttributeDescription {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkVertexInputBindingDescription.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkVertexInputBindingDescription.html>"]
 #[doc(alias = "VkVertexInputBindingDescription")]
 pub struct VertexInputBindingDescription {
     pub binding: u32,
@@ -5816,7 +5816,7 @@ impl VertexInputBindingDescription {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkViewport.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkViewport.html>"]
 #[doc(alias = "VkViewport")]
 pub struct Viewport {
     pub x: f32,
@@ -5874,7 +5874,7 @@ impl Viewport {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineColorBlendAttachmentState.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineColorBlendAttachmentState.html>"]
 #[doc(alias = "VkPipelineColorBlendAttachmentState")]
 pub struct PipelineColorBlendAttachmentState {
     pub blend_enable: Bool32,
@@ -5945,7 +5945,7 @@ impl PipelineColorBlendAttachmentState {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineColorBlendStateCreateInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineColorBlendStateCreateInfo.html>"]
 #[doc(alias = "VkPipelineColorBlendStateCreateInfo")]
 pub struct PipelineColorBlendStateCreateInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -6029,7 +6029,7 @@ impl<'a> PipelineColorBlendStateCreateInfo<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineDepthStencilStateCreateInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineDepthStencilStateCreateInfo.html>"]
 #[doc(alias = "VkPipelineDepthStencilStateCreateInfo")]
 pub struct PipelineDepthStencilStateCreateInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -6129,7 +6129,7 @@ impl<'a> PipelineDepthStencilStateCreateInfo<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineDynamicStateCreateInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineDynamicStateCreateInfo.html>"]
 #[doc(alias = "VkPipelineDynamicStateCreateInfo")]
 pub struct PipelineDynamicStateCreateInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -6184,7 +6184,7 @@ impl<'a> PipelineDynamicStateCreateInfo<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineInputAssemblyStateCreateInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineInputAssemblyStateCreateInfo.html>"]
 #[doc(alias = "VkPipelineInputAssemblyStateCreateInfo")]
 pub struct PipelineInputAssemblyStateCreateInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -6235,7 +6235,7 @@ impl<'a> PipelineInputAssemblyStateCreateInfo<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineMultisampleStateCreateInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineMultisampleStateCreateInfo.html>"]
 #[doc(alias = "VkPipelineMultisampleStateCreateInfo")]
 pub struct PipelineMultisampleStateCreateInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -6317,7 +6317,7 @@ impl<'a> PipelineMultisampleStateCreateInfo<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineRasterizationStateCreateInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineRasterizationStateCreateInfo.html>"]
 #[doc(alias = "VkPipelineRasterizationStateCreateInfo")]
 pub struct PipelineRasterizationStateCreateInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -6424,7 +6424,7 @@ impl<'a> PipelineRasterizationStateCreateInfo<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineTessellationStateCreateInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineTessellationStateCreateInfo.html>"]
 #[doc(alias = "VkPipelineTessellationStateCreateInfo")]
 pub struct PipelineTessellationStateCreateInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -6468,7 +6468,7 @@ impl<'a> PipelineTessellationStateCreateInfo<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineVertexInputStateCreateInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineVertexInputStateCreateInfo.html>"]
 #[doc(alias = "VkPipelineVertexInputStateCreateInfo")]
 pub struct PipelineVertexInputStateCreateInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -6556,7 +6556,7 @@ impl<'a> PipelineVertexInputStateCreateInfo<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineViewportStateCreateInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineViewportStateCreateInfo.html>"]
 #[doc(alias = "VkPipelineViewportStateCreateInfo")]
 pub struct PipelineViewportStateCreateInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -6638,11 +6638,11 @@ impl<'a> PipelineViewportStateCreateInfo<'a> {
         self
     }
 }
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSampleMask.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSampleMask.html>"]
 #[doc(alias = "VkSampleMask")]
 pub type SampleMask = u32;
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkGraphicsPipelineCreateInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkGraphicsPipelineCreateInfo.html>"]
 #[doc(alias = "VkGraphicsPipelineCreateInfo")]
 pub struct GraphicsPipelineCreateInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -6823,7 +6823,7 @@ impl<'a> GraphicsPipelineCreateInfo<'a> {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAttachmentDescription.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAttachmentDescription.html>"]
 #[doc(alias = "VkAttachmentDescription")]
 pub struct AttachmentDescription {
     pub flags: AttachmentDescriptionFlags,
@@ -6902,7 +6902,7 @@ impl AttachmentDescription {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAttachmentReference.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAttachmentReference.html>"]
 #[doc(alias = "VkAttachmentReference")]
 pub struct AttachmentReference {
     pub attachment: u32,
@@ -6931,7 +6931,7 @@ impl AttachmentReference {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkFramebufferCreateInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkFramebufferCreateInfo.html>"]
 #[doc(alias = "VkFramebufferCreateInfo")]
 pub struct FramebufferCreateInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -7023,7 +7023,7 @@ impl<'a> FramebufferCreateInfo<'a> {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSubpassDependency.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSubpassDependency.html>"]
 #[doc(alias = "VkSubpassDependency")]
 pub struct SubpassDependency {
     pub src_subpass: u32,
@@ -7087,7 +7087,7 @@ impl SubpassDependency {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSubpassDescription.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSubpassDescription.html>"]
 #[doc(alias = "VkSubpassDescription")]
 pub struct SubpassDescription<'a> {
     pub flags: SubpassDescriptionFlags,
@@ -7211,7 +7211,7 @@ impl<'a> SubpassDescription<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkRenderPassCreateInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkRenderPassCreateInfo.html>"]
 #[doc(alias = "VkRenderPassCreateInfo")]
 pub struct RenderPassCreateInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -7303,7 +7303,7 @@ impl<'a> RenderPassCreateInfo<'a> {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkClearDepthStencilValue.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkClearDepthStencilValue.html>"]
 #[doc(alias = "VkClearDepthStencilValue")]
 pub struct ClearDepthStencilValue {
     pub depth: f32,
@@ -7333,7 +7333,7 @@ impl ClearDepthStencilValue {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkClearRect.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkClearRect.html>"]
 #[doc(alias = "VkClearRect")]
 pub struct ClearRect {
     pub rect: Rect2D,
@@ -7370,7 +7370,7 @@ impl ClearRect {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkClearValue.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkClearValue.html>"]
 #[doc(alias = "VkClearValue")]
 pub union ClearValue {
     pub color: ClearColorValue,
@@ -7385,7 +7385,7 @@ impl Default for ClearValue {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkClearAttachment.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkClearAttachment.html>"]
 #[doc(alias = "VkClearAttachment")]
 pub struct ClearAttachment {
     pub aspect_mask: ImageAspectFlags,
@@ -7422,7 +7422,7 @@ impl ClearAttachment {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImageBlit.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImageBlit.html>"]
 #[doc(alias = "VkImageBlit")]
 pub struct ImageBlit {
     pub src_subresource: ImageSubresourceLayers,
@@ -7466,7 +7466,7 @@ impl ImageBlit {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImageResolve.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImageResolve.html>"]
 #[doc(alias = "VkImageResolve")]
 pub struct ImageResolve {
     pub src_subresource: ImageSubresourceLayers,
@@ -7516,7 +7516,7 @@ impl ImageResolve {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkRenderPassBeginInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkRenderPassBeginInfo.html>"]
 #[doc(alias = "VkRenderPassBeginInfo")]
 pub struct RenderPassBeginInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -7591,7 +7591,7 @@ impl<'a> RenderPassBeginInfo<'a> {
 }
 #[cfg(any(feature = "ext_bind_memory2", feature = "version_1_1"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkBindBufferMemoryInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkBindBufferMemoryInfo.html>"]
 #[doc(alias = "VkBindBufferMemoryInfo")]
 pub struct BindBufferMemoryInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -7651,7 +7651,7 @@ impl<'a> BindBufferMemoryInfo<'a> {
 pub type BindBufferMemoryInfoKHR<'a> = BindBufferMemoryInfo<'a>;
 #[cfg(any(feature = "ext_bind_memory2", feature = "version_1_1"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkBindImageMemoryInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkBindImageMemoryInfo.html>"]
 #[doc(alias = "VkBindImageMemoryInfo")]
 pub struct BindImageMemoryInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -7711,7 +7711,7 @@ impl<'a> BindImageMemoryInfo<'a> {
 pub type BindImageMemoryInfoKHR<'a> = BindImageMemoryInfo<'a>;
 #[cfg(any(feature = "ext_dedicated_allocation", feature = "version_1_1"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkMemoryDedicatedRequirements.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkMemoryDedicatedRequirements.html>"]
 #[doc(alias = "VkMemoryDedicatedRequirements")]
 pub struct MemoryDedicatedRequirements<'a> {
     pub(crate) s_type: StructureType,
@@ -7779,7 +7779,7 @@ impl<'a> MemoryDedicatedRequirements<'a> {
 pub type MemoryDedicatedRequirementsKHR<'a> = MemoryDedicatedRequirements<'a>;
 #[cfg(any(feature = "ext_dedicated_allocation", feature = "version_1_1"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkMemoryDedicatedAllocateInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkMemoryDedicatedAllocateInfo.html>"]
 #[doc(alias = "VkMemoryDedicatedAllocateInfo")]
 pub struct MemoryDedicatedAllocateInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -7834,7 +7834,7 @@ impl<'a> MemoryDedicatedAllocateInfo<'a> {
 pub type MemoryDedicatedAllocateInfoKHR<'a> = MemoryDedicatedAllocateInfo<'a>;
 #[cfg(any(feature = "ext_device_group", feature = "version_1_1"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkMemoryAllocateFlagsInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkMemoryAllocateFlagsInfo.html>"]
 #[doc(alias = "VkMemoryAllocateFlagsInfo")]
 pub struct MemoryAllocateFlagsInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -7889,7 +7889,7 @@ impl<'a> MemoryAllocateFlagsInfo<'a> {
 pub type MemoryAllocateFlagsInfoKHR<'a> = MemoryAllocateFlagsInfo<'a>;
 #[cfg(any(feature = "ext_device_group", feature = "version_1_1"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDeviceGroupCommandBufferBeginInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceGroupCommandBufferBeginInfo.html>"]
 #[doc(alias = "VkDeviceGroupCommandBufferBeginInfo")]
 pub struct DeviceGroupCommandBufferBeginInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -7940,7 +7940,7 @@ impl<'a> DeviceGroupCommandBufferBeginInfo<'a> {
 pub type DeviceGroupCommandBufferBeginInfoKHR<'a> = DeviceGroupCommandBufferBeginInfo<'a>;
 #[cfg(any(feature = "ext_device_group", feature = "version_1_1"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDeviceGroupSubmitInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceGroupSubmitInfo.html>"]
 #[doc(alias = "VkDeviceGroupSubmitInfo")]
 pub struct DeviceGroupSubmitInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -8056,7 +8056,7 @@ impl<'a> DeviceGroupSubmitInfo<'a> {
 pub type DeviceGroupSubmitInfoKHR<'a> = DeviceGroupSubmitInfo<'a>;
 #[cfg(any(feature = "ext_device_group", feature = "version_1_1"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDeviceGroupBindSparseInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceGroupBindSparseInfo.html>"]
 #[doc(alias = "VkDeviceGroupBindSparseInfo")]
 pub struct DeviceGroupBindSparseInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -8114,7 +8114,7 @@ pub type DeviceGroupBindSparseInfoKHR<'a> = DeviceGroupBindSparseInfo<'a>;
     feature = "version_1_1"
 ))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkBindBufferMemoryDeviceGroupInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkBindBufferMemoryDeviceGroupInfo.html>"]
 #[doc(alias = "VkBindBufferMemoryDeviceGroupInfo")]
 pub struct BindBufferMemoryDeviceGroupInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -8206,7 +8206,7 @@ pub type BindBufferMemoryDeviceGroupInfoKHR<'a> = BindBufferMemoryDeviceGroupInf
     feature = "version_1_1"
 ))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkBindImageMemoryDeviceGroupInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkBindImageMemoryDeviceGroupInfo.html>"]
 #[doc(alias = "VkBindImageMemoryDeviceGroupInfo")]
 pub struct BindImageMemoryDeviceGroupInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -8320,7 +8320,7 @@ impl<'a> BindImageMemoryDeviceGroupInfo<'a> {
 pub type BindImageMemoryDeviceGroupInfoKHR<'a> = BindImageMemoryDeviceGroupInfo<'a>;
 #[cfg(any(feature = "ext_device_group_creation", feature = "version_1_1"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceGroupProperties.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceGroupProperties.html>"]
 #[doc(alias = "VkPhysicalDeviceGroupProperties")]
 pub struct PhysicalDeviceGroupProperties<'a> {
     pub(crate) s_type: StructureType,
@@ -8375,7 +8375,7 @@ impl<'a> PhysicalDeviceGroupProperties<'a> {
 pub type PhysicalDeviceGroupPropertiesKHR<'a> = PhysicalDeviceGroupProperties<'a>;
 #[cfg(any(feature = "ext_device_group_creation", feature = "version_1_1"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDeviceGroupDeviceCreateInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceGroupDeviceCreateInfo.html>"]
 #[doc(alias = "VkDeviceGroupDeviceCreateInfo")]
 pub struct DeviceGroupDeviceCreateInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -8440,7 +8440,7 @@ impl<'a> DeviceGroupDeviceCreateInfo<'a> {
 pub type DeviceGroupDeviceCreateInfoKHR<'a> = DeviceGroupDeviceCreateInfo<'a>;
 #[cfg(any(feature = "ext_get_memory_requirements2", feature = "version_1_1"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkBufferMemoryRequirementsInfo2.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkBufferMemoryRequirementsInfo2.html>"]
 #[doc(alias = "VkBufferMemoryRequirementsInfo2")]
 pub struct BufferMemoryRequirementsInfo2<'a> {
     pub(crate) s_type: StructureType,
@@ -8486,7 +8486,7 @@ impl<'a> BufferMemoryRequirementsInfo2<'a> {
 pub type BufferMemoryRequirementsInfo2KHR<'a> = BufferMemoryRequirementsInfo2<'a>;
 #[cfg(any(feature = "ext_get_memory_requirements2", feature = "version_1_1"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImageMemoryRequirementsInfo2.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImageMemoryRequirementsInfo2.html>"]
 #[doc(alias = "VkImageMemoryRequirementsInfo2")]
 pub struct ImageMemoryRequirementsInfo2<'a> {
     pub(crate) s_type: StructureType,
@@ -8532,7 +8532,7 @@ impl<'a> ImageMemoryRequirementsInfo2<'a> {
 pub type ImageMemoryRequirementsInfo2KHR<'a> = ImageMemoryRequirementsInfo2<'a>;
 #[cfg(any(feature = "ext_get_memory_requirements2", feature = "version_1_1"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImageSparseMemoryRequirementsInfo2.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImageSparseMemoryRequirementsInfo2.html>"]
 #[doc(alias = "VkImageSparseMemoryRequirementsInfo2")]
 pub struct ImageSparseMemoryRequirementsInfo2<'a> {
     pub(crate) s_type: StructureType,
@@ -8585,7 +8585,7 @@ pub type ImageSparseMemoryRequirementsInfo2KHR<'a> = ImageSparseMemoryRequiremen
     feature = "version_1_1"
 ))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkMemoryRequirements2.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkMemoryRequirements2.html>"]
 #[doc(alias = "VkMemoryRequirements2")]
 pub struct MemoryRequirements2<'a> {
     pub(crate) s_type: StructureType,
@@ -8680,7 +8680,7 @@ impl<'a> MemoryRequirements2<'a> {
 pub type MemoryRequirements2KHR<'a> = MemoryRequirements2<'a>;
 #[cfg(any(feature = "ext_get_memory_requirements2", feature = "version_1_1"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSparseImageMemoryRequirements2.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSparseImageMemoryRequirements2.html>"]
 #[doc(alias = "VkSparseImageMemoryRequirements2")]
 pub struct SparseImageMemoryRequirements2<'a> {
     pub(crate) s_type: StructureType,
@@ -8729,7 +8729,7 @@ pub type SparseImageMemoryRequirements2KHR<'a> = SparseImageMemoryRequirements2<
     feature = "version_1_1"
 ))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceFeatures2.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceFeatures2.html>"]
 #[doc(alias = "VkPhysicalDeviceFeatures2")]
 pub struct PhysicalDeviceFeatures2<'a> {
     pub(crate) s_type: StructureType,
@@ -8804,7 +8804,7 @@ pub type PhysicalDeviceFeatures2KHR<'a> = PhysicalDeviceFeatures2<'a>;
     feature = "version_1_1"
 ))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceProperties2.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceProperties2.html>"]
 #[doc(alias = "VkPhysicalDeviceProperties2")]
 pub struct PhysicalDeviceProperties2<'a> {
     pub(crate) s_type: StructureType,
@@ -8874,7 +8874,7 @@ pub type PhysicalDeviceProperties2KHR<'a> = PhysicalDeviceProperties2<'a>;
     feature = "version_1_1"
 ))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkFormatProperties2.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkFormatProperties2.html>"]
 #[doc(alias = "VkFormatProperties2")]
 pub struct FormatProperties2<'a> {
     pub(crate) s_type: StructureType,
@@ -8944,7 +8944,7 @@ pub type FormatProperties2KHR<'a> = FormatProperties2<'a>;
     feature = "version_1_1"
 ))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImageFormatProperties2.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImageFormatProperties2.html>"]
 #[doc(alias = "VkImageFormatProperties2")]
 pub struct ImageFormatProperties2<'a> {
     pub(crate) s_type: StructureType,
@@ -9014,7 +9014,7 @@ pub type ImageFormatProperties2KHR<'a> = ImageFormatProperties2<'a>;
     feature = "version_1_1"
 ))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceImageFormatInfo2.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceImageFormatInfo2.html>"]
 #[doc(alias = "VkPhysicalDeviceImageFormatInfo2")]
 pub struct PhysicalDeviceImageFormatInfo2<'a> {
     pub(crate) s_type: StructureType,
@@ -9112,7 +9112,7 @@ pub type PhysicalDeviceImageFormatInfo2KHR<'a> = PhysicalDeviceImageFormatInfo2<
     feature = "version_1_1"
 ))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkQueueFamilyProperties2.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkQueueFamilyProperties2.html>"]
 #[doc(alias = "VkQueueFamilyProperties2")]
 pub struct QueueFamilyProperties2<'a> {
     pub(crate) s_type: StructureType,
@@ -9182,7 +9182,7 @@ pub type QueueFamilyProperties2KHR<'a> = QueueFamilyProperties2<'a>;
     feature = "version_1_1"
 ))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceMemoryProperties2.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceMemoryProperties2.html>"]
 #[doc(alias = "VkPhysicalDeviceMemoryProperties2")]
 pub struct PhysicalDeviceMemoryProperties2<'a> {
     pub(crate) s_type: StructureType,
@@ -9252,7 +9252,7 @@ pub type PhysicalDeviceMemoryProperties2KHR<'a> = PhysicalDeviceMemoryProperties
     feature = "version_1_1"
 ))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSparseImageFormatProperties2.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSparseImageFormatProperties2.html>"]
 #[doc(alias = "VkSparseImageFormatProperties2")]
 pub struct SparseImageFormatProperties2<'a> {
     pub(crate) s_type: StructureType,
@@ -9322,7 +9322,7 @@ pub type SparseImageFormatProperties2KHR<'a> = SparseImageFormatProperties2<'a>;
     feature = "version_1_1"
 ))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceSparseImageFormatInfo2.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceSparseImageFormatInfo2.html>"]
 #[doc(alias = "VkPhysicalDeviceSparseImageFormatInfo2")]
 pub struct PhysicalDeviceSparseImageFormatInfo2<'a> {
     pub(crate) s_type: StructureType,
@@ -9417,7 +9417,7 @@ impl<'a> PhysicalDeviceSparseImageFormatInfo2<'a> {
 pub type PhysicalDeviceSparseImageFormatInfo2KHR<'a> = PhysicalDeviceSparseImageFormatInfo2<'a>;
 #[cfg(any(feature = "ext_maintenance2", feature = "version_1_1"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImageViewUsageCreateInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImageViewUsageCreateInfo.html>"]
 #[doc(alias = "VkImageViewUsageCreateInfo")]
 pub struct ImageViewUsageCreateInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -9465,7 +9465,7 @@ impl<'a> ImageViewUsageCreateInfo<'a> {
 pub type ImageViewUsageCreateInfoKHR<'a> = ImageViewUsageCreateInfo<'a>;
 #[cfg(feature = "version_1_1")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceProtectedMemoryFeatures.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceProtectedMemoryFeatures.html>"]
 #[doc(alias = "VkPhysicalDeviceProtectedMemoryFeatures")]
 pub struct PhysicalDeviceProtectedMemoryFeatures<'a> {
     pub(crate) s_type: StructureType,
@@ -9525,7 +9525,7 @@ impl<'a> PhysicalDeviceProtectedMemoryFeatures<'a> {
 }
 #[cfg(feature = "version_1_1")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceProtectedMemoryProperties.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceProtectedMemoryProperties.html>"]
 #[doc(alias = "VkPhysicalDeviceProtectedMemoryProperties")]
 pub struct PhysicalDeviceProtectedMemoryProperties<'a> {
     pub(crate) s_type: StructureType,
@@ -9580,7 +9580,7 @@ impl<'a> PhysicalDeviceProtectedMemoryProperties<'a> {
 }
 #[cfg(feature = "version_1_1")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDeviceQueueInfo2.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceQueueInfo2.html>"]
 #[doc(alias = "VkDeviceQueueInfo2")]
 pub struct DeviceQueueInfo2<'a> {
     pub(crate) s_type: StructureType,
@@ -9638,7 +9638,7 @@ impl<'a> DeviceQueueInfo2<'a> {
 }
 #[cfg(feature = "version_1_1")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkProtectedSubmitInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkProtectedSubmitInfo.html>"]
 #[doc(alias = "VkProtectedSubmitInfo")]
 pub struct ProtectedSubmitInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -9684,7 +9684,7 @@ impl<'a> ProtectedSubmitInfo<'a> {
 }
 #[cfg(any(feature = "ext_sampler_ycbcr_conversion", feature = "version_1_1"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkBindImagePlaneMemoryInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkBindImagePlaneMemoryInfo.html>"]
 #[doc(alias = "VkBindImagePlaneMemoryInfo")]
 pub struct BindImagePlaneMemoryInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -9735,7 +9735,7 @@ impl<'a> BindImagePlaneMemoryInfo<'a> {
 pub type BindImagePlaneMemoryInfoKHR<'a> = BindImagePlaneMemoryInfo<'a>;
 #[cfg(any(feature = "ext_sampler_ycbcr_conversion", feature = "version_1_1"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImagePlaneMemoryRequirementsInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImagePlaneMemoryRequirementsInfo.html>"]
 #[doc(alias = "VkImagePlaneMemoryRequirementsInfo")]
 pub struct ImagePlaneMemoryRequirementsInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -9790,7 +9790,7 @@ pub type ImagePlaneMemoryRequirementsInfoKHR<'a> = ImagePlaneMemoryRequirementsI
 #[cfg(any(feature = "ext_external_memory_capabilities", feature = "version_1_1"))]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkExternalMemoryProperties.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkExternalMemoryProperties.html>"]
 #[doc(alias = "VkExternalMemoryProperties")]
 pub struct ExternalMemoryProperties {
     pub external_memory_features: ExternalMemoryFeatureFlags,
@@ -9836,7 +9836,7 @@ impl ExternalMemoryProperties {
 pub type ExternalMemoryPropertiesKHR = ExternalMemoryProperties;
 #[cfg(any(feature = "ext_external_memory_capabilities", feature = "version_1_1"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceExternalImageFormatInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceExternalImageFormatInfo.html>"]
 #[doc(alias = "VkPhysicalDeviceExternalImageFormatInfo")]
 pub struct PhysicalDeviceExternalImageFormatInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -9893,7 +9893,7 @@ impl<'a> PhysicalDeviceExternalImageFormatInfo<'a> {
 pub type PhysicalDeviceExternalImageFormatInfoKHR<'a> = PhysicalDeviceExternalImageFormatInfo<'a>;
 #[cfg(any(feature = "ext_external_memory_capabilities", feature = "version_1_1"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkExternalImageFormatProperties.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkExternalImageFormatProperties.html>"]
 #[doc(alias = "VkExternalImageFormatProperties")]
 pub struct ExternalImageFormatProperties<'a> {
     pub(crate) s_type: StructureType,
@@ -9950,7 +9950,7 @@ impl<'a> ExternalImageFormatProperties<'a> {
 pub type ExternalImageFormatPropertiesKHR<'a> = ExternalImageFormatProperties<'a>;
 #[cfg(any(feature = "ext_external_memory_capabilities", feature = "version_1_1"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceExternalBufferInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceExternalBufferInfo.html>"]
 #[doc(alias = "VkPhysicalDeviceExternalBufferInfo")]
 pub struct PhysicalDeviceExternalBufferInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -10010,7 +10010,7 @@ impl<'a> PhysicalDeviceExternalBufferInfo<'a> {
 pub type PhysicalDeviceExternalBufferInfoKHR<'a> = PhysicalDeviceExternalBufferInfo<'a>;
 #[cfg(any(feature = "ext_external_memory_capabilities", feature = "version_1_1"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkExternalBufferProperties.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkExternalBufferProperties.html>"]
 #[doc(alias = "VkExternalBufferProperties")]
 pub struct ExternalBufferProperties<'a> {
     pub(crate) s_type: StructureType,
@@ -10061,7 +10061,7 @@ pub type ExternalBufferPropertiesKHR<'a> = ExternalBufferProperties<'a>;
     feature = "version_1_1"
 ))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceIDProperties.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceIDProperties.html>"]
 #[doc(alias = "VkPhysicalDeviceIDProperties")]
 pub struct PhysicalDeviceIDProperties<'a> {
     pub(crate) s_type: StructureType,
@@ -10186,7 +10186,7 @@ impl<'a> PhysicalDeviceIDProperties<'a> {
 pub type PhysicalDeviceIDPropertiesKHR<'a> = PhysicalDeviceIDProperties<'a>;
 #[cfg(any(feature = "ext_external_memory", feature = "version_1_1"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkExternalMemoryImageCreateInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkExternalMemoryImageCreateInfo.html>"]
 #[doc(alias = "VkExternalMemoryImageCreateInfo")]
 pub struct ExternalMemoryImageCreateInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -10234,7 +10234,7 @@ impl<'a> ExternalMemoryImageCreateInfo<'a> {
 pub type ExternalMemoryImageCreateInfoKHR<'a> = ExternalMemoryImageCreateInfo<'a>;
 #[cfg(any(feature = "ext_external_memory", feature = "version_1_1"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkExternalMemoryBufferCreateInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkExternalMemoryBufferCreateInfo.html>"]
 #[doc(alias = "VkExternalMemoryBufferCreateInfo")]
 pub struct ExternalMemoryBufferCreateInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -10285,7 +10285,7 @@ impl<'a> ExternalMemoryBufferCreateInfo<'a> {
 pub type ExternalMemoryBufferCreateInfoKHR<'a> = ExternalMemoryBufferCreateInfo<'a>;
 #[cfg(any(feature = "ext_external_memory", feature = "version_1_1"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkExportMemoryAllocateInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkExportMemoryAllocateInfo.html>"]
 #[doc(alias = "VkExportMemoryAllocateInfo")]
 pub struct ExportMemoryAllocateInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -10333,7 +10333,7 @@ impl<'a> ExportMemoryAllocateInfo<'a> {
 pub type ExportMemoryAllocateInfoKHR<'a> = ExportMemoryAllocateInfo<'a>;
 #[cfg(any(feature = "ext_external_fence_capabilities", feature = "version_1_1"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceExternalFenceInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceExternalFenceInfo.html>"]
 #[doc(alias = "VkPhysicalDeviceExternalFenceInfo")]
 pub struct PhysicalDeviceExternalFenceInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -10379,7 +10379,7 @@ impl<'a> PhysicalDeviceExternalFenceInfo<'a> {
 pub type PhysicalDeviceExternalFenceInfoKHR<'a> = PhysicalDeviceExternalFenceInfo<'a>;
 #[cfg(any(feature = "ext_external_fence_capabilities", feature = "version_1_1"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkExternalFenceProperties.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkExternalFenceProperties.html>"]
 #[doc(alias = "VkExternalFenceProperties")]
 pub struct ExternalFenceProperties<'a> {
     pub(crate) s_type: StructureType,
@@ -10442,7 +10442,7 @@ impl<'a> ExternalFenceProperties<'a> {
 pub type ExternalFencePropertiesKHR<'a> = ExternalFenceProperties<'a>;
 #[cfg(any(feature = "ext_external_fence", feature = "version_1_1"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkExportFenceCreateInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkExportFenceCreateInfo.html>"]
 #[doc(alias = "VkExportFenceCreateInfo")]
 pub struct ExportFenceCreateInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -10490,7 +10490,7 @@ impl<'a> ExportFenceCreateInfo<'a> {
 pub type ExportFenceCreateInfoKHR<'a> = ExportFenceCreateInfo<'a>;
 #[cfg(any(feature = "ext_external_semaphore", feature = "version_1_1"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkExportSemaphoreCreateInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkExportSemaphoreCreateInfo.html>"]
 #[doc(alias = "VkExportSemaphoreCreateInfo")]
 pub struct ExportSemaphoreCreateInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -10541,7 +10541,7 @@ pub type ExportSemaphoreCreateInfoKHR<'a> = ExportSemaphoreCreateInfo<'a>;
     feature = "version_1_1"
 ))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceExternalSemaphoreInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceExternalSemaphoreInfo.html>"]
 #[doc(alias = "VkPhysicalDeviceExternalSemaphoreInfo")]
 pub struct PhysicalDeviceExternalSemaphoreInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -10611,7 +10611,7 @@ pub type PhysicalDeviceExternalSemaphoreInfoKHR<'a> = PhysicalDeviceExternalSema
     feature = "version_1_1"
 ))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkExternalSemaphoreProperties.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkExternalSemaphoreProperties.html>"]
 #[doc(alias = "VkExternalSemaphoreProperties")]
 pub struct ExternalSemaphoreProperties<'a> {
     pub(crate) s_type: StructureType,
@@ -10695,7 +10695,7 @@ impl<'a> ExternalSemaphoreProperties<'a> {
 pub type ExternalSemaphorePropertiesKHR<'a> = ExternalSemaphoreProperties<'a>;
 #[cfg(feature = "version_1_1")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceSubgroupProperties.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceSubgroupProperties.html>"]
 #[doc(alias = "VkPhysicalDeviceSubgroupProperties")]
 pub struct PhysicalDeviceSubgroupProperties<'a> {
     pub(crate) s_type: StructureType,
@@ -10770,7 +10770,7 @@ impl<'a> PhysicalDeviceSubgroupProperties<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDevice16BitStorageFeatures.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDevice16BitStorageFeatures.html>"]
 #[doc(alias = "VkPhysicalDevice16BitStorageFeatures")]
 pub struct PhysicalDevice16BitStorageFeatures<'a> {
     pub(crate) s_type: StructureType,
@@ -10845,7 +10845,7 @@ impl<'a> PhysicalDevice16BitStorageFeatures<'a> {
 }
 pub type PhysicalDevice16BitStorageFeaturesKHR<'a> = PhysicalDevice16BitStorageFeatures<'a>;
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceVariablePointersFeatures.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceVariablePointersFeatures.html>"]
 #[doc(alias = "VkPhysicalDeviceVariablePointersFeatures")]
 pub struct PhysicalDeviceVariablePointersFeatures<'a> {
     pub(crate) s_type: StructureType,
@@ -10910,7 +10910,7 @@ pub type PhysicalDeviceVariablePointerFeatures<'a> = PhysicalDeviceVariablePoint
 #[cfg(any(feature = "ext_descriptor_update_template", feature = "version_1_1"))]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDescriptorUpdateTemplateEntry.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDescriptorUpdateTemplateEntry.html>"]
 #[doc(alias = "VkDescriptorUpdateTemplateEntry")]
 pub struct DescriptorUpdateTemplateEntry {
     pub dst_binding: u32,
@@ -10974,7 +10974,7 @@ impl DescriptorUpdateTemplateEntry {
 pub type DescriptorUpdateTemplateEntryKHR = DescriptorUpdateTemplateEntry;
 #[cfg(any(feature = "ext_descriptor_update_template", feature = "version_1_1"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDescriptorUpdateTemplateCreateInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDescriptorUpdateTemplateCreateInfo.html>"]
 #[doc(alias = "VkDescriptorUpdateTemplateCreateInfo")]
 pub struct DescriptorUpdateTemplateCreateInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -11079,7 +11079,7 @@ impl<'a> DescriptorUpdateTemplateCreateInfo<'a> {
 pub type DescriptorUpdateTemplateCreateInfoKHR<'a> = DescriptorUpdateTemplateCreateInfo<'a>;
 #[cfg(any(feature = "ext_maintenance3", feature = "version_1_1"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceMaintenance3Properties.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceMaintenance3Properties.html>"]
 #[doc(alias = "VkPhysicalDeviceMaintenance3Properties")]
 pub struct PhysicalDeviceMaintenance3Properties<'a> {
     pub(crate) s_type: StructureType,
@@ -11143,7 +11143,7 @@ impl<'a> PhysicalDeviceMaintenance3Properties<'a> {
 pub type PhysicalDeviceMaintenance3PropertiesKHR<'a> = PhysicalDeviceMaintenance3Properties<'a>;
 #[cfg(any(feature = "ext_maintenance3", feature = "version_1_1"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDescriptorSetLayoutSupport.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDescriptorSetLayoutSupport.html>"]
 #[doc(alias = "VkDescriptorSetLayoutSupport")]
 pub struct DescriptorSetLayoutSupport<'a> {
     pub(crate) s_type: StructureType,
@@ -11189,7 +11189,7 @@ impl<'a> DescriptorSetLayoutSupport<'a> {
 pub type DescriptorSetLayoutSupportKHR<'a> = DescriptorSetLayoutSupport<'a>;
 #[cfg(any(feature = "ext_sampler_ycbcr_conversion", feature = "version_1_1"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSamplerYcbcrConversionCreateInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSamplerYcbcrConversionCreateInfo.html>"]
 #[doc(alias = "VkSamplerYcbcrConversionCreateInfo")]
 pub struct SamplerYcbcrConversionCreateInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -11284,7 +11284,7 @@ impl<'a> SamplerYcbcrConversionCreateInfo<'a> {
 pub type SamplerYcbcrConversionCreateInfoKHR<'a> = SamplerYcbcrConversionCreateInfo<'a>;
 #[cfg(any(feature = "ext_sampler_ycbcr_conversion", feature = "version_1_1"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSamplerYcbcrConversionInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSamplerYcbcrConversionInfo.html>"]
 #[doc(alias = "VkSamplerYcbcrConversionInfo")]
 pub struct SamplerYcbcrConversionInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -11334,7 +11334,7 @@ impl<'a> SamplerYcbcrConversionInfo<'a> {
 pub type SamplerYcbcrConversionInfoKHR<'a> = SamplerYcbcrConversionInfo<'a>;
 #[cfg(any(feature = "ext_sampler_ycbcr_conversion", feature = "version_1_1"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceSamplerYcbcrConversionFeatures.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceSamplerYcbcrConversionFeatures.html>"]
 #[doc(alias = "VkPhysicalDeviceSamplerYcbcrConversionFeatures")]
 pub struct PhysicalDeviceSamplerYcbcrConversionFeatures<'a> {
     pub(crate) s_type: StructureType,
@@ -11398,7 +11398,7 @@ pub type PhysicalDeviceSamplerYcbcrConversionFeaturesKHR<'a> =
     PhysicalDeviceSamplerYcbcrConversionFeatures<'a>;
 #[cfg(any(feature = "ext_sampler_ycbcr_conversion", feature = "version_1_1"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSamplerYcbcrConversionImageFormatProperties.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSamplerYcbcrConversionImageFormatProperties.html>"]
 #[doc(alias = "VkSamplerYcbcrConversionImageFormatProperties")]
 pub struct SamplerYcbcrConversionImageFormatProperties<'a> {
     pub(crate) s_type: StructureType,
@@ -11457,7 +11457,7 @@ pub type SamplerYcbcrConversionImageFormatPropertiesKHR<'a> =
     SamplerYcbcrConversionImageFormatProperties<'a>;
 #[cfg(any(feature = "ext_device_group", feature = "version_1_1"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDeviceGroupRenderPassBeginInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceGroupRenderPassBeginInfo.html>"]
 #[doc(alias = "VkDeviceGroupRenderPassBeginInfo")]
 pub struct DeviceGroupRenderPassBeginInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -11541,7 +11541,7 @@ impl<'a> DeviceGroupRenderPassBeginInfo<'a> {
 pub type DeviceGroupRenderPassBeginInfoKHR<'a> = DeviceGroupRenderPassBeginInfo<'a>;
 #[cfg(any(feature = "ext_maintenance2", feature = "version_1_1"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDevicePointClippingProperties.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDevicePointClippingProperties.html>"]
 #[doc(alias = "VkPhysicalDevicePointClippingProperties")]
 pub struct PhysicalDevicePointClippingProperties<'a> {
     pub(crate) s_type: StructureType,
@@ -11599,7 +11599,7 @@ pub type PhysicalDevicePointClippingPropertiesKHR<'a> = PhysicalDevicePointClipp
 #[cfg(any(feature = "ext_maintenance2", feature = "version_1_1"))]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkInputAttachmentAspectReference.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkInputAttachmentAspectReference.html>"]
 #[doc(alias = "VkInputAttachmentAspectReference")]
 pub struct InputAttachmentAspectReference {
     pub subpass: u32,
@@ -11642,7 +11642,7 @@ impl InputAttachmentAspectReference {
 pub type InputAttachmentAspectReferenceKHR = InputAttachmentAspectReference;
 #[cfg(any(feature = "ext_maintenance2", feature = "version_1_1"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkRenderPassInputAttachmentAspectCreateInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkRenderPassInputAttachmentAspectCreateInfo.html>"]
 #[doc(alias = "VkRenderPassInputAttachmentAspectCreateInfo")]
 pub struct RenderPassInputAttachmentAspectCreateInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -11711,7 +11711,7 @@ pub type RenderPassInputAttachmentAspectCreateInfoKHR<'a> =
     RenderPassInputAttachmentAspectCreateInfo<'a>;
 #[cfg(any(feature = "ext_maintenance2", feature = "version_1_1"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineTessellationDomainOriginStateCreateInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineTessellationDomainOriginStateCreateInfo.html>"]
 #[doc(alias = "VkPipelineTessellationDomainOriginStateCreateInfo")]
 pub struct PipelineTessellationDomainOriginStateCreateInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -11764,7 +11764,7 @@ pub type PipelineTessellationDomainOriginStateCreateInfoKHR<'a> =
     PipelineTessellationDomainOriginStateCreateInfo<'a>;
 #[cfg(any(feature = "ext_multiview", feature = "version_1_1"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkRenderPassMultiviewCreateInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkRenderPassMultiviewCreateInfo.html>"]
 #[doc(alias = "VkRenderPassMultiviewCreateInfo")]
 pub struct RenderPassMultiviewCreateInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -11865,7 +11865,7 @@ impl<'a> RenderPassMultiviewCreateInfo<'a> {
 pub type RenderPassMultiviewCreateInfoKHR<'a> = RenderPassMultiviewCreateInfo<'a>;
 #[cfg(any(feature = "ext_multiview", feature = "version_1_1"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceMultiviewFeatures.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceMultiviewFeatures.html>"]
 #[doc(alias = "VkPhysicalDeviceMultiviewFeatures")]
 pub struct PhysicalDeviceMultiviewFeatures<'a> {
     pub(crate) s_type: StructureType,
@@ -11941,7 +11941,7 @@ impl<'a> PhysicalDeviceMultiviewFeatures<'a> {
 pub type PhysicalDeviceMultiviewFeaturesKHR<'a> = PhysicalDeviceMultiviewFeatures<'a>;
 #[cfg(any(feature = "ext_multiview", feature = "version_1_1"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceMultiviewProperties.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceMultiviewProperties.html>"]
 #[doc(alias = "VkPhysicalDeviceMultiviewProperties")]
 pub struct PhysicalDeviceMultiviewProperties<'a> {
     pub(crate) s_type: StructureType,
@@ -12005,7 +12005,7 @@ impl<'a> PhysicalDeviceMultiviewProperties<'a> {
 pub type PhysicalDeviceMultiviewPropertiesKHR<'a> = PhysicalDeviceMultiviewProperties<'a>;
 #[cfg(feature = "version_1_1")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderDrawParametersFeatures.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderDrawParametersFeatures.html>"]
 #[doc(alias = "VkPhysicalDeviceShaderDrawParametersFeatures")]
 pub struct PhysicalDeviceShaderDrawParametersFeatures<'a> {
     pub(crate) s_type: StructureType,
@@ -12069,7 +12069,7 @@ pub type PhysicalDeviceShaderDrawParameterFeatures<'a> =
 #[cfg(any(feature = "ext_driver_properties", feature = "version_1_2"))]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkConformanceVersion.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkConformanceVersion.html>"]
 #[doc(alias = "VkConformanceVersion")]
 pub struct ConformanceVersion {
     pub major: u8,
@@ -12119,7 +12119,7 @@ impl ConformanceVersion {
 pub type ConformanceVersionKHR = ConformanceVersion;
 #[cfg(any(feature = "ext_driver_properties", feature = "version_1_2"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceDriverProperties.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceDriverProperties.html>"]
 #[doc(alias = "VkPhysicalDeviceDriverProperties")]
 pub struct PhysicalDeviceDriverProperties<'a> {
     pub(crate) s_type: StructureType,
@@ -12201,7 +12201,7 @@ impl<'a> PhysicalDeviceDriverProperties<'a> {
 pub type PhysicalDeviceDriverPropertiesKHR<'a> = PhysicalDeviceDriverProperties<'a>;
 #[cfg(feature = "version_1_2")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceVulkan11Features.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceVulkan11Features.html>"]
 #[doc(alias = "VkPhysicalDeviceVulkan11Features")]
 pub struct PhysicalDeviceVulkan11Features<'a> {
     pub(crate) s_type: StructureType,
@@ -12338,7 +12338,7 @@ impl<'a> PhysicalDeviceVulkan11Features<'a> {
 }
 #[cfg(feature = "version_1_2")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceVulkan11Properties.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceVulkan11Properties.html>"]
 #[doc(alias = "VkPhysicalDeviceVulkan11Properties")]
 pub struct PhysicalDeviceVulkan11Properties<'a> {
     pub(crate) s_type: StructureType,
@@ -12491,7 +12491,7 @@ impl<'a> PhysicalDeviceVulkan11Properties<'a> {
 }
 #[cfg(feature = "version_1_2")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceVulkan12Features.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceVulkan12Features.html>"]
 #[doc(alias = "VkPhysicalDeviceVulkan12Features")]
 pub struct PhysicalDeviceVulkan12Features<'a> {
     pub(crate) s_type: StructureType,
@@ -12930,7 +12930,7 @@ impl<'a> PhysicalDeviceVulkan12Features<'a> {
 }
 #[cfg(feature = "version_1_2")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceVulkan12Properties.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceVulkan12Properties.html>"]
 #[doc(alias = "VkPhysicalDeviceVulkan12Properties")]
 pub struct PhysicalDeviceVulkan12Properties<'a> {
     pub(crate) s_type: StructureType,
@@ -13376,7 +13376,7 @@ impl<'a> PhysicalDeviceVulkan12Properties<'a> {
 }
 #[cfg(any(feature = "ext_image_format_list", feature = "version_1_2"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImageFormatListCreateInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImageFormatListCreateInfo.html>"]
 #[doc(alias = "VkImageFormatListCreateInfo")]
 pub struct ImageFormatListCreateInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -13453,7 +13453,7 @@ impl<'a> ImageFormatListCreateInfo<'a> {
 #[cfg(any(feature = "ext_image_format_list", feature = "version_1_2"))]
 pub type ImageFormatListCreateInfoKHR<'a> = ImageFormatListCreateInfo<'a>;
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceVulkanMemoryModelFeatures.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceVulkanMemoryModelFeatures.html>"]
 #[doc(alias = "VkPhysicalDeviceVulkanMemoryModelFeatures")]
 pub struct PhysicalDeviceVulkanMemoryModelFeatures<'a> {
     pub(crate) s_type: StructureType,
@@ -13526,7 +13526,7 @@ pub type PhysicalDeviceVulkanMemoryModelFeaturesKHR<'a> =
     PhysicalDeviceVulkanMemoryModelFeatures<'a>;
 #[cfg(any(feature = "ext_host_query_reset", feature = "version_1_2"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceHostQueryResetFeatures.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceHostQueryResetFeatures.html>"]
 #[doc(alias = "VkPhysicalDeviceHostQueryResetFeatures")]
 pub struct PhysicalDeviceHostQueryResetFeatures<'a> {
     pub(crate) s_type: StructureType,
@@ -13588,7 +13588,7 @@ impl<'a> PhysicalDeviceHostQueryResetFeatures<'a> {
 pub type PhysicalDeviceHostQueryResetFeaturesEXT<'a> = PhysicalDeviceHostQueryResetFeatures<'a>;
 #[cfg(any(feature = "ext_timeline_semaphore", feature = "version_1_2"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceTimelineSemaphoreFeatures.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceTimelineSemaphoreFeatures.html>"]
 #[doc(alias = "VkPhysicalDeviceTimelineSemaphoreFeatures")]
 pub struct PhysicalDeviceTimelineSemaphoreFeatures<'a> {
     pub(crate) s_type: StructureType,
@@ -13651,7 +13651,7 @@ pub type PhysicalDeviceTimelineSemaphoreFeaturesKHR<'a> =
     PhysicalDeviceTimelineSemaphoreFeatures<'a>;
 #[cfg(any(feature = "ext_timeline_semaphore", feature = "version_1_2"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceTimelineSemaphoreProperties.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceTimelineSemaphoreProperties.html>"]
 #[doc(alias = "VkPhysicalDeviceTimelineSemaphoreProperties")]
 pub struct PhysicalDeviceTimelineSemaphoreProperties<'a> {
     pub(crate) s_type: StructureType,
@@ -13709,7 +13709,7 @@ pub type PhysicalDeviceTimelineSemaphorePropertiesKHR<'a> =
     PhysicalDeviceTimelineSemaphoreProperties<'a>;
 #[cfg(any(feature = "ext_timeline_semaphore", feature = "version_1_2"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSemaphoreTypeCreateInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSemaphoreTypeCreateInfo.html>"]
 #[doc(alias = "VkSemaphoreTypeCreateInfo")]
 pub struct SemaphoreTypeCreateInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -13775,7 +13775,7 @@ impl<'a> SemaphoreTypeCreateInfo<'a> {
 pub type SemaphoreTypeCreateInfoKHR<'a> = SemaphoreTypeCreateInfo<'a>;
 #[cfg(any(feature = "ext_timeline_semaphore", feature = "version_1_2"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkTimelineSemaphoreSubmitInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkTimelineSemaphoreSubmitInfo.html>"]
 #[doc(alias = "VkTimelineSemaphoreSubmitInfo")]
 pub struct TimelineSemaphoreSubmitInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -13873,7 +13873,7 @@ impl<'a> TimelineSemaphoreSubmitInfo<'a> {
 pub type TimelineSemaphoreSubmitInfoKHR<'a> = TimelineSemaphoreSubmitInfo<'a>;
 #[cfg(any(feature = "ext_timeline_semaphore", feature = "version_1_2"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSemaphoreWaitInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSemaphoreWaitInfo.html>"]
 #[doc(alias = "VkSemaphoreWaitInfo")]
 pub struct SemaphoreWaitInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -13952,7 +13952,7 @@ impl<'a> SemaphoreWaitInfo<'a> {
 pub type SemaphoreWaitInfoKHR<'a> = SemaphoreWaitInfo<'a>;
 #[cfg(any(feature = "ext_timeline_semaphore", feature = "version_1_2"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSemaphoreSignalInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSemaphoreSignalInfo.html>"]
 #[doc(alias = "VkSemaphoreSignalInfo")]
 pub struct SemaphoreSignalInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -14005,7 +14005,7 @@ impl<'a> SemaphoreSignalInfo<'a> {
 pub type SemaphoreSignalInfoKHR<'a> = SemaphoreSignalInfo<'a>;
 #[cfg(any(feature = "ext_buffer_device_address", feature = "version_1_2"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceBufferDeviceAddressFeatures.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceBufferDeviceAddressFeatures.html>"]
 #[doc(alias = "VkPhysicalDeviceBufferDeviceAddressFeatures")]
 pub struct PhysicalDeviceBufferDeviceAddressFeatures<'a> {
     pub(crate) s_type: StructureType,
@@ -14082,7 +14082,7 @@ pub type PhysicalDeviceBufferDeviceAddressFeaturesKHR<'a> =
     PhysicalDeviceBufferDeviceAddressFeatures<'a>;
 #[cfg(any(feature = "ext_buffer_device_address", feature = "version_1_2"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkBufferDeviceAddressInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkBufferDeviceAddressInfo.html>"]
 #[doc(alias = "VkBufferDeviceAddressInfo")]
 pub struct BufferDeviceAddressInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -14130,7 +14130,7 @@ pub type BufferDeviceAddressInfoKHR<'a> = BufferDeviceAddressInfo<'a>;
 pub type BufferDeviceAddressInfoEXT<'a> = BufferDeviceAddressInfo<'a>;
 #[cfg(any(feature = "ext_buffer_device_address", feature = "version_1_2"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkBufferOpaqueCaptureAddressCreateInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkBufferOpaqueCaptureAddressCreateInfo.html>"]
 #[doc(alias = "VkBufferOpaqueCaptureAddressCreateInfo")]
 pub struct BufferOpaqueCaptureAddressCreateInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -14181,7 +14181,7 @@ impl<'a> BufferOpaqueCaptureAddressCreateInfo<'a> {
 pub type BufferOpaqueCaptureAddressCreateInfoKHR<'a> = BufferOpaqueCaptureAddressCreateInfo<'a>;
 #[cfg(any(feature = "ext_buffer_device_address", feature = "version_1_2"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkMemoryOpaqueCaptureAddressAllocateInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkMemoryOpaqueCaptureAddressAllocateInfo.html>"]
 #[doc(alias = "VkMemoryOpaqueCaptureAddressAllocateInfo")]
 pub struct MemoryOpaqueCaptureAddressAllocateInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -14232,7 +14232,7 @@ impl<'a> MemoryOpaqueCaptureAddressAllocateInfo<'a> {
 pub type MemoryOpaqueCaptureAddressAllocateInfoKHR<'a> = MemoryOpaqueCaptureAddressAllocateInfo<'a>;
 #[cfg(any(feature = "ext_buffer_device_address", feature = "version_1_2"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDeviceMemoryOpaqueCaptureAddressInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceMemoryOpaqueCaptureAddressInfo.html>"]
 #[doc(alias = "VkDeviceMemoryOpaqueCaptureAddressInfo")]
 pub struct DeviceMemoryOpaqueCaptureAddressInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -14277,7 +14277,7 @@ impl<'a> DeviceMemoryOpaqueCaptureAddressInfo<'a> {
 #[cfg(any(feature = "ext_buffer_device_address", feature = "version_1_2"))]
 pub type DeviceMemoryOpaqueCaptureAddressInfoKHR<'a> = DeviceMemoryOpaqueCaptureAddressInfo<'a>;
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDevice8BitStorageFeatures.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDevice8BitStorageFeatures.html>"]
 #[doc(alias = "VkPhysicalDevice8BitStorageFeatures")]
 pub struct PhysicalDevice8BitStorageFeatures<'a> {
     pub(crate) s_type: StructureType,
@@ -14345,7 +14345,7 @@ impl<'a> PhysicalDevice8BitStorageFeatures<'a> {
 }
 pub type PhysicalDevice8BitStorageFeaturesKHR<'a> = PhysicalDevice8BitStorageFeatures<'a>;
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderAtomicInt64Features.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderAtomicInt64Features.html>"]
 #[doc(alias = "VkPhysicalDeviceShaderAtomicInt64Features")]
 pub struct PhysicalDeviceShaderAtomicInt64Features<'a> {
     pub(crate) s_type: StructureType,
@@ -14407,7 +14407,7 @@ impl<'a> PhysicalDeviceShaderAtomicInt64Features<'a> {
 pub type PhysicalDeviceShaderAtomicInt64FeaturesKHR<'a> =
     PhysicalDeviceShaderAtomicInt64Features<'a>;
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderFloat16Int8Features.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderFloat16Int8Features.html>"]
 #[doc(alias = "VkPhysicalDeviceShaderFloat16Int8Features")]
 pub struct PhysicalDeviceShaderFloat16Int8Features<'a> {
     pub(crate) s_type: StructureType,
@@ -14471,7 +14471,7 @@ pub type PhysicalDeviceShaderFloat16Int8FeaturesKHR<'a> =
 pub type PhysicalDeviceFloat16Int8FeaturesKHR<'a> = PhysicalDeviceShaderFloat16Int8Features<'a>;
 #[cfg(any(feature = "ext_shader_float_controls", feature = "version_1_2"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceFloatControlsProperties.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceFloatControlsProperties.html>"]
 #[doc(alias = "VkPhysicalDeviceFloatControlsProperties")]
 pub struct PhysicalDeviceFloatControlsProperties<'a> {
     pub(crate) s_type: StructureType,
@@ -14640,7 +14640,7 @@ impl<'a> PhysicalDeviceFloatControlsProperties<'a> {
 pub type PhysicalDeviceFloatControlsPropertiesKHR<'a> = PhysicalDeviceFloatControlsProperties<'a>;
 #[cfg(any(feature = "ext_descriptor_indexing", feature = "version_1_2"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDescriptorSetLayoutBindingFlagsCreateInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDescriptorSetLayoutBindingFlagsCreateInfo.html>"]
 #[doc(alias = "VkDescriptorSetLayoutBindingFlagsCreateInfo")]
 pub struct DescriptorSetLayoutBindingFlagsCreateInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -14711,7 +14711,7 @@ pub type DescriptorSetLayoutBindingFlagsCreateInfoEXT<'a> =
     DescriptorSetLayoutBindingFlagsCreateInfo<'a>;
 #[cfg(any(feature = "ext_descriptor_indexing", feature = "version_1_2"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceDescriptorIndexingFeatures.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceDescriptorIndexingFeatures.html>"]
 #[doc(alias = "VkPhysicalDeviceDescriptorIndexingFeatures")]
 pub struct PhysicalDeviceDescriptorIndexingFeatures<'a> {
     pub(crate) s_type: StructureType,
@@ -14961,7 +14961,7 @@ pub type PhysicalDeviceDescriptorIndexingFeaturesEXT<'a> =
     PhysicalDeviceDescriptorIndexingFeatures<'a>;
 #[cfg(any(feature = "ext_descriptor_indexing", feature = "version_1_2"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceDescriptorIndexingProperties.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceDescriptorIndexingProperties.html>"]
 #[doc(alias = "VkPhysicalDeviceDescriptorIndexingProperties")]
 pub struct PhysicalDeviceDescriptorIndexingProperties<'a> {
     pub(crate) s_type: StructureType,
@@ -15203,7 +15203,7 @@ pub type PhysicalDeviceDescriptorIndexingPropertiesEXT<'a> =
     PhysicalDeviceDescriptorIndexingProperties<'a>;
 #[cfg(any(feature = "ext_descriptor_indexing", feature = "version_1_2"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDescriptorSetVariableDescriptorCountAllocateInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDescriptorSetVariableDescriptorCountAllocateInfo.html>"]
 #[doc(alias = "VkDescriptorSetVariableDescriptorCountAllocateInfo")]
 pub struct DescriptorSetVariableDescriptorCountAllocateInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -15270,7 +15270,7 @@ pub type DescriptorSetVariableDescriptorCountAllocateInfoEXT<'a> =
     DescriptorSetVariableDescriptorCountAllocateInfo<'a>;
 #[cfg(any(feature = "ext_descriptor_indexing", feature = "version_1_2"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDescriptorSetVariableDescriptorCountLayoutSupport.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDescriptorSetVariableDescriptorCountLayoutSupport.html>"]
 #[doc(alias = "VkDescriptorSetVariableDescriptorCountLayoutSupport")]
 pub struct DescriptorSetVariableDescriptorCountLayoutSupport<'a> {
     pub(crate) s_type: StructureType,
@@ -15325,7 +15325,7 @@ impl<'a> DescriptorSetVariableDescriptorCountLayoutSupport<'a> {
 pub type DescriptorSetVariableDescriptorCountLayoutSupportEXT<'a> =
     DescriptorSetVariableDescriptorCountLayoutSupport<'a>;
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceScalarBlockLayoutFeatures.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceScalarBlockLayoutFeatures.html>"]
 #[doc(alias = "VkPhysicalDeviceScalarBlockLayoutFeatures")]
 pub struct PhysicalDeviceScalarBlockLayoutFeatures<'a> {
     pub(crate) s_type: StructureType,
@@ -15381,7 +15381,7 @@ pub type PhysicalDeviceScalarBlockLayoutFeaturesEXT<'a> =
     PhysicalDeviceScalarBlockLayoutFeatures<'a>;
 #[cfg(any(feature = "ext_sampler_filter_minmax", feature = "version_1_2"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSamplerReductionModeCreateInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSamplerReductionModeCreateInfo.html>"]
 #[doc(alias = "VkSamplerReductionModeCreateInfo")]
 pub struct SamplerReductionModeCreateInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -15432,7 +15432,7 @@ impl<'a> SamplerReductionModeCreateInfo<'a> {
 pub type SamplerReductionModeCreateInfoEXT<'a> = SamplerReductionModeCreateInfo<'a>;
 #[cfg(any(feature = "ext_sampler_filter_minmax", feature = "version_1_2"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceSamplerFilterMinmaxProperties.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceSamplerFilterMinmaxProperties.html>"]
 #[doc(alias = "VkPhysicalDeviceSamplerFilterMinmaxProperties")]
 pub struct PhysicalDeviceSamplerFilterMinmaxProperties<'a> {
     pub(crate) s_type: StructureType,
@@ -15497,7 +15497,7 @@ impl<'a> PhysicalDeviceSamplerFilterMinmaxProperties<'a> {
 pub type PhysicalDeviceSamplerFilterMinmaxPropertiesEXT<'a> =
     PhysicalDeviceSamplerFilterMinmaxProperties<'a>;
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceUniformBufferStandardLayoutFeatures.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceUniformBufferStandardLayoutFeatures.html>"]
 #[doc(alias = "VkPhysicalDeviceUniformBufferStandardLayoutFeatures")]
 pub struct PhysicalDeviceUniformBufferStandardLayoutFeatures<'a> {
     pub(crate) s_type: StructureType,
@@ -15553,7 +15553,7 @@ impl<'a> PhysicalDeviceUniformBufferStandardLayoutFeatures<'a> {
 pub type PhysicalDeviceUniformBufferStandardLayoutFeaturesKHR<'a> =
     PhysicalDeviceUniformBufferStandardLayoutFeatures<'a>;
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderSubgroupExtendedTypesFeatures.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderSubgroupExtendedTypesFeatures.html>"]
 #[doc(alias = "VkPhysicalDeviceShaderSubgroupExtendedTypesFeatures")]
 pub struct PhysicalDeviceShaderSubgroupExtendedTypesFeatures<'a> {
     pub(crate) s_type: StructureType,
@@ -15610,7 +15610,7 @@ pub type PhysicalDeviceShaderSubgroupExtendedTypesFeaturesKHR<'a> =
     PhysicalDeviceShaderSubgroupExtendedTypesFeatures<'a>;
 #[cfg(any(feature = "ext_create_renderpass2", feature = "version_1_2"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAttachmentDescription2.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAttachmentDescription2.html>"]
 #[doc(alias = "VkAttachmentDescription2")]
 pub struct AttachmentDescription2<'a> {
     pub(crate) s_type: StructureType,
@@ -15712,7 +15712,7 @@ impl<'a> AttachmentDescription2<'a> {
 pub type AttachmentDescription2KHR<'a> = AttachmentDescription2<'a>;
 #[cfg(any(feature = "ext_create_renderpass2", feature = "version_1_2"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAttachmentReference2.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAttachmentReference2.html>"]
 #[doc(alias = "VkAttachmentReference2")]
 pub struct AttachmentReference2<'a> {
     pub(crate) s_type: StructureType,
@@ -15772,7 +15772,7 @@ impl<'a> AttachmentReference2<'a> {
 pub type AttachmentReference2KHR<'a> = AttachmentReference2<'a>;
 #[cfg(any(feature = "ext_create_renderpass2", feature = "version_1_2"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSubpassDescription2.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSubpassDescription2.html>"]
 #[doc(alias = "VkSubpassDescription2")]
 pub struct SubpassDescription2<'a> {
     pub(crate) s_type: StructureType,
@@ -15925,7 +15925,7 @@ impl<'a> SubpassDescription2<'a> {
 pub type SubpassDescription2KHR<'a> = SubpassDescription2<'a>;
 #[cfg(any(feature = "ext_create_renderpass2", feature = "version_1_2"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSubpassDependency2.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSubpassDependency2.html>"]
 #[doc(alias = "VkSubpassDependency2")]
 pub struct SubpassDependency2<'a> {
     pub(crate) s_type: StructureType,
@@ -16020,7 +16020,7 @@ impl<'a> SubpassDependency2<'a> {
 pub type SubpassDependency2KHR<'a> = SubpassDependency2<'a>;
 #[cfg(any(feature = "ext_create_renderpass2", feature = "version_1_2"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSubpassBeginInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSubpassBeginInfo.html>"]
 #[doc(alias = "VkSubpassBeginInfo")]
 pub struct SubpassBeginInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -16066,7 +16066,7 @@ impl<'a> SubpassBeginInfo<'a> {
 pub type SubpassBeginInfoKHR<'a> = SubpassBeginInfo<'a>;
 #[cfg(any(feature = "ext_create_renderpass2", feature = "version_1_2"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSubpassEndInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSubpassEndInfo.html>"]
 #[doc(alias = "VkSubpassEndInfo")]
 pub struct SubpassEndInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -16105,7 +16105,7 @@ impl<'a> SubpassEndInfo<'a> {
 pub type SubpassEndInfoKHR<'a> = SubpassEndInfo<'a>;
 #[cfg(any(feature = "ext_create_renderpass2", feature = "version_1_2"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkRenderPassCreateInfo2.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkRenderPassCreateInfo2.html>"]
 #[doc(alias = "VkRenderPassCreateInfo2")]
 pub struct RenderPassCreateInfo2<'a> {
     pub(crate) s_type: StructureType,
@@ -16232,7 +16232,7 @@ impl<'a> RenderPassCreateInfo2<'a> {
 pub type RenderPassCreateInfo2KHR<'a> = RenderPassCreateInfo2<'a>;
 #[cfg(any(feature = "ext_depth_stencil_resolve", feature = "version_1_2"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSubpassDescriptionDepthStencilResolve.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSubpassDescriptionDepthStencilResolve.html>"]
 #[doc(alias = "VkSubpassDescriptionDepthStencilResolve")]
 pub struct SubpassDescriptionDepthStencilResolve<'a> {
     pub(crate) s_type: StructureType,
@@ -16304,7 +16304,7 @@ impl<'a> SubpassDescriptionDepthStencilResolve<'a> {
 pub type SubpassDescriptionDepthStencilResolveKHR<'a> = SubpassDescriptionDepthStencilResolve<'a>;
 #[cfg(any(feature = "ext_depth_stencil_resolve", feature = "version_1_2"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceDepthStencilResolveProperties.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceDepthStencilResolveProperties.html>"]
 #[doc(alias = "VkPhysicalDeviceDepthStencilResolveProperties")]
 pub struct PhysicalDeviceDepthStencilResolveProperties<'a> {
     pub(crate) s_type: StructureType,
@@ -16384,7 +16384,7 @@ pub type PhysicalDeviceDepthStencilResolvePropertiesKHR<'a> =
     PhysicalDeviceDepthStencilResolveProperties<'a>;
 #[cfg(any(feature = "ext_separate_stencil_usage", feature = "version_1_2"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImageStencilUsageCreateInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImageStencilUsageCreateInfo.html>"]
 #[doc(alias = "VkImageStencilUsageCreateInfo")]
 pub struct ImageStencilUsageCreateInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -16443,7 +16443,7 @@ impl<'a> ImageStencilUsageCreateInfo<'a> {
 pub type ImageStencilUsageCreateInfoEXT<'a> = ImageStencilUsageCreateInfo<'a>;
 #[cfg(any(feature = "ext_imageless_framebuffer", feature = "version_1_2"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceImagelessFramebufferFeatures.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceImagelessFramebufferFeatures.html>"]
 #[doc(alias = "VkPhysicalDeviceImagelessFramebufferFeatures")]
 pub struct PhysicalDeviceImagelessFramebufferFeatures<'a> {
     pub(crate) s_type: StructureType,
@@ -16506,7 +16506,7 @@ pub type PhysicalDeviceImagelessFramebufferFeaturesKHR<'a> =
     PhysicalDeviceImagelessFramebufferFeatures<'a>;
 #[cfg(any(feature = "ext_imageless_framebuffer", feature = "version_1_2"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkFramebufferAttachmentImageInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkFramebufferAttachmentImageInfo.html>"]
 #[doc(alias = "VkFramebufferAttachmentImageInfo")]
 pub struct FramebufferAttachmentImageInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -16598,7 +16598,7 @@ impl<'a> FramebufferAttachmentImageInfo<'a> {
 pub type FramebufferAttachmentImageInfoKHR<'a> = FramebufferAttachmentImageInfo<'a>;
 #[cfg(any(feature = "ext_imageless_framebuffer", feature = "version_1_2"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkRenderPassAttachmentBeginInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkRenderPassAttachmentBeginInfo.html>"]
 #[doc(alias = "VkRenderPassAttachmentBeginInfo")]
 pub struct RenderPassAttachmentBeginInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -16663,7 +16663,7 @@ impl<'a> RenderPassAttachmentBeginInfo<'a> {
 pub type RenderPassAttachmentBeginInfoKHR<'a> = RenderPassAttachmentBeginInfo<'a>;
 #[cfg(any(feature = "ext_imageless_framebuffer", feature = "version_1_2"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkFramebufferAttachmentsCreateInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkFramebufferAttachmentsCreateInfo.html>"]
 #[doc(alias = "VkFramebufferAttachmentsCreateInfo")]
 pub struct FramebufferAttachmentsCreateInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -16734,7 +16734,7 @@ pub type FramebufferAttachmentsCreateInfoKHR<'a> = FramebufferAttachmentsCreateI
     feature = "version_1_2"
 ))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceSeparateDepthStencilLayoutsFeatures.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceSeparateDepthStencilLayoutsFeatures.html>"]
 #[doc(alias = "VkPhysicalDeviceSeparateDepthStencilLayoutsFeatures")]
 pub struct PhysicalDeviceSeparateDepthStencilLayoutsFeatures<'a> {
     pub(crate) s_type: StructureType,
@@ -16828,7 +16828,7 @@ pub type PhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR<'a> =
     feature = "version_1_2"
 ))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAttachmentReferenceStencilLayout.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAttachmentReferenceStencilLayout.html>"]
 #[doc(alias = "VkAttachmentReferenceStencilLayout")]
 pub struct AttachmentReferenceStencilLayout<'a> {
     pub(crate) s_type: StructureType,
@@ -16909,7 +16909,7 @@ pub type AttachmentReferenceStencilLayoutKHR<'a> = AttachmentReferenceStencilLay
     feature = "version_1_2"
 ))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAttachmentDescriptionStencilLayout.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAttachmentDescriptionStencilLayout.html>"]
 #[doc(alias = "VkAttachmentDescriptionStencilLayout")]
 pub struct AttachmentDescriptionStencilLayout<'a> {
     pub(crate) s_type: StructureType,
@@ -16992,12 +16992,12 @@ impl<'a> AttachmentDescriptionStencilLayout<'a> {
     feature = "version_1_2"
 ))]
 pub type AttachmentDescriptionStencilLayoutKHR<'a> = AttachmentDescriptionStencilLayout<'a>;
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkFlags64.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkFlags64.html>"]
 #[doc(alias = "VkFlags64")]
 pub type Flags64 = u64;
 #[cfg(feature = "version_1_3")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceVulkan13Features.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceVulkan13Features.html>"]
 #[doc(alias = "VkPhysicalDeviceVulkan13Features")]
 pub struct PhysicalDeviceVulkan13Features<'a> {
     pub(crate) s_type: StructureType,
@@ -17158,7 +17158,7 @@ impl<'a> PhysicalDeviceVulkan13Features<'a> {
 }
 #[cfg(feature = "version_1_3")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceVulkan13Properties.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceVulkan13Properties.html>"]
 #[doc(alias = "VkPhysicalDeviceVulkan13Properties")]
 pub struct PhysicalDeviceVulkan13Properties<'a> {
     pub(crate) s_type: StructureType,
@@ -17578,7 +17578,7 @@ impl<'a> PhysicalDeviceVulkan13Properties<'a> {
 }
 #[cfg(any(feature = "ext_tooling_info", feature = "version_1_3"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceToolProperties.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceToolProperties.html>"]
 #[doc(alias = "VkPhysicalDeviceToolProperties")]
 pub struct PhysicalDeviceToolProperties<'a> {
     pub(crate) s_type: StructureType,
@@ -17660,7 +17660,7 @@ impl<'a> PhysicalDeviceToolProperties<'a> {
 pub type PhysicalDeviceToolPropertiesEXT<'a> = PhysicalDeviceToolProperties<'a>;
 #[cfg(any(feature = "ext_private_data", feature = "version_1_3"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDevicePrivateDataFeatures.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDevicePrivateDataFeatures.html>"]
 #[doc(alias = "VkPhysicalDevicePrivateDataFeatures")]
 pub struct PhysicalDevicePrivateDataFeatures<'a> {
     pub(crate) s_type: StructureType,
@@ -17722,7 +17722,7 @@ impl<'a> PhysicalDevicePrivateDataFeatures<'a> {
 pub type PhysicalDevicePrivateDataFeaturesEXT<'a> = PhysicalDevicePrivateDataFeatures<'a>;
 #[cfg(any(feature = "ext_private_data", feature = "version_1_3"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDevicePrivateDataCreateInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDevicePrivateDataCreateInfo.html>"]
 #[doc(alias = "VkDevicePrivateDataCreateInfo")]
 pub struct DevicePrivateDataCreateInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -17770,7 +17770,7 @@ impl<'a> DevicePrivateDataCreateInfo<'a> {
 pub type DevicePrivateDataCreateInfoEXT<'a> = DevicePrivateDataCreateInfo<'a>;
 #[cfg(any(feature = "ext_private_data", feature = "version_1_3"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPrivateDataSlotCreateInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPrivateDataSlotCreateInfo.html>"]
 #[doc(alias = "VkPrivateDataSlotCreateInfo")]
 pub struct PrivateDataSlotCreateInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -17816,7 +17816,7 @@ impl<'a> PrivateDataSlotCreateInfo<'a> {
 pub type PrivateDataSlotCreateInfoEXT<'a> = PrivateDataSlotCreateInfo<'a>;
 #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkMemoryBarrier2.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkMemoryBarrier2.html>"]
 #[doc(alias = "VkMemoryBarrier2")]
 pub struct MemoryBarrier2<'a> {
     pub(crate) s_type: StructureType,
@@ -17888,7 +17888,7 @@ impl<'a> MemoryBarrier2<'a> {
 pub type MemoryBarrier2KHR<'a> = MemoryBarrier2<'a>;
 #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkBufferMemoryBarrier2.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkBufferMemoryBarrier2.html>"]
 #[doc(alias = "VkBufferMemoryBarrier2")]
 pub struct BufferMemoryBarrier2<'a> {
     pub(crate) s_type: StructureType,
@@ -17990,7 +17990,7 @@ impl<'a> BufferMemoryBarrier2<'a> {
 pub type BufferMemoryBarrier2KHR<'a> = BufferMemoryBarrier2<'a>;
 #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImageMemoryBarrier2.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImageMemoryBarrier2.html>"]
 #[doc(alias = "VkImageMemoryBarrier2")]
 pub struct ImageMemoryBarrier2<'a> {
     pub(crate) s_type: StructureType,
@@ -18099,7 +18099,7 @@ impl<'a> ImageMemoryBarrier2<'a> {
 pub type ImageMemoryBarrier2KHR<'a> = ImageMemoryBarrier2<'a>;
 #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDependencyInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDependencyInfo.html>"]
 #[doc(alias = "VkDependencyInfo")]
 pub struct DependencyInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -18217,7 +18217,7 @@ impl<'a> DependencyInfo<'a> {
 pub type DependencyInfoKHR<'a> = DependencyInfo<'a>;
 #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSemaphoreSubmitInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSemaphoreSubmitInfo.html>"]
 #[doc(alias = "VkSemaphoreSubmitInfo")]
 pub struct SemaphoreSubmitInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -18284,7 +18284,7 @@ impl<'a> SemaphoreSubmitInfo<'a> {
 pub type SemaphoreSubmitInfoKHR<'a> = SemaphoreSubmitInfo<'a>;
 #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCommandBufferSubmitInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCommandBufferSubmitInfo.html>"]
 #[doc(alias = "VkCommandBufferSubmitInfo")]
 pub struct CommandBufferSubmitInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -18337,7 +18337,7 @@ impl<'a> CommandBufferSubmitInfo<'a> {
 pub type CommandBufferSubmitInfoKHR<'a> = CommandBufferSubmitInfo<'a>;
 #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSubmitInfo2.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSubmitInfo2.html>"]
 #[doc(alias = "VkSubmitInfo2")]
 pub struct SubmitInfo2<'a> {
     pub(crate) s_type: StructureType,
@@ -18455,7 +18455,7 @@ impl<'a> SubmitInfo2<'a> {
 pub type SubmitInfo2KHR<'a> = SubmitInfo2<'a>;
 #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceSynchronization2Features.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceSynchronization2Features.html>"]
 #[doc(alias = "VkPhysicalDeviceSynchronization2Features")]
 pub struct PhysicalDeviceSynchronization2Features<'a> {
     pub(crate) s_type: StructureType,
@@ -18517,7 +18517,7 @@ impl<'a> PhysicalDeviceSynchronization2Features<'a> {
 pub type PhysicalDeviceSynchronization2FeaturesKHR<'a> = PhysicalDeviceSynchronization2Features<'a>;
 #[cfg(any(feature = "ext_copy_commands2", feature = "version_1_3"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkBufferCopy2.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkBufferCopy2.html>"]
 #[doc(alias = "VkBufferCopy2")]
 pub struct BufferCopy2<'a> {
     pub(crate) s_type: StructureType,
@@ -18577,7 +18577,7 @@ impl<'a> BufferCopy2<'a> {
 pub type BufferCopy2KHR<'a> = BufferCopy2<'a>;
 #[cfg(any(feature = "ext_copy_commands2", feature = "version_1_3"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCopyBufferInfo2.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCopyBufferInfo2.html>"]
 #[doc(alias = "VkCopyBufferInfo2")]
 pub struct CopyBufferInfo2<'a> {
     pub(crate) s_type: StructureType,
@@ -18648,7 +18648,7 @@ impl<'a> CopyBufferInfo2<'a> {
 pub type CopyBufferInfo2KHR<'a> = CopyBufferInfo2<'a>;
 #[cfg(any(feature = "ext_copy_commands2", feature = "version_1_3"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImageCopy2.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImageCopy2.html>"]
 #[doc(alias = "VkImageCopy2")]
 pub struct ImageCopy2<'a> {
     pub(crate) s_type: StructureType,
@@ -18722,7 +18722,7 @@ impl<'a> ImageCopy2<'a> {
 pub type ImageCopy2KHR<'a> = ImageCopy2<'a>;
 #[cfg(any(feature = "ext_copy_commands2", feature = "version_1_3"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCopyImageInfo2.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCopyImageInfo2.html>"]
 #[doc(alias = "VkCopyImageInfo2")]
 pub struct CopyImageInfo2<'a> {
     pub(crate) s_type: StructureType,
@@ -18807,7 +18807,7 @@ impl<'a> CopyImageInfo2<'a> {
 pub type CopyImageInfo2KHR<'a> = CopyImageInfo2<'a>;
 #[cfg(any(feature = "ext_copy_commands2", feature = "version_1_3"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkBufferImageCopy2.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkBufferImageCopy2.html>"]
 #[doc(alias = "VkBufferImageCopy2")]
 pub struct BufferImageCopy2<'a> {
     pub(crate) s_type: StructureType,
@@ -18888,7 +18888,7 @@ impl<'a> BufferImageCopy2<'a> {
 pub type BufferImageCopy2KHR<'a> = BufferImageCopy2<'a>;
 #[cfg(any(feature = "ext_copy_commands2", feature = "version_1_3"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCopyBufferToImageInfo2.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCopyBufferToImageInfo2.html>"]
 #[doc(alias = "VkCopyBufferToImageInfo2")]
 pub struct CopyBufferToImageInfo2<'a> {
     pub(crate) s_type: StructureType,
@@ -18966,7 +18966,7 @@ impl<'a> CopyBufferToImageInfo2<'a> {
 pub type CopyBufferToImageInfo2KHR<'a> = CopyBufferToImageInfo2<'a>;
 #[cfg(any(feature = "ext_copy_commands2", feature = "version_1_3"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCopyImageToBufferInfo2.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCopyImageToBufferInfo2.html>"]
 #[doc(alias = "VkCopyImageToBufferInfo2")]
 pub struct CopyImageToBufferInfo2<'a> {
     pub(crate) s_type: StructureType,
@@ -19043,7 +19043,7 @@ impl<'a> CopyImageToBufferInfo2<'a> {
 #[cfg(any(feature = "ext_copy_commands2", feature = "version_1_3"))]
 pub type CopyImageToBufferInfo2KHR<'a> = CopyImageToBufferInfo2<'a>;
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceTextureCompressionASTCHDRFeatures.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceTextureCompressionASTCHDRFeatures.html>"]
 #[doc(alias = "VkPhysicalDeviceTextureCompressionASTCHDRFeatures")]
 pub struct PhysicalDeviceTextureCompressionASTCHDRFeatures<'a> {
     pub(crate) s_type: StructureType,
@@ -19100,7 +19100,7 @@ pub type PhysicalDeviceTextureCompressionASTCHDRFeaturesEXT<'a> =
     PhysicalDeviceTextureCompressionASTCHDRFeatures<'a>;
 #[cfg(any(feature = "ext_format_feature_flags2", feature = "version_1_3"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkFormatProperties3.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkFormatProperties3.html>"]
 #[doc(alias = "VkFormatProperties3")]
 pub struct FormatProperties3<'a> {
     pub(crate) s_type: StructureType,
@@ -19168,7 +19168,7 @@ impl<'a> FormatProperties3<'a> {
 pub type FormatProperties3KHR<'a> = FormatProperties3<'a>;
 #[cfg(any(feature = "ext_maintenance4", feature = "version_1_3"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceMaintenance4Features.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceMaintenance4Features.html>"]
 #[doc(alias = "VkPhysicalDeviceMaintenance4Features")]
 pub struct PhysicalDeviceMaintenance4Features<'a> {
     pub(crate) s_type: StructureType,
@@ -19230,7 +19230,7 @@ impl<'a> PhysicalDeviceMaintenance4Features<'a> {
 pub type PhysicalDeviceMaintenance4FeaturesKHR<'a> = PhysicalDeviceMaintenance4Features<'a>;
 #[cfg(any(feature = "ext_maintenance4", feature = "version_1_3"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceMaintenance4Properties.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceMaintenance4Properties.html>"]
 #[doc(alias = "VkPhysicalDeviceMaintenance4Properties")]
 pub struct PhysicalDeviceMaintenance4Properties<'a> {
     pub(crate) s_type: StructureType,
@@ -19287,7 +19287,7 @@ impl<'a> PhysicalDeviceMaintenance4Properties<'a> {
 pub type PhysicalDeviceMaintenance4PropertiesKHR<'a> = PhysicalDeviceMaintenance4Properties<'a>;
 #[cfg(any(feature = "ext_maintenance4", feature = "version_1_3"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDeviceBufferMemoryRequirements.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceBufferMemoryRequirements.html>"]
 #[doc(alias = "VkDeviceBufferMemoryRequirements")]
 pub struct DeviceBufferMemoryRequirements<'a> {
     pub(crate) s_type: StructureType,
@@ -19333,7 +19333,7 @@ impl<'a> DeviceBufferMemoryRequirements<'a> {
 pub type DeviceBufferMemoryRequirementsKHR<'a> = DeviceBufferMemoryRequirements<'a>;
 #[cfg(any(feature = "ext_maintenance4", feature = "version_1_3"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDeviceImageMemoryRequirements.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceImageMemoryRequirements.html>"]
 #[doc(alias = "VkDeviceImageMemoryRequirements")]
 pub struct DeviceImageMemoryRequirements<'a> {
     pub(crate) s_type: StructureType,
@@ -19387,7 +19387,7 @@ pub type DeviceImageMemoryRequirementsKHR<'a> = DeviceImageMemoryRequirements<'a
 #[cfg(any(feature = "ext_pipeline_creation_feedback", feature = "version_1_3"))]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineCreationFeedback.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineCreationFeedback.html>"]
 #[doc(alias = "VkPipelineCreationFeedback")]
 pub struct PipelineCreationFeedback {
     pub flags: PipelineCreationFeedbackFlags,
@@ -19423,7 +19423,7 @@ impl PipelineCreationFeedback {
 pub type PipelineCreationFeedbackEXT = PipelineCreationFeedback;
 #[cfg(any(feature = "ext_pipeline_creation_feedback", feature = "version_1_3"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineCreationFeedbackCreateInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineCreationFeedbackCreateInfo.html>"]
 #[doc(alias = "VkPipelineCreationFeedbackCreateInfo")]
 pub struct PipelineCreationFeedbackCreateInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -19538,7 +19538,7 @@ impl<'a> PipelineCreationFeedbackCreateInfo<'a> {
 #[cfg(any(feature = "ext_pipeline_creation_feedback", feature = "version_1_3"))]
 pub type PipelineCreationFeedbackCreateInfoEXT<'a> = PipelineCreationFeedbackCreateInfo<'a>;
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderTerminateInvocationFeatures.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderTerminateInvocationFeatures.html>"]
 #[doc(alias = "VkPhysicalDeviceShaderTerminateInvocationFeatures")]
 pub struct PhysicalDeviceShaderTerminateInvocationFeatures<'a> {
     pub(crate) s_type: StructureType,
@@ -19594,7 +19594,7 @@ impl<'a> PhysicalDeviceShaderTerminateInvocationFeatures<'a> {
 pub type PhysicalDeviceShaderTerminateInvocationFeaturesKHR<'a> =
     PhysicalDeviceShaderTerminateInvocationFeatures<'a>;
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderDemoteToHelperInvocationFeatures.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderDemoteToHelperInvocationFeatures.html>"]
 #[doc(alias = "VkPhysicalDeviceShaderDemoteToHelperInvocationFeatures")]
 pub struct PhysicalDeviceShaderDemoteToHelperInvocationFeatures<'a> {
     pub(crate) s_type: StructureType,
@@ -19657,7 +19657,7 @@ pub type PhysicalDeviceShaderDemoteToHelperInvocationFeaturesEXT<'a> =
     feature = "version_1_3"
 ))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDevicePipelineCreationCacheControlFeatures.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDevicePipelineCreationCacheControlFeatures.html>"]
 #[doc(alias = "VkPhysicalDevicePipelineCreationCacheControlFeatures")]
 pub struct PhysicalDevicePipelineCreationCacheControlFeatures<'a> {
     pub(crate) s_type: StructureType,
@@ -19747,7 +19747,7 @@ impl<'a> PhysicalDevicePipelineCreationCacheControlFeatures<'a> {
 pub type PhysicalDevicePipelineCreationCacheControlFeaturesEXT<'a> =
     PhysicalDevicePipelineCreationCacheControlFeatures<'a>;
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceZeroInitializeWorkgroupMemoryFeatures.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceZeroInitializeWorkgroupMemoryFeatures.html>"]
 #[doc(alias = "VkPhysicalDeviceZeroInitializeWorkgroupMemoryFeatures")]
 pub struct PhysicalDeviceZeroInitializeWorkgroupMemoryFeatures<'a> {
     pub(crate) s_type: StructureType,
@@ -19806,7 +19806,7 @@ impl<'a> PhysicalDeviceZeroInitializeWorkgroupMemoryFeatures<'a> {
 pub type PhysicalDeviceZeroInitializeWorkgroupMemoryFeaturesKHR<'a> =
     PhysicalDeviceZeroInitializeWorkgroupMemoryFeatures<'a>;
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceImageRobustnessFeatures.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceImageRobustnessFeatures.html>"]
 #[doc(alias = "VkPhysicalDeviceImageRobustnessFeatures")]
 pub struct PhysicalDeviceImageRobustnessFeatures<'a> {
     pub(crate) s_type: StructureType,
@@ -19861,7 +19861,7 @@ impl<'a> PhysicalDeviceImageRobustnessFeatures<'a> {
 pub type PhysicalDeviceImageRobustnessFeaturesEXT<'a> = PhysicalDeviceImageRobustnessFeatures<'a>;
 #[cfg(any(feature = "ext_subgroup_size_control", feature = "version_1_3"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceSubgroupSizeControlFeatures.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceSubgroupSizeControlFeatures.html>"]
 #[doc(alias = "VkPhysicalDeviceSubgroupSizeControlFeatures")]
 pub struct PhysicalDeviceSubgroupSizeControlFeatures<'a> {
     pub(crate) s_type: StructureType,
@@ -19931,7 +19931,7 @@ pub type PhysicalDeviceSubgroupSizeControlFeaturesEXT<'a> =
     PhysicalDeviceSubgroupSizeControlFeatures<'a>;
 #[cfg(any(feature = "ext_subgroup_size_control", feature = "version_1_3"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceSubgroupSizeControlProperties.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceSubgroupSizeControlProperties.html>"]
 #[doc(alias = "VkPhysicalDeviceSubgroupSizeControlProperties")]
 pub struct PhysicalDeviceSubgroupSizeControlProperties<'a> {
     pub(crate) s_type: StructureType,
@@ -20015,7 +20015,7 @@ pub type PhysicalDeviceSubgroupSizeControlPropertiesEXT<'a> =
     feature = "version_1_3"
 ))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineShaderStageRequiredSubgroupSizeCreateInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineShaderStageRequiredSubgroupSizeCreateInfo.html>"]
 #[doc(alias = "VkPipelineShaderStageRequiredSubgroupSizeCreateInfo")]
 pub struct PipelineShaderStageRequiredSubgroupSizeCreateInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -20119,7 +20119,7 @@ pub type ShaderRequiredSubgroupSizeCreateInfoEXT<'a> =
     PipelineShaderStageRequiredSubgroupSizeCreateInfo<'a>;
 #[cfg(any(feature = "ext_inline_uniform_block", feature = "version_1_3"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceInlineUniformBlockFeatures.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceInlineUniformBlockFeatures.html>"]
 #[doc(alias = "VkPhysicalDeviceInlineUniformBlockFeatures")]
 pub struct PhysicalDeviceInlineUniformBlockFeatures<'a> {
     pub(crate) s_type: StructureType,
@@ -20192,7 +20192,7 @@ pub type PhysicalDeviceInlineUniformBlockFeaturesEXT<'a> =
     PhysicalDeviceInlineUniformBlockFeatures<'a>;
 #[cfg(any(feature = "ext_inline_uniform_block", feature = "version_1_3"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceInlineUniformBlockProperties.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceInlineUniformBlockProperties.html>"]
 #[doc(alias = "VkPhysicalDeviceInlineUniformBlockProperties")]
 pub struct PhysicalDeviceInlineUniformBlockProperties<'a> {
     pub(crate) s_type: StructureType,
@@ -20284,7 +20284,7 @@ pub type PhysicalDeviceInlineUniformBlockPropertiesEXT<'a> =
     PhysicalDeviceInlineUniformBlockProperties<'a>;
 #[cfg(any(feature = "ext_inline_uniform_block", feature = "version_1_3"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkWriteDescriptorSetInlineUniformBlock.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkWriteDescriptorSetInlineUniformBlock.html>"]
 #[doc(alias = "VkWriteDescriptorSetInlineUniformBlock")]
 pub struct WriteDescriptorSetInlineUniformBlock<'a> {
     pub(crate) s_type: StructureType,
@@ -20346,7 +20346,7 @@ impl<'a> WriteDescriptorSetInlineUniformBlock<'a> {
 pub type WriteDescriptorSetInlineUniformBlockEXT<'a> = WriteDescriptorSetInlineUniformBlock<'a>;
 #[cfg(any(feature = "ext_inline_uniform_block", feature = "version_1_3"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDescriptorPoolInlineUniformBlockCreateInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDescriptorPoolInlineUniformBlockCreateInfo.html>"]
 #[doc(alias = "VkDescriptorPoolInlineUniformBlockCreateInfo")]
 pub struct DescriptorPoolInlineUniformBlockCreateInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -20397,7 +20397,7 @@ impl<'a> DescriptorPoolInlineUniformBlockCreateInfo<'a> {
 pub type DescriptorPoolInlineUniformBlockCreateInfoEXT<'a> =
     DescriptorPoolInlineUniformBlockCreateInfo<'a>;
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderIntegerDotProductFeatures.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderIntegerDotProductFeatures.html>"]
 #[doc(alias = "VkPhysicalDeviceShaderIntegerDotProductFeatures")]
 pub struct PhysicalDeviceShaderIntegerDotProductFeatures<'a> {
     pub(crate) s_type: StructureType,
@@ -20453,7 +20453,7 @@ impl<'a> PhysicalDeviceShaderIntegerDotProductFeatures<'a> {
 pub type PhysicalDeviceShaderIntegerDotProductFeaturesKHR<'a> =
     PhysicalDeviceShaderIntegerDotProductFeatures<'a>;
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderIntegerDotProductProperties.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderIntegerDotProductProperties.html>"]
 #[doc(alias = "VkPhysicalDeviceShaderIntegerDotProductProperties")]
 pub struct PhysicalDeviceShaderIntegerDotProductProperties<'a> {
     pub(crate) s_type: StructureType,
@@ -20767,7 +20767,7 @@ impl<'a> PhysicalDeviceShaderIntegerDotProductProperties<'a> {
 pub type PhysicalDeviceShaderIntegerDotProductPropertiesKHR<'a> =
     PhysicalDeviceShaderIntegerDotProductProperties<'a>;
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceTexelBufferAlignmentProperties.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceTexelBufferAlignmentProperties.html>"]
 #[doc(alias = "VkPhysicalDeviceTexelBufferAlignmentProperties")]
 pub struct PhysicalDeviceTexelBufferAlignmentProperties<'a> {
     pub(crate) s_type: StructureType,
@@ -20846,7 +20846,7 @@ pub type PhysicalDeviceTexelBufferAlignmentPropertiesEXT<'a> =
     PhysicalDeviceTexelBufferAlignmentProperties<'a>;
 #[cfg(any(feature = "ext_copy_commands2", feature = "version_1_3"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImageBlit2.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImageBlit2.html>"]
 #[doc(alias = "VkImageBlit2")]
 pub struct ImageBlit2<'a> {
     pub(crate) s_type: StructureType,
@@ -20913,7 +20913,7 @@ impl<'a> ImageBlit2<'a> {
 pub type ImageBlit2KHR<'a> = ImageBlit2<'a>;
 #[cfg(any(feature = "ext_copy_commands2", feature = "version_1_3"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkBlitImageInfo2.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkBlitImageInfo2.html>"]
 #[doc(alias = "VkBlitImageInfo2")]
 pub struct BlitImageInfo2<'a> {
     pub(crate) s_type: StructureType,
@@ -21005,7 +21005,7 @@ impl<'a> BlitImageInfo2<'a> {
 pub type BlitImageInfo2KHR<'a> = BlitImageInfo2<'a>;
 #[cfg(any(feature = "ext_copy_commands2", feature = "version_1_3"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImageResolve2.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImageResolve2.html>"]
 #[doc(alias = "VkImageResolve2")]
 pub struct ImageResolve2<'a> {
     pub(crate) s_type: StructureType,
@@ -21079,7 +21079,7 @@ impl<'a> ImageResolve2<'a> {
 pub type ImageResolve2KHR<'a> = ImageResolve2<'a>;
 #[cfg(any(feature = "ext_copy_commands2", feature = "version_1_3"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkResolveImageInfo2.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkResolveImageInfo2.html>"]
 #[doc(alias = "VkResolveImageInfo2")]
 pub struct ResolveImageInfo2<'a> {
     pub(crate) s_type: StructureType,
@@ -21164,7 +21164,7 @@ impl<'a> ResolveImageInfo2<'a> {
 pub type ResolveImageInfo2KHR<'a> = ResolveImageInfo2<'a>;
 #[cfg(any(feature = "ext_dynamic_rendering", feature = "version_1_3"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkRenderingAttachmentInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkRenderingAttachmentInfo.html>"]
 #[doc(alias = "VkRenderingAttachmentInfo")]
 pub struct RenderingAttachmentInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -21266,7 +21266,7 @@ pub type RenderingAttachmentInfoKHR<'a> = RenderingAttachmentInfo<'a>;
     feature = "version_1_3"
 ))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkRenderingInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkRenderingInfo.html>"]
 #[doc(alias = "VkRenderingInfo")]
 pub struct RenderingInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -21420,7 +21420,7 @@ impl<'a> RenderingInfo<'a> {
 pub type RenderingInfoKHR<'a> = RenderingInfo<'a>;
 #[cfg(any(feature = "ext_dynamic_rendering", feature = "version_1_3"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineRenderingCreateInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineRenderingCreateInfo.html>"]
 #[doc(alias = "VkPipelineRenderingCreateInfo")]
 pub struct PipelineRenderingCreateInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -21514,7 +21514,7 @@ impl<'a> PipelineRenderingCreateInfo<'a> {
 pub type PipelineRenderingCreateInfoKHR<'a> = PipelineRenderingCreateInfo<'a>;
 #[cfg(any(feature = "ext_dynamic_rendering", feature = "version_1_3"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceDynamicRenderingFeatures.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceDynamicRenderingFeatures.html>"]
 #[doc(alias = "VkPhysicalDeviceDynamicRenderingFeatures")]
 pub struct PhysicalDeviceDynamicRenderingFeatures<'a> {
     pub(crate) s_type: StructureType,
@@ -21576,7 +21576,7 @@ impl<'a> PhysicalDeviceDynamicRenderingFeatures<'a> {
 pub type PhysicalDeviceDynamicRenderingFeaturesKHR<'a> = PhysicalDeviceDynamicRenderingFeatures<'a>;
 #[cfg(any(feature = "ext_dynamic_rendering", feature = "version_1_3"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCommandBufferInheritanceRenderingInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCommandBufferInheritanceRenderingInfo.html>"]
 #[doc(alias = "VkCommandBufferInheritanceRenderingInfo")]
 pub struct CommandBufferInheritanceRenderingInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -21679,7 +21679,7 @@ impl<'a> CommandBufferInheritanceRenderingInfo<'a> {
 pub type CommandBufferInheritanceRenderingInfoKHR<'a> = CommandBufferInheritanceRenderingInfo<'a>;
 #[cfg(feature = "version_1_4")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceVulkan14Features.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceVulkan14Features.html>"]
 #[doc(alias = "VkPhysicalDeviceVulkan14Features")]
 pub struct PhysicalDeviceVulkan14Features<'a> {
     pub(crate) s_type: StructureType,
@@ -21879,7 +21879,7 @@ impl<'a> PhysicalDeviceVulkan14Features<'a> {
 }
 #[cfg(feature = "version_1_4")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceVulkan14Properties.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceVulkan14Properties.html>"]
 #[doc(alias = "VkPhysicalDeviceVulkan14Properties")]
 pub struct PhysicalDeviceVulkan14Properties<'a> {
     pub(crate) s_type: StructureType,
@@ -22138,7 +22138,7 @@ impl<'a> PhysicalDeviceVulkan14Properties<'a> {
 }
 #[cfg(any(feature = "ext_global_priority", feature = "version_1_4"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDeviceQueueGlobalPriorityCreateInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceQueueGlobalPriorityCreateInfo.html>"]
 #[doc(alias = "VkDeviceQueueGlobalPriorityCreateInfo")]
 pub struct DeviceQueueGlobalPriorityCreateInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -22191,7 +22191,7 @@ pub type DeviceQueueGlobalPriorityCreateInfoKHR<'a> = DeviceQueueGlobalPriorityC
 pub type DeviceQueueGlobalPriorityCreateInfoEXT<'a> = DeviceQueueGlobalPriorityCreateInfo<'a>;
 #[cfg(any(feature = "ext_global_priority"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceGlobalPriorityQueryFeatures.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceGlobalPriorityQueryFeatures.html>"]
 #[doc(alias = "VkPhysicalDeviceGlobalPriorityQueryFeatures")]
 pub struct PhysicalDeviceGlobalPriorityQueryFeatures<'a> {
     pub(crate) s_type: StructureType,
@@ -22257,7 +22257,7 @@ pub type PhysicalDeviceGlobalPriorityQueryFeaturesEXT<'a> =
     PhysicalDeviceGlobalPriorityQueryFeatures<'a>;
 #[cfg(any(feature = "ext_global_priority"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkQueueFamilyGlobalPriorityProperties.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkQueueFamilyGlobalPriorityProperties.html>"]
 #[doc(alias = "VkQueueFamilyGlobalPriorityProperties")]
 pub struct QueueFamilyGlobalPriorityProperties<'a> {
     pub(crate) s_type: StructureType,
@@ -22316,7 +22316,7 @@ pub type QueueFamilyGlobalPriorityPropertiesKHR<'a> = QueueFamilyGlobalPriorityP
 #[cfg(any(feature = "ext_global_priority"))]
 pub type QueueFamilyGlobalPriorityPropertiesEXT<'a> = QueueFamilyGlobalPriorityProperties<'a>;
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceIndexTypeUint8Features.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceIndexTypeUint8Features.html>"]
 #[doc(alias = "VkPhysicalDeviceIndexTypeUint8Features")]
 pub struct PhysicalDeviceIndexTypeUint8Features<'a> {
     pub(crate) s_type: StructureType,
@@ -22372,7 +22372,7 @@ pub type PhysicalDeviceIndexTypeUint8FeaturesKHR<'a> = PhysicalDeviceIndexTypeUi
 pub type PhysicalDeviceIndexTypeUint8FeaturesEXT<'a> = PhysicalDeviceIndexTypeUint8Features<'a>;
 #[cfg(any(feature = "ext_map_memory2", feature = "version_1_4"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkMemoryMapInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkMemoryMapInfo.html>"]
 #[doc(alias = "VkMemoryMapInfo")]
 pub struct MemoryMapInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -22439,7 +22439,7 @@ impl<'a> MemoryMapInfo<'a> {
 pub type MemoryMapInfoKHR<'a> = MemoryMapInfo<'a>;
 #[cfg(any(feature = "ext_map_memory2", feature = "version_1_4"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkMemoryUnmapInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkMemoryUnmapInfo.html>"]
 #[doc(alias = "VkMemoryUnmapInfo")]
 pub struct MemoryUnmapInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -22492,7 +22492,7 @@ impl<'a> MemoryUnmapInfo<'a> {
 pub type MemoryUnmapInfoKHR<'a> = MemoryUnmapInfo<'a>;
 #[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceMaintenance5Features.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceMaintenance5Features.html>"]
 #[doc(alias = "VkPhysicalDeviceMaintenance5Features")]
 pub struct PhysicalDeviceMaintenance5Features<'a> {
     pub(crate) s_type: StructureType,
@@ -22554,7 +22554,7 @@ impl<'a> PhysicalDeviceMaintenance5Features<'a> {
 pub type PhysicalDeviceMaintenance5FeaturesKHR<'a> = PhysicalDeviceMaintenance5Features<'a>;
 #[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceMaintenance5Properties.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceMaintenance5Properties.html>"]
 #[doc(alias = "VkPhysicalDeviceMaintenance5Properties")]
 pub struct PhysicalDeviceMaintenance5Properties<'a> {
     pub(crate) s_type: StructureType,
@@ -22660,7 +22660,7 @@ pub type PhysicalDeviceMaintenance5PropertiesKHR<'a> = PhysicalDeviceMaintenance
     feature = "version_1_4"
 ))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSubresourceLayout2.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSubresourceLayout2.html>"]
 #[doc(alias = "VkSubresourceLayout2")]
 pub struct SubresourceLayout2<'a> {
     pub(crate) s_type: StructureType,
@@ -22753,7 +22753,7 @@ pub type SubresourceLayout2EXT<'a> = SubresourceLayout2<'a>;
     feature = "version_1_4"
 ))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImageSubresource2.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImageSubresource2.html>"]
 #[doc(alias = "VkImageSubresource2")]
 pub struct ImageSubresource2<'a> {
     pub(crate) s_type: StructureType,
@@ -22841,7 +22841,7 @@ pub type ImageSubresource2KHR<'a> = ImageSubresource2<'a>;
 pub type ImageSubresource2EXT<'a> = ImageSubresource2<'a>;
 #[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDeviceImageSubresourceInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceImageSubresourceInfo.html>"]
 #[doc(alias = "VkDeviceImageSubresourceInfo")]
 pub struct DeviceImageSubresourceInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -22894,7 +22894,7 @@ impl<'a> DeviceImageSubresourceInfo<'a> {
 pub type DeviceImageSubresourceInfoKHR<'a> = DeviceImageSubresourceInfo<'a>;
 #[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkBufferUsageFlags2CreateInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkBufferUsageFlags2CreateInfo.html>"]
 #[doc(alias = "VkBufferUsageFlags2CreateInfo")]
 pub struct BufferUsageFlags2CreateInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -22963,7 +22963,7 @@ impl<'a> BufferUsageFlags2CreateInfo<'a> {
 pub type BufferUsageFlags2CreateInfoKHR<'a> = BufferUsageFlags2CreateInfo<'a>;
 #[cfg(any(feature = "ext_maintenance6", feature = "version_1_4"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceMaintenance6Features.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceMaintenance6Features.html>"]
 #[doc(alias = "VkPhysicalDeviceMaintenance6Features")]
 pub struct PhysicalDeviceMaintenance6Features<'a> {
     pub(crate) s_type: StructureType,
@@ -23025,7 +23025,7 @@ impl<'a> PhysicalDeviceMaintenance6Features<'a> {
 pub type PhysicalDeviceMaintenance6FeaturesKHR<'a> = PhysicalDeviceMaintenance6Features<'a>;
 #[cfg(any(feature = "ext_maintenance6", feature = "version_1_4"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceMaintenance6Properties.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceMaintenance6Properties.html>"]
 #[doc(alias = "VkPhysicalDeviceMaintenance6Properties")]
 pub struct PhysicalDeviceMaintenance6Properties<'a> {
     pub(crate) s_type: StructureType,
@@ -23096,7 +23096,7 @@ impl<'a> PhysicalDeviceMaintenance6Properties<'a> {
 pub type PhysicalDeviceMaintenance6PropertiesKHR<'a> = PhysicalDeviceMaintenance6Properties<'a>;
 #[cfg(any(feature = "ext_maintenance6", feature = "version_1_4"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkBindMemoryStatus.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkBindMemoryStatus.html>"]
 #[doc(alias = "VkBindMemoryStatus")]
 pub struct BindMemoryStatus<'a> {
     pub(crate) s_type: StructureType,
@@ -23152,7 +23152,7 @@ impl<'a> BindMemoryStatus<'a> {
 pub type BindMemoryStatusKHR<'a> = BindMemoryStatus<'a>;
 #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceHostImageCopyFeatures.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceHostImageCopyFeatures.html>"]
 #[doc(alias = "VkPhysicalDeviceHostImageCopyFeatures")]
 pub struct PhysicalDeviceHostImageCopyFeatures<'a> {
     pub(crate) s_type: StructureType,
@@ -23214,7 +23214,7 @@ impl<'a> PhysicalDeviceHostImageCopyFeatures<'a> {
 pub type PhysicalDeviceHostImageCopyFeaturesEXT<'a> = PhysicalDeviceHostImageCopyFeatures<'a>;
 #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceHostImageCopyProperties.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceHostImageCopyProperties.html>"]
 #[doc(alias = "VkPhysicalDeviceHostImageCopyProperties")]
 pub struct PhysicalDeviceHostImageCopyProperties<'a> {
     pub(crate) s_type: StructureType,
@@ -23330,7 +23330,7 @@ impl<'a> PhysicalDeviceHostImageCopyProperties<'a> {
 pub type PhysicalDeviceHostImageCopyPropertiesEXT<'a> = PhysicalDeviceHostImageCopyProperties<'a>;
 #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkMemoryToImageCopy.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkMemoryToImageCopy.html>"]
 #[doc(alias = "VkMemoryToImageCopy")]
 pub struct MemoryToImageCopy<'a> {
     pub(crate) s_type: StructureType,
@@ -23411,7 +23411,7 @@ impl<'a> MemoryToImageCopy<'a> {
 pub type MemoryToImageCopyEXT<'a> = MemoryToImageCopy<'a>;
 #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImageToMemoryCopy.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImageToMemoryCopy.html>"]
 #[doc(alias = "VkImageToMemoryCopy")]
 pub struct ImageToMemoryCopy<'a> {
     pub(crate) s_type: StructureType,
@@ -23492,7 +23492,7 @@ impl<'a> ImageToMemoryCopy<'a> {
 pub type ImageToMemoryCopyEXT<'a> = ImageToMemoryCopy<'a>;
 #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCopyMemoryToImageInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCopyMemoryToImageInfo.html>"]
 #[doc(alias = "VkCopyMemoryToImageInfo")]
 pub struct CopyMemoryToImageInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -23570,7 +23570,7 @@ impl<'a> CopyMemoryToImageInfo<'a> {
 pub type CopyMemoryToImageInfoEXT<'a> = CopyMemoryToImageInfo<'a>;
 #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCopyImageToMemoryInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCopyImageToMemoryInfo.html>"]
 #[doc(alias = "VkCopyImageToMemoryInfo")]
 pub struct CopyImageToMemoryInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -23648,7 +23648,7 @@ impl<'a> CopyImageToMemoryInfo<'a> {
 pub type CopyImageToMemoryInfoEXT<'a> = CopyImageToMemoryInfo<'a>;
 #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCopyImageToImageInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCopyImageToImageInfo.html>"]
 #[doc(alias = "VkCopyImageToImageInfo")]
 pub struct CopyImageToImageInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -23740,7 +23740,7 @@ impl<'a> CopyImageToImageInfo<'a> {
 pub type CopyImageToImageInfoEXT<'a> = CopyImageToImageInfo<'a>;
 #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkHostImageLayoutTransitionInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkHostImageLayoutTransitionInfo.html>"]
 #[doc(alias = "VkHostImageLayoutTransitionInfo")]
 pub struct HostImageLayoutTransitionInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -23807,7 +23807,7 @@ impl<'a> HostImageLayoutTransitionInfo<'a> {
 pub type HostImageLayoutTransitionInfoEXT<'a> = HostImageLayoutTransitionInfo<'a>;
 #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSubresourceHostMemcpySize.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSubresourceHostMemcpySize.html>"]
 #[doc(alias = "VkSubresourceHostMemcpySize")]
 pub struct SubresourceHostMemcpySize<'a> {
     pub(crate) s_type: StructureType,
@@ -23863,7 +23863,7 @@ impl<'a> SubresourceHostMemcpySize<'a> {
 pub type SubresourceHostMemcpySizeEXT<'a> = SubresourceHostMemcpySize<'a>;
 #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkHostImageCopyDevicePerformanceQuery.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkHostImageCopyDevicePerformanceQuery.html>"]
 #[doc(alias = "VkHostImageCopyDevicePerformanceQuery")]
 pub struct HostImageCopyDevicePerformanceQuery<'a> {
     pub(crate) s_type: StructureType,
@@ -23926,7 +23926,7 @@ impl<'a> HostImageCopyDevicePerformanceQuery<'a> {
 #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
 pub type HostImageCopyDevicePerformanceQueryEXT<'a> = HostImageCopyDevicePerformanceQuery<'a>;
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderSubgroupRotateFeatures.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderSubgroupRotateFeatures.html>"]
 #[doc(alias = "VkPhysicalDeviceShaderSubgroupRotateFeatures")]
 pub struct PhysicalDeviceShaderSubgroupRotateFeatures<'a> {
     pub(crate) s_type: StructureType,
@@ -23988,7 +23988,7 @@ impl<'a> PhysicalDeviceShaderSubgroupRotateFeatures<'a> {
 pub type PhysicalDeviceShaderSubgroupRotateFeaturesKHR<'a> =
     PhysicalDeviceShaderSubgroupRotateFeatures<'a>;
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderFloatControls2Features.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderFloatControls2Features.html>"]
 #[doc(alias = "VkPhysicalDeviceShaderFloatControls2Features")]
 pub struct PhysicalDeviceShaderFloatControls2Features<'a> {
     pub(crate) s_type: StructureType,
@@ -24043,7 +24043,7 @@ impl<'a> PhysicalDeviceShaderFloatControls2Features<'a> {
 pub type PhysicalDeviceShaderFloatControls2FeaturesKHR<'a> =
     PhysicalDeviceShaderFloatControls2Features<'a>;
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderExpectAssumeFeatures.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderExpectAssumeFeatures.html>"]
 #[doc(alias = "VkPhysicalDeviceShaderExpectAssumeFeatures")]
 pub struct PhysicalDeviceShaderExpectAssumeFeatures<'a> {
     pub(crate) s_type: StructureType,
@@ -24099,7 +24099,7 @@ pub type PhysicalDeviceShaderExpectAssumeFeaturesKHR<'a> =
     PhysicalDeviceShaderExpectAssumeFeatures<'a>;
 #[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineCreateFlags2CreateInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineCreateFlags2CreateInfo.html>"]
 #[doc(alias = "VkPipelineCreateFlags2CreateInfo")]
 pub struct PipelineCreateFlags2CreateInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -24171,7 +24171,7 @@ impl<'a> PipelineCreateFlags2CreateInfo<'a> {
 pub type PipelineCreateFlags2CreateInfoKHR<'a> = PipelineCreateFlags2CreateInfo<'a>;
 #[cfg(any(feature = "ext_push_descriptor", feature = "version_1_4"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDevicePushDescriptorProperties.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDevicePushDescriptorProperties.html>"]
 #[doc(alias = "VkPhysicalDevicePushDescriptorProperties")]
 pub struct PhysicalDevicePushDescriptorProperties<'a> {
     pub(crate) s_type: StructureType,
@@ -24228,7 +24228,7 @@ impl<'a> PhysicalDevicePushDescriptorProperties<'a> {
 pub type PhysicalDevicePushDescriptorPropertiesKHR<'a> = PhysicalDevicePushDescriptorProperties<'a>;
 #[cfg(any(feature = "ext_maintenance6", feature = "version_1_4"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkBindDescriptorSetsInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkBindDescriptorSetsInfo.html>"]
 #[doc(alias = "VkBindDescriptorSetsInfo")]
 pub struct BindDescriptorSetsInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -24338,7 +24338,7 @@ impl<'a> BindDescriptorSetsInfo<'a> {
 pub type BindDescriptorSetsInfoKHR<'a> = BindDescriptorSetsInfo<'a>;
 #[cfg(any(feature = "ext_maintenance6", feature = "version_1_4"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPushConstantsInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPushConstantsInfo.html>"]
 #[doc(alias = "VkPushConstantsInfo")]
 pub struct PushConstantsInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -24419,7 +24419,7 @@ pub type PushConstantsInfoKHR<'a> = PushConstantsInfo<'a>;
     feature = "version_1_4"
 ))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPushDescriptorSetInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPushDescriptorSetInfo.html>"]
 #[doc(alias = "VkPushDescriptorSetInfo")]
 pub struct PushDescriptorSetInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -24527,7 +24527,7 @@ pub type PushDescriptorSetInfoKHR<'a> = PushDescriptorSetInfo<'a>;
     feature = "version_1_4"
 ))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPushDescriptorSetWithTemplateInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPushDescriptorSetWithTemplateInfo.html>"]
 #[doc(alias = "VkPushDescriptorSetWithTemplateInfo")]
 pub struct PushDescriptorSetWithTemplateInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -24614,7 +24614,7 @@ impl<'a> PushDescriptorSetWithTemplateInfo<'a> {
 ))]
 pub type PushDescriptorSetWithTemplateInfoKHR<'a> = PushDescriptorSetWithTemplateInfo<'a>;
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDevicePipelineProtectedAccessFeatures.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDevicePipelineProtectedAccessFeatures.html>"]
 #[doc(alias = "VkPhysicalDevicePipelineProtectedAccessFeatures")]
 pub struct PhysicalDevicePipelineProtectedAccessFeatures<'a> {
     pub(crate) s_type: StructureType,
@@ -24671,7 +24671,7 @@ pub type PhysicalDevicePipelineProtectedAccessFeaturesEXT<'a> =
     PhysicalDevicePipelineProtectedAccessFeatures<'a>;
 #[cfg(any(feature = "ext_pipeline_robustness", feature = "version_1_4"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDevicePipelineRobustnessFeatures.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDevicePipelineRobustnessFeatures.html>"]
 #[doc(alias = "VkPhysicalDevicePipelineRobustnessFeatures")]
 pub struct PhysicalDevicePipelineRobustnessFeatures<'a> {
     pub(crate) s_type: StructureType,
@@ -24734,7 +24734,7 @@ pub type PhysicalDevicePipelineRobustnessFeaturesEXT<'a> =
     PhysicalDevicePipelineRobustnessFeatures<'a>;
 #[cfg(any(feature = "ext_pipeline_robustness", feature = "version_1_4"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDevicePipelineRobustnessProperties.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDevicePipelineRobustnessProperties.html>"]
 #[doc(alias = "VkPhysicalDevicePipelineRobustnessProperties")]
 pub struct PhysicalDevicePipelineRobustnessProperties<'a> {
     pub(crate) s_type: StructureType,
@@ -24822,7 +24822,7 @@ pub type PhysicalDevicePipelineRobustnessPropertiesEXT<'a> =
     PhysicalDevicePipelineRobustnessProperties<'a>;
 #[cfg(any(feature = "ext_pipeline_robustness", feature = "version_1_4"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineRobustnessCreateInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineRobustnessCreateInfo.html>"]
 #[doc(alias = "VkPipelineRobustnessCreateInfo")]
 pub struct PipelineRobustnessCreateInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -24912,7 +24912,7 @@ impl<'a> PipelineRobustnessCreateInfo<'a> {
 pub type PipelineRobustnessCreateInfoEXT<'a> = PipelineRobustnessCreateInfo<'a>;
 #[cfg(any(feature = "ext_line_rasterization", feature = "version_1_4"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceLineRasterizationFeatures.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceLineRasterizationFeatures.html>"]
 #[doc(alias = "VkPhysicalDeviceLineRasterizationFeatures")]
 pub struct PhysicalDeviceLineRasterizationFeatures<'a> {
     pub(crate) s_type: StructureType,
@@ -25013,7 +25013,7 @@ pub type PhysicalDeviceLineRasterizationFeaturesEXT<'a> =
     PhysicalDeviceLineRasterizationFeatures<'a>;
 #[cfg(any(feature = "ext_line_rasterization", feature = "version_1_4"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceLineRasterizationProperties.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceLineRasterizationProperties.html>"]
 #[doc(alias = "VkPhysicalDeviceLineRasterizationProperties")]
 pub struct PhysicalDeviceLineRasterizationProperties<'a> {
     pub(crate) s_type: StructureType,
@@ -25074,7 +25074,7 @@ pub type PhysicalDeviceLineRasterizationPropertiesEXT<'a> =
     PhysicalDeviceLineRasterizationProperties<'a>;
 #[cfg(any(feature = "ext_line_rasterization", feature = "version_1_4"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineRasterizationLineStateCreateInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineRasterizationLineStateCreateInfo.html>"]
 #[doc(alias = "VkPipelineRasterizationLineStateCreateInfo")]
 pub struct PipelineRasterizationLineStateCreateInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -25150,7 +25150,7 @@ pub type PipelineRasterizationLineStateCreateInfoEXT<'a> =
     PipelineRasterizationLineStateCreateInfo<'a>;
 #[cfg(any(feature = "ext_vertex_attribute_divisor", feature = "version_1_4"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceVertexAttributeDivisorProperties.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceVertexAttributeDivisorProperties.html>"]
 #[doc(alias = "VkPhysicalDeviceVertexAttributeDivisorProperties")]
 pub struct PhysicalDeviceVertexAttributeDivisorProperties<'a> {
     pub(crate) s_type: StructureType,
@@ -25217,7 +25217,7 @@ pub type PhysicalDeviceVertexAttributeDivisorPropertiesKHR<'a> =
 #[cfg(any(feature = "ext_vertex_attribute_divisor", feature = "version_1_4"))]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkVertexInputBindingDivisorDescription.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkVertexInputBindingDivisorDescription.html>"]
 #[doc(alias = "VkVertexInputBindingDivisorDescription")]
 pub struct VertexInputBindingDivisorDescription {
     pub binding: u32,
@@ -25255,7 +25255,7 @@ pub type VertexInputBindingDivisorDescriptionKHR = VertexInputBindingDivisorDesc
 pub type VertexInputBindingDivisorDescriptionEXT = VertexInputBindingDivisorDescription;
 #[cfg(any(feature = "ext_vertex_attribute_divisor", feature = "version_1_4"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineVertexInputDivisorStateCreateInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineVertexInputDivisorStateCreateInfo.html>"]
 #[doc(alias = "VkPipelineVertexInputDivisorStateCreateInfo")]
 pub struct PipelineVertexInputDivisorStateCreateInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -25327,7 +25327,7 @@ pub type PipelineVertexInputDivisorStateCreateInfoEXT<'a> =
     PipelineVertexInputDivisorStateCreateInfo<'a>;
 #[cfg(any(feature = "ext_vertex_attribute_divisor", feature = "version_1_4"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceVertexAttributeDivisorFeatures.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceVertexAttributeDivisorFeatures.html>"]
 #[doc(alias = "VkPhysicalDeviceVertexAttributeDivisorFeatures")]
 pub struct PhysicalDeviceVertexAttributeDivisorFeatures<'a> {
     pub(crate) s_type: StructureType,
@@ -25401,7 +25401,7 @@ pub type PhysicalDeviceVertexAttributeDivisorFeaturesEXT<'a> =
     PhysicalDeviceVertexAttributeDivisorFeatures<'a>;
 #[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkRenderingAreaInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkRenderingAreaInfo.html>"]
 #[doc(alias = "VkRenderingAreaInfo")]
 pub struct RenderingAreaInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -25490,7 +25490,7 @@ impl<'a> RenderingAreaInfo<'a> {
 pub type RenderingAreaInfoKHR<'a> = RenderingAreaInfo<'a>;
 #[cfg(any(feature = "ext_dynamic_rendering_local_read", feature = "version_1_4"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceDynamicRenderingLocalReadFeatures.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceDynamicRenderingLocalReadFeatures.html>"]
 #[doc(alias = "VkPhysicalDeviceDynamicRenderingLocalReadFeatures")]
 pub struct PhysicalDeviceDynamicRenderingLocalReadFeatures<'a> {
     pub(crate) s_type: StructureType,
@@ -25554,7 +25554,7 @@ pub type PhysicalDeviceDynamicRenderingLocalReadFeaturesKHR<'a> =
     PhysicalDeviceDynamicRenderingLocalReadFeatures<'a>;
 #[cfg(any(feature = "ext_dynamic_rendering_local_read", feature = "version_1_4"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkRenderingAttachmentLocationInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkRenderingAttachmentLocationInfo.html>"]
 #[doc(alias = "VkRenderingAttachmentLocationInfo")]
 pub struct RenderingAttachmentLocationInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -25632,7 +25632,7 @@ impl<'a> RenderingAttachmentLocationInfo<'a> {
 pub type RenderingAttachmentLocationInfoKHR<'a> = RenderingAttachmentLocationInfo<'a>;
 #[cfg(any(feature = "ext_dynamic_rendering_local_read", feature = "version_1_4"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkRenderingInputAttachmentIndexInfo.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkRenderingInputAttachmentIndexInfo.html>"]
 #[doc(alias = "VkRenderingInputAttachmentIndexInfo")]
 pub struct RenderingInputAttachmentIndexInfo<'a> {
     pub(crate) s_type: StructureType,
@@ -25728,7 +25728,7 @@ pub type RenderingInputAttachmentIndexInfoKHR<'a> = RenderingInputAttachmentInde
 #[cfg(feature = "ext_surface")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSurfaceCapabilitiesKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSurfaceCapabilitiesKHR.html>"]
 #[doc(alias = "VkSurfaceCapabilitiesKHR")]
 pub struct SurfaceCapabilitiesKHR {
     pub min_image_count: u32,
@@ -25819,7 +25819,7 @@ impl SurfaceCapabilitiesKHR {
 #[cfg(feature = "ext_surface")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSurfaceFormatKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSurfaceFormatKHR.html>"]
 #[doc(alias = "VkSurfaceFormatKHR")]
 pub struct SurfaceFormatKHR {
     pub format: Format,
@@ -25853,7 +25853,7 @@ impl SurfaceFormatKHR {
 }
 #[cfg(feature = "ext_swapchain")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSwapchainCreateInfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSwapchainCreateInfoKHR.html>"]
 #[doc(alias = "VkSwapchainCreateInfoKHR")]
 pub struct SwapchainCreateInfoKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -26014,7 +26014,7 @@ impl<'a> SwapchainCreateInfoKHR<'a> {
 }
 #[cfg(feature = "ext_swapchain")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPresentInfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPresentInfoKHR.html>"]
 #[doc(alias = "VkPresentInfoKHR")]
 pub struct PresentInfoKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -26125,7 +26125,7 @@ impl<'a> PresentInfoKHR<'a> {
     all(feature = "ext_device_group", feature = "ext_swapchain")
 ))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImageSwapchainCreateInfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImageSwapchainCreateInfoKHR.html>"]
 #[doc(alias = "VkImageSwapchainCreateInfoKHR")]
 pub struct ImageSwapchainCreateInfoKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -26195,7 +26195,7 @@ impl<'a> ImageSwapchainCreateInfoKHR<'a> {
     all(feature = "ext_device_group", feature = "ext_swapchain")
 ))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkBindImageMemorySwapchainInfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkBindImageMemorySwapchainInfoKHR.html>"]
 #[doc(alias = "VkBindImageMemorySwapchainInfoKHR")]
 pub struct BindImageMemorySwapchainInfoKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -26278,7 +26278,7 @@ impl<'a> BindImageMemorySwapchainInfoKHR<'a> {
     all(feature = "ext_device_group", feature = "ext_swapchain")
 ))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAcquireNextImageInfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAcquireNextImageInfoKHR.html>"]
 #[doc(alias = "VkAcquireNextImageInfoKHR")]
 pub struct AcquireNextImageInfoKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -26371,7 +26371,7 @@ impl<'a> AcquireNextImageInfoKHR<'a> {
     all(feature = "ext_device_group", feature = "ext_surface")
 ))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDeviceGroupPresentCapabilitiesKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceGroupPresentCapabilitiesKHR.html>"]
 #[doc(alias = "VkDeviceGroupPresentCapabilitiesKHR")]
 pub struct DeviceGroupPresentCapabilitiesKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -26443,7 +26443,7 @@ impl<'a> DeviceGroupPresentCapabilitiesKHR<'a> {
     all(feature = "ext_device_group", feature = "ext_swapchain")
 ))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDeviceGroupPresentInfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceGroupPresentInfoKHR.html>"]
 #[doc(alias = "VkDeviceGroupPresentInfoKHR")]
 pub struct DeviceGroupPresentInfoKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -26534,7 +26534,7 @@ impl<'a> DeviceGroupPresentInfoKHR<'a> {
     all(feature = "ext_device_group", feature = "ext_swapchain")
 ))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDeviceGroupSwapchainCreateInfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceGroupSwapchainCreateInfoKHR.html>"]
 #[doc(alias = "VkDeviceGroupSwapchainCreateInfoKHR")]
 pub struct DeviceGroupSwapchainCreateInfoKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -26607,7 +26607,7 @@ impl<'a> DeviceGroupSwapchainCreateInfoKHR<'a> {
 }
 #[cfg(feature = "ext_display")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDisplayModeCreateInfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDisplayModeCreateInfoKHR.html>"]
 #[doc(alias = "VkDisplayModeCreateInfoKHR")]
 pub struct DisplayModeCreateInfoKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -26659,7 +26659,7 @@ impl<'a> DisplayModeCreateInfoKHR<'a> {
 #[cfg(feature = "ext_display")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDisplayModeParametersKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDisplayModeParametersKHR.html>"]
 #[doc(alias = "VkDisplayModeParametersKHR")]
 pub struct DisplayModeParametersKHR {
     pub visible_region: Extent2D,
@@ -26693,7 +26693,7 @@ impl DisplayModeParametersKHR {
 }
 #[cfg(feature = "ext_display")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDisplayModePropertiesKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDisplayModePropertiesKHR.html>"]
 #[doc(alias = "VkDisplayModePropertiesKHR")]
 pub struct DisplayModePropertiesKHR<'a> {
     pub display_mode: Option<BorrowedHandle<'a, DisplayModeKHR>>,
@@ -26730,7 +26730,7 @@ impl<'a> DisplayModePropertiesKHR<'a> {
 #[cfg(feature = "ext_display")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDisplayPlaneCapabilitiesKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDisplayPlaneCapabilitiesKHR.html>"]
 #[doc(alias = "VkDisplayPlaneCapabilitiesKHR")]
 pub struct DisplayPlaneCapabilitiesKHR {
     pub supported_alpha: DisplayPlaneAlphaFlagsKHR,
@@ -26813,7 +26813,7 @@ impl DisplayPlaneCapabilitiesKHR {
 }
 #[cfg(feature = "ext_display")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDisplayPlanePropertiesKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDisplayPlanePropertiesKHR.html>"]
 #[doc(alias = "VkDisplayPlanePropertiesKHR")]
 pub struct DisplayPlanePropertiesKHR<'a> {
     pub current_display: Option<BorrowedHandle<'a, DisplayKHR>>,
@@ -26849,7 +26849,7 @@ impl<'a> DisplayPlanePropertiesKHR<'a> {
 }
 #[cfg(feature = "ext_display")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDisplayPropertiesKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDisplayPropertiesKHR.html>"]
 #[doc(alias = "VkDisplayPropertiesKHR")]
 pub struct DisplayPropertiesKHR<'a> {
     pub display: Option<BorrowedHandle<'a, DisplayKHR>>,
@@ -26920,7 +26920,7 @@ impl<'a> DisplayPropertiesKHR<'a> {
 }
 #[cfg(feature = "ext_display")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDisplaySurfaceCreateInfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDisplaySurfaceCreateInfoKHR.html>"]
 #[doc(alias = "VkDisplaySurfaceCreateInfoKHR")]
 pub struct DisplaySurfaceCreateInfoKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -27013,7 +27013,7 @@ impl<'a> DisplaySurfaceCreateInfoKHR<'a> {
 }
 #[cfg(feature = "ext_display_swapchain")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDisplayPresentInfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDisplayPresentInfoKHR.html>"]
 #[doc(alias = "VkDisplayPresentInfoKHR")]
 pub struct DisplayPresentInfoKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -27073,7 +27073,7 @@ impl<'a> DisplayPresentInfoKHR<'a> {
 }
 #[cfg(feature = "ext_xlib_surface")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkXlibSurfaceCreateInfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkXlibSurfaceCreateInfoKHR.html>"]
 #[doc(alias = "VkXlibSurfaceCreateInfoKHR")]
 pub struct XlibSurfaceCreateInfoKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -27131,7 +27131,7 @@ impl<'a> XlibSurfaceCreateInfoKHR<'a> {
 }
 #[cfg(feature = "ext_xcb_surface")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkXcbSurfaceCreateInfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkXcbSurfaceCreateInfoKHR.html>"]
 #[doc(alias = "VkXcbSurfaceCreateInfoKHR")]
 pub struct XcbSurfaceCreateInfoKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -27189,7 +27189,7 @@ impl<'a> XcbSurfaceCreateInfoKHR<'a> {
 }
 #[cfg(feature = "ext_wayland_surface")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkWaylandSurfaceCreateInfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkWaylandSurfaceCreateInfoKHR.html>"]
 #[doc(alias = "VkWaylandSurfaceCreateInfoKHR")]
 pub struct WaylandSurfaceCreateInfoKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -27245,11 +27245,11 @@ impl<'a> WaylandSurfaceCreateInfoKHR<'a> {
         self
     }
 }
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/ANativeWindow.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/ANativeWindow.html>"]
 pub type ANativeWindow = c_void;
 #[cfg(feature = "ext_android_surface")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAndroidSurfaceCreateInfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAndroidSurfaceCreateInfoKHR.html>"]
 #[doc(alias = "VkAndroidSurfaceCreateInfoKHR")]
 pub struct AndroidSurfaceCreateInfoKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -27300,7 +27300,7 @@ impl<'a> AndroidSurfaceCreateInfoKHR<'a> {
 }
 #[cfg(feature = "ext_win32_surface")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkWin32SurfaceCreateInfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkWin32SurfaceCreateInfoKHR.html>"]
 #[doc(alias = "VkWin32SurfaceCreateInfoKHR")]
 pub struct Win32SurfaceCreateInfoKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -27358,7 +27358,7 @@ impl<'a> Win32SurfaceCreateInfoKHR<'a> {
 }
 #[cfg(feature = "ext_debug_report")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDebugReportCallbackCreateInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDebugReportCallbackCreateInfoEXT.html>"]
 #[doc(alias = "VkDebugReportCallbackCreateInfoEXT")]
 pub struct DebugReportCallbackCreateInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -27421,7 +27421,7 @@ impl<'a> DebugReportCallbackCreateInfoEXT<'a> {
 }
 #[cfg(feature = "ext_rasterization_order")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineRasterizationStateRasterizationOrderAMD.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineRasterizationStateRasterizationOrderAMD.html>"]
 #[doc(alias = "VkPipelineRasterizationStateRasterizationOrderAMD")]
 pub struct PipelineRasterizationStateRasterizationOrderAMD<'a> {
     pub(crate) s_type: StructureType,
@@ -27471,7 +27471,7 @@ impl<'a> PipelineRasterizationStateRasterizationOrderAMD<'a> {
 }
 #[cfg(feature = "ext_debug_marker")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDebugMarkerObjectNameInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDebugMarkerObjectNameInfoEXT.html>"]
 #[doc(alias = "VkDebugMarkerObjectNameInfoEXT")]
 pub struct DebugMarkerObjectNameInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -27529,7 +27529,7 @@ impl<'a> DebugMarkerObjectNameInfoEXT<'a> {
 }
 #[cfg(feature = "ext_debug_marker")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDebugMarkerObjectTagInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDebugMarkerObjectTagInfoEXT.html>"]
 #[doc(alias = "VkDebugMarkerObjectTagInfoEXT")]
 pub struct DebugMarkerObjectTagInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -27605,7 +27605,7 @@ impl<'a> DebugMarkerObjectTagInfoEXT<'a> {
 }
 #[cfg(feature = "ext_debug_marker")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDebugMarkerMarkerInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDebugMarkerMarkerInfoEXT.html>"]
 #[doc(alias = "VkDebugMarkerMarkerInfoEXT")]
 pub struct DebugMarkerMarkerInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -27656,7 +27656,7 @@ impl<'a> DebugMarkerMarkerInfoEXT<'a> {
 }
 #[cfg(feature = "ext_dedicated_allocation")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDedicatedAllocationImageCreateInfoNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDedicatedAllocationImageCreateInfoNV.html>"]
 #[doc(alias = "VkDedicatedAllocationImageCreateInfoNV")]
 pub struct DedicatedAllocationImageCreateInfoNV<'a> {
     pub(crate) s_type: StructureType,
@@ -27705,7 +27705,7 @@ impl<'a> DedicatedAllocationImageCreateInfoNV<'a> {
 }
 #[cfg(feature = "ext_dedicated_allocation")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDedicatedAllocationBufferCreateInfoNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDedicatedAllocationBufferCreateInfoNV.html>"]
 #[doc(alias = "VkDedicatedAllocationBufferCreateInfoNV")]
 pub struct DedicatedAllocationBufferCreateInfoNV<'a> {
     pub(crate) s_type: StructureType,
@@ -27754,7 +27754,7 @@ impl<'a> DedicatedAllocationBufferCreateInfoNV<'a> {
 }
 #[cfg(feature = "ext_dedicated_allocation")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDedicatedAllocationMemoryAllocateInfoNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDedicatedAllocationMemoryAllocateInfoNV.html>"]
 #[doc(alias = "VkDedicatedAllocationMemoryAllocateInfoNV")]
 pub struct DedicatedAllocationMemoryAllocateInfoNV<'a> {
     pub(crate) s_type: StructureType,
@@ -27810,7 +27810,7 @@ impl<'a> DedicatedAllocationMemoryAllocateInfoNV<'a> {
 }
 #[cfg(feature = "ext_transform_feedback")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceTransformFeedbackFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceTransformFeedbackFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceTransformFeedbackFeaturesEXT")]
 pub struct PhysicalDeviceTransformFeedbackFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -27877,7 +27877,7 @@ impl<'a> PhysicalDeviceTransformFeedbackFeaturesEXT<'a> {
 }
 #[cfg(feature = "ext_transform_feedback")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceTransformFeedbackPropertiesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceTransformFeedbackPropertiesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceTransformFeedbackPropertiesEXT")]
 pub struct PhysicalDeviceTransformFeedbackPropertiesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -27999,7 +27999,7 @@ impl<'a> PhysicalDeviceTransformFeedbackPropertiesEXT<'a> {
 }
 #[cfg(feature = "ext_transform_feedback")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineRasterizationStateStreamCreateInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineRasterizationStateStreamCreateInfoEXT.html>"]
 #[doc(alias = "VkPipelineRasterizationStateStreamCreateInfoEXT")]
 pub struct PipelineRasterizationStateStreamCreateInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -28056,7 +28056,7 @@ impl<'a> PipelineRasterizationStateStreamCreateInfoEXT<'a> {
 }
 #[cfg(feature = "ext_binary_import")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCuModuleCreateInfoNVX.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCuModuleCreateInfoNVX.html>"]
 #[doc(alias = "VkCuModuleCreateInfoNVX")]
 pub struct CuModuleCreateInfoNVX<'a> {
     pub(crate) s_type: StructureType,
@@ -28111,7 +28111,7 @@ impl<'a> CuModuleCreateInfoNVX<'a> {
 }
 #[cfg(feature = "ext_binary_import")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCuModuleTexturingModeCreateInfoNVX.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCuModuleTexturingModeCreateInfoNVX.html>"]
 #[doc(alias = "VkCuModuleTexturingModeCreateInfoNVX")]
 pub struct CuModuleTexturingModeCreateInfoNVX<'a> {
     pub(crate) s_type: StructureType,
@@ -28160,7 +28160,7 @@ impl<'a> CuModuleTexturingModeCreateInfoNVX<'a> {
 }
 #[cfg(feature = "ext_binary_import")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCuFunctionCreateInfoNVX.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCuFunctionCreateInfoNVX.html>"]
 #[doc(alias = "VkCuFunctionCreateInfoNVX")]
 pub struct CuFunctionCreateInfoNVX<'a> {
     pub(crate) s_type: StructureType,
@@ -28211,7 +28211,7 @@ impl<'a> CuFunctionCreateInfoNVX<'a> {
 }
 #[cfg(feature = "ext_binary_import")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCuLaunchInfoNVX.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCuLaunchInfoNVX.html>"]
 #[doc(alias = "VkCuLaunchInfoNVX")]
 pub struct CuLaunchInfoNVX<'a> {
     pub(crate) s_type: StructureType,
@@ -28336,7 +28336,7 @@ impl<'a> CuLaunchInfoNVX<'a> {
 }
 #[cfg(feature = "ext_image_view_handle")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImageViewHandleInfoNVX.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImageViewHandleInfoNVX.html>"]
 #[doc(alias = "VkImageViewHandleInfoNVX")]
 pub struct ImageViewHandleInfoNVX<'a> {
     pub(crate) s_type: StructureType,
@@ -28394,7 +28394,7 @@ impl<'a> ImageViewHandleInfoNVX<'a> {
 }
 #[cfg(feature = "ext_image_view_handle")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImageViewAddressPropertiesNVX.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImageViewAddressPropertiesNVX.html>"]
 #[doc(alias = "VkImageViewAddressPropertiesNVX")]
 pub struct ImageViewAddressPropertiesNVX<'a> {
     pub(crate) s_type: StructureType,
@@ -28444,7 +28444,7 @@ impl<'a> ImageViewAddressPropertiesNVX<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkTextureLODGatherFormatPropertiesAMD.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkTextureLODGatherFormatPropertiesAMD.html>"]
 #[doc(alias = "VkTextureLODGatherFormatPropertiesAMD")]
 pub struct TextureLODGatherFormatPropertiesAMD<'a> {
     pub(crate) s_type: StructureType,
@@ -28494,7 +28494,7 @@ impl<'a> TextureLODGatherFormatPropertiesAMD<'a> {
 #[cfg(feature = "ext_shader_info")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkShaderResourceUsageAMD.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkShaderResourceUsageAMD.html>"]
 #[doc(alias = "VkShaderResourceUsageAMD")]
 pub struct ShaderResourceUsageAMD {
     pub num_used_vgprs: u32,
@@ -28550,7 +28550,7 @@ impl ShaderResourceUsageAMD {
 #[cfg(feature = "ext_shader_info")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkShaderStatisticsInfoAMD.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkShaderStatisticsInfoAMD.html>"]
 #[doc(alias = "VkShaderStatisticsInfoAMD")]
 pub struct ShaderStatisticsInfoAMD {
     pub shader_stage_mask: ShaderStageFlags,
@@ -28619,7 +28619,7 @@ impl ShaderStatisticsInfoAMD {
 }
 #[cfg(feature = "ext_stream_descriptor_surface")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkStreamDescriptorSurfaceCreateInfoGGP.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkStreamDescriptorSurfaceCreateInfoGGP.html>"]
 #[doc(alias = "VkStreamDescriptorSurfaceCreateInfoGGP")]
 pub struct StreamDescriptorSurfaceCreateInfoGGP<'a> {
     pub(crate) s_type: StructureType,
@@ -28669,7 +28669,7 @@ impl<'a> StreamDescriptorSurfaceCreateInfoGGP<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceCornerSampledImageFeaturesNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceCornerSampledImageFeaturesNV.html>"]
 #[doc(alias = "VkPhysicalDeviceCornerSampledImageFeaturesNV")]
 pub struct PhysicalDeviceCornerSampledImageFeaturesNV<'a> {
     pub(crate) s_type: StructureType,
@@ -28724,7 +28724,7 @@ impl<'a> PhysicalDeviceCornerSampledImageFeaturesNV<'a> {
 #[cfg(feature = "ext_external_memory_capabilities")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkExternalImageFormatPropertiesNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkExternalImageFormatPropertiesNV.html>"]
 #[doc(alias = "VkExternalImageFormatPropertiesNV")]
 pub struct ExternalImageFormatPropertiesNV {
     pub image_format_properties: ImageFormatProperties,
@@ -28775,7 +28775,7 @@ impl ExternalImageFormatPropertiesNV {
 }
 #[cfg(feature = "ext_external_memory")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkExternalMemoryImageCreateInfoNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkExternalMemoryImageCreateInfoNV.html>"]
 #[doc(alias = "VkExternalMemoryImageCreateInfoNV")]
 pub struct ExternalMemoryImageCreateInfoNV<'a> {
     pub(crate) s_type: StructureType,
@@ -28824,7 +28824,7 @@ impl<'a> ExternalMemoryImageCreateInfoNV<'a> {
 }
 #[cfg(feature = "ext_external_memory")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkExportMemoryAllocateInfoNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkExportMemoryAllocateInfoNV.html>"]
 #[doc(alias = "VkExportMemoryAllocateInfoNV")]
 pub struct ExportMemoryAllocateInfoNV<'a> {
     pub(crate) s_type: StructureType,
@@ -28870,7 +28870,7 @@ impl<'a> ExportMemoryAllocateInfoNV<'a> {
 }
 #[cfg(feature = "ext_external_memory_win32")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImportMemoryWin32HandleInfoNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImportMemoryWin32HandleInfoNV.html>"]
 #[doc(alias = "VkImportMemoryWin32HandleInfoNV")]
 pub struct ImportMemoryWin32HandleInfoNV<'a> {
     pub(crate) s_type: StructureType,
@@ -28926,7 +28926,7 @@ impl<'a> ImportMemoryWin32HandleInfoNV<'a> {
 }
 #[cfg(feature = "ext_external_memory_win32")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkExportMemoryWin32HandleInfoNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkExportMemoryWin32HandleInfoNV.html>"]
 #[doc(alias = "VkExportMemoryWin32HandleInfoNV")]
 pub struct ExportMemoryWin32HandleInfoNV<'a> {
     pub(crate) s_type: StructureType,
@@ -28982,7 +28982,7 @@ impl<'a> ExportMemoryWin32HandleInfoNV<'a> {
 }
 #[cfg(feature = "ext_win32_keyed_mutex")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkWin32KeyedMutexAcquireReleaseInfoNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkWin32KeyedMutexAcquireReleaseInfoNV.html>"]
 #[doc(alias = "VkWin32KeyedMutexAcquireReleaseInfoNV")]
 pub struct Win32KeyedMutexAcquireReleaseInfoNV<'a> {
     pub(crate) s_type: StructureType,
@@ -29111,7 +29111,7 @@ impl<'a> Win32KeyedMutexAcquireReleaseInfoNV<'a> {
 }
 #[cfg(feature = "ext_validation_flags")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkValidationFlagsEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkValidationFlagsEXT.html>"]
 #[doc(alias = "VkValidationFlagsEXT")]
 pub struct ValidationFlagsEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -29174,7 +29174,7 @@ impl<'a> ValidationFlagsEXT<'a> {
 }
 #[cfg(feature = "ext_vi_surface")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkViSurfaceCreateInfoNN.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkViSurfaceCreateInfoNN.html>"]
 #[doc(alias = "VkViSurfaceCreateInfoNN")]
 pub struct ViSurfaceCreateInfoNN<'a> {
     pub(crate) s_type: StructureType,
@@ -29225,7 +29225,7 @@ impl<'a> ViSurfaceCreateInfoNN<'a> {
 }
 #[cfg(feature = "ext_astc_decode_mode")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImageViewASTCDecodeModeEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImageViewASTCDecodeModeEXT.html>"]
 #[doc(alias = "VkImageViewASTCDecodeModeEXT")]
 pub struct ImageViewASTCDecodeModeEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -29271,7 +29271,7 @@ impl<'a> ImageViewASTCDecodeModeEXT<'a> {
 }
 #[cfg(feature = "ext_astc_decode_mode")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceASTCDecodeFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceASTCDecodeFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceASTCDecodeFeaturesEXT")]
 pub struct PhysicalDeviceASTCDecodeFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -29331,7 +29331,7 @@ impl<'a> PhysicalDeviceASTCDecodeFeaturesEXT<'a> {
 }
 #[cfg(feature = "ext_external_memory_win32")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImportMemoryWin32HandleInfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImportMemoryWin32HandleInfoKHR.html>"]
 #[doc(alias = "VkImportMemoryWin32HandleInfoKHR")]
 pub struct ImportMemoryWin32HandleInfoKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -29394,7 +29394,7 @@ impl<'a> ImportMemoryWin32HandleInfoKHR<'a> {
 }
 #[cfg(feature = "ext_external_memory_win32")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkExportMemoryWin32HandleInfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkExportMemoryWin32HandleInfoKHR.html>"]
 #[doc(alias = "VkExportMemoryWin32HandleInfoKHR")]
 pub struct ExportMemoryWin32HandleInfoKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -29457,7 +29457,7 @@ impl<'a> ExportMemoryWin32HandleInfoKHR<'a> {
 }
 #[cfg(feature = "ext_external_memory_win32")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkMemoryWin32HandlePropertiesKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkMemoryWin32HandlePropertiesKHR.html>"]
 #[doc(alias = "VkMemoryWin32HandlePropertiesKHR")]
 pub struct MemoryWin32HandlePropertiesKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -29501,7 +29501,7 @@ impl<'a> MemoryWin32HandlePropertiesKHR<'a> {
 }
 #[cfg(feature = "ext_external_memory_win32")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkMemoryGetWin32HandleInfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkMemoryGetWin32HandleInfoKHR.html>"]
 #[doc(alias = "VkMemoryGetWin32HandleInfoKHR")]
 pub struct MemoryGetWin32HandleInfoKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -29552,7 +29552,7 @@ impl<'a> MemoryGetWin32HandleInfoKHR<'a> {
 }
 #[cfg(feature = "ext_external_memory_fd")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImportMemoryFdInfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImportMemoryFdInfoKHR.html>"]
 #[doc(alias = "VkImportMemoryFdInfoKHR")]
 pub struct ImportMemoryFdInfoKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -29605,7 +29605,7 @@ impl<'a> ImportMemoryFdInfoKHR<'a> {
 }
 #[cfg(feature = "ext_external_memory_fd")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkMemoryFdPropertiesKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkMemoryFdPropertiesKHR.html>"]
 #[doc(alias = "VkMemoryFdPropertiesKHR")]
 pub struct MemoryFdPropertiesKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -29649,7 +29649,7 @@ impl<'a> MemoryFdPropertiesKHR<'a> {
 }
 #[cfg(feature = "ext_external_memory_fd")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkMemoryGetFdInfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkMemoryGetFdInfoKHR.html>"]
 #[doc(alias = "VkMemoryGetFdInfoKHR")]
 pub struct MemoryGetFdInfoKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -29700,7 +29700,7 @@ impl<'a> MemoryGetFdInfoKHR<'a> {
 }
 #[cfg(feature = "ext_win32_keyed_mutex")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkWin32KeyedMutexAcquireReleaseInfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkWin32KeyedMutexAcquireReleaseInfoKHR.html>"]
 #[doc(alias = "VkWin32KeyedMutexAcquireReleaseInfoKHR")]
 pub struct Win32KeyedMutexAcquireReleaseInfoKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -29828,7 +29828,7 @@ impl<'a> Win32KeyedMutexAcquireReleaseInfoKHR<'a> {
 }
 #[cfg(feature = "ext_external_semaphore_win32")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImportSemaphoreWin32HandleInfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImportSemaphoreWin32HandleInfoKHR.html>"]
 #[doc(alias = "VkImportSemaphoreWin32HandleInfoKHR")]
 pub struct ImportSemaphoreWin32HandleInfoKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -29900,7 +29900,7 @@ impl<'a> ImportSemaphoreWin32HandleInfoKHR<'a> {
 }
 #[cfg(feature = "ext_external_semaphore_win32")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkExportSemaphoreWin32HandleInfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkExportSemaphoreWin32HandleInfoKHR.html>"]
 #[doc(alias = "VkExportSemaphoreWin32HandleInfoKHR")]
 pub struct ExportSemaphoreWin32HandleInfoKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -29963,7 +29963,7 @@ impl<'a> ExportSemaphoreWin32HandleInfoKHR<'a> {
 }
 #[cfg(feature = "ext_external_semaphore_win32")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkD3D12FenceSubmitInfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkD3D12FenceSubmitInfoKHR.html>"]
 #[doc(alias = "VkD3D12FenceSubmitInfoKHR")]
 pub struct D3D12FenceSubmitInfoKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -30057,7 +30057,7 @@ impl<'a> D3D12FenceSubmitInfoKHR<'a> {
 }
 #[cfg(feature = "ext_external_semaphore_win32")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSemaphoreGetWin32HandleInfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSemaphoreGetWin32HandleInfoKHR.html>"]
 #[doc(alias = "VkSemaphoreGetWin32HandleInfoKHR")]
 pub struct SemaphoreGetWin32HandleInfoKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -30108,7 +30108,7 @@ impl<'a> SemaphoreGetWin32HandleInfoKHR<'a> {
 }
 #[cfg(feature = "ext_external_semaphore_fd")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImportSemaphoreFdInfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImportSemaphoreFdInfoKHR.html>"]
 #[doc(alias = "VkImportSemaphoreFdInfoKHR")]
 pub struct ImportSemaphoreFdInfoKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -30173,7 +30173,7 @@ impl<'a> ImportSemaphoreFdInfoKHR<'a> {
 }
 #[cfg(feature = "ext_external_semaphore_fd")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSemaphoreGetFdInfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSemaphoreGetFdInfoKHR.html>"]
 #[doc(alias = "VkSemaphoreGetFdInfoKHR")]
 pub struct SemaphoreGetFdInfoKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -30224,7 +30224,7 @@ impl<'a> SemaphoreGetFdInfoKHR<'a> {
 }
 #[cfg(feature = "ext_conditional_rendering")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkConditionalRenderingBeginInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkConditionalRenderingBeginInfoEXT.html>"]
 #[doc(alias = "VkConditionalRenderingBeginInfoEXT")]
 pub struct ConditionalRenderingBeginInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -30282,7 +30282,7 @@ impl<'a> ConditionalRenderingBeginInfoEXT<'a> {
 }
 #[cfg(feature = "ext_conditional_rendering")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceConditionalRenderingFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceConditionalRenderingFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceConditionalRenderingFeaturesEXT")]
 pub struct PhysicalDeviceConditionalRenderingFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -30350,7 +30350,7 @@ impl<'a> PhysicalDeviceConditionalRenderingFeaturesEXT<'a> {
 }
 #[cfg(feature = "ext_conditional_rendering")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCommandBufferInheritanceConditionalRenderingInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCommandBufferInheritanceConditionalRenderingInfoEXT.html>"]
 #[doc(alias = "VkCommandBufferInheritanceConditionalRenderingInfoEXT")]
 pub struct CommandBufferInheritanceConditionalRenderingInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -30403,7 +30403,7 @@ impl<'a> CommandBufferInheritanceConditionalRenderingInfoEXT<'a> {
 }
 #[cfg(feature = "ext_incremental_present")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPresentRegionsKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPresentRegionsKHR.html>"]
 #[doc(alias = "VkPresentRegionsKHR")]
 pub struct PresentRegionsKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -30465,7 +30465,7 @@ impl<'a> PresentRegionsKHR<'a> {
 }
 #[cfg(feature = "ext_incremental_present")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPresentRegionKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPresentRegionKHR.html>"]
 #[doc(alias = "VkPresentRegionKHR")]
 pub struct PresentRegionKHR<'a> {
     pub rectangle_count: u32,
@@ -30511,7 +30511,7 @@ impl<'a> PresentRegionKHR<'a> {
 #[cfg(feature = "ext_incremental_present")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkRectLayerKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkRectLayerKHR.html>"]
 #[doc(alias = "VkRectLayerKHR")]
 pub struct RectLayerKHR {
     pub offset: Offset2D,
@@ -30553,7 +30553,7 @@ impl RectLayerKHR {
 #[cfg(feature = "ext_clip_space_w_scaling")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkViewportWScalingNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkViewportWScalingNV.html>"]
 #[doc(alias = "VkViewportWScalingNV")]
 pub struct ViewportWScalingNV {
     pub xcoeff: f32,
@@ -30587,7 +30587,7 @@ impl ViewportWScalingNV {
 }
 #[cfg(feature = "ext_clip_space_w_scaling")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineViewportWScalingStateCreateInfoNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineViewportWScalingStateCreateInfoNV.html>"]
 #[doc(alias = "VkPipelineViewportWScalingStateCreateInfoNV")]
 pub struct PipelineViewportWScalingStateCreateInfoNV<'a> {
     pub(crate) s_type: StructureType,
@@ -30662,7 +30662,7 @@ impl<'a> PipelineViewportWScalingStateCreateInfoNV<'a> {
 }
 #[cfg(feature = "ext_display_surface_counter")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSurfaceCapabilities2EXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSurfaceCapabilities2EXT.html>"]
 #[doc(alias = "VkSurfaceCapabilities2EXT")]
 pub struct SurfaceCapabilities2EXT<'a> {
     pub(crate) s_type: StructureType,
@@ -30776,7 +30776,7 @@ impl<'a> SurfaceCapabilities2EXT<'a> {
 }
 #[cfg(feature = "ext_display_control")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDisplayPowerInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDisplayPowerInfoEXT.html>"]
 #[doc(alias = "VkDisplayPowerInfoEXT")]
 pub struct DisplayPowerInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -30820,7 +30820,7 @@ impl<'a> DisplayPowerInfoEXT<'a> {
 }
 #[cfg(feature = "ext_display_control")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDeviceEventInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceEventInfoEXT.html>"]
 #[doc(alias = "VkDeviceEventInfoEXT")]
 pub struct DeviceEventInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -30864,7 +30864,7 @@ impl<'a> DeviceEventInfoEXT<'a> {
 }
 #[cfg(feature = "ext_display_control")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDisplayEventInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDisplayEventInfoEXT.html>"]
 #[doc(alias = "VkDisplayEventInfoEXT")]
 pub struct DisplayEventInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -30908,7 +30908,7 @@ impl<'a> DisplayEventInfoEXT<'a> {
 }
 #[cfg(feature = "ext_display_control")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSwapchainCounterCreateInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSwapchainCounterCreateInfoEXT.html>"]
 #[doc(alias = "VkSwapchainCounterCreateInfoEXT")]
 pub struct SwapchainCounterCreateInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -30958,7 +30958,7 @@ impl<'a> SwapchainCounterCreateInfoEXT<'a> {
 #[cfg(feature = "ext_display_timing")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkRefreshCycleDurationGOOGLE.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkRefreshCycleDurationGOOGLE.html>"]
 #[doc(alias = "VkRefreshCycleDurationGOOGLE")]
 pub struct RefreshCycleDurationGOOGLE {
     pub refresh_duration: u64,
@@ -30986,7 +30986,7 @@ impl RefreshCycleDurationGOOGLE {
 #[cfg(feature = "ext_display_timing")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPastPresentationTimingGOOGLE.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPastPresentationTimingGOOGLE.html>"]
 #[doc(alias = "VkPastPresentationTimingGOOGLE")]
 pub struct PastPresentationTimingGOOGLE {
     pub present_id: u32,
@@ -31041,7 +31041,7 @@ impl PastPresentationTimingGOOGLE {
 }
 #[cfg(feature = "ext_display_timing")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPresentTimesInfoGOOGLE.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPresentTimesInfoGOOGLE.html>"]
 #[doc(alias = "VkPresentTimesInfoGOOGLE")]
 pub struct PresentTimesInfoGOOGLE<'a> {
     pub(crate) s_type: StructureType,
@@ -31104,7 +31104,7 @@ impl<'a> PresentTimesInfoGOOGLE<'a> {
 #[cfg(feature = "ext_display_timing")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPresentTimeGOOGLE.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPresentTimeGOOGLE.html>"]
 #[doc(alias = "VkPresentTimeGOOGLE")]
 pub struct PresentTimeGOOGLE {
     pub present_id: u32,
@@ -31138,7 +31138,7 @@ impl PresentTimeGOOGLE {
 }
 #[cfg(feature = "ext_multiview_per_view_attributes")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceMultiviewPerViewAttributesPropertiesNVX.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceMultiviewPerViewAttributesPropertiesNVX.html>"]
 #[doc(alias = "VkPhysicalDeviceMultiviewPerViewAttributesPropertiesNVX")]
 pub struct PhysicalDeviceMultiviewPerViewAttributesPropertiesNVX<'a> {
     pub(crate) s_type: StructureType,
@@ -31200,7 +31200,7 @@ impl<'a> PhysicalDeviceMultiviewPerViewAttributesPropertiesNVX<'a> {
     any(feature = "version_1_3", feature = "ext_dynamic_rendering")
 ))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkMultiviewPerViewAttributesInfoNVX.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkMultiviewPerViewAttributesInfoNVX.html>"]
 #[doc(alias = "VkMultiviewPerViewAttributesInfoNVX")]
 pub struct MultiviewPerViewAttributesInfoNVX<'a> {
     pub(crate) s_type: StructureType,
@@ -31304,7 +31304,7 @@ impl<'a> MultiviewPerViewAttributesInfoNVX<'a> {
 #[cfg(feature = "ext_viewport_swizzle")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkViewportSwizzleNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkViewportSwizzleNV.html>"]
 #[doc(alias = "VkViewportSwizzleNV")]
 pub struct ViewportSwizzleNV {
     pub x: ViewportCoordinateSwizzleNV,
@@ -31352,7 +31352,7 @@ impl ViewportSwizzleNV {
 }
 #[cfg(feature = "ext_viewport_swizzle")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineViewportSwizzleStateCreateInfoNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineViewportSwizzleStateCreateInfoNV.html>"]
 #[doc(alias = "VkPipelineViewportSwizzleStateCreateInfoNV")]
 pub struct PipelineViewportSwizzleStateCreateInfoNV<'a> {
     pub(crate) s_type: StructureType,
@@ -31422,7 +31422,7 @@ impl<'a> PipelineViewportSwizzleStateCreateInfoNV<'a> {
 }
 #[cfg(feature = "ext_discard_rectangles")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceDiscardRectanglePropertiesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceDiscardRectanglePropertiesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceDiscardRectanglePropertiesEXT")]
 pub struct PhysicalDeviceDiscardRectanglePropertiesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -31478,7 +31478,7 @@ impl<'a> PhysicalDeviceDiscardRectanglePropertiesEXT<'a> {
 }
 #[cfg(feature = "ext_discard_rectangles")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineDiscardRectangleStateCreateInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineDiscardRectangleStateCreateInfoEXT.html>"]
 #[doc(alias = "VkPipelineDiscardRectangleStateCreateInfoEXT")]
 pub struct PipelineDiscardRectangleStateCreateInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -31560,7 +31560,7 @@ impl<'a> PipelineDiscardRectangleStateCreateInfoEXT<'a> {
 }
 #[cfg(feature = "ext_conservative_rasterization")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceConservativeRasterizationPropertiesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceConservativeRasterizationPropertiesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceConservativeRasterizationPropertiesEXT")]
 pub struct PhysicalDeviceConservativeRasterizationPropertiesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -31681,7 +31681,7 @@ impl<'a> PhysicalDeviceConservativeRasterizationPropertiesEXT<'a> {
 }
 #[cfg(feature = "ext_conservative_rasterization")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineRasterizationConservativeStateCreateInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineRasterizationConservativeStateCreateInfoEXT.html>"]
 #[doc(alias = "VkPipelineRasterizationConservativeStateCreateInfoEXT")]
 pub struct PipelineRasterizationConservativeStateCreateInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -31751,7 +31751,7 @@ impl<'a> PipelineRasterizationConservativeStateCreateInfoEXT<'a> {
 }
 #[cfg(feature = "ext_depth_clip_enable")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceDepthClipEnableFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceDepthClipEnableFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceDepthClipEnableFeaturesEXT")]
 pub struct PhysicalDeviceDepthClipEnableFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -31811,7 +31811,7 @@ impl<'a> PhysicalDeviceDepthClipEnableFeaturesEXT<'a> {
 }
 #[cfg(feature = "ext_depth_clip_enable")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineRasterizationDepthClipStateCreateInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineRasterizationDepthClipStateCreateInfoEXT.html>"]
 #[doc(alias = "VkPipelineRasterizationDepthClipStateCreateInfoEXT")]
 pub struct PipelineRasterizationDepthClipStateCreateInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -31868,7 +31868,7 @@ impl<'a> PipelineRasterizationDepthClipStateCreateInfoEXT<'a> {
 }
 #[cfg(feature = "ext_hdr_metadata")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkHdrMetadataEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkHdrMetadataEXT.html>"]
 #[doc(alias = "VkHdrMetadataEXT")]
 pub struct HdrMetadataEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -31962,7 +31962,7 @@ impl<'a> HdrMetadataEXT<'a> {
 #[cfg(feature = "ext_hdr_metadata")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkXYColorEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkXYColorEXT.html>"]
 #[doc(alias = "VkXYColorEXT")]
 pub struct XYColorEXT {
     pub x: f32,
@@ -31995,7 +31995,7 @@ impl XYColorEXT {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceRelaxedLineRasterizationFeaturesIMG.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceRelaxedLineRasterizationFeaturesIMG.html>"]
 #[doc(alias = "VkPhysicalDeviceRelaxedLineRasterizationFeaturesIMG")]
 pub struct PhysicalDeviceRelaxedLineRasterizationFeaturesIMG<'a> {
     pub(crate) s_type: StructureType,
@@ -32050,7 +32050,7 @@ impl<'a> PhysicalDeviceRelaxedLineRasterizationFeaturesIMG<'a> {
 }
 #[cfg(feature = "ext_shared_presentable_image")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSharedPresentSurfaceCapabilitiesKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSharedPresentSurfaceCapabilitiesKHR.html>"]
 #[doc(alias = "VkSharedPresentSurfaceCapabilitiesKHR")]
 pub struct SharedPresentSurfaceCapabilitiesKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -32102,7 +32102,7 @@ impl<'a> SharedPresentSurfaceCapabilitiesKHR<'a> {
 }
 #[cfg(feature = "ext_external_fence_win32")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImportFenceWin32HandleInfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImportFenceWin32HandleInfoKHR.html>"]
 #[doc(alias = "VkImportFenceWin32HandleInfoKHR")]
 pub struct ImportFenceWin32HandleInfoKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -32174,7 +32174,7 @@ impl<'a> ImportFenceWin32HandleInfoKHR<'a> {
 }
 #[cfg(feature = "ext_external_fence_win32")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkExportFenceWin32HandleInfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkExportFenceWin32HandleInfoKHR.html>"]
 #[doc(alias = "VkExportFenceWin32HandleInfoKHR")]
 pub struct ExportFenceWin32HandleInfoKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -32234,7 +32234,7 @@ impl<'a> ExportFenceWin32HandleInfoKHR<'a> {
 }
 #[cfg(feature = "ext_external_fence_win32")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkFenceGetWin32HandleInfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkFenceGetWin32HandleInfoKHR.html>"]
 #[doc(alias = "VkFenceGetWin32HandleInfoKHR")]
 pub struct FenceGetWin32HandleInfoKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -32285,7 +32285,7 @@ impl<'a> FenceGetWin32HandleInfoKHR<'a> {
 }
 #[cfg(feature = "ext_external_fence_fd")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImportFenceFdInfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImportFenceFdInfoKHR.html>"]
 #[doc(alias = "VkImportFenceFdInfoKHR")]
 pub struct ImportFenceFdInfoKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -32350,7 +32350,7 @@ impl<'a> ImportFenceFdInfoKHR<'a> {
 }
 #[cfg(feature = "ext_external_fence_fd")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkFenceGetFdInfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkFenceGetFdInfoKHR.html>"]
 #[doc(alias = "VkFenceGetFdInfoKHR")]
 pub struct FenceGetFdInfoKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -32401,7 +32401,7 @@ impl<'a> FenceGetFdInfoKHR<'a> {
 }
 #[cfg(feature = "ext_performance_query")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDevicePerformanceQueryFeaturesKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDevicePerformanceQueryFeaturesKHR.html>"]
 #[doc(alias = "VkPhysicalDevicePerformanceQueryFeaturesKHR")]
 pub struct PhysicalDevicePerformanceQueryFeaturesKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -32468,7 +32468,7 @@ impl<'a> PhysicalDevicePerformanceQueryFeaturesKHR<'a> {
 }
 #[cfg(feature = "ext_performance_query")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDevicePerformanceQueryPropertiesKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDevicePerformanceQueryPropertiesKHR.html>"]
 #[doc(alias = "VkPhysicalDevicePerformanceQueryPropertiesKHR")]
 pub struct PhysicalDevicePerformanceQueryPropertiesKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -32524,7 +32524,7 @@ impl<'a> PhysicalDevicePerformanceQueryPropertiesKHR<'a> {
 }
 #[cfg(feature = "ext_performance_query")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPerformanceCounterKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPerformanceCounterKHR.html>"]
 #[doc(alias = "VkPerformanceCounterKHR")]
 pub struct PerformanceCounterKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -32589,7 +32589,7 @@ impl<'a> PerformanceCounterKHR<'a> {
 }
 #[cfg(feature = "ext_performance_query")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPerformanceCounterDescriptionKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPerformanceCounterDescriptionKHR.html>"]
 #[doc(alias = "VkPerformanceCounterDescriptionKHR")]
 pub struct PerformanceCounterDescriptionKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -32659,7 +32659,7 @@ impl<'a> PerformanceCounterDescriptionKHR<'a> {
 }
 #[cfg(feature = "ext_performance_query")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkQueryPoolPerformanceCreateInfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkQueryPoolPerformanceCreateInfoKHR.html>"]
 #[doc(alias = "VkQueryPoolPerformanceCreateInfoKHR")]
 pub struct QueryPoolPerformanceCreateInfoKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -32727,7 +32727,7 @@ impl<'a> QueryPoolPerformanceCreateInfoKHR<'a> {
 #[cfg(feature = "ext_performance_query")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPerformanceCounterResultKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPerformanceCounterResultKHR.html>"]
 #[doc(alias = "VkPerformanceCounterResultKHR")]
 pub union PerformanceCounterResultKHR {
     pub int32: i32,
@@ -32747,7 +32747,7 @@ impl Default for PerformanceCounterResultKHR {
 }
 #[cfg(feature = "ext_performance_query")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAcquireProfilingLockInfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAcquireProfilingLockInfoKHR.html>"]
 #[doc(alias = "VkAcquireProfilingLockInfoKHR")]
 pub struct AcquireProfilingLockInfoKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -32798,7 +32798,7 @@ impl<'a> AcquireProfilingLockInfoKHR<'a> {
 }
 #[cfg(feature = "ext_performance_query")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPerformanceQuerySubmitInfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPerformanceQuerySubmitInfoKHR.html>"]
 #[doc(alias = "VkPerformanceQuerySubmitInfoKHR")]
 pub struct PerformanceQuerySubmitInfoKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -32849,7 +32849,7 @@ impl<'a> PerformanceQuerySubmitInfoKHR<'a> {
 }
 #[cfg(all(feature = "ext_performance_query"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPerformanceQueryReservationInfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPerformanceQueryReservationInfoKHR.html>"]
 #[doc(alias = "VkPerformanceQueryReservationInfoKHR")]
 pub struct PerformanceQueryReservationInfoKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -32898,7 +32898,7 @@ impl<'a> PerformanceQueryReservationInfoKHR<'a> {
 }
 #[cfg(feature = "ext_get_surface_capabilities2")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceSurfaceInfo2KHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceSurfaceInfo2KHR.html>"]
 #[doc(alias = "VkPhysicalDeviceSurfaceInfo2KHR")]
 pub struct PhysicalDeviceSurfaceInfo2KHR<'a> {
     pub(crate) s_type: StructureType,
@@ -32942,7 +32942,7 @@ impl<'a> PhysicalDeviceSurfaceInfo2KHR<'a> {
 }
 #[cfg(feature = "ext_get_surface_capabilities2")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSurfaceCapabilities2KHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSurfaceCapabilities2KHR.html>"]
 #[doc(alias = "VkSurfaceCapabilities2KHR")]
 pub struct SurfaceCapabilities2KHR<'a> {
     pub(crate) s_type: StructureType,
@@ -32986,7 +32986,7 @@ impl<'a> SurfaceCapabilities2KHR<'a> {
 }
 #[cfg(feature = "ext_get_surface_capabilities2")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSurfaceFormat2KHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSurfaceFormat2KHR.html>"]
 #[doc(alias = "VkSurfaceFormat2KHR")]
 pub struct SurfaceFormat2KHR<'a> {
     pub(crate) s_type: StructureType,
@@ -33030,7 +33030,7 @@ impl<'a> SurfaceFormat2KHR<'a> {
 }
 #[cfg(feature = "ext_get_display_properties2")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDisplayProperties2KHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDisplayProperties2KHR.html>"]
 #[doc(alias = "VkDisplayProperties2KHR")]
 pub struct DisplayProperties2KHR<'a> {
     pub(crate) s_type: StructureType,
@@ -33074,7 +33074,7 @@ impl<'a> DisplayProperties2KHR<'a> {
 }
 #[cfg(feature = "ext_get_display_properties2")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDisplayPlaneProperties2KHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDisplayPlaneProperties2KHR.html>"]
 #[doc(alias = "VkDisplayPlaneProperties2KHR")]
 pub struct DisplayPlaneProperties2KHR<'a> {
     pub(crate) s_type: StructureType,
@@ -33118,7 +33118,7 @@ impl<'a> DisplayPlaneProperties2KHR<'a> {
 }
 #[cfg(feature = "ext_get_display_properties2")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDisplayModeProperties2KHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDisplayModeProperties2KHR.html>"]
 #[doc(alias = "VkDisplayModeProperties2KHR")]
 pub struct DisplayModeProperties2KHR<'a> {
     pub(crate) s_type: StructureType,
@@ -33162,7 +33162,7 @@ impl<'a> DisplayModeProperties2KHR<'a> {
 }
 #[cfg(feature = "ext_get_display_properties2")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDisplayPlaneInfo2KHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDisplayPlaneInfo2KHR.html>"]
 #[doc(alias = "VkDisplayPlaneInfo2KHR")]
 pub struct DisplayPlaneInfo2KHR<'a> {
     pub(crate) s_type: StructureType,
@@ -33213,7 +33213,7 @@ impl<'a> DisplayPlaneInfo2KHR<'a> {
 }
 #[cfg(feature = "ext_get_display_properties2")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDisplayPlaneCapabilities2KHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDisplayPlaneCapabilities2KHR.html>"]
 #[doc(alias = "VkDisplayPlaneCapabilities2KHR")]
 pub struct DisplayPlaneCapabilities2KHR<'a> {
     pub(crate) s_type: StructureType,
@@ -33257,7 +33257,7 @@ impl<'a> DisplayPlaneCapabilities2KHR<'a> {
 }
 #[cfg(feature = "ext_ios_surface")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkIOSSurfaceCreateInfoMVK.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkIOSSurfaceCreateInfoMVK.html>"]
 #[doc(alias = "VkIOSSurfaceCreateInfoMVK")]
 pub struct IOSSurfaceCreateInfoMVK<'a> {
     pub(crate) s_type: StructureType,
@@ -33308,7 +33308,7 @@ impl<'a> IOSSurfaceCreateInfoMVK<'a> {
 }
 #[cfg(feature = "ext_macos_surface")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkMacOSSurfaceCreateInfoMVK.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkMacOSSurfaceCreateInfoMVK.html>"]
 #[doc(alias = "VkMacOSSurfaceCreateInfoMVK")]
 pub struct MacOSSurfaceCreateInfoMVK<'a> {
     pub(crate) s_type: StructureType,
@@ -33359,7 +33359,7 @@ impl<'a> MacOSSurfaceCreateInfoMVK<'a> {
 }
 #[cfg(feature = "ext_debug_utils")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDebugUtilsLabelEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDebugUtilsLabelEXT.html>"]
 #[doc(alias = "VkDebugUtilsLabelEXT")]
 pub struct DebugUtilsLabelEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -33410,7 +33410,7 @@ impl<'a> DebugUtilsLabelEXT<'a> {
 }
 #[cfg(feature = "ext_debug_utils")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDebugUtilsMessengerCallbackDataEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDebugUtilsMessengerCallbackDataEXT.html>"]
 #[doc(alias = "VkDebugUtilsMessengerCallbackDataEXT")]
 pub struct DebugUtilsMessengerCallbackDataEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -33535,7 +33535,7 @@ impl<'a> DebugUtilsMessengerCallbackDataEXT<'a> {
 }
 #[cfg(feature = "ext_debug_utils")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDebugUtilsMessengerCreateInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDebugUtilsMessengerCreateInfoEXT.html>"]
 #[doc(alias = "VkDebugUtilsMessengerCreateInfoEXT")]
 pub struct DebugUtilsMessengerCreateInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -33612,7 +33612,7 @@ impl<'a> DebugUtilsMessengerCreateInfoEXT<'a> {
 }
 #[cfg(feature = "ext_debug_utils")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDebugUtilsObjectNameInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDebugUtilsObjectNameInfoEXT.html>"]
 #[doc(alias = "VkDebugUtilsObjectNameInfoEXT")]
 pub struct DebugUtilsObjectNameInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -33682,7 +33682,7 @@ impl<'a> DebugUtilsObjectNameInfoEXT<'a> {
 }
 #[cfg(feature = "ext_debug_utils")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDebugUtilsObjectTagInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDebugUtilsObjectTagInfoEXT.html>"]
 #[doc(alias = "VkDebugUtilsObjectTagInfoEXT")]
 pub struct DebugUtilsObjectTagInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -33758,7 +33758,7 @@ impl<'a> DebugUtilsObjectTagInfoEXT<'a> {
 }
 #[cfg(feature = "ext_external_memory_android_hardware_buffer")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAndroidHardwareBufferUsageANDROID.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAndroidHardwareBufferUsageANDROID.html>"]
 #[doc(alias = "VkAndroidHardwareBufferUsageANDROID")]
 pub struct AndroidHardwareBufferUsageANDROID<'a> {
     pub(crate) s_type: StructureType,
@@ -33813,7 +33813,7 @@ impl<'a> AndroidHardwareBufferUsageANDROID<'a> {
 }
 #[cfg(feature = "ext_external_memory_android_hardware_buffer")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAndroidHardwareBufferPropertiesANDROID.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAndroidHardwareBufferPropertiesANDROID.html>"]
 #[doc(alias = "VkAndroidHardwareBufferPropertiesANDROID")]
 pub struct AndroidHardwareBufferPropertiesANDROID<'a> {
     pub(crate) s_type: StructureType,
@@ -33864,7 +33864,7 @@ impl<'a> AndroidHardwareBufferPropertiesANDROID<'a> {
 }
 #[cfg(feature = "ext_external_memory_android_hardware_buffer")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAndroidHardwareBufferFormatPropertiesANDROID.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAndroidHardwareBufferFormatPropertiesANDROID.html>"]
 #[doc(alias = "VkAndroidHardwareBufferFormatPropertiesANDROID")]
 pub struct AndroidHardwareBufferFormatPropertiesANDROID<'a> {
     pub(crate) s_type: StructureType,
@@ -33966,7 +33966,7 @@ impl<'a> AndroidHardwareBufferFormatPropertiesANDROID<'a> {
 }
 #[cfg(feature = "ext_external_memory_android_hardware_buffer")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImportAndroidHardwareBufferInfoANDROID.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImportAndroidHardwareBufferInfoANDROID.html>"]
 #[doc(alias = "VkImportAndroidHardwareBufferInfoANDROID")]
 pub struct ImportAndroidHardwareBufferInfoANDROID<'a> {
     pub(crate) s_type: StructureType,
@@ -34015,7 +34015,7 @@ impl<'a> ImportAndroidHardwareBufferInfoANDROID<'a> {
 }
 #[cfg(feature = "ext_external_memory_android_hardware_buffer")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkMemoryGetAndroidHardwareBufferInfoANDROID.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkMemoryGetAndroidHardwareBufferInfoANDROID.html>"]
 #[doc(alias = "VkMemoryGetAndroidHardwareBufferInfoANDROID")]
 pub struct MemoryGetAndroidHardwareBufferInfoANDROID<'a> {
     pub(crate) s_type: StructureType,
@@ -34059,7 +34059,7 @@ impl<'a> MemoryGetAndroidHardwareBufferInfoANDROID<'a> {
 }
 #[cfg(feature = "ext_external_memory_android_hardware_buffer")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkExternalFormatANDROID.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkExternalFormatANDROID.html>"]
 #[doc(alias = "VkExternalFormatANDROID")]
 pub struct ExternalFormatANDROID<'a> {
     pub(crate) s_type: StructureType,
@@ -34126,14 +34126,14 @@ impl<'a> ExternalFormatANDROID<'a> {
         self
     }
 }
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/AHardwareBuffer.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/AHardwareBuffer.html>"]
 pub type AHardwareBuffer = c_void;
 #[cfg(all(
     feature = "ext_external_memory_android_hardware_buffer",
     any(feature = "ext_format_feature_flags2", feature = "version_1_3")
 ))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAndroidHardwareBufferFormatProperties2ANDROID.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAndroidHardwareBufferFormatProperties2ANDROID.html>"]
 #[doc(alias = "VkAndroidHardwareBufferFormatProperties2ANDROID")]
 pub struct AndroidHardwareBufferFormatProperties2ANDROID<'a> {
     pub(crate) s_type: StructureType,
@@ -34256,7 +34256,7 @@ impl<'a> AndroidHardwareBufferFormatProperties2ANDROID<'a> {
 }
 #[cfg(feature = "ext_shader_enqueue")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderEnqueueFeaturesAMDX.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderEnqueueFeaturesAMDX.html>"]
 #[doc(alias = "VkPhysicalDeviceShaderEnqueueFeaturesAMDX")]
 pub struct PhysicalDeviceShaderEnqueueFeaturesAMDX<'a> {
     pub(crate) s_type: StructureType,
@@ -34323,7 +34323,7 @@ impl<'a> PhysicalDeviceShaderEnqueueFeaturesAMDX<'a> {
 }
 #[cfg(feature = "ext_shader_enqueue")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderEnqueuePropertiesAMDX.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderEnqueuePropertiesAMDX.html>"]
 #[doc(alias = "VkPhysicalDeviceShaderEnqueuePropertiesAMDX")]
 pub struct PhysicalDeviceShaderEnqueuePropertiesAMDX<'a> {
     pub(crate) s_type: StructureType,
@@ -34420,7 +34420,7 @@ impl<'a> PhysicalDeviceShaderEnqueuePropertiesAMDX<'a> {
 }
 #[cfg(feature = "ext_shader_enqueue")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkExecutionGraphPipelineScratchSizeAMDX.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkExecutionGraphPipelineScratchSizeAMDX.html>"]
 #[doc(alias = "VkExecutionGraphPipelineScratchSizeAMDX")]
 pub struct ExecutionGraphPipelineScratchSizeAMDX<'a> {
     pub(crate) s_type: StructureType,
@@ -34478,7 +34478,7 @@ impl<'a> ExecutionGraphPipelineScratchSizeAMDX<'a> {
 }
 #[cfg(feature = "ext_shader_enqueue")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkExecutionGraphPipelineCreateInfoAMDX.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkExecutionGraphPipelineCreateInfoAMDX.html>"]
 #[doc(alias = "VkExecutionGraphPipelineCreateInfoAMDX")]
 pub struct ExecutionGraphPipelineCreateInfoAMDX<'a> {
     pub(crate) s_type: StructureType,
@@ -34572,7 +34572,7 @@ impl<'a> ExecutionGraphPipelineCreateInfoAMDX<'a> {
 #[cfg(feature = "ext_shader_enqueue")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDispatchGraphInfoAMDX.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDispatchGraphInfoAMDX.html>"]
 #[doc(alias = "VkDispatchGraphInfoAMDX")]
 pub struct DispatchGraphInfoAMDX {
     pub node_index: u32,
@@ -34621,7 +34621,7 @@ impl DispatchGraphInfoAMDX {
 #[cfg(feature = "ext_shader_enqueue")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDispatchGraphCountInfoAMDX.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDispatchGraphCountInfoAMDX.html>"]
 #[doc(alias = "VkDispatchGraphCountInfoAMDX")]
 pub struct DispatchGraphCountInfoAMDX {
     pub count: u32,
@@ -34662,7 +34662,7 @@ impl DispatchGraphCountInfoAMDX {
 }
 #[cfg(feature = "ext_shader_enqueue")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineShaderStageNodeCreateInfoAMDX.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineShaderStageNodeCreateInfoAMDX.html>"]
 #[doc(alias = "VkPipelineShaderStageNodeCreateInfoAMDX")]
 pub struct PipelineShaderStageNodeCreateInfoAMDX<'a> {
     pub(crate) s_type: StructureType,
@@ -34719,7 +34719,7 @@ impl<'a> PipelineShaderStageNodeCreateInfoAMDX<'a> {
 #[cfg(feature = "ext_shader_enqueue")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDeviceOrHostAddressConstAMDX.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceOrHostAddressConstAMDX.html>"]
 #[doc(alias = "VkDeviceOrHostAddressConstAMDX")]
 pub union DeviceOrHostAddressConstAMDX {
     pub device_address: DeviceAddress,
@@ -34735,7 +34735,7 @@ impl Default for DeviceOrHostAddressConstAMDX {
 }
 #[cfg(feature = "ext_descriptor_heap")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkHostAddressRangeEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkHostAddressRangeEXT.html>"]
 #[doc(alias = "VkHostAddressRangeEXT")]
 pub struct HostAddressRangeEXT<'a> {
     pub(crate) address: VoidPtr,
@@ -34775,7 +34775,7 @@ impl<'a> HostAddressRangeEXT<'a> {
 }
 #[cfg(feature = "ext_descriptor_heap")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkHostAddressRangeConstEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkHostAddressRangeConstEXT.html>"]
 #[doc(alias = "VkHostAddressRangeConstEXT")]
 pub struct HostAddressRangeConstEXT<'a> {
     pub(crate) address: VoidPtr,
@@ -34816,7 +34816,7 @@ impl<'a> HostAddressRangeConstEXT<'a> {
 #[cfg(feature = "ext_descriptor_heap")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDeviceAddressRangeEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceAddressRangeEXT.html>"]
 #[doc(alias = "VkDeviceAddressRangeEXT")]
 pub struct DeviceAddressRangeEXT {
     pub address: DeviceAddress,
@@ -34850,7 +34850,7 @@ impl DeviceAddressRangeEXT {
 }
 #[cfg(feature = "ext_descriptor_heap")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkTexelBufferDescriptorInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkTexelBufferDescriptorInfoEXT.html>"]
 #[doc(alias = "VkTexelBufferDescriptorInfoEXT")]
 pub struct TexelBufferDescriptorInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -34901,7 +34901,7 @@ impl<'a> TexelBufferDescriptorInfoEXT<'a> {
 }
 #[cfg(feature = "ext_descriptor_heap")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImageDescriptorInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImageDescriptorInfoEXT.html>"]
 #[doc(alias = "VkImageDescriptorInfoEXT")]
 pub struct ImageDescriptorInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -34952,7 +34952,7 @@ impl<'a> ImageDescriptorInfoEXT<'a> {
 }
 #[cfg(feature = "ext_descriptor_heap")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkResourceDescriptorInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkResourceDescriptorInfoEXT.html>"]
 #[doc(alias = "VkResourceDescriptorInfoEXT")]
 pub struct ResourceDescriptorInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -35003,7 +35003,7 @@ impl<'a> ResourceDescriptorInfoEXT<'a> {
 }
 #[cfg(feature = "ext_descriptor_heap")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkResourceDescriptorDataEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkResourceDescriptorDataEXT.html>"]
 #[doc(alias = "VkResourceDescriptorDataEXT")]
 pub union ResourceDescriptorDataEXT<'a> {
     pub p_image: ManuallyDrop<*const ImageDescriptorInfoEXT<'a>>,
@@ -35021,7 +35021,7 @@ impl<'a> Default for ResourceDescriptorDataEXT<'a> {
 }
 #[cfg(feature = "ext_descriptor_heap")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkBindHeapInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkBindHeapInfoEXT.html>"]
 #[doc(alias = "VkBindHeapInfoEXT")]
 pub struct BindHeapInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -35079,7 +35079,7 @@ impl<'a> BindHeapInfoEXT<'a> {
 }
 #[cfg(feature = "ext_descriptor_heap")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPushDataInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPushDataInfoEXT.html>"]
 #[doc(alias = "VkPushDataInfoEXT")]
 pub struct PushDataInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -35130,7 +35130,7 @@ impl<'a> PushDataInfoEXT<'a> {
 }
 #[cfg(feature = "ext_descriptor_heap")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDescriptorMappingSourceConstantOffsetEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDescriptorMappingSourceConstantOffsetEXT.html>"]
 #[doc(alias = "VkDescriptorMappingSourceConstantOffsetEXT")]
 pub struct DescriptorMappingSourceConstantOffsetEXT<'a> {
     pub heap_offset: u32,
@@ -35187,7 +35187,7 @@ impl<'a> DescriptorMappingSourceConstantOffsetEXT<'a> {
 }
 #[cfg(feature = "ext_descriptor_heap")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDescriptorMappingSourcePushIndexEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDescriptorMappingSourcePushIndexEXT.html>"]
 #[doc(alias = "VkDescriptorMappingSourcePushIndexEXT")]
 pub struct DescriptorMappingSourcePushIndexEXT<'a> {
     pub heap_offset: u32,
@@ -35279,7 +35279,7 @@ impl<'a> DescriptorMappingSourcePushIndexEXT<'a> {
 }
 #[cfg(feature = "ext_descriptor_heap")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDescriptorMappingSourceIndirectIndexEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDescriptorMappingSourceIndirectIndexEXT.html>"]
 #[doc(alias = "VkDescriptorMappingSourceIndirectIndexEXT")]
 pub struct DescriptorMappingSourceIndirectIndexEXT<'a> {
     pub heap_offset: u32,
@@ -35386,7 +35386,7 @@ impl<'a> DescriptorMappingSourceIndirectIndexEXT<'a> {
 #[cfg(feature = "ext_descriptor_heap")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDescriptorMappingSourceHeapDataEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDescriptorMappingSourceHeapDataEXT.html>"]
 #[doc(alias = "VkDescriptorMappingSourceHeapDataEXT")]
 pub struct DescriptorMappingSourceHeapDataEXT {
     pub heap_offset: u32,
@@ -35421,7 +35421,7 @@ impl DescriptorMappingSourceHeapDataEXT {
 #[cfg(feature = "ext_descriptor_heap")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDescriptorMappingSourceIndirectAddressEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDescriptorMappingSourceIndirectAddressEXT.html>"]
 #[doc(alias = "VkDescriptorMappingSourceIndirectAddressEXT")]
 pub struct DescriptorMappingSourceIndirectAddressEXT {
     pub push_offset: u32,
@@ -35455,7 +35455,7 @@ impl DescriptorMappingSourceIndirectAddressEXT {
 }
 #[cfg(feature = "ext_descriptor_heap")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDescriptorMappingSourceShaderRecordIndexEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDescriptorMappingSourceShaderRecordIndexEXT.html>"]
 #[doc(alias = "VkDescriptorMappingSourceShaderRecordIndexEXT")]
 pub struct DescriptorMappingSourceShaderRecordIndexEXT<'a> {
     pub heap_offset: u32,
@@ -35547,7 +35547,7 @@ impl<'a> DescriptorMappingSourceShaderRecordIndexEXT<'a> {
 }
 #[cfg(feature = "ext_descriptor_heap")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDescriptorMappingSourceDataEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDescriptorMappingSourceDataEXT.html>"]
 #[doc(alias = "VkDescriptorMappingSourceDataEXT")]
 pub union DescriptorMappingSourceDataEXT<'a> {
     pub constant_offset: ManuallyDrop<DescriptorMappingSourceConstantOffsetEXT<'a>>,
@@ -35572,7 +35572,7 @@ impl<'a> Default for DescriptorMappingSourceDataEXT<'a> {
 }
 #[cfg(feature = "ext_descriptor_heap")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDescriptorMappingSourceIndirectIndexArrayEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDescriptorMappingSourceIndirectIndexArrayEXT.html>"]
 #[doc(alias = "VkDescriptorMappingSourceIndirectIndexArrayEXT")]
 pub struct DescriptorMappingSourceIndirectIndexArrayEXT<'a> {
     pub heap_offset: u32,
@@ -35664,7 +35664,7 @@ impl<'a> DescriptorMappingSourceIndirectIndexArrayEXT<'a> {
 }
 #[cfg(feature = "ext_descriptor_heap")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDescriptorSetAndBindingMappingEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDescriptorSetAndBindingMappingEXT.html>"]
 #[doc(alias = "VkDescriptorSetAndBindingMappingEXT")]
 pub struct DescriptorSetAndBindingMappingEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -35743,7 +35743,7 @@ impl<'a> DescriptorSetAndBindingMappingEXT<'a> {
 }
 #[cfg(feature = "ext_descriptor_heap")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkShaderDescriptorSetAndBindingMappingInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkShaderDescriptorSetAndBindingMappingInfoEXT.html>"]
 #[doc(alias = "VkShaderDescriptorSetAndBindingMappingInfoEXT")]
 pub struct ShaderDescriptorSetAndBindingMappingInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -35812,7 +35812,7 @@ impl<'a> ShaderDescriptorSetAndBindingMappingInfoEXT<'a> {
 }
 #[cfg(feature = "ext_descriptor_heap")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkOpaqueCaptureDataCreateInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkOpaqueCaptureDataCreateInfoEXT.html>"]
 #[doc(alias = "VkOpaqueCaptureDataCreateInfoEXT")]
 pub struct OpaqueCaptureDataCreateInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -35863,7 +35863,7 @@ impl<'a> OpaqueCaptureDataCreateInfoEXT<'a> {
 }
 #[cfg(feature = "ext_descriptor_heap")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceDescriptorHeapFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceDescriptorHeapFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceDescriptorHeapFeaturesEXT")]
 pub struct PhysicalDeviceDescriptorHeapFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -35930,7 +35930,7 @@ impl<'a> PhysicalDeviceDescriptorHeapFeaturesEXT<'a> {
 }
 #[cfg(feature = "ext_descriptor_heap")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceDescriptorHeapPropertiesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceDescriptorHeapPropertiesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceDescriptorHeapPropertiesEXT")]
 pub struct PhysicalDeviceDescriptorHeapPropertiesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -36111,7 +36111,7 @@ impl<'a> PhysicalDeviceDescriptorHeapPropertiesEXT<'a> {
 }
 #[cfg(feature = "ext_descriptor_heap")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCommandBufferInheritanceDescriptorHeapInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCommandBufferInheritanceDescriptorHeapInfoEXT.html>"]
 #[doc(alias = "VkCommandBufferInheritanceDescriptorHeapInfoEXT")]
 pub struct CommandBufferInheritanceDescriptorHeapInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -36168,7 +36168,7 @@ impl<'a> CommandBufferInheritanceDescriptorHeapInfoEXT<'a> {
 }
 #[cfg(all(feature = "ext_descriptor_heap", feature = "ext_custom_border_color"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSamplerCustomBorderColorIndexCreateInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSamplerCustomBorderColorIndexCreateInfoEXT.html>"]
 #[doc(alias = "VkSamplerCustomBorderColorIndexCreateInfoEXT")]
 pub struct SamplerCustomBorderColorIndexCreateInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -36220,7 +36220,7 @@ impl<'a> SamplerCustomBorderColorIndexCreateInfoEXT<'a> {
     feature = "ext_device_generated_commands"
 ))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkIndirectCommandsLayoutPushDataTokenNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkIndirectCommandsLayoutPushDataTokenNV.html>"]
 #[doc(alias = "VkIndirectCommandsLayoutPushDataTokenNV")]
 pub struct IndirectCommandsLayoutPushDataTokenNV<'a> {
     pub(crate) s_type: StructureType,
@@ -36300,7 +36300,7 @@ impl<'a> IndirectCommandsLayoutPushDataTokenNV<'a> {
 }
 #[cfg(all(feature = "ext_descriptor_heap", feature = "ext_fragment_density_map"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSubsampledImageFormatPropertiesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSubsampledImageFormatPropertiesEXT.html>"]
 #[doc(alias = "VkSubsampledImageFormatPropertiesEXT")]
 pub struct SubsampledImageFormatPropertiesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -36355,7 +36355,7 @@ impl<'a> SubsampledImageFormatPropertiesEXT<'a> {
 }
 #[cfg(any(feature = "ext_descriptor_heap", feature = "ext_tensors"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkTensorViewCreateInfoARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkTensorViewCreateInfoARM.html>"]
 #[doc(alias = "VkTensorViewCreateInfoARM")]
 pub struct TensorViewCreateInfoARM<'a> {
     pub(crate) s_type: StructureType,
@@ -36413,7 +36413,7 @@ impl<'a> TensorViewCreateInfoARM<'a> {
 }
 #[cfg(all(feature = "ext_descriptor_heap", feature = "ext_tensors"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceDescriptorHeapTensorPropertiesARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceDescriptorHeapTensorPropertiesARM.html>"]
 #[doc(alias = "VkPhysicalDeviceDescriptorHeapTensorPropertiesARM")]
 pub struct PhysicalDeviceDescriptorHeapTensorPropertiesARM<'a> {
     pub(crate) s_type: StructureType,
@@ -36492,7 +36492,7 @@ impl<'a> PhysicalDeviceDescriptorHeapTensorPropertiesARM<'a> {
     )
 ))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAttachmentSampleCountInfoAMD.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAttachmentSampleCountInfoAMD.html>"]
 #[doc(alias = "VkAttachmentSampleCountInfoAMD")]
 pub struct AttachmentSampleCountInfoAMD<'a> {
     pub(crate) s_type: StructureType,
@@ -36657,7 +36657,7 @@ impl<'a> AttachmentSampleCountInfoAMD<'a> {
 ))]
 pub type AttachmentSampleCountInfoNV<'a> = AttachmentSampleCountInfoAMD<'a>;
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderBfloat16FeaturesKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderBfloat16FeaturesKHR.html>"]
 #[doc(alias = "VkPhysicalDeviceShaderBfloat16FeaturesKHR")]
 pub struct PhysicalDeviceShaderBfloat16FeaturesKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -36726,7 +36726,7 @@ impl<'a> PhysicalDeviceShaderBfloat16FeaturesKHR<'a> {
 #[cfg(feature = "ext_sample_locations")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSampleLocationEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSampleLocationEXT.html>"]
 #[doc(alias = "VkSampleLocationEXT")]
 pub struct SampleLocationEXT {
     pub x: f32,
@@ -36760,7 +36760,7 @@ impl SampleLocationEXT {
 }
 #[cfg(feature = "ext_sample_locations")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSampleLocationsInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSampleLocationsInfoEXT.html>"]
 #[doc(alias = "VkSampleLocationsInfoEXT")]
 pub struct SampleLocationsInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -36842,7 +36842,7 @@ impl<'a> SampleLocationsInfoEXT<'a> {
 }
 #[cfg(feature = "ext_sample_locations")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAttachmentSampleLocationsEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAttachmentSampleLocationsEXT.html>"]
 #[doc(alias = "VkAttachmentSampleLocationsEXT")]
 pub struct AttachmentSampleLocationsEXT<'a> {
     pub attachment_index: u32,
@@ -36878,7 +36878,7 @@ impl<'a> AttachmentSampleLocationsEXT<'a> {
 }
 #[cfg(feature = "ext_sample_locations")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSubpassSampleLocationsEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSubpassSampleLocationsEXT.html>"]
 #[doc(alias = "VkSubpassSampleLocationsEXT")]
 pub struct SubpassSampleLocationsEXT<'a> {
     pub subpass_index: u32,
@@ -36914,7 +36914,7 @@ impl<'a> SubpassSampleLocationsEXT<'a> {
 }
 #[cfg(feature = "ext_sample_locations")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkRenderPassSampleLocationsBeginInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkRenderPassSampleLocationsBeginInfoEXT.html>"]
 #[doc(alias = "VkRenderPassSampleLocationsBeginInfoEXT")]
 pub struct RenderPassSampleLocationsBeginInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -37012,7 +37012,7 @@ impl<'a> RenderPassSampleLocationsBeginInfoEXT<'a> {
 }
 #[cfg(feature = "ext_sample_locations")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineSampleLocationsStateCreateInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineSampleLocationsStateCreateInfoEXT.html>"]
 #[doc(alias = "VkPipelineSampleLocationsStateCreateInfoEXT")]
 pub struct PipelineSampleLocationsStateCreateInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -37068,7 +37068,7 @@ impl<'a> PipelineSampleLocationsStateCreateInfoEXT<'a> {
 }
 #[cfg(feature = "ext_sample_locations")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceSampleLocationsPropertiesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceSampleLocationsPropertiesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceSampleLocationsPropertiesEXT")]
 pub struct PhysicalDeviceSampleLocationsPropertiesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -37151,7 +37151,7 @@ impl<'a> PhysicalDeviceSampleLocationsPropertiesEXT<'a> {
 }
 #[cfg(feature = "ext_sample_locations")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkMultisamplePropertiesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkMultisamplePropertiesEXT.html>"]
 #[doc(alias = "VkMultisamplePropertiesEXT")]
 pub struct MultisamplePropertiesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -37195,7 +37195,7 @@ impl<'a> MultisamplePropertiesEXT<'a> {
 }
 #[cfg(feature = "ext_blend_operation_advanced")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceBlendOperationAdvancedFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceBlendOperationAdvancedFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceBlendOperationAdvancedFeaturesEXT")]
 pub struct PhysicalDeviceBlendOperationAdvancedFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -37256,7 +37256,7 @@ impl<'a> PhysicalDeviceBlendOperationAdvancedFeaturesEXT<'a> {
 }
 #[cfg(feature = "ext_blend_operation_advanced")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT")]
 pub struct PhysicalDeviceBlendOperationAdvancedPropertiesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -37347,7 +37347,7 @@ impl<'a> PhysicalDeviceBlendOperationAdvancedPropertiesEXT<'a> {
 }
 #[cfg(feature = "ext_blend_operation_advanced")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineColorBlendAdvancedStateCreateInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineColorBlendAdvancedStateCreateInfoEXT.html>"]
 #[doc(alias = "VkPipelineColorBlendAdvancedStateCreateInfoEXT")]
 pub struct PipelineColorBlendAdvancedStateCreateInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -37411,7 +37411,7 @@ impl<'a> PipelineColorBlendAdvancedStateCreateInfoEXT<'a> {
 }
 #[cfg(feature = "ext_fragment_coverage_to_color")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineCoverageToColorStateCreateInfoNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineCoverageToColorStateCreateInfoNV.html>"]
 #[doc(alias = "VkPipelineCoverageToColorStateCreateInfoNV")]
 pub struct PipelineCoverageToColorStateCreateInfoNV<'a> {
     pub(crate) s_type: StructureType,
@@ -37478,7 +37478,7 @@ impl<'a> PipelineCoverageToColorStateCreateInfoNV<'a> {
 ))]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDeviceOrHostAddressKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceOrHostAddressKHR.html>"]
 #[doc(alias = "VkDeviceOrHostAddressKHR")]
 pub union DeviceOrHostAddressKHR {
     pub device_address: DeviceAddress,
@@ -37501,7 +37501,7 @@ impl Default for DeviceOrHostAddressKHR {
 ))]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDeviceOrHostAddressConstKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceOrHostAddressConstKHR.html>"]
 #[doc(alias = "VkDeviceOrHostAddressConstKHR")]
 pub union DeviceOrHostAddressConstKHR {
     pub device_address: DeviceAddress,
@@ -37521,7 +37521,7 @@ impl Default for DeviceOrHostAddressConstKHR {
 #[cfg(feature = "ext_acceleration_structure")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAccelerationStructureBuildRangeInfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAccelerationStructureBuildRangeInfoKHR.html>"]
 #[doc(alias = "VkAccelerationStructureBuildRangeInfoKHR")]
 pub struct AccelerationStructureBuildRangeInfoKHR {
     pub primitive_count: u32,
@@ -37570,7 +37570,7 @@ impl AccelerationStructureBuildRangeInfoKHR {
 #[cfg(any(feature = "ext_acceleration_structure", feature = "ext_ray_tracing"))]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAabbPositionsKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAabbPositionsKHR.html>"]
 #[doc(alias = "VkAabbPositionsKHR")]
 pub struct AabbPositionsKHR {
     pub min_x: f32,
@@ -37634,7 +37634,7 @@ impl AabbPositionsKHR {
 pub type AabbPositionsNV = AabbPositionsKHR;
 #[cfg(feature = "ext_acceleration_structure")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAccelerationStructureGeometryTrianglesDataKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAccelerationStructureGeometryTrianglesDataKHR.html>"]
 #[doc(alias = "VkAccelerationStructureGeometryTrianglesDataKHR")]
 pub struct AccelerationStructureGeometryTrianglesDataKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -37722,7 +37722,7 @@ impl<'a> AccelerationStructureGeometryTrianglesDataKHR<'a> {
 #[cfg(any(feature = "ext_acceleration_structure", feature = "ext_ray_tracing"))]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkTransformMatrixKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkTransformMatrixKHR.html>"]
 #[doc(alias = "VkTransformMatrixKHR")]
 pub struct TransformMatrixKHR {
     pub matrix: [[f32; 4u8 as _]; 3u8 as _],
@@ -37751,7 +37751,7 @@ impl TransformMatrixKHR {
 pub type TransformMatrixNV = TransformMatrixKHR;
 #[cfg(feature = "ext_acceleration_structure")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAccelerationStructureBuildGeometryInfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAccelerationStructureBuildGeometryInfoKHR.html>"]
 #[doc(alias = "VkAccelerationStructureBuildGeometryInfoKHR")]
 pub struct AccelerationStructureBuildGeometryInfoKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -37878,7 +37878,7 @@ impl<'a> AccelerationStructureBuildGeometryInfoKHR<'a> {
 }
 #[cfg(feature = "ext_acceleration_structure")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAccelerationStructureGeometryAabbsDataKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAccelerationStructureGeometryAabbsDataKHR.html>"]
 #[doc(alias = "VkAccelerationStructureGeometryAabbsDataKHR")]
 pub struct AccelerationStructureGeometryAabbsDataKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -37930,7 +37930,7 @@ impl<'a> AccelerationStructureGeometryAabbsDataKHR<'a> {
 #[cfg(any(feature = "ext_acceleration_structure", feature = "ext_ray_tracing"))]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAccelerationStructureInstanceKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAccelerationStructureInstanceKHR.html>"]
 #[doc(alias = "VkAccelerationStructureInstanceKHR")]
 pub struct AccelerationStructureInstanceKHR {
     pub transform: TransformMatrixKHR,
@@ -37995,7 +37995,7 @@ impl AccelerationStructureInstanceKHR {
 pub type AccelerationStructureInstanceNV = AccelerationStructureInstanceKHR;
 #[cfg(feature = "ext_acceleration_structure")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAccelerationStructureGeometryInstancesDataKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAccelerationStructureGeometryInstancesDataKHR.html>"]
 #[doc(alias = "VkAccelerationStructureGeometryInstancesDataKHR")]
 pub struct AccelerationStructureGeometryInstancesDataKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -38047,7 +38047,7 @@ impl<'a> AccelerationStructureGeometryInstancesDataKHR<'a> {
 }
 #[cfg(feature = "ext_acceleration_structure")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAccelerationStructureGeometryDataKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAccelerationStructureGeometryDataKHR.html>"]
 #[doc(alias = "VkAccelerationStructureGeometryDataKHR")]
 pub union AccelerationStructureGeometryDataKHR<'a> {
     pub triangles: ManuallyDrop<AccelerationStructureGeometryTrianglesDataKHR<'a>>,
@@ -38064,7 +38064,7 @@ impl<'a> Default for AccelerationStructureGeometryDataKHR<'a> {
 }
 #[cfg(feature = "ext_acceleration_structure")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAccelerationStructureGeometryKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAccelerationStructureGeometryKHR.html>"]
 #[doc(alias = "VkAccelerationStructureGeometryKHR")]
 pub struct AccelerationStructureGeometryKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -38122,7 +38122,7 @@ impl<'a> AccelerationStructureGeometryKHR<'a> {
 }
 #[cfg(feature = "ext_acceleration_structure")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAccelerationStructureCreateInfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAccelerationStructureCreateInfoKHR.html>"]
 #[doc(alias = "VkAccelerationStructureCreateInfoKHR")]
 pub struct AccelerationStructureCreateInfoKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -38201,7 +38201,7 @@ impl<'a> AccelerationStructureCreateInfoKHR<'a> {
 }
 #[cfg(feature = "ext_acceleration_structure")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkWriteDescriptorSetAccelerationStructureKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkWriteDescriptorSetAccelerationStructureKHR.html>"]
 #[doc(alias = "VkWriteDescriptorSetAccelerationStructureKHR")]
 pub struct WriteDescriptorSetAccelerationStructureKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -38274,7 +38274,7 @@ impl<'a> WriteDescriptorSetAccelerationStructureKHR<'a> {
 }
 #[cfg(feature = "ext_acceleration_structure")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceAccelerationStructureFeaturesKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceAccelerationStructureFeaturesKHR.html>"]
 #[doc(alias = "VkPhysicalDeviceAccelerationStructureFeaturesKHR")]
 pub struct PhysicalDeviceAccelerationStructureFeaturesKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -38366,7 +38366,7 @@ impl<'a> PhysicalDeviceAccelerationStructureFeaturesKHR<'a> {
 }
 #[cfg(feature = "ext_acceleration_structure")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceAccelerationStructurePropertiesKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceAccelerationStructurePropertiesKHR.html>"]
 #[doc(alias = "VkPhysicalDeviceAccelerationStructurePropertiesKHR")]
 pub struct PhysicalDeviceAccelerationStructurePropertiesKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -38477,7 +38477,7 @@ impl<'a> PhysicalDeviceAccelerationStructurePropertiesKHR<'a> {
 }
 #[cfg(feature = "ext_acceleration_structure")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAccelerationStructureDeviceAddressInfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAccelerationStructureDeviceAddressInfoKHR.html>"]
 #[doc(alias = "VkAccelerationStructureDeviceAddressInfoKHR")]
 pub struct AccelerationStructureDeviceAddressInfoKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -38521,7 +38521,7 @@ impl<'a> AccelerationStructureDeviceAddressInfoKHR<'a> {
 }
 #[cfg(feature = "ext_acceleration_structure")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAccelerationStructureVersionInfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAccelerationStructureVersionInfoKHR.html>"]
 #[doc(alias = "VkAccelerationStructureVersionInfoKHR")]
 pub struct AccelerationStructureVersionInfoKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -38565,7 +38565,7 @@ impl<'a> AccelerationStructureVersionInfoKHR<'a> {
 }
 #[cfg(feature = "ext_acceleration_structure")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCopyAccelerationStructureToMemoryInfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCopyAccelerationStructureToMemoryInfoKHR.html>"]
 #[doc(alias = "VkCopyAccelerationStructureToMemoryInfoKHR")]
 pub struct CopyAccelerationStructureToMemoryInfoKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -38623,7 +38623,7 @@ impl<'a> CopyAccelerationStructureToMemoryInfoKHR<'a> {
 }
 #[cfg(feature = "ext_acceleration_structure")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCopyMemoryToAccelerationStructureInfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCopyMemoryToAccelerationStructureInfoKHR.html>"]
 #[doc(alias = "VkCopyMemoryToAccelerationStructureInfoKHR")]
 pub struct CopyMemoryToAccelerationStructureInfoKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -38681,7 +38681,7 @@ impl<'a> CopyMemoryToAccelerationStructureInfoKHR<'a> {
 }
 #[cfg(feature = "ext_acceleration_structure")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCopyAccelerationStructureInfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCopyAccelerationStructureInfoKHR.html>"]
 #[doc(alias = "VkCopyAccelerationStructureInfoKHR")]
 pub struct CopyAccelerationStructureInfoKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -38739,7 +38739,7 @@ impl<'a> CopyAccelerationStructureInfoKHR<'a> {
 }
 #[cfg(feature = "ext_acceleration_structure")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAccelerationStructureBuildSizesInfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAccelerationStructureBuildSizesInfoKHR.html>"]
 #[doc(alias = "VkAccelerationStructureBuildSizesInfoKHR")]
 pub struct AccelerationStructureBuildSizesInfoKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -38797,7 +38797,7 @@ impl<'a> AccelerationStructureBuildSizesInfoKHR<'a> {
 }
 #[cfg(feature = "ext_ray_tracing_pipeline")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkRayTracingShaderGroupCreateInfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkRayTracingShaderGroupCreateInfoKHR.html>"]
 #[doc(alias = "VkRayTracingShaderGroupCreateInfoKHR")]
 pub struct RayTracingShaderGroupCreateInfoKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -38876,7 +38876,7 @@ impl<'a> RayTracingShaderGroupCreateInfoKHR<'a> {
 }
 #[cfg(feature = "ext_ray_tracing_pipeline")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkRayTracingPipelineCreateInfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkRayTracingPipelineCreateInfoKHR.html>"]
 #[doc(alias = "VkRayTracingPipelineCreateInfoKHR")]
 pub struct RayTracingPipelineCreateInfoKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -39007,7 +39007,7 @@ impl<'a> RayTracingPipelineCreateInfoKHR<'a> {
 }
 #[cfg(feature = "ext_ray_tracing_pipeline")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceRayTracingPipelineFeaturesKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceRayTracingPipelineFeaturesKHR.html>"]
 #[doc(alias = "VkPhysicalDeviceRayTracingPipelineFeaturesKHR")]
 pub struct PhysicalDeviceRayTracingPipelineFeaturesKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -39102,7 +39102,7 @@ impl<'a> PhysicalDeviceRayTracingPipelineFeaturesKHR<'a> {
 }
 #[cfg(feature = "ext_ray_tracing_pipeline")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceRayTracingPipelinePropertiesKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceRayTracingPipelinePropertiesKHR.html>"]
 #[doc(alias = "VkPhysicalDeviceRayTracingPipelinePropertiesKHR")]
 pub struct PhysicalDeviceRayTracingPipelinePropertiesKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -39208,7 +39208,7 @@ impl<'a> PhysicalDeviceRayTracingPipelinePropertiesKHR<'a> {
 #[cfg(feature = "ext_ray_tracing_pipeline")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkStridedDeviceAddressRegionKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkStridedDeviceAddressRegionKHR.html>"]
 #[doc(alias = "VkStridedDeviceAddressRegionKHR")]
 pub struct StridedDeviceAddressRegionKHR {
     pub device_address: DeviceAddress,
@@ -39250,7 +39250,7 @@ impl StridedDeviceAddressRegionKHR {
 #[cfg(feature = "ext_ray_tracing_pipeline")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkTraceRaysIndirectCommandKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkTraceRaysIndirectCommandKHR.html>"]
 #[doc(alias = "VkTraceRaysIndirectCommandKHR")]
 pub struct TraceRaysIndirectCommandKHR {
     pub width: u32,
@@ -39291,7 +39291,7 @@ impl TraceRaysIndirectCommandKHR {
 }
 #[cfg(feature = "ext_ray_tracing_pipeline")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkRayTracingPipelineInterfaceCreateInfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkRayTracingPipelineInterfaceCreateInfoKHR.html>"]
 #[doc(alias = "VkRayTracingPipelineInterfaceCreateInfoKHR")]
 pub struct RayTracingPipelineInterfaceCreateInfoKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -39341,7 +39341,7 @@ impl<'a> RayTracingPipelineInterfaceCreateInfoKHR<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceRayQueryFeaturesKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceRayQueryFeaturesKHR.html>"]
 #[doc(alias = "VkPhysicalDeviceRayQueryFeaturesKHR")]
 pub struct PhysicalDeviceRayQueryFeaturesKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -39395,7 +39395,7 @@ impl<'a> PhysicalDeviceRayQueryFeaturesKHR<'a> {
 }
 #[cfg(feature = "ext_framebuffer_mixed_samples")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineCoverageModulationStateCreateInfoNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineCoverageModulationStateCreateInfoNV.html>"]
 #[doc(alias = "VkPipelineCoverageModulationStateCreateInfoNV")]
 pub struct PipelineCoverageModulationStateCreateInfoNV<'a> {
     pub(crate) s_type: StructureType,
@@ -39487,7 +39487,7 @@ impl<'a> PipelineCoverageModulationStateCreateInfoNV<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderSMBuiltinsPropertiesNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderSMBuiltinsPropertiesNV.html>"]
 #[doc(alias = "VkPhysicalDeviceShaderSMBuiltinsPropertiesNV")]
 pub struct PhysicalDeviceShaderSMBuiltinsPropertiesNV<'a> {
     pub(crate) s_type: StructureType,
@@ -39542,7 +39542,7 @@ impl<'a> PhysicalDeviceShaderSMBuiltinsPropertiesNV<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderSMBuiltinsFeaturesNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderSMBuiltinsFeaturesNV.html>"]
 #[doc(alias = "VkPhysicalDeviceShaderSMBuiltinsFeaturesNV")]
 pub struct PhysicalDeviceShaderSMBuiltinsFeaturesNV<'a> {
     pub(crate) s_type: StructureType,
@@ -39596,7 +39596,7 @@ impl<'a> PhysicalDeviceShaderSMBuiltinsFeaturesNV<'a> {
 }
 #[cfg(feature = "ext_image_drm_format_modifier")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDrmFormatModifierPropertiesListEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDrmFormatModifierPropertiesListEXT.html>"]
 #[doc(alias = "VkDrmFormatModifierPropertiesListEXT")]
 pub struct DrmFormatModifierPropertiesListEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -39665,7 +39665,7 @@ impl<'a> DrmFormatModifierPropertiesListEXT<'a> {
 #[cfg(feature = "ext_image_drm_format_modifier")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDrmFormatModifierPropertiesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDrmFormatModifierPropertiesEXT.html>"]
 #[doc(alias = "VkDrmFormatModifierPropertiesEXT")]
 pub struct DrmFormatModifierPropertiesEXT {
     pub drm_format_modifier: u64,
@@ -39706,7 +39706,7 @@ impl DrmFormatModifierPropertiesEXT {
 }
 #[cfg(feature = "ext_image_drm_format_modifier")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceImageDrmFormatModifierInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceImageDrmFormatModifierInfoEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceImageDrmFormatModifierInfoEXT")]
 pub struct PhysicalDeviceImageDrmFormatModifierInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -39795,7 +39795,7 @@ impl<'a> PhysicalDeviceImageDrmFormatModifierInfoEXT<'a> {
 }
 #[cfg(feature = "ext_image_drm_format_modifier")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImageDrmFormatModifierListCreateInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImageDrmFormatModifierListCreateInfoEXT.html>"]
 #[doc(alias = "VkImageDrmFormatModifierListCreateInfoEXT")]
 pub struct ImageDrmFormatModifierListCreateInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -39858,7 +39858,7 @@ impl<'a> ImageDrmFormatModifierListCreateInfoEXT<'a> {
 }
 #[cfg(feature = "ext_image_drm_format_modifier")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImageDrmFormatModifierExplicitCreateInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImageDrmFormatModifierExplicitCreateInfoEXT.html>"]
 #[doc(alias = "VkImageDrmFormatModifierExplicitCreateInfoEXT")]
 pub struct ImageDrmFormatModifierExplicitCreateInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -39929,7 +39929,7 @@ impl<'a> ImageDrmFormatModifierExplicitCreateInfoEXT<'a> {
 }
 #[cfg(feature = "ext_image_drm_format_modifier")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImageDrmFormatModifierPropertiesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImageDrmFormatModifierPropertiesEXT.html>"]
 #[doc(alias = "VkImageDrmFormatModifierPropertiesEXT")]
 pub struct ImageDrmFormatModifierPropertiesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -39976,7 +39976,7 @@ impl<'a> ImageDrmFormatModifierPropertiesEXT<'a> {
     any(feature = "ext_format_feature_flags2", feature = "version_1_3")
 ))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDrmFormatModifierPropertiesList2EXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDrmFormatModifierPropertiesList2EXT.html>"]
 #[doc(alias = "VkDrmFormatModifierPropertiesList2EXT")]
 pub struct DrmFormatModifierPropertiesList2EXT<'a> {
     pub(crate) s_type: StructureType,
@@ -40069,7 +40069,7 @@ impl<'a> DrmFormatModifierPropertiesList2EXT<'a> {
 ))]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDrmFormatModifierProperties2EXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDrmFormatModifierProperties2EXT.html>"]
 #[doc(alias = "VkDrmFormatModifierProperties2EXT")]
 pub struct DrmFormatModifierProperties2EXT {
     pub drm_format_modifier: u64,
@@ -40122,7 +40122,7 @@ impl DrmFormatModifierProperties2EXT {
 }
 #[cfg(feature = "ext_validation_cache")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkValidationCacheCreateInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkValidationCacheCreateInfoEXT.html>"]
 #[doc(alias = "VkValidationCacheCreateInfoEXT")]
 pub struct ValidationCacheCreateInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -40187,7 +40187,7 @@ impl<'a> ValidationCacheCreateInfoEXT<'a> {
 }
 #[cfg(feature = "ext_validation_cache")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkShaderModuleValidationCacheCreateInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkShaderModuleValidationCacheCreateInfoEXT.html>"]
 #[doc(alias = "VkShaderModuleValidationCacheCreateInfoEXT")]
 pub struct ShaderModuleValidationCacheCreateInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -40240,7 +40240,7 @@ impl<'a> ShaderModuleValidationCacheCreateInfoEXT<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDevicePortabilitySubsetFeaturesKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDevicePortabilitySubsetFeaturesKHR.html>"]
 #[doc(alias = "VkPhysicalDevicePortabilitySubsetFeaturesKHR")]
 pub struct PhysicalDevicePortabilitySubsetFeaturesKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -40391,7 +40391,7 @@ impl<'a> PhysicalDevicePortabilitySubsetFeaturesKHR<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDevicePortabilitySubsetPropertiesKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDevicePortabilitySubsetPropertiesKHR.html>"]
 #[doc(alias = "VkPhysicalDevicePortabilitySubsetPropertiesKHR")]
 pub struct PhysicalDevicePortabilitySubsetPropertiesKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -40441,7 +40441,7 @@ impl<'a> PhysicalDevicePortabilitySubsetPropertiesKHR<'a> {
 }
 #[cfg(feature = "ext_shading_rate_image")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkShadingRatePaletteNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkShadingRatePaletteNV.html>"]
 #[doc(alias = "VkShadingRatePaletteNV")]
 pub struct ShadingRatePaletteNV<'a> {
     pub(crate) shading_rate_palette_entry_count: u32,
@@ -40489,7 +40489,7 @@ impl<'a> ShadingRatePaletteNV<'a> {
 }
 #[cfg(feature = "ext_shading_rate_image")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineViewportShadingRateImageStateCreateInfoNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineViewportShadingRateImageStateCreateInfoNV.html>"]
 #[doc(alias = "VkPipelineViewportShadingRateImageStateCreateInfoNV")]
 pub struct PipelineViewportShadingRateImageStateCreateInfoNV<'a> {
     pub(crate) s_type: StructureType,
@@ -40568,7 +40568,7 @@ impl<'a> PipelineViewportShadingRateImageStateCreateInfoNV<'a> {
 }
 #[cfg(feature = "ext_shading_rate_image")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceShadingRateImageFeaturesNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShadingRateImageFeaturesNV.html>"]
 #[doc(alias = "VkPhysicalDeviceShadingRateImageFeaturesNV")]
 pub struct PhysicalDeviceShadingRateImageFeaturesNV<'a> {
     pub(crate) s_type: StructureType,
@@ -40635,7 +40635,7 @@ impl<'a> PhysicalDeviceShadingRateImageFeaturesNV<'a> {
 }
 #[cfg(feature = "ext_shading_rate_image")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceShadingRateImagePropertiesNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShadingRateImagePropertiesNV.html>"]
 #[doc(alias = "VkPhysicalDeviceShadingRateImagePropertiesNV")]
 pub struct PhysicalDeviceShadingRateImagePropertiesNV<'a> {
     pub(crate) s_type: StructureType,
@@ -40705,7 +40705,7 @@ impl<'a> PhysicalDeviceShadingRateImagePropertiesNV<'a> {
 #[cfg(feature = "ext_shading_rate_image")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCoarseSampleLocationNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCoarseSampleLocationNV.html>"]
 #[doc(alias = "VkCoarseSampleLocationNV")]
 pub struct CoarseSampleLocationNV {
     pub pixel_x: u32,
@@ -40746,7 +40746,7 @@ impl CoarseSampleLocationNV {
 }
 #[cfg(feature = "ext_shading_rate_image")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCoarseSampleOrderCustomNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCoarseSampleOrderCustomNV.html>"]
 #[doc(alias = "VkCoarseSampleOrderCustomNV")]
 pub struct CoarseSampleOrderCustomNV<'a> {
     pub shading_rate: ShadingRatePaletteEntryNV,
@@ -40806,7 +40806,7 @@ impl<'a> CoarseSampleOrderCustomNV<'a> {
 }
 #[cfg(feature = "ext_shading_rate_image")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineViewportCoarseSampleOrderStateCreateInfoNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineViewportCoarseSampleOrderStateCreateInfoNV.html>"]
 #[doc(alias = "VkPipelineViewportCoarseSampleOrderStateCreateInfoNV")]
 pub struct PipelineViewportCoarseSampleOrderStateCreateInfoNV<'a> {
     pub(crate) s_type: StructureType,
@@ -40880,7 +40880,7 @@ impl<'a> PipelineViewportCoarseSampleOrderStateCreateInfoNV<'a> {
 }
 #[cfg(feature = "ext_ray_tracing")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkRayTracingShaderGroupCreateInfoNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkRayTracingShaderGroupCreateInfoNV.html>"]
 #[doc(alias = "VkRayTracingShaderGroupCreateInfoNV")]
 pub struct RayTracingShaderGroupCreateInfoNV<'a> {
     pub(crate) s_type: StructureType,
@@ -40952,7 +40952,7 @@ impl<'a> RayTracingShaderGroupCreateInfoNV<'a> {
 }
 #[cfg(feature = "ext_ray_tracing")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkRayTracingPipelineCreateInfoNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkRayTracingPipelineCreateInfoNV.html>"]
 #[doc(alias = "VkRayTracingPipelineCreateInfoNV")]
 pub struct RayTracingPipelineCreateInfoNV<'a> {
     pub(crate) s_type: StructureType,
@@ -41059,7 +41059,7 @@ impl<'a> RayTracingPipelineCreateInfoNV<'a> {
 }
 #[cfg(feature = "ext_ray_tracing")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkGeometryTrianglesNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkGeometryTrianglesNV.html>"]
 #[doc(alias = "VkGeometryTrianglesNV")]
 pub struct GeometryTrianglesNV<'a> {
     pub(crate) s_type: StructureType,
@@ -41173,7 +41173,7 @@ impl<'a> GeometryTrianglesNV<'a> {
 }
 #[cfg(feature = "ext_ray_tracing")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkGeometryAABBNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkGeometryAABBNV.html>"]
 #[doc(alias = "VkGeometryAABBNV")]
 pub struct GeometryAABBNV<'a> {
     pub(crate) s_type: StructureType,
@@ -41238,7 +41238,7 @@ impl<'a> GeometryAABBNV<'a> {
 }
 #[cfg(feature = "ext_ray_tracing")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkGeometryDataNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkGeometryDataNV.html>"]
 #[doc(alias = "VkGeometryDataNV")]
 pub struct GeometryDataNV<'a> {
     pub triangles: GeometryTrianglesNV<'a>,
@@ -41274,7 +41274,7 @@ impl<'a> GeometryDataNV<'a> {
 }
 #[cfg(feature = "ext_ray_tracing")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkGeometryNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkGeometryNV.html>"]
 #[doc(alias = "VkGeometryNV")]
 pub struct GeometryNV<'a> {
     pub(crate) s_type: StructureType,
@@ -41332,7 +41332,7 @@ impl<'a> GeometryNV<'a> {
 }
 #[cfg(feature = "ext_ray_tracing")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAccelerationStructureInfoNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAccelerationStructureInfoNV.html>"]
 #[doc(alias = "VkAccelerationStructureInfoNV")]
 pub struct AccelerationStructureInfoNV<'a> {
     pub(crate) s_type: StructureType,
@@ -41408,7 +41408,7 @@ impl<'a> AccelerationStructureInfoNV<'a> {
 }
 #[cfg(feature = "ext_ray_tracing")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAccelerationStructureCreateInfoNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAccelerationStructureCreateInfoNV.html>"]
 #[doc(alias = "VkAccelerationStructureCreateInfoNV")]
 pub struct AccelerationStructureCreateInfoNV<'a> {
     pub(crate) s_type: StructureType,
@@ -41459,7 +41459,7 @@ impl<'a> AccelerationStructureCreateInfoNV<'a> {
 }
 #[cfg(feature = "ext_ray_tracing")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkBindAccelerationStructureMemoryInfoNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkBindAccelerationStructureMemoryInfoNV.html>"]
 #[doc(alias = "VkBindAccelerationStructureMemoryInfoNV")]
 pub struct BindAccelerationStructureMemoryInfoNV<'a> {
     pub(crate) s_type: StructureType,
@@ -41535,7 +41535,7 @@ impl<'a> BindAccelerationStructureMemoryInfoNV<'a> {
 }
 #[cfg(feature = "ext_ray_tracing")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkWriteDescriptorSetAccelerationStructureNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkWriteDescriptorSetAccelerationStructureNV.html>"]
 #[doc(alias = "VkWriteDescriptorSetAccelerationStructureNV")]
 pub struct WriteDescriptorSetAccelerationStructureNV<'a> {
     pub(crate) s_type: StructureType,
@@ -41608,7 +41608,7 @@ impl<'a> WriteDescriptorSetAccelerationStructureNV<'a> {
 }
 #[cfg(feature = "ext_ray_tracing")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAccelerationStructureMemoryRequirementsInfoNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAccelerationStructureMemoryRequirementsInfoNV.html>"]
 #[doc(alias = "VkAccelerationStructureMemoryRequirementsInfoNV")]
 pub struct AccelerationStructureMemoryRequirementsInfoNV<'a> {
     pub(crate) s_type: StructureType,
@@ -41660,7 +41660,7 @@ impl<'a> AccelerationStructureMemoryRequirementsInfoNV<'a> {
 }
 #[cfg(feature = "ext_ray_tracing")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceRayTracingPropertiesNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceRayTracingPropertiesNV.html>"]
 #[doc(alias = "VkPhysicalDeviceRayTracingPropertiesNV")]
 pub struct PhysicalDeviceRayTracingPropertiesNV<'a> {
     pub(crate) s_type: StructureType,
@@ -41764,7 +41764,7 @@ impl<'a> PhysicalDeviceRayTracingPropertiesNV<'a> {
 }
 #[cfg(feature = "ext_representative_fragment_test")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceRepresentativeFragmentTestFeaturesNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceRepresentativeFragmentTestFeaturesNV.html>"]
 #[doc(alias = "VkPhysicalDeviceRepresentativeFragmentTestFeaturesNV")]
 pub struct PhysicalDeviceRepresentativeFragmentTestFeaturesNV<'a> {
     pub(crate) s_type: StructureType,
@@ -41825,7 +41825,7 @@ impl<'a> PhysicalDeviceRepresentativeFragmentTestFeaturesNV<'a> {
 }
 #[cfg(feature = "ext_representative_fragment_test")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineRepresentativeFragmentTestStateCreateInfoNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineRepresentativeFragmentTestStateCreateInfoNV.html>"]
 #[doc(alias = "VkPipelineRepresentativeFragmentTestStateCreateInfoNV")]
 pub struct PipelineRepresentativeFragmentTestStateCreateInfoNV<'a> {
     pub(crate) s_type: StructureType,
@@ -41878,7 +41878,7 @@ impl<'a> PipelineRepresentativeFragmentTestStateCreateInfoNV<'a> {
 }
 #[cfg(feature = "ext_filter_cubic")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceImageViewImageFormatInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceImageViewImageFormatInfoEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceImageViewImageFormatInfoEXT")]
 pub struct PhysicalDeviceImageViewImageFormatInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -41933,7 +41933,7 @@ impl<'a> PhysicalDeviceImageViewImageFormatInfoEXT<'a> {
 }
 #[cfg(feature = "ext_filter_cubic")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkFilterCubicImageViewImageFormatPropertiesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkFilterCubicImageViewImageFormatPropertiesEXT.html>"]
 #[doc(alias = "VkFilterCubicImageViewImageFormatPropertiesEXT")]
 pub struct FilterCubicImageViewImageFormatPropertiesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -41995,7 +41995,7 @@ impl<'a> FilterCubicImageViewImageFormatPropertiesEXT<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceCooperativeMatrixConversionFeaturesQCOM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceCooperativeMatrixConversionFeaturesQCOM.html>"]
 #[doc(alias = "VkPhysicalDeviceCooperativeMatrixConversionFeaturesQCOM")]
 pub struct PhysicalDeviceCooperativeMatrixConversionFeaturesQCOM<'a> {
     pub(crate) s_type: StructureType,
@@ -42053,7 +42053,7 @@ impl<'a> PhysicalDeviceCooperativeMatrixConversionFeaturesQCOM<'a> {
 }
 #[cfg(feature = "ext_external_memory_host")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImportMemoryHostPointerInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImportMemoryHostPointerInfoEXT.html>"]
 #[doc(alias = "VkImportMemoryHostPointerInfoEXT")]
 pub struct ImportMemoryHostPointerInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -42109,7 +42109,7 @@ impl<'a> ImportMemoryHostPointerInfoEXT<'a> {
 }
 #[cfg(feature = "ext_external_memory_host")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkMemoryHostPointerPropertiesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkMemoryHostPointerPropertiesEXT.html>"]
 #[doc(alias = "VkMemoryHostPointerPropertiesEXT")]
 pub struct MemoryHostPointerPropertiesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -42153,7 +42153,7 @@ impl<'a> MemoryHostPointerPropertiesEXT<'a> {
 }
 #[cfg(feature = "ext_external_memory_host")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceExternalMemoryHostPropertiesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceExternalMemoryHostPropertiesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceExternalMemoryHostPropertiesEXT")]
 pub struct PhysicalDeviceExternalMemoryHostPropertiesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -42208,7 +42208,7 @@ impl<'a> PhysicalDeviceExternalMemoryHostPropertiesEXT<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderClockFeaturesKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderClockFeaturesKHR.html>"]
 #[doc(alias = "VkPhysicalDeviceShaderClockFeaturesKHR")]
 pub struct PhysicalDeviceShaderClockFeaturesKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -42269,7 +42269,7 @@ impl<'a> PhysicalDeviceShaderClockFeaturesKHR<'a> {
 }
 #[cfg(feature = "ext_pipeline_compiler_control")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineCompilerControlCreateInfoAMD.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineCompilerControlCreateInfoAMD.html>"]
 #[doc(alias = "VkPipelineCompilerControlCreateInfoAMD")]
 pub struct PipelineCompilerControlCreateInfoAMD<'a> {
     pub(crate) s_type: StructureType,
@@ -42330,7 +42330,7 @@ impl<'a> PipelineCompilerControlCreateInfoAMD<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderCorePropertiesAMD.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderCorePropertiesAMD.html>"]
 #[doc(alias = "VkPhysicalDeviceShaderCorePropertiesAMD")]
 pub struct PhysicalDeviceShaderCorePropertiesAMD<'a> {
     pub(crate) s_type: StructureType,
@@ -42470,7 +42470,7 @@ impl<'a> PhysicalDeviceShaderCorePropertiesAMD<'a> {
 }
 #[cfg(feature = "ext_memory_overallocation_behavior")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDeviceMemoryOverallocationCreateInfoAMD.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceMemoryOverallocationCreateInfoAMD.html>"]
 #[doc(alias = "VkDeviceMemoryOverallocationCreateInfoAMD")]
 pub struct DeviceMemoryOverallocationCreateInfoAMD<'a> {
     pub(crate) s_type: StructureType,
@@ -42519,7 +42519,7 @@ impl<'a> DeviceMemoryOverallocationCreateInfoAMD<'a> {
 }
 #[cfg(feature = "ext_vertex_attribute_divisor")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT")]
 pub struct PhysicalDeviceVertexAttributeDivisorPropertiesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -42575,7 +42575,7 @@ impl<'a> PhysicalDeviceVertexAttributeDivisorPropertiesEXT<'a> {
 }
 #[cfg(feature = "ext_frame_token")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPresentFrameTokenGGP.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPresentFrameTokenGGP.html>"]
 #[doc(alias = "VkPresentFrameTokenGGP")]
 pub struct PresentFrameTokenGGP<'a> {
     pub(crate) s_type: StructureType,
@@ -42621,7 +42621,7 @@ impl<'a> PresentFrameTokenGGP<'a> {
 }
 #[cfg(feature = "ext_mesh_shader")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceMeshShaderFeaturesNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceMeshShaderFeaturesNV.html>"]
 #[doc(alias = "VkPhysicalDeviceMeshShaderFeaturesNV")]
 pub struct PhysicalDeviceMeshShaderFeaturesNV<'a> {
     pub(crate) s_type: StructureType,
@@ -42688,7 +42688,7 @@ impl<'a> PhysicalDeviceMeshShaderFeaturesNV<'a> {
 }
 #[cfg(feature = "ext_mesh_shader")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceMeshShaderPropertiesNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceMeshShaderPropertiesNV.html>"]
 #[doc(alias = "VkPhysicalDeviceMeshShaderPropertiesNV")]
 pub struct PhysicalDeviceMeshShaderPropertiesNV<'a> {
     pub(crate) s_type: StructureType,
@@ -42828,7 +42828,7 @@ impl<'a> PhysicalDeviceMeshShaderPropertiesNV<'a> {
 #[cfg(feature = "ext_mesh_shader")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDrawMeshTasksIndirectCommandNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDrawMeshTasksIndirectCommandNV.html>"]
 #[doc(alias = "VkDrawMeshTasksIndirectCommandNV")]
 pub struct DrawMeshTasksIndirectCommandNV {
     pub task_count: u32,
@@ -42861,7 +42861,7 @@ impl DrawMeshTasksIndirectCommandNV {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderImageFootprintFeaturesNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderImageFootprintFeaturesNV.html>"]
 #[doc(alias = "VkPhysicalDeviceShaderImageFootprintFeaturesNV")]
 pub struct PhysicalDeviceShaderImageFootprintFeaturesNV<'a> {
     pub(crate) s_type: StructureType,
@@ -42916,7 +42916,7 @@ impl<'a> PhysicalDeviceShaderImageFootprintFeaturesNV<'a> {
 }
 #[cfg(feature = "ext_scissor_exclusive")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineViewportExclusiveScissorStateCreateInfoNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineViewportExclusiveScissorStateCreateInfoNV.html>"]
 #[doc(alias = "VkPipelineViewportExclusiveScissorStateCreateInfoNV")]
 pub struct PipelineViewportExclusiveScissorStateCreateInfoNV<'a> {
     pub(crate) s_type: StructureType,
@@ -42985,7 +42985,7 @@ impl<'a> PipelineViewportExclusiveScissorStateCreateInfoNV<'a> {
 }
 #[cfg(feature = "ext_scissor_exclusive")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceExclusiveScissorFeaturesNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceExclusiveScissorFeaturesNV.html>"]
 #[doc(alias = "VkPhysicalDeviceExclusiveScissorFeaturesNV")]
 pub struct PhysicalDeviceExclusiveScissorFeaturesNV<'a> {
     pub(crate) s_type: StructureType,
@@ -43045,7 +43045,7 @@ impl<'a> PhysicalDeviceExclusiveScissorFeaturesNV<'a> {
 }
 #[cfg(feature = "ext_device_diagnostic_checkpoints")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkQueueFamilyCheckpointPropertiesNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkQueueFamilyCheckpointPropertiesNV.html>"]
 #[doc(alias = "VkQueueFamilyCheckpointPropertiesNV")]
 pub struct QueueFamilyCheckpointPropertiesNV<'a> {
     pub(crate) s_type: StructureType,
@@ -43100,7 +43100,7 @@ impl<'a> QueueFamilyCheckpointPropertiesNV<'a> {
 }
 #[cfg(feature = "ext_device_diagnostic_checkpoints")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCheckpointDataNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCheckpointDataNV.html>"]
 #[doc(alias = "VkCheckpointDataNV")]
 pub struct CheckpointDataNV<'a> {
     pub(crate) s_type: StructureType,
@@ -43154,7 +43154,7 @@ impl<'a> CheckpointDataNV<'a> {
     any(feature = "version_1_3", feature = "ext_synchronization2")
 ))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkQueueFamilyCheckpointProperties2NV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkQueueFamilyCheckpointProperties2NV.html>"]
 #[doc(alias = "VkQueueFamilyCheckpointProperties2NV")]
 pub struct QueueFamilyCheckpointProperties2NV<'a> {
     pub(crate) s_type: StructureType,
@@ -43233,7 +43233,7 @@ impl<'a> QueueFamilyCheckpointProperties2NV<'a> {
     any(feature = "version_1_3", feature = "ext_synchronization2")
 ))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCheckpointData2NV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCheckpointData2NV.html>"]
 #[doc(alias = "VkCheckpointData2NV")]
 pub struct CheckpointData2NV<'a> {
     pub(crate) s_type: StructureType,
@@ -43302,7 +43302,7 @@ impl<'a> CheckpointData2NV<'a> {
 }
 #[cfg(feature = "ext_present_timing")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDevicePresentTimingFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDevicePresentTimingFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDevicePresentTimingFeaturesEXT")]
 pub struct PhysicalDevicePresentTimingFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -43376,7 +43376,7 @@ impl<'a> PhysicalDevicePresentTimingFeaturesEXT<'a> {
 }
 #[cfg(feature = "ext_present_timing")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPresentTimingSurfaceCapabilitiesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPresentTimingSurfaceCapabilitiesEXT.html>"]
 #[doc(alias = "VkPresentTimingSurfaceCapabilitiesEXT")]
 pub struct PresentTimingSurfaceCapabilitiesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -43449,7 +43449,7 @@ impl<'a> PresentTimingSurfaceCapabilitiesEXT<'a> {
 }
 #[cfg(feature = "ext_present_timing")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSwapchainCalibratedTimestampInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSwapchainCalibratedTimestampInfoEXT.html>"]
 #[doc(alias = "VkSwapchainCalibratedTimestampInfoEXT")]
 pub struct SwapchainCalibratedTimestampInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -43512,7 +43512,7 @@ impl<'a> SwapchainCalibratedTimestampInfoEXT<'a> {
 }
 #[cfg(feature = "ext_present_timing")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSwapchainTimingPropertiesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSwapchainTimingPropertiesEXT.html>"]
 #[doc(alias = "VkSwapchainTimingPropertiesEXT")]
 pub struct SwapchainTimingPropertiesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -43563,7 +43563,7 @@ impl<'a> SwapchainTimingPropertiesEXT<'a> {
 }
 #[cfg(feature = "ext_present_timing")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSwapchainTimeDomainPropertiesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSwapchainTimeDomainPropertiesEXT.html>"]
 #[doc(alias = "VkSwapchainTimeDomainPropertiesEXT")]
 pub struct SwapchainTimeDomainPropertiesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -43627,7 +43627,7 @@ impl<'a> SwapchainTimeDomainPropertiesEXT<'a> {
 }
 #[cfg(feature = "ext_present_timing")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPastPresentationTimingInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPastPresentationTimingInfoEXT.html>"]
 #[doc(alias = "VkPastPresentationTimingInfoEXT")]
 pub struct PastPresentationTimingInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -43678,7 +43678,7 @@ impl<'a> PastPresentationTimingInfoEXT<'a> {
 }
 #[cfg(feature = "ext_present_timing")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPastPresentationTimingPropertiesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPastPresentationTimingPropertiesEXT.html>"]
 #[doc(alias = "VkPastPresentationTimingPropertiesEXT")]
 pub struct PastPresentationTimingPropertiesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -43744,7 +43744,7 @@ impl<'a> PastPresentationTimingPropertiesEXT<'a> {
 }
 #[cfg(feature = "ext_present_timing")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPastPresentationTimingEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPastPresentationTimingEXT.html>"]
 #[doc(alias = "VkPastPresentationTimingEXT")]
 pub struct PastPresentationTimingEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -43828,7 +43828,7 @@ impl<'a> PastPresentationTimingEXT<'a> {
 }
 #[cfg(feature = "ext_present_timing")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPresentTimingsInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPresentTimingsInfoEXT.html>"]
 #[doc(alias = "VkPresentTimingsInfoEXT")]
 pub struct PresentTimingsInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -43893,7 +43893,7 @@ impl<'a> PresentTimingsInfoEXT<'a> {
 }
 #[cfg(feature = "ext_present_timing")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPresentTimingInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPresentTimingInfoEXT.html>"]
 #[doc(alias = "VkPresentTimingInfoEXT")]
 pub struct PresentTimingInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -43966,7 +43966,7 @@ impl<'a> PresentTimingInfoEXT<'a> {
 #[cfg(feature = "ext_present_timing")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPresentStageTimeEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPresentStageTimeEXT.html>"]
 #[doc(alias = "VkPresentStageTimeEXT")]
 pub struct PresentStageTimeEXT {
     pub stage: PresentStageFlagsEXT,
@@ -43999,7 +43999,7 @@ impl PresentStageTimeEXT {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL.html>"]
 #[doc(alias = "VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL")]
 pub struct PhysicalDeviceShaderIntegerFunctions2FeaturesINTEL<'a> {
     pub(crate) s_type: StructureType,
@@ -44055,7 +44055,7 @@ impl<'a> PhysicalDeviceShaderIntegerFunctions2FeaturesINTEL<'a> {
 #[cfg(feature = "ext_performance_query")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPerformanceValueDataINTEL.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPerformanceValueDataINTEL.html>"]
 #[doc(alias = "VkPerformanceValueDataINTEL")]
 pub union PerformanceValueDataINTEL {
     pub value32: u32,
@@ -44075,7 +44075,7 @@ impl Default for PerformanceValueDataINTEL {
 #[cfg(feature = "ext_performance_query")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPerformanceValueINTEL.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPerformanceValueINTEL.html>"]
 #[doc(alias = "VkPerformanceValueINTEL")]
 pub struct PerformanceValueINTEL {
     pub ty: PerformanceValueTypeINTEL,
@@ -44109,7 +44109,7 @@ impl PerformanceValueINTEL {
 }
 #[cfg(feature = "ext_performance_query")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkInitializePerformanceApiInfoINTEL.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkInitializePerformanceApiInfoINTEL.html>"]
 #[doc(alias = "VkInitializePerformanceApiInfoINTEL")]
 pub struct InitializePerformanceApiInfoINTEL<'a> {
     pub(crate) s_type: StructureType,
@@ -44153,7 +44153,7 @@ impl<'a> InitializePerformanceApiInfoINTEL<'a> {
 }
 #[cfg(feature = "ext_performance_query")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkQueryPoolPerformanceQueryCreateInfoINTEL.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkQueryPoolPerformanceQueryCreateInfoINTEL.html>"]
 #[doc(alias = "VkQueryPoolPerformanceQueryCreateInfoINTEL")]
 pub struct QueryPoolPerformanceQueryCreateInfoINTEL<'a> {
     pub(crate) s_type: StructureType,
@@ -44204,7 +44204,7 @@ impl<'a> QueryPoolPerformanceQueryCreateInfoINTEL<'a> {
 pub type QueryPoolCreateInfoINTEL<'a> = QueryPoolPerformanceQueryCreateInfoINTEL<'a>;
 #[cfg(feature = "ext_performance_query")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPerformanceMarkerInfoINTEL.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPerformanceMarkerInfoINTEL.html>"]
 #[doc(alias = "VkPerformanceMarkerInfoINTEL")]
 pub struct PerformanceMarkerInfoINTEL<'a> {
     pub(crate) s_type: StructureType,
@@ -44248,7 +44248,7 @@ impl<'a> PerformanceMarkerInfoINTEL<'a> {
 }
 #[cfg(feature = "ext_performance_query")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPerformanceStreamMarkerInfoINTEL.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPerformanceStreamMarkerInfoINTEL.html>"]
 #[doc(alias = "VkPerformanceStreamMarkerInfoINTEL")]
 pub struct PerformanceStreamMarkerInfoINTEL<'a> {
     pub(crate) s_type: StructureType,
@@ -44292,7 +44292,7 @@ impl<'a> PerformanceStreamMarkerInfoINTEL<'a> {
 }
 #[cfg(feature = "ext_performance_query")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPerformanceOverrideInfoINTEL.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPerformanceOverrideInfoINTEL.html>"]
 #[doc(alias = "VkPerformanceOverrideInfoINTEL")]
 pub struct PerformanceOverrideInfoINTEL<'a> {
     pub(crate) s_type: StructureType,
@@ -44350,7 +44350,7 @@ impl<'a> PerformanceOverrideInfoINTEL<'a> {
 }
 #[cfg(feature = "ext_performance_query")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPerformanceConfigurationAcquireInfoINTEL.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPerformanceConfigurationAcquireInfoINTEL.html>"]
 #[doc(alias = "VkPerformanceConfigurationAcquireInfoINTEL")]
 pub struct PerformanceConfigurationAcquireInfoINTEL<'a> {
     pub(crate) s_type: StructureType,
@@ -44393,7 +44393,7 @@ impl<'a> PerformanceConfigurationAcquireInfoINTEL<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDevicePCIBusInfoPropertiesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDevicePCIBusInfoPropertiesEXT.html>"]
 #[doc(alias = "VkPhysicalDevicePCIBusInfoPropertiesEXT")]
 pub struct PhysicalDevicePCIBusInfoPropertiesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -44463,7 +44463,7 @@ impl<'a> PhysicalDevicePCIBusInfoPropertiesEXT<'a> {
 }
 #[cfg(feature = "ext_display_native_hdr")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDisplayNativeHdrSurfaceCapabilitiesAMD.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDisplayNativeHdrSurfaceCapabilitiesAMD.html>"]
 #[doc(alias = "VkDisplayNativeHdrSurfaceCapabilitiesAMD")]
 pub struct DisplayNativeHdrSurfaceCapabilitiesAMD<'a> {
     pub(crate) s_type: StructureType,
@@ -44515,7 +44515,7 @@ impl<'a> DisplayNativeHdrSurfaceCapabilitiesAMD<'a> {
 }
 #[cfg(feature = "ext_display_native_hdr")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSwapchainDisplayNativeHdrCreateInfoAMD.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSwapchainDisplayNativeHdrCreateInfoAMD.html>"]
 #[doc(alias = "VkSwapchainDisplayNativeHdrCreateInfoAMD")]
 pub struct SwapchainDisplayNativeHdrCreateInfoAMD<'a> {
     pub(crate) s_type: StructureType,
@@ -44564,7 +44564,7 @@ impl<'a> SwapchainDisplayNativeHdrCreateInfoAMD<'a> {
 }
 #[cfg(feature = "ext_imagepipe_surface")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImagePipeSurfaceCreateInfoFUCHSIA.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImagePipeSurfaceCreateInfoFUCHSIA.html>"]
 #[doc(alias = "VkImagePipeSurfaceCreateInfoFUCHSIA")]
 pub struct ImagePipeSurfaceCreateInfoFUCHSIA<'a> {
     pub(crate) s_type: StructureType,
@@ -44615,7 +44615,7 @@ impl<'a> ImagePipeSurfaceCreateInfoFUCHSIA<'a> {
 }
 #[cfg(feature = "ext_metal_surface")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkMetalSurfaceCreateInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkMetalSurfaceCreateInfoEXT.html>"]
 #[doc(alias = "VkMetalSurfaceCreateInfoEXT")]
 pub struct MetalSurfaceCreateInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -44664,11 +44664,11 @@ impl<'a> MetalSurfaceCreateInfoEXT<'a> {
         self
     }
 }
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/CAMetalLayer.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/CAMetalLayer.html>"]
 pub type CAMetalLayer = c_void;
 #[cfg(feature = "ext_fragment_density_map")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceFragmentDensityMapFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceFragmentDensityMapFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceFragmentDensityMapFeaturesEXT")]
 pub struct PhysicalDeviceFragmentDensityMapFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -44743,7 +44743,7 @@ impl<'a> PhysicalDeviceFragmentDensityMapFeaturesEXT<'a> {
 }
 #[cfg(feature = "ext_fragment_density_map")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceFragmentDensityMapPropertiesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceFragmentDensityMapPropertiesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceFragmentDensityMapPropertiesEXT")]
 pub struct PhysicalDeviceFragmentDensityMapPropertiesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -44813,7 +44813,7 @@ impl<'a> PhysicalDeviceFragmentDensityMapPropertiesEXT<'a> {
 }
 #[cfg(feature = "ext_fragment_density_map")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkRenderPassFragmentDensityMapCreateInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkRenderPassFragmentDensityMapCreateInfoEXT.html>"]
 #[doc(alias = "VkRenderPassFragmentDensityMapCreateInfoEXT")]
 pub struct RenderPassFragmentDensityMapCreateInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -44873,7 +44873,7 @@ impl<'a> RenderPassFragmentDensityMapCreateInfoEXT<'a> {
     any(feature = "version_1_3", feature = "ext_dynamic_rendering")
 ))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkRenderingFragmentDensityMapAttachmentInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkRenderingFragmentDensityMapAttachmentInfoEXT.html>"]
 #[doc(alias = "VkRenderingFragmentDensityMapAttachmentInfoEXT")]
 pub struct RenderingFragmentDensityMapAttachmentInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -44961,7 +44961,7 @@ impl<'a> RenderingFragmentDensityMapAttachmentInfoEXT<'a> {
 }
 #[cfg(feature = "ext_fragment_shading_rate")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkFragmentShadingRateAttachmentInfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkFragmentShadingRateAttachmentInfoKHR.html>"]
 #[doc(alias = "VkFragmentShadingRateAttachmentInfoKHR")]
 pub struct FragmentShadingRateAttachmentInfoKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -45024,7 +45024,7 @@ impl<'a> FragmentShadingRateAttachmentInfoKHR<'a> {
 }
 #[cfg(feature = "ext_fragment_shading_rate")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineFragmentShadingRateStateCreateInfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineFragmentShadingRateStateCreateInfoKHR.html>"]
 #[doc(alias = "VkPipelineFragmentShadingRateStateCreateInfoKHR")]
 pub struct PipelineFragmentShadingRateStateCreateInfoKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -45081,7 +45081,7 @@ impl<'a> PipelineFragmentShadingRateStateCreateInfoKHR<'a> {
 }
 #[cfg(feature = "ext_fragment_shading_rate")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceFragmentShadingRateFeaturesKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceFragmentShadingRateFeaturesKHR.html>"]
 #[doc(alias = "VkPhysicalDeviceFragmentShadingRateFeaturesKHR")]
 pub struct PhysicalDeviceFragmentShadingRateFeaturesKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -45156,7 +45156,7 @@ impl<'a> PhysicalDeviceFragmentShadingRateFeaturesKHR<'a> {
 }
 #[cfg(feature = "ext_fragment_shading_rate")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceFragmentShadingRatePropertiesKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceFragmentShadingRatePropertiesKHR.html>"]
 #[doc(alias = "VkPhysicalDeviceFragmentShadingRatePropertiesKHR")]
 pub struct PhysicalDeviceFragmentShadingRatePropertiesKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -45354,7 +45354,7 @@ impl<'a> PhysicalDeviceFragmentShadingRatePropertiesKHR<'a> {
 }
 #[cfg(feature = "ext_fragment_shading_rate")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceFragmentShadingRateKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceFragmentShadingRateKHR.html>"]
 #[doc(alias = "VkPhysicalDeviceFragmentShadingRateKHR")]
 pub struct PhysicalDeviceFragmentShadingRateKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -45408,7 +45408,7 @@ impl<'a> PhysicalDeviceFragmentShadingRateKHR<'a> {
     any(feature = "version_1_3", feature = "ext_dynamic_rendering")
 ))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkRenderingFragmentShadingRateAttachmentInfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkRenderingFragmentShadingRateAttachmentInfoKHR.html>"]
 #[doc(alias = "VkRenderingFragmentShadingRateAttachmentInfoKHR")]
 pub struct RenderingFragmentShadingRateAttachmentInfoKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -45503,7 +45503,7 @@ impl<'a> RenderingFragmentShadingRateAttachmentInfoKHR<'a> {
 }
 #[cfg(feature = "ext_shader_core_properties2")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderCoreProperties2AMD.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderCoreProperties2AMD.html>"]
 #[doc(alias = "VkPhysicalDeviceShaderCoreProperties2AMD")]
 pub struct PhysicalDeviceShaderCoreProperties2AMD<'a> {
     pub(crate) s_type: StructureType,
@@ -45564,7 +45564,7 @@ impl<'a> PhysicalDeviceShaderCoreProperties2AMD<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceCoherentMemoryFeaturesAMD.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceCoherentMemoryFeaturesAMD.html>"]
 #[doc(alias = "VkPhysicalDeviceCoherentMemoryFeaturesAMD")]
 pub struct PhysicalDeviceCoherentMemoryFeaturesAMD<'a> {
     pub(crate) s_type: StructureType,
@@ -45617,7 +45617,7 @@ impl<'a> PhysicalDeviceCoherentMemoryFeaturesAMD<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderImageAtomicInt64FeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderImageAtomicInt64FeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceShaderImageAtomicInt64FeaturesEXT")]
 pub struct PhysicalDeviceShaderImageAtomicInt64FeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -45678,7 +45678,7 @@ impl<'a> PhysicalDeviceShaderImageAtomicInt64FeaturesEXT<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderQuadControlFeaturesKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderQuadControlFeaturesKHR.html>"]
 #[doc(alias = "VkPhysicalDeviceShaderQuadControlFeaturesKHR")]
 pub struct PhysicalDeviceShaderQuadControlFeaturesKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -45731,7 +45731,7 @@ impl<'a> PhysicalDeviceShaderQuadControlFeaturesKHR<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceMemoryBudgetPropertiesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceMemoryBudgetPropertiesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceMemoryBudgetPropertiesEXT")]
 pub struct PhysicalDeviceMemoryBudgetPropertiesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -45787,7 +45787,7 @@ impl<'a> PhysicalDeviceMemoryBudgetPropertiesEXT<'a> {
 }
 #[cfg(feature = "ext_memory_priority")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceMemoryPriorityFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceMemoryPriorityFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceMemoryPriorityFeaturesEXT")]
 pub struct PhysicalDeviceMemoryPriorityFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -45847,7 +45847,7 @@ impl<'a> PhysicalDeviceMemoryPriorityFeaturesEXT<'a> {
 }
 #[cfg(feature = "ext_memory_priority")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkMemoryPriorityAllocateInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkMemoryPriorityAllocateInfoEXT.html>"]
 #[doc(alias = "VkMemoryPriorityAllocateInfoEXT")]
 pub struct MemoryPriorityAllocateInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -45896,7 +45896,7 @@ impl<'a> MemoryPriorityAllocateInfoEXT<'a> {
 }
 #[cfg(feature = "ext_surface_protected_capabilities")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSurfaceProtectedCapabilitiesKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSurfaceProtectedCapabilitiesKHR.html>"]
 #[doc(alias = "VkSurfaceProtectedCapabilitiesKHR")]
 pub struct SurfaceProtectedCapabilitiesKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -45947,7 +45947,7 @@ impl<'a> SurfaceProtectedCapabilitiesKHR<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV.html>"]
 #[doc(alias = "VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV")]
 pub struct PhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV<'a> {
     pub(crate) s_type: StructureType,
@@ -46007,7 +46007,7 @@ impl<'a> PhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV<'a> {
 }
 #[cfg(feature = "ext_buffer_device_address")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceBufferDeviceAddressFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceBufferDeviceAddressFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceBufferDeviceAddressFeaturesEXT")]
 pub struct PhysicalDeviceBufferDeviceAddressFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -46085,7 +46085,7 @@ pub type PhysicalDeviceBufferAddressFeaturesEXT<'a> =
     PhysicalDeviceBufferDeviceAddressFeaturesEXT<'a>;
 #[cfg(feature = "ext_buffer_device_address")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkBufferDeviceAddressCreateInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkBufferDeviceAddressCreateInfoEXT.html>"]
 #[doc(alias = "VkBufferDeviceAddressCreateInfoEXT")]
 pub struct BufferDeviceAddressCreateInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -46134,7 +46134,7 @@ impl<'a> BufferDeviceAddressCreateInfoEXT<'a> {
 }
 #[cfg(feature = "ext_validation_features")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkValidationFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkValidationFeaturesEXT.html>"]
 #[doc(alias = "VkValidationFeaturesEXT")]
 pub struct ValidationFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -46228,7 +46228,7 @@ impl<'a> ValidationFeaturesEXT<'a> {
 }
 #[cfg(feature = "ext_present_wait")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDevicePresentWaitFeaturesKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDevicePresentWaitFeaturesKHR.html>"]
 #[doc(alias = "VkPhysicalDevicePresentWaitFeaturesKHR")]
 pub struct PhysicalDevicePresentWaitFeaturesKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -46288,7 +46288,7 @@ impl<'a> PhysicalDevicePresentWaitFeaturesKHR<'a> {
 }
 #[cfg(feature = "ext_cooperative_matrix")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCooperativeMatrixPropertiesNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCooperativeMatrixPropertiesNV.html>"]
 #[doc(alias = "VkCooperativeMatrixPropertiesNV")]
 pub struct CooperativeMatrixPropertiesNV<'a> {
     pub(crate) s_type: StructureType,
@@ -46381,7 +46381,7 @@ impl<'a> CooperativeMatrixPropertiesNV<'a> {
 }
 #[cfg(feature = "ext_cooperative_matrix")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceCooperativeMatrixFeaturesNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceCooperativeMatrixFeaturesNV.html>"]
 #[doc(alias = "VkPhysicalDeviceCooperativeMatrixFeaturesNV")]
 pub struct PhysicalDeviceCooperativeMatrixFeaturesNV<'a> {
     pub(crate) s_type: StructureType,
@@ -46448,7 +46448,7 @@ impl<'a> PhysicalDeviceCooperativeMatrixFeaturesNV<'a> {
 }
 #[cfg(feature = "ext_cooperative_matrix")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceCooperativeMatrixPropertiesNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceCooperativeMatrixPropertiesNV.html>"]
 #[doc(alias = "VkPhysicalDeviceCooperativeMatrixPropertiesNV")]
 pub struct PhysicalDeviceCooperativeMatrixPropertiesNV<'a> {
     pub(crate) s_type: StructureType,
@@ -46504,7 +46504,7 @@ impl<'a> PhysicalDeviceCooperativeMatrixPropertiesNV<'a> {
 }
 #[cfg(feature = "ext_coverage_reduction_mode")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceCoverageReductionModeFeaturesNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceCoverageReductionModeFeaturesNV.html>"]
 #[doc(alias = "VkPhysicalDeviceCoverageReductionModeFeaturesNV")]
 pub struct PhysicalDeviceCoverageReductionModeFeaturesNV<'a> {
     pub(crate) s_type: StructureType,
@@ -46565,7 +46565,7 @@ impl<'a> PhysicalDeviceCoverageReductionModeFeaturesNV<'a> {
 }
 #[cfg(feature = "ext_coverage_reduction_mode")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineCoverageReductionStateCreateInfoNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineCoverageReductionStateCreateInfoNV.html>"]
 #[doc(alias = "VkPipelineCoverageReductionStateCreateInfoNV")]
 pub struct PipelineCoverageReductionStateCreateInfoNV<'a> {
     pub(crate) s_type: StructureType,
@@ -46621,7 +46621,7 @@ impl<'a> PipelineCoverageReductionStateCreateInfoNV<'a> {
 }
 #[cfg(feature = "ext_coverage_reduction_mode")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkFramebufferMixedSamplesCombinationNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkFramebufferMixedSamplesCombinationNV.html>"]
 #[doc(alias = "VkFramebufferMixedSamplesCombinationNV")]
 pub struct FramebufferMixedSamplesCombinationNV<'a> {
     pub(crate) s_type: StructureType,
@@ -46685,7 +46685,7 @@ impl<'a> FramebufferMixedSamplesCombinationNV<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT")]
 pub struct PhysicalDeviceFragmentShaderInterlockFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -46753,7 +46753,7 @@ impl<'a> PhysicalDeviceFragmentShaderInterlockFeaturesEXT<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceYcbcrImageArraysFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceYcbcrImageArraysFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceYcbcrImageArraysFeaturesEXT")]
 pub struct PhysicalDeviceYcbcrImageArraysFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -46807,7 +46807,7 @@ impl<'a> PhysicalDeviceYcbcrImageArraysFeaturesEXT<'a> {
 }
 #[cfg(feature = "ext_provoking_vertex")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceProvokingVertexFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceProvokingVertexFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceProvokingVertexFeaturesEXT")]
 pub struct PhysicalDeviceProvokingVertexFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -46877,7 +46877,7 @@ impl<'a> PhysicalDeviceProvokingVertexFeaturesEXT<'a> {
 }
 #[cfg(feature = "ext_provoking_vertex")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceProvokingVertexPropertiesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceProvokingVertexPropertiesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceProvokingVertexPropertiesEXT")]
 pub struct PhysicalDeviceProvokingVertexPropertiesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -46942,7 +46942,7 @@ impl<'a> PhysicalDeviceProvokingVertexPropertiesEXT<'a> {
 }
 #[cfg(feature = "ext_provoking_vertex")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineRasterizationProvokingVertexStateCreateInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineRasterizationProvokingVertexStateCreateInfoEXT.html>"]
 #[doc(alias = "VkPipelineRasterizationProvokingVertexStateCreateInfoEXT")]
 pub struct PipelineRasterizationProvokingVertexStateCreateInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -46995,7 +46995,7 @@ impl<'a> PipelineRasterizationProvokingVertexStateCreateInfoEXT<'a> {
 }
 #[cfg(feature = "ext_full_screen_exclusive")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSurfaceFullScreenExclusiveInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSurfaceFullScreenExclusiveInfoEXT.html>"]
 #[doc(alias = "VkSurfaceFullScreenExclusiveInfoEXT")]
 pub struct SurfaceFullScreenExclusiveInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -47052,7 +47052,7 @@ impl<'a> SurfaceFullScreenExclusiveInfoEXT<'a> {
 }
 #[cfg(feature = "ext_full_screen_exclusive")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSurfaceCapabilitiesFullScreenExclusiveEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSurfaceCapabilitiesFullScreenExclusiveEXT.html>"]
 #[doc(alias = "VkSurfaceCapabilitiesFullScreenExclusiveEXT")]
 pub struct SurfaceCapabilitiesFullScreenExclusiveEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -47104,7 +47104,7 @@ impl<'a> SurfaceCapabilitiesFullScreenExclusiveEXT<'a> {
 }
 #[cfg(all(feature = "ext_full_screen_exclusive", feature = "ext_win32_surface"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSurfaceFullScreenExclusiveWin32InfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSurfaceFullScreenExclusiveWin32InfoEXT.html>"]
 #[doc(alias = "VkSurfaceFullScreenExclusiveWin32InfoEXT")]
 pub struct SurfaceFullScreenExclusiveWin32InfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -47164,7 +47164,7 @@ impl<'a> SurfaceFullScreenExclusiveWin32InfoEXT<'a> {
 }
 #[cfg(feature = "ext_headless_surface")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkHeadlessSurfaceCreateInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkHeadlessSurfaceCreateInfoEXT.html>"]
 #[doc(alias = "VkHeadlessSurfaceCreateInfoEXT")]
 pub struct HeadlessSurfaceCreateInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -47207,7 +47207,7 @@ impl<'a> HeadlessSurfaceCreateInfoEXT<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderAtomicFloatFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderAtomicFloatFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceShaderAtomicFloatFeaturesEXT")]
 pub struct PhysicalDeviceShaderAtomicFloatFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -47338,7 +47338,7 @@ impl<'a> PhysicalDeviceShaderAtomicFloatFeaturesEXT<'a> {
 }
 #[cfg(feature = "ext_extended_dynamic_state")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceExtendedDynamicStateFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceExtendedDynamicStateFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceExtendedDynamicStateFeaturesEXT")]
 pub struct PhysicalDeviceExtendedDynamicStateFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -47399,7 +47399,7 @@ impl<'a> PhysicalDeviceExtendedDynamicStateFeaturesEXT<'a> {
 }
 #[cfg(feature = "ext_pipeline_executable_properties")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR.html>"]
 #[doc(alias = "VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR")]
 pub struct PhysicalDevicePipelineExecutablePropertiesFeaturesKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -47466,7 +47466,7 @@ impl<'a> PhysicalDevicePipelineExecutablePropertiesFeaturesKHR<'a> {
     feature = "ext_pipeline_properties"
 ))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineInfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineInfoKHR.html>"]
 #[doc(alias = "VkPipelineInfoKHR")]
 pub struct PipelineInfoKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -47533,7 +47533,7 @@ impl<'a> PipelineInfoKHR<'a> {
 pub type PipelineInfoEXT<'a> = PipelineInfoKHR<'a>;
 #[cfg(feature = "ext_pipeline_executable_properties")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineExecutablePropertiesKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineExecutablePropertiesKHR.html>"]
 #[doc(alias = "VkPipelineExecutablePropertiesKHR")]
 pub struct PipelineExecutablePropertiesKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -47601,7 +47601,7 @@ impl<'a> PipelineExecutablePropertiesKHR<'a> {
 }
 #[cfg(feature = "ext_pipeline_executable_properties")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineExecutableInfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineExecutableInfoKHR.html>"]
 #[doc(alias = "VkPipelineExecutableInfoKHR")]
 pub struct PipelineExecutableInfoKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -47653,7 +47653,7 @@ impl<'a> PipelineExecutableInfoKHR<'a> {
 #[cfg(feature = "ext_pipeline_executable_properties")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineExecutableStatisticValueKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineExecutableStatisticValueKHR.html>"]
 #[doc(alias = "VkPipelineExecutableStatisticValueKHR")]
 pub union PipelineExecutableStatisticValueKHR {
     pub bool32: Bool32,
@@ -47671,7 +47671,7 @@ impl Default for PipelineExecutableStatisticValueKHR {
 }
 #[cfg(feature = "ext_pipeline_executable_properties")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineExecutableStatisticKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineExecutableStatisticKHR.html>"]
 #[doc(alias = "VkPipelineExecutableStatisticKHR")]
 pub struct PipelineExecutableStatisticKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -47739,7 +47739,7 @@ impl<'a> PipelineExecutableStatisticKHR<'a> {
 }
 #[cfg(feature = "ext_pipeline_executable_properties")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineExecutableInternalRepresentationKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineExecutableInternalRepresentationKHR.html>"]
 #[doc(alias = "VkPipelineExecutableInternalRepresentationKHR")]
 pub struct PipelineExecutableInternalRepresentationKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -47818,7 +47818,7 @@ impl<'a> PipelineExecutableInternalRepresentationKHR<'a> {
 }
 #[cfg(feature = "ext_map_memory_placed")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceMapMemoryPlacedFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceMapMemoryPlacedFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceMapMemoryPlacedFeaturesEXT")]
 pub struct PhysicalDeviceMapMemoryPlacedFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -47892,7 +47892,7 @@ impl<'a> PhysicalDeviceMapMemoryPlacedFeaturesEXT<'a> {
 }
 #[cfg(feature = "ext_map_memory_placed")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceMapMemoryPlacedPropertiesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceMapMemoryPlacedPropertiesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceMapMemoryPlacedPropertiesEXT")]
 pub struct PhysicalDeviceMapMemoryPlacedPropertiesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -47947,7 +47947,7 @@ impl<'a> PhysicalDeviceMapMemoryPlacedPropertiesEXT<'a> {
 }
 #[cfg(feature = "ext_map_memory_placed")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkMemoryMapPlacedInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkMemoryMapPlacedInfoEXT.html>"]
 #[doc(alias = "VkMemoryMapPlacedInfoEXT")]
 pub struct MemoryMapPlacedInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -47995,7 +47995,7 @@ impl<'a> MemoryMapPlacedInfoEXT<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderAtomicFloat2FeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderAtomicFloat2FeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceShaderAtomicFloat2FeaturesEXT")]
 pub struct PhysicalDeviceShaderAtomicFloat2FeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -48127,7 +48127,7 @@ impl<'a> PhysicalDeviceShaderAtomicFloat2FeaturesEXT<'a> {
 }
 #[cfg(feature = "ext_device_generated_commands")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceDeviceGeneratedCommandsPropertiesNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceDeviceGeneratedCommandsPropertiesNV.html>"]
 #[doc(alias = "VkPhysicalDeviceDeviceGeneratedCommandsPropertiesNV")]
 pub struct PhysicalDeviceDeviceGeneratedCommandsPropertiesNV<'a> {
     pub(crate) s_type: StructureType,
@@ -48239,7 +48239,7 @@ impl<'a> PhysicalDeviceDeviceGeneratedCommandsPropertiesNV<'a> {
 }
 #[cfg(feature = "ext_device_generated_commands")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceDeviceGeneratedCommandsFeaturesNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceDeviceGeneratedCommandsFeaturesNV.html>"]
 #[doc(alias = "VkPhysicalDeviceDeviceGeneratedCommandsFeaturesNV")]
 pub struct PhysicalDeviceDeviceGeneratedCommandsFeaturesNV<'a> {
     pub(crate) s_type: StructureType,
@@ -48300,7 +48300,7 @@ impl<'a> PhysicalDeviceDeviceGeneratedCommandsFeaturesNV<'a> {
 }
 #[cfg(feature = "ext_device_generated_commands")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkGraphicsShaderGroupCreateInfoNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkGraphicsShaderGroupCreateInfoNV.html>"]
 #[doc(alias = "VkGraphicsShaderGroupCreateInfoNV")]
 pub struct GraphicsShaderGroupCreateInfoNV<'a> {
     pub(crate) s_type: StructureType,
@@ -48373,7 +48373,7 @@ impl<'a> GraphicsShaderGroupCreateInfoNV<'a> {
 }
 #[cfg(feature = "ext_device_generated_commands")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkGraphicsPipelineShaderGroupsCreateInfoNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkGraphicsPipelineShaderGroupsCreateInfoNV.html>"]
 #[doc(alias = "VkGraphicsPipelineShaderGroupsCreateInfoNV")]
 pub struct GraphicsPipelineShaderGroupsCreateInfoNV<'a> {
     pub(crate) s_type: StructureType,
@@ -48456,7 +48456,7 @@ impl<'a> GraphicsPipelineShaderGroupsCreateInfoNV<'a> {
 #[cfg(feature = "ext_device_generated_commands")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkBindShaderGroupIndirectCommandNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkBindShaderGroupIndirectCommandNV.html>"]
 #[doc(alias = "VkBindShaderGroupIndirectCommandNV")]
 pub struct BindShaderGroupIndirectCommandNV {
     pub group_index: u32,
@@ -48484,7 +48484,7 @@ impl BindShaderGroupIndirectCommandNV {
 #[cfg(feature = "ext_device_generated_commands")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkBindIndexBufferIndirectCommandNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkBindIndexBufferIndirectCommandNV.html>"]
 #[doc(alias = "VkBindIndexBufferIndirectCommandNV")]
 pub struct BindIndexBufferIndirectCommandNV {
     pub buffer_address: DeviceAddress,
@@ -48526,7 +48526,7 @@ impl BindIndexBufferIndirectCommandNV {
 #[cfg(feature = "ext_device_generated_commands")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkBindVertexBufferIndirectCommandNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkBindVertexBufferIndirectCommandNV.html>"]
 #[doc(alias = "VkBindVertexBufferIndirectCommandNV")]
 pub struct BindVertexBufferIndirectCommandNV {
     pub buffer_address: DeviceAddress,
@@ -48568,7 +48568,7 @@ impl BindVertexBufferIndirectCommandNV {
 #[cfg(feature = "ext_device_generated_commands")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSetStateFlagsIndirectCommandNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSetStateFlagsIndirectCommandNV.html>"]
 #[doc(alias = "VkSetStateFlagsIndirectCommandNV")]
 pub struct SetStateFlagsIndirectCommandNV {
     pub data: u32,
@@ -48595,7 +48595,7 @@ impl SetStateFlagsIndirectCommandNV {
 }
 #[cfg(feature = "ext_device_generated_commands")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkIndirectCommandsStreamNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkIndirectCommandsStreamNV.html>"]
 #[doc(alias = "VkIndirectCommandsStreamNV")]
 pub struct IndirectCommandsStreamNV<'a> {
     pub buffer: Option<BorrowedHandle<'a, Buffer>>,
@@ -48631,7 +48631,7 @@ impl<'a> IndirectCommandsStreamNV<'a> {
 }
 #[cfg(feature = "ext_device_generated_commands")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkIndirectCommandsLayoutTokenNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkIndirectCommandsLayoutTokenNV.html>"]
 #[doc(alias = "VkIndirectCommandsLayoutTokenNV")]
 pub struct IndirectCommandsLayoutTokenNV<'a> {
     pub(crate) s_type: StructureType,
@@ -48771,7 +48771,7 @@ impl<'a> IndirectCommandsLayoutTokenNV<'a> {
 }
 #[cfg(feature = "ext_device_generated_commands")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkIndirectCommandsLayoutCreateInfoNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkIndirectCommandsLayoutCreateInfoNV.html>"]
 #[doc(alias = "VkIndirectCommandsLayoutCreateInfoNV")]
 pub struct IndirectCommandsLayoutCreateInfoNV<'a> {
     pub(crate) s_type: StructureType,
@@ -48856,7 +48856,7 @@ impl<'a> IndirectCommandsLayoutCreateInfoNV<'a> {
 }
 #[cfg(feature = "ext_device_generated_commands")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkGeneratedCommandsInfoNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkGeneratedCommandsInfoNV.html>"]
 #[doc(alias = "VkGeneratedCommandsInfoNV")]
 pub struct GeneratedCommandsInfoNV<'a> {
     pub(crate) s_type: StructureType,
@@ -48988,7 +48988,7 @@ impl<'a> GeneratedCommandsInfoNV<'a> {
 }
 #[cfg(feature = "ext_device_generated_commands")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkGeneratedCommandsMemoryRequirementsInfoNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkGeneratedCommandsMemoryRequirementsInfoNV.html>"]
 #[doc(alias = "VkGeneratedCommandsMemoryRequirementsInfoNV")]
 pub struct GeneratedCommandsMemoryRequirementsInfoNV<'a> {
     pub(crate) s_type: StructureType,
@@ -49053,7 +49053,7 @@ impl<'a> GeneratedCommandsMemoryRequirementsInfoNV<'a> {
 }
 #[cfg(feature = "ext_inherited_viewport_scissor")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceInheritedViewportScissorFeaturesNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceInheritedViewportScissorFeaturesNV.html>"]
 #[doc(alias = "VkPhysicalDeviceInheritedViewportScissorFeaturesNV")]
 pub struct PhysicalDeviceInheritedViewportScissorFeaturesNV<'a> {
     pub(crate) s_type: StructureType,
@@ -49114,7 +49114,7 @@ impl<'a> PhysicalDeviceInheritedViewportScissorFeaturesNV<'a> {
 }
 #[cfg(feature = "ext_inherited_viewport_scissor")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCommandBufferInheritanceViewportScissorInfoNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCommandBufferInheritanceViewportScissorInfoNV.html>"]
 #[doc(alias = "VkCommandBufferInheritanceViewportScissorInfoNV")]
 pub struct CommandBufferInheritanceViewportScissorInfoNV<'a> {
     pub(crate) s_type: StructureType,
@@ -49177,7 +49177,7 @@ impl<'a> CommandBufferInheritanceViewportScissorInfoNV<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceTexelBufferAlignmentFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceTexelBufferAlignmentFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceTexelBufferAlignmentFeaturesEXT")]
 pub struct PhysicalDeviceTexelBufferAlignmentFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -49232,7 +49232,7 @@ impl<'a> PhysicalDeviceTexelBufferAlignmentFeaturesEXT<'a> {
 }
 #[cfg(feature = "ext_render_pass_transform")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkRenderPassTransformBeginInfoQCOM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkRenderPassTransformBeginInfoQCOM.html>"]
 #[doc(alias = "VkRenderPassTransformBeginInfoQCOM")]
 pub struct RenderPassTransformBeginInfoQCOM<'a> {
     pub(crate) s_type: StructureType,
@@ -49281,7 +49281,7 @@ impl<'a> RenderPassTransformBeginInfoQCOM<'a> {
 }
 #[cfg(feature = "ext_render_pass_transform")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCommandBufferInheritanceRenderPassTransformInfoQCOM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCommandBufferInheritanceRenderPassTransformInfoQCOM.html>"]
 #[doc(alias = "VkCommandBufferInheritanceRenderPassTransformInfoQCOM")]
 pub struct CommandBufferInheritanceRenderPassTransformInfoQCOM<'a> {
     pub(crate) s_type: StructureType,
@@ -49341,7 +49341,7 @@ impl<'a> CommandBufferInheritanceRenderPassTransformInfoQCOM<'a> {
 }
 #[cfg(feature = "ext_depth_bias_control")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceDepthBiasControlFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceDepthBiasControlFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceDepthBiasControlFeaturesEXT")]
 pub struct PhysicalDeviceDepthBiasControlFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -49425,7 +49425,7 @@ impl<'a> PhysicalDeviceDepthBiasControlFeaturesEXT<'a> {
 }
 #[cfg(feature = "ext_depth_bias_control")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDepthBiasInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDepthBiasInfoEXT.html>"]
 #[doc(alias = "VkDepthBiasInfoEXT")]
 pub struct DepthBiasInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -49483,7 +49483,7 @@ impl<'a> DepthBiasInfoEXT<'a> {
 }
 #[cfg(feature = "ext_depth_bias_control")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDepthBiasRepresentationInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDepthBiasRepresentationInfoEXT.html>"]
 #[doc(alias = "VkDepthBiasRepresentationInfoEXT")]
 pub struct DepthBiasRepresentationInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -49544,7 +49544,7 @@ impl<'a> DepthBiasRepresentationInfoEXT<'a> {
 }
 #[cfg(feature = "ext_device_memory_report")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceDeviceMemoryReportFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceDeviceMemoryReportFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceDeviceMemoryReportFeaturesEXT")]
 pub struct PhysicalDeviceDeviceMemoryReportFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -49605,7 +49605,7 @@ impl<'a> PhysicalDeviceDeviceMemoryReportFeaturesEXT<'a> {
 }
 #[cfg(feature = "ext_device_memory_report")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDeviceDeviceMemoryReportCreateInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceDeviceMemoryReportCreateInfoEXT.html>"]
 #[doc(alias = "VkDeviceDeviceMemoryReportCreateInfoEXT")]
 pub struct DeviceDeviceMemoryReportCreateInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -49668,7 +49668,7 @@ impl<'a> DeviceDeviceMemoryReportCreateInfoEXT<'a> {
 }
 #[cfg(feature = "ext_device_memory_report")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDeviceMemoryReportCallbackDataEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceMemoryReportCallbackDataEXT.html>"]
 #[doc(alias = "VkDeviceMemoryReportCallbackDataEXT")]
 pub struct DeviceMemoryReportCallbackDataEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -49754,7 +49754,7 @@ impl<'a> DeviceMemoryReportCallbackDataEXT<'a> {
 }
 #[cfg(feature = "ext_custom_border_color")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSamplerCustomBorderColorCreateInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSamplerCustomBorderColorCreateInfoEXT.html>"]
 #[doc(alias = "VkSamplerCustomBorderColorCreateInfoEXT")]
 pub struct SamplerCustomBorderColorCreateInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -49810,7 +49810,7 @@ impl<'a> SamplerCustomBorderColorCreateInfoEXT<'a> {
 }
 #[cfg(feature = "ext_custom_border_color")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceCustomBorderColorPropertiesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceCustomBorderColorPropertiesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceCustomBorderColorPropertiesEXT")]
 pub struct PhysicalDeviceCustomBorderColorPropertiesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -49866,7 +49866,7 @@ impl<'a> PhysicalDeviceCustomBorderColorPropertiesEXT<'a> {
 }
 #[cfg(feature = "ext_custom_border_color")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceCustomBorderColorFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceCustomBorderColorFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceCustomBorderColorFeaturesEXT")]
 pub struct PhysicalDeviceCustomBorderColorFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -49932,7 +49932,7 @@ impl<'a> PhysicalDeviceCustomBorderColorFeaturesEXT<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceTextureCompressionASTC3DFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceTextureCompressionASTC3DFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceTextureCompressionASTC3DFeaturesEXT")]
 pub struct PhysicalDeviceTextureCompressionASTC3DFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -49987,7 +49987,7 @@ impl<'a> PhysicalDeviceTextureCompressionASTC3DFeaturesEXT<'a> {
 }
 #[cfg(feature = "ext_pipeline_library")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineLibraryCreateInfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineLibraryCreateInfoKHR.html>"]
 #[doc(alias = "VkPipelineLibraryCreateInfoKHR")]
 pub struct PipelineLibraryCreateInfoKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -50050,7 +50050,7 @@ impl<'a> PipelineLibraryCreateInfoKHR<'a> {
 }
 #[cfg(feature = "ext_present_barrier")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDevicePresentBarrierFeaturesNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDevicePresentBarrierFeaturesNV.html>"]
 #[doc(alias = "VkPhysicalDevicePresentBarrierFeaturesNV")]
 pub struct PhysicalDevicePresentBarrierFeaturesNV<'a> {
     pub(crate) s_type: StructureType,
@@ -50110,7 +50110,7 @@ impl<'a> PhysicalDevicePresentBarrierFeaturesNV<'a> {
 }
 #[cfg(feature = "ext_present_barrier")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSurfaceCapabilitiesPresentBarrierNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSurfaceCapabilitiesPresentBarrierNV.html>"]
 #[doc(alias = "VkSurfaceCapabilitiesPresentBarrierNV")]
 pub struct SurfaceCapabilitiesPresentBarrierNV<'a> {
     pub(crate) s_type: StructureType,
@@ -50162,7 +50162,7 @@ impl<'a> SurfaceCapabilitiesPresentBarrierNV<'a> {
 }
 #[cfg(feature = "ext_present_barrier")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSwapchainPresentBarrierCreateInfoNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSwapchainPresentBarrierCreateInfoNV.html>"]
 #[doc(alias = "VkSwapchainPresentBarrierCreateInfoNV")]
 pub struct SwapchainPresentBarrierCreateInfoNV<'a> {
     pub(crate) s_type: StructureType,
@@ -50211,7 +50211,7 @@ impl<'a> SwapchainPresentBarrierCreateInfoNV<'a> {
 }
 #[cfg(feature = "ext_present_id")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPresentIdKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPresentIdKHR.html>"]
 #[doc(alias = "VkPresentIdKHR")]
 pub struct PresentIdKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -50273,7 +50273,7 @@ impl<'a> PresentIdKHR<'a> {
 }
 #[cfg(feature = "ext_present_id")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDevicePresentIdFeaturesKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDevicePresentIdFeaturesKHR.html>"]
 #[doc(alias = "VkPhysicalDevicePresentIdFeaturesKHR")]
 pub struct PhysicalDevicePresentIdFeaturesKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -50333,7 +50333,7 @@ impl<'a> PhysicalDevicePresentIdFeaturesKHR<'a> {
 }
 #[cfg(feature = "ext_device_diagnostics_config")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceDiagnosticsConfigFeaturesNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceDiagnosticsConfigFeaturesNV.html>"]
 #[doc(alias = "VkPhysicalDeviceDiagnosticsConfigFeaturesNV")]
 pub struct PhysicalDeviceDiagnosticsConfigFeaturesNV<'a> {
     pub(crate) s_type: StructureType,
@@ -50393,7 +50393,7 @@ impl<'a> PhysicalDeviceDiagnosticsConfigFeaturesNV<'a> {
 }
 #[cfg(feature = "ext_device_diagnostics_config")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDeviceDiagnosticsConfigCreateInfoNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceDiagnosticsConfigCreateInfoNV.html>"]
 #[doc(alias = "VkDeviceDiagnosticsConfigCreateInfoNV")]
 pub struct DeviceDiagnosticsConfigCreateInfoNV<'a> {
     pub(crate) s_type: StructureType,
@@ -50442,7 +50442,7 @@ impl<'a> DeviceDiagnosticsConfigCreateInfoNV<'a> {
 }
 #[cfg(feature = "ext_cuda_kernel_launch")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCudaModuleCreateInfoNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCudaModuleCreateInfoNV.html>"]
 #[doc(alias = "VkCudaModuleCreateInfoNV")]
 pub struct CudaModuleCreateInfoNV<'a> {
     pub(crate) s_type: StructureType,
@@ -50497,7 +50497,7 @@ impl<'a> CudaModuleCreateInfoNV<'a> {
 }
 #[cfg(feature = "ext_cuda_kernel_launch")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCudaFunctionCreateInfoNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCudaFunctionCreateInfoNV.html>"]
 #[doc(alias = "VkCudaFunctionCreateInfoNV")]
 pub struct CudaFunctionCreateInfoNV<'a> {
     pub(crate) s_type: StructureType,
@@ -50548,7 +50548,7 @@ impl<'a> CudaFunctionCreateInfoNV<'a> {
 }
 #[cfg(feature = "ext_cuda_kernel_launch")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCudaLaunchInfoNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCudaLaunchInfoNV.html>"]
 #[doc(alias = "VkCudaLaunchInfoNV")]
 pub struct CudaLaunchInfoNV<'a> {
     pub(crate) s_type: StructureType,
@@ -50683,7 +50683,7 @@ impl<'a> CudaLaunchInfoNV<'a> {
 }
 #[cfg(feature = "ext_cuda_kernel_launch")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceCudaKernelLaunchFeaturesNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceCudaKernelLaunchFeaturesNV.html>"]
 #[doc(alias = "VkPhysicalDeviceCudaKernelLaunchFeaturesNV")]
 pub struct PhysicalDeviceCudaKernelLaunchFeaturesNV<'a> {
     pub(crate) s_type: StructureType,
@@ -50743,7 +50743,7 @@ impl<'a> PhysicalDeviceCudaKernelLaunchFeaturesNV<'a> {
 }
 #[cfg(feature = "ext_cuda_kernel_launch")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceCudaKernelLaunchPropertiesNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceCudaKernelLaunchPropertiesNV.html>"]
 #[doc(alias = "VkPhysicalDeviceCudaKernelLaunchPropertiesNV")]
 pub struct PhysicalDeviceCudaKernelLaunchPropertiesNV<'a> {
     pub(crate) s_type: StructureType,
@@ -50805,7 +50805,7 @@ impl<'a> PhysicalDeviceCudaKernelLaunchPropertiesNV<'a> {
 }
 #[cfg(feature = "ext_tile_shading")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceTileShadingFeaturesQCOM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceTileShadingFeaturesQCOM.html>"]
 #[doc(alias = "VkPhysicalDeviceTileShadingFeaturesQCOM")]
 pub struct PhysicalDeviceTileShadingFeaturesQCOM<'a> {
     pub(crate) s_type: StructureType,
@@ -50956,7 +50956,7 @@ impl<'a> PhysicalDeviceTileShadingFeaturesQCOM<'a> {
 }
 #[cfg(feature = "ext_tile_shading")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceTileShadingPropertiesQCOM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceTileShadingPropertiesQCOM.html>"]
 #[doc(alias = "VkPhysicalDeviceTileShadingPropertiesQCOM")]
 pub struct PhysicalDeviceTileShadingPropertiesQCOM<'a> {
     pub(crate) s_type: StructureType,
@@ -51032,7 +51032,7 @@ impl<'a> PhysicalDeviceTileShadingPropertiesQCOM<'a> {
 }
 #[cfg(feature = "ext_tile_shading")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkRenderPassTileShadingCreateInfoQCOM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkRenderPassTileShadingCreateInfoQCOM.html>"]
 #[doc(alias = "VkRenderPassTileShadingCreateInfoQCOM")]
 pub struct RenderPassTileShadingCreateInfoQCOM<'a> {
     pub(crate) s_type: StructureType,
@@ -51116,7 +51116,7 @@ impl<'a> RenderPassTileShadingCreateInfoQCOM<'a> {
 }
 #[cfg(feature = "ext_tile_shading")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPerTileBeginInfoQCOM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPerTileBeginInfoQCOM.html>"]
 #[doc(alias = "VkPerTileBeginInfoQCOM")]
 pub struct PerTileBeginInfoQCOM<'a> {
     pub(crate) s_type: StructureType,
@@ -51153,7 +51153,7 @@ impl<'a> PerTileBeginInfoQCOM<'a> {
 }
 #[cfg(feature = "ext_tile_shading")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPerTileEndInfoQCOM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPerTileEndInfoQCOM.html>"]
 #[doc(alias = "VkPerTileEndInfoQCOM")]
 pub struct PerTileEndInfoQCOM<'a> {
     pub(crate) s_type: StructureType,
@@ -51190,7 +51190,7 @@ impl<'a> PerTileEndInfoQCOM<'a> {
 }
 #[cfg(feature = "ext_tile_shading")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDispatchTileInfoQCOM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDispatchTileInfoQCOM.html>"]
 #[doc(alias = "VkDispatchTileInfoQCOM")]
 pub struct DispatchTileInfoQCOM<'a> {
     pub(crate) s_type: StructureType,
@@ -51227,7 +51227,7 @@ impl<'a> DispatchTileInfoQCOM<'a> {
 }
 #[cfg(feature = "ext_low_latency")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkQueryLowLatencySupportNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkQueryLowLatencySupportNV.html>"]
 #[doc(alias = "VkQueryLowLatencySupportNV")]
 pub struct QueryLowLatencySupportNV<'a> {
     pub(crate) s_type: StructureType,
@@ -51273,7 +51273,7 @@ impl<'a> QueryLowLatencySupportNV<'a> {
 }
 #[cfg(feature = "ext_metal_objects")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkExportMetalObjectCreateInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkExportMetalObjectCreateInfoEXT.html>"]
 #[doc(alias = "VkExportMetalObjectCreateInfoEXT")]
 pub struct ExportMetalObjectCreateInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -51346,7 +51346,7 @@ impl<'a> ExportMetalObjectCreateInfoEXT<'a> {
 }
 #[cfg(feature = "ext_metal_objects")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkExportMetalObjectsInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkExportMetalObjectsInfoEXT.html>"]
 #[doc(alias = "VkExportMetalObjectsInfoEXT")]
 pub struct ExportMetalObjectsInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -51383,7 +51383,7 @@ impl<'a> ExportMetalObjectsInfoEXT<'a> {
 }
 #[cfg(feature = "ext_metal_objects")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkExportMetalDeviceInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkExportMetalDeviceInfoEXT.html>"]
 #[doc(alias = "VkExportMetalDeviceInfoEXT")]
 pub struct ExportMetalDeviceInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -51432,7 +51432,7 @@ impl<'a> ExportMetalDeviceInfoEXT<'a> {
 }
 #[cfg(feature = "ext_metal_objects")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkExportMetalCommandQueueInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkExportMetalCommandQueueInfoEXT.html>"]
 #[doc(alias = "VkExportMetalCommandQueueInfoEXT")]
 pub struct ExportMetalCommandQueueInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -51488,7 +51488,7 @@ impl<'a> ExportMetalCommandQueueInfoEXT<'a> {
 }
 #[cfg(feature = "ext_metal_objects")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkExportMetalBufferInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkExportMetalBufferInfoEXT.html>"]
 #[doc(alias = "VkExportMetalBufferInfoEXT")]
 pub struct ExportMetalBufferInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -51544,7 +51544,7 @@ impl<'a> ExportMetalBufferInfoEXT<'a> {
 }
 #[cfg(feature = "ext_metal_objects")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImportMetalBufferInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImportMetalBufferInfoEXT.html>"]
 #[doc(alias = "VkImportMetalBufferInfoEXT")]
 pub struct ImportMetalBufferInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -51590,7 +51590,7 @@ impl<'a> ImportMetalBufferInfoEXT<'a> {
 }
 #[cfg(feature = "ext_metal_objects")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkExportMetalTextureInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkExportMetalTextureInfoEXT.html>"]
 #[doc(alias = "VkExportMetalTextureInfoEXT")]
 pub struct ExportMetalTextureInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -51667,7 +51667,7 @@ impl<'a> ExportMetalTextureInfoEXT<'a> {
 }
 #[cfg(feature = "ext_metal_objects")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImportMetalTextureInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImportMetalTextureInfoEXT.html>"]
 #[doc(alias = "VkImportMetalTextureInfoEXT")]
 pub struct ImportMetalTextureInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -51720,7 +51720,7 @@ impl<'a> ImportMetalTextureInfoEXT<'a> {
 }
 #[cfg(feature = "ext_metal_objects")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkExportMetalIOSurfaceInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkExportMetalIOSurfaceInfoEXT.html>"]
 #[doc(alias = "VkExportMetalIOSurfaceInfoEXT")]
 pub struct ExportMetalIOSurfaceInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -51776,7 +51776,7 @@ impl<'a> ExportMetalIOSurfaceInfoEXT<'a> {
 }
 #[cfg(feature = "ext_metal_objects")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImportMetalIOSurfaceInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImportMetalIOSurfaceInfoEXT.html>"]
 #[doc(alias = "VkImportMetalIOSurfaceInfoEXT")]
 pub struct ImportMetalIOSurfaceInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -51822,7 +51822,7 @@ impl<'a> ImportMetalIOSurfaceInfoEXT<'a> {
 }
 #[cfg(feature = "ext_metal_objects")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkExportMetalSharedEventInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkExportMetalSharedEventInfoEXT.html>"]
 #[doc(alias = "VkExportMetalSharedEventInfoEXT")]
 pub struct ExportMetalSharedEventInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -51885,7 +51885,7 @@ impl<'a> ExportMetalSharedEventInfoEXT<'a> {
 }
 #[cfg(feature = "ext_metal_objects")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImportMetalSharedEventInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImportMetalSharedEventInfoEXT.html>"]
 #[doc(alias = "VkImportMetalSharedEventInfoEXT")]
 pub struct ImportMetalSharedEventInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -51934,21 +51934,21 @@ impl<'a> ImportMetalSharedEventInfoEXT<'a> {
         self
     }
 }
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/MTLDevice_id.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/MTLDevice_id.html>"]
 pub type MTLDeviceId = VoidPtr;
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/MTLCommandQueue_id.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/MTLCommandQueue_id.html>"]
 pub type MTLCommandQueueId = VoidPtr;
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/MTLBuffer_id.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/MTLBuffer_id.html>"]
 pub type MTLBufferId = VoidPtr;
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/MTLTexture_id.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/MTLTexture_id.html>"]
 pub type MTLTextureId = VoidPtr;
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/MTLSharedEvent_id.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/MTLSharedEvent_id.html>"]
 pub type MTLSharedEventId = VoidPtr;
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/IOSurfaceRef.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/IOSurfaceRef.html>"]
 pub type IOSurfaceRef = VoidPtr;
 #[cfg(feature = "ext_descriptor_buffer")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceDescriptorBufferPropertiesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceDescriptorBufferPropertiesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceDescriptorBufferPropertiesEXT")]
 pub struct PhysicalDeviceDescriptorBufferPropertiesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -52237,7 +52237,7 @@ impl<'a> PhysicalDeviceDescriptorBufferPropertiesEXT<'a> {
 }
 #[cfg(feature = "ext_descriptor_buffer")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceDescriptorBufferDensityMapPropertiesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceDescriptorBufferDensityMapPropertiesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceDescriptorBufferDensityMapPropertiesEXT")]
 pub struct PhysicalDeviceDescriptorBufferDensityMapPropertiesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -52296,7 +52296,7 @@ impl<'a> PhysicalDeviceDescriptorBufferDensityMapPropertiesEXT<'a> {
 }
 #[cfg(feature = "ext_descriptor_buffer")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceDescriptorBufferFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceDescriptorBufferFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceDescriptorBufferFeaturesEXT")]
 pub struct PhysicalDeviceDescriptorBufferFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -52377,7 +52377,7 @@ impl<'a> PhysicalDeviceDescriptorBufferFeaturesEXT<'a> {
 }
 #[cfg(feature = "ext_descriptor_buffer")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDescriptorAddressInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDescriptorAddressInfoEXT.html>"]
 #[doc(alias = "VkDescriptorAddressInfoEXT")]
 pub struct DescriptorAddressInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -52435,7 +52435,7 @@ impl<'a> DescriptorAddressInfoEXT<'a> {
 }
 #[cfg(feature = "ext_descriptor_buffer")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDescriptorBufferBindingInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDescriptorBufferBindingInfoEXT.html>"]
 #[doc(alias = "VkDescriptorBufferBindingInfoEXT")]
 pub struct DescriptorBufferBindingInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -52486,7 +52486,7 @@ impl<'a> DescriptorBufferBindingInfoEXT<'a> {
 }
 #[cfg(feature = "ext_descriptor_buffer")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDescriptorBufferBindingPushDescriptorBufferHandleEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDescriptorBufferBindingPushDescriptorBufferHandleEXT.html>"]
 #[doc(alias = "VkDescriptorBufferBindingPushDescriptorBufferHandleEXT")]
 pub struct DescriptorBufferBindingPushDescriptorBufferHandleEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -52539,7 +52539,7 @@ impl<'a> DescriptorBufferBindingPushDescriptorBufferHandleEXT<'a> {
 }
 #[cfg(feature = "ext_descriptor_buffer")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDescriptorDataEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDescriptorDataEXT.html>"]
 #[doc(alias = "VkDescriptorDataEXT")]
 pub union DescriptorDataEXT<'a> {
     pub p_sampler: ManuallyDrop<*const Sampler>,
@@ -52563,7 +52563,7 @@ impl<'a> Default for DescriptorDataEXT<'a> {
 }
 #[cfg(feature = "ext_descriptor_buffer")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDescriptorGetInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDescriptorGetInfoEXT.html>"]
 #[doc(alias = "VkDescriptorGetInfoEXT")]
 pub struct DescriptorGetInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -52614,7 +52614,7 @@ impl<'a> DescriptorGetInfoEXT<'a> {
 }
 #[cfg(feature = "ext_descriptor_buffer")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkBufferCaptureDescriptorDataInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkBufferCaptureDescriptorDataInfoEXT.html>"]
 #[doc(alias = "VkBufferCaptureDescriptorDataInfoEXT")]
 pub struct BufferCaptureDescriptorDataInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -52658,7 +52658,7 @@ impl<'a> BufferCaptureDescriptorDataInfoEXT<'a> {
 }
 #[cfg(feature = "ext_descriptor_buffer")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImageCaptureDescriptorDataInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImageCaptureDescriptorDataInfoEXT.html>"]
 #[doc(alias = "VkImageCaptureDescriptorDataInfoEXT")]
 pub struct ImageCaptureDescriptorDataInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -52702,7 +52702,7 @@ impl<'a> ImageCaptureDescriptorDataInfoEXT<'a> {
 }
 #[cfg(feature = "ext_descriptor_buffer")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImageViewCaptureDescriptorDataInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImageViewCaptureDescriptorDataInfoEXT.html>"]
 #[doc(alias = "VkImageViewCaptureDescriptorDataInfoEXT")]
 pub struct ImageViewCaptureDescriptorDataInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -52746,7 +52746,7 @@ impl<'a> ImageViewCaptureDescriptorDataInfoEXT<'a> {
 }
 #[cfg(feature = "ext_descriptor_buffer")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSamplerCaptureDescriptorDataInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSamplerCaptureDescriptorDataInfoEXT.html>"]
 #[doc(alias = "VkSamplerCaptureDescriptorDataInfoEXT")]
 pub struct SamplerCaptureDescriptorDataInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -52790,7 +52790,7 @@ impl<'a> SamplerCaptureDescriptorDataInfoEXT<'a> {
 }
 #[cfg(feature = "ext_descriptor_buffer")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkOpaqueCaptureDescriptorDataCreateInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkOpaqueCaptureDescriptorDataCreateInfoEXT.html>"]
 #[doc(alias = "VkOpaqueCaptureDescriptorDataCreateInfoEXT")]
 pub struct OpaqueCaptureDescriptorDataCreateInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -52883,7 +52883,7 @@ impl<'a> OpaqueCaptureDescriptorDataCreateInfoEXT<'a> {
     any(feature = "ext_acceleration_structure", feature = "ext_ray_tracing")
 ))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAccelerationStructureCaptureDescriptorDataInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAccelerationStructureCaptureDescriptorDataInfoEXT.html>"]
 #[doc(alias = "VkAccelerationStructureCaptureDescriptorDataInfoEXT")]
 pub struct AccelerationStructureCaptureDescriptorDataInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -52959,7 +52959,7 @@ impl<'a> AccelerationStructureCaptureDescriptorDataInfoEXT<'a> {
 }
 #[cfg(feature = "ext_graphics_pipeline_library")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceGraphicsPipelineLibraryFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceGraphicsPipelineLibraryFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceGraphicsPipelineLibraryFeaturesEXT")]
 pub struct PhysicalDeviceGraphicsPipelineLibraryFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -53020,7 +53020,7 @@ impl<'a> PhysicalDeviceGraphicsPipelineLibraryFeaturesEXT<'a> {
 }
 #[cfg(feature = "ext_graphics_pipeline_library")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceGraphicsPipelineLibraryPropertiesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceGraphicsPipelineLibraryPropertiesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceGraphicsPipelineLibraryPropertiesEXT")]
 pub struct PhysicalDeviceGraphicsPipelineLibraryPropertiesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -53086,7 +53086,7 @@ impl<'a> PhysicalDeviceGraphicsPipelineLibraryPropertiesEXT<'a> {
 }
 #[cfg(feature = "ext_graphics_pipeline_library")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkGraphicsPipelineLibraryCreateInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkGraphicsPipelineLibraryCreateInfoEXT.html>"]
 #[doc(alias = "VkGraphicsPipelineLibraryCreateInfoEXT")]
 pub struct GraphicsPipelineLibraryCreateInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -53134,7 +53134,7 @@ impl<'a> GraphicsPipelineLibraryCreateInfoEXT<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderEarlyAndLateFragmentTestsFeaturesAMD.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderEarlyAndLateFragmentTestsFeaturesAMD.html>"]
 #[doc(alias = "VkPhysicalDeviceShaderEarlyAndLateFragmentTestsFeaturesAMD")]
 pub struct PhysicalDeviceShaderEarlyAndLateFragmentTestsFeaturesAMD<'a> {
     pub(crate) s_type: StructureType,
@@ -53193,7 +53193,7 @@ impl<'a> PhysicalDeviceShaderEarlyAndLateFragmentTestsFeaturesAMD<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceFragmentShaderBarycentricFeaturesKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceFragmentShaderBarycentricFeaturesKHR.html>"]
 #[doc(alias = "VkPhysicalDeviceFragmentShaderBarycentricFeaturesKHR")]
 pub struct PhysicalDeviceFragmentShaderBarycentricFeaturesKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -53249,7 +53249,7 @@ impl<'a> PhysicalDeviceFragmentShaderBarycentricFeaturesKHR<'a> {
 pub type PhysicalDeviceFragmentShaderBarycentricFeaturesNV<'a> =
     PhysicalDeviceFragmentShaderBarycentricFeaturesKHR<'a>;
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceFragmentShaderBarycentricPropertiesKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceFragmentShaderBarycentricPropertiesKHR.html>"]
 #[doc(alias = "VkPhysicalDeviceFragmentShaderBarycentricPropertiesKHR")]
 pub struct PhysicalDeviceFragmentShaderBarycentricPropertiesKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -53304,7 +53304,7 @@ impl<'a> PhysicalDeviceFragmentShaderBarycentricPropertiesKHR<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR.html>"]
 #[doc(alias = "VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR")]
 pub struct PhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -53364,7 +53364,7 @@ impl<'a> PhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR<'a> {
 }
 #[cfg(feature = "ext_fragment_shading_rate_enums")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceFragmentShadingRateEnumsFeaturesNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceFragmentShadingRateEnumsFeaturesNV.html>"]
 #[doc(alias = "VkPhysicalDeviceFragmentShadingRateEnumsFeaturesNV")]
 pub struct PhysicalDeviceFragmentShadingRateEnumsFeaturesNV<'a> {
     pub(crate) s_type: StructureType,
@@ -53439,7 +53439,7 @@ impl<'a> PhysicalDeviceFragmentShadingRateEnumsFeaturesNV<'a> {
 }
 #[cfg(feature = "ext_fragment_shading_rate_enums")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceFragmentShadingRateEnumsPropertiesNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceFragmentShadingRateEnumsPropertiesNV.html>"]
 #[doc(alias = "VkPhysicalDeviceFragmentShadingRateEnumsPropertiesNV")]
 pub struct PhysicalDeviceFragmentShadingRateEnumsPropertiesNV<'a> {
     pub(crate) s_type: StructureType,
@@ -53495,7 +53495,7 @@ impl<'a> PhysicalDeviceFragmentShadingRateEnumsPropertiesNV<'a> {
 }
 #[cfg(feature = "ext_fragment_shading_rate_enums")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineFragmentShadingRateEnumStateCreateInfoNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineFragmentShadingRateEnumStateCreateInfoNV.html>"]
 #[doc(alias = "VkPipelineFragmentShadingRateEnumStateCreateInfoNV")]
 pub struct PipelineFragmentShadingRateEnumStateCreateInfoNV<'a> {
     pub(crate) s_type: StructureType,
@@ -53559,7 +53559,7 @@ impl<'a> PipelineFragmentShadingRateEnumStateCreateInfoNV<'a> {
 }
 #[cfg(feature = "ext_ray_tracing_motion_blur")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAccelerationStructureGeometryMotionTrianglesDataNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAccelerationStructureGeometryMotionTrianglesDataNV.html>"]
 #[doc(alias = "VkAccelerationStructureGeometryMotionTrianglesDataNV")]
 pub struct AccelerationStructureGeometryMotionTrianglesDataNV<'a> {
     pub(crate) s_type: StructureType,
@@ -53612,7 +53612,7 @@ impl<'a> AccelerationStructureGeometryMotionTrianglesDataNV<'a> {
 }
 #[cfg(feature = "ext_ray_tracing_motion_blur")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAccelerationStructureMotionInfoNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAccelerationStructureMotionInfoNV.html>"]
 #[doc(alias = "VkAccelerationStructureMotionInfoNV")]
 pub struct AccelerationStructureMotionInfoNV<'a> {
     pub(crate) s_type: StructureType,
@@ -53672,7 +53672,7 @@ impl<'a> AccelerationStructureMotionInfoNV<'a> {
 #[cfg(feature = "ext_ray_tracing_motion_blur")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAccelerationStructureMotionInstanceNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAccelerationStructureMotionInstanceNV.html>"]
 #[doc(alias = "VkAccelerationStructureMotionInstanceNV")]
 pub struct AccelerationStructureMotionInstanceNV {
     pub ty: AccelerationStructureMotionInstanceTypeNV,
@@ -53714,7 +53714,7 @@ impl AccelerationStructureMotionInstanceNV {
 #[cfg(feature = "ext_ray_tracing_motion_blur")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAccelerationStructureMotionInstanceDataNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAccelerationStructureMotionInstanceDataNV.html>"]
 #[doc(alias = "VkAccelerationStructureMotionInstanceDataNV")]
 pub union AccelerationStructureMotionInstanceDataNV {
     pub static_instance: AccelerationStructureInstanceKHR,
@@ -53732,7 +53732,7 @@ impl Default for AccelerationStructureMotionInstanceDataNV {
 #[cfg(feature = "ext_ray_tracing_motion_blur")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAccelerationStructureMatrixMotionInstanceNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAccelerationStructureMatrixMotionInstanceNV.html>"]
 #[doc(alias = "VkAccelerationStructureMatrixMotionInstanceNV")]
 pub struct AccelerationStructureMatrixMotionInstanceNV {
     pub transform_t0: TransformMatrixKHR,
@@ -53803,7 +53803,7 @@ impl AccelerationStructureMatrixMotionInstanceNV {
 #[cfg(feature = "ext_ray_tracing_motion_blur")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAccelerationStructureSRTMotionInstanceNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAccelerationStructureSRTMotionInstanceNV.html>"]
 #[doc(alias = "VkAccelerationStructureSRTMotionInstanceNV")]
 pub struct AccelerationStructureSRTMotionInstanceNV {
     pub transform_t0: SRTDataNV,
@@ -53874,7 +53874,7 @@ impl AccelerationStructureSRTMotionInstanceNV {
 #[cfg(feature = "ext_ray_tracing_motion_blur")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSRTDataNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSRTDataNV.html>"]
 #[doc(alias = "VkSRTDataNV")]
 pub struct SRTDataNV {
     pub sx: f32,
@@ -54006,7 +54006,7 @@ impl SRTDataNV {
 }
 #[cfg(feature = "ext_ray_tracing_motion_blur")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceRayTracingMotionBlurFeaturesNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceRayTracingMotionBlurFeaturesNV.html>"]
 #[doc(alias = "VkPhysicalDeviceRayTracingMotionBlurFeaturesNV")]
 pub struct PhysicalDeviceRayTracingMotionBlurFeaturesNV<'a> {
     pub(crate) s_type: StructureType,
@@ -54077,7 +54077,7 @@ impl<'a> PhysicalDeviceRayTracingMotionBlurFeaturesNV<'a> {
 }
 #[cfg(feature = "ext_mesh_shader")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceMeshShaderFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceMeshShaderFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceMeshShaderFeaturesEXT")]
 pub struct PhysicalDeviceMeshShaderFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -54165,7 +54165,7 @@ impl<'a> PhysicalDeviceMeshShaderFeaturesEXT<'a> {
 }
 #[cfg(feature = "ext_mesh_shader")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceMeshShaderPropertiesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceMeshShaderPropertiesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceMeshShaderPropertiesEXT")]
 pub struct PhysicalDeviceMeshShaderPropertiesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -54410,7 +54410,7 @@ impl<'a> PhysicalDeviceMeshShaderPropertiesEXT<'a> {
 #[cfg(feature = "ext_mesh_shader")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDrawMeshTasksIndirectCommandEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDrawMeshTasksIndirectCommandEXT.html>"]
 #[doc(alias = "VkDrawMeshTasksIndirectCommandEXT")]
 pub struct DrawMeshTasksIndirectCommandEXT {
     pub group_count_x: u32,
@@ -54450,7 +54450,7 @@ impl DrawMeshTasksIndirectCommandEXT {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceYcbcr2Plane444FormatsFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceYcbcr2Plane444FormatsFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceYcbcr2Plane444FormatsFeaturesEXT")]
 pub struct PhysicalDeviceYcbcr2Plane444FormatsFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -54504,7 +54504,7 @@ impl<'a> PhysicalDeviceYcbcr2Plane444FormatsFeaturesEXT<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceFragmentDensityMap2FeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceFragmentDensityMap2FeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceFragmentDensityMap2FeaturesEXT")]
 pub struct PhysicalDeviceFragmentDensityMap2FeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -54558,7 +54558,7 @@ impl<'a> PhysicalDeviceFragmentDensityMap2FeaturesEXT<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceFragmentDensityMap2PropertiesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceFragmentDensityMap2PropertiesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceFragmentDensityMap2PropertiesEXT")]
 pub struct PhysicalDeviceFragmentDensityMap2PropertiesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -54632,7 +54632,7 @@ impl<'a> PhysicalDeviceFragmentDensityMap2PropertiesEXT<'a> {
 }
 #[cfg(feature = "ext_rotated_copy_commands")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCopyCommandTransformInfoQCOM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCopyCommandTransformInfoQCOM.html>"]
 #[doc(alias = "VkCopyCommandTransformInfoQCOM")]
 pub struct CopyCommandTransformInfoQCOM<'a> {
     pub(crate) s_type: StructureType,
@@ -54685,7 +54685,7 @@ impl<'a> CopyCommandTransformInfoQCOM<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR.html>"]
 #[doc(alias = "VkPhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR")]
 pub struct PhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -54773,7 +54773,7 @@ impl<'a> PhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR<'a> {
 }
 #[cfg(feature = "ext_image_compression_control")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceImageCompressionControlFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceImageCompressionControlFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceImageCompressionControlFeaturesEXT")]
 pub struct PhysicalDeviceImageCompressionControlFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -54834,7 +54834,7 @@ impl<'a> PhysicalDeviceImageCompressionControlFeaturesEXT<'a> {
 }
 #[cfg(feature = "ext_image_compression_control")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImageCompressionControlEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImageCompressionControlEXT.html>"]
 #[doc(alias = "VkImageCompressionControlEXT")]
 pub struct ImageCompressionControlEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -54925,7 +54925,7 @@ impl<'a> ImageCompressionControlEXT<'a> {
 }
 #[cfg(feature = "ext_image_compression_control")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImageCompressionPropertiesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImageCompressionPropertiesEXT.html>"]
 #[doc(alias = "VkImageCompressionPropertiesEXT")]
 pub struct ImageCompressionPropertiesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -55010,7 +55010,7 @@ impl<'a> ImageCompressionPropertiesEXT<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceAttachmentFeedbackLoopLayoutFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceAttachmentFeedbackLoopLayoutFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceAttachmentFeedbackLoopLayoutFeaturesEXT")]
 pub struct PhysicalDeviceAttachmentFeedbackLoopLayoutFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -55067,7 +55067,7 @@ impl<'a> PhysicalDeviceAttachmentFeedbackLoopLayoutFeaturesEXT<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDevice4444FormatsFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDevice4444FormatsFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDevice4444FormatsFeaturesEXT")]
 pub struct PhysicalDevice4444FormatsFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -55128,7 +55128,7 @@ impl<'a> PhysicalDevice4444FormatsFeaturesEXT<'a> {
 }
 #[cfg(feature = "ext_device_fault")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceFaultFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceFaultFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceFaultFeaturesEXT")]
 pub struct PhysicalDeviceFaultFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -55195,7 +55195,7 @@ impl<'a> PhysicalDeviceFaultFeaturesEXT<'a> {
 }
 #[cfg(feature = "ext_device_fault")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDeviceFaultCountsEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceFaultCountsEXT.html>"]
 #[doc(alias = "VkDeviceFaultCountsEXT")]
 pub struct DeviceFaultCountsEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -55253,7 +55253,7 @@ impl<'a> DeviceFaultCountsEXT<'a> {
 }
 #[cfg(feature = "ext_device_fault")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDeviceFaultInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceFaultInfoEXT.html>"]
 #[doc(alias = "VkDeviceFaultInfoEXT")]
 pub struct DeviceFaultInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -55321,7 +55321,7 @@ impl<'a> DeviceFaultInfoEXT<'a> {
 #[cfg(feature = "ext_device_fault")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDeviceFaultAddressInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceFaultAddressInfoEXT.html>"]
 #[doc(alias = "VkDeviceFaultAddressInfoEXT")]
 pub struct DeviceFaultAddressInfoEXT {
     pub address_type: DeviceFaultAddressTypeEXT,
@@ -55363,7 +55363,7 @@ impl DeviceFaultAddressInfoEXT {
 #[cfg(feature = "ext_device_fault")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDeviceFaultVendorInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceFaultVendorInfoEXT.html>"]
 #[doc(alias = "VkDeviceFaultVendorInfoEXT")]
 pub struct DeviceFaultVendorInfoEXT {
     pub(crate) description: [c_char; MAX_DESCRIPTION_SIZE as _],
@@ -55407,7 +55407,7 @@ impl DeviceFaultVendorInfoEXT {
 #[cfg(feature = "ext_device_fault")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDeviceFaultVendorBinaryHeaderVersionOneEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceFaultVendorBinaryHeaderVersionOneEXT.html>"]
 #[doc(alias = "VkDeviceFaultVendorBinaryHeaderVersionOneEXT")]
 pub struct DeviceFaultVendorBinaryHeaderVersionOneEXT {
     pub header_size: u32,
@@ -55503,7 +55503,7 @@ impl DeviceFaultVendorBinaryHeaderVersionOneEXT {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT")]
 pub struct PhysicalDeviceRGBA10X6FormatsFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -55557,7 +55557,7 @@ impl<'a> PhysicalDeviceRGBA10X6FormatsFeaturesEXT<'a> {
 }
 #[cfg(feature = "ext_directfb_surface")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDirectFBSurfaceCreateInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDirectFBSurfaceCreateInfoEXT.html>"]
 #[doc(alias = "VkDirectFBSurfaceCreateInfoEXT")]
 pub struct DirectFBSurfaceCreateInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -55615,7 +55615,7 @@ impl<'a> DirectFBSurfaceCreateInfoEXT<'a> {
 }
 #[cfg(feature = "ext_vertex_input_dynamic_state")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceVertexInputDynamicStateFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceVertexInputDynamicStateFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceVertexInputDynamicStateFeaturesEXT")]
 pub struct PhysicalDeviceVertexInputDynamicStateFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -55679,7 +55679,7 @@ impl<'a> PhysicalDeviceVertexInputDynamicStateFeaturesEXT<'a> {
     feature = "ext_shader_object"
 ))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkVertexInputBindingDescription2EXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkVertexInputBindingDescription2EXT.html>"]
 #[doc(alias = "VkVertexInputBindingDescription2EXT")]
 pub struct VertexInputBindingDescription2EXT<'a> {
     pub(crate) s_type: StructureType,
@@ -55765,7 +55765,7 @@ impl<'a> VertexInputBindingDescription2EXT<'a> {
     feature = "ext_shader_object"
 ))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkVertexInputAttributeDescription2EXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkVertexInputAttributeDescription2EXT.html>"]
 #[doc(alias = "VkVertexInputAttributeDescription2EXT")]
 pub struct VertexInputAttributeDescription2EXT<'a> {
     pub(crate) s_type: StructureType,
@@ -55847,7 +55847,7 @@ impl<'a> VertexInputAttributeDescription2EXT<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceDrmPropertiesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceDrmPropertiesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceDrmPropertiesEXT")]
 pub struct PhysicalDeviceDrmPropertiesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -55931,7 +55931,7 @@ impl<'a> PhysicalDeviceDrmPropertiesEXT<'a> {
 }
 #[cfg(feature = "ext_device_address_binding_report")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceAddressBindingReportFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceAddressBindingReportFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceAddressBindingReportFeaturesEXT")]
 pub struct PhysicalDeviceAddressBindingReportFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -55992,7 +55992,7 @@ impl<'a> PhysicalDeviceAddressBindingReportFeaturesEXT<'a> {
 }
 #[cfg(feature = "ext_device_address_binding_report")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDeviceAddressBindingCallbackDataEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceAddressBindingCallbackDataEXT.html>"]
 #[doc(alias = "VkDeviceAddressBindingCallbackDataEXT")]
 pub struct DeviceAddressBindingCallbackDataEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -56065,7 +56065,7 @@ impl<'a> DeviceAddressBindingCallbackDataEXT<'a> {
 }
 #[cfg(feature = "ext_depth_clip_control")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceDepthClipControlFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceDepthClipControlFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceDepthClipControlFeaturesEXT")]
 pub struct PhysicalDeviceDepthClipControlFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -56125,7 +56125,7 @@ impl<'a> PhysicalDeviceDepthClipControlFeaturesEXT<'a> {
 }
 #[cfg(feature = "ext_depth_clip_control")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineViewportDepthClipControlCreateInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineViewportDepthClipControlCreateInfoEXT.html>"]
 #[doc(alias = "VkPipelineViewportDepthClipControlCreateInfoEXT")]
 pub struct PipelineViewportDepthClipControlCreateInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -56174,7 +56174,7 @@ impl<'a> PipelineViewportDepthClipControlCreateInfoEXT<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDevicePrimitiveTopologyListRestartFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDevicePrimitiveTopologyListRestartFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDevicePrimitiveTopologyListRestartFeaturesEXT")]
 pub struct PhysicalDevicePrimitiveTopologyListRestartFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -56239,7 +56239,7 @@ impl<'a> PhysicalDevicePrimitiveTopologyListRestartFeaturesEXT<'a> {
 }
 #[cfg(feature = "ext_fuchsia_external_memory")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImportMemoryZirconHandleInfoFUCHSIA.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImportMemoryZirconHandleInfoFUCHSIA.html>"]
 #[doc(alias = "VkImportMemoryZirconHandleInfoFUCHSIA")]
 pub struct ImportMemoryZirconHandleInfoFUCHSIA<'a> {
     pub(crate) s_type: StructureType,
@@ -56295,7 +56295,7 @@ impl<'a> ImportMemoryZirconHandleInfoFUCHSIA<'a> {
 }
 #[cfg(feature = "ext_fuchsia_external_memory")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkMemoryZirconHandlePropertiesFUCHSIA.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkMemoryZirconHandlePropertiesFUCHSIA.html>"]
 #[doc(alias = "VkMemoryZirconHandlePropertiesFUCHSIA")]
 pub struct MemoryZirconHandlePropertiesFUCHSIA<'a> {
     pub(crate) s_type: StructureType,
@@ -56339,7 +56339,7 @@ impl<'a> MemoryZirconHandlePropertiesFUCHSIA<'a> {
 }
 #[cfg(feature = "ext_fuchsia_external_memory")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkMemoryGetZirconHandleInfoFUCHSIA.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkMemoryGetZirconHandleInfoFUCHSIA.html>"]
 #[doc(alias = "VkMemoryGetZirconHandleInfoFUCHSIA")]
 pub struct MemoryGetZirconHandleInfoFUCHSIA<'a> {
     pub(crate) s_type: StructureType,
@@ -56390,7 +56390,7 @@ impl<'a> MemoryGetZirconHandleInfoFUCHSIA<'a> {
 }
 #[cfg(feature = "ext_fuchsia_external_semaphore")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImportSemaphoreZirconHandleInfoFUCHSIA.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImportSemaphoreZirconHandleInfoFUCHSIA.html>"]
 #[doc(alias = "VkImportSemaphoreZirconHandleInfoFUCHSIA")]
 pub struct ImportSemaphoreZirconHandleInfoFUCHSIA<'a> {
     pub(crate) s_type: StructureType,
@@ -56455,7 +56455,7 @@ impl<'a> ImportSemaphoreZirconHandleInfoFUCHSIA<'a> {
 }
 #[cfg(feature = "ext_fuchsia_external_semaphore")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSemaphoreGetZirconHandleInfoFUCHSIA.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSemaphoreGetZirconHandleInfoFUCHSIA.html>"]
 #[doc(alias = "VkSemaphoreGetZirconHandleInfoFUCHSIA")]
 pub struct SemaphoreGetZirconHandleInfoFUCHSIA<'a> {
     pub(crate) s_type: StructureType,
@@ -56506,7 +56506,7 @@ impl<'a> SemaphoreGetZirconHandleInfoFUCHSIA<'a> {
 }
 #[cfg(feature = "ext_buffer_collection")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkBufferCollectionCreateInfoFUCHSIA.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkBufferCollectionCreateInfoFUCHSIA.html>"]
 #[doc(alias = "VkBufferCollectionCreateInfoFUCHSIA")]
 pub struct BufferCollectionCreateInfoFUCHSIA<'a> {
     pub(crate) s_type: StructureType,
@@ -56550,7 +56550,7 @@ impl<'a> BufferCollectionCreateInfoFUCHSIA<'a> {
 }
 #[cfg(feature = "ext_buffer_collection")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImportMemoryBufferCollectionFUCHSIA.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImportMemoryBufferCollectionFUCHSIA.html>"]
 #[doc(alias = "VkImportMemoryBufferCollectionFUCHSIA")]
 pub struct ImportMemoryBufferCollectionFUCHSIA<'a> {
     pub(crate) s_type: StructureType,
@@ -56606,7 +56606,7 @@ impl<'a> ImportMemoryBufferCollectionFUCHSIA<'a> {
 }
 #[cfg(feature = "ext_buffer_collection")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkBufferCollectionImageCreateInfoFUCHSIA.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkBufferCollectionImageCreateInfoFUCHSIA.html>"]
 #[doc(alias = "VkBufferCollectionImageCreateInfoFUCHSIA")]
 pub struct BufferCollectionImageCreateInfoFUCHSIA<'a> {
     pub(crate) s_type: StructureType,
@@ -56662,7 +56662,7 @@ impl<'a> BufferCollectionImageCreateInfoFUCHSIA<'a> {
 }
 #[cfg(feature = "ext_buffer_collection")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkBufferConstraintsInfoFUCHSIA.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkBufferConstraintsInfoFUCHSIA.html>"]
 #[doc(alias = "VkBufferConstraintsInfoFUCHSIA")]
 pub struct BufferConstraintsInfoFUCHSIA<'a> {
     pub(crate) s_type: StructureType,
@@ -56723,7 +56723,7 @@ impl<'a> BufferConstraintsInfoFUCHSIA<'a> {
 }
 #[cfg(feature = "ext_buffer_collection")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkBufferCollectionBufferCreateInfoFUCHSIA.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkBufferCollectionBufferCreateInfoFUCHSIA.html>"]
 #[doc(alias = "VkBufferCollectionBufferCreateInfoFUCHSIA")]
 pub struct BufferCollectionBufferCreateInfoFUCHSIA<'a> {
     pub(crate) s_type: StructureType,
@@ -56779,7 +56779,7 @@ impl<'a> BufferCollectionBufferCreateInfoFUCHSIA<'a> {
 }
 #[cfg(feature = "ext_buffer_collection")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkBufferCollectionPropertiesFUCHSIA.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkBufferCollectionPropertiesFUCHSIA.html>"]
 #[doc(alias = "VkBufferCollectionPropertiesFUCHSIA")]
 pub struct BufferCollectionPropertiesFUCHSIA<'a> {
     pub(crate) s_type: StructureType,
@@ -56893,7 +56893,7 @@ impl<'a> BufferCollectionPropertiesFUCHSIA<'a> {
 }
 #[cfg(feature = "ext_buffer_collection")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSysmemColorSpaceFUCHSIA.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSysmemColorSpaceFUCHSIA.html>"]
 #[doc(alias = "VkSysmemColorSpaceFUCHSIA")]
 pub struct SysmemColorSpaceFUCHSIA<'a> {
     pub(crate) s_type: StructureType,
@@ -56937,7 +56937,7 @@ impl<'a> SysmemColorSpaceFUCHSIA<'a> {
 }
 #[cfg(feature = "ext_buffer_collection")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImageConstraintsInfoFUCHSIA.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImageConstraintsInfoFUCHSIA.html>"]
 #[doc(alias = "VkImageConstraintsInfoFUCHSIA")]
 pub struct ImageConstraintsInfoFUCHSIA<'a> {
     pub(crate) s_type: StructureType,
@@ -57015,7 +57015,7 @@ impl<'a> ImageConstraintsInfoFUCHSIA<'a> {
 }
 #[cfg(feature = "ext_buffer_collection")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImageFormatConstraintsInfoFUCHSIA.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImageFormatConstraintsInfoFUCHSIA.html>"]
 #[doc(alias = "VkImageFormatConstraintsInfoFUCHSIA")]
 pub struct ImageFormatConstraintsInfoFUCHSIA<'a> {
     pub(crate) s_type: StructureType,
@@ -57101,7 +57101,7 @@ impl<'a> ImageFormatConstraintsInfoFUCHSIA<'a> {
 }
 #[cfg(feature = "ext_buffer_collection")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkBufferCollectionConstraintsInfoFUCHSIA.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkBufferCollectionConstraintsInfoFUCHSIA.html>"]
 #[doc(alias = "VkBufferCollectionConstraintsInfoFUCHSIA")]
 pub struct BufferCollectionConstraintsInfoFUCHSIA<'a> {
     pub(crate) s_type: StructureType,
@@ -57173,7 +57173,7 @@ impl<'a> BufferCollectionConstraintsInfoFUCHSIA<'a> {
 }
 #[cfg(feature = "ext_subpass_shading")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSubpassShadingPipelineCreateInfoHUAWEI.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSubpassShadingPipelineCreateInfoHUAWEI.html>"]
 #[doc(alias = "VkSubpassShadingPipelineCreateInfoHUAWEI")]
 pub struct SubpassShadingPipelineCreateInfoHUAWEI<'a> {
     pub(crate) s_type: StructureType,
@@ -57229,7 +57229,7 @@ impl<'a> SubpassShadingPipelineCreateInfoHUAWEI<'a> {
 }
 #[cfg(feature = "ext_subpass_shading")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceSubpassShadingFeaturesHUAWEI.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceSubpassShadingFeaturesHUAWEI.html>"]
 #[doc(alias = "VkPhysicalDeviceSubpassShadingFeaturesHUAWEI")]
 pub struct PhysicalDeviceSubpassShadingFeaturesHUAWEI<'a> {
     pub(crate) s_type: StructureType,
@@ -57289,7 +57289,7 @@ impl<'a> PhysicalDeviceSubpassShadingFeaturesHUAWEI<'a> {
 }
 #[cfg(feature = "ext_subpass_shading")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceSubpassShadingPropertiesHUAWEI.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceSubpassShadingPropertiesHUAWEI.html>"]
 #[doc(alias = "VkPhysicalDeviceSubpassShadingPropertiesHUAWEI")]
 pub struct PhysicalDeviceSubpassShadingPropertiesHUAWEI<'a> {
     pub(crate) s_type: StructureType,
@@ -57345,7 +57345,7 @@ impl<'a> PhysicalDeviceSubpassShadingPropertiesHUAWEI<'a> {
 }
 #[cfg(feature = "ext_invocation_mask")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceInvocationMaskFeaturesHUAWEI.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceInvocationMaskFeaturesHUAWEI.html>"]
 #[doc(alias = "VkPhysicalDeviceInvocationMaskFeaturesHUAWEI")]
 pub struct PhysicalDeviceInvocationMaskFeaturesHUAWEI<'a> {
     pub(crate) s_type: StructureType,
@@ -57403,12 +57403,12 @@ impl<'a> PhysicalDeviceInvocationMaskFeaturesHUAWEI<'a> {
         self
     }
 }
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkRemoteAddressNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkRemoteAddressNV.html>"]
 #[doc(alias = "VkRemoteAddressNV")]
 pub type RemoteAddressNV = VoidPtr;
 #[cfg(feature = "ext_external_memory_rdma")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkMemoryGetRemoteAddressInfoNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkMemoryGetRemoteAddressInfoNV.html>"]
 #[doc(alias = "VkMemoryGetRemoteAddressInfoNV")]
 pub struct MemoryGetRemoteAddressInfoNV<'a> {
     pub(crate) s_type: StructureType,
@@ -57459,7 +57459,7 @@ impl<'a> MemoryGetRemoteAddressInfoNV<'a> {
 }
 #[cfg(feature = "ext_external_memory_rdma")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceExternalMemoryRDMAFeaturesNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceExternalMemoryRDMAFeaturesNV.html>"]
 #[doc(alias = "VkPhysicalDeviceExternalMemoryRDMAFeaturesNV")]
 pub struct PhysicalDeviceExternalMemoryRDMAFeaturesNV<'a> {
     pub(crate) s_type: StructureType,
@@ -57519,7 +57519,7 @@ impl<'a> PhysicalDeviceExternalMemoryRDMAFeaturesNV<'a> {
 }
 #[cfg(feature = "ext_pipeline_properties")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelinePropertiesIdentifierEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelinePropertiesIdentifierEXT.html>"]
 #[doc(alias = "VkPipelinePropertiesIdentifierEXT")]
 pub struct PipelinePropertiesIdentifierEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -57563,7 +57563,7 @@ impl<'a> PipelinePropertiesIdentifierEXT<'a> {
 }
 #[cfg(feature = "ext_pipeline_properties")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDevicePipelinePropertiesFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDevicePipelinePropertiesFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDevicePipelinePropertiesFeaturesEXT")]
 pub struct PhysicalDevicePipelinePropertiesFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -57624,7 +57624,7 @@ impl<'a> PhysicalDevicePipelinePropertiesFeaturesEXT<'a> {
 }
 #[cfg(feature = "ext_frame_boundary")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceFrameBoundaryFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceFrameBoundaryFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceFrameBoundaryFeaturesEXT")]
 pub struct PhysicalDeviceFrameBoundaryFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -57684,7 +57684,7 @@ impl<'a> PhysicalDeviceFrameBoundaryFeaturesEXT<'a> {
 }
 #[cfg(feature = "ext_frame_boundary")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkFrameBoundaryEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkFrameBoundaryEXT.html>"]
 #[doc(alias = "VkFrameBoundaryEXT")]
 pub struct FrameBoundaryEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -57820,7 +57820,7 @@ impl<'a> FrameBoundaryEXT<'a> {
 }
 #[cfg(feature = "ext_multisampled_render_to_single_sampled")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceMultisampledRenderToSingleSampledFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceMultisampledRenderToSingleSampledFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceMultisampledRenderToSingleSampledFeaturesEXT")]
 pub struct PhysicalDeviceMultisampledRenderToSingleSampledFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -57886,7 +57886,7 @@ impl<'a> PhysicalDeviceMultisampledRenderToSingleSampledFeaturesEXT<'a> {
 }
 #[cfg(feature = "ext_multisampled_render_to_single_sampled")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSubpassResolvePerformanceQueryEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSubpassResolvePerformanceQueryEXT.html>"]
 #[doc(alias = "VkSubpassResolvePerformanceQueryEXT")]
 pub struct SubpassResolvePerformanceQueryEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -57941,7 +57941,7 @@ impl<'a> SubpassResolvePerformanceQueryEXT<'a> {
 }
 #[cfg(feature = "ext_multisampled_render_to_single_sampled")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkMultisampledRenderToSingleSampledInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkMultisampledRenderToSingleSampledInfoEXT.html>"]
 #[doc(alias = "VkMultisampledRenderToSingleSampledInfoEXT")]
 pub struct MultisampledRenderToSingleSampledInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -58018,7 +58018,7 @@ impl<'a> MultisampledRenderToSingleSampledInfoEXT<'a> {
 }
 #[cfg(feature = "ext_extended_dynamic_state2")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceExtendedDynamicState2FeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceExtendedDynamicState2FeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceExtendedDynamicState2FeaturesEXT")]
 pub struct PhysicalDeviceExtendedDynamicState2FeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -58096,7 +58096,7 @@ impl<'a> PhysicalDeviceExtendedDynamicState2FeaturesEXT<'a> {
 }
 #[cfg(feature = "ext_screen_surface")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkScreenSurfaceCreateInfoQNX.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkScreenSurfaceCreateInfoQNX.html>"]
 #[doc(alias = "VkScreenSurfaceCreateInfoQNX")]
 pub struct ScreenSurfaceCreateInfoQNX<'a> {
     pub(crate) s_type: StructureType,
@@ -58154,7 +58154,7 @@ impl<'a> ScreenSurfaceCreateInfoQNX<'a> {
 }
 #[cfg(feature = "ext_color_write_enable")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceColorWriteEnableFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceColorWriteEnableFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceColorWriteEnableFeaturesEXT")]
 pub struct PhysicalDeviceColorWriteEnableFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -58214,7 +58214,7 @@ impl<'a> PhysicalDeviceColorWriteEnableFeaturesEXT<'a> {
 }
 #[cfg(feature = "ext_color_write_enable")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineColorWriteCreateInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineColorWriteCreateInfoEXT.html>"]
 #[doc(alias = "VkPipelineColorWriteCreateInfoEXT")]
 pub struct PipelineColorWriteCreateInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -58276,7 +58276,7 @@ impl<'a> PipelineColorWriteCreateInfoEXT<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDevicePrimitivesGeneratedQueryFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDevicePrimitivesGeneratedQueryFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDevicePrimitivesGeneratedQueryFeaturesEXT")]
 pub struct PhysicalDevicePrimitivesGeneratedQueryFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -58351,7 +58351,7 @@ impl<'a> PhysicalDevicePrimitivesGeneratedQueryFeaturesEXT<'a> {
 }
 #[cfg(feature = "ext_ray_tracing_maintenance1")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceRayTracingMaintenance1FeaturesKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceRayTracingMaintenance1FeaturesKHR.html>"]
 #[doc(alias = "VkPhysicalDeviceRayTracingMaintenance1FeaturesKHR")]
 pub struct PhysicalDeviceRayTracingMaintenance1FeaturesKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -58423,7 +58423,7 @@ impl<'a> PhysicalDeviceRayTracingMaintenance1FeaturesKHR<'a> {
 ))]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkTraceRaysIndirectCommand2KHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkTraceRaysIndirectCommand2KHR.html>"]
 #[doc(alias = "VkTraceRaysIndirectCommand2KHR")]
 pub struct TraceRaysIndirectCommand2KHR {
     pub raygen_shader_record_address: DeviceAddress,
@@ -58552,7 +58552,7 @@ impl TraceRaysIndirectCommand2KHR {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderUntypedPointersFeaturesKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderUntypedPointersFeaturesKHR.html>"]
 #[doc(alias = "VkPhysicalDeviceShaderUntypedPointersFeaturesKHR")]
 pub struct PhysicalDeviceShaderUntypedPointersFeaturesKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -58607,7 +58607,7 @@ impl<'a> PhysicalDeviceShaderUntypedPointersFeaturesKHR<'a> {
 }
 #[cfg(feature = "ext_video_encode_rgb_conversion")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceVideoEncodeRgbConversionFeaturesVALVE.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceVideoEncodeRgbConversionFeaturesVALVE.html>"]
 #[doc(alias = "VkPhysicalDeviceVideoEncodeRgbConversionFeaturesVALVE")]
 pub struct PhysicalDeviceVideoEncodeRgbConversionFeaturesVALVE<'a> {
     pub(crate) s_type: StructureType,
@@ -58671,7 +58671,7 @@ impl<'a> PhysicalDeviceVideoEncodeRgbConversionFeaturesVALVE<'a> {
 }
 #[cfg(feature = "ext_video_encode_rgb_conversion")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkVideoEncodeRgbConversionCapabilitiesVALVE.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkVideoEncodeRgbConversionCapabilitiesVALVE.html>"]
 #[doc(alias = "VkVideoEncodeRgbConversionCapabilitiesVALVE")]
 pub struct VideoEncodeRgbConversionCapabilitiesVALVE<'a> {
     pub(crate) s_type: StructureType,
@@ -58741,7 +58741,7 @@ impl<'a> VideoEncodeRgbConversionCapabilitiesVALVE<'a> {
 }
 #[cfg(feature = "ext_video_encode_rgb_conversion")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkVideoEncodeProfileRgbConversionInfoVALVE.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkVideoEncodeProfileRgbConversionInfoVALVE.html>"]
 #[doc(alias = "VkVideoEncodeProfileRgbConversionInfoVALVE")]
 pub struct VideoEncodeProfileRgbConversionInfoVALVE<'a> {
     pub(crate) s_type: StructureType,
@@ -58790,7 +58790,7 @@ impl<'a> VideoEncodeProfileRgbConversionInfoVALVE<'a> {
 }
 #[cfg(feature = "ext_video_encode_rgb_conversion")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkVideoEncodeSessionRgbConversionCreateInfoVALVE.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkVideoEncodeSessionRgbConversionCreateInfoVALVE.html>"]
 #[doc(alias = "VkVideoEncodeSessionRgbConversionCreateInfoVALVE")]
 pub struct VideoEncodeSessionRgbConversionCreateInfoVALVE<'a> {
     pub(crate) s_type: StructureType,
@@ -58861,7 +58861,7 @@ impl<'a> VideoEncodeSessionRgbConversionCreateInfoVALVE<'a> {
 }
 #[cfg(feature = "ext_image_view_min_lod")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceImageViewMinLodFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceImageViewMinLodFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceImageViewMinLodFeaturesEXT")]
 pub struct PhysicalDeviceImageViewMinLodFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -58921,7 +58921,7 @@ impl<'a> PhysicalDeviceImageViewMinLodFeaturesEXT<'a> {
 }
 #[cfg(feature = "ext_image_view_min_lod")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImageViewMinLodCreateInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImageViewMinLodCreateInfoEXT.html>"]
 #[doc(alias = "VkImageViewMinLodCreateInfoEXT")]
 pub struct ImageViewMinLodCreateInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -58970,7 +58970,7 @@ impl<'a> ImageViewMinLodCreateInfoEXT<'a> {
 }
 #[cfg(feature = "ext_multi_draw")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceMultiDrawFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceMultiDrawFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceMultiDrawFeaturesEXT")]
 pub struct PhysicalDeviceMultiDrawFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -59030,7 +59030,7 @@ impl<'a> PhysicalDeviceMultiDrawFeaturesEXT<'a> {
 }
 #[cfg(feature = "ext_multi_draw")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceMultiDrawPropertiesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceMultiDrawPropertiesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceMultiDrawPropertiesEXT")]
 pub struct PhysicalDeviceMultiDrawPropertiesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -59086,7 +59086,7 @@ impl<'a> PhysicalDeviceMultiDrawPropertiesEXT<'a> {
 #[cfg(feature = "ext_multi_draw")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkMultiDrawInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkMultiDrawInfoEXT.html>"]
 #[doc(alias = "VkMultiDrawInfoEXT")]
 pub struct MultiDrawInfoEXT {
     pub first_vertex: u32,
@@ -59121,7 +59121,7 @@ impl MultiDrawInfoEXT {
 #[cfg(feature = "ext_multi_draw")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkMultiDrawIndexedInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkMultiDrawIndexedInfoEXT.html>"]
 #[doc(alias = "VkMultiDrawIndexedInfoEXT")]
 pub struct MultiDrawIndexedInfoEXT {
     pub first_index: u32,
@@ -59161,7 +59161,7 @@ impl MultiDrawIndexedInfoEXT {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceImage2DViewOf3DFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceImage2DViewOf3DFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceImage2DViewOf3DFeaturesEXT")]
 pub struct PhysicalDeviceImage2DViewOf3DFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -59221,7 +59221,7 @@ impl<'a> PhysicalDeviceImage2DViewOf3DFeaturesEXT<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderTileImageFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderTileImageFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceShaderTileImageFeaturesEXT")]
 pub struct PhysicalDeviceShaderTileImageFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -59288,7 +59288,7 @@ impl<'a> PhysicalDeviceShaderTileImageFeaturesEXT<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderTileImagePropertiesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderTileImagePropertiesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceShaderTileImagePropertiesEXT")]
 pub struct PhysicalDeviceShaderTileImagePropertiesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -59357,7 +59357,7 @@ impl<'a> PhysicalDeviceShaderTileImagePropertiesEXT<'a> {
 }
 #[cfg(feature = "ext_opacity_micromap")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkMicromapBuildInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkMicromapBuildInfoEXT.html>"]
 #[doc(alias = "VkMicromapBuildInfoEXT")]
 pub struct MicromapBuildInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -59495,7 +59495,7 @@ impl<'a> MicromapBuildInfoEXT<'a> {
 #[cfg(feature = "ext_opacity_micromap")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkMicromapUsageEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkMicromapUsageEXT.html>"]
 #[doc(alias = "VkMicromapUsageEXT")]
 pub struct MicromapUsageEXT {
     pub count: u32,
@@ -59536,7 +59536,7 @@ impl MicromapUsageEXT {
 }
 #[cfg(feature = "ext_opacity_micromap")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkMicromapCreateInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkMicromapCreateInfoEXT.html>"]
 #[doc(alias = "VkMicromapCreateInfoEXT")]
 pub struct MicromapCreateInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -59615,7 +59615,7 @@ impl<'a> MicromapCreateInfoEXT<'a> {
 }
 #[cfg(feature = "ext_opacity_micromap")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceOpacityMicromapFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceOpacityMicromapFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceOpacityMicromapFeaturesEXT")]
 pub struct PhysicalDeviceOpacityMicromapFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -59689,7 +59689,7 @@ impl<'a> PhysicalDeviceOpacityMicromapFeaturesEXT<'a> {
 }
 #[cfg(feature = "ext_opacity_micromap")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceOpacityMicromapPropertiesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceOpacityMicromapPropertiesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceOpacityMicromapPropertiesEXT")]
 pub struct PhysicalDeviceOpacityMicromapPropertiesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -59751,7 +59751,7 @@ impl<'a> PhysicalDeviceOpacityMicromapPropertiesEXT<'a> {
 }
 #[cfg(feature = "ext_opacity_micromap")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkMicromapVersionInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkMicromapVersionInfoEXT.html>"]
 #[doc(alias = "VkMicromapVersionInfoEXT")]
 pub struct MicromapVersionInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -59795,7 +59795,7 @@ impl<'a> MicromapVersionInfoEXT<'a> {
 }
 #[cfg(feature = "ext_opacity_micromap")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCopyMicromapToMemoryInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCopyMicromapToMemoryInfoEXT.html>"]
 #[doc(alias = "VkCopyMicromapToMemoryInfoEXT")]
 pub struct CopyMicromapToMemoryInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -59853,7 +59853,7 @@ impl<'a> CopyMicromapToMemoryInfoEXT<'a> {
 }
 #[cfg(feature = "ext_opacity_micromap")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCopyMemoryToMicromapInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCopyMemoryToMicromapInfoEXT.html>"]
 #[doc(alias = "VkCopyMemoryToMicromapInfoEXT")]
 pub struct CopyMemoryToMicromapInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -59911,7 +59911,7 @@ impl<'a> CopyMemoryToMicromapInfoEXT<'a> {
 }
 #[cfg(feature = "ext_opacity_micromap")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCopyMicromapInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCopyMicromapInfoEXT.html>"]
 #[doc(alias = "VkCopyMicromapInfoEXT")]
 pub struct CopyMicromapInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -59969,7 +59969,7 @@ impl<'a> CopyMicromapInfoEXT<'a> {
 }
 #[cfg(feature = "ext_opacity_micromap")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkMicromapBuildSizesInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkMicromapBuildSizesInfoEXT.html>"]
 #[doc(alias = "VkMicromapBuildSizesInfoEXT")]
 pub struct MicromapBuildSizesInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -60027,7 +60027,7 @@ impl<'a> MicromapBuildSizesInfoEXT<'a> {
 }
 #[cfg(feature = "ext_opacity_micromap")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAccelerationStructureTrianglesOpacityMicromapEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAccelerationStructureTrianglesOpacityMicromapEXT.html>"]
 #[doc(alias = "VkAccelerationStructureTrianglesOpacityMicromapEXT")]
 pub struct AccelerationStructureTrianglesOpacityMicromapEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -60162,7 +60162,7 @@ impl<'a> AccelerationStructureTrianglesOpacityMicromapEXT<'a> {
 #[cfg(feature = "ext_opacity_micromap")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkMicromapTriangleEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkMicromapTriangleEXT.html>"]
 #[doc(alias = "VkMicromapTriangleEXT")]
 pub struct MicromapTriangleEXT {
     pub data_offset: u32,
@@ -60203,7 +60203,7 @@ impl MicromapTriangleEXT {
 }
 #[cfg(feature = "ext_displacement_micromap")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceDisplacementMicromapFeaturesNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceDisplacementMicromapFeaturesNV.html>"]
 #[doc(alias = "VkPhysicalDeviceDisplacementMicromapFeaturesNV")]
 pub struct PhysicalDeviceDisplacementMicromapFeaturesNV<'a> {
     pub(crate) s_type: StructureType,
@@ -60264,7 +60264,7 @@ impl<'a> PhysicalDeviceDisplacementMicromapFeaturesNV<'a> {
 }
 #[cfg(feature = "ext_displacement_micromap")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceDisplacementMicromapPropertiesNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceDisplacementMicromapPropertiesNV.html>"]
 #[doc(alias = "VkPhysicalDeviceDisplacementMicromapPropertiesNV")]
 pub struct PhysicalDeviceDisplacementMicromapPropertiesNV<'a> {
     pub(crate) s_type: StructureType,
@@ -60320,7 +60320,7 @@ impl<'a> PhysicalDeviceDisplacementMicromapPropertiesNV<'a> {
 }
 #[cfg(feature = "ext_displacement_micromap")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAccelerationStructureTrianglesDisplacementMicromapNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAccelerationStructureTrianglesDisplacementMicromapNV.html>"]
 #[doc(alias = "VkAccelerationStructureTrianglesDisplacementMicromapNV")]
 pub struct AccelerationStructureTrianglesDisplacementMicromapNV<'a> {
     pub(crate) s_type: StructureType,
@@ -60510,7 +60510,7 @@ impl<'a> AccelerationStructureTrianglesDisplacementMicromapNV<'a> {
 }
 #[cfg(feature = "ext_cluster_culling_shader")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI.html>"]
 #[doc(alias = "VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI")]
 pub struct PhysicalDeviceClusterCullingShaderFeaturesHUAWEI<'a> {
     pub(crate) s_type: StructureType,
@@ -60578,7 +60578,7 @@ impl<'a> PhysicalDeviceClusterCullingShaderFeaturesHUAWEI<'a> {
 }
 #[cfg(feature = "ext_cluster_culling_shader")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI.html>"]
 #[doc(alias = "VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI")]
 pub struct PhysicalDeviceClusterCullingShaderPropertiesHUAWEI<'a> {
     pub(crate) s_type: StructureType,
@@ -60655,7 +60655,7 @@ impl<'a> PhysicalDeviceClusterCullingShaderPropertiesHUAWEI<'a> {
 }
 #[cfg(feature = "ext_cluster_culling_shader")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceClusterCullingShaderVrsFeaturesHUAWEI.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceClusterCullingShaderVrsFeaturesHUAWEI.html>"]
 #[doc(alias = "VkPhysicalDeviceClusterCullingShaderVrsFeaturesHUAWEI")]
 pub struct PhysicalDeviceClusterCullingShaderVrsFeaturesHUAWEI<'a> {
     pub(crate) s_type: StructureType,
@@ -60711,7 +60711,7 @@ impl<'a> PhysicalDeviceClusterCullingShaderVrsFeaturesHUAWEI<'a> {
 }
 #[cfg(feature = "ext_border_color_swizzle")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceBorderColorSwizzleFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceBorderColorSwizzleFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceBorderColorSwizzleFeaturesEXT")]
 pub struct PhysicalDeviceBorderColorSwizzleFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -60779,7 +60779,7 @@ impl<'a> PhysicalDeviceBorderColorSwizzleFeaturesEXT<'a> {
 }
 #[cfg(feature = "ext_border_color_swizzle")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSamplerBorderColorComponentMappingCreateInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSamplerBorderColorComponentMappingCreateInfoEXT.html>"]
 #[doc(alias = "VkSamplerBorderColorComponentMappingCreateInfoEXT")]
 pub struct SamplerBorderColorComponentMappingCreateInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -60836,7 +60836,7 @@ impl<'a> SamplerBorderColorComponentMappingCreateInfoEXT<'a> {
 }
 #[cfg(feature = "ext_pageable_device_local_memory")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDevicePageableDeviceLocalMemoryFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDevicePageableDeviceLocalMemoryFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDevicePageableDeviceLocalMemoryFeaturesEXT")]
 pub struct PhysicalDevicePageableDeviceLocalMemoryFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -60896,7 +60896,7 @@ impl<'a> PhysicalDevicePageableDeviceLocalMemoryFeaturesEXT<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderCorePropertiesARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderCorePropertiesARM.html>"]
 #[doc(alias = "VkPhysicalDeviceShaderCorePropertiesARM")]
 pub struct PhysicalDeviceShaderCorePropertiesARM<'a> {
     pub(crate) s_type: StructureType,
@@ -60959,7 +60959,7 @@ impl<'a> PhysicalDeviceShaderCorePropertiesARM<'a> {
 }
 #[cfg(feature = "ext_scheduling_controls")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDeviceQueueShaderCoreControlCreateInfoARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceQueueShaderCoreControlCreateInfoARM.html>"]
 #[doc(alias = "VkDeviceQueueShaderCoreControlCreateInfoARM")]
 pub struct DeviceQueueShaderCoreControlCreateInfoARM<'a> {
     pub(crate) s_type: StructureType,
@@ -61013,7 +61013,7 @@ impl<'a> DeviceQueueShaderCoreControlCreateInfoARM<'a> {
 }
 #[cfg(feature = "ext_scheduling_controls")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceSchedulingControlsFeaturesARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceSchedulingControlsFeaturesARM.html>"]
 #[doc(alias = "VkPhysicalDeviceSchedulingControlsFeaturesARM")]
 pub struct PhysicalDeviceSchedulingControlsFeaturesARM<'a> {
     pub(crate) s_type: StructureType,
@@ -61074,7 +61074,7 @@ impl<'a> PhysicalDeviceSchedulingControlsFeaturesARM<'a> {
 }
 #[cfg(feature = "ext_scheduling_controls")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceSchedulingControlsPropertiesARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceSchedulingControlsPropertiesARM.html>"]
 #[doc(alias = "VkPhysicalDeviceSchedulingControlsPropertiesARM")]
 pub struct PhysicalDeviceSchedulingControlsPropertiesARM<'a> {
     pub(crate) s_type: StructureType,
@@ -61133,7 +61133,7 @@ impl<'a> PhysicalDeviceSchedulingControlsPropertiesARM<'a> {
 }
 #[cfg(feature = "ext_image_sliced_view_of_3d")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceImageSlicedViewOf3DFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceImageSlicedViewOf3DFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceImageSlicedViewOf3DFeaturesEXT")]
 pub struct PhysicalDeviceImageSlicedViewOf3DFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -61194,7 +61194,7 @@ impl<'a> PhysicalDeviceImageSlicedViewOf3DFeaturesEXT<'a> {
 }
 #[cfg(feature = "ext_image_sliced_view_of_3d")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImageViewSlicedCreateInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImageViewSlicedCreateInfoEXT.html>"]
 #[doc(alias = "VkImageViewSlicedCreateInfoEXT")]
 pub struct ImageViewSlicedCreateInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -61250,7 +61250,7 @@ impl<'a> ImageViewSlicedCreateInfoEXT<'a> {
 }
 #[cfg(feature = "ext_descriptor_set_host_mapping")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceDescriptorSetHostMappingFeaturesVALVE.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceDescriptorSetHostMappingFeaturesVALVE.html>"]
 #[doc(alias = "VkPhysicalDeviceDescriptorSetHostMappingFeaturesVALVE")]
 pub struct PhysicalDeviceDescriptorSetHostMappingFeaturesVALVE<'a> {
     pub(crate) s_type: StructureType,
@@ -61314,7 +61314,7 @@ impl<'a> PhysicalDeviceDescriptorSetHostMappingFeaturesVALVE<'a> {
 }
 #[cfg(feature = "ext_descriptor_set_host_mapping")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDescriptorSetBindingReferenceVALVE.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDescriptorSetBindingReferenceVALVE.html>"]
 #[doc(alias = "VkDescriptorSetBindingReferenceVALVE")]
 pub struct DescriptorSetBindingReferenceVALVE<'a> {
     pub(crate) s_type: StructureType,
@@ -61365,7 +61365,7 @@ impl<'a> DescriptorSetBindingReferenceVALVE<'a> {
 }
 #[cfg(feature = "ext_descriptor_set_host_mapping")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDescriptorSetLayoutHostMappingInfoVALVE.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDescriptorSetLayoutHostMappingInfoVALVE.html>"]
 #[doc(alias = "VkDescriptorSetLayoutHostMappingInfoVALVE")]
 pub struct DescriptorSetLayoutHostMappingInfoVALVE<'a> {
     pub(crate) s_type: StructureType,
@@ -61415,7 +61415,7 @@ impl<'a> DescriptorSetLayoutHostMappingInfoVALVE<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT")]
 pub struct PhysicalDeviceNonSeamlessCubeMapFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -61470,7 +61470,7 @@ impl<'a> PhysicalDeviceNonSeamlessCubeMapFeaturesEXT<'a> {
 }
 #[cfg(feature = "ext_render_pass_striped")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceRenderPassStripedFeaturesARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceRenderPassStripedFeaturesARM.html>"]
 #[doc(alias = "VkPhysicalDeviceRenderPassStripedFeaturesARM")]
 pub struct PhysicalDeviceRenderPassStripedFeaturesARM<'a> {
     pub(crate) s_type: StructureType,
@@ -61530,7 +61530,7 @@ impl<'a> PhysicalDeviceRenderPassStripedFeaturesARM<'a> {
 }
 #[cfg(feature = "ext_render_pass_striped")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceRenderPassStripedPropertiesARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceRenderPassStripedPropertiesARM.html>"]
 #[doc(alias = "VkPhysicalDeviceRenderPassStripedPropertiesARM")]
 pub struct PhysicalDeviceRenderPassStripedPropertiesARM<'a> {
     pub(crate) s_type: StructureType,
@@ -61593,7 +61593,7 @@ impl<'a> PhysicalDeviceRenderPassStripedPropertiesARM<'a> {
 }
 #[cfg(feature = "ext_render_pass_striped")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkRenderPassStripeBeginInfoARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkRenderPassStripeBeginInfoARM.html>"]
 #[doc(alias = "VkRenderPassStripeBeginInfoARM")]
 pub struct RenderPassStripeBeginInfoARM<'a> {
     pub(crate) s_type: StructureType,
@@ -61668,7 +61668,7 @@ impl<'a> RenderPassStripeBeginInfoARM<'a> {
 }
 #[cfg(feature = "ext_render_pass_striped")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkRenderPassStripeInfoARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkRenderPassStripeInfoARM.html>"]
 #[doc(alias = "VkRenderPassStripeInfoARM")]
 pub struct RenderPassStripeInfoARM<'a> {
     pub(crate) s_type: StructureType,
@@ -61712,7 +61712,7 @@ impl<'a> RenderPassStripeInfoARM<'a> {
 }
 #[cfg(feature = "ext_render_pass_striped")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkRenderPassStripeSubmitInfoARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkRenderPassStripeSubmitInfoARM.html>"]
 #[doc(alias = "VkRenderPassStripeSubmitInfoARM")]
 pub struct RenderPassStripeSubmitInfoARM<'a> {
     pub(crate) s_type: StructureType,
@@ -61781,7 +61781,7 @@ impl<'a> RenderPassStripeSubmitInfoARM<'a> {
 }
 #[cfg(feature = "ext_copy_memory_indirect")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceCopyMemoryIndirectFeaturesNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceCopyMemoryIndirectFeaturesNV.html>"]
 #[doc(alias = "VkPhysicalDeviceCopyMemoryIndirectFeaturesNV")]
 pub struct PhysicalDeviceCopyMemoryIndirectFeaturesNV<'a> {
     pub(crate) s_type: StructureType,
@@ -61842,7 +61842,7 @@ impl<'a> PhysicalDeviceCopyMemoryIndirectFeaturesNV<'a> {
 #[cfg(feature = "ext_memory_decompression")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDecompressMemoryRegionNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDecompressMemoryRegionNV.html>"]
 #[doc(alias = "VkDecompressMemoryRegionNV")]
 pub struct DecompressMemoryRegionNV {
     pub src_address: DeviceAddress,
@@ -61897,7 +61897,7 @@ impl DecompressMemoryRegionNV {
 }
 #[cfg(feature = "ext_device_generated_commands_compute")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV.html>"]
 #[doc(alias = "VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV")]
 pub struct PhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV<'a> {
     pub(crate) s_type: StructureType,
@@ -61975,7 +61975,7 @@ impl<'a> PhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV<'a> {
 }
 #[cfg(feature = "ext_device_generated_commands_compute")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkComputePipelineIndirectBufferInfoNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkComputePipelineIndirectBufferInfoNV.html>"]
 #[doc(alias = "VkComputePipelineIndirectBufferInfoNV")]
 pub struct ComputePipelineIndirectBufferInfoNV<'a> {
     pub(crate) s_type: StructureType,
@@ -62038,7 +62038,7 @@ impl<'a> ComputePipelineIndirectBufferInfoNV<'a> {
 }
 #[cfg(feature = "ext_device_generated_commands_compute")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineIndirectDeviceAddressInfoNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineIndirectDeviceAddressInfoNV.html>"]
 #[doc(alias = "VkPipelineIndirectDeviceAddressInfoNV")]
 pub struct PipelineIndirectDeviceAddressInfoNV<'a> {
     pub(crate) s_type: StructureType,
@@ -62090,7 +62090,7 @@ impl<'a> PipelineIndirectDeviceAddressInfoNV<'a> {
 #[cfg(feature = "ext_device_generated_commands_compute")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkBindPipelineIndirectCommandNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkBindPipelineIndirectCommandNV.html>"]
 #[doc(alias = "VkBindPipelineIndirectCommandNV")]
 pub struct BindPipelineIndirectCommandNV {
     pub pipeline_address: DeviceAddress,
@@ -62117,7 +62117,7 @@ impl BindPipelineIndirectCommandNV {
 }
 #[cfg(feature = "ext_ray_tracing_linear_swept_spheres")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceRayTracingLinearSweptSpheresFeaturesNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceRayTracingLinearSweptSpheresFeaturesNV.html>"]
 #[doc(alias = "VkPhysicalDeviceRayTracingLinearSweptSpheresFeaturesNV")]
 pub struct PhysicalDeviceRayTracingLinearSweptSpheresFeaturesNV<'a> {
     pub(crate) s_type: StructureType,
@@ -62188,7 +62188,7 @@ impl<'a> PhysicalDeviceRayTracingLinearSweptSpheresFeaturesNV<'a> {
 }
 #[cfg(feature = "ext_ray_tracing_linear_swept_spheres")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAccelerationStructureGeometryLinearSweptSpheresDataNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAccelerationStructureGeometryLinearSweptSpheresDataNV.html>"]
 #[doc(alias = "VkAccelerationStructureGeometryLinearSweptSpheresDataNV")]
 pub struct AccelerationStructureGeometryLinearSweptSpheresDataNV<'a> {
     pub(crate) s_type: StructureType,
@@ -62314,7 +62314,7 @@ impl<'a> AccelerationStructureGeometryLinearSweptSpheresDataNV<'a> {
 }
 #[cfg(feature = "ext_ray_tracing_linear_swept_spheres")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAccelerationStructureGeometrySpheresDataNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAccelerationStructureGeometrySpheresDataNV.html>"]
 #[doc(alias = "VkAccelerationStructureGeometrySpheresDataNV")]
 pub struct AccelerationStructureGeometrySpheresDataNV<'a> {
     pub(crate) s_type: StructureType,
@@ -62421,7 +62421,7 @@ impl<'a> AccelerationStructureGeometrySpheresDataNV<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceLinearColorAttachmentFeaturesNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceLinearColorAttachmentFeaturesNV.html>"]
 #[doc(alias = "VkPhysicalDeviceLinearColorAttachmentFeaturesNV")]
 pub struct PhysicalDeviceLinearColorAttachmentFeaturesNV<'a> {
     pub(crate) s_type: StructureType,
@@ -62475,7 +62475,7 @@ impl<'a> PhysicalDeviceLinearColorAttachmentFeaturesNV<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderMaximalReconvergenceFeaturesKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderMaximalReconvergenceFeaturesKHR.html>"]
 #[doc(alias = "VkPhysicalDeviceShaderMaximalReconvergenceFeaturesKHR")]
 pub struct PhysicalDeviceShaderMaximalReconvergenceFeaturesKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -62532,7 +62532,7 @@ impl<'a> PhysicalDeviceShaderMaximalReconvergenceFeaturesKHR<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT")]
 pub struct PhysicalDeviceImageCompressionControlSwapchainFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -62592,7 +62592,7 @@ impl<'a> PhysicalDeviceImageCompressionControlSwapchainFeaturesEXT<'a> {
 }
 #[cfg(feature = "ext_image_processing")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImageViewSampleWeightCreateInfoQCOM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImageViewSampleWeightCreateInfoQCOM.html>"]
 #[doc(alias = "VkImageViewSampleWeightCreateInfoQCOM")]
 pub struct ImageViewSampleWeightCreateInfoQCOM<'a> {
     pub(crate) s_type: StructureType,
@@ -62655,7 +62655,7 @@ impl<'a> ImageViewSampleWeightCreateInfoQCOM<'a> {
 }
 #[cfg(feature = "ext_image_processing")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceImageProcessingFeaturesQCOM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceImageProcessingFeaturesQCOM.html>"]
 #[doc(alias = "VkPhysicalDeviceImageProcessingFeaturesQCOM")]
 pub struct PhysicalDeviceImageProcessingFeaturesQCOM<'a> {
     pub(crate) s_type: StructureType,
@@ -62729,7 +62729,7 @@ impl<'a> PhysicalDeviceImageProcessingFeaturesQCOM<'a> {
 }
 #[cfg(feature = "ext_image_processing")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceImageProcessingPropertiesQCOM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceImageProcessingPropertiesQCOM.html>"]
 #[doc(alias = "VkPhysicalDeviceImageProcessingPropertiesQCOM")]
 pub struct PhysicalDeviceImageProcessingPropertiesQCOM<'a> {
     pub(crate) s_type: StructureType,
@@ -62805,7 +62805,7 @@ impl<'a> PhysicalDeviceImageProcessingPropertiesQCOM<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceNestedCommandBufferFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceNestedCommandBufferFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceNestedCommandBufferFeaturesEXT")]
 pub struct PhysicalDeviceNestedCommandBufferFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -62873,7 +62873,7 @@ impl<'a> PhysicalDeviceNestedCommandBufferFeaturesEXT<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceNestedCommandBufferPropertiesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceNestedCommandBufferPropertiesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceNestedCommandBufferPropertiesEXT")]
 pub struct PhysicalDeviceNestedCommandBufferPropertiesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -62923,7 +62923,7 @@ impl<'a> PhysicalDeviceNestedCommandBufferPropertiesEXT<'a> {
 }
 #[cfg(feature = "ext_ohos_external_memory")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkNativeBufferUsageOHOS.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkNativeBufferUsageOHOS.html>"]
 #[doc(alias = "VkNativeBufferUsageOHOS")]
 pub struct NativeBufferUsageOHOS<'a> {
     pub(crate) s_type: StructureType,
@@ -62975,7 +62975,7 @@ impl<'a> NativeBufferUsageOHOS<'a> {
 }
 #[cfg(feature = "ext_ohos_external_memory")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkNativeBufferPropertiesOHOS.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkNativeBufferPropertiesOHOS.html>"]
 #[doc(alias = "VkNativeBufferPropertiesOHOS")]
 pub struct NativeBufferPropertiesOHOS<'a> {
     pub(crate) s_type: StructureType,
@@ -63026,7 +63026,7 @@ impl<'a> NativeBufferPropertiesOHOS<'a> {
 }
 #[cfg(feature = "ext_ohos_external_memory")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkNativeBufferFormatPropertiesOHOS.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkNativeBufferFormatPropertiesOHOS.html>"]
 #[doc(alias = "VkNativeBufferFormatPropertiesOHOS")]
 pub struct NativeBufferFormatPropertiesOHOS<'a> {
     pub(crate) s_type: StructureType,
@@ -63127,7 +63127,7 @@ impl<'a> NativeBufferFormatPropertiesOHOS<'a> {
 }
 #[cfg(feature = "ext_ohos_external_memory")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImportNativeBufferInfoOHOS.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImportNativeBufferInfoOHOS.html>"]
 #[doc(alias = "VkImportNativeBufferInfoOHOS")]
 pub struct ImportNativeBufferInfoOHOS<'a> {
     pub(crate) s_type: StructureType,
@@ -63173,7 +63173,7 @@ impl<'a> ImportNativeBufferInfoOHOS<'a> {
 }
 #[cfg(feature = "ext_ohos_external_memory")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkMemoryGetNativeBufferInfoOHOS.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkMemoryGetNativeBufferInfoOHOS.html>"]
 #[doc(alias = "VkMemoryGetNativeBufferInfoOHOS")]
 pub struct MemoryGetNativeBufferInfoOHOS<'a> {
     pub(crate) s_type: StructureType,
@@ -63217,7 +63217,7 @@ impl<'a> MemoryGetNativeBufferInfoOHOS<'a> {
 }
 #[cfg(feature = "ext_ohos_external_memory")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkExternalFormatOHOS.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkExternalFormatOHOS.html>"]
 #[doc(alias = "VkExternalFormatOHOS")]
 pub struct ExternalFormatOHOS<'a> {
     pub(crate) s_type: StructureType,
@@ -63281,12 +63281,12 @@ impl<'a> ExternalFormatOHOS<'a> {
         self
     }
 }
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/OH_NativeBuffer.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/OH_NativeBuffer.html>"]
 #[allow(non_camel_case_types)]
 pub type OH_NativeBuffer = c_void;
 #[cfg(feature = "ext_external_memory_acquire_unmodified")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkExternalMemoryAcquireUnmodifiedEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkExternalMemoryAcquireUnmodifiedEXT.html>"]
 #[doc(alias = "VkExternalMemoryAcquireUnmodifiedEXT")]
 pub struct ExternalMemoryAcquireUnmodifiedEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -63356,7 +63356,7 @@ impl<'a> ExternalMemoryAcquireUnmodifiedEXT<'a> {
 }
 #[cfg(feature = "ext_extended_dynamic_state3")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceExtendedDynamicState3FeaturesEXT")]
 pub struct PhysicalDeviceExtendedDynamicState3FeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -63690,7 +63690,7 @@ impl<'a> PhysicalDeviceExtendedDynamicState3FeaturesEXT<'a> {
 }
 #[cfg(feature = "ext_extended_dynamic_state3")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceExtendedDynamicState3PropertiesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceExtendedDynamicState3PropertiesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceExtendedDynamicState3PropertiesEXT")]
 pub struct PhysicalDeviceExtendedDynamicState3PropertiesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -63747,7 +63747,7 @@ impl<'a> PhysicalDeviceExtendedDynamicState3PropertiesEXT<'a> {
 #[cfg(any(feature = "ext_extended_dynamic_state3", feature = "ext_shader_object"))]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkColorBlendEquationEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkColorBlendEquationEXT.html>"]
 #[doc(alias = "VkColorBlendEquationEXT")]
 pub struct ColorBlendEquationEXT {
     pub src_color_blend_factor: BlendFactor,
@@ -63810,7 +63810,7 @@ impl ColorBlendEquationEXT {
 #[cfg(any(feature = "ext_extended_dynamic_state3", feature = "ext_shader_object"))]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkColorBlendAdvancedEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkColorBlendAdvancedEXT.html>"]
 #[doc(alias = "VkColorBlendAdvancedEXT")]
 pub struct ColorBlendAdvancedEXT {
     pub advanced_blend_op: BlendOp,
@@ -63865,7 +63865,7 @@ impl ColorBlendAdvancedEXT {
 }
 #[cfg(feature = "ext_subpass_merge_feedback")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceSubpassMergeFeedbackFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceSubpassMergeFeedbackFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceSubpassMergeFeedbackFeaturesEXT")]
 pub struct PhysicalDeviceSubpassMergeFeedbackFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -63926,7 +63926,7 @@ impl<'a> PhysicalDeviceSubpassMergeFeedbackFeaturesEXT<'a> {
 }
 #[cfg(feature = "ext_subpass_merge_feedback")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkRenderPassCreationControlEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkRenderPassCreationControlEXT.html>"]
 #[doc(alias = "VkRenderPassCreationControlEXT")]
 pub struct RenderPassCreationControlEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -63987,7 +63987,7 @@ impl<'a> RenderPassCreationControlEXT<'a> {
 #[cfg(feature = "ext_subpass_merge_feedback")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkRenderPassCreationFeedbackInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkRenderPassCreationFeedbackInfoEXT.html>"]
 #[doc(alias = "VkRenderPassCreationFeedbackInfoEXT")]
 pub struct RenderPassCreationFeedbackInfoEXT {
     pub post_merge_subpass_count: u32,
@@ -64014,7 +64014,7 @@ impl RenderPassCreationFeedbackInfoEXT {
 }
 #[cfg(feature = "ext_subpass_merge_feedback")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkRenderPassCreationFeedbackCreateInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkRenderPassCreationFeedbackCreateInfoEXT.html>"]
 #[doc(alias = "VkRenderPassCreationFeedbackCreateInfoEXT")]
 pub struct RenderPassCreationFeedbackCreateInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -64067,7 +64067,7 @@ impl<'a> RenderPassCreationFeedbackCreateInfoEXT<'a> {
 #[cfg(feature = "ext_subpass_merge_feedback")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkRenderPassSubpassFeedbackInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkRenderPassSubpassFeedbackInfoEXT.html>"]
 #[doc(alias = "VkRenderPassSubpassFeedbackInfoEXT")]
 pub struct RenderPassSubpassFeedbackInfoEXT {
     pub subpass_merge_status: SubpassMergeStatusEXT,
@@ -64110,7 +64110,7 @@ impl RenderPassSubpassFeedbackInfoEXT {
 }
 #[cfg(feature = "ext_subpass_merge_feedback")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkRenderPassSubpassFeedbackCreateInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkRenderPassSubpassFeedbackCreateInfoEXT.html>"]
 #[doc(alias = "VkRenderPassSubpassFeedbackCreateInfoEXT")]
 pub struct RenderPassSubpassFeedbackCreateInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -64162,7 +64162,7 @@ impl<'a> RenderPassSubpassFeedbackCreateInfoEXT<'a> {
 }
 #[cfg(feature = "ext_direct_driver_loading")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDirectDriverLoadingInfoLUNARG.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDirectDriverLoadingInfoLUNARG.html>"]
 #[doc(alias = "VkDirectDriverLoadingInfoLUNARG")]
 pub struct DirectDriverLoadingInfoLUNARG<'a> {
     pub(crate) s_type: StructureType,
@@ -64213,7 +64213,7 @@ impl<'a> DirectDriverLoadingInfoLUNARG<'a> {
 }
 #[cfg(feature = "ext_direct_driver_loading")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDirectDriverLoadingListLUNARG.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDirectDriverLoadingListLUNARG.html>"]
 #[doc(alias = "VkDirectDriverLoadingListLUNARG")]
 pub struct DirectDriverLoadingListLUNARG<'a> {
     pub(crate) s_type: StructureType,
@@ -64283,7 +64283,7 @@ impl<'a> DirectDriverLoadingListLUNARG<'a> {
 }
 #[cfg(feature = "ext_tensors")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkTensorDescriptionARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkTensorDescriptionARM.html>"]
 #[doc(alias = "VkTensorDescriptionARM")]
 pub struct TensorDescriptionARM<'a> {
     pub(crate) s_type: StructureType,
@@ -64386,7 +64386,7 @@ impl<'a> TensorDescriptionARM<'a> {
 }
 #[cfg(feature = "ext_tensors")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkTensorCreateInfoARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkTensorCreateInfoARM.html>"]
 #[doc(alias = "VkTensorCreateInfoARM")]
 pub struct TensorCreateInfoARM<'a> {
     pub(crate) s_type: StructureType,
@@ -64470,7 +64470,7 @@ impl<'a> TensorCreateInfoARM<'a> {
 }
 #[cfg(feature = "ext_tensors")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkTensorMemoryRequirementsInfoARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkTensorMemoryRequirementsInfoARM.html>"]
 #[doc(alias = "VkTensorMemoryRequirementsInfoARM")]
 pub struct TensorMemoryRequirementsInfoARM<'a> {
     pub(crate) s_type: StructureType,
@@ -64514,7 +64514,7 @@ impl<'a> TensorMemoryRequirementsInfoARM<'a> {
 }
 #[cfg(feature = "ext_tensors")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkBindTensorMemoryInfoARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkBindTensorMemoryInfoARM.html>"]
 #[doc(alias = "VkBindTensorMemoryInfoARM")]
 pub struct BindTensorMemoryInfoARM<'a> {
     pub(crate) s_type: StructureType,
@@ -64572,7 +64572,7 @@ impl<'a> BindTensorMemoryInfoARM<'a> {
 }
 #[cfg(feature = "ext_tensors")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkWriteDescriptorSetTensorARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkWriteDescriptorSetTensorARM.html>"]
 #[doc(alias = "VkWriteDescriptorSetTensorARM")]
 pub struct WriteDescriptorSetTensorARM<'a> {
     pub(crate) s_type: StructureType,
@@ -64637,7 +64637,7 @@ impl<'a> WriteDescriptorSetTensorARM<'a> {
 }
 #[cfg(feature = "ext_tensors")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkTensorFormatPropertiesARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkTensorFormatPropertiesARM.html>"]
 #[doc(alias = "VkTensorFormatPropertiesARM")]
 pub struct TensorFormatPropertiesARM<'a> {
     pub(crate) s_type: StructureType,
@@ -64696,7 +64696,7 @@ impl<'a> TensorFormatPropertiesARM<'a> {
 }
 #[cfg(feature = "ext_tensors")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceTensorPropertiesARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceTensorPropertiesARM.html>"]
 #[doc(alias = "VkPhysicalDeviceTensorPropertiesARM")]
 pub struct PhysicalDeviceTensorPropertiesARM<'a> {
     pub(crate) s_type: StructureType,
@@ -64841,7 +64841,7 @@ impl<'a> PhysicalDeviceTensorPropertiesARM<'a> {
 }
 #[cfg(feature = "ext_tensors")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkTensorMemoryBarrierARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkTensorMemoryBarrierARM.html>"]
 #[doc(alias = "VkTensorMemoryBarrierARM")]
 pub struct TensorMemoryBarrierARM<'a> {
     pub(crate) s_type: StructureType,
@@ -64932,7 +64932,7 @@ impl<'a> TensorMemoryBarrierARM<'a> {
 }
 #[cfg(feature = "ext_tensors")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkTensorDependencyInfoARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkTensorDependencyInfoARM.html>"]
 #[doc(alias = "VkTensorDependencyInfoARM")]
 pub struct TensorDependencyInfoARM<'a> {
     pub(crate) s_type: StructureType,
@@ -64988,7 +64988,7 @@ impl<'a> TensorDependencyInfoARM<'a> {
 }
 #[cfg(feature = "ext_tensors")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceTensorFeaturesARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceTensorFeaturesARM.html>"]
 #[doc(alias = "VkPhysicalDeviceTensorFeaturesARM")]
 pub struct PhysicalDeviceTensorFeaturesARM<'a> {
     pub(crate) s_type: StructureType,
@@ -65092,7 +65092,7 @@ impl<'a> PhysicalDeviceTensorFeaturesARM<'a> {
 }
 #[cfg(feature = "ext_tensors")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDeviceTensorMemoryRequirementsARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceTensorMemoryRequirementsARM.html>"]
 #[doc(alias = "VkDeviceTensorMemoryRequirementsARM")]
 pub struct DeviceTensorMemoryRequirementsARM<'a> {
     pub(crate) s_type: StructureType,
@@ -65136,7 +65136,7 @@ impl<'a> DeviceTensorMemoryRequirementsARM<'a> {
 }
 #[cfg(feature = "ext_tensors")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCopyTensorInfoARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCopyTensorInfoARM.html>"]
 #[doc(alias = "VkCopyTensorInfoARM")]
 pub struct CopyTensorInfoARM<'a> {
     pub(crate) s_type: StructureType,
@@ -65205,7 +65205,7 @@ impl<'a> CopyTensorInfoARM<'a> {
 }
 #[cfg(feature = "ext_tensors")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkTensorCopyARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkTensorCopyARM.html>"]
 #[doc(alias = "VkTensorCopyARM")]
 pub struct TensorCopyARM<'a> {
     pub(crate) s_type: StructureType,
@@ -65298,7 +65298,7 @@ impl<'a> TensorCopyARM<'a> {
 }
 #[cfg(feature = "ext_tensors")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkMemoryDedicatedAllocateInfoTensorARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkMemoryDedicatedAllocateInfoTensorARM.html>"]
 #[doc(alias = "VkMemoryDedicatedAllocateInfoTensorARM")]
 pub struct MemoryDedicatedAllocateInfoTensorARM<'a> {
     pub(crate) s_type: StructureType,
@@ -65347,7 +65347,7 @@ impl<'a> MemoryDedicatedAllocateInfoTensorARM<'a> {
 }
 #[cfg(feature = "ext_tensors")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceExternalTensorInfoARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceExternalTensorInfoARM.html>"]
 #[doc(alias = "VkPhysicalDeviceExternalTensorInfoARM")]
 pub struct PhysicalDeviceExternalTensorInfoARM<'a> {
     pub(crate) s_type: StructureType,
@@ -65405,7 +65405,7 @@ impl<'a> PhysicalDeviceExternalTensorInfoARM<'a> {
 }
 #[cfg(feature = "ext_tensors")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkExternalTensorPropertiesARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkExternalTensorPropertiesARM.html>"]
 #[doc(alias = "VkExternalTensorPropertiesARM")]
 pub struct ExternalTensorPropertiesARM<'a> {
     pub(crate) s_type: StructureType,
@@ -65449,7 +65449,7 @@ impl<'a> ExternalTensorPropertiesARM<'a> {
 }
 #[cfg(feature = "ext_tensors")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkExternalMemoryTensorCreateInfoARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkExternalMemoryTensorCreateInfoARM.html>"]
 #[doc(alias = "VkExternalMemoryTensorCreateInfoARM")]
 pub struct ExternalMemoryTensorCreateInfoARM<'a> {
     pub(crate) s_type: StructureType,
@@ -65498,7 +65498,7 @@ impl<'a> ExternalMemoryTensorCreateInfoARM<'a> {
 }
 #[cfg(all(feature = "ext_tensors", feature = "ext_descriptor_buffer"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceDescriptorBufferTensorFeaturesARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceDescriptorBufferTensorFeaturesARM.html>"]
 #[doc(alias = "VkPhysicalDeviceDescriptorBufferTensorFeaturesARM")]
 pub struct PhysicalDeviceDescriptorBufferTensorFeaturesARM<'a> {
     pub(crate) s_type: StructureType,
@@ -65559,7 +65559,7 @@ impl<'a> PhysicalDeviceDescriptorBufferTensorFeaturesARM<'a> {
 }
 #[cfg(all(feature = "ext_tensors", feature = "ext_descriptor_buffer"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceDescriptorBufferTensorPropertiesARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceDescriptorBufferTensorPropertiesARM.html>"]
 #[doc(alias = "VkPhysicalDeviceDescriptorBufferTensorPropertiesARM")]
 pub struct PhysicalDeviceDescriptorBufferTensorPropertiesARM<'a> {
     pub(crate) s_type: StructureType,
@@ -65629,7 +65629,7 @@ impl<'a> PhysicalDeviceDescriptorBufferTensorPropertiesARM<'a> {
 }
 #[cfg(all(feature = "ext_tensors", feature = "ext_descriptor_buffer"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDescriptorGetTensorInfoARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDescriptorGetTensorInfoARM.html>"]
 #[doc(alias = "VkDescriptorGetTensorInfoARM")]
 pub struct DescriptorGetTensorInfoARM<'a> {
     pub(crate) s_type: StructureType,
@@ -65681,7 +65681,7 @@ impl<'a> DescriptorGetTensorInfoARM<'a> {
 }
 #[cfg(all(feature = "ext_tensors", feature = "ext_descriptor_buffer"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkTensorCaptureDescriptorDataInfoARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkTensorCaptureDescriptorDataInfoARM.html>"]
 #[doc(alias = "VkTensorCaptureDescriptorDataInfoARM")]
 pub struct TensorCaptureDescriptorDataInfoARM<'a> {
     pub(crate) s_type: StructureType,
@@ -65725,7 +65725,7 @@ impl<'a> TensorCaptureDescriptorDataInfoARM<'a> {
 }
 #[cfg(all(feature = "ext_tensors", feature = "ext_descriptor_buffer"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkTensorViewCaptureDescriptorDataInfoARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkTensorViewCaptureDescriptorDataInfoARM.html>"]
 #[doc(alias = "VkTensorViewCaptureDescriptorDataInfoARM")]
 pub struct TensorViewCaptureDescriptorDataInfoARM<'a> {
     pub(crate) s_type: StructureType,
@@ -65769,7 +65769,7 @@ impl<'a> TensorViewCaptureDescriptorDataInfoARM<'a> {
 }
 #[cfg(all(feature = "ext_tensors", feature = "ext_frame_boundary"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkFrameBoundaryTensorsARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkFrameBoundaryTensorsARM.html>"]
 #[doc(alias = "VkFrameBoundaryTensorsARM")]
 pub struct FrameBoundaryTensorsARM<'a> {
     pub(crate) s_type: StructureType,
@@ -65841,7 +65841,7 @@ impl<'a> FrameBoundaryTensorsARM<'a> {
 }
 #[cfg(feature = "ext_shader_module_identifier")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderModuleIdentifierFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderModuleIdentifierFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceShaderModuleIdentifierFeaturesEXT")]
 pub struct PhysicalDeviceShaderModuleIdentifierFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -65902,7 +65902,7 @@ impl<'a> PhysicalDeviceShaderModuleIdentifierFeaturesEXT<'a> {
 }
 #[cfg(feature = "ext_shader_module_identifier")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderModuleIdentifierPropertiesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderModuleIdentifierPropertiesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceShaderModuleIdentifierPropertiesEXT")]
 pub struct PhysicalDeviceShaderModuleIdentifierPropertiesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -65958,7 +65958,7 @@ impl<'a> PhysicalDeviceShaderModuleIdentifierPropertiesEXT<'a> {
 }
 #[cfg(feature = "ext_shader_module_identifier")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineShaderStageModuleIdentifierCreateInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineShaderStageModuleIdentifierCreateInfoEXT.html>"]
 #[doc(alias = "VkPipelineShaderStageModuleIdentifierCreateInfoEXT")]
 pub struct PipelineShaderStageModuleIdentifierCreateInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -66019,7 +66019,7 @@ impl<'a> PipelineShaderStageModuleIdentifierCreateInfoEXT<'a> {
 }
 #[cfg(feature = "ext_shader_module_identifier")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkShaderModuleIdentifierEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkShaderModuleIdentifierEXT.html>"]
 #[doc(alias = "VkShaderModuleIdentifierEXT")]
 pub struct ShaderModuleIdentifierEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -66064,7 +66064,7 @@ impl<'a> ShaderModuleIdentifierEXT<'a> {
 }
 #[cfg(feature = "ext_rasterization_order_attachment_access")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT")]
 pub struct PhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -66150,7 +66150,7 @@ pub type PhysicalDeviceRasterizationOrderAttachmentAccessFeaturesARM<'a> =
     PhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT<'a>;
 #[cfg(feature = "ext_optical_flow")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceOpticalFlowFeaturesNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceOpticalFlowFeaturesNV.html>"]
 #[doc(alias = "VkPhysicalDeviceOpticalFlowFeaturesNV")]
 pub struct PhysicalDeviceOpticalFlowFeaturesNV<'a> {
     pub(crate) s_type: StructureType,
@@ -66210,7 +66210,7 @@ impl<'a> PhysicalDeviceOpticalFlowFeaturesNV<'a> {
 }
 #[cfg(feature = "ext_optical_flow")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceOpticalFlowPropertiesNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceOpticalFlowPropertiesNV.html>"]
 #[doc(alias = "VkPhysicalDeviceOpticalFlowPropertiesNV")]
 pub struct PhysicalDeviceOpticalFlowPropertiesNV<'a> {
     pub(crate) s_type: StructureType,
@@ -66335,7 +66335,7 @@ impl<'a> PhysicalDeviceOpticalFlowPropertiesNV<'a> {
 }
 #[cfg(feature = "ext_optical_flow")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkOpticalFlowImageFormatInfoNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkOpticalFlowImageFormatInfoNV.html>"]
 #[doc(alias = "VkOpticalFlowImageFormatInfoNV")]
 pub struct OpticalFlowImageFormatInfoNV<'a> {
     pub(crate) s_type: StructureType,
@@ -66392,7 +66392,7 @@ impl<'a> OpticalFlowImageFormatInfoNV<'a> {
 }
 #[cfg(feature = "ext_optical_flow")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkOpticalFlowImageFormatPropertiesNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkOpticalFlowImageFormatPropertiesNV.html>"]
 #[doc(alias = "VkOpticalFlowImageFormatPropertiesNV")]
 pub struct OpticalFlowImageFormatPropertiesNV<'a> {
     pub(crate) s_type: StructureType,
@@ -66436,7 +66436,7 @@ impl<'a> OpticalFlowImageFormatPropertiesNV<'a> {
 }
 #[cfg(feature = "ext_optical_flow")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkOpticalFlowSessionCreateInfoNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkOpticalFlowSessionCreateInfoNV.html>"]
 #[doc(alias = "VkOpticalFlowSessionCreateInfoNV")]
 pub struct OpticalFlowSessionCreateInfoNV<'a> {
     pub(crate) s_type: StructureType,
@@ -66536,7 +66536,7 @@ impl<'a> OpticalFlowSessionCreateInfoNV<'a> {
 }
 #[cfg(feature = "ext_optical_flow")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkOpticalFlowSessionCreatePrivateDataInfoNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkOpticalFlowSessionCreatePrivateDataInfoNV.html>"]
 #[doc(alias = "VkOpticalFlowSessionCreatePrivateDataInfoNV")]
 pub struct OpticalFlowSessionCreatePrivateDataInfoNV<'a> {
     pub(crate) s_type: StructureType,
@@ -66599,7 +66599,7 @@ impl<'a> OpticalFlowSessionCreatePrivateDataInfoNV<'a> {
 }
 #[cfg(feature = "ext_optical_flow")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkOpticalFlowExecuteInfoNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkOpticalFlowExecuteInfoNV.html>"]
 #[doc(alias = "VkOpticalFlowExecuteInfoNV")]
 pub struct OpticalFlowExecuteInfoNV<'a> {
     pub(crate) s_type: StructureType,
@@ -66660,7 +66660,7 @@ impl<'a> OpticalFlowExecuteInfoNV<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceLegacyDitheringFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceLegacyDitheringFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceLegacyDitheringFeaturesEXT")]
 pub struct PhysicalDeviceLegacyDitheringFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -66714,7 +66714,7 @@ impl<'a> PhysicalDeviceLegacyDitheringFeaturesEXT<'a> {
 }
 #[cfg(any(feature = "ext_sampler_ycbcr_conversion"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceExternalFormatResolveFeaturesANDROID.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceExternalFormatResolveFeaturesANDROID.html>"]
 #[doc(alias = "VkPhysicalDeviceExternalFormatResolveFeaturesANDROID")]
 pub struct PhysicalDeviceExternalFormatResolveFeaturesANDROID<'a> {
     pub(crate) s_type: StructureType,
@@ -66775,7 +66775,7 @@ impl<'a> PhysicalDeviceExternalFormatResolveFeaturesANDROID<'a> {
 }
 #[cfg(any(feature = "ext_sampler_ycbcr_conversion"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceExternalFormatResolvePropertiesANDROID.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceExternalFormatResolvePropertiesANDROID.html>"]
 #[doc(alias = "VkPhysicalDeviceExternalFormatResolvePropertiesANDROID")]
 pub struct PhysicalDeviceExternalFormatResolvePropertiesANDROID<'a> {
     pub(crate) s_type: StructureType,
@@ -66850,7 +66850,7 @@ impl<'a> PhysicalDeviceExternalFormatResolvePropertiesANDROID<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAndroidHardwareBufferFormatResolvePropertiesANDROID.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAndroidHardwareBufferFormatResolvePropertiesANDROID.html>"]
 #[doc(alias = "VkAndroidHardwareBufferFormatResolvePropertiesANDROID")]
 pub struct AndroidHardwareBufferFormatResolvePropertiesANDROID<'a> {
     pub(crate) s_type: StructureType,
@@ -66897,7 +66897,7 @@ impl<'a> AndroidHardwareBufferFormatResolvePropertiesANDROID<'a> {
 }
 #[cfg(feature = "ext_anti_lag")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceAntiLagFeaturesAMD.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceAntiLagFeaturesAMD.html>"]
 #[doc(alias = "VkPhysicalDeviceAntiLagFeaturesAMD")]
 pub struct PhysicalDeviceAntiLagFeaturesAMD<'a> {
     pub(crate) s_type: StructureType,
@@ -66957,7 +66957,7 @@ impl<'a> PhysicalDeviceAntiLagFeaturesAMD<'a> {
 }
 #[cfg(feature = "ext_anti_lag")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAntiLagDataAMD.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAntiLagDataAMD.html>"]
 #[doc(alias = "VkAntiLagDataAMD")]
 pub struct AntiLagDataAMD<'a> {
     pub(crate) s_type: StructureType,
@@ -67015,7 +67015,7 @@ impl<'a> AntiLagDataAMD<'a> {
 }
 #[cfg(feature = "ext_anti_lag")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAntiLagPresentationInfoAMD.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAntiLagPresentationInfoAMD.html>"]
 #[doc(alias = "VkAntiLagPresentationInfoAMD")]
 pub struct AntiLagPresentationInfoAMD<'a> {
     pub(crate) s_type: StructureType,
@@ -67066,7 +67066,7 @@ impl<'a> AntiLagPresentationInfoAMD<'a> {
 }
 #[cfg(feature = "ext_dense_geometry_format")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceDenseGeometryFormatFeaturesAMDX.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceDenseGeometryFormatFeaturesAMDX.html>"]
 #[doc(alias = "VkPhysicalDeviceDenseGeometryFormatFeaturesAMDX")]
 pub struct PhysicalDeviceDenseGeometryFormatFeaturesAMDX<'a> {
     pub(crate) s_type: StructureType,
@@ -67127,7 +67127,7 @@ impl<'a> PhysicalDeviceDenseGeometryFormatFeaturesAMDX<'a> {
 }
 #[cfg(feature = "ext_dense_geometry_format")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX.html>"]
 #[doc(alias = "VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX")]
 pub struct AccelerationStructureDenseGeometryFormatTrianglesDataAMDX<'a> {
     pub(crate) s_type: StructureType,
@@ -67227,7 +67227,7 @@ impl<'a> AccelerationStructureDenseGeometryFormatTrianglesDataAMDX<'a> {
 }
 #[cfg(feature = "ext_present_id2")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSurfaceCapabilitiesPresentId2KHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSurfaceCapabilitiesPresentId2KHR.html>"]
 #[doc(alias = "VkSurfaceCapabilitiesPresentId2KHR")]
 pub struct SurfaceCapabilitiesPresentId2KHR<'a> {
     pub(crate) s_type: StructureType,
@@ -67276,7 +67276,7 @@ impl<'a> SurfaceCapabilitiesPresentId2KHR<'a> {
 }
 #[cfg(feature = "ext_present_id2")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPresentId2KHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPresentId2KHR.html>"]
 #[doc(alias = "VkPresentId2KHR")]
 pub struct PresentId2KHR<'a> {
     pub(crate) s_type: StructureType,
@@ -67338,7 +67338,7 @@ impl<'a> PresentId2KHR<'a> {
 }
 #[cfg(feature = "ext_present_id2")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDevicePresentId2FeaturesKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDevicePresentId2FeaturesKHR.html>"]
 #[doc(alias = "VkPhysicalDevicePresentId2FeaturesKHR")]
 pub struct PhysicalDevicePresentId2FeaturesKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -67398,7 +67398,7 @@ impl<'a> PhysicalDevicePresentId2FeaturesKHR<'a> {
 }
 #[cfg(feature = "ext_present_wait2")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSurfaceCapabilitiesPresentWait2KHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSurfaceCapabilitiesPresentWait2KHR.html>"]
 #[doc(alias = "VkSurfaceCapabilitiesPresentWait2KHR")]
 pub struct SurfaceCapabilitiesPresentWait2KHR<'a> {
     pub(crate) s_type: StructureType,
@@ -67450,7 +67450,7 @@ impl<'a> SurfaceCapabilitiesPresentWait2KHR<'a> {
 }
 #[cfg(feature = "ext_present_wait2")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDevicePresentWait2FeaturesKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDevicePresentWait2FeaturesKHR.html>"]
 #[doc(alias = "VkPhysicalDevicePresentWait2FeaturesKHR")]
 pub struct PhysicalDevicePresentWait2FeaturesKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -67510,7 +67510,7 @@ impl<'a> PhysicalDevicePresentWait2FeaturesKHR<'a> {
 }
 #[cfg(feature = "ext_present_wait2")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPresentWait2InfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPresentWait2InfoKHR.html>"]
 #[doc(alias = "VkPresentWait2InfoKHR")]
 pub struct PresentWait2InfoKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -67560,7 +67560,7 @@ impl<'a> PresentWait2InfoKHR<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceRayTracingPositionFetchFeaturesKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceRayTracingPositionFetchFeaturesKHR.html>"]
 #[doc(alias = "VkPhysicalDeviceRayTracingPositionFetchFeaturesKHR")]
 pub struct PhysicalDeviceRayTracingPositionFetchFeaturesKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -67615,7 +67615,7 @@ impl<'a> PhysicalDeviceRayTracingPositionFetchFeaturesKHR<'a> {
 }
 #[cfg(feature = "ext_shader_object")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderObjectFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderObjectFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceShaderObjectFeaturesEXT")]
 pub struct PhysicalDeviceShaderObjectFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -67675,7 +67675,7 @@ impl<'a> PhysicalDeviceShaderObjectFeaturesEXT<'a> {
 }
 #[cfg(feature = "ext_shader_object")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderObjectPropertiesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderObjectPropertiesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceShaderObjectPropertiesEXT")]
 pub struct PhysicalDeviceShaderObjectPropertiesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -67737,7 +67737,7 @@ impl<'a> PhysicalDeviceShaderObjectPropertiesEXT<'a> {
 }
 #[cfg(feature = "ext_shader_object")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkShaderCreateInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkShaderCreateInfoEXT.html>"]
 #[doc(alias = "VkShaderCreateInfoEXT")]
 pub struct ShaderCreateInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -67889,7 +67889,7 @@ impl<'a> ShaderCreateInfoEXT<'a> {
 }
 #[cfg(feature = "ext_pipeline_binary")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDevicePipelineBinaryFeaturesKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDevicePipelineBinaryFeaturesKHR.html>"]
 #[doc(alias = "VkPhysicalDevicePipelineBinaryFeaturesKHR")]
 pub struct PhysicalDevicePipelineBinaryFeaturesKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -67949,7 +67949,7 @@ impl<'a> PhysicalDevicePipelineBinaryFeaturesKHR<'a> {
 }
 #[cfg(feature = "ext_pipeline_binary")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDevicePipelineBinaryPropertiesKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDevicePipelineBinaryPropertiesKHR.html>"]
 #[doc(alias = "VkPhysicalDevicePipelineBinaryPropertiesKHR")]
 pub struct PhysicalDevicePipelineBinaryPropertiesKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -68032,7 +68032,7 @@ impl<'a> PhysicalDevicePipelineBinaryPropertiesKHR<'a> {
 }
 #[cfg(feature = "ext_pipeline_binary")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDevicePipelineBinaryInternalCacheControlKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDevicePipelineBinaryInternalCacheControlKHR.html>"]
 #[doc(alias = "VkDevicePipelineBinaryInternalCacheControlKHR")]
 pub struct DevicePipelineBinaryInternalCacheControlKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -68082,7 +68082,7 @@ impl<'a> DevicePipelineBinaryInternalCacheControlKHR<'a> {
 }
 #[cfg(feature = "ext_pipeline_binary")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineBinaryKeyKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineBinaryKeyKHR.html>"]
 #[doc(alias = "VkPipelineBinaryKeyKHR")]
 pub struct PipelineBinaryKeyKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -68133,7 +68133,7 @@ impl<'a> PipelineBinaryKeyKHR<'a> {
 }
 #[cfg(feature = "ext_pipeline_binary")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineBinaryDataKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineBinaryDataKHR.html>"]
 #[doc(alias = "VkPipelineBinaryDataKHR")]
 pub struct PipelineBinaryDataKHR<'a> {
     pub(crate) data_size: usize,
@@ -68173,7 +68173,7 @@ impl<'a> PipelineBinaryDataKHR<'a> {
 }
 #[cfg(feature = "ext_pipeline_binary")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineBinaryKeysAndDataKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineBinaryKeysAndDataKHR.html>"]
 #[doc(alias = "VkPipelineBinaryKeysAndDataKHR")]
 pub struct PipelineBinaryKeysAndDataKHR<'a> {
     pub(crate) binary_count: u32,
@@ -68228,7 +68228,7 @@ impl<'a> PipelineBinaryKeysAndDataKHR<'a> {
 }
 #[cfg(feature = "ext_pipeline_binary")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineBinaryCreateInfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineBinaryCreateInfoKHR.html>"]
 #[doc(alias = "VkPipelineBinaryCreateInfoKHR")]
 pub struct PipelineBinaryCreateInfoKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -68289,7 +68289,7 @@ impl<'a> PipelineBinaryCreateInfoKHR<'a> {
 }
 #[cfg(feature = "ext_pipeline_binary")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineBinaryInfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineBinaryInfoKHR.html>"]
 #[doc(alias = "VkPipelineBinaryInfoKHR")]
 pub struct PipelineBinaryInfoKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -68362,7 +68362,7 @@ impl<'a> PipelineBinaryInfoKHR<'a> {
 }
 #[cfg(feature = "ext_pipeline_binary")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkReleaseCapturedPipelineDataInfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkReleaseCapturedPipelineDataInfoKHR.html>"]
 #[doc(alias = "VkReleaseCapturedPipelineDataInfoKHR")]
 pub struct ReleaseCapturedPipelineDataInfoKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -68406,7 +68406,7 @@ impl<'a> ReleaseCapturedPipelineDataInfoKHR<'a> {
 }
 #[cfg(feature = "ext_pipeline_binary")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineBinaryDataInfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineBinaryDataInfoKHR.html>"]
 #[doc(alias = "VkPipelineBinaryDataInfoKHR")]
 pub struct PipelineBinaryDataInfoKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -68450,7 +68450,7 @@ impl<'a> PipelineBinaryDataInfoKHR<'a> {
 }
 #[cfg(feature = "ext_pipeline_binary")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineCreateInfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineCreateInfoKHR.html>"]
 #[doc(alias = "VkPipelineCreateInfoKHR")]
 pub struct PipelineCreateInfoKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -68487,7 +68487,7 @@ impl<'a> PipelineCreateInfoKHR<'a> {
 }
 #[cfg(feature = "ext_pipeline_binary")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineBinaryHandlesInfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineBinaryHandlesInfoKHR.html>"]
 #[doc(alias = "VkPipelineBinaryHandlesInfoKHR")]
 pub struct PipelineBinaryHandlesInfoKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -68553,7 +68553,7 @@ impl<'a> PipelineBinaryHandlesInfoKHR<'a> {
 }
 #[cfg(feature = "ext_tile_properties")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceTilePropertiesFeaturesQCOM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceTilePropertiesFeaturesQCOM.html>"]
 #[doc(alias = "VkPhysicalDeviceTilePropertiesFeaturesQCOM")]
 pub struct PhysicalDeviceTilePropertiesFeaturesQCOM<'a> {
     pub(crate) s_type: StructureType,
@@ -68613,7 +68613,7 @@ impl<'a> PhysicalDeviceTilePropertiesFeaturesQCOM<'a> {
 }
 #[cfg(feature = "ext_tile_properties")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkTilePropertiesQCOM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkTilePropertiesQCOM.html>"]
 #[doc(alias = "VkTilePropertiesQCOM")]
 pub struct TilePropertiesQCOM<'a> {
     pub(crate) s_type: StructureType,
@@ -68671,7 +68671,7 @@ impl<'a> TilePropertiesQCOM<'a> {
 }
 #[cfg(feature = "ext_amigo_profiling")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceAmigoProfilingFeaturesSEC.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceAmigoProfilingFeaturesSEC.html>"]
 #[doc(alias = "VkPhysicalDeviceAmigoProfilingFeaturesSEC")]
 pub struct PhysicalDeviceAmigoProfilingFeaturesSEC<'a> {
     pub(crate) s_type: StructureType,
@@ -68731,7 +68731,7 @@ impl<'a> PhysicalDeviceAmigoProfilingFeaturesSEC<'a> {
 }
 #[cfg(feature = "ext_amigo_profiling")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAmigoProfilingSubmitInfoSEC.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAmigoProfilingSubmitInfoSEC.html>"]
 #[doc(alias = "VkAmigoProfilingSubmitInfoSEC")]
 pub struct AmigoProfilingSubmitInfoSEC<'a> {
     pub(crate) s_type: StructureType,
@@ -68784,7 +68784,7 @@ impl<'a> AmigoProfilingSubmitInfoSEC<'a> {
 }
 #[cfg(feature = "ext_surface_maintenance1")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSurfacePresentModeKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSurfacePresentModeKHR.html>"]
 #[doc(alias = "VkSurfacePresentModeKHR")]
 pub struct SurfacePresentModeKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -68838,7 +68838,7 @@ impl<'a> SurfacePresentModeKHR<'a> {
 pub type SurfacePresentModeEXT<'a> = SurfacePresentModeKHR<'a>;
 #[cfg(feature = "ext_surface_maintenance1")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSurfacePresentScalingCapabilitiesKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSurfacePresentScalingCapabilitiesKHR.html>"]
 #[doc(alias = "VkSurfacePresentScalingCapabilitiesKHR")]
 pub struct SurfacePresentScalingCapabilitiesKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -68920,7 +68920,7 @@ impl<'a> SurfacePresentScalingCapabilitiesKHR<'a> {
 pub type SurfacePresentScalingCapabilitiesEXT<'a> = SurfacePresentScalingCapabilitiesKHR<'a>;
 #[cfg(feature = "ext_surface_maintenance1")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSurfacePresentModeCompatibilityKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSurfacePresentModeCompatibilityKHR.html>"]
 #[doc(alias = "VkSurfacePresentModeCompatibilityKHR")]
 pub struct SurfacePresentModeCompatibilityKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -68990,7 +68990,7 @@ impl<'a> SurfacePresentModeCompatibilityKHR<'a> {
 pub type SurfacePresentModeCompatibilityEXT<'a> = SurfacePresentModeCompatibilityKHR<'a>;
 #[cfg(feature = "ext_swapchain_maintenance1")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceSwapchainMaintenance1FeaturesKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceSwapchainMaintenance1FeaturesKHR.html>"]
 #[doc(alias = "VkPhysicalDeviceSwapchainMaintenance1FeaturesKHR")]
 pub struct PhysicalDeviceSwapchainMaintenance1FeaturesKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -69054,7 +69054,7 @@ pub type PhysicalDeviceSwapchainMaintenance1FeaturesEXT<'a> =
     PhysicalDeviceSwapchainMaintenance1FeaturesKHR<'a>;
 #[cfg(feature = "ext_swapchain_maintenance1")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSwapchainPresentFenceInfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSwapchainPresentFenceInfoKHR.html>"]
 #[doc(alias = "VkSwapchainPresentFenceInfoKHR")]
 pub struct SwapchainPresentFenceInfoKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -69118,7 +69118,7 @@ impl<'a> SwapchainPresentFenceInfoKHR<'a> {
 pub type SwapchainPresentFenceInfoEXT<'a> = SwapchainPresentFenceInfoKHR<'a>;
 #[cfg(feature = "ext_swapchain_maintenance1")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSwapchainPresentModesCreateInfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSwapchainPresentModesCreateInfoKHR.html>"]
 #[doc(alias = "VkSwapchainPresentModesCreateInfoKHR")]
 pub struct SwapchainPresentModesCreateInfoKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -69180,7 +69180,7 @@ impl<'a> SwapchainPresentModesCreateInfoKHR<'a> {
 pub type SwapchainPresentModesCreateInfoEXT<'a> = SwapchainPresentModesCreateInfoKHR<'a>;
 #[cfg(feature = "ext_swapchain_maintenance1")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSwapchainPresentModeInfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSwapchainPresentModeInfoKHR.html>"]
 #[doc(alias = "VkSwapchainPresentModeInfoKHR")]
 pub struct SwapchainPresentModeInfoKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -69239,7 +69239,7 @@ impl<'a> SwapchainPresentModeInfoKHR<'a> {
 pub type SwapchainPresentModeInfoEXT<'a> = SwapchainPresentModeInfoKHR<'a>;
 #[cfg(feature = "ext_swapchain_maintenance1")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSwapchainPresentScalingCreateInfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSwapchainPresentScalingCreateInfoKHR.html>"]
 #[doc(alias = "VkSwapchainPresentScalingCreateInfoKHR")]
 pub struct SwapchainPresentScalingCreateInfoKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -69304,7 +69304,7 @@ impl<'a> SwapchainPresentScalingCreateInfoKHR<'a> {
 pub type SwapchainPresentScalingCreateInfoEXT<'a> = SwapchainPresentScalingCreateInfoKHR<'a>;
 #[cfg(feature = "ext_swapchain_maintenance1")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkReleaseSwapchainImagesInfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkReleaseSwapchainImagesInfoKHR.html>"]
 #[doc(alias = "VkReleaseSwapchainImagesInfoKHR")]
 pub struct ReleaseSwapchainImagesInfoKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -69367,7 +69367,7 @@ impl<'a> ReleaseSwapchainImagesInfoKHR<'a> {
 #[cfg(feature = "ext_swapchain_maintenance1")]
 pub type ReleaseSwapchainImagesInfoEXT<'a> = ReleaseSwapchainImagesInfoKHR<'a>;
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceMultiviewPerViewViewportsFeaturesQCOM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceMultiviewPerViewViewportsFeaturesQCOM.html>"]
 #[doc(alias = "VkPhysicalDeviceMultiviewPerViewViewportsFeaturesQCOM")]
 pub struct PhysicalDeviceMultiviewPerViewViewportsFeaturesQCOM<'a> {
     pub(crate) s_type: StructureType,
@@ -69425,7 +69425,7 @@ impl<'a> PhysicalDeviceMultiviewPerViewViewportsFeaturesQCOM<'a> {
 }
 #[cfg(feature = "ext_ray_tracing_invocation_reorder")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceRayTracingInvocationReorderPropertiesNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceRayTracingInvocationReorderPropertiesNV.html>"]
 #[doc(alias = "VkPhysicalDeviceRayTracingInvocationReorderPropertiesNV")]
 pub struct PhysicalDeviceRayTracingInvocationReorderPropertiesNV<'a> {
     pub(crate) s_type: StructureType,
@@ -69488,7 +69488,7 @@ impl<'a> PhysicalDeviceRayTracingInvocationReorderPropertiesNV<'a> {
 }
 #[cfg(feature = "ext_ray_tracing_invocation_reorder")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceRayTracingInvocationReorderFeaturesNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceRayTracingInvocationReorderFeaturesNV.html>"]
 #[doc(alias = "VkPhysicalDeviceRayTracingInvocationReorderFeaturesNV")]
 pub struct PhysicalDeviceRayTracingInvocationReorderFeaturesNV<'a> {
     pub(crate) s_type: StructureType,
@@ -69552,7 +69552,7 @@ impl<'a> PhysicalDeviceRayTracingInvocationReorderFeaturesNV<'a> {
 }
 #[cfg(feature = "ext_cooperative_vector")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceCooperativeVectorPropertiesNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceCooperativeVectorPropertiesNV.html>"]
 #[doc(alias = "VkPhysicalDeviceCooperativeVectorPropertiesNV")]
 pub struct PhysicalDeviceCooperativeVectorPropertiesNV<'a> {
     pub(crate) s_type: StructureType,
@@ -69635,7 +69635,7 @@ impl<'a> PhysicalDeviceCooperativeVectorPropertiesNV<'a> {
 }
 #[cfg(feature = "ext_cooperative_vector")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceCooperativeVectorFeaturesNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceCooperativeVectorFeaturesNV.html>"]
 #[doc(alias = "VkPhysicalDeviceCooperativeVectorFeaturesNV")]
 pub struct PhysicalDeviceCooperativeVectorFeaturesNV<'a> {
     pub(crate) s_type: StructureType,
@@ -69702,7 +69702,7 @@ impl<'a> PhysicalDeviceCooperativeVectorFeaturesNV<'a> {
 }
 #[cfg(feature = "ext_cooperative_vector")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCooperativeVectorPropertiesNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCooperativeVectorPropertiesNV.html>"]
 #[doc(alias = "VkCooperativeVectorPropertiesNV")]
 pub struct CooperativeVectorPropertiesNV<'a> {
     pub(crate) s_type: StructureType,
@@ -69781,7 +69781,7 @@ impl<'a> CooperativeVectorPropertiesNV<'a> {
 }
 #[cfg(feature = "ext_cooperative_vector")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkConvertCooperativeVectorMatrixInfoNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkConvertCooperativeVectorMatrixInfoNV.html>"]
 #[doc(alias = "VkConvertCooperativeVectorMatrixInfoNV")]
 pub struct ConvertCooperativeVectorMatrixInfoNV<'a> {
     pub(crate) s_type: StructureType,
@@ -69901,7 +69901,7 @@ impl<'a> ConvertCooperativeVectorMatrixInfoNV<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceExtendedSparseAddressSpaceFeaturesNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceExtendedSparseAddressSpaceFeaturesNV.html>"]
 #[doc(alias = "VkPhysicalDeviceExtendedSparseAddressSpaceFeaturesNV")]
 pub struct PhysicalDeviceExtendedSparseAddressSpaceFeaturesNV<'a> {
     pub(crate) s_type: StructureType,
@@ -69955,7 +69955,7 @@ impl<'a> PhysicalDeviceExtendedSparseAddressSpaceFeaturesNV<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceExtendedSparseAddressSpacePropertiesNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceExtendedSparseAddressSpacePropertiesNV.html>"]
 #[doc(alias = "VkPhysicalDeviceExtendedSparseAddressSpacePropertiesNV")]
 pub struct PhysicalDeviceExtendedSparseAddressSpacePropertiesNV<'a> {
     pub(crate) s_type: StructureType,
@@ -70022,7 +70022,7 @@ impl<'a> PhysicalDeviceExtendedSparseAddressSpacePropertiesNV<'a> {
 }
 #[cfg(feature = "ext_mutable_descriptor_type")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT")]
 pub struct PhysicalDeviceMutableDescriptorTypeFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -70086,7 +70086,7 @@ pub type PhysicalDeviceMutableDescriptorTypeFeaturesVALVE<'a> =
     PhysicalDeviceMutableDescriptorTypeFeaturesEXT<'a>;
 #[cfg(feature = "ext_mutable_descriptor_type")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkMutableDescriptorTypeListEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkMutableDescriptorTypeListEXT.html>"]
 #[doc(alias = "VkMutableDescriptorTypeListEXT")]
 pub struct MutableDescriptorTypeListEXT<'a> {
     pub(crate) descriptor_type_count: u32,
@@ -70134,7 +70134,7 @@ impl<'a> MutableDescriptorTypeListEXT<'a> {
 pub type MutableDescriptorTypeListVALVE<'a> = MutableDescriptorTypeListEXT<'a>;
 #[cfg(feature = "ext_mutable_descriptor_type")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkMutableDescriptorTypeCreateInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkMutableDescriptorTypeCreateInfoEXT.html>"]
 #[doc(alias = "VkMutableDescriptorTypeCreateInfoEXT")]
 pub struct MutableDescriptorTypeCreateInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -70208,7 +70208,7 @@ impl<'a> MutableDescriptorTypeCreateInfoEXT<'a> {
 #[cfg(feature = "ext_mutable_descriptor_type")]
 pub type MutableDescriptorTypeCreateInfoVALVE<'a> = MutableDescriptorTypeCreateInfoEXT<'a>;
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceLegacyVertexAttributesFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceLegacyVertexAttributesFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceLegacyVertexAttributesFeaturesEXT")]
 pub struct PhysicalDeviceLegacyVertexAttributesFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -70262,7 +70262,7 @@ impl<'a> PhysicalDeviceLegacyVertexAttributesFeaturesEXT<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceLegacyVertexAttributesPropertiesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceLegacyVertexAttributesPropertiesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceLegacyVertexAttributesPropertiesEXT")]
 pub struct PhysicalDeviceLegacyVertexAttributesPropertiesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -70312,7 +70312,7 @@ impl<'a> PhysicalDeviceLegacyVertexAttributesPropertiesEXT<'a> {
 }
 #[cfg(feature = "ext_layer_settings")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkLayerSettingsCreateInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkLayerSettingsCreateInfoEXT.html>"]
 #[doc(alias = "VkLayerSettingsCreateInfoEXT")]
 pub struct LayerSettingsCreateInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -70369,7 +70369,7 @@ impl<'a> LayerSettingsCreateInfoEXT<'a> {
 }
 #[cfg(feature = "ext_layer_settings")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkLayerSettingEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkLayerSettingEXT.html>"]
 #[doc(alias = "VkLayerSettingEXT")]
 pub struct LayerSettingEXT<'a> {
     pub p_layer_name: *const c_char,
@@ -70434,7 +70434,7 @@ impl<'a> LayerSettingEXT<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderCoreBuiltinsFeaturesARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderCoreBuiltinsFeaturesARM.html>"]
 #[doc(alias = "VkPhysicalDeviceShaderCoreBuiltinsFeaturesARM")]
 pub struct PhysicalDeviceShaderCoreBuiltinsFeaturesARM<'a> {
     pub(crate) s_type: StructureType,
@@ -70488,7 +70488,7 @@ impl<'a> PhysicalDeviceShaderCoreBuiltinsFeaturesARM<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderCoreBuiltinsPropertiesARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderCoreBuiltinsPropertiesARM.html>"]
 #[doc(alias = "VkPhysicalDeviceShaderCoreBuiltinsPropertiesARM")]
 pub struct PhysicalDeviceShaderCoreBuiltinsPropertiesARM<'a> {
     pub(crate) s_type: StructureType,
@@ -70551,7 +70551,7 @@ impl<'a> PhysicalDeviceShaderCoreBuiltinsPropertiesARM<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT")]
 pub struct PhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -70608,7 +70608,7 @@ impl<'a> PhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT")]
 pub struct PhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -70667,7 +70667,7 @@ impl<'a> PhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceInternallySynchronizedQueuesFeaturesKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceInternallySynchronizedQueuesFeaturesKHR.html>"]
 #[doc(alias = "VkPhysicalDeviceInternallySynchronizedQueuesFeaturesKHR")]
 pub struct PhysicalDeviceInternallySynchronizedQueuesFeaturesKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -70725,7 +70725,7 @@ impl<'a> PhysicalDeviceInternallySynchronizedQueuesFeaturesKHR<'a> {
 }
 #[cfg(feature = "ext_low_latency2")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkLatencySleepModeInfoNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkLatencySleepModeInfoNV.html>"]
 #[doc(alias = "VkLatencySleepModeInfoNV")]
 pub struct LatencySleepModeInfoNV<'a> {
     pub(crate) s_type: StructureType,
@@ -70783,7 +70783,7 @@ impl<'a> LatencySleepModeInfoNV<'a> {
 }
 #[cfg(feature = "ext_low_latency2")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkLatencySleepInfoNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkLatencySleepInfoNV.html>"]
 #[doc(alias = "VkLatencySleepInfoNV")]
 pub struct LatencySleepInfoNV<'a> {
     pub(crate) s_type: StructureType,
@@ -70834,7 +70834,7 @@ impl<'a> LatencySleepInfoNV<'a> {
 }
 #[cfg(feature = "ext_low_latency2")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSetLatencyMarkerInfoNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSetLatencyMarkerInfoNV.html>"]
 #[doc(alias = "VkSetLatencyMarkerInfoNV")]
 pub struct SetLatencyMarkerInfoNV<'a> {
     pub(crate) s_type: StructureType,
@@ -70885,7 +70885,7 @@ impl<'a> SetLatencyMarkerInfoNV<'a> {
 }
 #[cfg(feature = "ext_low_latency2")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkGetLatencyMarkerInfoNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkGetLatencyMarkerInfoNV.html>"]
 #[doc(alias = "VkGetLatencyMarkerInfoNV")]
 pub struct GetLatencyMarkerInfoNV<'a> {
     pub(crate) s_type: StructureType,
@@ -70945,7 +70945,7 @@ impl<'a> GetLatencyMarkerInfoNV<'a> {
 }
 #[cfg(feature = "ext_low_latency2")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkLatencyTimingsFrameReportNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkLatencyTimingsFrameReportNV.html>"]
 #[doc(alias = "VkLatencyTimingsFrameReportNV")]
 pub struct LatencyTimingsFrameReportNV<'a> {
     pub(crate) s_type: StructureType,
@@ -71080,7 +71080,7 @@ impl<'a> LatencyTimingsFrameReportNV<'a> {
 }
 #[cfg(feature = "ext_low_latency2")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkLatencySubmissionPresentIdNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkLatencySubmissionPresentIdNV.html>"]
 #[doc(alias = "VkLatencySubmissionPresentIdNV")]
 pub struct LatencySubmissionPresentIdNV<'a> {
     pub(crate) s_type: StructureType,
@@ -71131,7 +71131,7 @@ impl<'a> LatencySubmissionPresentIdNV<'a> {
 }
 #[cfg(feature = "ext_low_latency2")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSwapchainLatencyCreateInfoNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSwapchainLatencyCreateInfoNV.html>"]
 #[doc(alias = "VkSwapchainLatencyCreateInfoNV")]
 pub struct SwapchainLatencyCreateInfoNV<'a> {
     pub(crate) s_type: StructureType,
@@ -71180,7 +71180,7 @@ impl<'a> SwapchainLatencyCreateInfoNV<'a> {
 }
 #[cfg(feature = "ext_low_latency2")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkOutOfBandQueueTypeInfoNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkOutOfBandQueueTypeInfoNV.html>"]
 #[doc(alias = "VkOutOfBandQueueTypeInfoNV")]
 pub struct OutOfBandQueueTypeInfoNV<'a> {
     pub(crate) s_type: StructureType,
@@ -71224,7 +71224,7 @@ impl<'a> OutOfBandQueueTypeInfoNV<'a> {
 }
 #[cfg(feature = "ext_low_latency2")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkLatencySurfaceCapabilitiesNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkLatencySurfaceCapabilitiesNV.html>"]
 #[doc(alias = "VkLatencySurfaceCapabilitiesNV")]
 pub struct LatencySurfaceCapabilitiesNV<'a> {
     pub(crate) s_type: StructureType,
@@ -71292,7 +71292,7 @@ impl<'a> LatencySurfaceCapabilitiesNV<'a> {
 }
 #[cfg(feature = "ext_cooperative_matrix")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCooperativeMatrixPropertiesKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCooperativeMatrixPropertiesKHR.html>"]
 #[doc(alias = "VkCooperativeMatrixPropertiesKHR")]
 pub struct CooperativeMatrixPropertiesKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -71392,7 +71392,7 @@ impl<'a> CooperativeMatrixPropertiesKHR<'a> {
 }
 #[cfg(feature = "ext_cooperative_matrix")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceCooperativeMatrixFeaturesKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceCooperativeMatrixFeaturesKHR.html>"]
 #[doc(alias = "VkPhysicalDeviceCooperativeMatrixFeaturesKHR")]
 pub struct PhysicalDeviceCooperativeMatrixFeaturesKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -71459,7 +71459,7 @@ impl<'a> PhysicalDeviceCooperativeMatrixFeaturesKHR<'a> {
 }
 #[cfg(feature = "ext_cooperative_matrix")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceCooperativeMatrixPropertiesKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceCooperativeMatrixPropertiesKHR.html>"]
 #[doc(alias = "VkPhysicalDeviceCooperativeMatrixPropertiesKHR")]
 pub struct PhysicalDeviceCooperativeMatrixPropertiesKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -71515,7 +71515,7 @@ impl<'a> PhysicalDeviceCooperativeMatrixPropertiesKHR<'a> {
 }
 #[cfg(feature = "ext_data_graph")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceDataGraphFeaturesARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceDataGraphFeaturesARM.html>"]
 #[doc(alias = "VkPhysicalDeviceDataGraphFeaturesARM")]
 pub struct PhysicalDeviceDataGraphFeaturesARM<'a> {
     pub(crate) s_type: StructureType,
@@ -71603,7 +71603,7 @@ impl<'a> PhysicalDeviceDataGraphFeaturesARM<'a> {
 }
 #[cfg(feature = "ext_data_graph")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDataGraphPipelineConstantARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphPipelineConstantARM.html>"]
 #[doc(alias = "VkDataGraphPipelineConstantARM")]
 pub struct DataGraphPipelineConstantARM<'a> {
     pub(crate) s_type: StructureType,
@@ -71654,7 +71654,7 @@ impl<'a> DataGraphPipelineConstantARM<'a> {
 }
 #[cfg(feature = "ext_data_graph")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDataGraphPipelineResourceInfoARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphPipelineResourceInfoARM.html>"]
 #[doc(alias = "VkDataGraphPipelineResourceInfoARM")]
 pub struct DataGraphPipelineResourceInfoARM<'a> {
     pub(crate) s_type: StructureType,
@@ -71712,7 +71712,7 @@ impl<'a> DataGraphPipelineResourceInfoARM<'a> {
 }
 #[cfg(feature = "ext_data_graph")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDataGraphPipelineCompilerControlCreateInfoARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphPipelineCompilerControlCreateInfoARM.html>"]
 #[doc(alias = "VkDataGraphPipelineCompilerControlCreateInfoARM")]
 pub struct DataGraphPipelineCompilerControlCreateInfoARM<'a> {
     pub(crate) s_type: StructureType,
@@ -71762,7 +71762,7 @@ impl<'a> DataGraphPipelineCompilerControlCreateInfoARM<'a> {
 }
 #[cfg(feature = "ext_data_graph")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDataGraphPipelineCreateInfoARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphPipelineCreateInfoARM.html>"]
 #[doc(alias = "VkDataGraphPipelineCreateInfoARM")]
 pub struct DataGraphPipelineCreateInfoARM<'a> {
     pub(crate) s_type: StructureType,
@@ -71834,7 +71834,7 @@ impl<'a> DataGraphPipelineCreateInfoARM<'a> {
 }
 #[cfg(feature = "ext_data_graph")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDataGraphPipelineShaderModuleCreateInfoARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphPipelineShaderModuleCreateInfoARM.html>"]
 #[doc(alias = "VkDataGraphPipelineShaderModuleCreateInfoARM")]
 pub struct DataGraphPipelineShaderModuleCreateInfoARM<'a> {
     pub(crate) s_type: StructureType,
@@ -71923,7 +71923,7 @@ impl<'a> DataGraphPipelineShaderModuleCreateInfoARM<'a> {
 }
 #[cfg(feature = "ext_data_graph")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDataGraphPipelineSessionCreateInfoARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphPipelineSessionCreateInfoARM.html>"]
 #[doc(alias = "VkDataGraphPipelineSessionCreateInfoARM")]
 pub struct DataGraphPipelineSessionCreateInfoARM<'a> {
     pub(crate) s_type: StructureType,
@@ -71974,7 +71974,7 @@ impl<'a> DataGraphPipelineSessionCreateInfoARM<'a> {
 }
 #[cfg(feature = "ext_data_graph")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDataGraphPipelineSessionBindPointRequirementsInfoARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphPipelineSessionBindPointRequirementsInfoARM.html>"]
 #[doc(alias = "VkDataGraphPipelineSessionBindPointRequirementsInfoARM")]
 pub struct DataGraphPipelineSessionBindPointRequirementsInfoARM<'a> {
     pub(crate) s_type: StructureType,
@@ -72022,7 +72022,7 @@ impl<'a> DataGraphPipelineSessionBindPointRequirementsInfoARM<'a> {
 }
 #[cfg(feature = "ext_data_graph")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDataGraphPipelineSessionBindPointRequirementARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphPipelineSessionBindPointRequirementARM.html>"]
 #[doc(alias = "VkDataGraphPipelineSessionBindPointRequirementARM")]
 pub struct DataGraphPipelineSessionBindPointRequirementARM<'a> {
     pub(crate) s_type: StructureType,
@@ -72081,7 +72081,7 @@ impl<'a> DataGraphPipelineSessionBindPointRequirementARM<'a> {
 }
 #[cfg(feature = "ext_data_graph")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDataGraphPipelineSessionMemoryRequirementsInfoARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphPipelineSessionMemoryRequirementsInfoARM.html>"]
 #[doc(alias = "VkDataGraphPipelineSessionMemoryRequirementsInfoARM")]
 pub struct DataGraphPipelineSessionMemoryRequirementsInfoARM<'a> {
     pub(crate) s_type: StructureType,
@@ -72140,7 +72140,7 @@ impl<'a> DataGraphPipelineSessionMemoryRequirementsInfoARM<'a> {
 }
 #[cfg(feature = "ext_data_graph")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkBindDataGraphPipelineSessionMemoryInfoARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkBindDataGraphPipelineSessionMemoryInfoARM.html>"]
 #[doc(alias = "VkBindDataGraphPipelineSessionMemoryInfoARM")]
 pub struct BindDataGraphPipelineSessionMemoryInfoARM<'a> {
     pub(crate) s_type: StructureType,
@@ -72212,7 +72212,7 @@ impl<'a> BindDataGraphPipelineSessionMemoryInfoARM<'a> {
 }
 #[cfg(feature = "ext_data_graph")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDataGraphPipelineInfoARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphPipelineInfoARM.html>"]
 #[doc(alias = "VkDataGraphPipelineInfoARM")]
 pub struct DataGraphPipelineInfoARM<'a> {
     pub(crate) s_type: StructureType,
@@ -72256,7 +72256,7 @@ impl<'a> DataGraphPipelineInfoARM<'a> {
 }
 #[cfg(feature = "ext_data_graph")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDataGraphPipelinePropertyQueryResultARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphPipelinePropertyQueryResultARM.html>"]
 #[doc(alias = "VkDataGraphPipelinePropertyQueryResultARM")]
 pub struct DataGraphPipelinePropertyQueryResultARM<'a> {
     pub(crate) s_type: StructureType,
@@ -72330,7 +72330,7 @@ impl<'a> DataGraphPipelinePropertyQueryResultARM<'a> {
 }
 #[cfg(feature = "ext_data_graph")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDataGraphPipelineIdentifierCreateInfoARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphPipelineIdentifierCreateInfoARM.html>"]
 #[doc(alias = "VkDataGraphPipelineIdentifierCreateInfoARM")]
 pub struct DataGraphPipelineIdentifierCreateInfoARM<'a> {
     pub(crate) s_type: StructureType,
@@ -72390,7 +72390,7 @@ impl<'a> DataGraphPipelineIdentifierCreateInfoARM<'a> {
 }
 #[cfg(feature = "ext_data_graph")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDataGraphPipelineDispatchInfoARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphPipelineDispatchInfoARM.html>"]
 #[doc(alias = "VkDataGraphPipelineDispatchInfoARM")]
 pub struct DataGraphPipelineDispatchInfoARM<'a> {
     pub(crate) s_type: StructureType,
@@ -72435,7 +72435,7 @@ impl<'a> DataGraphPipelineDispatchInfoARM<'a> {
 #[cfg(feature = "ext_data_graph")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceDataGraphProcessingEngineARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceDataGraphProcessingEngineARM.html>"]
 #[doc(alias = "VkPhysicalDeviceDataGraphProcessingEngineARM")]
 pub struct PhysicalDeviceDataGraphProcessingEngineARM {
     pub ty: PhysicalDeviceDataGraphProcessingEngineTypeARM,
@@ -72469,7 +72469,7 @@ impl PhysicalDeviceDataGraphProcessingEngineARM {
 }
 #[cfg(feature = "ext_data_graph")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkQueueFamilyDataGraphPropertiesARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkQueueFamilyDataGraphPropertiesARM.html>"]
 #[doc(alias = "VkQueueFamilyDataGraphPropertiesARM")]
 pub struct QueueFamilyDataGraphPropertiesARM<'a> {
     pub(crate) s_type: StructureType,
@@ -72520,7 +72520,7 @@ impl<'a> QueueFamilyDataGraphPropertiesARM<'a> {
 }
 #[cfg(feature = "ext_data_graph")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDataGraphProcessingEngineCreateInfoARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphProcessingEngineCreateInfoARM.html>"]
 #[doc(alias = "VkDataGraphProcessingEngineCreateInfoARM")]
 pub struct DataGraphProcessingEngineCreateInfoARM<'a> {
     pub(crate) s_type: StructureType,
@@ -72596,7 +72596,7 @@ impl<'a> DataGraphProcessingEngineCreateInfoARM<'a> {
 }
 #[cfg(feature = "ext_data_graph")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceQueueFamilyDataGraphProcessingEngineInfoARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceQueueFamilyDataGraphProcessingEngineInfoARM.html>"]
 #[doc(alias = "VkPhysicalDeviceQueueFamilyDataGraphProcessingEngineInfoARM")]
 pub struct PhysicalDeviceQueueFamilyDataGraphProcessingEngineInfoARM<'a> {
     pub(crate) s_type: StructureType,
@@ -72653,7 +72653,7 @@ impl<'a> PhysicalDeviceQueueFamilyDataGraphProcessingEngineInfoARM<'a> {
 }
 #[cfg(feature = "ext_data_graph")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkQueueFamilyDataGraphProcessingEnginePropertiesARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkQueueFamilyDataGraphProcessingEnginePropertiesARM.html>"]
 #[doc(alias = "VkQueueFamilyDataGraphProcessingEnginePropertiesARM")]
 pub struct QueueFamilyDataGraphProcessingEnginePropertiesARM<'a> {
     pub(crate) s_type: StructureType,
@@ -72709,7 +72709,7 @@ impl<'a> QueueFamilyDataGraphProcessingEnginePropertiesARM<'a> {
 #[cfg(feature = "ext_data_graph")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceDataGraphOperationSupportARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceDataGraphOperationSupportARM.html>"]
 #[doc(alias = "VkPhysicalDeviceDataGraphOperationSupportARM")]
 pub struct PhysicalDeviceDataGraphOperationSupportARM {
     pub operation_type: PhysicalDeviceDataGraphOperationTypeARM,
@@ -72757,7 +72757,7 @@ impl PhysicalDeviceDataGraphOperationSupportARM {
 }
 #[cfg(all(feature = "ext_data_graph", feature = "ext_tensors"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDataGraphPipelineConstantTensorSemiStructuredSparsityInfoARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphPipelineConstantTensorSemiStructuredSparsityInfoARM.html>"]
 #[doc(alias = "VkDataGraphPipelineConstantTensorSemiStructuredSparsityInfoARM")]
 pub struct DataGraphPipelineConstantTensorSemiStructuredSparsityInfoARM<'a> {
     pub(crate) s_type: StructureType,
@@ -72829,7 +72829,7 @@ impl<'a> DataGraphPipelineConstantTensorSemiStructuredSparsityInfoARM<'a> {
 }
 #[cfg(feature = "ext_multiview_per_view_render_areas")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceMultiviewPerViewRenderAreasFeaturesQCOM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceMultiviewPerViewRenderAreasFeaturesQCOM.html>"]
 #[doc(alias = "VkPhysicalDeviceMultiviewPerViewRenderAreasFeaturesQCOM")]
 pub struct PhysicalDeviceMultiviewPerViewRenderAreasFeaturesQCOM<'a> {
     pub(crate) s_type: StructureType,
@@ -72893,7 +72893,7 @@ impl<'a> PhysicalDeviceMultiviewPerViewRenderAreasFeaturesQCOM<'a> {
 }
 #[cfg(feature = "ext_multiview_per_view_render_areas")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkMultiviewPerViewRenderAreasRenderPassBeginInfoQCOM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkMultiviewPerViewRenderAreasRenderPassBeginInfoQCOM.html>"]
 #[doc(alias = "VkMultiviewPerViewRenderAreasRenderPassBeginInfoQCOM")]
 pub struct MultiviewPerViewRenderAreasRenderPassBeginInfoQCOM<'a> {
     pub(crate) s_type: StructureType,
@@ -72974,7 +72974,7 @@ impl<'a> MultiviewPerViewRenderAreasRenderPassBeginInfoQCOM<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceComputeShaderDerivativesFeaturesKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceComputeShaderDerivativesFeaturesKHR.html>"]
 #[doc(alias = "VkPhysicalDeviceComputeShaderDerivativesFeaturesKHR")]
 pub struct PhysicalDeviceComputeShaderDerivativesFeaturesKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -73037,7 +73037,7 @@ impl<'a> PhysicalDeviceComputeShaderDerivativesFeaturesKHR<'a> {
 pub type PhysicalDeviceComputeShaderDerivativesFeaturesNV<'a> =
     PhysicalDeviceComputeShaderDerivativesFeaturesKHR<'a>;
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceComputeShaderDerivativesPropertiesKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceComputeShaderDerivativesPropertiesKHR.html>"]
 #[doc(alias = "VkPhysicalDeviceComputeShaderDerivativesPropertiesKHR")]
 pub struct PhysicalDeviceComputeShaderDerivativesPropertiesKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -73089,7 +73089,7 @@ impl<'a> PhysicalDeviceComputeShaderDerivativesPropertiesKHR<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDevicePerStageDescriptorSetFeaturesNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDevicePerStageDescriptorSetFeaturesNV.html>"]
 #[doc(alias = "VkPhysicalDevicePerStageDescriptorSetFeaturesNV")]
 pub struct PhysicalDevicePerStageDescriptorSetFeaturesNV<'a> {
     pub(crate) s_type: StructureType,
@@ -73151,7 +73151,7 @@ impl<'a> PhysicalDevicePerStageDescriptorSetFeaturesNV<'a> {
 }
 #[cfg(feature = "ext_image_processing2")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceImageProcessing2FeaturesQCOM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceImageProcessing2FeaturesQCOM.html>"]
 #[doc(alias = "VkPhysicalDeviceImageProcessing2FeaturesQCOM")]
 pub struct PhysicalDeviceImageProcessing2FeaturesQCOM<'a> {
     pub(crate) s_type: StructureType,
@@ -73211,7 +73211,7 @@ impl<'a> PhysicalDeviceImageProcessing2FeaturesQCOM<'a> {
 }
 #[cfg(feature = "ext_image_processing2")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceImageProcessing2PropertiesQCOM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceImageProcessing2PropertiesQCOM.html>"]
 #[doc(alias = "VkPhysicalDeviceImageProcessing2PropertiesQCOM")]
 pub struct PhysicalDeviceImageProcessing2PropertiesQCOM<'a> {
     pub(crate) s_type: StructureType,
@@ -73267,7 +73267,7 @@ impl<'a> PhysicalDeviceImageProcessing2PropertiesQCOM<'a> {
 }
 #[cfg(feature = "ext_image_processing2")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSamplerBlockMatchWindowCreateInfoQCOM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSamplerBlockMatchWindowCreateInfoQCOM.html>"]
 #[doc(alias = "VkSamplerBlockMatchWindowCreateInfoQCOM")]
 pub struct SamplerBlockMatchWindowCreateInfoQCOM<'a> {
     pub(crate) s_type: StructureType,
@@ -73323,7 +73323,7 @@ impl<'a> SamplerBlockMatchWindowCreateInfoQCOM<'a> {
 }
 #[cfg(feature = "ext_filter_cubic_weights")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceCubicWeightsFeaturesQCOM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceCubicWeightsFeaturesQCOM.html>"]
 #[doc(alias = "VkPhysicalDeviceCubicWeightsFeaturesQCOM")]
 pub struct PhysicalDeviceCubicWeightsFeaturesQCOM<'a> {
     pub(crate) s_type: StructureType,
@@ -73383,7 +73383,7 @@ impl<'a> PhysicalDeviceCubicWeightsFeaturesQCOM<'a> {
 }
 #[cfg(feature = "ext_filter_cubic_weights")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSamplerCubicWeightsCreateInfoQCOM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSamplerCubicWeightsCreateInfoQCOM.html>"]
 #[doc(alias = "VkSamplerCubicWeightsCreateInfoQCOM")]
 pub struct SamplerCubicWeightsCreateInfoQCOM<'a> {
     pub(crate) s_type: StructureType,
@@ -73432,7 +73432,7 @@ impl<'a> SamplerCubicWeightsCreateInfoQCOM<'a> {
 }
 #[cfg(feature = "ext_filter_cubic_weights")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkBlitImageCubicWeightsInfoQCOM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkBlitImageCubicWeightsInfoQCOM.html>"]
 #[doc(alias = "VkBlitImageCubicWeightsInfoQCOM")]
 pub struct BlitImageCubicWeightsInfoQCOM<'a> {
     pub(crate) s_type: StructureType,
@@ -73481,7 +73481,7 @@ impl<'a> BlitImageCubicWeightsInfoQCOM<'a> {
 }
 #[cfg(feature = "ext_ycbcr_degamma")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceYcbcrDegammaFeaturesQCOM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceYcbcrDegammaFeaturesQCOM.html>"]
 #[doc(alias = "VkPhysicalDeviceYcbcrDegammaFeaturesQCOM")]
 pub struct PhysicalDeviceYcbcrDegammaFeaturesQCOM<'a> {
     pub(crate) s_type: StructureType,
@@ -73541,7 +73541,7 @@ impl<'a> PhysicalDeviceYcbcrDegammaFeaturesQCOM<'a> {
 }
 #[cfg(feature = "ext_ycbcr_degamma")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM.html>"]
 #[doc(alias = "VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM")]
 pub struct SamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM<'a> {
     pub(crate) s_type: StructureType,
@@ -73600,7 +73600,7 @@ impl<'a> SamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceCubicClampFeaturesQCOM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceCubicClampFeaturesQCOM.html>"]
 #[doc(alias = "VkPhysicalDeviceCubicClampFeaturesQCOM")]
 pub struct PhysicalDeviceCubicClampFeaturesQCOM<'a> {
     pub(crate) s_type: StructureType,
@@ -73654,7 +73654,7 @@ impl<'a> PhysicalDeviceCubicClampFeaturesQCOM<'a> {
 }
 #[cfg(feature = "ext_attachment_feedback_loop_dynamic_state")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceAttachmentFeedbackLoopDynamicStateFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceAttachmentFeedbackLoopDynamicStateFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceAttachmentFeedbackLoopDynamicStateFeaturesEXT")]
 pub struct PhysicalDeviceAttachmentFeedbackLoopDynamicStateFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -73720,7 +73720,7 @@ impl<'a> PhysicalDeviceAttachmentFeedbackLoopDynamicStateFeaturesEXT<'a> {
 }
 #[cfg(feature = "ext_unified_image_layouts")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceUnifiedImageLayoutsFeaturesKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceUnifiedImageLayoutsFeaturesKHR.html>"]
 #[doc(alias = "VkPhysicalDeviceUnifiedImageLayoutsFeaturesKHR")]
 pub struct PhysicalDeviceUnifiedImageLayoutsFeaturesKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -73791,7 +73791,7 @@ impl<'a> PhysicalDeviceUnifiedImageLayoutsFeaturesKHR<'a> {
     all(any(feature = "version_1_3", feature = "ext_dynamic_rendering"))
 ))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAttachmentFeedbackLoopInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAttachmentFeedbackLoopInfoEXT.html>"]
 #[doc(alias = "VkAttachmentFeedbackLoopInfoEXT")]
 pub struct AttachmentFeedbackLoopInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -73864,7 +73864,7 @@ impl<'a> AttachmentFeedbackLoopInfoEXT<'a> {
 }
 #[cfg(feature = "ext_external_memory_screen_buffer")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkScreenBufferPropertiesQNX.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkScreenBufferPropertiesQNX.html>"]
 #[doc(alias = "VkScreenBufferPropertiesQNX")]
 pub struct ScreenBufferPropertiesQNX<'a> {
     pub(crate) s_type: StructureType,
@@ -73915,7 +73915,7 @@ impl<'a> ScreenBufferPropertiesQNX<'a> {
 }
 #[cfg(feature = "ext_external_memory_screen_buffer")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkScreenBufferFormatPropertiesQNX.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkScreenBufferFormatPropertiesQNX.html>"]
 #[doc(alias = "VkScreenBufferFormatPropertiesQNX")]
 pub struct ScreenBufferFormatPropertiesQNX<'a> {
     pub(crate) s_type: StructureType,
@@ -74023,7 +74023,7 @@ impl<'a> ScreenBufferFormatPropertiesQNX<'a> {
 }
 #[cfg(feature = "ext_external_memory_screen_buffer")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImportScreenBufferInfoQNX.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImportScreenBufferInfoQNX.html>"]
 #[doc(alias = "VkImportScreenBufferInfoQNX")]
 pub struct ImportScreenBufferInfoQNX<'a> {
     pub(crate) s_type: StructureType,
@@ -74069,7 +74069,7 @@ impl<'a> ImportScreenBufferInfoQNX<'a> {
 }
 #[cfg(feature = "ext_external_memory_screen_buffer")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkExternalFormatQNX.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkExternalFormatQNX.html>"]
 #[doc(alias = "VkExternalFormatQNX")]
 pub struct ExternalFormatQNX<'a> {
     pub(crate) s_type: StructureType,
@@ -74123,7 +74123,7 @@ impl<'a> ExternalFormatQNX<'a> {
 }
 #[cfg(feature = "ext_external_memory_screen_buffer")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceExternalMemoryScreenBufferFeaturesQNX.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceExternalMemoryScreenBufferFeaturesQNX.html>"]
 #[doc(alias = "VkPhysicalDeviceExternalMemoryScreenBufferFeaturesQNX")]
 pub struct PhysicalDeviceExternalMemoryScreenBufferFeaturesQNX<'a> {
     pub(crate) s_type: StructureType,
@@ -74187,7 +74187,7 @@ impl<'a> PhysicalDeviceExternalMemoryScreenBufferFeaturesQNX<'a> {
 }
 #[cfg(feature = "ext_layered_driver")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceLayeredDriverPropertiesMSFT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceLayeredDriverPropertiesMSFT.html>"]
 #[doc(alias = "VkPhysicalDeviceLayeredDriverPropertiesMSFT")]
 pub struct PhysicalDeviceLayeredDriverPropertiesMSFT<'a> {
     pub(crate) s_type: StructureType,
@@ -74242,7 +74242,7 @@ impl<'a> PhysicalDeviceLayeredDriverPropertiesMSFT<'a> {
 }
 #[cfg(feature = "ext_calibrated_timestamps")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCalibratedTimestampInfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCalibratedTimestampInfoKHR.html>"]
 #[doc(alias = "VkCalibratedTimestampInfoKHR")]
 pub struct CalibratedTimestampInfoKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -74288,7 +74288,7 @@ impl<'a> CalibratedTimestampInfoKHR<'a> {
 pub type CalibratedTimestampInfoEXT<'a> = CalibratedTimestampInfoKHR<'a>;
 #[cfg(all(feature = "ext_maintenance6", feature = "ext_descriptor_buffer"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSetDescriptorBufferOffsetsInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSetDescriptorBufferOffsetsInfoEXT.html>"]
 #[doc(alias = "VkSetDescriptorBufferOffsetsInfoEXT")]
 pub struct SetDescriptorBufferOffsetsInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -74377,7 +74377,7 @@ impl<'a> SetDescriptorBufferOffsetsInfoEXT<'a> {
 }
 #[cfg(all(feature = "ext_maintenance6", feature = "ext_descriptor_buffer"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkBindDescriptorBufferEmbeddedSamplersInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkBindDescriptorBufferEmbeddedSamplersInfoEXT.html>"]
 #[doc(alias = "VkBindDescriptorBufferEmbeddedSamplersInfoEXT")]
 pub struct BindDescriptorBufferEmbeddedSamplersInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -74435,7 +74435,7 @@ impl<'a> BindDescriptorBufferEmbeddedSamplersInfoEXT<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceDescriptorPoolOverallocationFeaturesNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceDescriptorPoolOverallocationFeaturesNV.html>"]
 #[doc(alias = "VkPhysicalDeviceDescriptorPoolOverallocationFeaturesNV")]
 pub struct PhysicalDeviceDescriptorPoolOverallocationFeaturesNV<'a> {
     pub(crate) s_type: StructureType,
@@ -74493,7 +74493,7 @@ impl<'a> PhysicalDeviceDescriptorPoolOverallocationFeaturesNV<'a> {
 }
 #[cfg(feature = "ext_tile_memory_heap")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceTileMemoryHeapFeaturesQCOM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceTileMemoryHeapFeaturesQCOM.html>"]
 #[doc(alias = "VkPhysicalDeviceTileMemoryHeapFeaturesQCOM")]
 pub struct PhysicalDeviceTileMemoryHeapFeaturesQCOM<'a> {
     pub(crate) s_type: StructureType,
@@ -74553,7 +74553,7 @@ impl<'a> PhysicalDeviceTileMemoryHeapFeaturesQCOM<'a> {
 }
 #[cfg(feature = "ext_tile_memory_heap")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceTileMemoryHeapPropertiesQCOM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceTileMemoryHeapPropertiesQCOM.html>"]
 #[doc(alias = "VkPhysicalDeviceTileMemoryHeapPropertiesQCOM")]
 pub struct PhysicalDeviceTileMemoryHeapPropertiesQCOM<'a> {
     pub(crate) s_type: StructureType,
@@ -74615,7 +74615,7 @@ impl<'a> PhysicalDeviceTileMemoryHeapPropertiesQCOM<'a> {
 }
 #[cfg(feature = "ext_tile_memory_heap")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkTileMemoryRequirementsQCOM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkTileMemoryRequirementsQCOM.html>"]
 #[doc(alias = "VkTileMemoryRequirementsQCOM")]
 pub struct TileMemoryRequirementsQCOM<'a> {
     pub(crate) s_type: StructureType,
@@ -74678,7 +74678,7 @@ impl<'a> TileMemoryRequirementsQCOM<'a> {
 }
 #[cfg(feature = "ext_tile_memory_heap")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkTileMemoryBindInfoQCOM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkTileMemoryBindInfoQCOM.html>"]
 #[doc(alias = "VkTileMemoryBindInfoQCOM")]
 pub struct TileMemoryBindInfoQCOM<'a> {
     pub(crate) s_type: StructureType,
@@ -74727,7 +74727,7 @@ impl<'a> TileMemoryBindInfoQCOM<'a> {
 }
 #[cfg(all(feature = "ext_tile_memory_heap", feature = "ext_tile_properties"))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkTileMemorySizeInfoQCOM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkTileMemorySizeInfoQCOM.html>"]
 #[doc(alias = "VkTileMemorySizeInfoQCOM")]
 pub struct TileMemorySizeInfoQCOM<'a> {
     pub(crate) s_type: StructureType,
@@ -74791,7 +74791,7 @@ impl<'a> TileMemorySizeInfoQCOM<'a> {
 #[cfg(feature = "ext_copy_memory_indirect")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkStridedDeviceAddressRangeKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkStridedDeviceAddressRangeKHR.html>"]
 #[doc(alias = "VkStridedDeviceAddressRangeKHR")]
 pub struct StridedDeviceAddressRangeKHR {
     pub address: DeviceAddress,
@@ -74833,7 +74833,7 @@ impl StridedDeviceAddressRangeKHR {
 #[cfg(feature = "ext_copy_memory_indirect")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCopyMemoryIndirectCommandKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCopyMemoryIndirectCommandKHR.html>"]
 #[doc(alias = "VkCopyMemoryIndirectCommandKHR")]
 pub struct CopyMemoryIndirectCommandKHR {
     pub src_address: DeviceAddress,
@@ -74876,7 +74876,7 @@ impl CopyMemoryIndirectCommandKHR {
 pub type CopyMemoryIndirectCommandNV = CopyMemoryIndirectCommandKHR;
 #[cfg(feature = "ext_copy_memory_indirect")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCopyMemoryIndirectInfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCopyMemoryIndirectInfoKHR.html>"]
 #[doc(alias = "VkCopyMemoryIndirectInfoKHR")]
 pub struct CopyMemoryIndirectInfoKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -74942,7 +74942,7 @@ impl<'a> CopyMemoryIndirectInfoKHR<'a> {
 #[cfg(feature = "ext_copy_memory_indirect")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCopyMemoryToImageIndirectCommandKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCopyMemoryToImageIndirectCommandKHR.html>"]
 #[doc(alias = "VkCopyMemoryToImageIndirectCommandKHR")]
 pub struct CopyMemoryToImageIndirectCommandKHR {
     pub src_address: DeviceAddress,
@@ -75006,7 +75006,7 @@ impl CopyMemoryToImageIndirectCommandKHR {
 pub type CopyMemoryToImageIndirectCommandNV = CopyMemoryToImageIndirectCommandKHR;
 #[cfg(feature = "ext_copy_memory_indirect")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCopyMemoryToImageIndirectInfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCopyMemoryToImageIndirectInfoKHR.html>"]
 #[doc(alias = "VkCopyMemoryToImageIndirectInfoKHR")]
 pub struct CopyMemoryToImageIndirectInfoKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -75092,7 +75092,7 @@ impl<'a> CopyMemoryToImageIndirectInfoKHR<'a> {
 }
 #[cfg(feature = "ext_copy_memory_indirect")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceCopyMemoryIndirectFeaturesKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceCopyMemoryIndirectFeaturesKHR.html>"]
 #[doc(alias = "VkPhysicalDeviceCopyMemoryIndirectFeaturesKHR")]
 pub struct PhysicalDeviceCopyMemoryIndirectFeaturesKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -75160,7 +75160,7 @@ impl<'a> PhysicalDeviceCopyMemoryIndirectFeaturesKHR<'a> {
 }
 #[cfg(feature = "ext_copy_memory_indirect")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceCopyMemoryIndirectPropertiesKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceCopyMemoryIndirectPropertiesKHR.html>"]
 #[doc(alias = "VkPhysicalDeviceCopyMemoryIndirectPropertiesKHR")]
 pub struct PhysicalDeviceCopyMemoryIndirectPropertiesKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -75219,7 +75219,7 @@ pub type PhysicalDeviceCopyMemoryIndirectPropertiesNV<'a> =
     PhysicalDeviceCopyMemoryIndirectPropertiesKHR<'a>;
 #[cfg(feature = "ext_memory_decompression")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDecompressMemoryInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDecompressMemoryInfoEXT.html>"]
 #[doc(alias = "VkDecompressMemoryInfoEXT")]
 pub struct DecompressMemoryInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -75282,7 +75282,7 @@ impl<'a> DecompressMemoryInfoEXT<'a> {
 #[cfg(feature = "ext_memory_decompression")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDecompressMemoryRegionEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDecompressMemoryRegionEXT.html>"]
 #[doc(alias = "VkDecompressMemoryRegionEXT")]
 pub struct DecompressMemoryRegionEXT {
     pub src_address: DeviceAddress,
@@ -75330,7 +75330,7 @@ impl DecompressMemoryRegionEXT {
 }
 #[cfg(feature = "ext_memory_decompression")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceMemoryDecompressionFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceMemoryDecompressionFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceMemoryDecompressionFeaturesEXT")]
 pub struct PhysicalDeviceMemoryDecompressionFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -75394,7 +75394,7 @@ pub type PhysicalDeviceMemoryDecompressionFeaturesNV<'a> =
     PhysicalDeviceMemoryDecompressionFeaturesEXT<'a>;
 #[cfg(feature = "ext_memory_decompression")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceMemoryDecompressionPropertiesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceMemoryDecompressionPropertiesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceMemoryDecompressionPropertiesEXT")]
 pub struct PhysicalDeviceMemoryDecompressionPropertiesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -75460,7 +75460,7 @@ pub type PhysicalDeviceMemoryDecompressionPropertiesNV<'a> =
     PhysicalDeviceMemoryDecompressionPropertiesEXT<'a>;
 #[cfg(feature = "ext_display_stereo")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDisplaySurfaceStereoCreateInfoNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDisplaySurfaceStereoCreateInfoNV.html>"]
 #[doc(alias = "VkDisplaySurfaceStereoCreateInfoNV")]
 pub struct DisplaySurfaceStereoCreateInfoNV<'a> {
     pub(crate) s_type: StructureType,
@@ -75509,7 +75509,7 @@ impl<'a> DisplaySurfaceStereoCreateInfoNV<'a> {
 }
 #[cfg(feature = "ext_display_stereo")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDisplayModeStereoPropertiesNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDisplayModeStereoPropertiesNV.html>"]
 #[doc(alias = "VkDisplayModeStereoPropertiesNV")]
 pub struct DisplayModeStereoPropertiesNV<'a> {
     pub(crate) s_type: StructureType,
@@ -75560,7 +75560,7 @@ impl<'a> DisplayModeStereoPropertiesNV<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceRawAccessChainsFeaturesNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceRawAccessChainsFeaturesNV.html>"]
 #[doc(alias = "VkPhysicalDeviceRawAccessChainsFeaturesNV")]
 pub struct PhysicalDeviceRawAccessChainsFeaturesNV<'a> {
     pub(crate) s_type: StructureType,
@@ -75614,7 +75614,7 @@ impl<'a> PhysicalDeviceRawAccessChainsFeaturesNV<'a> {
 }
 #[cfg(feature = "ext_external_compute_queue")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkExternalComputeQueueDeviceCreateInfoNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkExternalComputeQueueDeviceCreateInfoNV.html>"]
 #[doc(alias = "VkExternalComputeQueueDeviceCreateInfoNV")]
 pub struct ExternalComputeQueueDeviceCreateInfoNV<'a> {
     pub(crate) s_type: StructureType,
@@ -75663,7 +75663,7 @@ impl<'a> ExternalComputeQueueDeviceCreateInfoNV<'a> {
 }
 #[cfg(feature = "ext_external_compute_queue")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkExternalComputeQueueCreateInfoNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkExternalComputeQueueCreateInfoNV.html>"]
 #[doc(alias = "VkExternalComputeQueueCreateInfoNV")]
 pub struct ExternalComputeQueueCreateInfoNV<'a> {
     pub(crate) s_type: StructureType,
@@ -75707,7 +75707,7 @@ impl<'a> ExternalComputeQueueCreateInfoNV<'a> {
 }
 #[cfg(feature = "ext_external_compute_queue")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkExternalComputeQueueDataParamsNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkExternalComputeQueueDataParamsNV.html>"]
 #[doc(alias = "VkExternalComputeQueueDataParamsNV")]
 pub struct ExternalComputeQueueDataParamsNV<'a> {
     pub(crate) s_type: StructureType,
@@ -75751,7 +75751,7 @@ impl<'a> ExternalComputeQueueDataParamsNV<'a> {
 }
 #[cfg(feature = "ext_external_compute_queue")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceExternalComputeQueuePropertiesNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceExternalComputeQueuePropertiesNV.html>"]
 #[doc(alias = "VkPhysicalDeviceExternalComputeQueuePropertiesNV")]
 pub struct PhysicalDeviceExternalComputeQueuePropertiesNV<'a> {
     pub(crate) s_type: StructureType,
@@ -75813,7 +75813,7 @@ impl<'a> PhysicalDeviceExternalComputeQueuePropertiesNV<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderRelaxedExtendedInstructionFeaturesKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderRelaxedExtendedInstructionFeaturesKHR.html>"]
 #[doc(alias = "VkPhysicalDeviceShaderRelaxedExtendedInstructionFeaturesKHR")]
 pub struct PhysicalDeviceShaderRelaxedExtendedInstructionFeaturesKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -75872,7 +75872,7 @@ impl<'a> PhysicalDeviceShaderRelaxedExtendedInstructionFeaturesKHR<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceCommandBufferInheritanceFeaturesNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceCommandBufferInheritanceFeaturesNV.html>"]
 #[doc(alias = "VkPhysicalDeviceCommandBufferInheritanceFeaturesNV")]
 pub struct PhysicalDeviceCommandBufferInheritanceFeaturesNV<'a> {
     pub(crate) s_type: StructureType,
@@ -75927,7 +75927,7 @@ impl<'a> PhysicalDeviceCommandBufferInheritanceFeaturesNV<'a> {
 }
 #[cfg(feature = "ext_maintenance7")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceMaintenance7FeaturesKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceMaintenance7FeaturesKHR.html>"]
 #[doc(alias = "VkPhysicalDeviceMaintenance7FeaturesKHR")]
 pub struct PhysicalDeviceMaintenance7FeaturesKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -75987,7 +75987,7 @@ impl<'a> PhysicalDeviceMaintenance7FeaturesKHR<'a> {
 }
 #[cfg(feature = "ext_maintenance7")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceMaintenance7PropertiesKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceMaintenance7PropertiesKHR.html>"]
 #[doc(alias = "VkPhysicalDeviceMaintenance7PropertiesKHR")]
 pub struct PhysicalDeviceMaintenance7PropertiesKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -76103,7 +76103,7 @@ impl<'a> PhysicalDeviceMaintenance7PropertiesKHR<'a> {
 }
 #[cfg(feature = "ext_maintenance7")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceLayeredApiPropertiesListKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceLayeredApiPropertiesListKHR.html>"]
 #[doc(alias = "VkPhysicalDeviceLayeredApiPropertiesListKHR")]
 pub struct PhysicalDeviceLayeredApiPropertiesListKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -76177,7 +76177,7 @@ impl<'a> PhysicalDeviceLayeredApiPropertiesListKHR<'a> {
 }
 #[cfg(feature = "ext_maintenance7")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceLayeredApiPropertiesKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceLayeredApiPropertiesKHR.html>"]
 #[doc(alias = "VkPhysicalDeviceLayeredApiPropertiesKHR")]
 pub struct PhysicalDeviceLayeredApiPropertiesKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -76242,7 +76242,7 @@ impl<'a> PhysicalDeviceLayeredApiPropertiesKHR<'a> {
 }
 #[cfg(feature = "ext_maintenance7")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceLayeredApiVulkanPropertiesKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceLayeredApiVulkanPropertiesKHR.html>"]
 #[doc(alias = "VkPhysicalDeviceLayeredApiVulkanPropertiesKHR")]
 pub struct PhysicalDeviceLayeredApiVulkanPropertiesKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -76291,7 +76291,7 @@ impl<'a> PhysicalDeviceLayeredApiVulkanPropertiesKHR<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderAtomicFloat16VectorFeaturesNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderAtomicFloat16VectorFeaturesNV.html>"]
 #[doc(alias = "VkPhysicalDeviceShaderAtomicFloat16VectorFeaturesNV")]
 pub struct PhysicalDeviceShaderAtomicFloat16VectorFeaturesNV<'a> {
     pub(crate) s_type: StructureType,
@@ -76345,7 +76345,7 @@ impl<'a> PhysicalDeviceShaderAtomicFloat16VectorFeaturesNV<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderReplicatedCompositesFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderReplicatedCompositesFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceShaderReplicatedCompositesFeaturesEXT")]
 pub struct PhysicalDeviceShaderReplicatedCompositesFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -76402,7 +76402,7 @@ impl<'a> PhysicalDeviceShaderReplicatedCompositesFeaturesEXT<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderFloat8FeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderFloat8FeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceShaderFloat8FeaturesEXT")]
 pub struct PhysicalDeviceShaderFloat8FeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -76462,7 +76462,7 @@ impl<'a> PhysicalDeviceShaderFloat8FeaturesEXT<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceRayTracingValidationFeaturesNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceRayTracingValidationFeaturesNV.html>"]
 #[doc(alias = "VkPhysicalDeviceRayTracingValidationFeaturesNV")]
 pub struct PhysicalDeviceRayTracingValidationFeaturesNV<'a> {
     pub(crate) s_type: StructureType,
@@ -76517,7 +76517,7 @@ impl<'a> PhysicalDeviceRayTracingValidationFeaturesNV<'a> {
 }
 #[cfg(feature = "ext_cluster_acceleration_structure")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceClusterAccelerationStructureFeaturesNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceClusterAccelerationStructureFeaturesNV.html>"]
 #[doc(alias = "VkPhysicalDeviceClusterAccelerationStructureFeaturesNV")]
 pub struct PhysicalDeviceClusterAccelerationStructureFeaturesNV<'a> {
     pub(crate) s_type: StructureType,
@@ -76581,7 +76581,7 @@ impl<'a> PhysicalDeviceClusterAccelerationStructureFeaturesNV<'a> {
 }
 #[cfg(feature = "ext_cluster_acceleration_structure")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceClusterAccelerationStructurePropertiesNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceClusterAccelerationStructurePropertiesNV.html>"]
 #[doc(alias = "VkPhysicalDeviceClusterAccelerationStructurePropertiesNV")]
 pub struct PhysicalDeviceClusterAccelerationStructurePropertiesNV<'a> {
     pub(crate) s_type: StructureType,
@@ -76689,7 +76689,7 @@ impl<'a> PhysicalDeviceClusterAccelerationStructurePropertiesNV<'a> {
 }
 #[cfg(feature = "ext_cluster_acceleration_structure")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkClusterAccelerationStructureClustersBottomLevelInputNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkClusterAccelerationStructureClustersBottomLevelInputNV.html>"]
 #[doc(alias = "VkClusterAccelerationStructureClustersBottomLevelInputNV")]
 pub struct ClusterAccelerationStructureClustersBottomLevelInputNV<'a> {
     pub(crate) s_type: StructureType,
@@ -76744,7 +76744,7 @@ impl<'a> ClusterAccelerationStructureClustersBottomLevelInputNV<'a> {
 }
 #[cfg(feature = "ext_cluster_acceleration_structure")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkClusterAccelerationStructureTriangleClusterInputNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkClusterAccelerationStructureTriangleClusterInputNV.html>"]
 #[doc(alias = "VkClusterAccelerationStructureTriangleClusterInputNV")]
 pub struct ClusterAccelerationStructureTriangleClusterInputNV<'a> {
     pub(crate) s_type: StructureType,
@@ -76838,7 +76838,7 @@ impl<'a> ClusterAccelerationStructureTriangleClusterInputNV<'a> {
 }
 #[cfg(feature = "ext_cluster_acceleration_structure")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkClusterAccelerationStructureMoveObjectsInputNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkClusterAccelerationStructureMoveObjectsInputNV.html>"]
 #[doc(alias = "VkClusterAccelerationStructureMoveObjectsInputNV")]
 pub struct ClusterAccelerationStructureMoveObjectsInputNV<'a> {
     pub(crate) s_type: StructureType,
@@ -76897,7 +76897,7 @@ impl<'a> ClusterAccelerationStructureMoveObjectsInputNV<'a> {
 }
 #[cfg(feature = "ext_cluster_acceleration_structure")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkClusterAccelerationStructureOpInputNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkClusterAccelerationStructureOpInputNV.html>"]
 #[doc(alias = "VkClusterAccelerationStructureOpInputNV")]
 pub union ClusterAccelerationStructureOpInputNV<'a> {
     pub p_clusters_bottom_level:
@@ -76916,7 +76916,7 @@ impl<'a> Default for ClusterAccelerationStructureOpInputNV<'a> {
 }
 #[cfg(feature = "ext_cluster_acceleration_structure")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkClusterAccelerationStructureInputInfoNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkClusterAccelerationStructureInputInfoNV.html>"]
 #[doc(alias = "VkClusterAccelerationStructureInputInfoNV")]
 pub struct ClusterAccelerationStructureInputInfoNV<'a> {
     pub(crate) s_type: StructureType,
@@ -76988,7 +76988,7 @@ impl<'a> ClusterAccelerationStructureInputInfoNV<'a> {
 }
 #[cfg(feature = "ext_cluster_acceleration_structure")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkClusterAccelerationStructureCommandsInfoNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkClusterAccelerationStructureCommandsInfoNV.html>"]
 #[doc(alias = "VkClusterAccelerationStructureCommandsInfoNV")]
 pub struct ClusterAccelerationStructureCommandsInfoNV<'a> {
     pub(crate) s_type: StructureType,
@@ -77085,7 +77085,7 @@ impl<'a> ClusterAccelerationStructureCommandsInfoNV<'a> {
 #[cfg(feature = "ext_cluster_acceleration_structure")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkStridedDeviceAddressNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkStridedDeviceAddressNV.html>"]
 #[doc(alias = "VkStridedDeviceAddressNV")]
 pub struct StridedDeviceAddressNV {
     pub start_address: DeviceAddress,
@@ -77120,7 +77120,7 @@ impl StridedDeviceAddressNV {
 #[cfg(feature = "ext_cluster_acceleration_structure")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkClusterAccelerationStructureGeometryIndexAndGeometryFlagsNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkClusterAccelerationStructureGeometryIndexAndGeometryFlagsNV.html>"]
 #[doc(alias = "VkClusterAccelerationStructureGeometryIndexAndGeometryFlagsNV")]
 pub struct ClusterAccelerationStructureGeometryIndexAndGeometryFlagsNV {
     pub geometry_index: [u8; 3u8 as _],
@@ -77162,7 +77162,7 @@ impl ClusterAccelerationStructureGeometryIndexAndGeometryFlagsNV {
 #[cfg(feature = "ext_cluster_acceleration_structure")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkClusterAccelerationStructureMoveObjectsInfoNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkClusterAccelerationStructureMoveObjectsInfoNV.html>"]
 #[doc(alias = "VkClusterAccelerationStructureMoveObjectsInfoNV")]
 pub struct ClusterAccelerationStructureMoveObjectsInfoNV {
     pub src_acceleration_structure: DeviceAddress,
@@ -77190,7 +77190,7 @@ impl ClusterAccelerationStructureMoveObjectsInfoNV {
 #[cfg(feature = "ext_cluster_acceleration_structure")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkClusterAccelerationStructureBuildClustersBottomLevelInfoNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkClusterAccelerationStructureBuildClustersBottomLevelInfoNV.html>"]
 #[doc(alias = "VkClusterAccelerationStructureBuildClustersBottomLevelInfoNV")]
 pub struct ClusterAccelerationStructureBuildClustersBottomLevelInfoNV {
     pub cluster_references_count: u32,
@@ -77232,7 +77232,7 @@ impl ClusterAccelerationStructureBuildClustersBottomLevelInfoNV {
 #[cfg(feature = "ext_cluster_acceleration_structure")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkClusterAccelerationStructureBuildTriangleClusterInfoNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkClusterAccelerationStructureBuildTriangleClusterInfoNV.html>"]
 #[doc(alias = "VkClusterAccelerationStructureBuildTriangleClusterInfoNV")]
 pub struct ClusterAccelerationStructureBuildTriangleClusterInfoNV {
     pub cluster_id: u32,
@@ -77378,7 +77378,7 @@ impl ClusterAccelerationStructureBuildTriangleClusterInfoNV {
 #[cfg(feature = "ext_cluster_acceleration_structure")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkClusterAccelerationStructureBuildTriangleClusterTemplateInfoNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkClusterAccelerationStructureBuildTriangleClusterTemplateInfoNV.html>"]
 #[doc(alias = "VkClusterAccelerationStructureBuildTriangleClusterTemplateInfoNV")]
 pub struct ClusterAccelerationStructureBuildTriangleClusterTemplateInfoNV {
     pub cluster_id: u32,
@@ -77531,7 +77531,7 @@ impl ClusterAccelerationStructureBuildTriangleClusterTemplateInfoNV {
 #[cfg(feature = "ext_cluster_acceleration_structure")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkClusterAccelerationStructureInstantiateClusterInfoNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkClusterAccelerationStructureInstantiateClusterInfoNV.html>"]
 #[doc(alias = "VkClusterAccelerationStructureInstantiateClusterInfoNV")]
 pub struct ClusterAccelerationStructureInstantiateClusterInfoNV {
     pub cluster_id_offset: u32,
@@ -77587,7 +77587,7 @@ impl ClusterAccelerationStructureInstantiateClusterInfoNV {
 #[cfg(feature = "ext_cluster_acceleration_structure")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkClusterAccelerationStructureGetTemplateIndicesInfoNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkClusterAccelerationStructureGetTemplateIndicesInfoNV.html>"]
 #[doc(alias = "VkClusterAccelerationStructureGetTemplateIndicesInfoNV")]
 pub struct ClusterAccelerationStructureGetTemplateIndicesInfoNV {
     pub cluster_template_address: DeviceAddress,
@@ -77617,7 +77617,7 @@ impl ClusterAccelerationStructureGetTemplateIndicesInfoNV {
     feature = "ext_ray_tracing_pipeline"
 ))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkRayTracingPipelineClusterAccelerationStructureCreateInfoNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkRayTracingPipelineClusterAccelerationStructureCreateInfoNV.html>"]
 #[doc(alias = "VkRayTracingPipelineClusterAccelerationStructureCreateInfoNV")]
 pub struct RayTracingPipelineClusterAccelerationStructureCreateInfoNV<'a> {
     pub(crate) s_type: StructureType,
@@ -77696,7 +77696,7 @@ impl<'a> RayTracingPipelineClusterAccelerationStructureCreateInfoNV<'a> {
 }
 #[cfg(feature = "ext_partitioned_acceleration_structure")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDevicePartitionedAccelerationStructureFeaturesNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDevicePartitionedAccelerationStructureFeaturesNV.html>"]
 #[doc(alias = "VkPhysicalDevicePartitionedAccelerationStructureFeaturesNV")]
 pub struct PhysicalDevicePartitionedAccelerationStructureFeaturesNV<'a> {
     pub(crate) s_type: StructureType,
@@ -77762,7 +77762,7 @@ impl<'a> PhysicalDevicePartitionedAccelerationStructureFeaturesNV<'a> {
 }
 #[cfg(feature = "ext_partitioned_acceleration_structure")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDevicePartitionedAccelerationStructurePropertiesNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDevicePartitionedAccelerationStructurePropertiesNV.html>"]
 #[doc(alias = "VkPhysicalDevicePartitionedAccelerationStructurePropertiesNV")]
 pub struct PhysicalDevicePartitionedAccelerationStructurePropertiesNV<'a> {
     pub(crate) s_type: StructureType,
@@ -77823,7 +77823,7 @@ impl<'a> PhysicalDevicePartitionedAccelerationStructurePropertiesNV<'a> {
 }
 #[cfg(feature = "ext_partitioned_acceleration_structure")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPartitionedAccelerationStructureFlagsNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPartitionedAccelerationStructureFlagsNV.html>"]
 #[doc(alias = "VkPartitionedAccelerationStructureFlagsNV")]
 pub struct PartitionedAccelerationStructureFlagsNV<'a> {
     pub(crate) s_type: StructureType,
@@ -77876,7 +77876,7 @@ impl<'a> PartitionedAccelerationStructureFlagsNV<'a> {
 #[cfg(feature = "ext_partitioned_acceleration_structure")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkBuildPartitionedAccelerationStructureIndirectCommandNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkBuildPartitionedAccelerationStructureIndirectCommandNV.html>"]
 #[doc(alias = "VkBuildPartitionedAccelerationStructureIndirectCommandNV")]
 pub struct BuildPartitionedAccelerationStructureIndirectCommandNV {
     pub op_type: PartitionedAccelerationStructureOpTypeNV,
@@ -77918,7 +77918,7 @@ impl BuildPartitionedAccelerationStructureIndirectCommandNV {
 #[cfg(feature = "ext_partitioned_acceleration_structure")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPartitionedAccelerationStructureWriteInstanceDataNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPartitionedAccelerationStructureWriteInstanceDataNV.html>"]
 #[doc(alias = "VkPartitionedAccelerationStructureWriteInstanceDataNV")]
 pub struct PartitionedAccelerationStructureWriteInstanceDataNV {
     pub transform: TransformMatrixKHR,
@@ -78005,7 +78005,7 @@ impl PartitionedAccelerationStructureWriteInstanceDataNV {
 #[cfg(feature = "ext_partitioned_acceleration_structure")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPartitionedAccelerationStructureUpdateInstanceDataNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPartitionedAccelerationStructureUpdateInstanceDataNV.html>"]
 #[doc(alias = "VkPartitionedAccelerationStructureUpdateInstanceDataNV")]
 pub struct PartitionedAccelerationStructureUpdateInstanceDataNV {
     pub instance_index: u32,
@@ -78047,7 +78047,7 @@ impl PartitionedAccelerationStructureUpdateInstanceDataNV {
 #[cfg(feature = "ext_partitioned_acceleration_structure")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPartitionedAccelerationStructureWritePartitionTranslationDataNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPartitionedAccelerationStructureWritePartitionTranslationDataNV.html>"]
 #[doc(alias = "VkPartitionedAccelerationStructureWritePartitionTranslationDataNV")]
 pub struct PartitionedAccelerationStructureWritePartitionTranslationDataNV {
     pub partition_index: u32,
@@ -78081,7 +78081,7 @@ impl PartitionedAccelerationStructureWritePartitionTranslationDataNV {
 }
 #[cfg(feature = "ext_partitioned_acceleration_structure")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkWriteDescriptorSetPartitionedAccelerationStructureNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkWriteDescriptorSetPartitionedAccelerationStructureNV.html>"]
 #[doc(alias = "VkWriteDescriptorSetPartitionedAccelerationStructureNV")]
 pub struct WriteDescriptorSetPartitionedAccelerationStructureNV<'a> {
     pub(crate) s_type: StructureType,
@@ -78156,7 +78156,7 @@ impl<'a> WriteDescriptorSetPartitionedAccelerationStructureNV<'a> {
 }
 #[cfg(feature = "ext_partitioned_acceleration_structure")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPartitionedAccelerationStructureInstancesInputNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPartitionedAccelerationStructureInstancesInputNV.html>"]
 #[doc(alias = "VkPartitionedAccelerationStructureInstancesInputNV")]
 pub struct PartitionedAccelerationStructureInstancesInputNV<'a> {
     pub(crate) s_type: StructureType,
@@ -78229,7 +78229,7 @@ impl<'a> PartitionedAccelerationStructureInstancesInputNV<'a> {
 }
 #[cfg(feature = "ext_partitioned_acceleration_structure")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkBuildPartitionedAccelerationStructureInfoNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkBuildPartitionedAccelerationStructureInfoNV.html>"]
 #[doc(alias = "VkBuildPartitionedAccelerationStructureInfoNV")]
 pub struct BuildPartitionedAccelerationStructureInfoNV<'a> {
     pub(crate) s_type: StructureType,
@@ -78309,7 +78309,7 @@ impl<'a> BuildPartitionedAccelerationStructureInfoNV<'a> {
 }
 #[cfg(feature = "ext_device_generated_commands")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceDeviceGeneratedCommandsFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceDeviceGeneratedCommandsFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceDeviceGeneratedCommandsFeaturesEXT")]
 pub struct PhysicalDeviceDeviceGeneratedCommandsFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -78377,7 +78377,7 @@ impl<'a> PhysicalDeviceDeviceGeneratedCommandsFeaturesEXT<'a> {
 }
 #[cfg(feature = "ext_device_generated_commands")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceDeviceGeneratedCommandsPropertiesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceDeviceGeneratedCommandsPropertiesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceDeviceGeneratedCommandsPropertiesEXT")]
 pub struct PhysicalDeviceDeviceGeneratedCommandsPropertiesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -78525,7 +78525,7 @@ impl<'a> PhysicalDeviceDeviceGeneratedCommandsPropertiesEXT<'a> {
 }
 #[cfg(feature = "ext_device_generated_commands")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkGeneratedCommandsMemoryRequirementsInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkGeneratedCommandsMemoryRequirementsInfoEXT.html>"]
 #[doc(alias = "VkGeneratedCommandsMemoryRequirementsInfoEXT")]
 pub struct GeneratedCommandsMemoryRequirementsInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -78593,7 +78593,7 @@ impl<'a> GeneratedCommandsMemoryRequirementsInfoEXT<'a> {
 }
 #[cfg(feature = "ext_device_generated_commands")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkIndirectExecutionSetCreateInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkIndirectExecutionSetCreateInfoEXT.html>"]
 #[doc(alias = "VkIndirectExecutionSetCreateInfoEXT")]
 pub struct IndirectExecutionSetCreateInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -78644,7 +78644,7 @@ impl<'a> IndirectExecutionSetCreateInfoEXT<'a> {
 }
 #[cfg(feature = "ext_device_generated_commands")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkIndirectExecutionSetInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkIndirectExecutionSetInfoEXT.html>"]
 #[doc(alias = "VkIndirectExecutionSetInfoEXT")]
 pub union IndirectExecutionSetInfoEXT<'a> {
     pub p_pipeline_info: ManuallyDrop<*const IndirectExecutionSetPipelineInfoEXT<'a>>,
@@ -78660,7 +78660,7 @@ impl<'a> Default for IndirectExecutionSetInfoEXT<'a> {
 }
 #[cfg(feature = "ext_device_generated_commands")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkIndirectExecutionSetPipelineInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkIndirectExecutionSetPipelineInfoEXT.html>"]
 #[doc(alias = "VkIndirectExecutionSetPipelineInfoEXT")]
 pub struct IndirectExecutionSetPipelineInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -78711,7 +78711,7 @@ impl<'a> IndirectExecutionSetPipelineInfoEXT<'a> {
 }
 #[cfg(feature = "ext_device_generated_commands")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkIndirectExecutionSetShaderInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkIndirectExecutionSetShaderInfoEXT.html>"]
 #[doc(alias = "VkIndirectExecutionSetShaderInfoEXT")]
 pub struct IndirectExecutionSetShaderInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -78814,7 +78814,7 @@ impl<'a> IndirectExecutionSetShaderInfoEXT<'a> {
 }
 #[cfg(feature = "ext_device_generated_commands")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkGeneratedCommandsInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkGeneratedCommandsInfoEXT.html>"]
 #[doc(alias = "VkGeneratedCommandsInfoEXT")]
 pub struct GeneratedCommandsInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -78924,7 +78924,7 @@ impl<'a> GeneratedCommandsInfoEXT<'a> {
 }
 #[cfg(feature = "ext_device_generated_commands")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkWriteIndirectExecutionSetPipelineEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkWriteIndirectExecutionSetPipelineEXT.html>"]
 #[doc(alias = "VkWriteIndirectExecutionSetPipelineEXT")]
 pub struct WriteIndirectExecutionSetPipelineEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -78975,7 +78975,7 @@ impl<'a> WriteIndirectExecutionSetPipelineEXT<'a> {
 }
 #[cfg(feature = "ext_device_generated_commands")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkIndirectCommandsLayoutCreateInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkIndirectCommandsLayoutCreateInfoEXT.html>"]
 #[doc(alias = "VkIndirectCommandsLayoutCreateInfoEXT")]
 pub struct IndirectCommandsLayoutCreateInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -79059,7 +79059,7 @@ impl<'a> IndirectCommandsLayoutCreateInfoEXT<'a> {
 }
 #[cfg(feature = "ext_device_generated_commands")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkIndirectCommandsLayoutTokenEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkIndirectCommandsLayoutTokenEXT.html>"]
 #[doc(alias = "VkIndirectCommandsLayoutTokenEXT")]
 pub struct IndirectCommandsLayoutTokenEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -79118,7 +79118,7 @@ impl<'a> IndirectCommandsLayoutTokenEXT<'a> {
 #[cfg(feature = "ext_device_generated_commands")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDrawIndirectCountIndirectCommandEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDrawIndirectCountIndirectCommandEXT.html>"]
 #[doc(alias = "VkDrawIndirectCountIndirectCommandEXT")]
 pub struct DrawIndirectCountIndirectCommandEXT {
     pub buffer_address: DeviceAddress,
@@ -79160,7 +79160,7 @@ impl DrawIndirectCountIndirectCommandEXT {
 #[cfg(feature = "ext_device_generated_commands")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkIndirectCommandsVertexBufferTokenEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkIndirectCommandsVertexBufferTokenEXT.html>"]
 #[doc(alias = "VkIndirectCommandsVertexBufferTokenEXT")]
 pub struct IndirectCommandsVertexBufferTokenEXT {
     pub vertex_binding_unit: u32,
@@ -79188,7 +79188,7 @@ impl IndirectCommandsVertexBufferTokenEXT {
 #[cfg(feature = "ext_device_generated_commands")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkBindVertexBufferIndirectCommandEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkBindVertexBufferIndirectCommandEXT.html>"]
 #[doc(alias = "VkBindVertexBufferIndirectCommandEXT")]
 pub struct BindVertexBufferIndirectCommandEXT {
     pub buffer_address: DeviceAddress,
@@ -79230,7 +79230,7 @@ impl BindVertexBufferIndirectCommandEXT {
 #[cfg(feature = "ext_device_generated_commands")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkIndirectCommandsIndexBufferTokenEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkIndirectCommandsIndexBufferTokenEXT.html>"]
 #[doc(alias = "VkIndirectCommandsIndexBufferTokenEXT")]
 pub struct IndirectCommandsIndexBufferTokenEXT {
     pub mode: IndirectCommandsInputModeFlagsEXT,
@@ -79258,7 +79258,7 @@ impl IndirectCommandsIndexBufferTokenEXT {
 #[cfg(feature = "ext_device_generated_commands")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkBindIndexBufferIndirectCommandEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkBindIndexBufferIndirectCommandEXT.html>"]
 #[doc(alias = "VkBindIndexBufferIndirectCommandEXT")]
 pub struct BindIndexBufferIndirectCommandEXT {
     pub buffer_address: DeviceAddress,
@@ -79300,7 +79300,7 @@ impl BindIndexBufferIndirectCommandEXT {
 #[cfg(feature = "ext_device_generated_commands")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkIndirectCommandsPushConstantTokenEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkIndirectCommandsPushConstantTokenEXT.html>"]
 #[doc(alias = "VkIndirectCommandsPushConstantTokenEXT")]
 pub struct IndirectCommandsPushConstantTokenEXT {
     pub update_range: PushConstantRange,
@@ -79328,7 +79328,7 @@ impl IndirectCommandsPushConstantTokenEXT {
 #[cfg(feature = "ext_device_generated_commands")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkIndirectCommandsExecutionSetTokenEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkIndirectCommandsExecutionSetTokenEXT.html>"]
 #[doc(alias = "VkIndirectCommandsExecutionSetTokenEXT")]
 pub struct IndirectCommandsExecutionSetTokenEXT {
     pub ty: IndirectExecutionSetInfoTypeEXT,
@@ -79363,7 +79363,7 @@ impl IndirectCommandsExecutionSetTokenEXT {
 #[cfg(feature = "ext_device_generated_commands")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkIndirectCommandsTokenDataEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkIndirectCommandsTokenDataEXT.html>"]
 #[doc(alias = "VkIndirectCommandsTokenDataEXT")]
 pub union IndirectCommandsTokenDataEXT {
     pub p_push_constant: ManuallyDrop<*const IndirectCommandsPushConstantTokenEXT>,
@@ -79381,7 +79381,7 @@ impl Default for IndirectCommandsTokenDataEXT {
 }
 #[cfg(feature = "ext_device_generated_commands")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkIndirectExecutionSetShaderLayoutInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkIndirectExecutionSetShaderLayoutInfoEXT.html>"]
 #[doc(alias = "VkIndirectExecutionSetShaderLayoutInfoEXT")]
 pub struct IndirectExecutionSetShaderLayoutInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -79444,7 +79444,7 @@ impl<'a> IndirectExecutionSetShaderLayoutInfoEXT<'a> {
 }
 #[cfg(feature = "ext_device_generated_commands")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkGeneratedCommandsPipelineInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkGeneratedCommandsPipelineInfoEXT.html>"]
 #[doc(alias = "VkGeneratedCommandsPipelineInfoEXT")]
 pub struct GeneratedCommandsPipelineInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -79504,7 +79504,7 @@ impl<'a> GeneratedCommandsPipelineInfoEXT<'a> {
 }
 #[cfg(feature = "ext_device_generated_commands")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkGeneratedCommandsShaderInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkGeneratedCommandsShaderInfoEXT.html>"]
 #[doc(alias = "VkGeneratedCommandsShaderInfoEXT")]
 pub struct GeneratedCommandsShaderInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -79581,7 +79581,7 @@ impl<'a> GeneratedCommandsShaderInfoEXT<'a> {
     feature = "ext_shader_object"
 ))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkWriteIndirectExecutionSetShaderEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkWriteIndirectExecutionSetShaderEXT.html>"]
 #[doc(alias = "VkWriteIndirectExecutionSetShaderEXT")]
 pub struct WriteIndirectExecutionSetShaderEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -79650,7 +79650,7 @@ impl<'a> WriteIndirectExecutionSetShaderEXT<'a> {
 }
 #[cfg(feature = "ext_maintenance8")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkMemoryBarrierAccessFlags3KHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkMemoryBarrierAccessFlags3KHR.html>"]
 #[doc(alias = "VkMemoryBarrierAccessFlags3KHR")]
 pub struct MemoryBarrierAccessFlags3KHR<'a> {
     pub(crate) s_type: StructureType,
@@ -79725,7 +79725,7 @@ impl<'a> MemoryBarrierAccessFlags3KHR<'a> {
 }
 #[cfg(feature = "ext_maintenance8")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceMaintenance8FeaturesKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceMaintenance8FeaturesKHR.html>"]
 #[doc(alias = "VkPhysicalDeviceMaintenance8FeaturesKHR")]
 pub struct PhysicalDeviceMaintenance8FeaturesKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -79785,7 +79785,7 @@ impl<'a> PhysicalDeviceMaintenance8FeaturesKHR<'a> {
 }
 #[cfg(feature = "ext_image_alignment_control")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceImageAlignmentControlFeaturesMESA.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceImageAlignmentControlFeaturesMESA.html>"]
 #[doc(alias = "VkPhysicalDeviceImageAlignmentControlFeaturesMESA")]
 pub struct PhysicalDeviceImageAlignmentControlFeaturesMESA<'a> {
     pub(crate) s_type: StructureType,
@@ -79846,7 +79846,7 @@ impl<'a> PhysicalDeviceImageAlignmentControlFeaturesMESA<'a> {
 }
 #[cfg(feature = "ext_image_alignment_control")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceImageAlignmentControlPropertiesMESA.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceImageAlignmentControlPropertiesMESA.html>"]
 #[doc(alias = "VkPhysicalDeviceImageAlignmentControlPropertiesMESA")]
 pub struct PhysicalDeviceImageAlignmentControlPropertiesMESA<'a> {
     pub(crate) s_type: StructureType,
@@ -79902,7 +79902,7 @@ impl<'a> PhysicalDeviceImageAlignmentControlPropertiesMESA<'a> {
 }
 #[cfg(feature = "ext_image_alignment_control")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImageAlignmentControlCreateInfoMESA.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImageAlignmentControlCreateInfoMESA.html>"]
 #[doc(alias = "VkImageAlignmentControlCreateInfoMESA")]
 pub struct ImageAlignmentControlCreateInfoMESA<'a> {
     pub(crate) s_type: StructureType,
@@ -79950,7 +79950,7 @@ impl<'a> ImageAlignmentControlCreateInfoMESA<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderFmaFeaturesKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderFmaFeaturesKHR.html>"]
 #[doc(alias = "VkPhysicalDeviceShaderFmaFeaturesKHR")]
 pub struct PhysicalDeviceShaderFmaFeaturesKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -80018,7 +80018,7 @@ impl<'a> PhysicalDeviceShaderFmaFeaturesKHR<'a> {
 }
 #[cfg(feature = "ext_push_constant_bank")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPushConstantBankInfoNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPushConstantBankInfoNV.html>"]
 #[doc(alias = "VkPushConstantBankInfoNV")]
 pub struct PushConstantBankInfoNV<'a> {
     pub(crate) s_type: StructureType,
@@ -80082,7 +80082,7 @@ impl<'a> PushConstantBankInfoNV<'a> {
 }
 #[cfg(feature = "ext_push_constant_bank")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDevicePushConstantBankFeaturesNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDevicePushConstantBankFeaturesNV.html>"]
 #[doc(alias = "VkPhysicalDevicePushConstantBankFeaturesNV")]
 pub struct PhysicalDevicePushConstantBankFeaturesNV<'a> {
     pub(crate) s_type: StructureType,
@@ -80142,7 +80142,7 @@ impl<'a> PhysicalDevicePushConstantBankFeaturesNV<'a> {
 }
 #[cfg(feature = "ext_push_constant_bank")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDevicePushConstantBankPropertiesNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDevicePushConstantBankPropertiesNV.html>"]
 #[doc(alias = "VkPhysicalDevicePushConstantBankPropertiesNV")]
 pub struct PhysicalDevicePushConstantBankPropertiesNV<'a> {
     pub(crate) s_type: StructureType,
@@ -80218,7 +80218,7 @@ impl<'a> PhysicalDevicePushConstantBankPropertiesNV<'a> {
 }
 #[cfg(feature = "ext_ray_tracing_invocation_reorder")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceRayTracingInvocationReorderPropertiesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceRayTracingInvocationReorderPropertiesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceRayTracingInvocationReorderPropertiesEXT")]
 pub struct PhysicalDeviceRayTracingInvocationReorderPropertiesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -80288,7 +80288,7 @@ impl<'a> PhysicalDeviceRayTracingInvocationReorderPropertiesEXT<'a> {
 }
 #[cfg(feature = "ext_ray_tracing_invocation_reorder")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceRayTracingInvocationReorderFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceRayTracingInvocationReorderFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceRayTracingInvocationReorderFeaturesEXT")]
 pub struct PhysicalDeviceRayTracingInvocationReorderFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -80352,7 +80352,7 @@ impl<'a> PhysicalDeviceRayTracingInvocationReorderFeaturesEXT<'a> {
 }
 #[cfg(feature = "ext_depth_clamp_control")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceDepthClampControlFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceDepthClampControlFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceDepthClampControlFeaturesEXT")]
 pub struct PhysicalDeviceDepthClampControlFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -80412,7 +80412,7 @@ impl<'a> PhysicalDeviceDepthClampControlFeaturesEXT<'a> {
 }
 #[cfg(feature = "ext_depth_clamp_control")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineViewportDepthClampControlCreateInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineViewportDepthClampControlCreateInfoEXT.html>"]
 #[doc(alias = "VkPipelineViewportDepthClampControlCreateInfoEXT")]
 pub struct PipelineViewportDepthClampControlCreateInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -80470,7 +80470,7 @@ impl<'a> PipelineViewportDepthClampControlCreateInfoEXT<'a> {
 #[cfg(feature = "ext_depth_clamp_control")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDepthClampRangeEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDepthClampRangeEXT.html>"]
 #[doc(alias = "VkDepthClampRangeEXT")]
 pub struct DepthClampRangeEXT {
     pub min_depth_clamp: f32,
@@ -80504,7 +80504,7 @@ impl DepthClampRangeEXT {
 }
 #[cfg(feature = "ext_maintenance9")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceMaintenance9FeaturesKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceMaintenance9FeaturesKHR.html>"]
 #[doc(alias = "VkPhysicalDeviceMaintenance9FeaturesKHR")]
 pub struct PhysicalDeviceMaintenance9FeaturesKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -80564,7 +80564,7 @@ impl<'a> PhysicalDeviceMaintenance9FeaturesKHR<'a> {
 }
 #[cfg(feature = "ext_maintenance9")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceMaintenance9PropertiesKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceMaintenance9PropertiesKHR.html>"]
 #[doc(alias = "VkPhysicalDeviceMaintenance9PropertiesKHR")]
 pub struct PhysicalDeviceMaintenance9PropertiesKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -80626,7 +80626,7 @@ impl<'a> PhysicalDeviceMaintenance9PropertiesKHR<'a> {
 }
 #[cfg(feature = "ext_maintenance9")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkQueueFamilyOwnershipTransferPropertiesKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkQueueFamilyOwnershipTransferPropertiesKHR.html>"]
 #[doc(alias = "VkQueueFamilyOwnershipTransferPropertiesKHR")]
 pub struct QueueFamilyOwnershipTransferPropertiesKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -80681,7 +80681,7 @@ impl<'a> QueueFamilyOwnershipTransferPropertiesKHR<'a> {
 }
 #[cfg(feature = "ext_ohos_surface")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSurfaceCreateInfoOHOS.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSurfaceCreateInfoOHOS.html>"]
 #[doc(alias = "VkSurfaceCreateInfoOHOS")]
 pub struct SurfaceCreateInfoOHOS<'a> {
     pub(crate) s_type: StructureType,
@@ -80730,11 +80730,11 @@ impl<'a> SurfaceCreateInfoOHOS<'a> {
         self
     }
 }
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/OHNativeWindow.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/OHNativeWindow.html>"]
 pub type OHNativeWindow = c_void;
 #[cfg(feature = "ext_hdr_vivid")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceHdrVividFeaturesHUAWEI.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceHdrVividFeaturesHUAWEI.html>"]
 #[doc(alias = "VkPhysicalDeviceHdrVividFeaturesHUAWEI")]
 pub struct PhysicalDeviceHdrVividFeaturesHUAWEI<'a> {
     pub(crate) s_type: StructureType,
@@ -80794,7 +80794,7 @@ impl<'a> PhysicalDeviceHdrVividFeaturesHUAWEI<'a> {
 }
 #[cfg(feature = "ext_hdr_vivid")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkHdrVividDynamicMetadataHUAWEI.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkHdrVividDynamicMetadataHUAWEI.html>"]
 #[doc(alias = "VkHdrVividDynamicMetadataHUAWEI")]
 pub struct HdrVividDynamicMetadataHUAWEI<'a> {
     pub(crate) s_type: StructureType,
@@ -80854,7 +80854,7 @@ impl<'a> HdrVividDynamicMetadataHUAWEI<'a> {
 }
 #[cfg(feature = "ext_cooperative_matrix2")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCooperativeMatrixFlexibleDimensionsPropertiesNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCooperativeMatrixFlexibleDimensionsPropertiesNV.html>"]
 #[doc(alias = "VkCooperativeMatrixFlexibleDimensionsPropertiesNV")]
 pub struct CooperativeMatrixFlexibleDimensionsPropertiesNV<'a> {
     pub(crate) s_type: StructureType,
@@ -80962,7 +80962,7 @@ impl<'a> CooperativeMatrixFlexibleDimensionsPropertiesNV<'a> {
 }
 #[cfg(feature = "ext_cooperative_matrix2")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceCooperativeMatrix2FeaturesNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceCooperativeMatrix2FeaturesNV.html>"]
 #[doc(alias = "VkPhysicalDeviceCooperativeMatrix2FeaturesNV")]
 pub struct PhysicalDeviceCooperativeMatrix2FeaturesNV<'a> {
     pub(crate) s_type: StructureType,
@@ -81064,7 +81064,7 @@ impl<'a> PhysicalDeviceCooperativeMatrix2FeaturesNV<'a> {
 }
 #[cfg(feature = "ext_cooperative_matrix2")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceCooperativeMatrix2PropertiesNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceCooperativeMatrix2PropertiesNV.html>"]
 #[doc(alias = "VkPhysicalDeviceCooperativeMatrix2PropertiesNV")]
 pub struct PhysicalDeviceCooperativeMatrix2PropertiesNV<'a> {
     pub(crate) s_type: StructureType,
@@ -81133,7 +81133,7 @@ impl<'a> PhysicalDeviceCooperativeMatrix2PropertiesNV<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDevicePipelineOpacityMicromapFeaturesARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDevicePipelineOpacityMicromapFeaturesARM.html>"]
 #[doc(alias = "VkPhysicalDevicePipelineOpacityMicromapFeaturesARM")]
 pub struct PhysicalDevicePipelineOpacityMicromapFeaturesARM<'a> {
     pub(crate) s_type: StructureType,
@@ -81188,7 +81188,7 @@ impl<'a> PhysicalDevicePipelineOpacityMicromapFeaturesARM<'a> {
 }
 #[cfg(feature = "ext_external_memory_metal")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImportMemoryMetalHandleInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImportMemoryMetalHandleInfoEXT.html>"]
 #[doc(alias = "VkImportMemoryMetalHandleInfoEXT")]
 pub struct ImportMemoryMetalHandleInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -81244,7 +81244,7 @@ impl<'a> ImportMemoryMetalHandleInfoEXT<'a> {
 }
 #[cfg(feature = "ext_external_memory_metal")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkMemoryMetalHandlePropertiesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkMemoryMetalHandlePropertiesEXT.html>"]
 #[doc(alias = "VkMemoryMetalHandlePropertiesEXT")]
 pub struct MemoryMetalHandlePropertiesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -81288,7 +81288,7 @@ impl<'a> MemoryMetalHandlePropertiesEXT<'a> {
 }
 #[cfg(feature = "ext_external_memory_metal")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkMemoryGetMetalHandleInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkMemoryGetMetalHandleInfoEXT.html>"]
 #[doc(alias = "VkMemoryGetMetalHandleInfoEXT")]
 pub struct MemoryGetMetalHandleInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -81338,7 +81338,7 @@ impl<'a> MemoryGetMetalHandleInfoEXT<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceDepthClampZeroOneFeaturesKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceDepthClampZeroOneFeaturesKHR.html>"]
 #[doc(alias = "VkPhysicalDeviceDepthClampZeroOneFeaturesKHR")]
 pub struct PhysicalDeviceDepthClampZeroOneFeaturesKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -81394,7 +81394,7 @@ pub type PhysicalDeviceDepthClampZeroOneFeaturesEXT<'a> =
     PhysicalDeviceDepthClampZeroOneFeaturesKHR<'a>;
 #[cfg(feature = "ext_performance_counters_by_region")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDevicePerformanceCountersByRegionFeaturesARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDevicePerformanceCountersByRegionFeaturesARM.html>"]
 #[doc(alias = "VkPhysicalDevicePerformanceCountersByRegionFeaturesARM")]
 pub struct PhysicalDevicePerformanceCountersByRegionFeaturesARM<'a> {
     pub(crate) s_type: StructureType,
@@ -81458,7 +81458,7 @@ impl<'a> PhysicalDevicePerformanceCountersByRegionFeaturesARM<'a> {
 }
 #[cfg(feature = "ext_performance_counters_by_region")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDevicePerformanceCountersByRegionPropertiesARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDevicePerformanceCountersByRegionPropertiesARM.html>"]
 #[doc(alias = "VkPhysicalDevicePerformanceCountersByRegionPropertiesARM")]
 pub struct PhysicalDevicePerformanceCountersByRegionPropertiesARM<'a> {
     pub(crate) s_type: StructureType,
@@ -81545,7 +81545,7 @@ impl<'a> PhysicalDevicePerformanceCountersByRegionPropertiesARM<'a> {
 }
 #[cfg(feature = "ext_performance_counters_by_region")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPerformanceCounterARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPerformanceCounterARM.html>"]
 #[doc(alias = "VkPerformanceCounterARM")]
 pub struct PerformanceCounterARM<'a> {
     pub(crate) s_type: StructureType,
@@ -81589,7 +81589,7 @@ impl<'a> PerformanceCounterARM<'a> {
 }
 #[cfg(feature = "ext_performance_counters_by_region")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPerformanceCounterDescriptionARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPerformanceCounterDescriptionARM.html>"]
 #[doc(alias = "VkPerformanceCounterDescriptionARM")]
 pub struct PerformanceCounterDescriptionARM<'a> {
     pub(crate) s_type: StructureType,
@@ -81641,7 +81641,7 @@ impl<'a> PerformanceCounterDescriptionARM<'a> {
 }
 #[cfg(feature = "ext_performance_counters_by_region")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkRenderPassPerformanceCountersByRegionBeginInfoARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkRenderPassPerformanceCountersByRegionBeginInfoARM.html>"]
 #[doc(alias = "VkRenderPassPerformanceCountersByRegionBeginInfoARM")]
 pub struct RenderPassPerformanceCountersByRegionBeginInfoARM<'a> {
     pub(crate) s_type: StructureType,
@@ -81748,7 +81748,7 @@ impl<'a> RenderPassPerformanceCountersByRegionBeginInfoARM<'a> {
 }
 #[cfg(feature = "ext_shader_instrumentation")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderInstrumentationFeaturesARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderInstrumentationFeaturesARM.html>"]
 #[doc(alias = "VkPhysicalDeviceShaderInstrumentationFeaturesARM")]
 pub struct PhysicalDeviceShaderInstrumentationFeaturesARM<'a> {
     pub(crate) s_type: StructureType,
@@ -81809,7 +81809,7 @@ impl<'a> PhysicalDeviceShaderInstrumentationFeaturesARM<'a> {
 }
 #[cfg(feature = "ext_shader_instrumentation")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderInstrumentationPropertiesARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderInstrumentationPropertiesARM.html>"]
 #[doc(alias = "VkPhysicalDeviceShaderInstrumentationPropertiesARM")]
 pub struct PhysicalDeviceShaderInstrumentationPropertiesARM<'a> {
     pub(crate) s_type: StructureType,
@@ -81872,7 +81872,7 @@ impl<'a> PhysicalDeviceShaderInstrumentationPropertiesARM<'a> {
 }
 #[cfg(feature = "ext_shader_instrumentation")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkShaderInstrumentationCreateInfoARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkShaderInstrumentationCreateInfoARM.html>"]
 #[doc(alias = "VkShaderInstrumentationCreateInfoARM")]
 pub struct ShaderInstrumentationCreateInfoARM<'a> {
     pub(crate) s_type: StructureType,
@@ -81909,7 +81909,7 @@ impl<'a> ShaderInstrumentationCreateInfoARM<'a> {
 }
 #[cfg(feature = "ext_shader_instrumentation")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkShaderInstrumentationMetricDescriptionARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkShaderInstrumentationMetricDescriptionARM.html>"]
 #[doc(alias = "VkShaderInstrumentationMetricDescriptionARM")]
 pub struct ShaderInstrumentationMetricDescriptionARM<'a> {
     pub(crate) s_type: StructureType,
@@ -81964,7 +81964,7 @@ impl<'a> ShaderInstrumentationMetricDescriptionARM<'a> {
 #[cfg(feature = "ext_shader_instrumentation")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkShaderInstrumentationMetricDataHeaderARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkShaderInstrumentationMetricDataHeaderARM.html>"]
 #[doc(alias = "VkShaderInstrumentationMetricDataHeaderARM")]
 pub struct ShaderInstrumentationMetricDataHeaderARM {
     pub result_index: u32,
@@ -82011,7 +82011,7 @@ impl ShaderInstrumentationMetricDataHeaderARM {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceVertexAttributeRobustnessFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceVertexAttributeRobustnessFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceVertexAttributeRobustnessFeaturesEXT")]
 pub struct PhysicalDeviceVertexAttributeRobustnessFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -82065,7 +82065,7 @@ impl<'a> PhysicalDeviceVertexAttributeRobustnessFeaturesEXT<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceFormatPackFeaturesARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceFormatPackFeaturesARM.html>"]
 #[doc(alias = "VkPhysicalDeviceFormatPackFeaturesARM")]
 pub struct PhysicalDeviceFormatPackFeaturesARM<'a> {
     pub(crate) s_type: StructureType,
@@ -82119,7 +82119,7 @@ impl<'a> PhysicalDeviceFormatPackFeaturesARM<'a> {
 }
 #[cfg(feature = "ext_fragment_density_map_layered")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceFragmentDensityMapLayeredFeaturesVALVE.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceFragmentDensityMapLayeredFeaturesVALVE.html>"]
 #[doc(alias = "VkPhysicalDeviceFragmentDensityMapLayeredFeaturesVALVE")]
 pub struct PhysicalDeviceFragmentDensityMapLayeredFeaturesVALVE<'a> {
     pub(crate) s_type: StructureType,
@@ -82183,7 +82183,7 @@ impl<'a> PhysicalDeviceFragmentDensityMapLayeredFeaturesVALVE<'a> {
 }
 #[cfg(feature = "ext_fragment_density_map_layered")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceFragmentDensityMapLayeredPropertiesVALVE.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceFragmentDensityMapLayeredPropertiesVALVE.html>"]
 #[doc(alias = "VkPhysicalDeviceFragmentDensityMapLayeredPropertiesVALVE")]
 pub struct PhysicalDeviceFragmentDensityMapLayeredPropertiesVALVE<'a> {
     pub(crate) s_type: StructureType,
@@ -82242,7 +82242,7 @@ impl<'a> PhysicalDeviceFragmentDensityMapLayeredPropertiesVALVE<'a> {
 }
 #[cfg(feature = "ext_fragment_density_map_layered")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineFragmentDensityMapLayeredCreateInfoVALVE.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineFragmentDensityMapLayeredCreateInfoVALVE.html>"]
 #[doc(alias = "VkPipelineFragmentDensityMapLayeredCreateInfoVALVE")]
 pub struct PipelineFragmentDensityMapLayeredCreateInfoVALVE<'a> {
     pub(crate) s_type: StructureType,
@@ -82291,7 +82291,7 @@ impl<'a> PipelineFragmentDensityMapLayeredCreateInfoVALVE<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceRobustness2FeaturesKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceRobustness2FeaturesKHR.html>"]
 #[doc(alias = "VkPhysicalDeviceRobustness2FeaturesKHR")]
 pub struct PhysicalDeviceRobustness2FeaturesKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -82359,7 +82359,7 @@ impl<'a> PhysicalDeviceRobustness2FeaturesKHR<'a> {
 }
 pub type PhysicalDeviceRobustness2FeaturesEXT<'a> = PhysicalDeviceRobustness2FeaturesKHR<'a>;
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceRobustness2PropertiesKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceRobustness2PropertiesKHR.html>"]
 #[doc(alias = "VkPhysicalDeviceRobustness2PropertiesKHR")]
 pub struct PhysicalDeviceRobustness2PropertiesKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -82416,7 +82416,7 @@ impl<'a> PhysicalDeviceRobustness2PropertiesKHR<'a> {
 pub type PhysicalDeviceRobustness2PropertiesEXT<'a> = PhysicalDeviceRobustness2PropertiesKHR<'a>;
 #[cfg(feature = "ext_present_metering")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSetPresentConfigNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSetPresentConfigNV.html>"]
 #[doc(alias = "VkSetPresentConfigNV")]
 pub struct SetPresentConfigNV<'a> {
     pub(crate) s_type: StructureType,
@@ -82469,7 +82469,7 @@ impl<'a> SetPresentConfigNV<'a> {
 }
 #[cfg(feature = "ext_present_metering")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDevicePresentMeteringFeaturesNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDevicePresentMeteringFeaturesNV.html>"]
 #[doc(alias = "VkPhysicalDevicePresentMeteringFeaturesNV")]
 pub struct PhysicalDevicePresentMeteringFeaturesNV<'a> {
     pub(crate) s_type: StructureType,
@@ -82529,7 +82529,7 @@ impl<'a> PhysicalDevicePresentMeteringFeaturesNV<'a> {
 }
 #[cfg(feature = "ext_fragment_density_map_offset")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceFragmentDensityMapOffsetFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceFragmentDensityMapOffsetFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceFragmentDensityMapOffsetFeaturesEXT")]
 pub struct PhysicalDeviceFragmentDensityMapOffsetFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -82593,7 +82593,7 @@ pub type PhysicalDeviceFragmentDensityMapOffsetFeaturesQCOM<'a> =
     PhysicalDeviceFragmentDensityMapOffsetFeaturesEXT<'a>;
 #[cfg(feature = "ext_fragment_density_map_offset")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceFragmentDensityMapOffsetPropertiesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceFragmentDensityMapOffsetPropertiesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceFragmentDensityMapOffsetPropertiesEXT")]
 pub struct PhysicalDeviceFragmentDensityMapOffsetPropertiesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -82655,7 +82655,7 @@ pub type PhysicalDeviceFragmentDensityMapOffsetPropertiesQCOM<'a> =
     PhysicalDeviceFragmentDensityMapOffsetPropertiesEXT<'a>;
 #[cfg(feature = "ext_fragment_density_map_offset")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkRenderPassFragmentDensityMapOffsetEndInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkRenderPassFragmentDensityMapOffsetEndInfoEXT.html>"]
 #[doc(alias = "VkRenderPassFragmentDensityMapOffsetEndInfoEXT")]
 pub struct RenderPassFragmentDensityMapOffsetEndInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -82738,7 +82738,7 @@ impl<'a> RenderPassFragmentDensityMapOffsetEndInfoEXT<'a> {
 pub type SubpassFragmentDensityMapOffsetEndInfoQCOM<'a> =
     RenderPassFragmentDensityMapOffsetEndInfoEXT<'a>;
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceZeroInitializeDeviceMemoryFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceZeroInitializeDeviceMemoryFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceZeroInitializeDeviceMemoryFeaturesEXT")]
 pub struct PhysicalDeviceZeroInitializeDeviceMemoryFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -82795,7 +82795,7 @@ impl<'a> PhysicalDeviceZeroInitializeDeviceMemoryFeaturesEXT<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDevicePresentModeFifoLatestReadyFeaturesKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDevicePresentModeFifoLatestReadyFeaturesKHR.html>"]
 #[doc(alias = "VkPhysicalDevicePresentModeFifoLatestReadyFeaturesKHR")]
 pub struct PhysicalDevicePresentModeFifoLatestReadyFeaturesKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -82854,7 +82854,7 @@ impl<'a> PhysicalDevicePresentModeFifoLatestReadyFeaturesKHR<'a> {
 pub type PhysicalDevicePresentModeFifoLatestReadyFeaturesEXT<'a> =
     PhysicalDevicePresentModeFifoLatestReadyFeaturesKHR<'a>;
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceShader64BitIndexingFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShader64BitIndexingFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceShader64BitIndexingFeaturesEXT")]
 pub struct PhysicalDeviceShader64BitIndexingFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -82909,7 +82909,7 @@ impl<'a> PhysicalDeviceShader64BitIndexingFeaturesEXT<'a> {
 }
 #[cfg(feature = "ext_custom_resolve")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceCustomResolveFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceCustomResolveFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceCustomResolveFeaturesEXT")]
 pub struct PhysicalDeviceCustomResolveFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -82972,7 +82972,7 @@ impl<'a> PhysicalDeviceCustomResolveFeaturesEXT<'a> {
     any(feature = "ext_dynamic_rendering", feature = "version_1_3")
 ))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkBeginCustomResolveInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkBeginCustomResolveInfoEXT.html>"]
 #[doc(alias = "VkBeginCustomResolveInfoEXT")]
 pub struct BeginCustomResolveInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -83030,7 +83030,7 @@ impl<'a> BeginCustomResolveInfoEXT<'a> {
     any(feature = "ext_dynamic_rendering", feature = "version_1_3")
 ))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCustomResolveCreateInfoEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCustomResolveCreateInfoEXT.html>"]
 #[doc(alias = "VkCustomResolveCreateInfoEXT")]
 pub struct CustomResolveCreateInfoEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -83160,7 +83160,7 @@ impl<'a> CustomResolveCreateInfoEXT<'a> {
 #[cfg(feature = "ext_data_graph_model")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineCacheHeaderVersionDataGraphQCOM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineCacheHeaderVersionDataGraphQCOM.html>"]
 #[doc(alias = "VkPipelineCacheHeaderVersionDataGraphQCOM")]
 pub struct PipelineCacheHeaderVersionDataGraphQCOM {
     pub header_size: u32,
@@ -83218,7 +83218,7 @@ impl PipelineCacheHeaderVersionDataGraphQCOM {
 }
 #[cfg(feature = "ext_data_graph_model")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDataGraphPipelineBuiltinModelCreateInfoQCOM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphPipelineBuiltinModelCreateInfoQCOM.html>"]
 #[doc(alias = "VkDataGraphPipelineBuiltinModelCreateInfoQCOM")]
 pub struct DataGraphPipelineBuiltinModelCreateInfoQCOM<'a> {
     pub(crate) s_type: StructureType,
@@ -83268,7 +83268,7 @@ impl<'a> DataGraphPipelineBuiltinModelCreateInfoQCOM<'a> {
 }
 #[cfg(feature = "ext_data_graph_model")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceDataGraphModelFeaturesQCOM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceDataGraphModelFeaturesQCOM.html>"]
 #[doc(alias = "VkPhysicalDeviceDataGraphModelFeaturesQCOM")]
 pub struct PhysicalDeviceDataGraphModelFeaturesQCOM<'a> {
     pub(crate) s_type: StructureType,
@@ -83328,7 +83328,7 @@ impl<'a> PhysicalDeviceDataGraphModelFeaturesQCOM<'a> {
 }
 #[cfg(feature = "ext_maintenance10")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceMaintenance10FeaturesKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceMaintenance10FeaturesKHR.html>"]
 #[doc(alias = "VkPhysicalDeviceMaintenance10FeaturesKHR")]
 pub struct PhysicalDeviceMaintenance10FeaturesKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -83388,7 +83388,7 @@ impl<'a> PhysicalDeviceMaintenance10FeaturesKHR<'a> {
 }
 #[cfg(feature = "ext_maintenance10")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceMaintenance10PropertiesKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceMaintenance10PropertiesKHR.html>"]
 #[doc(alias = "VkPhysicalDeviceMaintenance10PropertiesKHR")]
 pub struct PhysicalDeviceMaintenance10PropertiesKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -83466,7 +83466,7 @@ impl<'a> PhysicalDeviceMaintenance10PropertiesKHR<'a> {
     feature = "ext_maintenance10"
 ))]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkRenderingEndInfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkRenderingEndInfoKHR.html>"]
 #[doc(alias = "VkRenderingEndInfoKHR")]
 pub struct RenderingEndInfoKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -83526,7 +83526,7 @@ impl<'a> RenderingEndInfoKHR<'a> {
 pub type RenderingEndInfoEXT<'a> = RenderingEndInfoKHR<'a>;
 #[cfg(feature = "ext_maintenance10")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkRenderingAttachmentFlagsInfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkRenderingAttachmentFlagsInfoKHR.html>"]
 #[doc(alias = "VkRenderingAttachmentFlagsInfoKHR")]
 pub struct RenderingAttachmentFlagsInfoKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -83578,7 +83578,7 @@ impl<'a> RenderingAttachmentFlagsInfoKHR<'a> {
 }
 #[cfg(feature = "ext_maintenance10")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkResolveImageModeInfoKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkResolveImageModeInfoKHR.html>"]
 #[doc(alias = "VkResolveImageModeInfoKHR")]
 pub struct ResolveImageModeInfoKHR<'a> {
     pub(crate) s_type: StructureType,
@@ -83640,7 +83640,7 @@ impl<'a> ResolveImageModeInfoKHR<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderLongVectorFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderLongVectorFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceShaderLongVectorFeaturesEXT")]
 pub struct PhysicalDeviceShaderLongVectorFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -83693,7 +83693,7 @@ impl<'a> PhysicalDeviceShaderLongVectorFeaturesEXT<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderLongVectorPropertiesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderLongVectorPropertiesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceShaderLongVectorPropertiesEXT")]
 pub struct PhysicalDeviceShaderLongVectorPropertiesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -83742,7 +83742,7 @@ impl<'a> PhysicalDeviceShaderLongVectorPropertiesEXT<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDevicePipelineCacheIncrementalModeFeaturesSEC.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDevicePipelineCacheIncrementalModeFeaturesSEC.html>"]
 #[doc(alias = "VkPhysicalDevicePipelineCacheIncrementalModeFeaturesSEC")]
 pub struct PhysicalDevicePipelineCacheIncrementalModeFeaturesSEC<'a> {
     pub(crate) s_type: StructureType,
@@ -83799,7 +83799,7 @@ impl<'a> PhysicalDevicePipelineCacheIncrementalModeFeaturesSEC<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderUniformBufferUnsizedArrayFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderUniformBufferUnsizedArrayFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceShaderUniformBufferUnsizedArrayFeaturesEXT")]
 pub struct PhysicalDeviceShaderUniformBufferUnsizedArrayFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -83859,7 +83859,7 @@ impl<'a> PhysicalDeviceShaderUniformBufferUnsizedArrayFeaturesEXT<'a> {
 }
 #[cfg(feature = "ext_compute_occupancy_priority")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkComputeOccupancyPriorityParametersNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkComputeOccupancyPriorityParametersNV.html>"]
 #[doc(alias = "VkComputeOccupancyPriorityParametersNV")]
 pub struct ComputeOccupancyPriorityParametersNV<'a> {
     pub(crate) s_type: StructureType,
@@ -83910,7 +83910,7 @@ impl<'a> ComputeOccupancyPriorityParametersNV<'a> {
 }
 #[cfg(feature = "ext_compute_occupancy_priority")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceComputeOccupancyPriorityFeaturesNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceComputeOccupancyPriorityFeaturesNV.html>"]
 #[doc(alias = "VkPhysicalDeviceComputeOccupancyPriorityFeaturesNV")]
 pub struct PhysicalDeviceComputeOccupancyPriorityFeaturesNV<'a> {
     pub(crate) s_type: StructureType,
@@ -83970,7 +83970,7 @@ impl<'a> PhysicalDeviceComputeOccupancyPriorityFeaturesNV<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderSubgroupPartitionedFeaturesEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderSubgroupPartitionedFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceShaderSubgroupPartitionedFeaturesEXT")]
 pub struct PhysicalDeviceShaderSubgroupPartitionedFeaturesEXT<'a> {
     pub(crate) s_type: StructureType,
@@ -84025,7 +84025,7 @@ impl<'a> PhysicalDeviceShaderSubgroupPartitionedFeaturesEXT<'a> {
 }
 #[cfg(feature = "ext_ubm_surface")]
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkUbmSurfaceCreateInfoSEC.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkUbmSurfaceCreateInfoSEC.html>"]
 #[doc(alias = "VkUbmSurfaceCreateInfoSEC")]
 pub struct UbmSurfaceCreateInfoSEC<'a> {
     pub(crate) s_type: StructureType,
@@ -84082,7 +84082,7 @@ impl<'a> UbmSurfaceCreateInfoSEC<'a> {
     }
 }
 #[repr(C)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderMixedFloatDotProductFeaturesVALVE.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderMixedFloatDotProductFeaturesVALVE.html>"]
 #[doc(alias = "VkPhysicalDeviceShaderMixedFloatDotProductFeaturesVALVE")]
 pub struct PhysicalDeviceShaderMixedFloatDotProductFeaturesVALVE<'a> {
     pub(crate) s_type: StructureType,

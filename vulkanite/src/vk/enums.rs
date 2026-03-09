@@ -1,6 +1,6 @@
 use bitflags::bitflags;
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkResult.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkResult.html>"]
 #[doc(alias = "VkResult")]
 #[repr(i32)]
 pub enum Status {
@@ -63,7 +63,7 @@ impl Status {
     pub const ErrorIncompatibleShaderBinaryEXT: Self = Self::IncompatibleShaderBinaryEXT;
 }
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkStructureType.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkStructureType.html>"]
 #[doc(alias = "VkStructureType")]
 #[repr(u32)]
 pub enum StructureType {
@@ -1498,41 +1498,41 @@ impl StructureType {
     pub const PushDescriptorSetWithTemplateInfoKHR: Self = Self::PushDescriptorSetWithTemplateInfo;
     pub const RenderingEndInfoEXT: Self = Self::RenderingEndInfoKHR;
 }
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VK_LOD_CLAMP_NONE.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VK_LOD_CLAMP_NONE.html>"]
 #[doc(alias = "VK_LOD_CLAMP_NONE")]
 pub const LOD_CLAMP_NONE: f32 = 1000.0f32;
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VK_QUEUE_FAMILY_IGNORED.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VK_QUEUE_FAMILY_IGNORED.html>"]
 #[doc(alias = "VK_QUEUE_FAMILY_IGNORED")]
 pub const QUEUE_FAMILY_IGNORED: u32 = !0u32;
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VK_REMAINING_ARRAY_LAYERS.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VK_REMAINING_ARRAY_LAYERS.html>"]
 #[doc(alias = "VK_REMAINING_ARRAY_LAYERS")]
 pub const REMAINING_ARRAY_LAYERS: u32 = !0u32;
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VK_REMAINING_MIP_LEVELS.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VK_REMAINING_MIP_LEVELS.html>"]
 #[doc(alias = "VK_REMAINING_MIP_LEVELS")]
 pub const REMAINING_MIP_LEVELS: u32 = !0u32;
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VK_WHOLE_SIZE.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VK_WHOLE_SIZE.html>"]
 #[doc(alias = "VK_WHOLE_SIZE")]
 pub const WHOLE_SIZE: u64 = !0u64;
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VK_MAX_MEMORY_TYPES.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VK_MAX_MEMORY_TYPES.html>"]
 #[doc(alias = "VK_MAX_MEMORY_TYPES")]
 pub const MAX_MEMORY_TYPES: u32 = 32;
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VK_MAX_PHYSICAL_DEVICE_NAME_SIZE.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VK_MAX_PHYSICAL_DEVICE_NAME_SIZE.html>"]
 #[doc(alias = "VK_MAX_PHYSICAL_DEVICE_NAME_SIZE")]
 pub const MAX_PHYSICAL_DEVICE_NAME_SIZE: u32 = 256;
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VK_UUID_SIZE.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VK_UUID_SIZE.html>"]
 #[doc(alias = "VK_UUID_SIZE")]
 pub const UUID_SIZE: u32 = 16;
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VK_MAX_EXTENSION_NAME_SIZE.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VK_MAX_EXTENSION_NAME_SIZE.html>"]
 #[doc(alias = "VK_MAX_EXTENSION_NAME_SIZE")]
 pub const MAX_EXTENSION_NAME_SIZE: u32 = 256;
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VK_MAX_DESCRIPTION_SIZE.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VK_MAX_DESCRIPTION_SIZE.html>"]
 #[doc(alias = "VK_MAX_DESCRIPTION_SIZE")]
 pub const MAX_DESCRIPTION_SIZE: u32 = 256;
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VK_MAX_MEMORY_HEAPS.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VK_MAX_MEMORY_HEAPS.html>"]
 #[doc(alias = "VK_MAX_MEMORY_HEAPS")]
 pub const MAX_MEMORY_HEAPS: u32 = 16;
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkObjectType.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkObjectType.html>"]
 #[doc(alias = "VkObjectType")]
 #[repr(u32)]
 pub enum ObjectType {
@@ -1601,7 +1601,7 @@ impl ObjectType {
     pub const PrivateDataSlotEXT: Self = Self::PrivateDataSlot;
 }
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkVendorId.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkVendorId.html>"]
 #[doc(alias = "VkVendorId")]
 #[repr(u32)]
 pub enum VendorId {
@@ -1615,7 +1615,7 @@ pub enum VendorId {
     Mobileye = 0x10007,
 }
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkFormat.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkFormat.html>"]
 #[doc(alias = "VkFormat")]
 #[repr(u32)]
 pub enum Format {
@@ -1998,7 +1998,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkFormatFeatureFlagBits.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkFormatFeatureFlagBits.html>"]
     #[doc(alias = "VkFormatFeatureFlagBits")]
     pub struct FormatFeatureFlags : u32 {
         const SampledImage = 1u32 << 0;
@@ -2045,7 +2045,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImageCreateFlagBits.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImageCreateFlagBits.html>"]
     #[doc(alias = "VkImageCreateFlagBits")]
     pub struct ImageCreateFlags : u32 {
         const SparseBinding = 1u32 << 0;
@@ -2078,7 +2078,7 @@ bitflags! {
     }
 }
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImageTiling.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImageTiling.html>"]
 #[doc(alias = "VkImageTiling")]
 #[repr(u32)]
 pub enum ImageTiling {
@@ -2087,7 +2087,7 @@ pub enum ImageTiling {
     DrmFormatModifierEXT = 1000158000,
 }
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImageType.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImageType.html>"]
 #[doc(alias = "VkImageType")]
 #[repr(u32)]
 pub enum ImageType {
@@ -2099,7 +2099,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImageUsageFlagBits.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImageUsageFlagBits.html>"]
     #[doc(alias = "VkImageUsageFlagBits")]
     pub struct ImageUsageFlags : u32 {
         const TransferSrc = 1u32 << 0;
@@ -2127,14 +2127,14 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkInstanceCreateFlagBits.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkInstanceCreateFlagBits.html>"]
     #[doc(alias = "VkInstanceCreateFlagBits")]
     pub struct InstanceCreateFlags : u32 {
         const EnumeratePortabilityKHR = 1u32 << 0;
     }
 }
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkInternalAllocationType.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkInternalAllocationType.html>"]
 #[doc(alias = "VkInternalAllocationType")]
 #[repr(u32)]
 pub enum InternalAllocationType {
@@ -2144,7 +2144,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkMemoryHeapFlagBits.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkMemoryHeapFlagBits.html>"]
     #[doc(alias = "VkMemoryHeapFlagBits")]
     pub struct MemoryHeapFlags : u32 {
         const DeviceLocal = 1u32 << 0;
@@ -2157,7 +2157,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkMemoryPropertyFlagBits.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkMemoryPropertyFlagBits.html>"]
     #[doc(alias = "VkMemoryPropertyFlagBits")]
     pub struct MemoryPropertyFlags : u32 {
         const DeviceLocal = 1u32 << 0;
@@ -2172,7 +2172,7 @@ bitflags! {
     }
 }
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceType.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceType.html>"]
 #[doc(alias = "VkPhysicalDeviceType")]
 #[repr(u32)]
 pub enum PhysicalDeviceType {
@@ -2186,7 +2186,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkQueueFlagBits.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkQueueFlagBits.html>"]
     #[doc(alias = "VkQueueFlagBits")]
     pub struct QueueFlags : u32 {
         const Graphics = 1u32 << 0;
@@ -2202,7 +2202,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSampleCountFlagBits.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSampleCountFlagBits.html>"]
     #[doc(alias = "VkSampleCountFlagBits")]
     pub struct SampleCountFlags : u32 {
         const Count1 = 1u32 << 0;
@@ -2215,7 +2215,7 @@ bitflags! {
     }
 }
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSystemAllocationScope.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSystemAllocationScope.html>"]
 #[doc(alias = "VkSystemAllocationScope")]
 #[repr(u32)]
 pub enum SystemAllocationScope {
@@ -2229,7 +2229,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkShaderStageFlagBits.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkShaderStageFlagBits.html>"]
     #[doc(alias = "VkShaderStageFlagBits")]
     pub struct ShaderStageFlags : u32 {
         const Vertex = 1u32 << 0;
@@ -2264,7 +2264,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineStageFlagBits.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineStageFlagBits.html>"]
     #[doc(alias = "VkPipelineStageFlagBits")]
     pub struct PipelineStageFlags : u32 {
         const TopOfPipe = 1u32 << 0;
@@ -2307,7 +2307,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkMemoryMapFlagBits.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkMemoryMapFlagBits.html>"]
     #[doc(alias = "VkMemoryMapFlagBits")]
     pub struct MemoryMapFlags : u32 {
         const PlacedEXT = 1u32 << 0;
@@ -2317,7 +2317,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImageAspectFlagBits.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImageAspectFlagBits.html>"]
     #[doc(alias = "VkImageAspectFlagBits")]
     pub struct ImageAspectFlags : u32 {
         const Color = 1u32 << 0;
@@ -2342,7 +2342,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSparseImageFormatFlagBits.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSparseImageFormatFlagBits.html>"]
     #[doc(alias = "VkSparseImageFormatFlagBits")]
     pub struct SparseImageFormatFlags : u32 {
         const SingleMiptail = 1u32 << 0;
@@ -2354,7 +2354,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSparseMemoryBindFlagBits.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSparseMemoryBindFlagBits.html>"]
     #[doc(alias = "VkSparseMemoryBindFlagBits")]
     pub struct SparseMemoryBindFlags : u32 {
         const Metadata = 1u32 << 0;
@@ -2364,7 +2364,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkFenceCreateFlagBits.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkFenceCreateFlagBits.html>"]
     #[doc(alias = "VkFenceCreateFlagBits")]
     pub struct FenceCreateFlags : u32 {
         const Signaled = 1u32 << 0;
@@ -2374,7 +2374,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkQueryPoolCreateFlagBits.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkQueryPoolCreateFlagBits.html>"]
     #[doc(alias = "VkQueryPoolCreateFlagBits")]
     pub struct QueryPoolCreateFlags : u32 {
         const ResetKHR = 1u32 << 0;
@@ -2384,7 +2384,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkQueryPipelineStatisticFlagBits.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkQueryPipelineStatisticFlagBits.html>"]
     #[doc(alias = "VkQueryPipelineStatisticFlagBits")]
     pub struct QueryPipelineStatisticFlags : u32 {
         const InputAssemblyVertices = 1u32 << 0;
@@ -2407,7 +2407,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkQueryResultFlagBits.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkQueryResultFlagBits.html>"]
     #[doc(alias = "VkQueryResultFlagBits")]
     pub struct QueryResultFlags : u32 {
         const Result64 = 1u32 << 0;
@@ -2417,7 +2417,7 @@ bitflags! {
     }
 }
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkQueryType.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkQueryType.html>"]
 #[doc(alias = "VkQueryType")]
 #[repr(u32)]
 pub enum QueryType {
@@ -2441,7 +2441,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkBufferCreateFlagBits.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkBufferCreateFlagBits.html>"]
     #[doc(alias = "VkBufferCreateFlagBits")]
     pub struct BufferCreateFlags : u32 {
         const SparseBinding = 1u32 << 0;
@@ -2458,7 +2458,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkBufferUsageFlagBits.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkBufferUsageFlagBits.html>"]
     #[doc(alias = "VkBufferUsageFlagBits")]
     pub struct BufferUsageFlags : u32 {
         const TransferSrc = 1u32 << 0;
@@ -2491,7 +2491,7 @@ bitflags! {
     }
 }
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSharingMode.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSharingMode.html>"]
 #[doc(alias = "VkSharingMode")]
 #[repr(u32)]
 pub enum SharingMode {
@@ -2499,7 +2499,7 @@ pub enum SharingMode {
     Concurrent = 1,
 }
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImageLayout.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImageLayout.html>"]
 #[doc(alias = "VkImageLayout")]
 #[repr(u32)]
 pub enum ImageLayout {
@@ -2545,7 +2545,7 @@ impl ImageLayout {
     pub const AttachmentOptimalKHR: Self = Self::AttachmentOptimal;
 }
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkComponentSwizzle.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkComponentSwizzle.html>"]
 #[doc(alias = "VkComponentSwizzle")]
 #[repr(u32)]
 pub enum ComponentSwizzle {
@@ -2561,7 +2561,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImageViewCreateFlagBits.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImageViewCreateFlagBits.html>"]
     #[doc(alias = "VkImageViewCreateFlagBits")]
     pub struct ImageViewCreateFlags : u32 {
         const FragmentDensityMapDynamicEXT = 1u32 << 0;
@@ -2570,7 +2570,7 @@ bitflags! {
     }
 }
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImageViewType.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImageViewType.html>"]
 #[doc(alias = "VkImageViewType")]
 #[repr(u32)]
 pub enum ImageViewType {
@@ -2586,7 +2586,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAccessFlagBits.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAccessFlagBits.html>"]
     #[doc(alias = "VkAccessFlagBits")]
     pub struct AccessFlags : u32 {
         const IndirectCommandRead = 1u32 << 0;
@@ -2630,7 +2630,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDependencyFlagBits.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDependencyFlagBits.html>"]
     #[doc(alias = "VkDependencyFlagBits")]
     pub struct DependencyFlags : u32 {
         const ByRegion = 1u32 << 0;
@@ -2647,7 +2647,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCommandPoolCreateFlagBits.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCommandPoolCreateFlagBits.html>"]
     #[doc(alias = "VkCommandPoolCreateFlagBits")]
     pub struct CommandPoolCreateFlags : u32 {
         const Transient = 1u32 << 0;
@@ -2659,14 +2659,14 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCommandPoolResetFlagBits.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCommandPoolResetFlagBits.html>"]
     #[doc(alias = "VkCommandPoolResetFlagBits")]
     pub struct CommandPoolResetFlags : u32 {
         const ReleaseResources = 1u32 << 0;
     }
 }
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCommandBufferLevel.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCommandBufferLevel.html>"]
 #[doc(alias = "VkCommandBufferLevel")]
 #[repr(u32)]
 pub enum CommandBufferLevel {
@@ -2677,7 +2677,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCommandBufferResetFlagBits.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCommandBufferResetFlagBits.html>"]
     #[doc(alias = "VkCommandBufferResetFlagBits")]
     pub struct CommandBufferResetFlags : u32 {
         const ReleaseResources = 1u32 << 0;
@@ -2687,7 +2687,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCommandBufferUsageFlagBits.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCommandBufferUsageFlagBits.html>"]
     #[doc(alias = "VkCommandBufferUsageFlagBits")]
     pub struct CommandBufferUsageFlags : u32 {
         const OneTimeSubmit = 1u32 << 0;
@@ -2699,14 +2699,14 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkQueryControlFlagBits.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkQueryControlFlagBits.html>"]
     #[doc(alias = "VkQueryControlFlagBits")]
     pub struct QueryControlFlags : u32 {
         const Precise = 1u32 << 0;
     }
 }
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkIndexType.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkIndexType.html>"]
 #[doc(alias = "VkIndexType")]
 #[repr(u32)]
 pub enum IndexType {
@@ -2722,7 +2722,7 @@ impl IndexType {
     pub const Uint8KHR: Self = Self::Uint8;
 }
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineCacheHeaderVersion.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineCacheHeaderVersion.html>"]
 #[doc(alias = "VkPipelineCacheHeaderVersion")]
 #[repr(u32)]
 pub enum PipelineCacheHeaderVersion {
@@ -2733,7 +2733,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkEventCreateFlagBits.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkEventCreateFlagBits.html>"]
     #[doc(alias = "VkEventCreateFlagBits")]
     pub struct EventCreateFlags : u32 {
         const DeviceOnly = 1u32 << 0;
@@ -2744,7 +2744,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineCreateFlagBits.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineCreateFlagBits.html>"]
     #[doc(alias = "VkPipelineCreateFlagBits")]
     pub struct PipelineCreateFlags : u32 {
         const DisableOptimization = 1u32 << 0;
@@ -2792,7 +2792,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineShaderStageCreateFlagBits.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineShaderStageCreateFlagBits.html>"]
     #[doc(alias = "VkPipelineShaderStageCreateFlagBits")]
     pub struct PipelineShaderStageCreateFlags : u32 {
         const AllowVaryingSubgroupSize = 1u32 << 0;
@@ -2802,7 +2802,7 @@ bitflags! {
     }
 }
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkBorderColor.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkBorderColor.html>"]
 #[doc(alias = "VkBorderColor")]
 #[repr(u32)]
 pub enum BorderColor {
@@ -2816,7 +2816,7 @@ pub enum BorderColor {
     IntCustomEXT = 1000287004,
 }
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkFilter.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkFilter.html>"]
 #[doc(alias = "VkFilter")]
 #[repr(u32)]
 pub enum Filter {
@@ -2829,7 +2829,7 @@ impl Filter {
     pub const CubicIMG: Self = Self::CubicEXT;
 }
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSamplerAddressMode.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSamplerAddressMode.html>"]
 #[doc(alias = "VkSamplerAddressMode")]
 #[repr(u32)]
 pub enum SamplerAddressMode {
@@ -2847,7 +2847,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSamplerCreateFlagBits.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSamplerCreateFlagBits.html>"]
     #[doc(alias = "VkSamplerCreateFlagBits")]
     pub struct SamplerCreateFlags : u32 {
         const SubsampledEXT = 1u32 << 0;
@@ -2858,7 +2858,7 @@ bitflags! {
     }
 }
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCompareOp.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCompareOp.html>"]
 #[doc(alias = "VkCompareOp")]
 #[repr(u32)]
 pub enum CompareOp {
@@ -2872,7 +2872,7 @@ pub enum CompareOp {
     Always = 7,
 }
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSamplerMipmapMode.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSamplerMipmapMode.html>"]
 #[doc(alias = "VkSamplerMipmapMode")]
 #[repr(u32)]
 pub enum SamplerMipmapMode {
@@ -2883,7 +2883,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDescriptorPoolCreateFlagBits.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDescriptorPoolCreateFlagBits.html>"]
     #[doc(alias = "VkDescriptorPoolCreateFlagBits")]
     pub struct DescriptorPoolCreateFlags : u32 {
         const FreeDescriptorSet = 1u32 << 0;
@@ -2899,7 +2899,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDescriptorSetLayoutCreateFlagBits.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDescriptorSetLayoutCreateFlagBits.html>"]
     #[doc(alias = "VkDescriptorSetLayoutCreateFlagBits")]
     pub struct DescriptorSetLayoutCreateFlags : u32 {
         const UpdateAfterBindPool = 1u32 << 1;
@@ -2915,7 +2915,7 @@ bitflags! {
     }
 }
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDescriptorType.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDescriptorType.html>"]
 #[doc(alias = "VkDescriptorType")]
 #[repr(u32)]
 pub enum DescriptorType {
@@ -2945,7 +2945,7 @@ impl DescriptorType {
     pub const MutableVALVE: Self = Self::MutableEXT;
 }
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineBindPoint.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineBindPoint.html>"]
 #[doc(alias = "VkPipelineBindPoint")]
 #[repr(u32)]
 pub enum PipelineBindPoint {
@@ -2960,14 +2960,14 @@ pub enum PipelineBindPoint {
 impl PipelineBindPoint {
     pub const RayTracingNV: Self = Self::RayTracingKHR;
 }
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VK_ATTACHMENT_UNUSED.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VK_ATTACHMENT_UNUSED.html>"]
 #[doc(alias = "VK_ATTACHMENT_UNUSED")]
 pub const ATTACHMENT_UNUSED: u32 = !0u32;
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VK_SUBPASS_EXTERNAL.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VK_SUBPASS_EXTERNAL.html>"]
 #[doc(alias = "VK_SUBPASS_EXTERNAL")]
 pub const SUBPASS_EXTERNAL: u32 = !0u32;
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkBlendFactor.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkBlendFactor.html>"]
 #[doc(alias = "VkBlendFactor")]
 #[repr(u32)]
 pub enum BlendFactor {
@@ -2992,7 +2992,7 @@ pub enum BlendFactor {
     OneMinusSrc1Alpha = 18,
 }
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkBlendOp.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkBlendOp.html>"]
 #[doc(alias = "VkBlendOp")]
 #[repr(u32)]
 pub enum BlendOp {
@@ -3052,7 +3052,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkColorComponentFlagBits.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkColorComponentFlagBits.html>"]
     #[doc(alias = "VkColorComponentFlagBits")]
     pub struct ColorComponentFlags : u32 {
         const R = 1u32 << 0;
@@ -3065,7 +3065,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCullModeFlagBits.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCullModeFlagBits.html>"]
     #[doc(alias = "VkCullModeFlagBits")]
     pub struct CullModeFlags : u32 {
         const None = 0;
@@ -3075,7 +3075,7 @@ bitflags! {
     }
 }
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDynamicState.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDynamicState.html>"]
 #[doc(alias = "VkDynamicState")]
 #[repr(u32)]
 pub enum DynamicState {
@@ -3174,7 +3174,7 @@ impl DynamicState {
     pub const LineStippleKHR: Self = Self::LineStipple;
 }
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkFrontFace.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkFrontFace.html>"]
 #[doc(alias = "VkFrontFace")]
 #[repr(u32)]
 pub enum FrontFace {
@@ -3182,7 +3182,7 @@ pub enum FrontFace {
     Clockwise = 1,
 }
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkLogicOp.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkLogicOp.html>"]
 #[doc(alias = "VkLogicOp")]
 #[repr(u32)]
 pub enum LogicOp {
@@ -3204,7 +3204,7 @@ pub enum LogicOp {
     Set = 15,
 }
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkStencilOp.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkStencilOp.html>"]
 #[doc(alias = "VkStencilOp")]
 #[repr(u32)]
 pub enum StencilOp {
@@ -3218,7 +3218,7 @@ pub enum StencilOp {
     DecrementAndWrap = 7,
 }
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkVertexInputRate.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkVertexInputRate.html>"]
 #[doc(alias = "VkVertexInputRate")]
 #[repr(u32)]
 pub enum VertexInputRate {
@@ -3226,7 +3226,7 @@ pub enum VertexInputRate {
     Instance = 1,
 }
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPolygonMode.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPolygonMode.html>"]
 #[doc(alias = "VkPolygonMode")]
 #[repr(u32)]
 pub enum PolygonMode {
@@ -3236,7 +3236,7 @@ pub enum PolygonMode {
     FillRectangleNV = 1000153000,
 }
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPrimitiveTopology.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPrimitiveTopology.html>"]
 #[doc(alias = "VkPrimitiveTopology")]
 #[repr(u32)]
 pub enum PrimitiveTopology {
@@ -3256,7 +3256,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAttachmentDescriptionFlagBits.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAttachmentDescriptionFlagBits.html>"]
     #[doc(alias = "VkAttachmentDescriptionFlagBits")]
     pub struct AttachmentDescriptionFlags : u32 {
         const MayAlias = 1u32 << 0;
@@ -3265,7 +3265,7 @@ bitflags! {
     }
 }
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAttachmentLoadOp.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAttachmentLoadOp.html>"]
 #[doc(alias = "VkAttachmentLoadOp")]
 #[repr(u32)]
 pub enum AttachmentLoadOp {
@@ -3280,7 +3280,7 @@ impl AttachmentLoadOp {
     pub const NoneKHR: Self = Self::None;
 }
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAttachmentStoreOp.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAttachmentStoreOp.html>"]
 #[doc(alias = "VkAttachmentStoreOp")]
 #[repr(u32)]
 pub enum AttachmentStoreOp {
@@ -3298,7 +3298,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkFramebufferCreateFlagBits.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkFramebufferCreateFlagBits.html>"]
     #[doc(alias = "VkFramebufferCreateFlagBits")]
     pub struct FramebufferCreateFlags : u32 {
         const Imageless = 1u32 << 0;
@@ -3309,7 +3309,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkRenderPassCreateFlagBits.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkRenderPassCreateFlagBits.html>"]
     #[doc(alias = "VkRenderPassCreateFlagBits")]
     pub struct RenderPassCreateFlags : u32 {
         const TransformQCOM = 1u32 << 1;
@@ -3320,7 +3320,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSubpassDescriptionFlagBits.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSubpassDescriptionFlagBits.html>"]
     #[doc(alias = "VkSubpassDescriptionFlagBits")]
     pub struct SubpassDescriptionFlags : u32 {
         const PerViewAttributesNVX = 1u32 << 0;
@@ -3343,7 +3343,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkStencilFaceFlagBits.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkStencilFaceFlagBits.html>"]
     #[doc(alias = "VkStencilFaceFlagBits")]
     pub struct StencilFaceFlags : u32 {
         const Front = 1u32 << 0;
@@ -3353,7 +3353,7 @@ bitflags! {
     }
 }
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSubpassContents.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSubpassContents.html>"]
 #[doc(alias = "VkSubpassContents")]
 #[repr(u32)]
 pub enum SubpassContents {
@@ -3370,7 +3370,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSubgroupFeatureFlagBits.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSubgroupFeatureFlagBits.html>"]
     #[doc(alias = "VkSubgroupFeatureFlagBits")]
     pub struct SubgroupFeatureFlags : u32 {
         const Basic = 1u32 << 0;
@@ -3391,7 +3391,7 @@ bitflags! {
 }
 #[cfg(any(feature = "ext_maintenance2", feature = "version_1_1"))]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPointClippingBehavior.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPointClippingBehavior.html>"]
 #[doc(alias = "VkPointClippingBehavior")]
 #[repr(u32)]
 pub enum PointClippingBehavior {
@@ -3405,7 +3405,7 @@ impl PointClippingBehavior {
     pub const UserClipPlanesOnlyKHR: Self = Self::UserClipPlanesOnly;
 }
 #[cfg(any(feature = "ext_maintenance2", feature = "version_1_1"))]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPointClippingBehaviorKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPointClippingBehaviorKHR.html>"]
 #[doc(alias = "VkPointClippingBehaviorKHR")]
 pub type PointClippingBehaviorKHR = PointClippingBehavior;
 #[cfg(any(feature = "ext_device_group", feature = "version_1_1"))]
@@ -3413,7 +3413,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPeerMemoryFeatureFlagBits.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPeerMemoryFeatureFlagBits.html>"]
     #[doc(alias = "VkPeerMemoryFeatureFlagBits")]
     pub struct PeerMemoryFeatureFlags : u32 {
         const CopySrc = 1u32 << 0;
@@ -3427,7 +3427,7 @@ bitflags! {
     }
 }
 #[cfg(any(feature = "ext_device_group", feature = "version_1_1"))]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPeerMemoryFeatureFlagBitsKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPeerMemoryFeatureFlagBitsKHR.html>"]
 #[doc(alias = "VkPeerMemoryFeatureFlagBitsKHR")]
 pub type PeerMemoryFeatureFlagsKHR = PeerMemoryFeatureFlags;
 #[cfg(any(feature = "ext_device_group", feature = "version_1_1"))]
@@ -3435,7 +3435,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkMemoryAllocateFlagBits.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkMemoryAllocateFlagBits.html>"]
     #[doc(alias = "VkMemoryAllocateFlagBits")]
     pub struct MemoryAllocateFlags : u32 {
         const DeviceMask = 1u32 << 0;
@@ -3448,24 +3448,24 @@ bitflags! {
     }
 }
 #[cfg(any(feature = "ext_device_group", feature = "version_1_1"))]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkMemoryAllocateFlagBitsKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkMemoryAllocateFlagBitsKHR.html>"]
 #[doc(alias = "VkMemoryAllocateFlagBitsKHR")]
 pub type MemoryAllocateFlagsKHR = MemoryAllocateFlags;
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VK_MAX_DEVICE_GROUP_SIZE.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VK_MAX_DEVICE_GROUP_SIZE.html>"]
 #[doc(alias = "VK_MAX_DEVICE_GROUP_SIZE")]
 pub const MAX_DEVICE_GROUP_SIZE: u32 = 32;
 bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDeviceQueueCreateFlagBits.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceQueueCreateFlagBits.html>"]
     #[doc(alias = "VkDeviceQueueCreateFlagBits")]
     pub struct DeviceQueueCreateFlags : u32 {
         const Protected = 1u32 << 0;
         const InternallySynchronizedKHR = 1u32 << 2;
     }
 }
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VK_LUID_SIZE.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VK_LUID_SIZE.html>"]
 #[doc(alias = "VK_LUID_SIZE")]
 pub const LUID_SIZE: u32 = 8;
 #[cfg(any(feature = "ext_external_memory_capabilities", feature = "version_1_1"))]
@@ -3473,7 +3473,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkExternalMemoryHandleTypeFlagBits.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkExternalMemoryHandleTypeFlagBits.html>"]
     #[doc(alias = "VkExternalMemoryHandleTypeFlagBits")]
     pub struct ExternalMemoryHandleTypeFlags : u32 {
         const OpaqueFd = 1u32 << 0;
@@ -3504,7 +3504,7 @@ bitflags! {
     }
 }
 #[cfg(any(feature = "ext_external_memory_capabilities", feature = "version_1_1"))]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkExternalMemoryHandleTypeFlagBitsKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkExternalMemoryHandleTypeFlagBitsKHR.html>"]
 #[doc(alias = "VkExternalMemoryHandleTypeFlagBitsKHR")]
 pub type ExternalMemoryHandleTypeFlagsKHR = ExternalMemoryHandleTypeFlags;
 #[cfg(any(feature = "ext_external_memory_capabilities", feature = "version_1_1"))]
@@ -3512,7 +3512,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkExternalMemoryFeatureFlagBits.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkExternalMemoryFeatureFlagBits.html>"]
     #[doc(alias = "VkExternalMemoryFeatureFlagBits")]
     pub struct ExternalMemoryFeatureFlags : u32 {
         const DedicatedOnly = 1u32 << 0;
@@ -3524,10 +3524,10 @@ bitflags! {
     }
 }
 #[cfg(any(feature = "ext_external_memory_capabilities", feature = "version_1_1"))]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkExternalMemoryFeatureFlagBitsKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkExternalMemoryFeatureFlagBitsKHR.html>"]
 #[doc(alias = "VkExternalMemoryFeatureFlagBitsKHR")]
 pub type ExternalMemoryFeatureFlagsKHR = ExternalMemoryFeatureFlags;
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VK_QUEUE_FAMILY_EXTERNAL.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VK_QUEUE_FAMILY_EXTERNAL.html>"]
 #[doc(alias = "VK_QUEUE_FAMILY_EXTERNAL")]
 pub const QUEUE_FAMILY_EXTERNAL: u32 = !1u32;
 #[cfg(any(feature = "ext_external_fence_capabilities", feature = "version_1_1"))]
@@ -3535,7 +3535,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkExternalFenceHandleTypeFlagBits.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkExternalFenceHandleTypeFlagBits.html>"]
     #[doc(alias = "VkExternalFenceHandleTypeFlagBits")]
     pub struct ExternalFenceHandleTypeFlags : u32 {
         const OpaqueFd = 1u32 << 0;
@@ -3549,7 +3549,7 @@ bitflags! {
     }
 }
 #[cfg(any(feature = "ext_external_fence_capabilities", feature = "version_1_1"))]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkExternalFenceHandleTypeFlagBitsKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkExternalFenceHandleTypeFlagBitsKHR.html>"]
 #[doc(alias = "VkExternalFenceHandleTypeFlagBitsKHR")]
 pub type ExternalFenceHandleTypeFlagsKHR = ExternalFenceHandleTypeFlags;
 #[cfg(any(feature = "ext_external_fence_capabilities", feature = "version_1_1"))]
@@ -3557,7 +3557,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkExternalFenceFeatureFlagBits.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkExternalFenceFeatureFlagBits.html>"]
     #[doc(alias = "VkExternalFenceFeatureFlagBits")]
     pub struct ExternalFenceFeatureFlags : u32 {
         const Exportable = 1u32 << 0;
@@ -3567,7 +3567,7 @@ bitflags! {
     }
 }
 #[cfg(any(feature = "ext_external_fence_capabilities", feature = "version_1_1"))]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkExternalFenceFeatureFlagBitsKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkExternalFenceFeatureFlagBitsKHR.html>"]
 #[doc(alias = "VkExternalFenceFeatureFlagBitsKHR")]
 pub type ExternalFenceFeatureFlagsKHR = ExternalFenceFeatureFlags;
 #[cfg(any(feature = "ext_external_fence", feature = "version_1_1"))]
@@ -3575,7 +3575,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkFenceImportFlagBits.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkFenceImportFlagBits.html>"]
     #[doc(alias = "VkFenceImportFlagBits")]
     pub struct FenceImportFlags : u32 {
         const Temporary = 1u32 << 0;
@@ -3583,7 +3583,7 @@ bitflags! {
     }
 }
 #[cfg(any(feature = "ext_external_fence", feature = "version_1_1"))]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkFenceImportFlagBitsKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkFenceImportFlagBitsKHR.html>"]
 #[doc(alias = "VkFenceImportFlagBitsKHR")]
 pub type FenceImportFlagsKHR = FenceImportFlags;
 #[cfg(any(feature = "ext_external_semaphore", feature = "version_1_1"))]
@@ -3591,7 +3591,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSemaphoreImportFlagBits.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSemaphoreImportFlagBits.html>"]
     #[doc(alias = "VkSemaphoreImportFlagBits")]
     pub struct SemaphoreImportFlags : u32 {
         const Temporary = 1u32 << 0;
@@ -3599,7 +3599,7 @@ bitflags! {
     }
 }
 #[cfg(any(feature = "ext_external_semaphore", feature = "version_1_1"))]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSemaphoreImportFlagBitsKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSemaphoreImportFlagBitsKHR.html>"]
 #[doc(alias = "VkSemaphoreImportFlagBitsKHR")]
 pub type SemaphoreImportFlagsKHR = SemaphoreImportFlags;
 #[cfg(any(
@@ -3610,7 +3610,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkExternalSemaphoreHandleTypeFlagBits.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkExternalSemaphoreHandleTypeFlagBits.html>"]
     #[doc(alias = "VkExternalSemaphoreHandleTypeFlagBits")]
     pub struct ExternalSemaphoreHandleTypeFlags : u32 {
         const OpaqueFd = 1u32 << 0;
@@ -3631,7 +3631,7 @@ bitflags! {
     feature = "ext_external_semaphore_capabilities",
     feature = "version_1_1"
 ))]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkExternalSemaphoreHandleTypeFlagBitsKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkExternalSemaphoreHandleTypeFlagBitsKHR.html>"]
 #[doc(alias = "VkExternalSemaphoreHandleTypeFlagBitsKHR")]
 pub type ExternalSemaphoreHandleTypeFlagsKHR = ExternalSemaphoreHandleTypeFlags;
 #[cfg(any(
@@ -3642,7 +3642,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkExternalSemaphoreFeatureFlagBits.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkExternalSemaphoreFeatureFlagBits.html>"]
     #[doc(alias = "VkExternalSemaphoreFeatureFlagBits")]
     pub struct ExternalSemaphoreFeatureFlags : u32 {
         const Exportable = 1u32 << 0;
@@ -3655,12 +3655,12 @@ bitflags! {
     feature = "ext_external_semaphore_capabilities",
     feature = "version_1_1"
 ))]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkExternalSemaphoreFeatureFlagBitsKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkExternalSemaphoreFeatureFlagBitsKHR.html>"]
 #[doc(alias = "VkExternalSemaphoreFeatureFlagBitsKHR")]
 pub type ExternalSemaphoreFeatureFlagsKHR = ExternalSemaphoreFeatureFlags;
 #[cfg(any(feature = "ext_descriptor_update_template", feature = "version_1_1"))]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDescriptorUpdateTemplateType.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDescriptorUpdateTemplateType.html>"]
 #[doc(alias = "VkDescriptorUpdateTemplateType")]
 #[repr(u32)]
 pub enum DescriptorUpdateTemplateType {
@@ -3674,12 +3674,12 @@ impl DescriptorUpdateTemplateType {
     pub const DescriptorSetKHR: Self = Self::DescriptorSet;
 }
 #[cfg(any(feature = "ext_descriptor_update_template", feature = "version_1_1"))]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDescriptorUpdateTemplateTypeKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDescriptorUpdateTemplateTypeKHR.html>"]
 #[doc(alias = "VkDescriptorUpdateTemplateTypeKHR")]
 pub type DescriptorUpdateTemplateTypeKHR = DescriptorUpdateTemplateType;
 #[cfg(any(feature = "ext_sampler_ycbcr_conversion", feature = "version_1_1"))]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSamplerYcbcrModelConversion.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSamplerYcbcrModelConversion.html>"]
 #[doc(alias = "VkSamplerYcbcrModelConversion")]
 #[repr(u32)]
 pub enum SamplerYcbcrModelConversion {
@@ -3699,12 +3699,12 @@ impl SamplerYcbcrModelConversion {
     pub const Ycbcr2020KHR: Self = Self::Ycbcr2020;
 }
 #[cfg(any(feature = "ext_sampler_ycbcr_conversion", feature = "version_1_1"))]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSamplerYcbcrModelConversionKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSamplerYcbcrModelConversionKHR.html>"]
 #[doc(alias = "VkSamplerYcbcrModelConversionKHR")]
 pub type SamplerYcbcrModelConversionKHR = SamplerYcbcrModelConversion;
 #[cfg(any(feature = "ext_sampler_ycbcr_conversion", feature = "version_1_1"))]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSamplerYcbcrRange.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSamplerYcbcrRange.html>"]
 #[doc(alias = "VkSamplerYcbcrRange")]
 #[repr(u32)]
 pub enum SamplerYcbcrRange {
@@ -3718,12 +3718,12 @@ impl SamplerYcbcrRange {
     pub const ItuNarrowKHR: Self = Self::ItuNarrow;
 }
 #[cfg(any(feature = "ext_sampler_ycbcr_conversion", feature = "version_1_1"))]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSamplerYcbcrRangeKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSamplerYcbcrRangeKHR.html>"]
 #[doc(alias = "VkSamplerYcbcrRangeKHR")]
 pub type SamplerYcbcrRangeKHR = SamplerYcbcrRange;
 #[cfg(any(feature = "ext_sampler_ycbcr_conversion", feature = "version_1_1"))]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkChromaLocation.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkChromaLocation.html>"]
 #[doc(alias = "VkChromaLocation")]
 #[repr(u32)]
 pub enum ChromaLocation {
@@ -3737,12 +3737,12 @@ impl ChromaLocation {
     pub const MidpointKHR: Self = Self::Midpoint;
 }
 #[cfg(any(feature = "ext_sampler_ycbcr_conversion", feature = "version_1_1"))]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkChromaLocationKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkChromaLocationKHR.html>"]
 #[doc(alias = "VkChromaLocationKHR")]
 pub type ChromaLocationKHR = ChromaLocation;
 #[cfg(any(feature = "ext_maintenance2", feature = "version_1_1"))]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkTessellationDomainOrigin.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkTessellationDomainOrigin.html>"]
 #[doc(alias = "VkTessellationDomainOrigin")]
 #[repr(u32)]
 pub enum TessellationDomainOrigin {
@@ -3756,18 +3756,18 @@ impl TessellationDomainOrigin {
     pub const LowerLeftKHR: Self = Self::LowerLeft;
 }
 #[cfg(any(feature = "ext_maintenance2", feature = "version_1_1"))]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkTessellationDomainOriginKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkTessellationDomainOriginKHR.html>"]
 #[doc(alias = "VkTessellationDomainOriginKHR")]
 pub type TessellationDomainOriginKHR = TessellationDomainOrigin;
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VK_MAX_DRIVER_NAME_SIZE.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VK_MAX_DRIVER_NAME_SIZE.html>"]
 #[doc(alias = "VK_MAX_DRIVER_NAME_SIZE")]
 pub const MAX_DRIVER_NAME_SIZE: u32 = 256;
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VK_MAX_DRIVER_INFO_SIZE.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VK_MAX_DRIVER_INFO_SIZE.html>"]
 #[doc(alias = "VK_MAX_DRIVER_INFO_SIZE")]
 pub const MAX_DRIVER_INFO_SIZE: u32 = 256;
 #[cfg(any(feature = "ext_driver_properties", feature = "version_1_2"))]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDriverId.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDriverId.html>"]
 #[doc(alias = "VkDriverId")]
 #[repr(u32)]
 pub enum DriverId {
@@ -3817,12 +3817,12 @@ impl DriverId {
     pub const BroadcomProprietaryKHR: Self = Self::BroadcomProprietary;
 }
 #[cfg(any(feature = "ext_driver_properties", feature = "version_1_2"))]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDriverIdKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDriverIdKHR.html>"]
 #[doc(alias = "VkDriverIdKHR")]
 pub type DriverIdKHR = DriverId;
 #[cfg(any(feature = "ext_shader_float_controls", feature = "version_1_2"))]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkShaderFloatControlsIndependence.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkShaderFloatControlsIndependence.html>"]
 #[doc(alias = "VkShaderFloatControlsIndependence")]
 #[repr(u32)]
 pub enum ShaderFloatControlsIndependence {
@@ -3838,7 +3838,7 @@ impl ShaderFloatControlsIndependence {
     pub const NoneKHR: Self = Self::None;
 }
 #[cfg(any(feature = "ext_shader_float_controls", feature = "version_1_2"))]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkShaderFloatControlsIndependenceKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkShaderFloatControlsIndependenceKHR.html>"]
 #[doc(alias = "VkShaderFloatControlsIndependenceKHR")]
 pub type ShaderFloatControlsIndependenceKHR = ShaderFloatControlsIndependence;
 #[cfg(any(feature = "ext_depth_stencil_resolve", feature = "version_1_2"))]
@@ -3846,7 +3846,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkResolveModeFlagBits.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkResolveModeFlagBits.html>"]
     #[doc(alias = "VkResolveModeFlagBits")]
     pub struct ResolveModeFlags : u32 {
         const None = 0;
@@ -3864,12 +3864,12 @@ bitflags! {
     }
 }
 #[cfg(any(feature = "ext_depth_stencil_resolve", feature = "version_1_2"))]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkResolveModeFlagBitsKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkResolveModeFlagBitsKHR.html>"]
 #[doc(alias = "VkResolveModeFlagBitsKHR")]
 pub type ResolveModeFlagsKHR = ResolveModeFlags;
 #[cfg(any(feature = "ext_timeline_semaphore", feature = "version_1_2"))]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSemaphoreType.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSemaphoreType.html>"]
 #[doc(alias = "VkSemaphoreType")]
 #[repr(u32)]
 pub enum SemaphoreType {
@@ -3883,7 +3883,7 @@ impl SemaphoreType {
     pub const TimelineKHR: Self = Self::Timeline;
 }
 #[cfg(any(feature = "ext_timeline_semaphore", feature = "version_1_2"))]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSemaphoreTypeKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSemaphoreTypeKHR.html>"]
 #[doc(alias = "VkSemaphoreTypeKHR")]
 pub type SemaphoreTypeKHR = SemaphoreType;
 #[cfg(any(feature = "ext_timeline_semaphore", feature = "version_1_2"))]
@@ -3891,7 +3891,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSemaphoreWaitFlagBits.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSemaphoreWaitFlagBits.html>"]
     #[doc(alias = "VkSemaphoreWaitFlagBits")]
     pub struct SemaphoreWaitFlags : u32 {
         const Any = 1u32 << 0;
@@ -3899,7 +3899,7 @@ bitflags! {
     }
 }
 #[cfg(any(feature = "ext_timeline_semaphore", feature = "version_1_2"))]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSemaphoreWaitFlagBitsKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSemaphoreWaitFlagBitsKHR.html>"]
 #[doc(alias = "VkSemaphoreWaitFlagBitsKHR")]
 pub type SemaphoreWaitFlagsKHR = SemaphoreWaitFlags;
 #[cfg(any(feature = "ext_descriptor_indexing", feature = "version_1_2"))]
@@ -3907,7 +3907,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDescriptorBindingFlagBits.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDescriptorBindingFlagBits.html>"]
     #[doc(alias = "VkDescriptorBindingFlagBits")]
     pub struct DescriptorBindingFlags : u32 {
         const UpdateAfterBind = 1u32 << 0;
@@ -3921,12 +3921,12 @@ bitflags! {
     }
 }
 #[cfg(any(feature = "ext_descriptor_indexing", feature = "version_1_2"))]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDescriptorBindingFlagBitsEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDescriptorBindingFlagBitsEXT.html>"]
 #[doc(alias = "VkDescriptorBindingFlagBitsEXT")]
 pub type DescriptorBindingFlagsEXT = DescriptorBindingFlags;
 #[cfg(any(feature = "ext_sampler_filter_minmax", feature = "version_1_2"))]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSamplerReductionMode.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSamplerReductionMode.html>"]
 #[doc(alias = "VkSamplerReductionMode")]
 #[repr(u32)]
 pub enum SamplerReductionMode {
@@ -3943,7 +3943,7 @@ impl SamplerReductionMode {
     pub const MaxEXT: Self = Self::Max;
 }
 #[cfg(any(feature = "ext_sampler_filter_minmax", feature = "version_1_2"))]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSamplerReductionModeEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSamplerReductionModeEXT.html>"]
 #[doc(alias = "VkSamplerReductionModeEXT")]
 pub type SamplerReductionModeEXT = SamplerReductionMode;
 #[cfg(any(feature = "ext_tooling_info", feature = "version_1_3"))]
@@ -3951,7 +3951,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkToolPurposeFlagBits.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkToolPurposeFlagBits.html>"]
     #[doc(alias = "VkToolPurposeFlagBits")]
     pub struct ToolPurposeFlags : u32 {
         const Validation = 1u32 << 0;
@@ -3969,7 +3969,7 @@ bitflags! {
     }
 }
 #[cfg(any(feature = "ext_tooling_info", feature = "version_1_3"))]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkToolPurposeFlagBitsEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkToolPurposeFlagBitsEXT.html>"]
 #[doc(alias = "VkToolPurposeFlagBitsEXT")]
 pub type ToolPurposeFlagsEXT = ToolPurposeFlags;
 #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
@@ -3977,7 +3977,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineStageFlagBits2.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineStageFlagBits2.html>"]
     #[doc(alias = "VkPipelineStageFlagBits2")]
     pub struct PipelineStageFlags2 : u64 {
         const None = 0;
@@ -4061,7 +4061,7 @@ bitflags! {
     }
 }
 #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineStageFlagBits2KHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineStageFlagBits2KHR.html>"]
 #[doc(alias = "VkPipelineStageFlagBits2KHR")]
 pub type PipelineStageFlags2KHR = PipelineStageFlags2;
 #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
@@ -4069,7 +4069,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAccessFlagBits2.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAccessFlagBits2.html>"]
     #[doc(alias = "VkAccessFlagBits2")]
     pub struct AccessFlags2 : u64 {
         const None = 0;
@@ -4148,7 +4148,7 @@ bitflags! {
     }
 }
 #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAccessFlagBits2KHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAccessFlagBits2KHR.html>"]
 #[doc(alias = "VkAccessFlagBits2KHR")]
 pub type AccessFlags2KHR = AccessFlags2;
 #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
@@ -4156,7 +4156,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSubmitFlagBits.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSubmitFlagBits.html>"]
     #[doc(alias = "VkSubmitFlagBits")]
     pub struct SubmitFlags : u32 {
         const Protected = 1u32 << 0;
@@ -4164,7 +4164,7 @@ bitflags! {
     }
 }
 #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSubmitFlagBitsKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSubmitFlagBitsKHR.html>"]
 #[doc(alias = "VkSubmitFlagBitsKHR")]
 pub type SubmitFlagsKHR = SubmitFlags;
 #[cfg(any(feature = "ext_format_feature_flags2", feature = "version_1_3"))]
@@ -4172,7 +4172,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkFormatFeatureFlagBits2.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkFormatFeatureFlagBits2.html>"]
     #[doc(alias = "VkFormatFeatureFlagBits2")]
     pub struct FormatFeatureFlags2 : u64 {
         const SampledImage = 1u64 << 0;
@@ -4254,7 +4254,7 @@ bitflags! {
     }
 }
 #[cfg(any(feature = "ext_format_feature_flags2", feature = "version_1_3"))]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkFormatFeatureFlagBits2KHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkFormatFeatureFlagBits2KHR.html>"]
 #[doc(alias = "VkFormatFeatureFlagBits2KHR")]
 pub type FormatFeatureFlags2KHR = FormatFeatureFlags2;
 #[cfg(any(feature = "ext_pipeline_creation_feedback", feature = "version_1_3"))]
@@ -4262,7 +4262,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineCreationFeedbackFlagBits.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineCreationFeedbackFlagBits.html>"]
     #[doc(alias = "VkPipelineCreationFeedbackFlagBits")]
     pub struct PipelineCreationFeedbackFlags : u32 {
         const Valid = 1u32 << 0;
@@ -4274,14 +4274,14 @@ bitflags! {
     }
 }
 #[cfg(any(feature = "ext_pipeline_creation_feedback", feature = "version_1_3"))]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineCreationFeedbackFlagBitsEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineCreationFeedbackFlagBitsEXT.html>"]
 #[doc(alias = "VkPipelineCreationFeedbackFlagBitsEXT")]
 pub type PipelineCreationFeedbackFlagsEXT = PipelineCreationFeedbackFlags;
 bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineCacheCreateFlagBits.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineCacheCreateFlagBits.html>"]
     #[doc(alias = "VkPipelineCacheCreateFlagBits")]
     pub struct PipelineCacheCreateFlags : u32 {
         const ExternallySynchronized = 1u32 << 0;
@@ -4294,7 +4294,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkRenderingFlagBits.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkRenderingFlagBits.html>"]
     #[doc(alias = "VkRenderingFlagBits")]
     pub struct RenderingFlags : u32 {
         const ContentsSecondaryCommandBuffers = 1u32 << 0;
@@ -4313,12 +4313,12 @@ bitflags! {
     }
 }
 #[cfg(any(feature = "ext_dynamic_rendering", feature = "version_1_3"))]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkRenderingFlagBitsKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkRenderingFlagBitsKHR.html>"]
 #[doc(alias = "VkRenderingFlagBitsKHR")]
 pub type RenderingFlagsKHR = RenderingFlags;
 #[cfg(any(feature = "ext_pipeline_robustness", feature = "version_1_4"))]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineRobustnessBufferBehavior.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineRobustnessBufferBehavior.html>"]
 #[doc(alias = "VkPipelineRobustnessBufferBehavior")]
 #[repr(u32)]
 pub enum PipelineRobustnessBufferBehavior {
@@ -4336,12 +4336,12 @@ impl PipelineRobustnessBufferBehavior {
     pub const RobustBufferAccess2EXT: Self = Self::RobustBufferAccess2;
 }
 #[cfg(any(feature = "ext_pipeline_robustness", feature = "version_1_4"))]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineRobustnessBufferBehaviorEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineRobustnessBufferBehaviorEXT.html>"]
 #[doc(alias = "VkPipelineRobustnessBufferBehaviorEXT")]
 pub type PipelineRobustnessBufferBehaviorEXT = PipelineRobustnessBufferBehavior;
 #[cfg(any(feature = "ext_pipeline_robustness", feature = "version_1_4"))]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineRobustnessImageBehavior.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineRobustnessImageBehavior.html>"]
 #[doc(alias = "VkPipelineRobustnessImageBehavior")]
 #[repr(u32)]
 pub enum PipelineRobustnessImageBehavior {
@@ -4359,15 +4359,15 @@ impl PipelineRobustnessImageBehavior {
     pub const RobustImageAccess2EXT: Self = Self::RobustImageAccess2;
 }
 #[cfg(any(feature = "ext_pipeline_robustness", feature = "version_1_4"))]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineRobustnessImageBehaviorEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineRobustnessImageBehaviorEXT.html>"]
 #[doc(alias = "VkPipelineRobustnessImageBehaviorEXT")]
 pub type PipelineRobustnessImageBehaviorEXT = PipelineRobustnessImageBehavior;
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VK_MAX_GLOBAL_PRIORITY_SIZE.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VK_MAX_GLOBAL_PRIORITY_SIZE.html>"]
 #[doc(alias = "VK_MAX_GLOBAL_PRIORITY_SIZE")]
 pub const MAX_GLOBAL_PRIORITY_SIZE: u32 = 16;
 #[cfg(any(feature = "ext_global_priority", feature = "version_1_4"))]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkQueueGlobalPriority.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkQueueGlobalPriority.html>"]
 #[doc(alias = "VkQueueGlobalPriority")]
 #[repr(u32)]
 pub enum QueueGlobalPriority {
@@ -4389,11 +4389,11 @@ impl QueueGlobalPriority {
     pub const RealtimeKHR: Self = Self::Realtime;
 }
 #[cfg(any(feature = "ext_global_priority", feature = "version_1_4"))]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkQueueGlobalPriorityKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkQueueGlobalPriorityKHR.html>"]
 #[doc(alias = "VkQueueGlobalPriorityKHR")]
 pub type QueueGlobalPriorityKHR = QueueGlobalPriority;
 #[cfg(any(feature = "ext_global_priority", feature = "version_1_4"))]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkQueueGlobalPriorityEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkQueueGlobalPriorityEXT.html>"]
 #[doc(alias = "VkQueueGlobalPriorityEXT")]
 pub type QueueGlobalPriorityEXT = QueueGlobalPriority;
 #[cfg(any(feature = "ext_map_memory2", feature = "version_1_4"))]
@@ -4401,14 +4401,14 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkMemoryUnmapFlagBits.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkMemoryUnmapFlagBits.html>"]
     #[doc(alias = "VkMemoryUnmapFlagBits")]
     pub struct MemoryUnmapFlags : u32 {
         const ReserveEXT = 1u32 << 0;
     }
 }
 #[cfg(any(feature = "ext_map_memory2", feature = "version_1_4"))]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkMemoryUnmapFlagBitsKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkMemoryUnmapFlagBitsKHR.html>"]
 #[doc(alias = "VkMemoryUnmapFlagBitsKHR")]
 pub type MemoryUnmapFlagsKHR = MemoryUnmapFlags;
 #[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
@@ -4416,7 +4416,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkBufferUsageFlagBits2.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkBufferUsageFlagBits2.html>"]
     #[doc(alias = "VkBufferUsageFlagBits2")]
     pub struct BufferUsageFlags2 : u64 {
         const TransferSrc = 1u64 << 0;
@@ -4465,7 +4465,7 @@ bitflags! {
     }
 }
 #[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkBufferUsageFlagBits2KHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkBufferUsageFlagBits2KHR.html>"]
 #[doc(alias = "VkBufferUsageFlagBits2KHR")]
 pub type BufferUsageFlags2KHR = BufferUsageFlags2;
 #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
@@ -4473,7 +4473,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkHostImageCopyFlagBits.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkHostImageCopyFlagBits.html>"]
     #[doc(alias = "VkHostImageCopyFlagBits")]
     pub struct HostImageCopyFlags : u32 {
         const Memcpy = 1u32 << 0;
@@ -4481,7 +4481,7 @@ bitflags! {
     }
 }
 #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkHostImageCopyFlagBitsEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkHostImageCopyFlagBitsEXT.html>"]
 #[doc(alias = "VkHostImageCopyFlagBitsEXT")]
 pub type HostImageCopyFlagsEXT = HostImageCopyFlags;
 #[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
@@ -4489,7 +4489,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineCreateFlagBits2.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineCreateFlagBits2.html>"]
     #[doc(alias = "VkPipelineCreateFlagBits2")]
     pub struct PipelineCreateFlags2 : u64 {
         const DisableOptimization = 1u64 << 0;
@@ -4546,12 +4546,12 @@ bitflags! {
     }
 }
 #[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineCreateFlagBits2KHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineCreateFlagBits2KHR.html>"]
 #[doc(alias = "VkPipelineCreateFlagBits2KHR")]
 pub type PipelineCreateFlags2KHR = PipelineCreateFlags2;
 #[cfg(any(feature = "ext_line_rasterization", feature = "version_1_4"))]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkLineRasterizationMode.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkLineRasterizationMode.html>"]
 #[doc(alias = "VkLineRasterizationMode")]
 #[repr(u32)]
 pub enum LineRasterizationMode {
@@ -4573,11 +4573,11 @@ impl LineRasterizationMode {
     pub const RectangularSmoothKHR: Self = Self::RectangularSmooth;
 }
 #[cfg(any(feature = "ext_line_rasterization", feature = "version_1_4"))]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkLineRasterizationModeKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkLineRasterizationModeKHR.html>"]
 #[doc(alias = "VkLineRasterizationModeKHR")]
 pub type LineRasterizationModeKHR = LineRasterizationMode;
 #[cfg(any(feature = "ext_line_rasterization", feature = "version_1_4"))]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkLineRasterizationModeEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkLineRasterizationModeEXT.html>"]
 #[doc(alias = "VkLineRasterizationModeEXT")]
 pub type LineRasterizationModeEXT = LineRasterizationMode;
 #[cfg(any(feature = "ext_surface", feature = "ext_display"))]
@@ -4585,7 +4585,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSurfaceTransformFlagBitsKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSurfaceTransformFlagBitsKHR.html>"]
     #[doc(alias = "VkSurfaceTransformFlagBitsKHR")]
     pub struct SurfaceTransformFlagsKHR : u32 {
         const Identity = 1u32 << 0;
@@ -4601,7 +4601,7 @@ bitflags! {
 }
 #[cfg(feature = "ext_surface")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPresentModeKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPresentModeKHR.html>"]
 #[doc(alias = "VkPresentModeKHR")]
 #[repr(u32)]
 pub enum PresentModeKHR {
@@ -4620,7 +4620,7 @@ impl PresentModeKHR {
 }
 #[cfg(feature = "ext_surface")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkColorSpaceKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkColorSpaceKHR.html>"]
 #[doc(alias = "VkColorSpaceKHR")]
 #[repr(u32)]
 pub enum ColorSpaceKHR {
@@ -4652,7 +4652,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCompositeAlphaFlagBitsKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCompositeAlphaFlagBitsKHR.html>"]
     #[doc(alias = "VkCompositeAlphaFlagBitsKHR")]
     pub struct CompositeAlphaFlagsKHR : u32 {
         const Opaque = 1u32 << 0;
@@ -4666,7 +4666,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSwapchainCreateFlagBitsKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSwapchainCreateFlagBitsKHR.html>"]
     #[doc(alias = "VkSwapchainCreateFlagBitsKHR")]
     pub struct SwapchainCreateFlagsKHR : u32 {
         const SplitInstanceBindRegions = 1u32 << 0;
@@ -4687,7 +4687,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDeviceGroupPresentModeFlagBitsKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceGroupPresentModeFlagBitsKHR.html>"]
     #[doc(alias = "VkDeviceGroupPresentModeFlagBitsKHR")]
     pub struct DeviceGroupPresentModeFlagsKHR : u32 {
         const Local = 1u32 << 0;
@@ -4701,7 +4701,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDisplayPlaneAlphaFlagBitsKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDisplayPlaneAlphaFlagBitsKHR.html>"]
     #[doc(alias = "VkDisplayPlaneAlphaFlagBitsKHR")]
     pub struct DisplayPlaneAlphaFlagsKHR : u32 {
         const Opaque = 1u32 << 0;
@@ -4715,7 +4715,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDebugReportFlagBitsEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDebugReportFlagBitsEXT.html>"]
     #[doc(alias = "VkDebugReportFlagBitsEXT")]
     pub struct DebugReportFlagsEXT : u32 {
         const Information = 1u32 << 0;
@@ -4727,7 +4727,7 @@ bitflags! {
 }
 #[cfg(any(feature = "ext_debug_report", feature = "ext_debug_marker"))]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDebugReportObjectTypeEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDebugReportObjectTypeEXT.html>"]
 #[doc(alias = "VkDebugReportObjectTypeEXT")]
 #[repr(u32)]
 pub enum DebugReportObjectTypeEXT {
@@ -4783,7 +4783,7 @@ impl DebugReportObjectTypeEXT {
 }
 #[cfg(feature = "ext_rasterization_order")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkRasterizationOrderAMD.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkRasterizationOrderAMD.html>"]
 #[doc(alias = "VkRasterizationOrderAMD")]
 #[repr(u32)]
 pub enum RasterizationOrderAMD {
@@ -4792,7 +4792,7 @@ pub enum RasterizationOrderAMD {
 }
 #[cfg(feature = "ext_shader_info")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkShaderInfoTypeAMD.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkShaderInfoTypeAMD.html>"]
 #[doc(alias = "VkShaderInfoTypeAMD")]
 #[repr(u32)]
 pub enum ShaderInfoTypeAMD {
@@ -4805,7 +4805,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkExternalMemoryHandleTypeFlagBitsNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkExternalMemoryHandleTypeFlagBitsNV.html>"]
     #[doc(alias = "VkExternalMemoryHandleTypeFlagBitsNV")]
     pub struct ExternalMemoryHandleTypeFlagsNV : u32 {
         const OpaqueWin32 = 1u32 << 0;
@@ -4819,7 +4819,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkExternalMemoryFeatureFlagBitsNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkExternalMemoryFeatureFlagBitsNV.html>"]
     #[doc(alias = "VkExternalMemoryFeatureFlagBitsNV")]
     pub struct ExternalMemoryFeatureFlagsNV : u32 {
         const DedicatedOnly = 1u32 << 0;
@@ -4829,7 +4829,7 @@ bitflags! {
 }
 #[cfg(feature = "ext_validation_flags")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkValidationCheckEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkValidationCheckEXT.html>"]
 #[doc(alias = "VkValidationCheckEXT")]
 #[repr(u32)]
 pub enum ValidationCheckEXT {
@@ -4841,7 +4841,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkConditionalRenderingFlagBitsEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkConditionalRenderingFlagBitsEXT.html>"]
     #[doc(alias = "VkConditionalRenderingFlagBitsEXT")]
     pub struct ConditionalRenderingFlagsEXT : u32 {
         const Inverted = 1u32 << 0;
@@ -4852,7 +4852,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSurfaceCounterFlagBitsEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSurfaceCounterFlagBitsEXT.html>"]
     #[doc(alias = "VkSurfaceCounterFlagBitsEXT")]
     pub struct SurfaceCounterFlagsEXT : u32 {
         const Vblank = 1u32 << 0;
@@ -4860,7 +4860,7 @@ bitflags! {
 }
 #[cfg(feature = "ext_display_control")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDisplayPowerStateEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDisplayPowerStateEXT.html>"]
 #[doc(alias = "VkDisplayPowerStateEXT")]
 #[repr(u32)]
 pub enum DisplayPowerStateEXT {
@@ -4870,7 +4870,7 @@ pub enum DisplayPowerStateEXT {
 }
 #[cfg(feature = "ext_display_control")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDeviceEventTypeEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceEventTypeEXT.html>"]
 #[doc(alias = "VkDeviceEventTypeEXT")]
 #[repr(u32)]
 pub enum DeviceEventTypeEXT {
@@ -4878,7 +4878,7 @@ pub enum DeviceEventTypeEXT {
 }
 #[cfg(feature = "ext_display_control")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDisplayEventTypeEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDisplayEventTypeEXT.html>"]
 #[doc(alias = "VkDisplayEventTypeEXT")]
 #[repr(u32)]
 pub enum DisplayEventTypeEXT {
@@ -4886,7 +4886,7 @@ pub enum DisplayEventTypeEXT {
 }
 #[cfg(feature = "ext_viewport_swizzle")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkViewportCoordinateSwizzleNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkViewportCoordinateSwizzleNV.html>"]
 #[doc(alias = "VkViewportCoordinateSwizzleNV")]
 #[repr(u32)]
 pub enum ViewportCoordinateSwizzleNV {
@@ -4901,7 +4901,7 @@ pub enum ViewportCoordinateSwizzleNV {
 }
 #[cfg(feature = "ext_discard_rectangles")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDiscardRectangleModeEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDiscardRectangleModeEXT.html>"]
 #[doc(alias = "VkDiscardRectangleModeEXT")]
 #[repr(u32)]
 pub enum DiscardRectangleModeEXT {
@@ -4910,7 +4910,7 @@ pub enum DiscardRectangleModeEXT {
 }
 #[cfg(feature = "ext_conservative_rasterization")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkConservativeRasterizationModeEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkConservativeRasterizationModeEXT.html>"]
 #[doc(alias = "VkConservativeRasterizationModeEXT")]
 #[repr(u32)]
 pub enum ConservativeRasterizationModeEXT {
@@ -4923,7 +4923,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPerformanceCounterDescriptionFlagBitsKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPerformanceCounterDescriptionFlagBitsKHR.html>"]
     #[doc(alias = "VkPerformanceCounterDescriptionFlagBitsKHR")]
     pub struct PerformanceCounterDescriptionFlagsKHR : u32 {
         const PerformanceImpacting = 1u32 << 0;
@@ -4932,7 +4932,7 @@ bitflags! {
 }
 #[cfg(feature = "ext_performance_query")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPerformanceCounterScopeKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPerformanceCounterScopeKHR.html>"]
 #[doc(alias = "VkPerformanceCounterScopeKHR")]
 #[repr(u32)]
 pub enum PerformanceCounterScopeKHR {
@@ -4949,7 +4949,7 @@ impl PerformanceCounterScopeKHR {
 }
 #[cfg(feature = "ext_performance_query")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPerformanceCounterStorageKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPerformanceCounterStorageKHR.html>"]
 #[doc(alias = "VkPerformanceCounterStorageKHR")]
 #[repr(u32)]
 pub enum PerformanceCounterStorageKHR {
@@ -4962,7 +4962,7 @@ pub enum PerformanceCounterStorageKHR {
 }
 #[cfg(feature = "ext_performance_query")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPerformanceCounterUnitKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPerformanceCounterUnitKHR.html>"]
 #[doc(alias = "VkPerformanceCounterUnitKHR")]
 #[repr(u32)]
 pub enum PerformanceCounterUnitKHR {
@@ -4983,12 +4983,12 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAcquireProfilingLockFlagBitsKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAcquireProfilingLockFlagBitsKHR.html>"]
     #[doc(alias = "VkAcquireProfilingLockFlagBitsKHR")]
     pub struct AcquireProfilingLockFlagsKHR : u32 {
     }
 }
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VK_QUEUE_FAMILY_FOREIGN_EXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VK_QUEUE_FAMILY_FOREIGN_EXT.html>"]
 #[doc(alias = "VK_QUEUE_FAMILY_FOREIGN_EXT")]
 pub const QUEUE_FAMILY_FOREIGN_EXT: u32 = !2u32;
 #[cfg(feature = "ext_debug_utils")]
@@ -4996,7 +4996,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDebugUtilsMessageSeverityFlagBitsEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDebugUtilsMessageSeverityFlagBitsEXT.html>"]
     #[doc(alias = "VkDebugUtilsMessageSeverityFlagBitsEXT")]
     pub struct DebugUtilsMessageSeverityFlagsEXT : u32 {
         const Verbose = 1u32 << 0;
@@ -5010,7 +5010,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDebugUtilsMessageTypeFlagBitsEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDebugUtilsMessageTypeFlagBitsEXT.html>"]
     #[doc(alias = "VkDebugUtilsMessageTypeFlagBitsEXT")]
     pub struct DebugUtilsMessageTypeFlagsEXT : u32 {
         const General = 1u32 << 0;
@@ -5019,12 +5019,12 @@ bitflags! {
         const DeviceAddressBinding = 1u32 << 3;
     }
 }
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VK_SHADER_INDEX_UNUSED_AMDX.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VK_SHADER_INDEX_UNUSED_AMDX.html>"]
 #[doc(alias = "VK_SHADER_INDEX_UNUSED_AMDX")]
 pub const SHADER_INDEX_UNUSED_AMDX: u32 = !0u32;
 #[cfg(feature = "ext_descriptor_heap")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDescriptorMappingSourceEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDescriptorMappingSourceEXT.html>"]
 #[doc(alias = "VkDescriptorMappingSourceEXT")]
 #[repr(u32)]
 pub enum DescriptorMappingSourceEXT {
@@ -5045,7 +5045,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSpirvResourceTypeFlagBitsEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSpirvResourceTypeFlagBitsEXT.html>"]
     #[doc(alias = "VkSpirvResourceTypeFlagBitsEXT")]
     pub struct SpirvResourceTypeFlagsEXT : u32 {
         const All = 0x7FFFFFFF;
@@ -5067,7 +5067,7 @@ bitflags! {
     feature = "ext_shader_object"
 ))]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkBlendOverlapEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkBlendOverlapEXT.html>"]
 #[doc(alias = "VkBlendOverlapEXT")]
 #[repr(u32)]
 pub enum BlendOverlapEXT {
@@ -5077,7 +5077,7 @@ pub enum BlendOverlapEXT {
 }
 #[cfg(any(feature = "ext_acceleration_structure", feature = "ext_ray_tracing"))]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAccelerationStructureTypeKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAccelerationStructureTypeKHR.html>"]
 #[doc(alias = "VkAccelerationStructureTypeKHR")]
 #[repr(u32)]
 pub enum AccelerationStructureTypeKHR {
@@ -5092,12 +5092,12 @@ impl AccelerationStructureTypeKHR {
     pub const BottomLevelNV: Self = Self::BottomLevel;
 }
 #[cfg(any(feature = "ext_acceleration_structure", feature = "ext_ray_tracing"))]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAccelerationStructureTypeNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAccelerationStructureTypeNV.html>"]
 #[doc(alias = "VkAccelerationStructureTypeNV")]
 pub type AccelerationStructureTypeNV = AccelerationStructureTypeKHR;
 #[cfg(feature = "ext_acceleration_structure")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAccelerationStructureBuildTypeKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAccelerationStructureBuildTypeKHR.html>"]
 #[doc(alias = "VkAccelerationStructureBuildTypeKHR")]
 #[repr(u32)]
 pub enum AccelerationStructureBuildTypeKHR {
@@ -5110,7 +5110,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkGeometryFlagBitsKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkGeometryFlagBitsKHR.html>"]
     #[doc(alias = "VkGeometryFlagBitsKHR")]
     pub struct GeometryFlagsKHR : u32 {
         const Opaque = 1u32 << 0;
@@ -5120,7 +5120,7 @@ bitflags! {
     }
 }
 #[cfg(any(feature = "ext_acceleration_structure", feature = "ext_ray_tracing"))]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkGeometryFlagBitsNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkGeometryFlagBitsNV.html>"]
 #[doc(alias = "VkGeometryFlagBitsNV")]
 pub type GeometryFlagsNV = GeometryFlagsKHR;
 #[cfg(any(feature = "ext_acceleration_structure", feature = "ext_ray_tracing"))]
@@ -5128,7 +5128,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkGeometryInstanceFlagBitsKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkGeometryInstanceFlagBitsKHR.html>"]
     #[doc(alias = "VkGeometryInstanceFlagBitsKHR")]
     pub struct GeometryInstanceFlagsKHR : u32 {
         const TriangleFacingCullDisable = 1u32 << 0;
@@ -5145,7 +5145,7 @@ bitflags! {
     }
 }
 #[cfg(any(feature = "ext_acceleration_structure", feature = "ext_ray_tracing"))]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkGeometryInstanceFlagBitsNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkGeometryInstanceFlagBitsNV.html>"]
 #[doc(alias = "VkGeometryInstanceFlagBitsNV")]
 pub type GeometryInstanceFlagsNV = GeometryInstanceFlagsKHR;
 #[cfg(any(feature = "ext_acceleration_structure", feature = "ext_ray_tracing"))]
@@ -5153,7 +5153,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkBuildAccelerationStructureFlagBitsKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkBuildAccelerationStructureFlagBitsKHR.html>"]
     #[doc(alias = "VkBuildAccelerationStructureFlagBitsKHR")]
     pub struct BuildAccelerationStructureFlagsKHR : u32 {
         const AllowUpdate = 1u32 << 0;
@@ -5176,12 +5176,12 @@ bitflags! {
     }
 }
 #[cfg(any(feature = "ext_acceleration_structure", feature = "ext_ray_tracing"))]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkBuildAccelerationStructureFlagBitsNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkBuildAccelerationStructureFlagBitsNV.html>"]
 #[doc(alias = "VkBuildAccelerationStructureFlagBitsNV")]
 pub type BuildAccelerationStructureFlagsNV = BuildAccelerationStructureFlagsKHR;
 #[cfg(any(feature = "ext_acceleration_structure", feature = "ext_ray_tracing"))]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCopyAccelerationStructureModeKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCopyAccelerationStructureModeKHR.html>"]
 #[doc(alias = "VkCopyAccelerationStructureModeKHR")]
 #[repr(u32)]
 pub enum CopyAccelerationStructureModeKHR {
@@ -5197,12 +5197,12 @@ impl CopyAccelerationStructureModeKHR {
     pub const CompactNV: Self = Self::Compact;
 }
 #[cfg(any(feature = "ext_acceleration_structure", feature = "ext_ray_tracing"))]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCopyAccelerationStructureModeNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCopyAccelerationStructureModeNV.html>"]
 #[doc(alias = "VkCopyAccelerationStructureModeNV")]
 pub type CopyAccelerationStructureModeNV = CopyAccelerationStructureModeKHR;
 #[cfg(any(feature = "ext_acceleration_structure", feature = "ext_ray_tracing"))]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkGeometryTypeKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkGeometryTypeKHR.html>"]
 #[doc(alias = "VkGeometryTypeKHR")]
 #[repr(u32)]
 pub enum GeometryTypeKHR {
@@ -5220,12 +5220,12 @@ impl GeometryTypeKHR {
     pub const AabbsNV: Self = Self::Aabbs;
 }
 #[cfg(any(feature = "ext_acceleration_structure", feature = "ext_ray_tracing"))]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkGeometryTypeNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkGeometryTypeNV.html>"]
 #[doc(alias = "VkGeometryTypeNV")]
 pub type GeometryTypeNV = GeometryTypeKHR;
 #[cfg(feature = "ext_acceleration_structure")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAccelerationStructureCompatibilityKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAccelerationStructureCompatibilityKHR.html>"]
 #[doc(alias = "VkAccelerationStructureCompatibilityKHR")]
 #[repr(u32)]
 pub enum AccelerationStructureCompatibilityKHR {
@@ -5237,7 +5237,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAccelerationStructureCreateFlagBitsKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAccelerationStructureCreateFlagBitsKHR.html>"]
     #[doc(alias = "VkAccelerationStructureCreateFlagBitsKHR")]
     pub struct AccelerationStructureCreateFlagsKHR : u32 {
         const DeviceAddressCaptureReplay = 1u32 << 0;
@@ -5247,19 +5247,19 @@ bitflags! {
 }
 #[cfg(feature = "ext_acceleration_structure")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkBuildAccelerationStructureModeKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkBuildAccelerationStructureModeKHR.html>"]
 #[doc(alias = "VkBuildAccelerationStructureModeKHR")]
 #[repr(u32)]
 pub enum BuildAccelerationStructureModeKHR {
     Build = 0,
     Update = 1,
 }
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VK_SHADER_UNUSED_KHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VK_SHADER_UNUSED_KHR.html>"]
 #[doc(alias = "VK_SHADER_UNUSED_KHR")]
 pub const SHADER_UNUSED_KHR: u32 = !0u32;
 #[cfg(any(feature = "ext_ray_tracing_pipeline", feature = "ext_ray_tracing"))]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkRayTracingShaderGroupTypeKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkRayTracingShaderGroupTypeKHR.html>"]
 #[doc(alias = "VkRayTracingShaderGroupTypeKHR")]
 #[repr(u32)]
 pub enum RayTracingShaderGroupTypeKHR {
@@ -5275,12 +5275,12 @@ impl RayTracingShaderGroupTypeKHR {
     pub const ProceduralHitGroupNV: Self = Self::ProceduralHitGroup;
 }
 #[cfg(any(feature = "ext_ray_tracing_pipeline", feature = "ext_ray_tracing"))]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkRayTracingShaderGroupTypeNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkRayTracingShaderGroupTypeNV.html>"]
 #[doc(alias = "VkRayTracingShaderGroupTypeNV")]
 pub type RayTracingShaderGroupTypeNV = RayTracingShaderGroupTypeKHR;
 #[cfg(feature = "ext_ray_tracing_pipeline")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkShaderGroupShaderKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkShaderGroupShaderKHR.html>"]
 #[doc(alias = "VkShaderGroupShaderKHR")]
 #[repr(u32)]
 pub enum ShaderGroupShaderKHR {
@@ -5291,7 +5291,7 @@ pub enum ShaderGroupShaderKHR {
 }
 #[cfg(feature = "ext_framebuffer_mixed_samples")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCoverageModulationModeNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCoverageModulationModeNV.html>"]
 #[doc(alias = "VkCoverageModulationModeNV")]
 #[repr(u32)]
 pub enum CoverageModulationModeNV {
@@ -5302,7 +5302,7 @@ pub enum CoverageModulationModeNV {
 }
 #[cfg(feature = "ext_validation_cache")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkValidationCacheHeaderVersionEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkValidationCacheHeaderVersionEXT.html>"]
 #[doc(alias = "VkValidationCacheHeaderVersionEXT")]
 #[repr(u32)]
 pub enum ValidationCacheHeaderVersionEXT {
@@ -5310,7 +5310,7 @@ pub enum ValidationCacheHeaderVersionEXT {
 }
 #[cfg(feature = "ext_shading_rate_image")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkShadingRatePaletteEntryNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkShadingRatePaletteEntryNV.html>"]
 #[doc(alias = "VkShadingRatePaletteEntryNV")]
 #[repr(u32)]
 pub enum ShadingRatePaletteEntryNV {
@@ -5329,7 +5329,7 @@ pub enum ShadingRatePaletteEntryNV {
 }
 #[cfg(feature = "ext_shading_rate_image")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCoarseSampleOrderTypeNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCoarseSampleOrderTypeNV.html>"]
 #[doc(alias = "VkCoarseSampleOrderTypeNV")]
 #[repr(u32)]
 pub enum CoarseSampleOrderTypeNV {
@@ -5340,7 +5340,7 @@ pub enum CoarseSampleOrderTypeNV {
 }
 #[cfg(feature = "ext_ray_tracing")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAccelerationStructureMemoryRequirementsTypeNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAccelerationStructureMemoryRequirementsTypeNV.html>"]
 #[doc(alias = "VkAccelerationStructureMemoryRequirementsTypeNV")]
 #[repr(u32)]
 pub enum AccelerationStructureMemoryRequirementsTypeNV {
@@ -5353,14 +5353,14 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineCompilerControlFlagBitsAMD.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineCompilerControlFlagBitsAMD.html>"]
     #[doc(alias = "VkPipelineCompilerControlFlagBitsAMD")]
     pub struct PipelineCompilerControlFlagsAMD : u32 {
     }
 }
 #[cfg(feature = "ext_memory_overallocation_behavior")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkMemoryOverallocationBehaviorAMD.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkMemoryOverallocationBehaviorAMD.html>"]
 #[doc(alias = "VkMemoryOverallocationBehaviorAMD")]
 #[repr(u32)]
 pub enum MemoryOverallocationBehaviorAMD {
@@ -5373,7 +5373,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPresentStageFlagBitsEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPresentStageFlagBitsEXT.html>"]
     #[doc(alias = "VkPresentStageFlagBitsEXT")]
     pub struct PresentStageFlagsEXT : u32 {
         const QueueOperationsEnd = 1u32 << 0;
@@ -5387,7 +5387,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPresentTimingInfoFlagBitsEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPresentTimingInfoFlagBitsEXT.html>"]
     #[doc(alias = "VkPresentTimingInfoFlagBitsEXT")]
     pub struct PresentTimingInfoFlagsEXT : u32 {
         const PresentAtRelativeTime = 1u32 << 0;
@@ -5399,7 +5399,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPastPresentationTimingFlagBitsEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPastPresentationTimingFlagBitsEXT.html>"]
     #[doc(alias = "VkPastPresentationTimingFlagBitsEXT")]
     pub struct PastPresentationTimingFlagsEXT : u32 {
         const AllowPartialResults = 1u32 << 0;
@@ -5408,7 +5408,7 @@ bitflags! {
 }
 #[cfg(feature = "ext_performance_query")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPerformanceConfigurationTypeINTEL.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPerformanceConfigurationTypeINTEL.html>"]
 #[doc(alias = "VkPerformanceConfigurationTypeINTEL")]
 #[repr(u32)]
 pub enum PerformanceConfigurationTypeINTEL {
@@ -5416,7 +5416,7 @@ pub enum PerformanceConfigurationTypeINTEL {
 }
 #[cfg(feature = "ext_performance_query")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkQueryPoolSamplingModeINTEL.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkQueryPoolSamplingModeINTEL.html>"]
 #[doc(alias = "VkQueryPoolSamplingModeINTEL")]
 #[repr(u32)]
 pub enum QueryPoolSamplingModeINTEL {
@@ -5424,7 +5424,7 @@ pub enum QueryPoolSamplingModeINTEL {
 }
 #[cfg(feature = "ext_performance_query")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPerformanceOverrideTypeINTEL.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPerformanceOverrideTypeINTEL.html>"]
 #[doc(alias = "VkPerformanceOverrideTypeINTEL")]
 #[repr(u32)]
 pub enum PerformanceOverrideTypeINTEL {
@@ -5433,7 +5433,7 @@ pub enum PerformanceOverrideTypeINTEL {
 }
 #[cfg(feature = "ext_performance_query")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPerformanceParameterTypeINTEL.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPerformanceParameterTypeINTEL.html>"]
 #[doc(alias = "VkPerformanceParameterTypeINTEL")]
 #[repr(u32)]
 pub enum PerformanceParameterTypeINTEL {
@@ -5442,7 +5442,7 @@ pub enum PerformanceParameterTypeINTEL {
 }
 #[cfg(feature = "ext_performance_query")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPerformanceValueTypeINTEL.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPerformanceValueTypeINTEL.html>"]
 #[doc(alias = "VkPerformanceValueTypeINTEL")]
 #[repr(u32)]
 pub enum PerformanceValueTypeINTEL {
@@ -5454,7 +5454,7 @@ pub enum PerformanceValueTypeINTEL {
 }
 #[cfg(feature = "ext_fragment_shading_rate")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkFragmentShadingRateCombinerOpKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkFragmentShadingRateCombinerOpKHR.html>"]
 #[doc(alias = "VkFragmentShadingRateCombinerOpKHR")]
 #[repr(u32)]
 pub enum FragmentShadingRateCombinerOpKHR {
@@ -5469,14 +5469,14 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkShaderCorePropertiesFlagBitsAMD.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkShaderCorePropertiesFlagBitsAMD.html>"]
     #[doc(alias = "VkShaderCorePropertiesFlagBitsAMD")]
     pub struct ShaderCorePropertiesFlagsAMD : u32 {
     }
 }
 #[cfg(feature = "ext_validation_features")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkValidationFeatureEnableEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkValidationFeatureEnableEXT.html>"]
 #[doc(alias = "VkValidationFeatureEnableEXT")]
 #[repr(u32)]
 pub enum ValidationFeatureEnableEXT {
@@ -5488,7 +5488,7 @@ pub enum ValidationFeatureEnableEXT {
 }
 #[cfg(feature = "ext_validation_features")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkValidationFeatureDisableEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkValidationFeatureDisableEXT.html>"]
 #[doc(alias = "VkValidationFeatureDisableEXT")]
 #[repr(u32)]
 pub enum ValidationFeatureDisableEXT {
@@ -5503,7 +5503,7 @@ pub enum ValidationFeatureDisableEXT {
 }
 #[cfg(feature = "ext_coverage_reduction_mode")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCoverageReductionModeNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCoverageReductionModeNV.html>"]
 #[doc(alias = "VkCoverageReductionModeNV")]
 #[repr(u32)]
 pub enum CoverageReductionModeNV {
@@ -5512,7 +5512,7 @@ pub enum CoverageReductionModeNV {
 }
 #[cfg(feature = "ext_provoking_vertex")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkProvokingVertexModeEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkProvokingVertexModeEXT.html>"]
 #[doc(alias = "VkProvokingVertexModeEXT")]
 #[repr(u32)]
 pub enum ProvokingVertexModeEXT {
@@ -5521,7 +5521,7 @@ pub enum ProvokingVertexModeEXT {
 }
 #[cfg(feature = "ext_full_screen_exclusive")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkFullScreenExclusiveEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkFullScreenExclusiveEXT.html>"]
 #[doc(alias = "VkFullScreenExclusiveEXT")]
 #[repr(u32)]
 pub enum FullScreenExclusiveEXT {
@@ -5532,7 +5532,7 @@ pub enum FullScreenExclusiveEXT {
 }
 #[cfg(feature = "ext_pipeline_executable_properties")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineExecutableStatisticFormatKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineExecutableStatisticFormatKHR.html>"]
 #[doc(alias = "VkPipelineExecutableStatisticFormatKHR")]
 #[repr(u32)]
 pub enum PipelineExecutableStatisticFormatKHR {
@@ -5546,7 +5546,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkIndirectStateFlagBitsNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkIndirectStateFlagBitsNV.html>"]
     #[doc(alias = "VkIndirectStateFlagBitsNV")]
     pub struct IndirectStateFlagsNV : u32 {
         const FlagFrontface = 1u32 << 0;
@@ -5554,7 +5554,7 @@ bitflags! {
 }
 #[cfg(feature = "ext_device_generated_commands")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkIndirectCommandsTokenTypeNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkIndirectCommandsTokenTypeNV.html>"]
 #[doc(alias = "VkIndirectCommandsTokenTypeNV")]
 #[repr(u32)]
 pub enum IndirectCommandsTokenTypeNV {
@@ -5576,7 +5576,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkIndirectCommandsLayoutUsageFlagBitsNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkIndirectCommandsLayoutUsageFlagBitsNV.html>"]
     #[doc(alias = "VkIndirectCommandsLayoutUsageFlagBitsNV")]
     pub struct IndirectCommandsLayoutUsageFlagsNV : u32 {
         const ExplicitPreprocess = 1u32 << 0;
@@ -5586,7 +5586,7 @@ bitflags! {
 }
 #[cfg(feature = "ext_depth_bias_control")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDepthBiasRepresentationEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDepthBiasRepresentationEXT.html>"]
 #[doc(alias = "VkDepthBiasRepresentationEXT")]
 #[repr(u32)]
 pub enum DepthBiasRepresentationEXT {
@@ -5596,7 +5596,7 @@ pub enum DepthBiasRepresentationEXT {
 }
 #[cfg(feature = "ext_device_memory_report")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDeviceMemoryReportEventTypeEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceMemoryReportEventTypeEXT.html>"]
 #[doc(alias = "VkDeviceMemoryReportEventTypeEXT")]
 #[repr(u32)]
 pub enum DeviceMemoryReportEventTypeEXT {
@@ -5611,7 +5611,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDeviceDiagnosticsConfigFlagBitsNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceDiagnosticsConfigFlagBitsNV.html>"]
     #[doc(alias = "VkDeviceDiagnosticsConfigFlagBitsNV")]
     pub struct DeviceDiagnosticsConfigFlagsNV : u32 {
         const EnableShaderDebugInfo = 1u32 << 0;
@@ -5625,7 +5625,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkTileShadingRenderPassFlagBitsQCOM.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkTileShadingRenderPassFlagBitsQCOM.html>"]
     #[doc(alias = "VkTileShadingRenderPassFlagBitsQCOM")]
     pub struct TileShadingRenderPassFlagsQCOM : u32 {
         const Enable = 1u32 << 0;
@@ -5637,7 +5637,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkExportMetalObjectTypeFlagBitsEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkExportMetalObjectTypeFlagBitsEXT.html>"]
     #[doc(alias = "VkExportMetalObjectTypeFlagBitsEXT")]
     pub struct ExportMetalObjectTypeFlagsEXT : u32 {
         const MetalDevice = 1u32 << 0;
@@ -5653,7 +5653,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkGraphicsPipelineLibraryFlagBitsEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkGraphicsPipelineLibraryFlagBitsEXT.html>"]
     #[doc(alias = "VkGraphicsPipelineLibraryFlagBitsEXT")]
     pub struct GraphicsPipelineLibraryFlagsEXT : u32 {
         const VertexInputInterface = 1u32 << 0;
@@ -5666,7 +5666,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineLayoutCreateFlagBits.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineLayoutCreateFlagBits.html>"]
     #[doc(alias = "VkPipelineLayoutCreateFlagBits")]
     pub struct PipelineLayoutCreateFlags : u32 {
         const IndependentSetsEXT = 1u32 << 1;
@@ -5674,7 +5674,7 @@ bitflags! {
 }
 #[cfg(feature = "ext_fragment_shading_rate_enums")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkFragmentShadingRateNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkFragmentShadingRateNV.html>"]
 #[doc(alias = "VkFragmentShadingRateNV")]
 #[repr(u32)]
 pub enum FragmentShadingRateNV {
@@ -5693,7 +5693,7 @@ pub enum FragmentShadingRateNV {
 }
 #[cfg(feature = "ext_fragment_shading_rate_enums")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkFragmentShadingRateTypeNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkFragmentShadingRateTypeNV.html>"]
 #[doc(alias = "VkFragmentShadingRateTypeNV")]
 #[repr(u32)]
 pub enum FragmentShadingRateTypeNV {
@@ -5702,7 +5702,7 @@ pub enum FragmentShadingRateTypeNV {
 }
 #[cfg(feature = "ext_ray_tracing_motion_blur")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAccelerationStructureMotionInstanceTypeNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAccelerationStructureMotionInstanceTypeNV.html>"]
 #[doc(alias = "VkAccelerationStructureMotionInstanceTypeNV")]
 #[repr(u32)]
 pub enum AccelerationStructureMotionInstanceTypeNV {
@@ -5715,7 +5715,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImageCompressionFlagBitsEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImageCompressionFlagBitsEXT.html>"]
     #[doc(alias = "VkImageCompressionFlagBitsEXT")]
     pub struct ImageCompressionFlagsEXT : u32 {
         const Default = 0;
@@ -5729,7 +5729,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImageCompressionFixedRateFlagBitsEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImageCompressionFixedRateFlagBitsEXT.html>"]
     #[doc(alias = "VkImageCompressionFixedRateFlagBitsEXT")]
     pub struct ImageCompressionFixedRateFlagsEXT : u32 {
         const None = 0;
@@ -5761,7 +5761,7 @@ bitflags! {
 }
 #[cfg(feature = "ext_device_fault")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDeviceFaultAddressTypeEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceFaultAddressTypeEXT.html>"]
 #[doc(alias = "VkDeviceFaultAddressTypeEXT")]
 #[repr(u32)]
 pub enum DeviceFaultAddressTypeEXT {
@@ -5775,7 +5775,7 @@ pub enum DeviceFaultAddressTypeEXT {
 }
 #[cfg(feature = "ext_device_fault")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDeviceFaultVendorBinaryHeaderVersionEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceFaultVendorBinaryHeaderVersionEXT.html>"]
 #[doc(alias = "VkDeviceFaultVendorBinaryHeaderVersionEXT")]
 #[repr(u32)]
 pub enum DeviceFaultVendorBinaryHeaderVersionEXT {
@@ -5786,7 +5786,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDeviceAddressBindingFlagBitsEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceAddressBindingFlagBitsEXT.html>"]
     #[doc(alias = "VkDeviceAddressBindingFlagBitsEXT")]
     pub struct DeviceAddressBindingFlagsEXT : u32 {
         const InternalObject = 1u32 << 0;
@@ -5794,7 +5794,7 @@ bitflags! {
 }
 #[cfg(feature = "ext_device_address_binding_report")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDeviceAddressBindingTypeEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceAddressBindingTypeEXT.html>"]
 #[doc(alias = "VkDeviceAddressBindingTypeEXT")]
 #[repr(u32)]
 pub enum DeviceAddressBindingTypeEXT {
@@ -5806,7 +5806,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImageConstraintsInfoFlagBitsFUCHSIA.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImageConstraintsInfoFlagBitsFUCHSIA.html>"]
     #[doc(alias = "VkImageConstraintsInfoFlagBitsFUCHSIA")]
     pub struct ImageConstraintsInfoFlagsFUCHSIA : u32 {
         const CpuReadRarely = 1u32 << 0;
@@ -5821,7 +5821,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkFrameBoundaryFlagBitsEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkFrameBoundaryFlagBitsEXT.html>"]
     #[doc(alias = "VkFrameBoundaryFlagBitsEXT")]
     pub struct FrameBoundaryFlagsEXT : u32 {
         const FrameEnd = 1u32 << 0;
@@ -5832,7 +5832,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkVideoEncodeRgbModelConversionFlagBitsVALVE.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkVideoEncodeRgbModelConversionFlagBitsVALVE.html>"]
     #[doc(alias = "VkVideoEncodeRgbModelConversionFlagBitsVALVE")]
     pub struct VideoEncodeRgbModelConversionFlagsVALVE : u32 {
         const RgbIdentity = 1u32 << 0;
@@ -5847,7 +5847,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkVideoEncodeRgbRangeCompressionFlagBitsVALVE.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkVideoEncodeRgbRangeCompressionFlagBitsVALVE.html>"]
     #[doc(alias = "VkVideoEncodeRgbRangeCompressionFlagBitsVALVE")]
     pub struct VideoEncodeRgbRangeCompressionFlagsVALVE : u32 {
         const FullRange = 1u32 << 0;
@@ -5859,7 +5859,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkVideoEncodeRgbChromaOffsetFlagBitsVALVE.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkVideoEncodeRgbChromaOffsetFlagBitsVALVE.html>"]
     #[doc(alias = "VkVideoEncodeRgbChromaOffsetFlagBitsVALVE")]
     pub struct VideoEncodeRgbChromaOffsetFlagsVALVE : u32 {
         const CositedEven = 1u32 << 0;
@@ -5868,7 +5868,7 @@ bitflags! {
 }
 #[cfg(feature = "ext_opacity_micromap")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkMicromapTypeEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkMicromapTypeEXT.html>"]
 #[doc(alias = "VkMicromapTypeEXT")]
 #[repr(u32)]
 pub enum MicromapTypeEXT {
@@ -5880,7 +5880,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkBuildMicromapFlagBitsEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkBuildMicromapFlagBitsEXT.html>"]
     #[doc(alias = "VkBuildMicromapFlagBitsEXT")]
     pub struct BuildMicromapFlagsEXT : u32 {
         const PreferFastTrace = 1u32 << 0;
@@ -5890,7 +5890,7 @@ bitflags! {
 }
 #[cfg(feature = "ext_opacity_micromap")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCopyMicromapModeEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCopyMicromapModeEXT.html>"]
 #[doc(alias = "VkCopyMicromapModeEXT")]
 #[repr(u32)]
 pub enum CopyMicromapModeEXT {
@@ -5904,7 +5904,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkMicromapCreateFlagBitsEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkMicromapCreateFlagBitsEXT.html>"]
     #[doc(alias = "VkMicromapCreateFlagBitsEXT")]
     pub struct MicromapCreateFlagsEXT : u32 {
         const DeviceAddressCaptureReplay = 1u32 << 0;
@@ -5912,7 +5912,7 @@ bitflags! {
 }
 #[cfg(feature = "ext_opacity_micromap")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkBuildMicromapModeEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkBuildMicromapModeEXT.html>"]
 #[doc(alias = "VkBuildMicromapModeEXT")]
 #[repr(u32)]
 pub enum BuildMicromapModeEXT {
@@ -5920,7 +5920,7 @@ pub enum BuildMicromapModeEXT {
 }
 #[cfg(feature = "ext_opacity_micromap")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkOpacityMicromapFormatEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkOpacityMicromapFormatEXT.html>"]
 #[doc(alias = "VkOpacityMicromapFormatEXT")]
 #[repr(u32)]
 pub enum OpacityMicromapFormatEXT {
@@ -5929,7 +5929,7 @@ pub enum OpacityMicromapFormatEXT {
 }
 #[cfg(feature = "ext_opacity_micromap")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkOpacityMicromapSpecialIndexEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkOpacityMicromapSpecialIndexEXT.html>"]
 #[doc(alias = "VkOpacityMicromapSpecialIndexEXT")]
 #[repr(i32)]
 pub enum OpacityMicromapSpecialIndexEXT {
@@ -5941,7 +5941,7 @@ pub enum OpacityMicromapSpecialIndexEXT {
 }
 #[cfg(feature = "ext_displacement_micromap")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDisplacementMicromapFormatNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDisplacementMicromapFormatNV.html>"]
 #[doc(alias = "VkDisplacementMicromapFormatNV")]
 #[repr(u32)]
 pub enum DisplacementMicromapFormatNV {
@@ -5954,18 +5954,18 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceSchedulingControlsFlagBitsARM.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceSchedulingControlsFlagBitsARM.html>"]
     #[doc(alias = "VkPhysicalDeviceSchedulingControlsFlagBitsARM")]
     pub struct PhysicalDeviceSchedulingControlsFlagsARM : u64 {
         const ShaderCoreCount = 1u64 << 0;
     }
 }
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VK_REMAINING_3D_SLICES_EXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VK_REMAINING_3D_SLICES_EXT.html>"]
 #[doc(alias = "VK_REMAINING_3D_SLICES_EXT")]
 pub const REMAINING_3D_SLICES_EXT: u32 = !0u32;
 #[cfg(feature = "ext_ray_tracing_linear_swept_spheres")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkRayTracingLssIndexingModeNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkRayTracingLssIndexingModeNV.html>"]
 #[doc(alias = "VkRayTracingLssIndexingModeNV")]
 #[repr(u32)]
 pub enum RayTracingLssIndexingModeNV {
@@ -5974,7 +5974,7 @@ pub enum RayTracingLssIndexingModeNV {
 }
 #[cfg(feature = "ext_ray_tracing_linear_swept_spheres")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkRayTracingLssPrimitiveEndCapsModeNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkRayTracingLssPrimitiveEndCapsModeNV.html>"]
 #[doc(alias = "VkRayTracingLssPrimitiveEndCapsModeNV")]
 #[repr(u32)]
 pub enum RayTracingLssPrimitiveEndCapsModeNV {
@@ -5983,7 +5983,7 @@ pub enum RayTracingLssPrimitiveEndCapsModeNV {
 }
 #[cfg(feature = "ext_subpass_merge_feedback")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSubpassMergeStatusEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSubpassMergeStatusEXT.html>"]
 #[doc(alias = "VkSubpassMergeStatusEXT")]
 #[repr(u32)]
 pub enum SubpassMergeStatusEXT {
@@ -6004,7 +6004,7 @@ pub enum SubpassMergeStatusEXT {
 }
 #[cfg(feature = "ext_direct_driver_loading")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDirectDriverLoadingModeLUNARG.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDirectDriverLoadingModeLUNARG.html>"]
 #[doc(alias = "VkDirectDriverLoadingModeLUNARG")]
 #[repr(u32)]
 pub enum DirectDriverLoadingModeLUNARG {
@@ -6016,7 +6016,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkTensorCreateFlagBitsARM.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkTensorCreateFlagBitsARM.html>"]
     #[doc(alias = "VkTensorCreateFlagBitsARM")]
     pub struct TensorCreateFlagsARM : u64 {
         const MutableFormat = 1u64 << 0;
@@ -6030,7 +6030,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkTensorViewCreateFlagBitsARM.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkTensorViewCreateFlagBitsARM.html>"]
     #[doc(alias = "VkTensorViewCreateFlagBitsARM")]
     pub struct TensorViewCreateFlagsARM : u64 {
         const DescriptorBufferCaptureReplay = 1u64 << 0;
@@ -6041,7 +6041,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkTensorUsageFlagBitsARM.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkTensorUsageFlagBitsARM.html>"]
     #[doc(alias = "VkTensorUsageFlagBitsARM")]
     pub struct TensorUsageFlagsARM : u64 {
         const Shader = 1u64 << 1;
@@ -6053,21 +6053,21 @@ bitflags! {
 }
 #[cfg(feature = "ext_tensors")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkTensorTilingARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkTensorTilingARM.html>"]
 #[doc(alias = "VkTensorTilingARM")]
 #[repr(u32)]
 pub enum TensorTilingARM {
     Optimal = 0,
     Linear = 1,
 }
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VK_MAX_SHADER_MODULE_IDENTIFIER_SIZE_EXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VK_MAX_SHADER_MODULE_IDENTIFIER_SIZE_EXT.html>"]
 #[doc(alias = "VK_MAX_SHADER_MODULE_IDENTIFIER_SIZE_EXT")]
 pub const MAX_SHADER_MODULE_IDENTIFIER_SIZE_EXT: u32 = 32;
 bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineColorBlendStateCreateFlagBits.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineColorBlendStateCreateFlagBits.html>"]
     #[doc(alias = "VkPipelineColorBlendStateCreateFlagBits")]
     pub struct PipelineColorBlendStateCreateFlags : u32 {
         const RasterizationOrderAttachmentAccessARM = Self::RasterizationOrderAttachmentAccessEXT.bits();
@@ -6078,7 +6078,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineDepthStencilStateCreateFlagBits.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineDepthStencilStateCreateFlagBits.html>"]
     #[doc(alias = "VkPipelineDepthStencilStateCreateFlagBits")]
     pub struct PipelineDepthStencilStateCreateFlags : u32 {
         const RasterizationOrderAttachmentDepthAccessARM = Self::RasterizationOrderAttachmentDepthAccessEXT.bits();
@@ -6092,7 +6092,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkOpticalFlowUsageFlagBitsNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkOpticalFlowUsageFlagBitsNV.html>"]
     #[doc(alias = "VkOpticalFlowUsageFlagBitsNV")]
     pub struct OpticalFlowUsageFlagsNV : u32 {
         const Unknown = 0;
@@ -6108,7 +6108,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkOpticalFlowGridSizeFlagBitsNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkOpticalFlowGridSizeFlagBitsNV.html>"]
     #[doc(alias = "VkOpticalFlowGridSizeFlagBitsNV")]
     pub struct OpticalFlowGridSizeFlagsNV : u32 {
         const Unknown = 0;
@@ -6120,7 +6120,7 @@ bitflags! {
 }
 #[cfg(feature = "ext_optical_flow")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkOpticalFlowPerformanceLevelNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkOpticalFlowPerformanceLevelNV.html>"]
 #[doc(alias = "VkOpticalFlowPerformanceLevelNV")]
 #[repr(u32)]
 pub enum OpticalFlowPerformanceLevelNV {
@@ -6131,7 +6131,7 @@ pub enum OpticalFlowPerformanceLevelNV {
 }
 #[cfg(feature = "ext_optical_flow")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkOpticalFlowSessionBindingPointNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkOpticalFlowSessionBindingPointNV.html>"]
 #[doc(alias = "VkOpticalFlowSessionBindingPointNV")]
 #[repr(u32)]
 pub enum OpticalFlowSessionBindingPointNV {
@@ -6150,7 +6150,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkOpticalFlowSessionCreateFlagBitsNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkOpticalFlowSessionCreateFlagBitsNV.html>"]
     #[doc(alias = "VkOpticalFlowSessionCreateFlagBitsNV")]
     pub struct OpticalFlowSessionCreateFlagsNV : u32 {
         const EnableHint = 1u32 << 0;
@@ -6165,7 +6165,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkOpticalFlowExecuteFlagBitsNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkOpticalFlowExecuteFlagBitsNV.html>"]
     #[doc(alias = "VkOpticalFlowExecuteFlagBitsNV")]
     pub struct OpticalFlowExecuteFlagsNV : u32 {
         const DisableTemporalHints = 1u32 << 0;
@@ -6173,7 +6173,7 @@ bitflags! {
 }
 #[cfg(feature = "ext_anti_lag")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAntiLagModeAMD.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAntiLagModeAMD.html>"]
 #[doc(alias = "VkAntiLagModeAMD")]
 #[repr(u32)]
 pub enum AntiLagModeAMD {
@@ -6183,7 +6183,7 @@ pub enum AntiLagModeAMD {
 }
 #[cfg(feature = "ext_anti_lag")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAntiLagStageAMD.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAntiLagStageAMD.html>"]
 #[doc(alias = "VkAntiLagStageAMD")]
 #[repr(u32)]
 pub enum AntiLagStageAMD {
@@ -6192,16 +6192,16 @@ pub enum AntiLagStageAMD {
 }
 #[cfg(feature = "ext_dense_geometry_format")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCompressedTriangleFormatAMDX.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCompressedTriangleFormatAMDX.html>"]
 #[doc(alias = "VkCompressedTriangleFormatAMDX")]
 #[repr(u32)]
 pub enum CompressedTriangleFormatAMDX {
     Dgf1 = 0,
 }
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VK_COMPRESSED_TRIANGLE_FORMAT_DGF1_BYTE_ALIGNMENT_AMDX.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VK_COMPRESSED_TRIANGLE_FORMAT_DGF1_BYTE_ALIGNMENT_AMDX.html>"]
 #[doc(alias = "VK_COMPRESSED_TRIANGLE_FORMAT_DGF1_BYTE_ALIGNMENT_AMDX")]
 pub const COMPRESSED_TRIANGLE_FORMAT_DGF1_BYTE_ALIGNMENT_AMDX: u32 = 128;
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VK_COMPRESSED_TRIANGLE_FORMAT_DGF1_BYTE_STRIDE_AMDX.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VK_COMPRESSED_TRIANGLE_FORMAT_DGF1_BYTE_STRIDE_AMDX.html>"]
 #[doc(alias = "VK_COMPRESSED_TRIANGLE_FORMAT_DGF1_BYTE_STRIDE_AMDX")]
 pub const COMPRESSED_TRIANGLE_FORMAT_DGF1_BYTE_STRIDE_AMDX: u32 = 128;
 #[cfg(feature = "ext_shader_object")]
@@ -6209,7 +6209,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkShaderCreateFlagBitsEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkShaderCreateFlagBitsEXT.html>"]
     #[doc(alias = "VkShaderCreateFlagBitsEXT")]
     pub struct ShaderCreateFlagsEXT : u32 {
         const LinkStage = 1u32 << 0;
@@ -6227,14 +6227,14 @@ bitflags! {
 }
 #[cfg(feature = "ext_shader_object")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkShaderCodeTypeEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkShaderCodeTypeEXT.html>"]
 #[doc(alias = "VkShaderCodeTypeEXT")]
 #[repr(u32)]
 pub enum ShaderCodeTypeEXT {
     Binary = 0,
     Spirv = 1,
 }
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VK_MAX_PIPELINE_BINARY_KEY_SIZE_KHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VK_MAX_PIPELINE_BINARY_KEY_SIZE_KHR.html>"]
 #[doc(alias = "VK_MAX_PIPELINE_BINARY_KEY_SIZE_KHR")]
 pub const MAX_PIPELINE_BINARY_KEY_SIZE_KHR: u32 = 32;
 #[cfg(feature = "ext_surface_maintenance1")]
@@ -6242,7 +6242,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPresentScalingFlagBitsKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPresentScalingFlagBitsKHR.html>"]
     #[doc(alias = "VkPresentScalingFlagBitsKHR")]
     pub struct PresentScalingFlagsKHR : u32 {
         const OneToOne = 1u32 << 0;
@@ -6254,7 +6254,7 @@ bitflags! {
     }
 }
 #[cfg(feature = "ext_surface_maintenance1")]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPresentScalingFlagBitsEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPresentScalingFlagBitsEXT.html>"]
 #[doc(alias = "VkPresentScalingFlagBitsEXT")]
 pub type PresentScalingFlagsEXT = PresentScalingFlagsKHR;
 #[cfg(feature = "ext_surface_maintenance1")]
@@ -6262,7 +6262,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPresentGravityFlagBitsKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPresentGravityFlagBitsKHR.html>"]
     #[doc(alias = "VkPresentGravityFlagBitsKHR")]
     pub struct PresentGravityFlagsKHR : u32 {
         const Min = 1u32 << 0;
@@ -6274,12 +6274,12 @@ bitflags! {
     }
 }
 #[cfg(feature = "ext_surface_maintenance1")]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPresentGravityFlagBitsEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPresentGravityFlagBitsEXT.html>"]
 #[doc(alias = "VkPresentGravityFlagBitsEXT")]
 pub type PresentGravityFlagsEXT = PresentGravityFlagsKHR;
 #[cfg(feature = "ext_cooperative_vector")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCooperativeVectorMatrixLayoutNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCooperativeVectorMatrixLayoutNV.html>"]
 #[doc(alias = "VkCooperativeVectorMatrixLayoutNV")]
 #[repr(u32)]
 pub enum CooperativeVectorMatrixLayoutNV {
@@ -6290,7 +6290,7 @@ pub enum CooperativeVectorMatrixLayoutNV {
 }
 #[cfg(any(feature = "ext_cooperative_matrix", feature = "ext_cooperative_vector"))]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkComponentTypeKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkComponentTypeKHR.html>"]
 #[doc(alias = "VkComponentTypeKHR")]
 #[repr(u32)]
 pub enum ComponentTypeKHR {
@@ -6329,12 +6329,12 @@ impl ComponentTypeKHR {
     pub const FloatE5M2NV: Self = Self::Float8E5M2EXT;
 }
 #[cfg(any(feature = "ext_cooperative_matrix", feature = "ext_cooperative_vector"))]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkComponentTypeNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkComponentTypeNV.html>"]
 #[doc(alias = "VkComponentTypeNV")]
 pub type ComponentTypeNV = ComponentTypeKHR;
 #[cfg(feature = "ext_layer_settings")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkLayerSettingTypeEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkLayerSettingTypeEXT.html>"]
 #[doc(alias = "VkLayerSettingTypeEXT")]
 #[repr(u32)]
 pub enum LayerSettingTypeEXT {
@@ -6349,7 +6349,7 @@ pub enum LayerSettingTypeEXT {
 }
 #[cfg(feature = "ext_low_latency2")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkLatencyMarkerNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkLatencyMarkerNV.html>"]
 #[doc(alias = "VkLatencyMarkerNV")]
 #[repr(u32)]
 pub enum LatencyMarkerNV {
@@ -6368,7 +6368,7 @@ pub enum LatencyMarkerNV {
 }
 #[cfg(feature = "ext_low_latency2")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkOutOfBandQueueTypeNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkOutOfBandQueueTypeNV.html>"]
 #[doc(alias = "VkOutOfBandQueueTypeNV")]
 #[repr(u32)]
 pub enum OutOfBandQueueTypeNV {
@@ -6377,7 +6377,7 @@ pub enum OutOfBandQueueTypeNV {
 }
 #[cfg(feature = "ext_cooperative_matrix")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkScopeKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkScopeKHR.html>"]
 #[doc(alias = "VkScopeKHR")]
 #[repr(u32)]
 pub enum ScopeKHR {
@@ -6395,15 +6395,15 @@ impl ScopeKHR {
     pub const QueueFamilyNV: Self = Self::QueueFamily;
 }
 #[cfg(feature = "ext_cooperative_matrix")]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkScopeNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkScopeNV.html>"]
 #[doc(alias = "VkScopeNV")]
 pub type ScopeNV = ScopeKHR;
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VK_MAX_PHYSICAL_DEVICE_DATA_GRAPH_OPERATION_SET_NAME_SIZE_ARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VK_MAX_PHYSICAL_DEVICE_DATA_GRAPH_OPERATION_SET_NAME_SIZE_ARM.html>"]
 #[doc(alias = "VK_MAX_PHYSICAL_DEVICE_DATA_GRAPH_OPERATION_SET_NAME_SIZE_ARM")]
 pub const MAX_PHYSICAL_DEVICE_DATA_GRAPH_OPERATION_SET_NAME_SIZE_ARM: u32 = 128;
 #[cfg(feature = "ext_data_graph")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDataGraphPipelineSessionBindPointARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphPipelineSessionBindPointARM.html>"]
 #[doc(alias = "VkDataGraphPipelineSessionBindPointARM")]
 #[repr(u32)]
 pub enum DataGraphPipelineSessionBindPointARM {
@@ -6411,7 +6411,7 @@ pub enum DataGraphPipelineSessionBindPointARM {
 }
 #[cfg(feature = "ext_data_graph")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDataGraphPipelineSessionBindPointTypeARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphPipelineSessionBindPointTypeARM.html>"]
 #[doc(alias = "VkDataGraphPipelineSessionBindPointTypeARM")]
 #[repr(u32)]
 pub enum DataGraphPipelineSessionBindPointTypeARM {
@@ -6422,7 +6422,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDataGraphPipelineSessionCreateFlagBitsARM.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphPipelineSessionCreateFlagBitsARM.html>"]
     #[doc(alias = "VkDataGraphPipelineSessionCreateFlagBitsARM")]
     pub struct DataGraphPipelineSessionCreateFlagsARM : u64 {
         const Protected = 1u64 << 0;
@@ -6430,7 +6430,7 @@ bitflags! {
 }
 #[cfg(feature = "ext_data_graph")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDataGraphPipelinePropertyARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphPipelinePropertyARM.html>"]
 #[doc(alias = "VkDataGraphPipelinePropertyARM")]
 #[repr(u32)]
 pub enum DataGraphPipelinePropertyARM {
@@ -6442,14 +6442,14 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDataGraphPipelineDispatchFlagBitsARM.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphPipelineDispatchFlagBitsARM.html>"]
     #[doc(alias = "VkDataGraphPipelineDispatchFlagBitsARM")]
     pub struct DataGraphPipelineDispatchFlagsARM : u64 {
     }
 }
 #[cfg(feature = "ext_data_graph")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceDataGraphProcessingEngineTypeARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceDataGraphProcessingEngineTypeARM.html>"]
 #[doc(alias = "VkPhysicalDeviceDataGraphProcessingEngineTypeARM")]
 #[repr(u32)]
 pub enum PhysicalDeviceDataGraphProcessingEngineTypeARM {
@@ -6459,7 +6459,7 @@ pub enum PhysicalDeviceDataGraphProcessingEngineTypeARM {
 }
 #[cfg(feature = "ext_data_graph")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceDataGraphOperationTypeARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceDataGraphOperationTypeARM.html>"]
 #[doc(alias = "VkPhysicalDeviceDataGraphOperationTypeARM")]
 #[repr(u32)]
 pub enum PhysicalDeviceDataGraphOperationTypeARM {
@@ -6469,7 +6469,7 @@ pub enum PhysicalDeviceDataGraphOperationTypeARM {
 }
 #[cfg(feature = "ext_image_processing2")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkBlockMatchWindowCompareModeQCOM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkBlockMatchWindowCompareModeQCOM.html>"]
 #[doc(alias = "VkBlockMatchWindowCompareModeQCOM")]
 #[repr(u32)]
 pub enum BlockMatchWindowCompareModeQCOM {
@@ -6478,7 +6478,7 @@ pub enum BlockMatchWindowCompareModeQCOM {
 }
 #[cfg(feature = "ext_filter_cubic_weights")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCubicFilterWeightsQCOM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCubicFilterWeightsQCOM.html>"]
 #[doc(alias = "VkCubicFilterWeightsQCOM")]
 #[repr(u32)]
 pub enum CubicFilterWeightsQCOM {
@@ -6489,7 +6489,7 @@ pub enum CubicFilterWeightsQCOM {
 }
 #[cfg(feature = "ext_layered_driver")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkLayeredDriverUnderlyingApiMSFT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkLayeredDriverUnderlyingApiMSFT.html>"]
 #[doc(alias = "VkLayeredDriverUnderlyingApiMSFT")]
 #[repr(u32)]
 pub enum LayeredDriverUnderlyingApiMSFT {
@@ -6498,7 +6498,7 @@ pub enum LayeredDriverUnderlyingApiMSFT {
 }
 #[cfg(feature = "ext_calibrated_timestamps")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkTimeDomainKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkTimeDomainKHR.html>"]
 #[doc(alias = "VkTimeDomainKHR")]
 #[repr(u32)]
 pub enum TimeDomainKHR {
@@ -6518,7 +6518,7 @@ impl TimeDomainKHR {
     pub const QueryPerformanceCounterEXT: Self = Self::QueryPerformanceCounter;
 }
 #[cfg(feature = "ext_calibrated_timestamps")]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkTimeDomainEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkTimeDomainEXT.html>"]
 #[doc(alias = "VkTimeDomainEXT")]
 pub type TimeDomainEXT = TimeDomainKHR;
 #[cfg(feature = "ext_copy_memory_indirect")]
@@ -6526,7 +6526,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAddressCopyFlagBitsKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAddressCopyFlagBitsKHR.html>"]
     #[doc(alias = "VkAddressCopyFlagBitsKHR")]
     pub struct AddressCopyFlagsKHR : u32 {
         const DeviceLocal = 1u32 << 0;
@@ -6539,7 +6539,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkMemoryDecompressionMethodFlagBitsEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkMemoryDecompressionMethodFlagBitsEXT.html>"]
     #[doc(alias = "VkMemoryDecompressionMethodFlagBitsEXT")]
     pub struct MemoryDecompressionMethodFlagsEXT : u64 {
         const Gdeflate10 = 1u64 << 0;
@@ -6547,12 +6547,12 @@ bitflags! {
     }
 }
 #[cfg(feature = "ext_memory_decompression")]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkMemoryDecompressionMethodFlagBitsNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkMemoryDecompressionMethodFlagBitsNV.html>"]
 #[doc(alias = "VkMemoryDecompressionMethodFlagBitsNV")]
 pub type MemoryDecompressionMethodFlagsNV = MemoryDecompressionMethodFlagsEXT;
 #[cfg(feature = "ext_display_stereo")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDisplaySurfaceStereoTypeNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDisplaySurfaceStereoTypeNV.html>"]
 #[doc(alias = "VkDisplaySurfaceStereoTypeNV")]
 #[repr(u32)]
 pub enum DisplaySurfaceStereoTypeNV {
@@ -6563,7 +6563,7 @@ pub enum DisplaySurfaceStereoTypeNV {
 }
 #[cfg(feature = "ext_maintenance7")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDeviceLayeredApiKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceLayeredApiKHR.html>"]
 #[doc(alias = "VkPhysicalDeviceLayeredApiKHR")]
 #[repr(u32)]
 pub enum PhysicalDeviceLayeredApiKHR {
@@ -6578,7 +6578,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkClusterAccelerationStructureClusterFlagBitsNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkClusterAccelerationStructureClusterFlagBitsNV.html>"]
     #[doc(alias = "VkClusterAccelerationStructureClusterFlagBitsNV")]
     pub struct ClusterAccelerationStructureClusterFlagsNV : u32 {
         const AllowDisableOpacityMicromaps = 1u32 << 0;
@@ -6589,7 +6589,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkClusterAccelerationStructureGeometryFlagBitsNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkClusterAccelerationStructureGeometryFlagBitsNV.html>"]
     #[doc(alias = "VkClusterAccelerationStructureGeometryFlagBitsNV")]
     pub struct ClusterAccelerationStructureGeometryFlagsNV : u32 {
         const CullDisable = 1u32 << 0;
@@ -6602,7 +6602,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkClusterAccelerationStructureAddressResolutionFlagBitsNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkClusterAccelerationStructureAddressResolutionFlagBitsNV.html>"]
     #[doc(alias = "VkClusterAccelerationStructureAddressResolutionFlagBitsNV")]
     pub struct ClusterAccelerationStructureAddressResolutionFlagsNV : u32 {
         const None = 0;
@@ -6619,7 +6619,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkClusterAccelerationStructureIndexFormatFlagBitsNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkClusterAccelerationStructureIndexFormatFlagBitsNV.html>"]
     #[doc(alias = "VkClusterAccelerationStructureIndexFormatFlagBitsNV")]
     pub struct ClusterAccelerationStructureIndexFormatFlagsNV : u32 {
         const Format8 = 1u32 << 0;
@@ -6629,7 +6629,7 @@ bitflags! {
 }
 #[cfg(feature = "ext_cluster_acceleration_structure")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkClusterAccelerationStructureTypeNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkClusterAccelerationStructureTypeNV.html>"]
 #[doc(alias = "VkClusterAccelerationStructureTypeNV")]
 #[repr(u32)]
 pub enum ClusterAccelerationStructureTypeNV {
@@ -6639,7 +6639,7 @@ pub enum ClusterAccelerationStructureTypeNV {
 }
 #[cfg(feature = "ext_cluster_acceleration_structure")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkClusterAccelerationStructureOpTypeNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkClusterAccelerationStructureOpTypeNV.html>"]
 #[doc(alias = "VkClusterAccelerationStructureOpTypeNV")]
 #[repr(u32)]
 pub enum ClusterAccelerationStructureOpTypeNV {
@@ -6652,7 +6652,7 @@ pub enum ClusterAccelerationStructureOpTypeNV {
 }
 #[cfg(feature = "ext_cluster_acceleration_structure")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkClusterAccelerationStructureOpModeNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkClusterAccelerationStructureOpModeNV.html>"]
 #[doc(alias = "VkClusterAccelerationStructureOpModeNV")]
 #[repr(u32)]
 pub enum ClusterAccelerationStructureOpModeNV {
@@ -6660,12 +6660,12 @@ pub enum ClusterAccelerationStructureOpModeNV {
     ExplicitDestinations = 1,
     ComputeSizes = 2,
 }
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VK_PARTITIONED_ACCELERATION_STRUCTURE_PARTITION_INDEX_GLOBAL_NV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VK_PARTITIONED_ACCELERATION_STRUCTURE_PARTITION_INDEX_GLOBAL_NV.html>"]
 #[doc(alias = "VK_PARTITIONED_ACCELERATION_STRUCTURE_PARTITION_INDEX_GLOBAL_NV")]
 pub const PARTITIONED_ACCELERATION_STRUCTURE_PARTITION_INDEX_GLOBAL_NV: u32 = !0u32;
 #[cfg(feature = "ext_partitioned_acceleration_structure")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPartitionedAccelerationStructureOpTypeNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPartitionedAccelerationStructureOpTypeNV.html>"]
 #[doc(alias = "VkPartitionedAccelerationStructureOpTypeNV")]
 #[repr(u32)]
 pub enum PartitionedAccelerationStructureOpTypeNV {
@@ -6678,7 +6678,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPartitionedAccelerationStructureInstanceFlagBitsNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPartitionedAccelerationStructureInstanceFlagBitsNV.html>"]
     #[doc(alias = "VkPartitionedAccelerationStructureInstanceFlagBitsNV")]
     pub struct PartitionedAccelerationStructureInstanceFlagsNV : u32 {
         const FlagTriangleFacingCullDisable = 1u32 << 0;
@@ -6690,7 +6690,7 @@ bitflags! {
 }
 #[cfg(feature = "ext_device_generated_commands")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkIndirectCommandsTokenTypeEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkIndirectCommandsTokenTypeEXT.html>"]
 #[doc(alias = "VkIndirectCommandsTokenTypeEXT")]
 #[repr(u32)]
 pub enum IndirectCommandsTokenTypeEXT {
@@ -6714,7 +6714,7 @@ pub enum IndirectCommandsTokenTypeEXT {
 }
 #[cfg(feature = "ext_device_generated_commands")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkIndirectExecutionSetInfoTypeEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkIndirectExecutionSetInfoTypeEXT.html>"]
 #[doc(alias = "VkIndirectExecutionSetInfoTypeEXT")]
 #[repr(u32)]
 pub enum IndirectExecutionSetInfoTypeEXT {
@@ -6726,7 +6726,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkIndirectCommandsLayoutUsageFlagBitsEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkIndirectCommandsLayoutUsageFlagBitsEXT.html>"]
     #[doc(alias = "VkIndirectCommandsLayoutUsageFlagBitsEXT")]
     pub struct IndirectCommandsLayoutUsageFlagsEXT : u32 {
         const ExplicitPreprocess = 1u32 << 0;
@@ -6738,7 +6738,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkIndirectCommandsInputModeFlagBitsEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkIndirectCommandsInputModeFlagBitsEXT.html>"]
     #[doc(alias = "VkIndirectCommandsInputModeFlagBitsEXT")]
     pub struct IndirectCommandsInputModeFlagsEXT : u32 {
         const VulkanIndexBuffer = 1u32 << 0;
@@ -6750,7 +6750,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAccessFlagBits3KHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAccessFlagBits3KHR.html>"]
     #[doc(alias = "VkAccessFlagBits3KHR")]
     pub struct AccessFlags3KHR : u64 {
         const None = 0;
@@ -6758,7 +6758,7 @@ bitflags! {
 }
 #[cfg(feature = "ext_ray_tracing_invocation_reorder")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkRayTracingInvocationReorderModeEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkRayTracingInvocationReorderModeEXT.html>"]
 #[doc(alias = "VkRayTracingInvocationReorderModeEXT")]
 #[repr(u32)]
 pub enum RayTracingInvocationReorderModeEXT {
@@ -6772,12 +6772,12 @@ impl RayTracingInvocationReorderModeEXT {
     pub const ReorderNV: Self = Self::Reorder;
 }
 #[cfg(feature = "ext_ray_tracing_invocation_reorder")]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkRayTracingInvocationReorderModeNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkRayTracingInvocationReorderModeNV.html>"]
 #[doc(alias = "VkRayTracingInvocationReorderModeNV")]
 pub type RayTracingInvocationReorderModeNV = RayTracingInvocationReorderModeEXT;
 #[cfg(feature = "ext_depth_clamp_control")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDepthClampModeEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDepthClampModeEXT.html>"]
 #[doc(alias = "VkDepthClampModeEXT")]
 #[repr(u32)]
 pub enum DepthClampModeEXT {
@@ -6786,19 +6786,19 @@ pub enum DepthClampModeEXT {
 }
 #[cfg(feature = "ext_maintenance9")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDefaultVertexAttributeValueKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDefaultVertexAttributeValueKHR.html>"]
 #[doc(alias = "VkDefaultVertexAttributeValueKHR")]
 #[repr(u32)]
 pub enum DefaultVertexAttributeValueKHR {
     ZeroZeroZeroZero = 0,
     ZeroZeroZeroOne = 1,
 }
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VK_DATA_GRAPH_MODEL_TOOLCHAIN_VERSION_LENGTH_QCOM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VK_DATA_GRAPH_MODEL_TOOLCHAIN_VERSION_LENGTH_QCOM.html>"]
 #[doc(alias = "VK_DATA_GRAPH_MODEL_TOOLCHAIN_VERSION_LENGTH_QCOM")]
 pub const DATA_GRAPH_MODEL_TOOLCHAIN_VERSION_LENGTH_QCOM: u32 = 3;
 #[cfg(feature = "ext_data_graph_model")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDataGraphModelCacheTypeQCOM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphModelCacheTypeQCOM.html>"]
 #[doc(alias = "VkDataGraphModelCacheTypeQCOM")]
 #[repr(u32)]
 pub enum DataGraphModelCacheTypeQCOM {
@@ -6809,7 +6809,7 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkRenderingAttachmentFlagBitsKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkRenderingAttachmentFlagBitsKHR.html>"]
     #[doc(alias = "VkRenderingAttachmentFlagBitsKHR")]
     pub struct RenderingAttachmentFlagsKHR : u32 {
         const InputAttachmentFeedback = 1u32 << 0;
@@ -6822,19 +6822,19 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkResolveImageFlagBitsKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkResolveImageFlagBitsKHR.html>"]
     #[doc(alias = "VkResolveImageFlagBitsKHR")]
     pub struct ResolveImageFlagsKHR : u32 {
         const SkipTransferFunction = 1u32 << 0;
         const EnableTransferFunction = 1u32 << 1;
     }
 }
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VK_COMPUTE_OCCUPANCY_PRIORITY_LOW_NV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VK_COMPUTE_OCCUPANCY_PRIORITY_LOW_NV.html>"]
 #[doc(alias = "VK_COMPUTE_OCCUPANCY_PRIORITY_LOW_NV")]
 pub const COMPUTE_OCCUPANCY_PRIORITY_LOW_NV: f32 = 0.25f32;
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VK_COMPUTE_OCCUPANCY_PRIORITY_NORMAL_NV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VK_COMPUTE_OCCUPANCY_PRIORITY_NORMAL_NV.html>"]
 #[doc(alias = "VK_COMPUTE_OCCUPANCY_PRIORITY_NORMAL_NV")]
 pub const COMPUTE_OCCUPANCY_PRIORITY_NORMAL_NV: f32 = 0.50f32;
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VK_COMPUTE_OCCUPANCY_PRIORITY_HIGH_NV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VK_COMPUTE_OCCUPANCY_PRIORITY_HIGH_NV.html>"]
 #[doc(alias = "VK_COMPUTE_OCCUPANCY_PRIORITY_HIGH_NV")]
 pub const COMPUTE_OCCUPANCY_PRIORITY_HIGH_NV: f32 = 0.75f32;

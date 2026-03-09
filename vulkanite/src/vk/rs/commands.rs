@@ -33,7 +33,7 @@ impl<D: Dispatcher, A: BaseAllocator> Entry<D, A> {
     pub fn get_allocator(&self) -> &A {
         &self.alloc
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateInstance.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateInstance.html>"]
     #[doc(alias = "vkCreateInstance")]
     #[inline]
     pub fn create_instance(&self, p_create_info: &InstanceCreateInfo) -> Result<Instance<D, A>> {
@@ -49,7 +49,7 @@ impl<D: Dispatcher, A: BaseAllocator> Entry<D, A> {
             unsafe { Instance::from_inner(instance, disp, self.alloc.clone()) }
         })
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkEnumerateInstanceExtensionProperties.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkEnumerateInstanceExtensionProperties.html>"]
     #[doc(alias = "vkEnumerateInstanceExtensionProperties")]
     pub fn enumerate_instance_extension_properties<R: DynamicArray<ExtensionProperties>>(
         &self,
@@ -62,7 +62,7 @@ impl<D: Dispatcher, A: BaseAllocator> Entry<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkEnumerateInstanceLayerProperties.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkEnumerateInstanceLayerProperties.html>"]
     #[doc(alias = "vkEnumerateInstanceLayerProperties")]
     pub fn enumerate_instance_layer_properties<R: DynamicArray<LayerProperties>>(
         &self,
@@ -70,7 +70,7 @@ impl<D: Dispatcher, A: BaseAllocator> Entry<D, A> {
         unsafe { raw::enumerate_instance_layer_properties(self.disp.get_command_dispatcher()) }
     }
     #[cfg(feature = "version_1_1")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkEnumerateInstanceVersion.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkEnumerateInstanceVersion.html>"]
     #[doc(alias = "vkEnumerateInstanceVersion")]
     #[inline]
     pub fn enumerate_instance_version(&self) -> Result<u32> {
@@ -79,7 +79,7 @@ impl<D: Dispatcher, A: BaseAllocator> Entry<D, A> {
 }
 #[repr(C)]
 #[derive(Clone)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkInstance.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkInstance.html>"]
 #[doc(alias = "VkInstance")]
 pub struct Instance<D: Dispatcher = DynamicDispatcher, A: BaseAllocator = DefaultAllocator> {
     inner: <raw::Instance as Handle>::InnerType,
@@ -116,7 +116,7 @@ impl<D: Dispatcher, A: BaseAllocator> Instance<D, A> {
     pub fn get_allocator(&self) -> &A {
         &self.alloc
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkDestroyInstance.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyInstance.html>"]
     #[doc(alias = "vkDestroyInstance")]
     #[inline]
     pub unsafe fn destroy(&self) {
@@ -128,7 +128,7 @@ impl<D: Dispatcher, A: BaseAllocator> Instance<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkEnumeratePhysicalDevices.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkEnumeratePhysicalDevices.html>"]
     #[doc(alias = "vkEnumeratePhysicalDevices")]
     pub fn enumerate_physical_devices<
         R: AdvancedDynamicArray<PhysicalDevice<D, A>, raw::PhysicalDevice>,
@@ -146,7 +146,7 @@ impl<D: Dispatcher, A: BaseAllocator> Instance<D, A> {
                 .collect()
         })
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetInstanceProcAddr.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetInstanceProcAddr.html>"]
     #[doc(alias = "vkGetInstanceProcAddr")]
     #[inline]
     pub fn get_proc_addr(&self, p_name: &CStr) -> FuncPtr {
@@ -155,7 +155,7 @@ impl<D: Dispatcher, A: BaseAllocator> Instance<D, A> {
         }
     }
     #[cfg(any(feature = "ext_device_group_creation", feature = "version_1_1"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkEnumeratePhysicalDeviceGroups.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkEnumeratePhysicalDeviceGroups.html>"]
     #[doc(alias = "vkEnumeratePhysicalDeviceGroups")]
     pub fn enumerate_physical_device_groups<
         R: DynamicArray<PhysicalDeviceGroupProperties<'static>>,
@@ -165,7 +165,7 @@ impl<D: Dispatcher, A: BaseAllocator> Instance<D, A> {
         unsafe { raw::enumerate_physical_device_groups(self, self.disp.get_command_dispatcher()) }
     }
     #[cfg(any(feature = "ext_device_group_creation", feature = "version_1_1"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkEnumeratePhysicalDeviceGroupsKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkEnumeratePhysicalDeviceGroupsKHR.html>"]
     #[doc(alias = "vkEnumeratePhysicalDeviceGroupsKHR")]
     pub fn enumerate_physical_device_groups_khr<
         R: DynamicArray<PhysicalDeviceGroupProperties<'static>>,
@@ -177,7 +177,7 @@ impl<D: Dispatcher, A: BaseAllocator> Instance<D, A> {
         }
     }
     #[cfg(feature = "ext_surface")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkDestroySurfaceKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroySurfaceKHR.html>"]
     #[doc(alias = "vkDestroySurfaceKHR")]
     #[inline]
     pub unsafe fn destroy_surface_khr(&self, surface: Option<&raw::SurfaceKHR>) {
@@ -191,7 +191,7 @@ impl<D: Dispatcher, A: BaseAllocator> Instance<D, A> {
         }
     }
     #[cfg(feature = "ext_display")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateDisplayPlaneSurfaceKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateDisplayPlaneSurfaceKHR.html>"]
     #[doc(alias = "vkCreateDisplayPlaneSurfaceKHR")]
     #[inline]
     pub fn create_display_plane_surface_khr(
@@ -209,7 +209,7 @@ impl<D: Dispatcher, A: BaseAllocator> Instance<D, A> {
         vk_result.map(|vk_result| unsafe { SurfaceKHR::from_inner(vk_result) })
     }
     #[cfg(feature = "ext_xlib_surface")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateXlibSurfaceKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateXlibSurfaceKHR.html>"]
     #[doc(alias = "vkCreateXlibSurfaceKHR")]
     #[inline]
     pub fn create_xlib_surface_khr(
@@ -227,7 +227,7 @@ impl<D: Dispatcher, A: BaseAllocator> Instance<D, A> {
         vk_result.map(|vk_result| unsafe { SurfaceKHR::from_inner(vk_result) })
     }
     #[cfg(feature = "ext_xcb_surface")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateXcbSurfaceKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateXcbSurfaceKHR.html>"]
     #[doc(alias = "vkCreateXcbSurfaceKHR")]
     #[inline]
     pub fn create_xcb_surface_khr(
@@ -245,7 +245,7 @@ impl<D: Dispatcher, A: BaseAllocator> Instance<D, A> {
         vk_result.map(|vk_result| unsafe { SurfaceKHR::from_inner(vk_result) })
     }
     #[cfg(feature = "ext_wayland_surface")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateWaylandSurfaceKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateWaylandSurfaceKHR.html>"]
     #[doc(alias = "vkCreateWaylandSurfaceKHR")]
     #[inline]
     pub fn create_wayland_surface_khr(
@@ -263,7 +263,7 @@ impl<D: Dispatcher, A: BaseAllocator> Instance<D, A> {
         vk_result.map(|vk_result| unsafe { SurfaceKHR::from_inner(vk_result) })
     }
     #[cfg(feature = "ext_android_surface")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateAndroidSurfaceKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateAndroidSurfaceKHR.html>"]
     #[doc(alias = "vkCreateAndroidSurfaceKHR")]
     #[inline]
     pub fn create_android_surface_khr(
@@ -281,7 +281,7 @@ impl<D: Dispatcher, A: BaseAllocator> Instance<D, A> {
         vk_result.map(|vk_result| unsafe { SurfaceKHR::from_inner(vk_result) })
     }
     #[cfg(feature = "ext_win32_surface")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateWin32SurfaceKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateWin32SurfaceKHR.html>"]
     #[doc(alias = "vkCreateWin32SurfaceKHR")]
     #[inline]
     pub fn create_win32_surface_khr(
@@ -299,7 +299,7 @@ impl<D: Dispatcher, A: BaseAllocator> Instance<D, A> {
         vk_result.map(|vk_result| unsafe { SurfaceKHR::from_inner(vk_result) })
     }
     #[cfg(feature = "ext_debug_report")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateDebugReportCallbackEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateDebugReportCallbackEXT.html>"]
     #[doc(alias = "vkCreateDebugReportCallbackEXT")]
     #[inline]
     pub fn create_debug_report_callback_ext(
@@ -317,7 +317,7 @@ impl<D: Dispatcher, A: BaseAllocator> Instance<D, A> {
         vk_result.map(|vk_result| unsafe { DebugReportCallbackEXT::from_inner(vk_result) })
     }
     #[cfg(feature = "ext_debug_report")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkDestroyDebugReportCallbackEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyDebugReportCallbackEXT.html>"]
     #[doc(alias = "vkDestroyDebugReportCallbackEXT")]
     #[inline]
     pub unsafe fn destroy_debug_report_callback_ext(
@@ -334,7 +334,7 @@ impl<D: Dispatcher, A: BaseAllocator> Instance<D, A> {
         }
     }
     #[cfg(feature = "ext_debug_report")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkDebugReportMessageEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkDebugReportMessageEXT.html>"]
     #[doc(alias = "vkDebugReportMessageEXT")]
     #[inline]
     pub fn debug_report_message_ext(
@@ -362,7 +362,7 @@ impl<D: Dispatcher, A: BaseAllocator> Instance<D, A> {
         }
     }
     #[cfg(feature = "ext_stream_descriptor_surface")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateStreamDescriptorSurfaceGGP.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateStreamDescriptorSurfaceGGP.html>"]
     #[doc(alias = "vkCreateStreamDescriptorSurfaceGGP")]
     #[inline]
     pub fn create_stream_descriptor_surface_ggp(
@@ -380,7 +380,7 @@ impl<D: Dispatcher, A: BaseAllocator> Instance<D, A> {
         vk_result.map(|vk_result| unsafe { SurfaceKHR::from_inner(vk_result) })
     }
     #[cfg(feature = "ext_vi_surface")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateViSurfaceNN.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateViSurfaceNN.html>"]
     #[doc(alias = "vkCreateViSurfaceNN")]
     #[inline]
     pub fn create_vi_surface_nn(
@@ -398,7 +398,7 @@ impl<D: Dispatcher, A: BaseAllocator> Instance<D, A> {
         vk_result.map(|vk_result| unsafe { SurfaceKHR::from_inner(vk_result) })
     }
     #[cfg(feature = "ext_ios_surface")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateIOSSurfaceMVK.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateIOSSurfaceMVK.html>"]
     #[doc(alias = "vkCreateIOSSurfaceMVK")]
     #[inline]
     pub fn create_iossurface_mvk(
@@ -416,7 +416,7 @@ impl<D: Dispatcher, A: BaseAllocator> Instance<D, A> {
         vk_result.map(|vk_result| unsafe { SurfaceKHR::from_inner(vk_result) })
     }
     #[cfg(feature = "ext_macos_surface")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateMacOSSurfaceMVK.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateMacOSSurfaceMVK.html>"]
     #[doc(alias = "vkCreateMacOSSurfaceMVK")]
     #[inline]
     pub fn create_mac_ossurface_mvk(
@@ -434,7 +434,7 @@ impl<D: Dispatcher, A: BaseAllocator> Instance<D, A> {
         vk_result.map(|vk_result| unsafe { SurfaceKHR::from_inner(vk_result) })
     }
     #[cfg(feature = "ext_debug_utils")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateDebugUtilsMessengerEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateDebugUtilsMessengerEXT.html>"]
     #[doc(alias = "vkCreateDebugUtilsMessengerEXT")]
     #[inline]
     pub fn create_debug_utils_messenger_ext(
@@ -452,7 +452,7 @@ impl<D: Dispatcher, A: BaseAllocator> Instance<D, A> {
         vk_result.map(|vk_result| unsafe { DebugUtilsMessengerEXT::from_inner(vk_result) })
     }
     #[cfg(feature = "ext_debug_utils")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkDestroyDebugUtilsMessengerEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyDebugUtilsMessengerEXT.html>"]
     #[doc(alias = "vkDestroyDebugUtilsMessengerEXT")]
     #[inline]
     pub unsafe fn destroy_debug_utils_messenger_ext(
@@ -469,7 +469,7 @@ impl<D: Dispatcher, A: BaseAllocator> Instance<D, A> {
         }
     }
     #[cfg(feature = "ext_debug_utils")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkSubmitDebugUtilsMessageEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkSubmitDebugUtilsMessageEXT.html>"]
     #[doc(alias = "vkSubmitDebugUtilsMessageEXT")]
     #[inline]
     pub fn submit_debug_utils_message_ext(
@@ -489,7 +489,7 @@ impl<D: Dispatcher, A: BaseAllocator> Instance<D, A> {
         }
     }
     #[cfg(feature = "ext_imagepipe_surface")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateImagePipeSurfaceFUCHSIA.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateImagePipeSurfaceFUCHSIA.html>"]
     #[doc(alias = "vkCreateImagePipeSurfaceFUCHSIA")]
     #[inline]
     pub fn create_image_pipe_surface_fuchsia(
@@ -507,7 +507,7 @@ impl<D: Dispatcher, A: BaseAllocator> Instance<D, A> {
         vk_result.map(|vk_result| unsafe { SurfaceKHR::from_inner(vk_result) })
     }
     #[cfg(feature = "ext_metal_surface")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateMetalSurfaceEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateMetalSurfaceEXT.html>"]
     #[doc(alias = "vkCreateMetalSurfaceEXT")]
     #[inline]
     pub fn create_metal_surface_ext(
@@ -525,7 +525,7 @@ impl<D: Dispatcher, A: BaseAllocator> Instance<D, A> {
         vk_result.map(|vk_result| unsafe { SurfaceKHR::from_inner(vk_result) })
     }
     #[cfg(feature = "ext_headless_surface")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateHeadlessSurfaceEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateHeadlessSurfaceEXT.html>"]
     #[doc(alias = "vkCreateHeadlessSurfaceEXT")]
     #[inline]
     pub fn create_headless_surface_ext(
@@ -543,7 +543,7 @@ impl<D: Dispatcher, A: BaseAllocator> Instance<D, A> {
         vk_result.map(|vk_result| unsafe { SurfaceKHR::from_inner(vk_result) })
     }
     #[cfg(feature = "ext_directfb_surface")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateDirectFBSurfaceEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateDirectFBSurfaceEXT.html>"]
     #[doc(alias = "vkCreateDirectFBSurfaceEXT")]
     #[inline]
     pub fn create_direct_fbsurface_ext(
@@ -561,7 +561,7 @@ impl<D: Dispatcher, A: BaseAllocator> Instance<D, A> {
         vk_result.map(|vk_result| unsafe { SurfaceKHR::from_inner(vk_result) })
     }
     #[cfg(feature = "ext_screen_surface")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateScreenSurfaceQNX.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateScreenSurfaceQNX.html>"]
     #[doc(alias = "vkCreateScreenSurfaceQNX")]
     #[inline]
     pub fn create_screen_surface_qnx(
@@ -579,7 +579,7 @@ impl<D: Dispatcher, A: BaseAllocator> Instance<D, A> {
         vk_result.map(|vk_result| unsafe { SurfaceKHR::from_inner(vk_result) })
     }
     #[cfg(feature = "ext_ohos_surface")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateSurfaceOHOS.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateSurfaceOHOS.html>"]
     #[doc(alias = "vkCreateSurfaceOHOS")]
     #[inline]
     pub fn create_surface_ohos(&self, p_create_info: &SurfaceCreateInfoOHOS) -> Result<SurfaceKHR> {
@@ -594,7 +594,7 @@ impl<D: Dispatcher, A: BaseAllocator> Instance<D, A> {
         vk_result.map(|vk_result| unsafe { SurfaceKHR::from_inner(vk_result) })
     }
     #[cfg(feature = "ext_ubm_surface")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateUbmSurfaceSEC.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateUbmSurfaceSEC.html>"]
     #[doc(alias = "vkCreateUbmSurfaceSEC")]
     #[inline]
     pub fn create_ubm_surface_sec(
@@ -614,7 +614,7 @@ impl<D: Dispatcher, A: BaseAllocator> Instance<D, A> {
 }
 #[repr(C)]
 #[derive(Clone)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPhysicalDevice.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDevice.html>"]
 #[doc(alias = "VkPhysicalDevice")]
 pub struct PhysicalDevice<D: Dispatcher = DynamicDispatcher, A: BaseAllocator = DefaultAllocator> {
     inner: <raw::PhysicalDevice as Handle>::InnerType,
@@ -651,13 +651,13 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
     pub fn get_allocator(&self) -> &A {
         &self.alloc
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceFeatures.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceFeatures.html>"]
     #[doc(alias = "vkGetPhysicalDeviceFeatures")]
     #[inline]
     pub fn get_features(&self) -> PhysicalDeviceFeatures {
         unsafe { raw::get_physical_device_features(self, self.disp.get_command_dispatcher()) }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceFormatProperties.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceFormatProperties.html>"]
     #[doc(alias = "vkGetPhysicalDeviceFormatProperties")]
     #[inline]
     pub fn get_format_properties(&self, format: Format) -> FormatProperties {
@@ -669,7 +669,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceImageFormatProperties.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceImageFormatProperties.html>"]
     #[doc(alias = "vkGetPhysicalDeviceImageFormatProperties")]
     #[inline]
     pub fn get_image_format_properties(
@@ -692,13 +692,13 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceProperties.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceProperties.html>"]
     #[doc(alias = "vkGetPhysicalDeviceProperties")]
     #[inline]
     pub fn get_properties(&self) -> PhysicalDeviceProperties {
         unsafe { raw::get_physical_device_properties(self, self.disp.get_command_dispatcher()) }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceQueueFamilyProperties.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceQueueFamilyProperties.html>"]
     #[doc(alias = "vkGetPhysicalDeviceQueueFamilyProperties")]
     pub fn get_queue_family_properties<R: DynamicArray<QueueFamilyProperties>>(&self) -> R {
         unsafe {
@@ -708,7 +708,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceMemoryProperties.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceMemoryProperties.html>"]
     #[doc(alias = "vkGetPhysicalDeviceMemoryProperties")]
     #[inline]
     pub fn get_memory_properties(&self) -> PhysicalDeviceMemoryProperties {
@@ -716,7 +716,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
             raw::get_physical_device_memory_properties(self, self.disp.get_command_dispatcher())
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateDevice.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateDevice.html>"]
     #[doc(alias = "vkCreateDevice")]
     #[inline]
     pub fn create_device(&self, p_create_info: &DeviceCreateInfo) -> Result<Device<D, A>> {
@@ -733,7 +733,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
             unsafe { Device::from_inner(device, disp, self.alloc.clone()) }
         })
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkEnumerateDeviceExtensionProperties.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkEnumerateDeviceExtensionProperties.html>"]
     #[doc(alias = "vkEnumerateDeviceExtensionProperties")]
     pub fn enumerate_device_extension_properties<R: DynamicArray<ExtensionProperties>>(
         &self,
@@ -747,12 +747,12 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkEnumerateDeviceLayerProperties.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkEnumerateDeviceLayerProperties.html>"]
     #[doc(alias = "vkEnumerateDeviceLayerProperties")]
     pub fn enumerate_device_layer_properties<R: DynamicArray<LayerProperties>>(&self) -> Result<R> {
         unsafe { raw::enumerate_device_layer_properties(self, self.disp.get_command_dispatcher()) }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceSparseImageFormatProperties.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceSparseImageFormatProperties.html>"]
     #[doc(alias = "vkGetPhysicalDeviceSparseImageFormatProperties")]
     pub fn get_sparse_image_format_properties<R: DynamicArray<SparseImageFormatProperties>>(
         &self,
@@ -778,7 +778,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
         feature = "ext_get_physical_device_properties2",
         feature = "version_1_1"
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceFeatures2.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceFeatures2.html>"]
     #[doc(alias = "vkGetPhysicalDeviceFeatures2")]
     pub fn get_features2<S: StructureChainOut<PhysicalDeviceFeatures2<'static>>>(&self) -> S {
         unsafe { raw::get_physical_device_features2(self, self.disp.get_command_dispatcher()) }
@@ -787,7 +787,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
         feature = "ext_get_physical_device_properties2",
         feature = "version_1_1"
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceFeatures2KHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceFeatures2KHR.html>"]
     #[doc(alias = "vkGetPhysicalDeviceFeatures2KHR")]
     pub fn get_features2_khr<S: StructureChainOut<PhysicalDeviceFeatures2<'static>>>(&self) -> S {
         unsafe { raw::get_physical_device_features2_khr(self, self.disp.get_command_dispatcher()) }
@@ -796,7 +796,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
         feature = "ext_get_physical_device_properties2",
         feature = "version_1_1"
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceProperties2.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceProperties2.html>"]
     #[doc(alias = "vkGetPhysicalDeviceProperties2")]
     pub fn get_properties2<S: StructureChainOut<PhysicalDeviceProperties2<'static>>>(&self) -> S {
         unsafe { raw::get_physical_device_properties2(self, self.disp.get_command_dispatcher()) }
@@ -805,7 +805,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
         feature = "ext_get_physical_device_properties2",
         feature = "version_1_1"
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceProperties2KHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceProperties2KHR.html>"]
     #[doc(alias = "vkGetPhysicalDeviceProperties2KHR")]
     pub fn get_properties2_khr<S: StructureChainOut<PhysicalDeviceProperties2<'static>>>(
         &self,
@@ -818,7 +818,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
         feature = "ext_get_physical_device_properties2",
         feature = "version_1_1"
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceFormatProperties2.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceFormatProperties2.html>"]
     #[doc(alias = "vkGetPhysicalDeviceFormatProperties2")]
     pub fn get_format_properties2<S: StructureChainOut<FormatProperties2<'static>>>(
         &self,
@@ -836,7 +836,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
         feature = "ext_get_physical_device_properties2",
         feature = "version_1_1"
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceFormatProperties2KHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceFormatProperties2KHR.html>"]
     #[doc(alias = "vkGetPhysicalDeviceFormatProperties2KHR")]
     pub fn get_format_properties2_khr<S: StructureChainOut<FormatProperties2<'static>>>(
         &self,
@@ -854,7 +854,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
         feature = "ext_get_physical_device_properties2",
         feature = "version_1_1"
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceImageFormatProperties2.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceImageFormatProperties2.html>"]
     #[doc(alias = "vkGetPhysicalDeviceImageFormatProperties2")]
     pub fn get_image_format_properties2<S: StructureChainOut<ImageFormatProperties2<'static>>>(
         &self,
@@ -872,7 +872,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
         feature = "ext_get_physical_device_properties2",
         feature = "version_1_1"
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceImageFormatProperties2KHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceImageFormatProperties2KHR.html>"]
     #[doc(alias = "vkGetPhysicalDeviceImageFormatProperties2KHR")]
     pub fn get_image_format_properties2_khr<
         S: StructureChainOut<ImageFormatProperties2<'static>>,
@@ -892,7 +892,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
         feature = "ext_get_physical_device_properties2",
         feature = "version_1_1"
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceQueueFamilyProperties2.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceQueueFamilyProperties2.html>"]
     #[doc(alias = "vkGetPhysicalDeviceQueueFamilyProperties2")]
     pub fn get_queue_family_properties2<R: DynamicArray<QueueFamilyProperties2<'static>>>(
         &self,
@@ -908,7 +908,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
         feature = "ext_get_physical_device_properties2",
         feature = "version_1_1"
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceQueueFamilyProperties2KHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceQueueFamilyProperties2KHR.html>"]
     #[doc(alias = "vkGetPhysicalDeviceQueueFamilyProperties2KHR")]
     pub fn get_queue_family_properties2_khr<R: DynamicArray<QueueFamilyProperties2<'static>>>(
         &self,
@@ -924,7 +924,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
         feature = "ext_get_physical_device_properties2",
         feature = "version_1_1"
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceMemoryProperties2.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceMemoryProperties2.html>"]
     #[doc(alias = "vkGetPhysicalDeviceMemoryProperties2")]
     pub fn get_memory_properties2<
         S: StructureChainOut<PhysicalDeviceMemoryProperties2<'static>>,
@@ -939,7 +939,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
         feature = "ext_get_physical_device_properties2",
         feature = "version_1_1"
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceMemoryProperties2KHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceMemoryProperties2KHR.html>"]
     #[doc(alias = "vkGetPhysicalDeviceMemoryProperties2KHR")]
     pub fn get_memory_properties2_khr<
         S: StructureChainOut<PhysicalDeviceMemoryProperties2<'static>>,
@@ -957,7 +957,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
         feature = "ext_get_physical_device_properties2",
         feature = "version_1_1"
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceSparseImageFormatProperties2.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceSparseImageFormatProperties2.html>"]
     #[doc(alias = "vkGetPhysicalDeviceSparseImageFormatProperties2")]
     pub fn get_sparse_image_format_properties2<
         R: DynamicArray<SparseImageFormatProperties2<'static>>,
@@ -977,7 +977,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
         feature = "ext_get_physical_device_properties2",
         feature = "version_1_1"
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceSparseImageFormatProperties2KHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceSparseImageFormatProperties2KHR.html>"]
     #[doc(alias = "vkGetPhysicalDeviceSparseImageFormatProperties2KHR")]
     pub fn get_sparse_image_format_properties2_khr<
         R: DynamicArray<SparseImageFormatProperties2<'static>>,
@@ -994,7 +994,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
         }
     }
     #[cfg(any(feature = "ext_external_memory_capabilities", feature = "version_1_1"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceExternalBufferProperties.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceExternalBufferProperties.html>"]
     #[doc(alias = "vkGetPhysicalDeviceExternalBufferProperties")]
     pub fn get_external_buffer_properties<
         S: StructureChainOut<ExternalBufferProperties<'static>>,
@@ -1011,7 +1011,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
         }
     }
     #[cfg(any(feature = "ext_external_memory_capabilities", feature = "version_1_1"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceExternalBufferPropertiesKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceExternalBufferPropertiesKHR.html>"]
     #[doc(alias = "vkGetPhysicalDeviceExternalBufferPropertiesKHR")]
     pub fn get_external_buffer_properties_khr<
         S: StructureChainOut<ExternalBufferProperties<'static>>,
@@ -1028,7 +1028,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
         }
     }
     #[cfg(any(feature = "ext_external_fence_capabilities", feature = "version_1_1"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceExternalFenceProperties.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceExternalFenceProperties.html>"]
     #[doc(alias = "vkGetPhysicalDeviceExternalFenceProperties")]
     pub fn get_external_fence_properties<S: StructureChainOut<ExternalFenceProperties<'static>>>(
         &self,
@@ -1043,7 +1043,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
         }
     }
     #[cfg(any(feature = "ext_external_fence_capabilities", feature = "version_1_1"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceExternalFencePropertiesKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceExternalFencePropertiesKHR.html>"]
     #[doc(alias = "vkGetPhysicalDeviceExternalFencePropertiesKHR")]
     pub fn get_external_fence_properties_khr<
         S: StructureChainOut<ExternalFenceProperties<'static>>,
@@ -1063,7 +1063,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
         feature = "ext_external_semaphore_capabilities",
         feature = "version_1_1"
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceExternalSemaphoreProperties.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceExternalSemaphoreProperties.html>"]
     #[doc(alias = "vkGetPhysicalDeviceExternalSemaphoreProperties")]
     pub fn get_external_semaphore_properties<
         S: StructureChainOut<ExternalSemaphoreProperties<'static>>,
@@ -1083,7 +1083,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
         feature = "ext_external_semaphore_capabilities",
         feature = "version_1_1"
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceExternalSemaphorePropertiesKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceExternalSemaphorePropertiesKHR.html>"]
     #[doc(alias = "vkGetPhysicalDeviceExternalSemaphorePropertiesKHR")]
     pub fn get_external_semaphore_properties_khr<
         S: StructureChainOut<ExternalSemaphoreProperties<'static>>,
@@ -1100,7 +1100,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
         }
     }
     #[cfg(any(feature = "ext_tooling_info", feature = "version_1_3"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceToolProperties.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceToolProperties.html>"]
     #[doc(alias = "vkGetPhysicalDeviceToolProperties")]
     pub fn get_tool_properties<R: DynamicArray<PhysicalDeviceToolProperties<'static>>>(
         &self,
@@ -1110,7 +1110,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
         }
     }
     #[cfg(any(feature = "ext_tooling_info", feature = "version_1_3"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceToolPropertiesEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceToolPropertiesEXT.html>"]
     #[doc(alias = "vkGetPhysicalDeviceToolPropertiesEXT")]
     pub fn get_tool_properties_ext<R: DynamicArray<PhysicalDeviceToolProperties<'static>>>(
         &self,
@@ -1120,7 +1120,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
         }
     }
     #[cfg(feature = "ext_surface")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceSurfaceSupportKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceSurfaceSupportKHR.html>"]
     #[doc(alias = "vkGetPhysicalDeviceSurfaceSupportKHR")]
     #[inline]
     pub fn get_surface_support_khr(
@@ -1138,7 +1138,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
         }
     }
     #[cfg(feature = "ext_surface")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceSurfaceCapabilitiesKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceSurfaceCapabilitiesKHR.html>"]
     #[doc(alias = "vkGetPhysicalDeviceSurfaceCapabilitiesKHR")]
     #[inline]
     pub fn get_surface_capabilities_khr(
@@ -1154,7 +1154,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
         }
     }
     #[cfg(feature = "ext_surface")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceSurfaceFormatsKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceSurfaceFormatsKHR.html>"]
     #[doc(alias = "vkGetPhysicalDeviceSurfaceFormatsKHR")]
     pub fn get_surface_formats_khr<R: DynamicArray<SurfaceFormatKHR>>(
         &self,
@@ -1169,7 +1169,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
         }
     }
     #[cfg(feature = "ext_surface")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceSurfacePresentModesKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceSurfacePresentModesKHR.html>"]
     #[doc(alias = "vkGetPhysicalDeviceSurfacePresentModesKHR")]
     pub fn get_surface_present_modes_khr<R: DynamicArray<PresentModeKHR>>(
         &self,
@@ -1187,7 +1187,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
         all(feature = "ext_swapchain", feature = "version_1_1"),
         all(feature = "ext_device_group", feature = "ext_surface")
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDevicePresentRectanglesKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDevicePresentRectanglesKHR.html>"]
     #[doc(alias = "vkGetPhysicalDevicePresentRectanglesKHR")]
     pub fn get_present_rectangles_khr<R: DynamicArray<Rect2D>>(
         &self,
@@ -1202,7 +1202,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
         }
     }
     #[cfg(feature = "ext_display")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceDisplayPropertiesKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceDisplayPropertiesKHR.html>"]
     #[doc(alias = "vkGetPhysicalDeviceDisplayPropertiesKHR")]
     pub fn get_display_properties_khr<R: DynamicArray<DisplayPropertiesKHR<'static>>>(
         &self,
@@ -1215,7 +1215,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
         }
     }
     #[cfg(feature = "ext_display")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceDisplayPlanePropertiesKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceDisplayPlanePropertiesKHR.html>"]
     #[doc(alias = "vkGetPhysicalDeviceDisplayPlanePropertiesKHR")]
     pub fn get_display_plane_properties_khr<R: DynamicArray<DisplayPlanePropertiesKHR<'static>>>(
         &self,
@@ -1228,7 +1228,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
         }
     }
     #[cfg(feature = "ext_display")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetDisplayPlaneSupportedDisplaysKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDisplayPlaneSupportedDisplaysKHR.html>"]
     #[doc(alias = "vkGetDisplayPlaneSupportedDisplaysKHR")]
     pub fn get_display_plane_supported_displays_khr<
         R: AdvancedDynamicArray<DisplayKHR, raw::DisplayKHR>,
@@ -1251,7 +1251,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
         })
     }
     #[cfg(feature = "ext_display")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetDisplayModePropertiesKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDisplayModePropertiesKHR.html>"]
     #[doc(alias = "vkGetDisplayModePropertiesKHR")]
     pub fn get_display_mode_properties_khr<R: DynamicArray<DisplayModePropertiesKHR<'static>>>(
         &self,
@@ -1262,7 +1262,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
         }
     }
     #[cfg(feature = "ext_display")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateDisplayModeKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateDisplayModeKHR.html>"]
     #[doc(alias = "vkCreateDisplayModeKHR")]
     #[inline]
     pub fn create_display_mode_khr(
@@ -1282,7 +1282,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
         vk_result.map(|vk_result| unsafe { DisplayModeKHR::from_inner(vk_result) })
     }
     #[cfg(feature = "ext_display")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetDisplayPlaneCapabilitiesKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDisplayPlaneCapabilitiesKHR.html>"]
     #[doc(alias = "vkGetDisplayPlaneCapabilitiesKHR")]
     #[inline]
     pub fn get_display_plane_capabilities_khr(
@@ -1300,7 +1300,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
         }
     }
     #[cfg(feature = "ext_xlib_surface")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceXlibPresentationSupportKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceXlibPresentationSupportKHR.html>"]
     #[doc(alias = "vkGetPhysicalDeviceXlibPresentationSupportKHR")]
     #[inline]
     pub fn get_xlib_presentation_support_khr(
@@ -1320,7 +1320,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
         }
     }
     #[cfg(feature = "ext_xcb_surface")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceXcbPresentationSupportKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceXcbPresentationSupportKHR.html>"]
     #[doc(alias = "vkGetPhysicalDeviceXcbPresentationSupportKHR")]
     #[inline]
     pub fn get_xcb_presentation_support_khr(
@@ -1340,7 +1340,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
         }
     }
     #[cfg(feature = "ext_wayland_surface")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceWaylandPresentationSupportKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceWaylandPresentationSupportKHR.html>"]
     #[doc(alias = "vkGetPhysicalDeviceWaylandPresentationSupportKHR")]
     #[inline]
     pub fn get_wayland_presentation_support_khr(
@@ -1358,7 +1358,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
         }
     }
     #[cfg(feature = "ext_win32_surface")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceWin32PresentationSupportKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceWin32PresentationSupportKHR.html>"]
     #[doc(alias = "vkGetPhysicalDeviceWin32PresentationSupportKHR")]
     #[inline]
     pub fn get_win32_presentation_support_khr(&self, queue_family_index: u32) -> bool {
@@ -1371,7 +1371,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
         }
     }
     #[cfg(feature = "ext_external_memory_capabilities")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceExternalImageFormatPropertiesNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceExternalImageFormatPropertiesNV.html>"]
     #[doc(alias = "vkGetPhysicalDeviceExternalImageFormatPropertiesNV")]
     #[inline]
     pub fn get_external_image_format_properties_nv(
@@ -1397,14 +1397,14 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
         }
     }
     #[cfg(feature = "ext_direct_mode_display")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkReleaseDisplayEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkReleaseDisplayEXT.html>"]
     #[doc(alias = "vkReleaseDisplayEXT")]
     #[inline]
     pub fn release_display_ext(&self, display: &raw::DisplayKHR) -> Result<()> {
         unsafe { raw::release_display_ext(self, display, self.disp.get_command_dispatcher()) }
     }
     #[cfg(feature = "ext_acquire_xlib_display")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkAcquireXlibDisplayEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkAcquireXlibDisplayEXT.html>"]
     #[doc(alias = "vkAcquireXlibDisplayEXT")]
     #[inline]
     pub fn acquire_xlib_display_ext(&self, dpy: &VoidPtr, display: &raw::DisplayKHR) -> Result<()> {
@@ -1413,7 +1413,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
         }
     }
     #[cfg(feature = "ext_acquire_xlib_display")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetRandROutputDisplayEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetRandROutputDisplayEXT.html>"]
     #[doc(alias = "vkGetRandROutputDisplayEXT")]
     #[inline]
     pub fn get_rand_routput_display_ext(
@@ -1432,7 +1432,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
         vk_result.map(|vk_result| unsafe { DisplayKHR::from_inner(vk_result) })
     }
     #[cfg(feature = "ext_display_surface_counter")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceSurfaceCapabilities2EXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceSurfaceCapabilities2EXT.html>"]
     #[doc(alias = "vkGetPhysicalDeviceSurfaceCapabilities2EXT")]
     pub fn get_surface_capabilities2_ext<S: StructureChainOut<SurfaceCapabilities2EXT<'static>>>(
         &self,
@@ -1447,7 +1447,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
         }
     }
     #[cfg(feature = "ext_performance_query")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR.html>"]
     #[doc(alias = "vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR")]
     #[inline]
     pub fn get_queue_family_performance_query_passes_khr(
@@ -1463,7 +1463,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
         }
     }
     #[cfg(feature = "ext_get_surface_capabilities2")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceSurfaceCapabilities2KHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceSurfaceCapabilities2KHR.html>"]
     #[doc(alias = "vkGetPhysicalDeviceSurfaceCapabilities2KHR")]
     pub fn get_surface_capabilities2_khr<S: StructureChainOut<SurfaceCapabilities2KHR<'static>>>(
         &self,
@@ -1478,7 +1478,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
         }
     }
     #[cfg(feature = "ext_get_surface_capabilities2")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceSurfaceFormats2KHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceSurfaceFormats2KHR.html>"]
     #[doc(alias = "vkGetPhysicalDeviceSurfaceFormats2KHR")]
     pub fn get_surface_formats2_khr<R: DynamicArray<SurfaceFormat2KHR<'static>>>(
         &self,
@@ -1493,7 +1493,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
         }
     }
     #[cfg(feature = "ext_get_display_properties2")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceDisplayProperties2KHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceDisplayProperties2KHR.html>"]
     #[doc(alias = "vkGetPhysicalDeviceDisplayProperties2KHR")]
     pub fn get_display_properties2_khr<R: DynamicArray<DisplayProperties2KHR<'static>>>(
         &self,
@@ -1506,7 +1506,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
         }
     }
     #[cfg(feature = "ext_get_display_properties2")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceDisplayPlaneProperties2KHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceDisplayPlaneProperties2KHR.html>"]
     #[doc(alias = "vkGetPhysicalDeviceDisplayPlaneProperties2KHR")]
     pub fn get_display_plane_properties2_khr<
         R: DynamicArray<DisplayPlaneProperties2KHR<'static>>,
@@ -1521,7 +1521,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
         }
     }
     #[cfg(feature = "ext_get_display_properties2")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetDisplayModeProperties2KHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDisplayModeProperties2KHR.html>"]
     #[doc(alias = "vkGetDisplayModeProperties2KHR")]
     pub fn get_display_mode_properties2_khr<R: DynamicArray<DisplayModeProperties2KHR<'static>>>(
         &self,
@@ -1532,7 +1532,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
         }
     }
     #[cfg(feature = "ext_get_display_properties2")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetDisplayPlaneCapabilities2KHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDisplayPlaneCapabilities2KHR.html>"]
     #[doc(alias = "vkGetDisplayPlaneCapabilities2KHR")]
     pub fn get_display_plane_capabilities2_khr<
         S: StructureChainOut<DisplayPlaneCapabilities2KHR<'static>>,
@@ -1549,7 +1549,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
         }
     }
     #[cfg(feature = "ext_descriptor_heap")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceDescriptorSizeEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceDescriptorSizeEXT.html>"]
     #[doc(alias = "vkGetPhysicalDeviceDescriptorSizeEXT")]
     #[inline]
     pub fn get_descriptor_size_ext(&self, descriptor_type: DescriptorType) -> DeviceSize {
@@ -1562,7 +1562,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
         }
     }
     #[cfg(feature = "ext_sample_locations")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceMultisamplePropertiesEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceMultisamplePropertiesEXT.html>"]
     #[doc(alias = "vkGetPhysicalDeviceMultisamplePropertiesEXT")]
     pub fn get_multisample_properties_ext<
         S: StructureChainOut<MultisamplePropertiesEXT<'static>>,
@@ -1579,7 +1579,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
         }
     }
     #[cfg(feature = "ext_fragment_shading_rate")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceFragmentShadingRatesKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceFragmentShadingRatesKHR.html>"]
     #[doc(alias = "vkGetPhysicalDeviceFragmentShadingRatesKHR")]
     pub fn get_fragment_shading_rates_khr<
         R: DynamicArray<PhysicalDeviceFragmentShadingRateKHR<'static>>,
@@ -1594,7 +1594,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
         }
     }
     #[cfg(feature = "ext_cooperative_matrix")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceCooperativeMatrixPropertiesNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceCooperativeMatrixPropertiesNV.html>"]
     #[doc(alias = "vkGetPhysicalDeviceCooperativeMatrixPropertiesNV")]
     pub fn get_cooperative_matrix_properties_nv<
         R: DynamicArray<CooperativeMatrixPropertiesNV<'static>>,
@@ -1609,7 +1609,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
         }
     }
     #[cfg(feature = "ext_coverage_reduction_mode")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV.html>"]
     #[doc(alias = "vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV")]
     pub fn get_supported_framebuffer_mixed_samples_combinations_nv<
         R: DynamicArray<FramebufferMixedSamplesCombinationNV<'static>>,
@@ -1624,7 +1624,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
         }
     }
     #[cfg(feature = "ext_full_screen_exclusive")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceSurfacePresentModes2EXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceSurfacePresentModes2EXT.html>"]
     #[doc(alias = "vkGetPhysicalDeviceSurfacePresentModes2EXT")]
     pub fn get_surface_present_modes2_ext<R: DynamicArray<PresentModeKHR>>(
         &self,
@@ -1639,7 +1639,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
         }
     }
     #[cfg(feature = "ext_acquire_drm_display")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkAcquireDrmDisplayEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkAcquireDrmDisplayEXT.html>"]
     #[doc(alias = "vkAcquireDrmDisplayEXT")]
     #[inline]
     pub fn acquire_drm_display_ext(&self, drm_fd: i32, display: &raw::DisplayKHR) -> Result<()> {
@@ -1648,7 +1648,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
         }
     }
     #[cfg(feature = "ext_acquire_drm_display")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetDrmDisplayEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDrmDisplayEXT.html>"]
     #[doc(alias = "vkGetDrmDisplayEXT")]
     #[inline]
     pub fn get_drm_display_ext(&self, drm_fd: i32, connector_id: u32) -> Result<DisplayKHR> {
@@ -1663,14 +1663,14 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
         vk_result.map(|vk_result| unsafe { DisplayKHR::from_inner(vk_result) })
     }
     #[cfg(feature = "ext_acquire_winrt_display")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkAcquireWinrtDisplayNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkAcquireWinrtDisplayNV.html>"]
     #[doc(alias = "vkAcquireWinrtDisplayNV")]
     #[inline]
     pub fn acquire_winrt_display_nv(&self, display: &raw::DisplayKHR) -> Result<()> {
         unsafe { raw::acquire_winrt_display_nv(self, display, self.disp.get_command_dispatcher()) }
     }
     #[cfg(feature = "ext_acquire_winrt_display")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetWinrtDisplayNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetWinrtDisplayNV.html>"]
     #[doc(alias = "vkGetWinrtDisplayNV")]
     #[inline]
     pub fn get_winrt_display_nv(&self, device_relative_id: u32) -> Result<DisplayKHR> {
@@ -1680,7 +1680,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
         vk_result.map(|vk_result| unsafe { DisplayKHR::from_inner(vk_result) })
     }
     #[cfg(feature = "ext_directfb_surface")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceDirectFBPresentationSupportEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceDirectFBPresentationSupportEXT.html>"]
     #[doc(alias = "vkGetPhysicalDeviceDirectFBPresentationSupportEXT")]
     #[inline]
     pub fn get_direct_fbpresentation_support_ext(
@@ -1698,7 +1698,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
         }
     }
     #[cfg(feature = "ext_screen_surface")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceScreenPresentationSupportQNX.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceScreenPresentationSupportQNX.html>"]
     #[doc(alias = "vkGetPhysicalDeviceScreenPresentationSupportQNX")]
     #[inline]
     pub fn get_screen_presentation_support_qnx(
@@ -1716,7 +1716,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
         }
     }
     #[cfg(feature = "ext_tensors")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceExternalTensorPropertiesARM.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceExternalTensorPropertiesARM.html>"]
     #[doc(alias = "vkGetPhysicalDeviceExternalTensorPropertiesARM")]
     pub fn get_external_tensor_properties_arm<
         S: StructureChainOut<ExternalTensorPropertiesARM<'static>>,
@@ -1733,7 +1733,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
         }
     }
     #[cfg(feature = "ext_optical_flow")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceOpticalFlowImageFormatsNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceOpticalFlowImageFormatsNV.html>"]
     #[doc(alias = "vkGetPhysicalDeviceOpticalFlowImageFormatsNV")]
     pub fn get_optical_flow_image_formats_nv<
         R: DynamicArray<OpticalFlowImageFormatPropertiesNV<'static>>,
@@ -1750,7 +1750,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
         }
     }
     #[cfg(feature = "ext_cooperative_vector")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceCooperativeVectorPropertiesNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceCooperativeVectorPropertiesNV.html>"]
     #[doc(alias = "vkGetPhysicalDeviceCooperativeVectorPropertiesNV")]
     pub fn get_cooperative_vector_properties_nv<
         R: DynamicArray<CooperativeVectorPropertiesNV<'static>>,
@@ -1765,7 +1765,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
         }
     }
     #[cfg(feature = "ext_cooperative_matrix")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR.html>"]
     #[doc(alias = "vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR")]
     pub fn get_cooperative_matrix_properties_khr<
         R: DynamicArray<CooperativeMatrixPropertiesKHR<'static>>,
@@ -1780,7 +1780,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
         }
     }
     #[cfg(feature = "ext_data_graph")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceQueueFamilyDataGraphPropertiesARM.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceQueueFamilyDataGraphPropertiesARM.html>"]
     #[doc(alias = "vkGetPhysicalDeviceQueueFamilyDataGraphPropertiesARM")]
     pub fn get_queue_family_data_graph_properties_arm<
         R: DynamicArray<QueueFamilyDataGraphPropertiesARM<'static>>,
@@ -1797,7 +1797,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
         }
     }
     #[cfg(feature = "ext_data_graph")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceQueueFamilyDataGraphProcessingEnginePropertiesARM.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceQueueFamilyDataGraphProcessingEnginePropertiesARM.html>"]
     #[doc(alias = "vkGetPhysicalDeviceQueueFamilyDataGraphProcessingEnginePropertiesARM")]
     pub fn get_queue_family_data_graph_processing_engine_properties_arm<
         S: StructureChainOut<QueueFamilyDataGraphProcessingEnginePropertiesARM<'static>>,
@@ -1814,7 +1814,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
         }
     }
     #[cfg(feature = "ext_calibrated_timestamps")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceCalibrateableTimeDomainsKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceCalibrateableTimeDomainsKHR.html>"]
     #[doc(alias = "vkGetPhysicalDeviceCalibrateableTimeDomainsKHR")]
     pub fn get_calibrateable_time_domains_khr<R: DynamicArray<TimeDomainKHR>>(&self) -> Result<R> {
         unsafe {
@@ -1825,7 +1825,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
         }
     }
     #[cfg(feature = "ext_calibrated_timestamps")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceCalibrateableTimeDomainsEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceCalibrateableTimeDomainsEXT.html>"]
     #[doc(alias = "vkGetPhysicalDeviceCalibrateableTimeDomainsEXT")]
     pub fn get_calibrateable_time_domains_ext<R: DynamicArray<TimeDomainKHR>>(&self) -> Result<R> {
         unsafe {
@@ -1836,7 +1836,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
         }
     }
     #[cfg(feature = "ext_cooperative_matrix2")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceCooperativeMatrixFlexibleDimensionsPropertiesNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceCooperativeMatrixFlexibleDimensionsPropertiesNV.html>"]
     #[doc(alias = "vkGetPhysicalDeviceCooperativeMatrixFlexibleDimensionsPropertiesNV")]
     pub fn get_cooperative_matrix_flexible_dimensions_properties_nv<
         R: DynamicArray<CooperativeMatrixFlexibleDimensionsPropertiesNV<'static>>,
@@ -1851,7 +1851,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
         }
     }
     #[cfg(feature = "ext_shader_instrumentation")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkEnumeratePhysicalDeviceShaderInstrumentationMetricsARM.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkEnumeratePhysicalDeviceShaderInstrumentationMetricsARM.html>"]
     #[doc(alias = "vkEnumeratePhysicalDeviceShaderInstrumentationMetricsARM")]
     pub fn enumerate_shader_instrumentation_metrics_arm<
         R: DynamicArray<ShaderInstrumentationMetricDescriptionARM<'static>>,
@@ -1866,7 +1866,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
         }
     }
     #[cfg(feature = "ext_ubm_surface")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPhysicalDeviceUbmPresentationSupportSEC.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceUbmPresentationSupportSEC.html>"]
     #[doc(alias = "vkGetPhysicalDeviceUbmPresentationSupportSEC")]
     #[inline]
     pub fn get_ubm_presentation_support_sec(
@@ -1886,7 +1886,7 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
 }
 #[repr(C)]
 #[derive(Clone)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDevice.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDevice.html>"]
 #[doc(alias = "VkDevice")]
 pub struct Device<D: Dispatcher = DynamicDispatcher, A: BaseAllocator = DefaultAllocator> {
     inner: <raw::Device as Handle>::InnerType,
@@ -1923,13 +1923,13 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
     pub fn get_allocator(&self) -> &A {
         &self.alloc
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetDeviceProcAddr.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDeviceProcAddr.html>"]
     #[doc(alias = "vkGetDeviceProcAddr")]
     #[inline]
     pub fn get_proc_addr(&self, p_name: &CStr) -> FuncPtr {
         unsafe { raw::get_device_proc_addr(self, p_name, self.disp.get_command_dispatcher()) }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkDestroyDevice.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyDevice.html>"]
     #[doc(alias = "vkDestroyDevice")]
     #[inline]
     pub unsafe fn destroy(&self) {
@@ -1941,7 +1941,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetDeviceQueue.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDeviceQueue.html>"]
     #[doc(alias = "vkGetDeviceQueue")]
     #[inline]
     pub fn get_queue(&self, queue_family_index: u32, queue_index: u32) -> Queue<D, A> {
@@ -1955,13 +1955,13 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         };
         unsafe { Queue::from_inner(vk_result, self.disp.clone(), self.alloc.clone()) }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkDeviceWaitIdle.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkDeviceWaitIdle.html>"]
     #[doc(alias = "vkDeviceWaitIdle")]
     #[inline]
     pub fn wait_idle(&self) -> Result<()> {
         unsafe { raw::device_wait_idle(self, self.disp.get_command_dispatcher()) }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkAllocateMemory.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkAllocateMemory.html>"]
     #[doc(alias = "vkAllocateMemory")]
     #[inline]
     pub fn allocate_memory(&self, p_allocate_info: &MemoryAllocateInfo) -> Result<DeviceMemory> {
@@ -1975,7 +1975,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         };
         vk_result.map(|vk_result| unsafe { DeviceMemory::from_inner(vk_result) })
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkFreeMemory.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkFreeMemory.html>"]
     #[doc(alias = "vkFreeMemory")]
     #[inline]
     pub fn free_memory(&self, memory: Option<&raw::DeviceMemory>) {
@@ -1988,7 +1988,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkMapMemory.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkMapMemory.html>"]
     #[doc(alias = "vkMapMemory")]
     #[inline]
     pub fn map_memory(
@@ -2009,13 +2009,13 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkUnmapMemory.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkUnmapMemory.html>"]
     #[doc(alias = "vkUnmapMemory")]
     #[inline]
     pub fn unmap_memory(&self, memory: &raw::DeviceMemory) {
         unsafe { raw::unmap_memory(self, memory, self.disp.get_command_dispatcher()) }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkFlushMappedMemoryRanges.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkFlushMappedMemoryRanges.html>"]
     #[doc(alias = "vkFlushMappedMemoryRanges")]
     #[inline]
     pub fn flush_mapped_memory_ranges<'a>(
@@ -2030,7 +2030,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkInvalidateMappedMemoryRanges.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkInvalidateMappedMemoryRanges.html>"]
     #[doc(alias = "vkInvalidateMappedMemoryRanges")]
     #[inline]
     pub fn invalidate_mapped_memory_ranges<'a>(
@@ -2045,7 +2045,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetDeviceMemoryCommitment.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDeviceMemoryCommitment.html>"]
     #[doc(alias = "vkGetDeviceMemoryCommitment")]
     #[inline]
     pub fn get_memory_commitment(&self, memory: &raw::DeviceMemory) -> DeviceSize {
@@ -2053,7 +2053,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
             raw::get_device_memory_commitment(self, memory, self.disp.get_command_dispatcher())
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkBindBufferMemory.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkBindBufferMemory.html>"]
     #[doc(alias = "vkBindBufferMemory")]
     #[inline]
     pub fn bind_buffer_memory(
@@ -2072,7 +2072,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkBindImageMemory.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkBindImageMemory.html>"]
     #[doc(alias = "vkBindImageMemory")]
     #[inline]
     pub fn bind_image_memory(
@@ -2091,7 +2091,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetBufferMemoryRequirements.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetBufferMemoryRequirements.html>"]
     #[doc(alias = "vkGetBufferMemoryRequirements")]
     #[inline]
     pub fn get_buffer_memory_requirements(&self, buffer: &raw::Buffer) -> MemoryRequirements {
@@ -2099,7 +2099,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
             raw::get_buffer_memory_requirements(self, buffer, self.disp.get_command_dispatcher())
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetImageMemoryRequirements.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetImageMemoryRequirements.html>"]
     #[doc(alias = "vkGetImageMemoryRequirements")]
     #[inline]
     pub fn get_image_memory_requirements(&self, image: &raw::Image) -> MemoryRequirements {
@@ -2107,7 +2107,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
             raw::get_image_memory_requirements(self, image, self.disp.get_command_dispatcher())
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetImageSparseMemoryRequirements.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetImageSparseMemoryRequirements.html>"]
     #[doc(alias = "vkGetImageSparseMemoryRequirements")]
     pub fn get_image_sparse_memory_requirements<R: DynamicArray<SparseImageMemoryRequirements>>(
         &self,
@@ -2121,7 +2121,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateFence.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateFence.html>"]
     #[doc(alias = "vkCreateFence")]
     #[inline]
     pub fn create_fence(&self, p_create_info: &FenceCreateInfo) -> Result<Fence> {
@@ -2135,7 +2135,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         };
         vk_result.map(|vk_result| unsafe { Fence::from_inner(vk_result) })
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkDestroyFence.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyFence.html>"]
     #[doc(alias = "vkDestroyFence")]
     #[inline]
     pub unsafe fn destroy_fence(&self, fence: Option<&raw::Fence>) {
@@ -2148,7 +2148,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkResetFences.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkResetFences.html>"]
     #[doc(alias = "vkResetFences")]
     #[inline]
     pub fn reset_fences<'a, V2: Alias<raw::Fence> + 'a>(
@@ -2157,13 +2157,13 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
     ) -> Result<()> {
         unsafe { raw::reset_fences(self, p_fences, self.disp.get_command_dispatcher()) }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetFenceStatus.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetFenceStatus.html>"]
     #[doc(alias = "vkGetFenceStatus")]
     #[inline]
     pub fn get_fence_status(&self, fence: &raw::Fence) -> Result<Status> {
         unsafe { raw::get_fence_status(self, fence, self.disp.get_command_dispatcher()) }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkWaitForFences.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkWaitForFences.html>"]
     #[doc(alias = "vkWaitForFences")]
     #[inline]
     pub fn wait_for_fences<'a, V2: Alias<raw::Fence> + 'a>(
@@ -2182,7 +2182,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateSemaphore.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateSemaphore.html>"]
     #[doc(alias = "vkCreateSemaphore")]
     #[inline]
     pub fn create_semaphore(&self, p_create_info: &SemaphoreCreateInfo) -> Result<Semaphore> {
@@ -2196,7 +2196,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         };
         vk_result.map(|vk_result| unsafe { Semaphore::from_inner(vk_result) })
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkDestroySemaphore.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroySemaphore.html>"]
     #[doc(alias = "vkDestroySemaphore")]
     #[inline]
     pub unsafe fn destroy_semaphore(&self, semaphore: Option<&raw::Semaphore>) {
@@ -2209,7 +2209,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateQueryPool.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateQueryPool.html>"]
     #[doc(alias = "vkCreateQueryPool")]
     #[inline]
     pub fn create_query_pool(&self, p_create_info: &QueryPoolCreateInfo) -> Result<QueryPool> {
@@ -2223,7 +2223,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         };
         vk_result.map(|vk_result| unsafe { QueryPool::from_inner(vk_result) })
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkDestroyQueryPool.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyQueryPool.html>"]
     #[doc(alias = "vkDestroyQueryPool")]
     #[inline]
     pub unsafe fn destroy_query_pool(&self, query_pool: Option<&raw::QueryPool>) {
@@ -2236,7 +2236,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetQueryPoolResults.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetQueryPoolResults.html>"]
     #[doc(alias = "vkGetQueryPoolResults")]
     #[inline]
     pub fn get_query_pool_results(
@@ -2263,7 +2263,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateBuffer.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateBuffer.html>"]
     #[doc(alias = "vkCreateBuffer")]
     #[inline]
     pub fn create_buffer(&self, p_create_info: &BufferCreateInfo) -> Result<Buffer> {
@@ -2277,7 +2277,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         };
         vk_result.map(|vk_result| unsafe { Buffer::from_inner(vk_result) })
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkDestroyBuffer.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyBuffer.html>"]
     #[doc(alias = "vkDestroyBuffer")]
     #[inline]
     pub unsafe fn destroy_buffer(&self, buffer: Option<&raw::Buffer>) {
@@ -2290,7 +2290,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateImage.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateImage.html>"]
     #[doc(alias = "vkCreateImage")]
     #[inline]
     pub fn create_image(&self, p_create_info: &ImageCreateInfo) -> Result<Image> {
@@ -2304,7 +2304,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         };
         vk_result.map(|vk_result| unsafe { Image::from_inner(vk_result) })
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkDestroyImage.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyImage.html>"]
     #[doc(alias = "vkDestroyImage")]
     #[inline]
     pub unsafe fn destroy_image(&self, image: Option<&raw::Image>) {
@@ -2317,7 +2317,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetImageSubresourceLayout.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetImageSubresourceLayout.html>"]
     #[doc(alias = "vkGetImageSubresourceLayout")]
     #[inline]
     pub fn get_image_subresource_layout(
@@ -2334,7 +2334,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateImageView.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateImageView.html>"]
     #[doc(alias = "vkCreateImageView")]
     #[inline]
     pub fn create_image_view(&self, p_create_info: &ImageViewCreateInfo) -> Result<ImageView> {
@@ -2348,7 +2348,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         };
         vk_result.map(|vk_result| unsafe { ImageView::from_inner(vk_result) })
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkDestroyImageView.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyImageView.html>"]
     #[doc(alias = "vkDestroyImageView")]
     #[inline]
     pub unsafe fn destroy_image_view(&self, image_view: Option<&raw::ImageView>) {
@@ -2361,7 +2361,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateCommandPool.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateCommandPool.html>"]
     #[doc(alias = "vkCreateCommandPool")]
     #[inline]
     pub fn create_command_pool(
@@ -2378,7 +2378,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         };
         vk_result.map(|vk_result| unsafe { CommandPool::from_inner(vk_result) })
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkDestroyCommandPool.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyCommandPool.html>"]
     #[doc(alias = "vkDestroyCommandPool")]
     #[inline]
     pub unsafe fn destroy_command_pool(&self, command_pool: Option<&raw::CommandPool>) {
@@ -2391,7 +2391,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkResetCommandPool.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkResetCommandPool.html>"]
     #[doc(alias = "vkResetCommandPool")]
     #[inline]
     pub fn reset_command_pool(
@@ -2408,7 +2408,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkAllocateCommandBuffers.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkAllocateCommandBuffers.html>"]
     #[doc(alias = "vkAllocateCommandBuffers")]
     pub fn allocate_command_buffers<
         R: AdvancedDynamicArray<CommandBuffer<D, A>, raw::CommandBuffer>,
@@ -2428,7 +2428,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
                 .collect()
         })
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkFreeCommandBuffers.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkFreeCommandBuffers.html>"]
     #[doc(alias = "vkFreeCommandBuffers")]
     #[inline]
     pub fn free_command_buffers<'a, V3: Alias<raw::CommandBuffer> + 'a>(
@@ -2445,7 +2445,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateEvent.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateEvent.html>"]
     #[doc(alias = "vkCreateEvent")]
     #[inline]
     pub fn create_event(&self, p_create_info: &EventCreateInfo) -> Result<Event> {
@@ -2459,7 +2459,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         };
         vk_result.map(|vk_result| unsafe { Event::from_inner(vk_result) })
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkDestroyEvent.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyEvent.html>"]
     #[doc(alias = "vkDestroyEvent")]
     #[inline]
     pub unsafe fn destroy_event(&self, event: Option<&raw::Event>) {
@@ -2472,25 +2472,25 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetEventStatus.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetEventStatus.html>"]
     #[doc(alias = "vkGetEventStatus")]
     #[inline]
     pub fn get_event_status(&self, event: &raw::Event) -> Result<Status> {
         unsafe { raw::get_event_status(self, event, self.disp.get_command_dispatcher()) }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkSetEvent.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkSetEvent.html>"]
     #[doc(alias = "vkSetEvent")]
     #[inline]
     pub fn set_event(&self, event: &raw::Event) -> Result<()> {
         unsafe { raw::set_event(self, event, self.disp.get_command_dispatcher()) }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkResetEvent.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkResetEvent.html>"]
     #[doc(alias = "vkResetEvent")]
     #[inline]
     pub fn reset_event(&self, event: &raw::Event) -> Result<()> {
         unsafe { raw::reset_event(self, event, self.disp.get_command_dispatcher()) }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateBufferView.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateBufferView.html>"]
     #[doc(alias = "vkCreateBufferView")]
     #[inline]
     pub fn create_buffer_view(&self, p_create_info: &BufferViewCreateInfo) -> Result<BufferView> {
@@ -2504,7 +2504,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         };
         vk_result.map(|vk_result| unsafe { BufferView::from_inner(vk_result) })
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkDestroyBufferView.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyBufferView.html>"]
     #[doc(alias = "vkDestroyBufferView")]
     #[inline]
     pub unsafe fn destroy_buffer_view(&self, buffer_view: Option<&raw::BufferView>) {
@@ -2517,7 +2517,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateShaderModule.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateShaderModule.html>"]
     #[doc(alias = "vkCreateShaderModule")]
     #[inline]
     pub fn create_shader_module(
@@ -2534,7 +2534,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         };
         vk_result.map(|vk_result| unsafe { ShaderModule::from_inner(vk_result) })
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkDestroyShaderModule.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyShaderModule.html>"]
     #[doc(alias = "vkDestroyShaderModule")]
     #[inline]
     pub unsafe fn destroy_shader_module(&self, shader_module: Option<&raw::ShaderModule>) {
@@ -2547,7 +2547,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreatePipelineCache.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreatePipelineCache.html>"]
     #[doc(alias = "vkCreatePipelineCache")]
     #[inline]
     pub fn create_pipeline_cache(
@@ -2564,7 +2564,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         };
         vk_result.map(|vk_result| unsafe { PipelineCache::from_inner(vk_result) })
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkDestroyPipelineCache.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyPipelineCache.html>"]
     #[doc(alias = "vkDestroyPipelineCache")]
     #[inline]
     pub unsafe fn destroy_pipeline_cache(&self, pipeline_cache: Option<&raw::PipelineCache>) {
@@ -2577,7 +2577,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPipelineCacheData.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPipelineCacheData.html>"]
     #[doc(alias = "vkGetPipelineCacheData")]
     #[inline]
     pub fn get_pipeline_cache_data(
@@ -2594,7 +2594,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkMergePipelineCaches.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkMergePipelineCaches.html>"]
     #[doc(alias = "vkMergePipelineCaches")]
     #[inline]
     pub fn merge_pipeline_caches<'a, V3: Alias<raw::PipelineCache> + 'a>(
@@ -2611,7 +2611,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateComputePipelines.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateComputePipelines.html>"]
     #[doc(alias = "vkCreateComputePipelines")]
     pub fn create_compute_pipelines<'a, R: AdvancedDynamicArray<Pipeline, raw::Pipeline>>(
         &self,
@@ -2637,7 +2637,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
             )
         })
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkDestroyPipeline.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyPipeline.html>"]
     #[doc(alias = "vkDestroyPipeline")]
     #[inline]
     pub unsafe fn destroy_pipeline(&self, pipeline: Option<&raw::Pipeline>) {
@@ -2650,7 +2650,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreatePipelineLayout.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreatePipelineLayout.html>"]
     #[doc(alias = "vkCreatePipelineLayout")]
     #[inline]
     pub fn create_pipeline_layout(
@@ -2667,7 +2667,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         };
         vk_result.map(|vk_result| unsafe { PipelineLayout::from_inner(vk_result) })
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkDestroyPipelineLayout.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyPipelineLayout.html>"]
     #[doc(alias = "vkDestroyPipelineLayout")]
     #[inline]
     pub unsafe fn destroy_pipeline_layout(&self, pipeline_layout: Option<&raw::PipelineLayout>) {
@@ -2680,7 +2680,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateSampler.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateSampler.html>"]
     #[doc(alias = "vkCreateSampler")]
     #[inline]
     pub fn create_sampler(&self, p_create_info: &SamplerCreateInfo) -> Result<Sampler> {
@@ -2694,7 +2694,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         };
         vk_result.map(|vk_result| unsafe { Sampler::from_inner(vk_result) })
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkDestroySampler.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroySampler.html>"]
     #[doc(alias = "vkDestroySampler")]
     #[inline]
     pub unsafe fn destroy_sampler(&self, sampler: Option<&raw::Sampler>) {
@@ -2707,7 +2707,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateDescriptorSetLayout.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateDescriptorSetLayout.html>"]
     #[doc(alias = "vkCreateDescriptorSetLayout")]
     #[inline]
     pub fn create_descriptor_set_layout(
@@ -2724,7 +2724,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         };
         vk_result.map(|vk_result| unsafe { DescriptorSetLayout::from_inner(vk_result) })
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkDestroyDescriptorSetLayout.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyDescriptorSetLayout.html>"]
     #[doc(alias = "vkDestroyDescriptorSetLayout")]
     #[inline]
     pub unsafe fn destroy_descriptor_set_layout(
@@ -2740,7 +2740,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateDescriptorPool.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateDescriptorPool.html>"]
     #[doc(alias = "vkCreateDescriptorPool")]
     #[inline]
     pub fn create_descriptor_pool(
@@ -2757,7 +2757,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         };
         vk_result.map(|vk_result| unsafe { DescriptorPool::from_inner(vk_result) })
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkDestroyDescriptorPool.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyDescriptorPool.html>"]
     #[doc(alias = "vkDestroyDescriptorPool")]
     #[inline]
     pub unsafe fn destroy_descriptor_pool(&self, descriptor_pool: Option<&raw::DescriptorPool>) {
@@ -2770,7 +2770,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkResetDescriptorPool.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkResetDescriptorPool.html>"]
     #[doc(alias = "vkResetDescriptorPool")]
     #[inline]
     pub fn reset_descriptor_pool(
@@ -2787,7 +2787,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkAllocateDescriptorSets.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkAllocateDescriptorSets.html>"]
     #[doc(alias = "vkAllocateDescriptorSets")]
     pub fn allocate_descriptor_sets<R: AdvancedDynamicArray<DescriptorSet, raw::DescriptorSet>>(
         &self,
@@ -2803,7 +2803,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
                 .collect()
         })
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkFreeDescriptorSets.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkFreeDescriptorSets.html>"]
     #[doc(alias = "vkFreeDescriptorSets")]
     #[inline]
     pub fn free_descriptor_sets<'a, V3: Alias<raw::DescriptorSet> + 'a>(
@@ -2820,7 +2820,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkUpdateDescriptorSets.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkUpdateDescriptorSets.html>"]
     #[doc(alias = "vkUpdateDescriptorSets")]
     #[inline]
     pub fn update_descriptor_sets<'a>(
@@ -2837,7 +2837,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateGraphicsPipelines.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateGraphicsPipelines.html>"]
     #[doc(alias = "vkCreateGraphicsPipelines")]
     pub fn create_graphics_pipelines<'a, R: AdvancedDynamicArray<Pipeline, raw::Pipeline>>(
         &self,
@@ -2863,7 +2863,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
             )
         })
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateFramebuffer.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateFramebuffer.html>"]
     #[doc(alias = "vkCreateFramebuffer")]
     #[inline]
     pub fn create_framebuffer(&self, p_create_info: &FramebufferCreateInfo) -> Result<Framebuffer> {
@@ -2877,7 +2877,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         };
         vk_result.map(|vk_result| unsafe { Framebuffer::from_inner(vk_result) })
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkDestroyFramebuffer.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyFramebuffer.html>"]
     #[doc(alias = "vkDestroyFramebuffer")]
     #[inline]
     pub unsafe fn destroy_framebuffer(&self, framebuffer: Option<&raw::Framebuffer>) {
@@ -2890,7 +2890,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateRenderPass.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateRenderPass.html>"]
     #[doc(alias = "vkCreateRenderPass")]
     #[inline]
     pub fn create_render_pass(&self, p_create_info: &RenderPassCreateInfo) -> Result<RenderPass> {
@@ -2904,7 +2904,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         };
         vk_result.map(|vk_result| unsafe { RenderPass::from_inner(vk_result) })
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkDestroyRenderPass.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyRenderPass.html>"]
     #[doc(alias = "vkDestroyRenderPass")]
     #[inline]
     pub unsafe fn destroy_render_pass(&self, render_pass: Option<&raw::RenderPass>) {
@@ -2917,7 +2917,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetRenderAreaGranularity.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetRenderAreaGranularity.html>"]
     #[doc(alias = "vkGetRenderAreaGranularity")]
     #[inline]
     pub fn get_render_area_granularity(&self, render_pass: &raw::RenderPass) -> Extent2D {
@@ -2926,7 +2926,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(any(feature = "ext_bind_memory2", feature = "version_1_1"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkBindBufferMemory2.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkBindBufferMemory2.html>"]
     #[doc(alias = "vkBindBufferMemory2")]
     #[inline]
     pub fn bind_buffer_memory2<'a>(
@@ -2936,7 +2936,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         unsafe { raw::bind_buffer_memory2(self, p_bind_infos, self.disp.get_command_dispatcher()) }
     }
     #[cfg(any(feature = "ext_bind_memory2", feature = "version_1_1"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkBindBufferMemory2KHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkBindBufferMemory2KHR.html>"]
     #[doc(alias = "vkBindBufferMemory2KHR")]
     #[inline]
     pub fn bind_buffer_memory2_khr<'a>(
@@ -2948,7 +2948,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(any(feature = "ext_bind_memory2", feature = "version_1_1"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkBindImageMemory2.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkBindImageMemory2.html>"]
     #[doc(alias = "vkBindImageMemory2")]
     #[inline]
     pub fn bind_image_memory2<'a>(
@@ -2958,7 +2958,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         unsafe { raw::bind_image_memory2(self, p_bind_infos, self.disp.get_command_dispatcher()) }
     }
     #[cfg(any(feature = "ext_bind_memory2", feature = "version_1_1"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkBindImageMemory2KHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkBindImageMemory2KHR.html>"]
     #[doc(alias = "vkBindImageMemory2KHR")]
     #[inline]
     pub fn bind_image_memory2_khr<'a>(
@@ -2970,7 +2970,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(any(feature = "ext_device_group", feature = "version_1_1"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetDeviceGroupPeerMemoryFeatures.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDeviceGroupPeerMemoryFeatures.html>"]
     #[doc(alias = "vkGetDeviceGroupPeerMemoryFeatures")]
     #[inline]
     pub fn get_group_peer_memory_features(
@@ -2990,7 +2990,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(any(feature = "ext_device_group", feature = "version_1_1"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetDeviceGroupPeerMemoryFeaturesKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDeviceGroupPeerMemoryFeaturesKHR.html>"]
     #[doc(alias = "vkGetDeviceGroupPeerMemoryFeaturesKHR")]
     #[inline]
     pub fn get_group_peer_memory_features_khr(
@@ -3010,7 +3010,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(any(feature = "ext_get_memory_requirements2", feature = "version_1_1"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetImageMemoryRequirements2.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetImageMemoryRequirements2.html>"]
     #[doc(alias = "vkGetImageMemoryRequirements2")]
     pub fn get_image_memory_requirements2<S: StructureChainOut<MemoryRequirements2<'static>>>(
         &self,
@@ -3021,7 +3021,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(any(feature = "ext_get_memory_requirements2", feature = "version_1_1"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetImageMemoryRequirements2KHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetImageMemoryRequirements2KHR.html>"]
     #[doc(alias = "vkGetImageMemoryRequirements2KHR")]
     pub fn get_image_memory_requirements2_khr<
         S: StructureChainOut<MemoryRequirements2<'static>>,
@@ -3038,7 +3038,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(any(feature = "ext_get_memory_requirements2", feature = "version_1_1"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetBufferMemoryRequirements2.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetBufferMemoryRequirements2.html>"]
     #[doc(alias = "vkGetBufferMemoryRequirements2")]
     pub fn get_buffer_memory_requirements2<S: StructureChainOut<MemoryRequirements2<'static>>>(
         &self,
@@ -3049,7 +3049,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(any(feature = "ext_get_memory_requirements2", feature = "version_1_1"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetBufferMemoryRequirements2KHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetBufferMemoryRequirements2KHR.html>"]
     #[doc(alias = "vkGetBufferMemoryRequirements2KHR")]
     pub fn get_buffer_memory_requirements2_khr<
         S: StructureChainOut<MemoryRequirements2<'static>>,
@@ -3066,7 +3066,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(any(feature = "ext_get_memory_requirements2", feature = "version_1_1"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetImageSparseMemoryRequirements2.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetImageSparseMemoryRequirements2.html>"]
     #[doc(alias = "vkGetImageSparseMemoryRequirements2")]
     pub fn get_image_sparse_memory_requirements2<
         R: DynamicArray<SparseImageMemoryRequirements2<'static>>,
@@ -3083,7 +3083,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(any(feature = "ext_get_memory_requirements2", feature = "version_1_1"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetImageSparseMemoryRequirements2KHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetImageSparseMemoryRequirements2KHR.html>"]
     #[doc(alias = "vkGetImageSparseMemoryRequirements2KHR")]
     pub fn get_image_sparse_memory_requirements2_khr<
         R: DynamicArray<SparseImageMemoryRequirements2<'static>>,
@@ -3100,7 +3100,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(any(feature = "ext_maintenance1", feature = "version_1_1"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkTrimCommandPool.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkTrimCommandPool.html>"]
     #[doc(alias = "vkTrimCommandPool")]
     #[inline]
     pub fn trim_command_pool(&self, command_pool: &raw::CommandPool, flags: u32) {
@@ -3114,7 +3114,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(any(feature = "ext_maintenance1", feature = "version_1_1"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkTrimCommandPoolKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkTrimCommandPoolKHR.html>"]
     #[doc(alias = "vkTrimCommandPoolKHR")]
     #[inline]
     pub fn trim_command_pool_khr(&self, command_pool: &raw::CommandPool, flags: u32) {
@@ -3128,7 +3128,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "version_1_1")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetDeviceQueue2.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDeviceQueue2.html>"]
     #[doc(alias = "vkGetDeviceQueue2")]
     #[inline]
     pub fn get_queue2(&self, p_queue_info: &DeviceQueueInfo2) -> Queue<D, A> {
@@ -3138,7 +3138,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         unsafe { Queue::from_inner(vk_result, self.disp.clone(), self.alloc.clone()) }
     }
     #[cfg(any(feature = "ext_descriptor_update_template", feature = "version_1_1"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateDescriptorUpdateTemplate.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateDescriptorUpdateTemplate.html>"]
     #[doc(alias = "vkCreateDescriptorUpdateTemplate")]
     #[inline]
     pub fn create_descriptor_update_template(
@@ -3156,7 +3156,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         vk_result.map(|vk_result| unsafe { DescriptorUpdateTemplate::from_inner(vk_result) })
     }
     #[cfg(any(feature = "ext_descriptor_update_template", feature = "version_1_1"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateDescriptorUpdateTemplateKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateDescriptorUpdateTemplateKHR.html>"]
     #[doc(alias = "vkCreateDescriptorUpdateTemplateKHR")]
     #[inline]
     pub fn create_descriptor_update_template_khr(
@@ -3174,7 +3174,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         vk_result.map(|vk_result| unsafe { DescriptorUpdateTemplate::from_inner(vk_result) })
     }
     #[cfg(any(feature = "ext_descriptor_update_template", feature = "version_1_1"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkDestroyDescriptorUpdateTemplate.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyDescriptorUpdateTemplate.html>"]
     #[doc(alias = "vkDestroyDescriptorUpdateTemplate")]
     #[inline]
     pub unsafe fn destroy_descriptor_update_template(
@@ -3191,7 +3191,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(any(feature = "ext_descriptor_update_template", feature = "version_1_1"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkDestroyDescriptorUpdateTemplateKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyDescriptorUpdateTemplateKHR.html>"]
     #[doc(alias = "vkDestroyDescriptorUpdateTemplateKHR")]
     #[inline]
     pub unsafe fn destroy_descriptor_update_template_khr(
@@ -3208,7 +3208,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(any(feature = "ext_descriptor_update_template", feature = "version_1_1"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkUpdateDescriptorSetWithTemplate.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkUpdateDescriptorSetWithTemplate.html>"]
     #[doc(alias = "vkUpdateDescriptorSetWithTemplate")]
     #[inline]
     pub fn update_descriptor_set_with_template(
@@ -3228,7 +3228,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(any(feature = "ext_descriptor_update_template", feature = "version_1_1"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkUpdateDescriptorSetWithTemplateKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkUpdateDescriptorSetWithTemplateKHR.html>"]
     #[doc(alias = "vkUpdateDescriptorSetWithTemplateKHR")]
     #[inline]
     pub fn update_descriptor_set_with_template_khr(
@@ -3248,7 +3248,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(any(feature = "ext_maintenance3", feature = "version_1_1"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetDescriptorSetLayoutSupport.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDescriptorSetLayoutSupport.html>"]
     #[doc(alias = "vkGetDescriptorSetLayoutSupport")]
     pub fn get_descriptor_set_layout_support<
         S: StructureChainOut<DescriptorSetLayoutSupport<'static>>,
@@ -3265,7 +3265,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(any(feature = "ext_maintenance3", feature = "version_1_1"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetDescriptorSetLayoutSupportKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDescriptorSetLayoutSupportKHR.html>"]
     #[doc(alias = "vkGetDescriptorSetLayoutSupportKHR")]
     pub fn get_descriptor_set_layout_support_khr<
         S: StructureChainOut<DescriptorSetLayoutSupport<'static>>,
@@ -3282,7 +3282,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(any(feature = "ext_sampler_ycbcr_conversion", feature = "version_1_1"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateSamplerYcbcrConversion.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateSamplerYcbcrConversion.html>"]
     #[doc(alias = "vkCreateSamplerYcbcrConversion")]
     #[inline]
     pub fn create_sampler_ycbcr_conversion(
@@ -3300,7 +3300,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         vk_result.map(|vk_result| unsafe { SamplerYcbcrConversion::from_inner(vk_result) })
     }
     #[cfg(any(feature = "ext_sampler_ycbcr_conversion", feature = "version_1_1"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateSamplerYcbcrConversionKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateSamplerYcbcrConversionKHR.html>"]
     #[doc(alias = "vkCreateSamplerYcbcrConversionKHR")]
     #[inline]
     pub fn create_sampler_ycbcr_conversion_khr(
@@ -3318,7 +3318,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         vk_result.map(|vk_result| unsafe { SamplerYcbcrConversion::from_inner(vk_result) })
     }
     #[cfg(any(feature = "ext_sampler_ycbcr_conversion", feature = "version_1_1"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkDestroySamplerYcbcrConversion.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroySamplerYcbcrConversion.html>"]
     #[doc(alias = "vkDestroySamplerYcbcrConversion")]
     #[inline]
     pub unsafe fn destroy_sampler_ycbcr_conversion(
@@ -3335,7 +3335,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(any(feature = "ext_sampler_ycbcr_conversion", feature = "version_1_1"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkDestroySamplerYcbcrConversionKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroySamplerYcbcrConversionKHR.html>"]
     #[doc(alias = "vkDestroySamplerYcbcrConversionKHR")]
     #[inline]
     pub unsafe fn destroy_sampler_ycbcr_conversion_khr(
@@ -3352,7 +3352,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(any(feature = "ext_host_query_reset", feature = "version_1_2"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkResetQueryPool.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkResetQueryPool.html>"]
     #[doc(alias = "vkResetQueryPool")]
     #[inline]
     pub fn reset_query_pool(
@@ -3372,7 +3372,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(any(feature = "ext_host_query_reset", feature = "version_1_2"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkResetQueryPoolEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkResetQueryPoolEXT.html>"]
     #[doc(alias = "vkResetQueryPoolEXT")]
     #[inline]
     pub fn reset_query_pool_ext(
@@ -3392,7 +3392,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(any(feature = "ext_timeline_semaphore", feature = "version_1_2"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetSemaphoreCounterValue.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetSemaphoreCounterValue.html>"]
     #[doc(alias = "vkGetSemaphoreCounterValue")]
     #[inline]
     pub fn get_semaphore_counter_value(&self, semaphore: &raw::Semaphore) -> Result<u64> {
@@ -3401,7 +3401,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(any(feature = "ext_timeline_semaphore", feature = "version_1_2"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetSemaphoreCounterValueKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetSemaphoreCounterValueKHR.html>"]
     #[doc(alias = "vkGetSemaphoreCounterValueKHR")]
     #[inline]
     pub fn get_semaphore_counter_value_khr(&self, semaphore: &raw::Semaphore) -> Result<u64> {
@@ -3414,7 +3414,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(any(feature = "ext_timeline_semaphore", feature = "version_1_2"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkWaitSemaphores.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkWaitSemaphores.html>"]
     #[doc(alias = "vkWaitSemaphores")]
     #[inline]
     pub fn wait_semaphores(&self, p_wait_info: &SemaphoreWaitInfo, timeout: u64) -> Result<Status> {
@@ -3428,7 +3428,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(any(feature = "ext_timeline_semaphore", feature = "version_1_2"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkWaitSemaphoresKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkWaitSemaphoresKHR.html>"]
     #[doc(alias = "vkWaitSemaphoresKHR")]
     #[inline]
     pub fn wait_semaphores_khr(
@@ -3446,14 +3446,14 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(any(feature = "ext_timeline_semaphore", feature = "version_1_2"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkSignalSemaphore.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkSignalSemaphore.html>"]
     #[doc(alias = "vkSignalSemaphore")]
     #[inline]
     pub fn signal_semaphore(&self, p_signal_info: &SemaphoreSignalInfo) -> Result<()> {
         unsafe { raw::signal_semaphore(self, p_signal_info, self.disp.get_command_dispatcher()) }
     }
     #[cfg(any(feature = "ext_timeline_semaphore", feature = "version_1_2"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkSignalSemaphoreKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkSignalSemaphoreKHR.html>"]
     #[doc(alias = "vkSignalSemaphoreKHR")]
     #[inline]
     pub fn signal_semaphore_khr(&self, p_signal_info: &SemaphoreSignalInfo) -> Result<()> {
@@ -3462,14 +3462,14 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(any(feature = "ext_buffer_device_address", feature = "version_1_2"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetBufferDeviceAddress.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetBufferDeviceAddress.html>"]
     #[doc(alias = "vkGetBufferDeviceAddress")]
     #[inline]
     pub fn get_buffer_address(&self, p_info: &BufferDeviceAddressInfo) -> DeviceAddress {
         unsafe { raw::get_buffer_device_address(self, p_info, self.disp.get_command_dispatcher()) }
     }
     #[cfg(any(feature = "ext_buffer_device_address", feature = "version_1_2"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetBufferDeviceAddressKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetBufferDeviceAddressKHR.html>"]
     #[doc(alias = "vkGetBufferDeviceAddressKHR")]
     #[inline]
     pub fn get_buffer_address_khr(&self, p_info: &BufferDeviceAddressInfo) -> DeviceAddress {
@@ -3478,7 +3478,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(any(feature = "ext_buffer_device_address", feature = "version_1_2"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetBufferDeviceAddressEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetBufferDeviceAddressEXT.html>"]
     #[doc(alias = "vkGetBufferDeviceAddressEXT")]
     #[inline]
     pub fn get_buffer_address_ext(&self, p_info: &BufferDeviceAddressInfo) -> DeviceAddress {
@@ -3487,7 +3487,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(any(feature = "ext_buffer_device_address", feature = "version_1_2"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetBufferOpaqueCaptureAddress.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetBufferOpaqueCaptureAddress.html>"]
     #[doc(alias = "vkGetBufferOpaqueCaptureAddress")]
     #[inline]
     pub fn get_buffer_opaque_capture_address(&self, p_info: &BufferDeviceAddressInfo) -> u64 {
@@ -3496,7 +3496,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(any(feature = "ext_buffer_device_address", feature = "version_1_2"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetBufferOpaqueCaptureAddressKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetBufferOpaqueCaptureAddressKHR.html>"]
     #[doc(alias = "vkGetBufferOpaqueCaptureAddressKHR")]
     #[inline]
     pub fn get_buffer_opaque_capture_address_khr(&self, p_info: &BufferDeviceAddressInfo) -> u64 {
@@ -3509,7 +3509,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(any(feature = "ext_buffer_device_address", feature = "version_1_2"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetDeviceMemoryOpaqueCaptureAddress.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDeviceMemoryOpaqueCaptureAddress.html>"]
     #[doc(alias = "vkGetDeviceMemoryOpaqueCaptureAddress")]
     #[inline]
     pub fn get_memory_opaque_capture_address(
@@ -3525,7 +3525,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(any(feature = "ext_buffer_device_address", feature = "version_1_2"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetDeviceMemoryOpaqueCaptureAddressKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDeviceMemoryOpaqueCaptureAddressKHR.html>"]
     #[doc(alias = "vkGetDeviceMemoryOpaqueCaptureAddressKHR")]
     #[inline]
     pub fn get_memory_opaque_capture_address_khr(
@@ -3541,7 +3541,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(any(feature = "ext_create_renderpass2", feature = "version_1_2"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateRenderPass2.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateRenderPass2.html>"]
     #[doc(alias = "vkCreateRenderPass2")]
     #[inline]
     pub fn create_render_pass2(&self, p_create_info: &RenderPassCreateInfo2) -> Result<RenderPass> {
@@ -3556,7 +3556,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         vk_result.map(|vk_result| unsafe { RenderPass::from_inner(vk_result) })
     }
     #[cfg(any(feature = "ext_create_renderpass2", feature = "version_1_2"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateRenderPass2KHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateRenderPass2KHR.html>"]
     #[doc(alias = "vkCreateRenderPass2KHR")]
     #[inline]
     pub fn create_render_pass2_khr(
@@ -3574,7 +3574,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         vk_result.map(|vk_result| unsafe { RenderPass::from_inner(vk_result) })
     }
     #[cfg(any(feature = "ext_private_data", feature = "version_1_3"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreatePrivateDataSlot.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreatePrivateDataSlot.html>"]
     #[doc(alias = "vkCreatePrivateDataSlot")]
     #[inline]
     pub fn create_private_data_slot(
@@ -3592,7 +3592,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         vk_result.map(|vk_result| unsafe { PrivateDataSlot::from_inner(vk_result) })
     }
     #[cfg(any(feature = "ext_private_data", feature = "version_1_3"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreatePrivateDataSlotEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreatePrivateDataSlotEXT.html>"]
     #[doc(alias = "vkCreatePrivateDataSlotEXT")]
     #[inline]
     pub fn create_private_data_slot_ext(
@@ -3610,7 +3610,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         vk_result.map(|vk_result| unsafe { PrivateDataSlot::from_inner(vk_result) })
     }
     #[cfg(any(feature = "ext_private_data", feature = "version_1_3"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkDestroyPrivateDataSlot.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyPrivateDataSlot.html>"]
     #[doc(alias = "vkDestroyPrivateDataSlot")]
     #[inline]
     pub unsafe fn destroy_private_data_slot(
@@ -3627,7 +3627,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(any(feature = "ext_private_data", feature = "version_1_3"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkDestroyPrivateDataSlotEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyPrivateDataSlotEXT.html>"]
     #[doc(alias = "vkDestroyPrivateDataSlotEXT")]
     #[inline]
     pub unsafe fn destroy_private_data_slot_ext(
@@ -3644,7 +3644,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(any(feature = "ext_private_data", feature = "version_1_3"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkSetPrivateData.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkSetPrivateData.html>"]
     #[doc(alias = "vkSetPrivateData")]
     #[inline]
     pub fn set_private_data(
@@ -3666,7 +3666,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(any(feature = "ext_private_data", feature = "version_1_3"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkSetPrivateDataEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkSetPrivateDataEXT.html>"]
     #[doc(alias = "vkSetPrivateDataEXT")]
     #[inline]
     pub fn set_private_data_ext(
@@ -3688,7 +3688,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(any(feature = "ext_private_data", feature = "version_1_3"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPrivateData.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPrivateData.html>"]
     #[doc(alias = "vkGetPrivateData")]
     #[inline]
     pub fn get_private_data(
@@ -3708,7 +3708,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(any(feature = "ext_private_data", feature = "version_1_3"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPrivateDataEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPrivateDataEXT.html>"]
     #[doc(alias = "vkGetPrivateDataEXT")]
     #[inline]
     pub fn get_private_data_ext(
@@ -3728,7 +3728,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(any(feature = "ext_maintenance4", feature = "version_1_3"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetDeviceBufferMemoryRequirements.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDeviceBufferMemoryRequirements.html>"]
     #[doc(alias = "vkGetDeviceBufferMemoryRequirements")]
     pub fn get_device_buffer_memory_requirements<
         S: StructureChainOut<MemoryRequirements2<'static>>,
@@ -3745,7 +3745,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(any(feature = "ext_maintenance4", feature = "version_1_3"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetDeviceBufferMemoryRequirementsKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDeviceBufferMemoryRequirementsKHR.html>"]
     #[doc(alias = "vkGetDeviceBufferMemoryRequirementsKHR")]
     pub fn get_buffer_memory_requirements_khr<
         S: StructureChainOut<MemoryRequirements2<'static>>,
@@ -3762,7 +3762,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(any(feature = "ext_maintenance4", feature = "version_1_3"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetDeviceImageMemoryRequirements.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDeviceImageMemoryRequirements.html>"]
     #[doc(alias = "vkGetDeviceImageMemoryRequirements")]
     pub fn get_device_image_memory_requirements<
         S: StructureChainOut<MemoryRequirements2<'static>>,
@@ -3779,7 +3779,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(any(feature = "ext_maintenance4", feature = "version_1_3"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetDeviceImageMemoryRequirementsKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDeviceImageMemoryRequirementsKHR.html>"]
     #[doc(alias = "vkGetDeviceImageMemoryRequirementsKHR")]
     pub fn get_image_memory_requirements_khr<S: StructureChainOut<MemoryRequirements2<'static>>>(
         &self,
@@ -3794,7 +3794,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(any(feature = "ext_maintenance4", feature = "version_1_3"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetDeviceImageSparseMemoryRequirements.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDeviceImageSparseMemoryRequirements.html>"]
     #[doc(alias = "vkGetDeviceImageSparseMemoryRequirements")]
     pub fn get_device_image_sparse_memory_requirements<
         R: DynamicArray<SparseImageMemoryRequirements2<'static>>,
@@ -3811,7 +3811,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(any(feature = "ext_maintenance4", feature = "version_1_3"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetDeviceImageSparseMemoryRequirementsKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDeviceImageSparseMemoryRequirementsKHR.html>"]
     #[doc(alias = "vkGetDeviceImageSparseMemoryRequirementsKHR")]
     pub fn get_image_sparse_memory_requirements_khr<
         R: DynamicArray<SparseImageMemoryRequirements2<'static>>,
@@ -3828,21 +3828,21 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(any(feature = "ext_map_memory2", feature = "version_1_4"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkMapMemory2.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkMapMemory2.html>"]
     #[doc(alias = "vkMapMemory2")]
     #[inline]
     pub fn map_memory2(&self, p_memory_map_info: &MemoryMapInfo) -> Result<VoidPtr> {
         unsafe { raw::map_memory2(self, p_memory_map_info, self.disp.get_command_dispatcher()) }
     }
     #[cfg(any(feature = "ext_map_memory2", feature = "version_1_4"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkMapMemory2KHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkMapMemory2KHR.html>"]
     #[doc(alias = "vkMapMemory2KHR")]
     #[inline]
     pub fn map_memory2_khr(&self, p_memory_map_info: &MemoryMapInfo) -> Result<VoidPtr> {
         unsafe { raw::map_memory2_khr(self, p_memory_map_info, self.disp.get_command_dispatcher()) }
     }
     #[cfg(any(feature = "ext_map_memory2", feature = "version_1_4"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkUnmapMemory2.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkUnmapMemory2.html>"]
     #[doc(alias = "vkUnmapMemory2")]
     #[inline]
     pub fn unmap_memory2(&self, p_memory_unmap_info: &MemoryUnmapInfo) -> Result<()> {
@@ -3855,7 +3855,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(any(feature = "ext_map_memory2", feature = "version_1_4"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkUnmapMemory2KHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkUnmapMemory2KHR.html>"]
     #[doc(alias = "vkUnmapMemory2KHR")]
     #[inline]
     pub fn unmap_memory2_khr(&self, p_memory_unmap_info: &MemoryUnmapInfo) -> Result<()> {
@@ -3868,7 +3868,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetDeviceImageSubresourceLayout.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDeviceImageSubresourceLayout.html>"]
     #[doc(alias = "vkGetDeviceImageSubresourceLayout")]
     pub fn get_device_image_subresource_layout<
         S: StructureChainOut<SubresourceLayout2<'static>>,
@@ -3885,7 +3885,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetDeviceImageSubresourceLayoutKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDeviceImageSubresourceLayoutKHR.html>"]
     #[doc(alias = "vkGetDeviceImageSubresourceLayoutKHR")]
     pub fn get_image_subresource_layout_khr<S: StructureChainOut<SubresourceLayout2<'static>>>(
         &self,
@@ -3905,7 +3905,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         feature = "ext_maintenance5",
         feature = "version_1_4"
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetImageSubresourceLayout2.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetImageSubresourceLayout2.html>"]
     #[doc(alias = "vkGetImageSubresourceLayout2")]
     pub fn get_image_subresource_layout2<S: StructureChainOut<SubresourceLayout2<'static>>>(
         &self,
@@ -3927,7 +3927,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         feature = "ext_maintenance5",
         feature = "version_1_4"
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetImageSubresourceLayout2KHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetImageSubresourceLayout2KHR.html>"]
     #[doc(alias = "vkGetImageSubresourceLayout2KHR")]
     pub fn get_image_subresource_layout2_khr<S: StructureChainOut<SubresourceLayout2<'static>>>(
         &self,
@@ -3949,7 +3949,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         feature = "ext_maintenance5",
         feature = "version_1_4"
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetImageSubresourceLayout2EXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetImageSubresourceLayout2EXT.html>"]
     #[doc(alias = "vkGetImageSubresourceLayout2EXT")]
     pub fn get_image_subresource_layout2_ext<S: StructureChainOut<SubresourceLayout2<'static>>>(
         &self,
@@ -3966,7 +3966,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCopyMemoryToImage.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCopyMemoryToImage.html>"]
     #[doc(alias = "vkCopyMemoryToImage")]
     #[inline]
     pub fn copy_memory_to_image(
@@ -3982,7 +3982,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCopyMemoryToImageEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCopyMemoryToImageEXT.html>"]
     #[doc(alias = "vkCopyMemoryToImageEXT")]
     #[inline]
     pub fn copy_memory_to_image_ext(
@@ -3998,7 +3998,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCopyImageToMemory.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCopyImageToMemory.html>"]
     #[doc(alias = "vkCopyImageToMemory")]
     #[inline]
     pub fn copy_image_to_memory(
@@ -4014,7 +4014,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCopyImageToMemoryEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCopyImageToMemoryEXT.html>"]
     #[doc(alias = "vkCopyImageToMemoryEXT")]
     #[inline]
     pub fn copy_image_to_memory_ext(
@@ -4030,7 +4030,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCopyImageToImage.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCopyImageToImage.html>"]
     #[doc(alias = "vkCopyImageToImage")]
     #[inline]
     pub fn copy_image_to_image(
@@ -4046,7 +4046,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCopyImageToImageEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCopyImageToImageEXT.html>"]
     #[doc(alias = "vkCopyImageToImageEXT")]
     #[inline]
     pub fn copy_image_to_image_ext(
@@ -4062,7 +4062,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkTransitionImageLayout.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkTransitionImageLayout.html>"]
     #[doc(alias = "vkTransitionImageLayout")]
     #[inline]
     pub fn transition_image_layout<'a>(
@@ -4074,7 +4074,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(any(feature = "ext_host_image_copy", feature = "version_1_4"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkTransitionImageLayoutEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkTransitionImageLayoutEXT.html>"]
     #[doc(alias = "vkTransitionImageLayoutEXT")]
     #[inline]
     pub fn transition_image_layout_ext<'a>(
@@ -4090,7 +4090,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetRenderingAreaGranularity.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetRenderingAreaGranularity.html>"]
     #[doc(alias = "vkGetRenderingAreaGranularity")]
     #[inline]
     pub fn get_rendering_area_granularity(
@@ -4106,7 +4106,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetRenderingAreaGranularityKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetRenderingAreaGranularityKHR.html>"]
     #[doc(alias = "vkGetRenderingAreaGranularityKHR")]
     #[inline]
     pub fn get_rendering_area_granularity_khr(
@@ -4122,7 +4122,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_swapchain")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateSwapchainKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateSwapchainKHR.html>"]
     #[doc(alias = "vkCreateSwapchainKHR")]
     #[inline]
     pub fn create_swapchain_khr(
@@ -4140,7 +4140,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         vk_result.map(|vk_result| unsafe { SwapchainKHR::from_inner(vk_result) })
     }
     #[cfg(feature = "ext_swapchain")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkDestroySwapchainKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroySwapchainKHR.html>"]
     #[doc(alias = "vkDestroySwapchainKHR")]
     #[inline]
     pub unsafe fn destroy_swapchain_khr(&self, swapchain: Option<&raw::SwapchainKHR>) {
@@ -4154,7 +4154,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_swapchain")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetSwapchainImagesKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetSwapchainImagesKHR.html>"]
     #[doc(alias = "vkGetSwapchainImagesKHR")]
     pub fn get_swapchain_images_khr<R: AdvancedDynamicArray<Image, raw::Image>>(
         &self,
@@ -4171,7 +4171,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         })
     }
     #[cfg(feature = "ext_swapchain")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkAcquireNextImageKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkAcquireNextImageKHR.html>"]
     #[doc(alias = "vkAcquireNextImageKHR")]
     #[inline]
     pub fn acquire_next_image_khr(
@@ -4196,7 +4196,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         all(feature = "ext_swapchain", feature = "version_1_1"),
         all(feature = "ext_device_group", feature = "ext_surface")
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetDeviceGroupPresentCapabilitiesKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDeviceGroupPresentCapabilitiesKHR.html>"]
     #[doc(alias = "vkGetDeviceGroupPresentCapabilitiesKHR")]
     pub fn get_group_present_capabilities_khr<
         S: StructureChainOut<DeviceGroupPresentCapabilitiesKHR<'static>>,
@@ -4211,7 +4211,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         all(feature = "ext_swapchain", feature = "version_1_1"),
         all(feature = "ext_device_group", feature = "ext_surface")
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetDeviceGroupSurfacePresentModesKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDeviceGroupSurfacePresentModesKHR.html>"]
     #[doc(alias = "vkGetDeviceGroupSurfacePresentModesKHR")]
     #[inline]
     pub fn get_group_surface_present_modes_khr(
@@ -4230,7 +4230,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         all(feature = "ext_swapchain", feature = "version_1_1"),
         all(feature = "ext_device_group", feature = "ext_swapchain")
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkAcquireNextImage2KHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkAcquireNextImage2KHR.html>"]
     #[doc(alias = "vkAcquireNextImage2KHR")]
     #[inline]
     pub fn acquire_next_image2_khr(
@@ -4242,7 +4242,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_display_swapchain")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateSharedSwapchainsKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateSharedSwapchainsKHR.html>"]
     #[doc(alias = "vkCreateSharedSwapchainsKHR")]
     pub fn create_shared_swapchains_khr<
         'a,
@@ -4267,7 +4267,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         })
     }
     #[cfg(feature = "ext_debug_marker")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkDebugMarkerSetObjectTagEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkDebugMarkerSetObjectTagEXT.html>"]
     #[doc(alias = "vkDebugMarkerSetObjectTagEXT")]
     #[inline]
     pub fn debug_marker_set_object_tag_ext(
@@ -4283,7 +4283,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_debug_marker")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkDebugMarkerSetObjectNameEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkDebugMarkerSetObjectNameEXT.html>"]
     #[doc(alias = "vkDebugMarkerSetObjectNameEXT")]
     #[inline]
     pub fn debug_marker_set_object_name_ext(
@@ -4299,7 +4299,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_binary_import")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateCuModuleNVX.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateCuModuleNVX.html>"]
     #[doc(alias = "vkCreateCuModuleNVX")]
     #[inline]
     pub fn create_cu_module_nvx(
@@ -4317,7 +4317,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         vk_result.map(|vk_result| unsafe { CuModuleNVX::from_inner(vk_result) })
     }
     #[cfg(feature = "ext_binary_import")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateCuFunctionNVX.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateCuFunctionNVX.html>"]
     #[doc(alias = "vkCreateCuFunctionNVX")]
     #[inline]
     pub fn create_cu_function_nvx(
@@ -4335,7 +4335,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         vk_result.map(|vk_result| unsafe { CuFunctionNVX::from_inner(vk_result) })
     }
     #[cfg(feature = "ext_binary_import")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkDestroyCuModuleNVX.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyCuModuleNVX.html>"]
     #[doc(alias = "vkDestroyCuModuleNVX")]
     #[inline]
     pub unsafe fn destroy_cu_module_nvx(&self, module: &raw::CuModuleNVX) {
@@ -4349,7 +4349,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_binary_import")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkDestroyCuFunctionNVX.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyCuFunctionNVX.html>"]
     #[doc(alias = "vkDestroyCuFunctionNVX")]
     #[inline]
     pub unsafe fn destroy_cu_function_nvx(&self, function: &raw::CuFunctionNVX) {
@@ -4363,14 +4363,14 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_image_view_handle")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetImageViewHandleNVX.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetImageViewHandleNVX.html>"]
     #[doc(alias = "vkGetImageViewHandleNVX")]
     #[inline]
     pub fn get_image_view_handle_nvx(&self, p_info: &ImageViewHandleInfoNVX) -> u32 {
         unsafe { raw::get_image_view_handle_nvx(self, p_info, self.disp.get_command_dispatcher()) }
     }
     #[cfg(feature = "ext_image_view_handle")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetImageViewHandle64NVX.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetImageViewHandle64NVX.html>"]
     #[doc(alias = "vkGetImageViewHandle64NVX")]
     #[inline]
     pub fn get_image_view_handle64_nvx(&self, p_info: &ImageViewHandleInfoNVX) -> u64 {
@@ -4379,7 +4379,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_image_view_handle")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetImageViewAddressNVX.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetImageViewAddressNVX.html>"]
     #[doc(alias = "vkGetImageViewAddressNVX")]
     pub fn get_image_view_address_nvx<
         S: StructureChainOut<ImageViewAddressPropertiesNVX<'static>>,
@@ -4392,7 +4392,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_image_view_handle")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetDeviceCombinedImageSamplerIndexNVX.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDeviceCombinedImageSamplerIndexNVX.html>"]
     #[doc(alias = "vkGetDeviceCombinedImageSamplerIndexNVX")]
     #[inline]
     pub fn get_combined_image_sampler_index_nvx(
@@ -4410,7 +4410,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_shader_info")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetShaderInfoAMD.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetShaderInfoAMD.html>"]
     #[doc(alias = "vkGetShaderInfoAMD")]
     #[inline]
     pub fn get_shader_info_amd(
@@ -4432,7 +4432,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_external_memory_win32")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetMemoryWin32HandleNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetMemoryWin32HandleNV.html>"]
     #[doc(alias = "vkGetMemoryWin32HandleNV")]
     #[inline]
     pub fn get_memory_win32_handle_nv(
@@ -4450,7 +4450,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_external_memory_win32")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetMemoryWin32HandleKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetMemoryWin32HandleKHR.html>"]
     #[doc(alias = "vkGetMemoryWin32HandleKHR")]
     #[inline]
     pub fn get_memory_win32_handle_khr(
@@ -4466,7 +4466,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_external_memory_win32")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetMemoryWin32HandlePropertiesKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetMemoryWin32HandlePropertiesKHR.html>"]
     #[doc(alias = "vkGetMemoryWin32HandlePropertiesKHR")]
     pub fn get_memory_win32_handle_properties_khr<
         S: StructureChainOut<MemoryWin32HandlePropertiesKHR<'static>>,
@@ -4485,14 +4485,14 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_external_memory_fd")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetMemoryFdKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetMemoryFdKHR.html>"]
     #[doc(alias = "vkGetMemoryFdKHR")]
     #[inline]
     pub fn get_memory_fd_khr(&self, p_get_fd_info: &MemoryGetFdInfoKHR) -> Result<c_int> {
         unsafe { raw::get_memory_fd_khr(self, p_get_fd_info, self.disp.get_command_dispatcher()) }
     }
     #[cfg(feature = "ext_external_memory_fd")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetMemoryFdPropertiesKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetMemoryFdPropertiesKHR.html>"]
     #[doc(alias = "vkGetMemoryFdPropertiesKHR")]
     pub fn get_memory_fd_properties_khr<S: StructureChainOut<MemoryFdPropertiesKHR<'static>>>(
         &self,
@@ -4509,7 +4509,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_external_semaphore_win32")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkImportSemaphoreWin32HandleKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkImportSemaphoreWin32HandleKHR.html>"]
     #[doc(alias = "vkImportSemaphoreWin32HandleKHR")]
     #[inline]
     pub fn import_semaphore_win32_handle_khr(
@@ -4525,7 +4525,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_external_semaphore_win32")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetSemaphoreWin32HandleKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetSemaphoreWin32HandleKHR.html>"]
     #[doc(alias = "vkGetSemaphoreWin32HandleKHR")]
     #[inline]
     pub fn get_semaphore_win32_handle_khr(
@@ -4541,7 +4541,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_external_semaphore_fd")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkImportSemaphoreFdKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkImportSemaphoreFdKHR.html>"]
     #[doc(alias = "vkImportSemaphoreFdKHR")]
     #[inline]
     pub fn import_semaphore_fd_khr(
@@ -4557,7 +4557,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_external_semaphore_fd")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetSemaphoreFdKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetSemaphoreFdKHR.html>"]
     #[doc(alias = "vkGetSemaphoreFdKHR")]
     #[inline]
     pub fn get_semaphore_fd_khr(&self, p_get_fd_info: &SemaphoreGetFdInfoKHR) -> Result<c_int> {
@@ -4566,7 +4566,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_display_control")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkDisplayPowerControlEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkDisplayPowerControlEXT.html>"]
     #[doc(alias = "vkDisplayPowerControlEXT")]
     #[inline]
     pub fn display_power_control_ext(
@@ -4584,7 +4584,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_display_control")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkRegisterDeviceEventEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkRegisterDeviceEventEXT.html>"]
     #[doc(alias = "vkRegisterDeviceEventEXT")]
     #[inline]
     pub fn register_event_ext(&self, p_device_event_info: &DeviceEventInfoEXT) -> Result<Fence> {
@@ -4599,7 +4599,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         vk_result.map(|vk_result| unsafe { Fence::from_inner(vk_result) })
     }
     #[cfg(feature = "ext_display_control")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkRegisterDisplayEventEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkRegisterDisplayEventEXT.html>"]
     #[doc(alias = "vkRegisterDisplayEventEXT")]
     #[inline]
     pub fn register_display_event_ext(
@@ -4619,7 +4619,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         vk_result.map(|vk_result| unsafe { Fence::from_inner(vk_result) })
     }
     #[cfg(feature = "ext_display_control")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetSwapchainCounterEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetSwapchainCounterEXT.html>"]
     #[doc(alias = "vkGetSwapchainCounterEXT")]
     #[inline]
     pub fn get_swapchain_counter_ext(
@@ -4637,7 +4637,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_display_timing")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetRefreshCycleDurationGOOGLE.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetRefreshCycleDurationGOOGLE.html>"]
     #[doc(alias = "vkGetRefreshCycleDurationGOOGLE")]
     #[inline]
     pub fn get_refresh_cycle_duration_google(
@@ -4653,7 +4653,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_display_timing")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPastPresentationTimingGOOGLE.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPastPresentationTimingGOOGLE.html>"]
     #[doc(alias = "vkGetPastPresentationTimingGOOGLE")]
     pub fn get_past_presentation_timing_google<R: DynamicArray<PastPresentationTimingGOOGLE>>(
         &self,
@@ -4668,7 +4668,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_hdr_metadata")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkSetHdrMetadataEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkSetHdrMetadataEXT.html>"]
     #[doc(alias = "vkSetHdrMetadataEXT")]
     #[inline]
     pub fn set_hdr_metadata_ext<'a, V2: Alias<raw::SwapchainKHR> + 'a>(
@@ -4686,7 +4686,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_shared_presentable_image")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetSwapchainStatusKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetSwapchainStatusKHR.html>"]
     #[doc(alias = "vkGetSwapchainStatusKHR")]
     #[inline]
     pub fn get_swapchain_status_khr(&self, swapchain: &raw::SwapchainKHR) -> Result<Status> {
@@ -4695,7 +4695,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_external_fence_win32")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkImportFenceWin32HandleKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkImportFenceWin32HandleKHR.html>"]
     #[doc(alias = "vkImportFenceWin32HandleKHR")]
     #[inline]
     pub fn import_fence_win32_handle_khr(
@@ -4711,7 +4711,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_external_fence_win32")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetFenceWin32HandleKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetFenceWin32HandleKHR.html>"]
     #[doc(alias = "vkGetFenceWin32HandleKHR")]
     #[inline]
     pub fn get_fence_win32_handle_khr(
@@ -4727,7 +4727,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_external_fence_fd")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkImportFenceFdKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkImportFenceFdKHR.html>"]
     #[doc(alias = "vkImportFenceFdKHR")]
     #[inline]
     pub fn import_fence_fd_khr(&self, p_import_fence_fd_info: &ImportFenceFdInfoKHR) -> Result<()> {
@@ -4740,28 +4740,28 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_external_fence_fd")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetFenceFdKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetFenceFdKHR.html>"]
     #[doc(alias = "vkGetFenceFdKHR")]
     #[inline]
     pub fn get_fence_fd_khr(&self, p_get_fd_info: &FenceGetFdInfoKHR) -> Result<c_int> {
         unsafe { raw::get_fence_fd_khr(self, p_get_fd_info, self.disp.get_command_dispatcher()) }
     }
     #[cfg(feature = "ext_performance_query")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkAcquireProfilingLockKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkAcquireProfilingLockKHR.html>"]
     #[doc(alias = "vkAcquireProfilingLockKHR")]
     #[inline]
     pub fn acquire_profiling_lock_khr(&self, p_info: &AcquireProfilingLockInfoKHR) -> Result<()> {
         unsafe { raw::acquire_profiling_lock_khr(self, p_info, self.disp.get_command_dispatcher()) }
     }
     #[cfg(feature = "ext_performance_query")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkReleaseProfilingLockKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkReleaseProfilingLockKHR.html>"]
     #[doc(alias = "vkReleaseProfilingLockKHR")]
     #[inline]
     pub fn release_profiling_lock_khr(&self) {
         unsafe { raw::release_profiling_lock_khr(self, self.disp.get_command_dispatcher()) }
     }
     #[cfg(feature = "ext_debug_utils")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkSetDebugUtilsObjectNameEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkSetDebugUtilsObjectNameEXT.html>"]
     #[doc(alias = "vkSetDebugUtilsObjectNameEXT")]
     #[inline]
     pub fn set_debug_utils_object_name_ext(
@@ -4777,7 +4777,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_debug_utils")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkSetDebugUtilsObjectTagEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkSetDebugUtilsObjectTagEXT.html>"]
     #[doc(alias = "vkSetDebugUtilsObjectTagEXT")]
     #[inline]
     pub fn set_debug_utils_object_tag_ext(
@@ -4793,7 +4793,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_external_memory_android_hardware_buffer")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetAndroidHardwareBufferPropertiesANDROID.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetAndroidHardwareBufferPropertiesANDROID.html>"]
     #[doc(alias = "vkGetAndroidHardwareBufferPropertiesANDROID")]
     pub fn get_android_hardware_buffer_properties_android<
         S: StructureChainOut<AndroidHardwareBufferPropertiesANDROID<'static>>,
@@ -4810,7 +4810,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_external_memory_android_hardware_buffer")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetMemoryAndroidHardwareBufferANDROID.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetMemoryAndroidHardwareBufferANDROID.html>"]
     #[doc(alias = "vkGetMemoryAndroidHardwareBufferANDROID")]
     #[inline]
     pub fn get_memory_android_hardware_buffer_android(
@@ -4828,7 +4828,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_shader_enqueue")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateExecutionGraphPipelinesAMDX.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateExecutionGraphPipelinesAMDX.html>"]
     #[doc(alias = "vkCreateExecutionGraphPipelinesAMDX")]
     pub fn create_execution_graph_pipelines_amdx<
         'a,
@@ -4858,7 +4858,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         })
     }
     #[cfg(feature = "ext_shader_enqueue")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetExecutionGraphPipelineScratchSizeAMDX.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetExecutionGraphPipelineScratchSizeAMDX.html>"]
     #[doc(alias = "vkGetExecutionGraphPipelineScratchSizeAMDX")]
     pub fn get_execution_graph_pipeline_scratch_size_amdx<
         S: StructureChainOut<ExecutionGraphPipelineScratchSizeAMDX<'static>>,
@@ -4875,7 +4875,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_shader_enqueue")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetExecutionGraphPipelineNodeIndexAMDX.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetExecutionGraphPipelineNodeIndexAMDX.html>"]
     #[doc(alias = "vkGetExecutionGraphPipelineNodeIndexAMDX")]
     #[inline]
     pub fn get_execution_graph_pipeline_node_index_amdx(
@@ -4893,7 +4893,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_descriptor_heap")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkWriteSamplerDescriptorsEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkWriteSamplerDescriptorsEXT.html>"]
     #[doc(alias = "vkWriteSamplerDescriptorsEXT")]
     #[inline]
     pub fn write_sampler_descriptors_ext<'a>(
@@ -4911,7 +4911,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_descriptor_heap")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkWriteResourceDescriptorsEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkWriteResourceDescriptorsEXT.html>"]
     #[doc(alias = "vkWriteResourceDescriptorsEXT")]
     #[inline]
     pub fn write_resource_descriptors_ext<'a>(
@@ -4929,7 +4929,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_descriptor_heap")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetImageOpaqueCaptureDataEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetImageOpaqueCaptureDataEXT.html>"]
     #[doc(alias = "vkGetImageOpaqueCaptureDataEXT")]
     pub fn get_image_opaque_capture_data_ext<
         'a,
@@ -4948,7 +4948,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(all(feature = "ext_descriptor_heap", feature = "ext_custom_border_color"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkRegisterCustomBorderColorEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkRegisterCustomBorderColorEXT.html>"]
     #[doc(alias = "vkRegisterCustomBorderColorEXT")]
     #[inline]
     pub fn register_custom_border_color_ext(
@@ -4966,7 +4966,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(all(feature = "ext_descriptor_heap", feature = "ext_custom_border_color"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkUnregisterCustomBorderColorEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkUnregisterCustomBorderColorEXT.html>"]
     #[doc(alias = "vkUnregisterCustomBorderColorEXT")]
     #[inline]
     pub fn unregister_custom_border_color_ext(&self, index: u32) {
@@ -4975,7 +4975,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(all(feature = "ext_descriptor_heap", feature = "ext_tensors"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetTensorOpaqueCaptureDataARM.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetTensorOpaqueCaptureDataARM.html>"]
     #[doc(alias = "vkGetTensorOpaqueCaptureDataARM")]
     pub fn get_tensor_opaque_capture_data_arm<
         'a,
@@ -4994,7 +4994,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_acceleration_structure")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateAccelerationStructureKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateAccelerationStructureKHR.html>"]
     #[doc(alias = "vkCreateAccelerationStructureKHR")]
     #[inline]
     pub fn create_acceleration_structure_khr(
@@ -5012,7 +5012,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         vk_result.map(|vk_result| unsafe { AccelerationStructureKHR::from_inner(vk_result) })
     }
     #[cfg(feature = "ext_acceleration_structure")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkDestroyAccelerationStructureKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyAccelerationStructureKHR.html>"]
     #[doc(alias = "vkDestroyAccelerationStructureKHR")]
     #[inline]
     pub unsafe fn destroy_acceleration_structure_khr(
@@ -5029,7 +5029,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_acceleration_structure")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkBuildAccelerationStructuresKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkBuildAccelerationStructuresKHR.html>"]
     #[doc(alias = "vkBuildAccelerationStructuresKHR")]
     #[inline]
     pub fn build_acceleration_structures_khr<'a>(
@@ -5049,7 +5049,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_acceleration_structure")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCopyAccelerationStructureKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCopyAccelerationStructureKHR.html>"]
     #[doc(alias = "vkCopyAccelerationStructureKHR")]
     #[inline]
     pub fn copy_acceleration_structure_khr(
@@ -5067,7 +5067,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_acceleration_structure")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCopyAccelerationStructureToMemoryKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCopyAccelerationStructureToMemoryKHR.html>"]
     #[doc(alias = "vkCopyAccelerationStructureToMemoryKHR")]
     #[inline]
     pub fn copy_acceleration_structure_to_memory_khr(
@@ -5085,7 +5085,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_acceleration_structure")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCopyMemoryToAccelerationStructureKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCopyMemoryToAccelerationStructureKHR.html>"]
     #[doc(alias = "vkCopyMemoryToAccelerationStructureKHR")]
     #[inline]
     pub fn copy_memory_to_acceleration_structure_khr(
@@ -5103,7 +5103,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_acceleration_structure")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkWriteAccelerationStructuresPropertiesKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkWriteAccelerationStructuresPropertiesKHR.html>"]
     #[doc(alias = "vkWriteAccelerationStructuresPropertiesKHR")]
     #[inline]
     pub fn write_acceleration_structures_properties_khr<
@@ -5130,7 +5130,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_acceleration_structure")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetAccelerationStructureDeviceAddressKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetAccelerationStructureDeviceAddressKHR.html>"]
     #[doc(alias = "vkGetAccelerationStructureDeviceAddressKHR")]
     #[inline]
     pub fn get_acceleration_structure_address_khr(
@@ -5146,7 +5146,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_acceleration_structure")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetDeviceAccelerationStructureCompatibilityKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDeviceAccelerationStructureCompatibilityKHR.html>"]
     #[doc(alias = "vkGetDeviceAccelerationStructureCompatibilityKHR")]
     #[inline]
     pub fn get_acceleration_structure_compatibility_khr(
@@ -5162,7 +5162,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_acceleration_structure")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetAccelerationStructureBuildSizesKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetAccelerationStructureBuildSizesKHR.html>"]
     #[doc(alias = "vkGetAccelerationStructureBuildSizesKHR")]
     pub fn get_acceleration_structure_build_sizes_khr<
         'a,
@@ -5184,7 +5184,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_ray_tracing_pipeline")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateRayTracingPipelinesKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateRayTracingPipelinesKHR.html>"]
     #[doc(alias = "vkCreateRayTracingPipelinesKHR")]
     pub fn create_ray_tracing_pipelines_khr<
         'a,
@@ -5216,7 +5216,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         })
     }
     #[cfg(any(feature = "ext_ray_tracing_pipeline", feature = "ext_ray_tracing"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetRayTracingShaderGroupHandlesKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetRayTracingShaderGroupHandlesKHR.html>"]
     #[doc(alias = "vkGetRayTracingShaderGroupHandlesKHR")]
     #[inline]
     pub fn get_ray_tracing_shader_group_handles_khr(
@@ -5240,7 +5240,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(any(feature = "ext_ray_tracing_pipeline", feature = "ext_ray_tracing"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetRayTracingShaderGroupHandlesNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetRayTracingShaderGroupHandlesNV.html>"]
     #[doc(alias = "vkGetRayTracingShaderGroupHandlesNV")]
     #[inline]
     pub fn get_ray_tracing_shader_group_handles_nv(
@@ -5264,7 +5264,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_ray_tracing_pipeline")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetRayTracingCaptureReplayShaderGroupHandlesKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetRayTracingCaptureReplayShaderGroupHandlesKHR.html>"]
     #[doc(alias = "vkGetRayTracingCaptureReplayShaderGroupHandlesKHR")]
     #[inline]
     pub fn get_ray_tracing_capture_replay_shader_group_handles_khr(
@@ -5288,7 +5288,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_ray_tracing_pipeline")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetRayTracingShaderGroupStackSizeKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetRayTracingShaderGroupStackSizeKHR.html>"]
     #[doc(alias = "vkGetRayTracingShaderGroupStackSizeKHR")]
     #[inline]
     pub fn get_ray_tracing_shader_group_stack_size_khr(
@@ -5308,7 +5308,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_image_drm_format_modifier")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetImageDrmFormatModifierPropertiesEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetImageDrmFormatModifierPropertiesEXT.html>"]
     #[doc(alias = "vkGetImageDrmFormatModifierPropertiesEXT")]
     pub fn get_image_drm_format_modifier_properties_ext<
         S: StructureChainOut<ImageDrmFormatModifierPropertiesEXT<'static>>,
@@ -5325,7 +5325,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_validation_cache")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateValidationCacheEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateValidationCacheEXT.html>"]
     #[doc(alias = "vkCreateValidationCacheEXT")]
     #[inline]
     pub fn create_validation_cache_ext(
@@ -5343,7 +5343,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         vk_result.map(|vk_result| unsafe { ValidationCacheEXT::from_inner(vk_result) })
     }
     #[cfg(feature = "ext_validation_cache")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkDestroyValidationCacheEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyValidationCacheEXT.html>"]
     #[doc(alias = "vkDestroyValidationCacheEXT")]
     #[inline]
     pub unsafe fn destroy_validation_cache_ext(
@@ -5360,7 +5360,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_validation_cache")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkMergeValidationCachesEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkMergeValidationCachesEXT.html>"]
     #[doc(alias = "vkMergeValidationCachesEXT")]
     #[inline]
     pub fn merge_validation_caches_ext<'a, V3: Alias<raw::ValidationCacheEXT> + 'a>(
@@ -5378,7 +5378,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_validation_cache")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetValidationCacheDataEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetValidationCacheDataEXT.html>"]
     #[doc(alias = "vkGetValidationCacheDataEXT")]
     #[inline]
     pub fn get_validation_cache_data_ext(
@@ -5396,7 +5396,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_ray_tracing")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateAccelerationStructureNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateAccelerationStructureNV.html>"]
     #[doc(alias = "vkCreateAccelerationStructureNV")]
     #[inline]
     pub fn create_acceleration_structure_nv(
@@ -5414,7 +5414,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         vk_result.map(|vk_result| unsafe { AccelerationStructureNV::from_inner(vk_result) })
     }
     #[cfg(feature = "ext_ray_tracing")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkDestroyAccelerationStructureNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyAccelerationStructureNV.html>"]
     #[doc(alias = "vkDestroyAccelerationStructureNV")]
     #[inline]
     pub unsafe fn destroy_acceleration_structure_nv(
@@ -5431,7 +5431,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_ray_tracing")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetAccelerationStructureMemoryRequirementsNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetAccelerationStructureMemoryRequirementsNV.html>"]
     #[doc(alias = "vkGetAccelerationStructureMemoryRequirementsNV")]
     pub fn get_acceleration_structure_memory_requirements_nv<
         S: StructureChainOut<MemoryRequirements2KHR<'static>>,
@@ -5448,7 +5448,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_ray_tracing")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkBindAccelerationStructureMemoryNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkBindAccelerationStructureMemoryNV.html>"]
     #[doc(alias = "vkBindAccelerationStructureMemoryNV")]
     #[inline]
     pub fn bind_acceleration_structure_memory_nv<'a>(
@@ -5464,7 +5464,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_ray_tracing")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateRayTracingPipelinesNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateRayTracingPipelinesNV.html>"]
     #[doc(alias = "vkCreateRayTracingPipelinesNV")]
     pub fn create_ray_tracing_pipelines_nv<'a, R: AdvancedDynamicArray<Pipeline, raw::Pipeline>>(
         &self,
@@ -5491,7 +5491,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         })
     }
     #[cfg(feature = "ext_ray_tracing")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetAccelerationStructureHandleNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetAccelerationStructureHandleNV.html>"]
     #[doc(alias = "vkGetAccelerationStructureHandleNV")]
     #[inline]
     pub fn get_acceleration_structure_handle_nv(
@@ -5511,7 +5511,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_ray_tracing")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCompileDeferredNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCompileDeferredNV.html>"]
     #[doc(alias = "vkCompileDeferredNV")]
     #[inline]
     pub fn compile_deferred_nv(&self, pipeline: &raw::Pipeline, shader: u32) -> Result<()> {
@@ -5520,7 +5520,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_external_memory_host")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetMemoryHostPointerPropertiesEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetMemoryHostPointerPropertiesEXT.html>"]
     #[doc(alias = "vkGetMemoryHostPointerPropertiesEXT")]
     pub fn get_memory_host_pointer_properties_ext<
         S: StructureChainOut<MemoryHostPointerPropertiesEXT<'static>>,
@@ -5539,7 +5539,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_present_timing")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkSetSwapchainPresentTimingQueueSizeEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkSetSwapchainPresentTimingQueueSizeEXT.html>"]
     #[doc(alias = "vkSetSwapchainPresentTimingQueueSizeEXT")]
     #[inline]
     pub fn set_swapchain_present_timing_queue_size_ext(
@@ -5557,7 +5557,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_present_timing")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPastPresentationTimingEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPastPresentationTimingEXT.html>"]
     #[doc(alias = "vkGetPastPresentationTimingEXT")]
     pub fn get_past_presentation_timing_ext<
         S: StructureChainOut<PastPresentationTimingPropertiesEXT<'static>>,
@@ -5574,7 +5574,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_performance_query")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkInitializePerformanceApiINTEL.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkInitializePerformanceApiINTEL.html>"]
     #[doc(alias = "vkInitializePerformanceApiINTEL")]
     #[inline]
     pub fn initialize_performance_api_intel(
@@ -5590,14 +5590,14 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_performance_query")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkUninitializePerformanceApiINTEL.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkUninitializePerformanceApiINTEL.html>"]
     #[doc(alias = "vkUninitializePerformanceApiINTEL")]
     #[inline]
     pub fn uninitialize_performance_api_intel(&self) {
         unsafe { raw::uninitialize_performance_api_intel(self, self.disp.get_command_dispatcher()) }
     }
     #[cfg(feature = "ext_performance_query")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkAcquirePerformanceConfigurationINTEL.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkAcquirePerformanceConfigurationINTEL.html>"]
     #[doc(alias = "vkAcquirePerformanceConfigurationINTEL")]
     #[inline]
     pub fn acquire_performance_configuration_intel(
@@ -5614,7 +5614,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         vk_result.map(|vk_result| unsafe { PerformanceConfigurationINTEL::from_inner(vk_result) })
     }
     #[cfg(feature = "ext_performance_query")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkReleasePerformanceConfigurationINTEL.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkReleasePerformanceConfigurationINTEL.html>"]
     #[doc(alias = "vkReleasePerformanceConfigurationINTEL")]
     #[inline]
     pub fn release_performance_configuration_intel(
@@ -5630,7 +5630,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_performance_query")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPerformanceParameterINTEL.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPerformanceParameterINTEL.html>"]
     #[doc(alias = "vkGetPerformanceParameterINTEL")]
     #[inline]
     pub fn get_performance_parameter_intel(
@@ -5646,7 +5646,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_display_native_hdr")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkSetLocalDimmingAMD.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkSetLocalDimmingAMD.html>"]
     #[doc(alias = "vkSetLocalDimmingAMD")]
     #[inline]
     pub fn set_local_dimming_amd(
@@ -5664,7 +5664,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_present_wait")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkWaitForPresentKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkWaitForPresentKHR.html>"]
     #[doc(alias = "vkWaitForPresentKHR")]
     #[inline]
     pub fn wait_for_present_khr(
@@ -5684,7 +5684,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_full_screen_exclusive")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkAcquireFullScreenExclusiveModeEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkAcquireFullScreenExclusiveModeEXT.html>"]
     #[doc(alias = "vkAcquireFullScreenExclusiveModeEXT")]
     #[inline]
     pub fn acquire_full_screen_exclusive_mode_ext(
@@ -5700,7 +5700,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_full_screen_exclusive")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkReleaseFullScreenExclusiveModeEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkReleaseFullScreenExclusiveModeEXT.html>"]
     #[doc(alias = "vkReleaseFullScreenExclusiveModeEXT")]
     #[inline]
     pub fn release_full_screen_exclusive_mode_ext(
@@ -5719,7 +5719,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         feature = "ext_full_screen_exclusive",
         any(feature = "ext_device_group", feature = "version_1_1")
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetDeviceGroupSurfacePresentModes2EXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDeviceGroupSurfacePresentModes2EXT.html>"]
     #[doc(alias = "vkGetDeviceGroupSurfacePresentModes2EXT")]
     #[inline]
     pub fn get_group_surface_present_modes2_ext(
@@ -5735,7 +5735,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_deferred_host_operations")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateDeferredOperationKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateDeferredOperationKHR.html>"]
     #[doc(alias = "vkCreateDeferredOperationKHR")]
     #[inline]
     pub fn create_deferred_operation_khr(&self) -> Result<DeferredOperationKHR> {
@@ -5749,7 +5749,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         vk_result.map(|vk_result| unsafe { DeferredOperationKHR::from_inner(vk_result) })
     }
     #[cfg(feature = "ext_deferred_host_operations")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkDestroyDeferredOperationKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyDeferredOperationKHR.html>"]
     #[doc(alias = "vkDestroyDeferredOperationKHR")]
     #[inline]
     pub unsafe fn destroy_deferred_operation_khr(
@@ -5766,7 +5766,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_deferred_host_operations")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetDeferredOperationMaxConcurrencyKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDeferredOperationMaxConcurrencyKHR.html>"]
     #[doc(alias = "vkGetDeferredOperationMaxConcurrencyKHR")]
     #[inline]
     pub fn get_deferred_operation_max_concurrency_khr(
@@ -5782,7 +5782,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_deferred_host_operations")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetDeferredOperationResultKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDeferredOperationResultKHR.html>"]
     #[doc(alias = "vkGetDeferredOperationResultKHR")]
     #[inline]
     pub fn get_deferred_operation_result_khr(
@@ -5798,7 +5798,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_deferred_host_operations")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkDeferredOperationJoinKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkDeferredOperationJoinKHR.html>"]
     #[doc(alias = "vkDeferredOperationJoinKHR")]
     #[inline]
     pub fn deferred_operation_join_khr(
@@ -5810,7 +5810,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_pipeline_executable_properties")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPipelineExecutablePropertiesKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPipelineExecutablePropertiesKHR.html>"]
     #[doc(alias = "vkGetPipelineExecutablePropertiesKHR")]
     pub fn get_pipeline_executable_properties_khr<
         R: DynamicArray<PipelineExecutablePropertiesKHR<'static>>,
@@ -5827,7 +5827,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_pipeline_executable_properties")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPipelineExecutableStatisticsKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPipelineExecutableStatisticsKHR.html>"]
     #[doc(alias = "vkGetPipelineExecutableStatisticsKHR")]
     pub fn get_pipeline_executable_statistics_khr<
         R: DynamicArray<PipelineExecutableStatisticKHR<'static>>,
@@ -5844,7 +5844,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_pipeline_executable_properties")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPipelineExecutableInternalRepresentationsKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPipelineExecutableInternalRepresentationsKHR.html>"]
     #[doc(alias = "vkGetPipelineExecutableInternalRepresentationsKHR")]
     pub fn get_pipeline_executable_internal_representations_khr<
         R: DynamicArray<PipelineExecutableInternalRepresentationKHR<'static>>,
@@ -5861,7 +5861,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_device_generated_commands")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetGeneratedCommandsMemoryRequirementsNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetGeneratedCommandsMemoryRequirementsNV.html>"]
     #[doc(alias = "vkGetGeneratedCommandsMemoryRequirementsNV")]
     pub fn get_generated_commands_memory_requirements_nv<
         S: StructureChainOut<MemoryRequirements2<'static>>,
@@ -5878,7 +5878,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_device_generated_commands")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateIndirectCommandsLayoutNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateIndirectCommandsLayoutNV.html>"]
     #[doc(alias = "vkCreateIndirectCommandsLayoutNV")]
     #[inline]
     pub fn create_indirect_commands_layout_nv(
@@ -5896,7 +5896,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         vk_result.map(|vk_result| unsafe { IndirectCommandsLayoutNV::from_inner(vk_result) })
     }
     #[cfg(feature = "ext_device_generated_commands")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkDestroyIndirectCommandsLayoutNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyIndirectCommandsLayoutNV.html>"]
     #[doc(alias = "vkDestroyIndirectCommandsLayoutNV")]
     #[inline]
     pub unsafe fn destroy_indirect_commands_layout_nv(
@@ -5913,7 +5913,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_cuda_kernel_launch")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateCudaModuleNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateCudaModuleNV.html>"]
     #[doc(alias = "vkCreateCudaModuleNV")]
     #[inline]
     pub fn create_cuda_module_nv(
@@ -5931,7 +5931,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         vk_result.map(|vk_result| unsafe { CudaModuleNV::from_inner(vk_result) })
     }
     #[cfg(feature = "ext_cuda_kernel_launch")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetCudaModuleCacheNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetCudaModuleCacheNV.html>"]
     #[doc(alias = "vkGetCudaModuleCacheNV")]
     #[inline]
     pub fn get_cuda_module_cache_nv(
@@ -5949,7 +5949,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_cuda_kernel_launch")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateCudaFunctionNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateCudaFunctionNV.html>"]
     #[doc(alias = "vkCreateCudaFunctionNV")]
     #[inline]
     pub fn create_cuda_function_nv(
@@ -5967,7 +5967,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         vk_result.map(|vk_result| unsafe { CudaFunctionNV::from_inner(vk_result) })
     }
     #[cfg(feature = "ext_cuda_kernel_launch")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkDestroyCudaModuleNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyCudaModuleNV.html>"]
     #[doc(alias = "vkDestroyCudaModuleNV")]
     #[inline]
     pub unsafe fn destroy_cuda_module_nv(&self, module: &raw::CudaModuleNV) {
@@ -5981,7 +5981,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_cuda_kernel_launch")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkDestroyCudaFunctionNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyCudaFunctionNV.html>"]
     #[doc(alias = "vkDestroyCudaFunctionNV")]
     #[inline]
     pub unsafe fn destroy_cuda_function_nv(&self, function: &raw::CudaFunctionNV) {
@@ -5995,7 +5995,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_metal_objects")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkExportMetalObjectsEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkExportMetalObjectsEXT.html>"]
     #[doc(alias = "vkExportMetalObjectsEXT")]
     pub fn export_metal_objects_ext<S: StructureChainOut<ExportMetalObjectsInfoEXT<'static>>>(
         &self,
@@ -6003,7 +6003,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         unsafe { raw::export_metal_objects_ext(self, self.disp.get_command_dispatcher()) }
     }
     #[cfg(feature = "ext_descriptor_buffer")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetDescriptorSetLayoutSizeEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDescriptorSetLayoutSizeEXT.html>"]
     #[doc(alias = "vkGetDescriptorSetLayoutSizeEXT")]
     #[inline]
     pub fn get_descriptor_set_layout_size_ext(
@@ -6019,7 +6019,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_descriptor_buffer")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetDescriptorSetLayoutBindingOffsetEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDescriptorSetLayoutBindingOffsetEXT.html>"]
     #[doc(alias = "vkGetDescriptorSetLayoutBindingOffsetEXT")]
     #[inline]
     pub fn get_descriptor_set_layout_binding_offset_ext(
@@ -6037,7 +6037,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_descriptor_buffer")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetDescriptorEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDescriptorEXT.html>"]
     #[doc(alias = "vkGetDescriptorEXT")]
     #[inline]
     pub fn get_descriptor_ext(
@@ -6057,7 +6057,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_descriptor_buffer")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetBufferOpaqueCaptureDescriptorDataEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetBufferOpaqueCaptureDescriptorDataEXT.html>"]
     #[doc(alias = "vkGetBufferOpaqueCaptureDescriptorDataEXT")]
     #[inline]
     pub fn get_buffer_opaque_capture_descriptor_data_ext(
@@ -6075,7 +6075,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_descriptor_buffer")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetImageOpaqueCaptureDescriptorDataEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetImageOpaqueCaptureDescriptorDataEXT.html>"]
     #[doc(alias = "vkGetImageOpaqueCaptureDescriptorDataEXT")]
     #[inline]
     pub fn get_image_opaque_capture_descriptor_data_ext(
@@ -6093,7 +6093,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_descriptor_buffer")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetImageViewOpaqueCaptureDescriptorDataEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetImageViewOpaqueCaptureDescriptorDataEXT.html>"]
     #[doc(alias = "vkGetImageViewOpaqueCaptureDescriptorDataEXT")]
     #[inline]
     pub fn get_image_view_opaque_capture_descriptor_data_ext(
@@ -6111,7 +6111,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_descriptor_buffer")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetSamplerOpaqueCaptureDescriptorDataEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetSamplerOpaqueCaptureDescriptorDataEXT.html>"]
     #[doc(alias = "vkGetSamplerOpaqueCaptureDescriptorDataEXT")]
     #[inline]
     pub fn get_sampler_opaque_capture_descriptor_data_ext(
@@ -6132,7 +6132,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         feature = "ext_descriptor_buffer",
         any(feature = "ext_acceleration_structure", feature = "ext_ray_tracing")
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT.html>"]
     #[doc(alias = "vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT")]
     #[inline]
     pub fn get_acceleration_structure_opaque_capture_descriptor_data_ext(
@@ -6150,7 +6150,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_fuchsia_external_memory")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetMemoryZirconHandleFUCHSIA.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetMemoryZirconHandleFUCHSIA.html>"]
     #[doc(alias = "vkGetMemoryZirconHandleFUCHSIA")]
     #[inline]
     pub fn get_memory_zircon_handle_fuchsia(
@@ -6166,7 +6166,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_fuchsia_external_memory")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetMemoryZirconHandlePropertiesFUCHSIA.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetMemoryZirconHandlePropertiesFUCHSIA.html>"]
     #[doc(alias = "vkGetMemoryZirconHandlePropertiesFUCHSIA")]
     pub fn get_memory_zircon_handle_properties_fuchsia<
         S: StructureChainOut<MemoryZirconHandlePropertiesFUCHSIA<'static>>,
@@ -6185,7 +6185,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_fuchsia_external_semaphore")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkImportSemaphoreZirconHandleFUCHSIA.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkImportSemaphoreZirconHandleFUCHSIA.html>"]
     #[doc(alias = "vkImportSemaphoreZirconHandleFUCHSIA")]
     #[inline]
     pub fn import_semaphore_zircon_handle_fuchsia(
@@ -6201,7 +6201,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_fuchsia_external_semaphore")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetSemaphoreZirconHandleFUCHSIA.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetSemaphoreZirconHandleFUCHSIA.html>"]
     #[doc(alias = "vkGetSemaphoreZirconHandleFUCHSIA")]
     #[inline]
     pub fn get_semaphore_zircon_handle_fuchsia(
@@ -6217,7 +6217,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_buffer_collection")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateBufferCollectionFUCHSIA.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateBufferCollectionFUCHSIA.html>"]
     #[doc(alias = "vkCreateBufferCollectionFUCHSIA")]
     #[inline]
     pub fn create_buffer_collection_fuchsia(
@@ -6235,7 +6235,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         vk_result.map(|vk_result| unsafe { BufferCollectionFUCHSIA::from_inner(vk_result) })
     }
     #[cfg(feature = "ext_buffer_collection")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkSetBufferCollectionImageConstraintsFUCHSIA.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkSetBufferCollectionImageConstraintsFUCHSIA.html>"]
     #[doc(alias = "vkSetBufferCollectionImageConstraintsFUCHSIA")]
     #[inline]
     pub fn set_buffer_collection_image_constraints_fuchsia(
@@ -6253,7 +6253,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_buffer_collection")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkSetBufferCollectionBufferConstraintsFUCHSIA.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkSetBufferCollectionBufferConstraintsFUCHSIA.html>"]
     #[doc(alias = "vkSetBufferCollectionBufferConstraintsFUCHSIA")]
     #[inline]
     pub fn set_buffer_collection_buffer_constraints_fuchsia(
@@ -6271,7 +6271,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_buffer_collection")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkDestroyBufferCollectionFUCHSIA.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyBufferCollectionFUCHSIA.html>"]
     #[doc(alias = "vkDestroyBufferCollectionFUCHSIA")]
     #[inline]
     pub unsafe fn destroy_buffer_collection_fuchsia(
@@ -6288,7 +6288,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_buffer_collection")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetBufferCollectionPropertiesFUCHSIA.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetBufferCollectionPropertiesFUCHSIA.html>"]
     #[doc(alias = "vkGetBufferCollectionPropertiesFUCHSIA")]
     pub fn get_buffer_collection_properties_fuchsia<
         S: StructureChainOut<BufferCollectionPropertiesFUCHSIA<'static>>,
@@ -6305,7 +6305,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_subpass_shading")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI.html>"]
     #[doc(alias = "vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI")]
     pub fn get_subpass_shading_max_workgroup_size_huawei<R: DynamicArray<Extent2D>>(
         &self,
@@ -6320,7 +6320,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_external_memory_rdma")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetMemoryRemoteAddressNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetMemoryRemoteAddressNV.html>"]
     #[doc(alias = "vkGetMemoryRemoteAddressNV")]
     #[inline]
     pub fn get_memory_remote_address_nv(
@@ -6336,7 +6336,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_pipeline_properties")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPipelinePropertiesEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPipelinePropertiesEXT.html>"]
     #[doc(alias = "vkGetPipelinePropertiesEXT")]
     #[inline]
     pub fn get_pipeline_properties_ext(
@@ -6352,7 +6352,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_opacity_micromap")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateMicromapEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateMicromapEXT.html>"]
     #[doc(alias = "vkCreateMicromapEXT")]
     #[inline]
     pub fn create_micromap_ext(
@@ -6370,7 +6370,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         vk_result.map(|vk_result| unsafe { MicromapEXT::from_inner(vk_result) })
     }
     #[cfg(feature = "ext_opacity_micromap")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkDestroyMicromapEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyMicromapEXT.html>"]
     #[doc(alias = "vkDestroyMicromapEXT")]
     #[inline]
     pub unsafe fn destroy_micromap_ext(&self, micromap: Option<&raw::MicromapEXT>) {
@@ -6384,7 +6384,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_opacity_micromap")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkBuildMicromapsEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkBuildMicromapsEXT.html>"]
     #[doc(alias = "vkBuildMicromapsEXT")]
     #[inline]
     pub fn build_micromaps_ext<'a>(
@@ -6402,7 +6402,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_opacity_micromap")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCopyMicromapEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCopyMicromapEXT.html>"]
     #[doc(alias = "vkCopyMicromapEXT")]
     #[inline]
     pub fn copy_micromap_ext(
@@ -6420,7 +6420,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_opacity_micromap")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCopyMicromapToMemoryEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCopyMicromapToMemoryEXT.html>"]
     #[doc(alias = "vkCopyMicromapToMemoryEXT")]
     #[inline]
     pub fn copy_micromap_to_memory_ext(
@@ -6438,7 +6438,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_opacity_micromap")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCopyMemoryToMicromapEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCopyMemoryToMicromapEXT.html>"]
     #[doc(alias = "vkCopyMemoryToMicromapEXT")]
     #[inline]
     pub fn copy_memory_to_micromap_ext(
@@ -6456,7 +6456,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_opacity_micromap")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkWriteMicromapsPropertiesEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkWriteMicromapsPropertiesEXT.html>"]
     #[doc(alias = "vkWriteMicromapsPropertiesEXT")]
     #[inline]
     pub fn write_micromaps_properties_ext<'a, V2: Alias<raw::MicromapEXT> + 'a>(
@@ -6480,7 +6480,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_opacity_micromap")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetDeviceMicromapCompatibilityEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDeviceMicromapCompatibilityEXT.html>"]
     #[doc(alias = "vkGetDeviceMicromapCompatibilityEXT")]
     #[inline]
     pub fn get_micromap_compatibility_ext(
@@ -6496,7 +6496,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_opacity_micromap")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetMicromapBuildSizesEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetMicromapBuildSizesEXT.html>"]
     #[doc(alias = "vkGetMicromapBuildSizesEXT")]
     pub fn get_micromap_build_sizes_ext<
         S: StructureChainOut<MicromapBuildSizesInfoEXT<'static>>,
@@ -6515,7 +6515,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_pageable_device_local_memory")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkSetDeviceMemoryPriorityEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkSetDeviceMemoryPriorityEXT.html>"]
     #[doc(alias = "vkSetDeviceMemoryPriorityEXT")]
     #[inline]
     pub fn set_memory_priority_ext(&self, memory: &raw::DeviceMemory, priority: f32) {
@@ -6529,7 +6529,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_descriptor_set_host_mapping")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetDescriptorSetLayoutHostMappingInfoVALVE.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDescriptorSetLayoutHostMappingInfoVALVE.html>"]
     #[doc(alias = "vkGetDescriptorSetLayoutHostMappingInfoVALVE")]
     pub fn get_descriptor_set_layout_host_mapping_info_valve<
         S: StructureChainOut<DescriptorSetLayoutHostMappingInfoVALVE<'static>>,
@@ -6546,7 +6546,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_descriptor_set_host_mapping")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetDescriptorSetHostMappingVALVE.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDescriptorSetHostMappingVALVE.html>"]
     #[doc(alias = "vkGetDescriptorSetHostMappingVALVE")]
     #[inline]
     pub fn get_descriptor_set_host_mapping_valve(
@@ -6562,7 +6562,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_device_generated_commands_compute")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPipelineIndirectMemoryRequirementsNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPipelineIndirectMemoryRequirementsNV.html>"]
     #[doc(alias = "vkGetPipelineIndirectMemoryRequirementsNV")]
     pub fn get_pipeline_indirect_memory_requirements_nv<
         S: StructureChainOut<MemoryRequirements2<'static>>,
@@ -6579,7 +6579,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_device_generated_commands_compute")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPipelineIndirectDeviceAddressNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPipelineIndirectDeviceAddressNV.html>"]
     #[doc(alias = "vkGetPipelineIndirectDeviceAddressNV")]
     #[inline]
     pub fn get_pipeline_indirect_address_nv(
@@ -6595,7 +6595,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_ohos_external_memory")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetNativeBufferPropertiesOHOS.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetNativeBufferPropertiesOHOS.html>"]
     #[doc(alias = "vkGetNativeBufferPropertiesOHOS")]
     pub fn get_native_buffer_properties_ohos<
         S: StructureChainOut<NativeBufferPropertiesOHOS<'static>>,
@@ -6608,7 +6608,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_ohos_external_memory")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetMemoryNativeBufferOHOS.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetMemoryNativeBufferOHOS.html>"]
     #[doc(alias = "vkGetMemoryNativeBufferOHOS")]
     #[inline]
     pub fn get_memory_native_buffer_ohos(
@@ -6626,7 +6626,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_tensors")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateTensorARM.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateTensorARM.html>"]
     #[doc(alias = "vkCreateTensorARM")]
     #[inline]
     pub fn create_tensor_arm(&self, p_create_info: &TensorCreateInfoARM) -> Result<TensorARM> {
@@ -6641,7 +6641,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         vk_result.map(|vk_result| unsafe { TensorARM::from_inner(vk_result) })
     }
     #[cfg(feature = "ext_tensors")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkDestroyTensorARM.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyTensorARM.html>"]
     #[doc(alias = "vkDestroyTensorARM")]
     #[inline]
     pub unsafe fn destroy_tensor_arm(&self, tensor: Option<&raw::TensorARM>) {
@@ -6655,7 +6655,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_tensors")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateTensorViewARM.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateTensorViewARM.html>"]
     #[doc(alias = "vkCreateTensorViewARM")]
     #[inline]
     pub fn create_tensor_view_arm(
@@ -6673,7 +6673,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         vk_result.map(|vk_result| unsafe { TensorViewARM::from_inner(vk_result) })
     }
     #[cfg(feature = "ext_tensors")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkDestroyTensorViewARM.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyTensorViewARM.html>"]
     #[doc(alias = "vkDestroyTensorViewARM")]
     #[inline]
     pub unsafe fn destroy_tensor_view_arm(&self, tensor_view: Option<&raw::TensorViewARM>) {
@@ -6687,7 +6687,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_tensors")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetTensorMemoryRequirementsARM.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetTensorMemoryRequirementsARM.html>"]
     #[doc(alias = "vkGetTensorMemoryRequirementsARM")]
     pub fn get_tensor_memory_requirements_arm<
         S: StructureChainOut<MemoryRequirements2<'static>>,
@@ -6704,7 +6704,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_tensors")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkBindTensorMemoryARM.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkBindTensorMemoryARM.html>"]
     #[doc(alias = "vkBindTensorMemoryARM")]
     #[inline]
     pub fn bind_tensor_memory_arm<'a>(
@@ -6716,7 +6716,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_tensors")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetDeviceTensorMemoryRequirementsARM.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDeviceTensorMemoryRequirementsARM.html>"]
     #[doc(alias = "vkGetDeviceTensorMemoryRequirementsARM")]
     pub fn get_device_tensor_memory_requirements_arm<
         S: StructureChainOut<MemoryRequirements2<'static>>,
@@ -6733,7 +6733,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(all(feature = "ext_tensors", feature = "ext_descriptor_buffer"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetTensorOpaqueCaptureDescriptorDataARM.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetTensorOpaqueCaptureDescriptorDataARM.html>"]
     #[doc(alias = "vkGetTensorOpaqueCaptureDescriptorDataARM")]
     #[inline]
     pub fn get_tensor_opaque_capture_descriptor_data_arm(
@@ -6751,7 +6751,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(all(feature = "ext_tensors", feature = "ext_descriptor_buffer"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetTensorViewOpaqueCaptureDescriptorDataARM.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetTensorViewOpaqueCaptureDescriptorDataARM.html>"]
     #[doc(alias = "vkGetTensorViewOpaqueCaptureDescriptorDataARM")]
     #[inline]
     pub fn get_tensor_view_opaque_capture_descriptor_data_arm(
@@ -6769,7 +6769,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_shader_module_identifier")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetShaderModuleIdentifierEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetShaderModuleIdentifierEXT.html>"]
     #[doc(alias = "vkGetShaderModuleIdentifierEXT")]
     pub fn get_shader_module_identifier_ext<
         S: StructureChainOut<ShaderModuleIdentifierEXT<'static>>,
@@ -6786,7 +6786,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_shader_module_identifier")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetShaderModuleCreateInfoIdentifierEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetShaderModuleCreateInfoIdentifierEXT.html>"]
     #[doc(alias = "vkGetShaderModuleCreateInfoIdentifierEXT")]
     pub fn get_shader_module_create_info_identifier_ext<
         S: StructureChainOut<ShaderModuleIdentifierEXT<'static>>,
@@ -6803,7 +6803,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_optical_flow")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateOpticalFlowSessionNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateOpticalFlowSessionNV.html>"]
     #[doc(alias = "vkCreateOpticalFlowSessionNV")]
     #[inline]
     pub fn create_optical_flow_session_nv(
@@ -6821,7 +6821,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         vk_result.map(|vk_result| unsafe { OpticalFlowSessionNV::from_inner(vk_result) })
     }
     #[cfg(feature = "ext_optical_flow")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkDestroyOpticalFlowSessionNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyOpticalFlowSessionNV.html>"]
     #[doc(alias = "vkDestroyOpticalFlowSessionNV")]
     #[inline]
     pub unsafe fn destroy_optical_flow_session_nv(&self, session: &raw::OpticalFlowSessionNV) {
@@ -6835,7 +6835,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_optical_flow")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkBindOpticalFlowSessionImageNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkBindOpticalFlowSessionImageNV.html>"]
     #[doc(alias = "vkBindOpticalFlowSessionImageNV")]
     #[inline]
     pub fn bind_optical_flow_session_image_nv(
@@ -6857,14 +6857,14 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_anti_lag")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkAntiLagUpdateAMD.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkAntiLagUpdateAMD.html>"]
     #[doc(alias = "vkAntiLagUpdateAMD")]
     #[inline]
     pub fn anti_lag_update_amd(&self, p_data: &AntiLagDataAMD) {
         unsafe { raw::anti_lag_update_amd(self, p_data, self.disp.get_command_dispatcher()) }
     }
     #[cfg(feature = "ext_present_wait2")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkWaitForPresent2KHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkWaitForPresent2KHR.html>"]
     #[doc(alias = "vkWaitForPresent2KHR")]
     #[inline]
     pub fn wait_for_present2_khr(
@@ -6882,7 +6882,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_shader_object")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateShadersEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateShadersEXT.html>"]
     #[doc(alias = "vkCreateShadersEXT")]
     pub fn create_shaders_ext<'a, R: AdvancedDynamicArray<ShaderEXT, raw::ShaderEXT>>(
         &self,
@@ -6907,7 +6907,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         })
     }
     #[cfg(feature = "ext_shader_object")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkDestroyShaderEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyShaderEXT.html>"]
     #[doc(alias = "vkDestroyShaderEXT")]
     #[inline]
     pub unsafe fn destroy_shader_ext(&self, shader: Option<&raw::ShaderEXT>) {
@@ -6921,7 +6921,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_shader_object")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetShaderBinaryDataEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetShaderBinaryDataEXT.html>"]
     #[doc(alias = "vkGetShaderBinaryDataEXT")]
     #[inline]
     pub fn get_shader_binary_data_ext(
@@ -6939,7 +6939,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_pipeline_binary")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreatePipelineBinariesKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreatePipelineBinariesKHR.html>"]
     #[doc(alias = "vkCreatePipelineBinariesKHR")]
     pub fn create_pipeline_binaries_khr<
         S: StructureChainOut<PipelineBinaryHandlesInfoKHR<'static>>,
@@ -6957,7 +6957,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_pipeline_binary")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkDestroyPipelineBinaryKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyPipelineBinaryKHR.html>"]
     #[doc(alias = "vkDestroyPipelineBinaryKHR")]
     #[inline]
     pub unsafe fn destroy_pipeline_binary_khr(
@@ -6974,7 +6974,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_pipeline_binary")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPipelineKeyKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPipelineKeyKHR.html>"]
     #[doc(alias = "vkGetPipelineKeyKHR")]
     pub fn get_pipeline_key_khr<S: StructureChainOut<PipelineBinaryKeyKHR<'static>>>(
         &self,
@@ -6989,7 +6989,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_pipeline_binary")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkReleaseCapturedPipelineDataKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkReleaseCapturedPipelineDataKHR.html>"]
     #[doc(alias = "vkReleaseCapturedPipelineDataKHR")]
     #[inline]
     pub fn release_captured_pipeline_data_khr(
@@ -7006,7 +7006,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_tile_properties")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetFramebufferTilePropertiesQCOM.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetFramebufferTilePropertiesQCOM.html>"]
     #[doc(alias = "vkGetFramebufferTilePropertiesQCOM")]
     pub fn get_framebuffer_tile_properties_qcom<R: DynamicArray<TilePropertiesQCOM<'static>>>(
         &self,
@@ -7021,7 +7021,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_tile_properties")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetDynamicRenderingTilePropertiesQCOM.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDynamicRenderingTilePropertiesQCOM.html>"]
     #[doc(alias = "vkGetDynamicRenderingTilePropertiesQCOM")]
     pub fn get_dynamic_rendering_tile_properties_qcom<
         S: StructureChainOut<TilePropertiesQCOM<'static>>,
@@ -7038,7 +7038,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_swapchain_maintenance1")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkReleaseSwapchainImagesKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkReleaseSwapchainImagesKHR.html>"]
     #[doc(alias = "vkReleaseSwapchainImagesKHR")]
     #[inline]
     pub fn release_swapchain_images_khr(
@@ -7054,7 +7054,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_swapchain_maintenance1")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkReleaseSwapchainImagesEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkReleaseSwapchainImagesEXT.html>"]
     #[doc(alias = "vkReleaseSwapchainImagesEXT")]
     #[inline]
     pub fn release_swapchain_images_ext(
@@ -7070,7 +7070,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_cooperative_vector")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkConvertCooperativeVectorMatrixNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkConvertCooperativeVectorMatrixNV.html>"]
     #[doc(alias = "vkConvertCooperativeVectorMatrixNV")]
     #[inline]
     pub fn convert_cooperative_vector_matrix_nv(
@@ -7086,7 +7086,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_low_latency2")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkSetLatencySleepModeNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkSetLatencySleepModeNV.html>"]
     #[doc(alias = "vkSetLatencySleepModeNV")]
     #[inline]
     pub fn set_latency_sleep_mode_nv(
@@ -7104,7 +7104,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_low_latency2")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkLatencySleepNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkLatencySleepNV.html>"]
     #[doc(alias = "vkLatencySleepNV")]
     #[inline]
     pub fn latency_sleep_nv(
@@ -7122,7 +7122,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_low_latency2")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkSetLatencyMarkerNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkSetLatencyMarkerNV.html>"]
     #[doc(alias = "vkSetLatencyMarkerNV")]
     #[inline]
     pub fn set_latency_marker_nv(
@@ -7140,7 +7140,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_low_latency2")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetLatencyTimingsNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetLatencyTimingsNV.html>"]
     #[doc(alias = "vkGetLatencyTimingsNV")]
     pub fn get_latency_timings_nv<S: StructureChainOut<GetLatencyMarkerInfoNV<'static>>>(
         &self,
@@ -7149,7 +7149,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         unsafe { raw::get_latency_timings_nv(self, swapchain, self.disp.get_command_dispatcher()) }
     }
     #[cfg(feature = "ext_data_graph")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateDataGraphPipelinesARM.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateDataGraphPipelinesARM.html>"]
     #[doc(alias = "vkCreateDataGraphPipelinesARM")]
     pub fn create_data_graph_pipelines_arm<'a, R: AdvancedDynamicArray<Pipeline, raw::Pipeline>>(
         &self,
@@ -7178,7 +7178,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         })
     }
     #[cfg(feature = "ext_data_graph")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateDataGraphPipelineSessionARM.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateDataGraphPipelineSessionARM.html>"]
     #[doc(alias = "vkCreateDataGraphPipelineSessionARM")]
     #[inline]
     pub fn create_data_graph_pipeline_session_arm(
@@ -7196,7 +7196,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         vk_result.map(|vk_result| unsafe { DataGraphPipelineSessionARM::from_inner(vk_result) })
     }
     #[cfg(feature = "ext_data_graph")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetDataGraphPipelineSessionBindPointRequirementsARM.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDataGraphPipelineSessionBindPointRequirementsARM.html>"]
     #[doc(alias = "vkGetDataGraphPipelineSessionBindPointRequirementsARM")]
     pub fn get_data_graph_pipeline_session_bind_point_requirements_arm<
         R: DynamicArray<DataGraphPipelineSessionBindPointRequirementARM<'static>>,
@@ -7213,7 +7213,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_data_graph")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetDataGraphPipelineSessionMemoryRequirementsARM.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDataGraphPipelineSessionMemoryRequirementsARM.html>"]
     #[doc(alias = "vkGetDataGraphPipelineSessionMemoryRequirementsARM")]
     pub fn get_data_graph_pipeline_session_memory_requirements_arm<
         S: StructureChainOut<MemoryRequirements2<'static>>,
@@ -7230,7 +7230,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_data_graph")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkBindDataGraphPipelineSessionMemoryARM.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkBindDataGraphPipelineSessionMemoryARM.html>"]
     #[doc(alias = "vkBindDataGraphPipelineSessionMemoryARM")]
     #[inline]
     pub fn bind_data_graph_pipeline_session_memory_arm<'a>(
@@ -7246,7 +7246,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_data_graph")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkDestroyDataGraphPipelineSessionARM.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyDataGraphPipelineSessionARM.html>"]
     #[doc(alias = "vkDestroyDataGraphPipelineSessionARM")]
     #[inline]
     pub unsafe fn destroy_data_graph_pipeline_session_arm(
@@ -7263,7 +7263,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_data_graph")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetDataGraphPipelineAvailablePropertiesARM.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDataGraphPipelineAvailablePropertiesARM.html>"]
     #[doc(alias = "vkGetDataGraphPipelineAvailablePropertiesARM")]
     pub fn get_data_graph_pipeline_available_properties_arm<
         R: DynamicArray<DataGraphPipelinePropertyARM>,
@@ -7280,7 +7280,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_data_graph")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetDataGraphPipelinePropertiesARM.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDataGraphPipelinePropertiesARM.html>"]
     #[doc(alias = "vkGetDataGraphPipelinePropertiesARM")]
     pub fn get_data_graph_pipeline_properties_arm<
         R: DynamicArray<DataGraphPipelinePropertyQueryResultARM<'static>>,
@@ -7299,7 +7299,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_external_memory_screen_buffer")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetScreenBufferPropertiesQNX.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetScreenBufferPropertiesQNX.html>"]
     #[doc(alias = "vkGetScreenBufferPropertiesQNX")]
     pub fn get_screen_buffer_properties_qnx<
         S: StructureChainOut<ScreenBufferPropertiesQNX<'static>>,
@@ -7312,7 +7312,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_external_compute_queue")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateExternalComputeQueueNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateExternalComputeQueueNV.html>"]
     #[doc(alias = "vkCreateExternalComputeQueueNV")]
     #[inline]
     pub fn create_external_compute_queue_nv(
@@ -7332,7 +7332,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         })
     }
     #[cfg(feature = "ext_external_compute_queue")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkDestroyExternalComputeQueueNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyExternalComputeQueueNV.html>"]
     #[doc(alias = "vkDestroyExternalComputeQueueNV")]
     #[inline]
     pub unsafe fn destroy_external_compute_queue_nv(
@@ -7349,7 +7349,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_cluster_acceleration_structure")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetClusterAccelerationStructureBuildSizesNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetClusterAccelerationStructureBuildSizesNV.html>"]
     #[doc(alias = "vkGetClusterAccelerationStructureBuildSizesNV")]
     pub fn get_cluster_acceleration_structure_build_sizes_nv<
         S: StructureChainOut<AccelerationStructureBuildSizesInfoKHR<'static>>,
@@ -7366,7 +7366,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_partitioned_acceleration_structure")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetPartitionedAccelerationStructuresBuildSizesNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPartitionedAccelerationStructuresBuildSizesNV.html>"]
     #[doc(alias = "vkGetPartitionedAccelerationStructuresBuildSizesNV")]
     pub fn get_partitioned_acceleration_structures_build_sizes_nv<
         S: StructureChainOut<AccelerationStructureBuildSizesInfoKHR<'static>>,
@@ -7383,7 +7383,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_device_generated_commands")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetGeneratedCommandsMemoryRequirementsEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetGeneratedCommandsMemoryRequirementsEXT.html>"]
     #[doc(alias = "vkGetGeneratedCommandsMemoryRequirementsEXT")]
     pub fn get_generated_commands_memory_requirements_ext<
         S: StructureChainOut<MemoryRequirements2<'static>>,
@@ -7400,7 +7400,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_device_generated_commands")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateIndirectCommandsLayoutEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateIndirectCommandsLayoutEXT.html>"]
     #[doc(alias = "vkCreateIndirectCommandsLayoutEXT")]
     #[inline]
     pub fn create_indirect_commands_layout_ext(
@@ -7418,7 +7418,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         vk_result.map(|vk_result| unsafe { IndirectCommandsLayoutEXT::from_inner(vk_result) })
     }
     #[cfg(feature = "ext_device_generated_commands")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkDestroyIndirectCommandsLayoutEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyIndirectCommandsLayoutEXT.html>"]
     #[doc(alias = "vkDestroyIndirectCommandsLayoutEXT")]
     #[inline]
     pub unsafe fn destroy_indirect_commands_layout_ext(
@@ -7435,7 +7435,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_device_generated_commands")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateIndirectExecutionSetEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateIndirectExecutionSetEXT.html>"]
     #[doc(alias = "vkCreateIndirectExecutionSetEXT")]
     #[inline]
     pub fn create_indirect_execution_set_ext(
@@ -7453,7 +7453,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         vk_result.map(|vk_result| unsafe { IndirectExecutionSetEXT::from_inner(vk_result) })
     }
     #[cfg(feature = "ext_device_generated_commands")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkDestroyIndirectExecutionSetEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyIndirectExecutionSetEXT.html>"]
     #[doc(alias = "vkDestroyIndirectExecutionSetEXT")]
     #[inline]
     pub unsafe fn destroy_indirect_execution_set_ext(
@@ -7470,7 +7470,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_device_generated_commands")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkUpdateIndirectExecutionSetPipelineEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkUpdateIndirectExecutionSetPipelineEXT.html>"]
     #[doc(alias = "vkUpdateIndirectExecutionSetPipelineEXT")]
     #[inline]
     pub fn update_indirect_execution_set_pipeline_ext<'a>(
@@ -7488,7 +7488,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_device_generated_commands")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkUpdateIndirectExecutionSetShaderEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkUpdateIndirectExecutionSetShaderEXT.html>"]
     #[doc(alias = "vkUpdateIndirectExecutionSetShaderEXT")]
     #[inline]
     pub fn update_indirect_execution_set_shader_ext<'a>(
@@ -7506,7 +7506,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_external_memory_metal")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetMemoryMetalHandleEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetMemoryMetalHandleEXT.html>"]
     #[doc(alias = "vkGetMemoryMetalHandleEXT")]
     #[inline]
     pub fn get_memory_metal_handle_ext(
@@ -7522,7 +7522,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_external_memory_metal")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetMemoryMetalHandlePropertiesEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetMemoryMetalHandlePropertiesEXT.html>"]
     #[doc(alias = "vkGetMemoryMetalHandlePropertiesEXT")]
     pub fn get_memory_metal_handle_properties_ext<
         S: StructureChainOut<MemoryMetalHandlePropertiesEXT<'static>>,
@@ -7541,7 +7541,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_shader_instrumentation")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCreateShaderInstrumentationARM.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateShaderInstrumentationARM.html>"]
     #[doc(alias = "vkCreateShaderInstrumentationARM")]
     #[inline]
     pub fn create_shader_instrumentation_arm(
@@ -7559,7 +7559,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         vk_result.map(|vk_result| unsafe { ShaderInstrumentationARM::from_inner(vk_result) })
     }
     #[cfg(feature = "ext_shader_instrumentation")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkDestroyShaderInstrumentationARM.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyShaderInstrumentationARM.html>"]
     #[doc(alias = "vkDestroyShaderInstrumentationARM")]
     #[inline]
     pub unsafe fn destroy_shader_instrumentation_arm(
@@ -7576,7 +7576,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_shader_instrumentation")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetShaderInstrumentationValuesARM.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetShaderInstrumentationValuesARM.html>"]
     #[doc(alias = "vkGetShaderInstrumentationValuesARM")]
     #[inline]
     pub fn get_shader_instrumentation_values_arm(
@@ -7596,7 +7596,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
         }
     }
     #[cfg(feature = "ext_shader_instrumentation")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkClearShaderInstrumentationMetricsARM.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkClearShaderInstrumentationMetricsARM.html>"]
     #[doc(alias = "vkClearShaderInstrumentationMetricsARM")]
     #[inline]
     pub fn clear_shader_instrumentation_metrics_arm(
@@ -7614,7 +7614,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
 }
 #[repr(C)]
 #[derive(Clone)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkQueue.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkQueue.html>"]
 #[doc(alias = "VkQueue")]
 pub struct Queue<D: Dispatcher = DynamicDispatcher, A: BaseAllocator = DefaultAllocator> {
     inner: <raw::Queue as Handle>::InnerType,
@@ -7651,7 +7651,7 @@ impl<D: Dispatcher, A: BaseAllocator> Queue<D, A> {
     pub fn get_allocator(&self) -> &A {
         &self.alloc
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkQueueSubmit.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkQueueSubmit.html>"]
     #[doc(alias = "vkQueueSubmit")]
     #[inline]
     pub fn submit<'a>(
@@ -7661,13 +7661,13 @@ impl<D: Dispatcher, A: BaseAllocator> Queue<D, A> {
     ) -> Result<()> {
         unsafe { raw::queue_submit(self, p_submits, fence, self.disp.get_command_dispatcher()) }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkQueueWaitIdle.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkQueueWaitIdle.html>"]
     #[doc(alias = "vkQueueWaitIdle")]
     #[inline]
     pub fn wait_idle(&self) -> Result<()> {
         unsafe { raw::queue_wait_idle(self, self.disp.get_command_dispatcher()) }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkQueueBindSparse.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkQueueBindSparse.html>"]
     #[doc(alias = "vkQueueBindSparse")]
     #[inline]
     pub fn bind_sparse<'a>(
@@ -7680,7 +7680,7 @@ impl<D: Dispatcher, A: BaseAllocator> Queue<D, A> {
         }
     }
     #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkQueueSubmit2.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkQueueSubmit2.html>"]
     #[doc(alias = "vkQueueSubmit2")]
     #[inline]
     pub fn submit2<'a>(
@@ -7691,7 +7691,7 @@ impl<D: Dispatcher, A: BaseAllocator> Queue<D, A> {
         unsafe { raw::queue_submit2(self, p_submits, fence, self.disp.get_command_dispatcher()) }
     }
     #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkQueueSubmit2KHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkQueueSubmit2KHR.html>"]
     #[doc(alias = "vkQueueSubmit2KHR")]
     #[inline]
     pub fn submit2_khr<'a>(
@@ -7704,14 +7704,14 @@ impl<D: Dispatcher, A: BaseAllocator> Queue<D, A> {
         }
     }
     #[cfg(feature = "ext_swapchain")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkQueuePresentKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkQueuePresentKHR.html>"]
     #[doc(alias = "vkQueuePresentKHR")]
     #[inline]
     pub fn present_khr(&self, p_present_info: &PresentInfoKHR) -> Result<Status> {
         unsafe { raw::queue_present_khr(self, p_present_info, self.disp.get_command_dispatcher()) }
     }
     #[cfg(feature = "ext_debug_utils")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkQueueBeginDebugUtilsLabelEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkQueueBeginDebugUtilsLabelEXT.html>"]
     #[doc(alias = "vkQueueBeginDebugUtilsLabelEXT")]
     #[inline]
     pub fn begin_debug_utils_label_ext(&self, p_label_info: &DebugUtilsLabelEXT) {
@@ -7724,14 +7724,14 @@ impl<D: Dispatcher, A: BaseAllocator> Queue<D, A> {
         }
     }
     #[cfg(feature = "ext_debug_utils")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkQueueEndDebugUtilsLabelEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkQueueEndDebugUtilsLabelEXT.html>"]
     #[doc(alias = "vkQueueEndDebugUtilsLabelEXT")]
     #[inline]
     pub fn end_debug_utils_label_ext(&self) {
         unsafe { raw::queue_end_debug_utils_label_ext(self, self.disp.get_command_dispatcher()) }
     }
     #[cfg(feature = "ext_debug_utils")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkQueueInsertDebugUtilsLabelEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkQueueInsertDebugUtilsLabelEXT.html>"]
     #[doc(alias = "vkQueueInsertDebugUtilsLabelEXT")]
     #[inline]
     pub fn insert_debug_utils_label_ext(&self, p_label_info: &DebugUtilsLabelEXT) {
@@ -7744,7 +7744,7 @@ impl<D: Dispatcher, A: BaseAllocator> Queue<D, A> {
         }
     }
     #[cfg(feature = "ext_device_diagnostic_checkpoints")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetQueueCheckpointDataNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetQueueCheckpointDataNV.html>"]
     #[doc(alias = "vkGetQueueCheckpointDataNV")]
     pub fn get_checkpoint_data_nv<R: DynamicArray<CheckpointDataNV<'static>>>(&self) -> R {
         unsafe { raw::get_queue_checkpoint_data_nv(self, self.disp.get_command_dispatcher()) }
@@ -7753,13 +7753,13 @@ impl<D: Dispatcher, A: BaseAllocator> Queue<D, A> {
         feature = "ext_device_diagnostic_checkpoints",
         any(feature = "version_1_3", feature = "ext_synchronization2")
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetQueueCheckpointData2NV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetQueueCheckpointData2NV.html>"]
     #[doc(alias = "vkGetQueueCheckpointData2NV")]
     pub fn get_checkpoint_data2_nv<R: DynamicArray<CheckpointData2NV<'static>>>(&self) -> R {
         unsafe { raw::get_queue_checkpoint_data2_nv(self, self.disp.get_command_dispatcher()) }
     }
     #[cfg(feature = "ext_performance_query")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkQueueSetPerformanceConfigurationINTEL.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkQueueSetPerformanceConfigurationINTEL.html>"]
     #[doc(alias = "vkQueueSetPerformanceConfigurationINTEL")]
     #[inline]
     pub fn set_performance_configuration_intel(
@@ -7775,7 +7775,7 @@ impl<D: Dispatcher, A: BaseAllocator> Queue<D, A> {
         }
     }
     #[cfg(feature = "ext_low_latency2")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkQueueNotifyOutOfBandNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkQueueNotifyOutOfBandNV.html>"]
     #[doc(alias = "vkQueueNotifyOutOfBandNV")]
     #[inline]
     pub fn notify_out_of_band_nv(&self, p_queue_type_info: &OutOfBandQueueTypeInfoNV) {
@@ -7790,7 +7790,7 @@ impl<D: Dispatcher, A: BaseAllocator> Queue<D, A> {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDeviceMemory.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceMemory.html>"]
 #[doc(alias = "VkDeviceMemory")]
 pub struct DeviceMemory {
     inner: <raw::DeviceMemory as Handle>::InnerType,
@@ -7811,7 +7811,7 @@ impl DeviceMemory {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkFence.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkFence.html>"]
 #[doc(alias = "VkFence")]
 pub struct Fence {
     inner: <raw::Fence as Handle>::InnerType,
@@ -7832,7 +7832,7 @@ impl Fence {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSemaphore.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSemaphore.html>"]
 #[doc(alias = "VkSemaphore")]
 pub struct Semaphore {
     inner: <raw::Semaphore as Handle>::InnerType,
@@ -7853,7 +7853,7 @@ impl Semaphore {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkQueryPool.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkQueryPool.html>"]
 #[doc(alias = "VkQueryPool")]
 pub struct QueryPool {
     inner: <raw::QueryPool as Handle>::InnerType,
@@ -7874,7 +7874,7 @@ impl QueryPool {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkBuffer.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkBuffer.html>"]
 #[doc(alias = "VkBuffer")]
 pub struct Buffer {
     inner: <raw::Buffer as Handle>::InnerType,
@@ -7895,7 +7895,7 @@ impl Buffer {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImage.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImage.html>"]
 #[doc(alias = "VkImage")]
 pub struct Image {
     inner: <raw::Image as Handle>::InnerType,
@@ -7916,7 +7916,7 @@ impl Image {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkImageView.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImageView.html>"]
 #[doc(alias = "VkImageView")]
 pub struct ImageView {
     inner: <raw::ImageView as Handle>::InnerType,
@@ -7937,7 +7937,7 @@ impl ImageView {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCommandPool.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCommandPool.html>"]
 #[doc(alias = "VkCommandPool")]
 pub struct CommandPool {
     inner: <raw::CommandPool as Handle>::InnerType,
@@ -7958,7 +7958,7 @@ impl CommandPool {
 }
 #[repr(C)]
 #[derive(Clone)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCommandBuffer.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCommandBuffer.html>"]
 #[doc(alias = "VkCommandBuffer")]
 pub struct CommandBuffer<D: Dispatcher = DynamicDispatcher, A: BaseAllocator = DefaultAllocator> {
     inner: <raw::CommandBuffer as Handle>::InnerType,
@@ -7995,25 +7995,25 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
     pub fn get_allocator(&self) -> &A {
         &self.alloc
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkBeginCommandBuffer.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkBeginCommandBuffer.html>"]
     #[doc(alias = "vkBeginCommandBuffer")]
     #[inline]
     pub fn begin(&self, p_begin_info: &CommandBufferBeginInfo) -> Result<()> {
         unsafe { raw::begin_command_buffer(self, p_begin_info, self.disp.get_command_dispatcher()) }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkEndCommandBuffer.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkEndCommandBuffer.html>"]
     #[doc(alias = "vkEndCommandBuffer")]
     #[inline]
     pub fn end(&self) -> Result<()> {
         unsafe { raw::end_command_buffer(self, self.disp.get_command_dispatcher()) }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkResetCommandBuffer.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkResetCommandBuffer.html>"]
     #[doc(alias = "vkResetCommandBuffer")]
     #[inline]
     pub fn reset(&self, flags: CommandBufferResetFlags) -> Result<()> {
         unsafe { raw::reset_command_buffer(self, flags, self.disp.get_command_dispatcher()) }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdCopyBuffer.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCopyBuffer.html>"]
     #[doc(alias = "vkCmdCopyBuffer")]
     #[inline]
     pub fn copy_buffer<'a>(
@@ -8032,7 +8032,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdCopyImage.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCopyImage.html>"]
     #[doc(alias = "vkCmdCopyImage")]
     #[inline]
     pub fn copy_image<'a>(
@@ -8055,7 +8055,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdCopyBufferToImage.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCopyBufferToImage.html>"]
     #[doc(alias = "vkCmdCopyBufferToImage")]
     #[inline]
     pub fn copy_buffer_to_image<'a>(
@@ -8076,7 +8076,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdCopyImageToBuffer.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCopyImageToBuffer.html>"]
     #[doc(alias = "vkCmdCopyImageToBuffer")]
     #[inline]
     pub fn copy_image_to_buffer<'a>(
@@ -8097,7 +8097,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdUpdateBuffer.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdUpdateBuffer.html>"]
     #[doc(alias = "vkCmdUpdateBuffer")]
     #[inline]
     pub fn update_buffer(
@@ -8118,7 +8118,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdFillBuffer.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdFillBuffer.html>"]
     #[doc(alias = "vkCmdFillBuffer")]
     #[inline]
     pub fn fill_buffer(
@@ -8139,7 +8139,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdPipelineBarrier.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdPipelineBarrier.html>"]
     #[doc(alias = "vkCmdPipelineBarrier")]
     #[inline]
     pub fn pipeline_barrier<'a>(
@@ -8164,7 +8164,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdBeginQuery.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBeginQuery.html>"]
     #[doc(alias = "vkCmdBeginQuery")]
     #[inline]
     pub fn begin_query(&self, query_pool: &raw::QueryPool, query: u32, flags: QueryControlFlags) {
@@ -8178,13 +8178,13 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdEndQuery.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdEndQuery.html>"]
     #[doc(alias = "vkCmdEndQuery")]
     #[inline]
     pub fn end_query(&self, query_pool: &raw::QueryPool, query: u32) {
         unsafe { raw::cmd_end_query(self, query_pool, query, self.disp.get_command_dispatcher()) }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdResetQueryPool.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdResetQueryPool.html>"]
     #[doc(alias = "vkCmdResetQueryPool")]
     #[inline]
     pub fn reset_query_pool(
@@ -8203,7 +8203,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdWriteTimestamp.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdWriteTimestamp.html>"]
     #[doc(alias = "vkCmdWriteTimestamp")]
     #[inline]
     pub fn write_timestamp(
@@ -8222,7 +8222,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdCopyQueryPoolResults.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCopyQueryPoolResults.html>"]
     #[doc(alias = "vkCmdCopyQueryPoolResults")]
     #[inline]
     pub fn copy_query_pool_results(
@@ -8249,7 +8249,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdExecuteCommands.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdExecuteCommands.html>"]
     #[doc(alias = "vkCmdExecuteCommands")]
     #[inline]
     pub fn execute_commands<'a, V2: Alias<raw::CommandBuffer> + 'a>(
@@ -8260,7 +8260,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
             raw::cmd_execute_commands(self, p_command_buffers, self.disp.get_command_dispatcher())
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdBindPipeline.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBindPipeline.html>"]
     #[doc(alias = "vkCmdBindPipeline")]
     #[inline]
     pub fn bind_pipeline(&self, pipeline_bind_point: PipelineBindPoint, pipeline: &raw::Pipeline) {
@@ -8273,7 +8273,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdBindDescriptorSets.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBindDescriptorSets.html>"]
     #[doc(alias = "vkCmdBindDescriptorSets")]
     #[inline]
     pub fn bind_descriptor_sets<'a, V5: Alias<raw::DescriptorSet> + 'a>(
@@ -8296,7 +8296,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdClearColorImage.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdClearColorImage.html>"]
     #[doc(alias = "vkCmdClearColorImage")]
     #[inline]
     pub fn clear_color_image<'a>(
@@ -8317,7 +8317,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdDispatch.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDispatch.html>"]
     #[doc(alias = "vkCmdDispatch")]
     #[inline]
     pub fn dispatch(&self, group_count_x: u32, group_count_y: u32, group_count_z: u32) {
@@ -8331,7 +8331,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdDispatchIndirect.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDispatchIndirect.html>"]
     #[doc(alias = "vkCmdDispatchIndirect")]
     #[inline]
     pub fn dispatch_indirect(&self, buffer: &raw::Buffer, offset: DeviceSize) {
@@ -8339,19 +8339,19 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
             raw::cmd_dispatch_indirect(self, buffer, offset, self.disp.get_command_dispatcher())
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetEvent.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetEvent.html>"]
     #[doc(alias = "vkCmdSetEvent")]
     #[inline]
     pub fn set_event(&self, event: &raw::Event, stage_mask: PipelineStageFlags) {
         unsafe { raw::cmd_set_event(self, event, stage_mask, self.disp.get_command_dispatcher()) }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdResetEvent.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdResetEvent.html>"]
     #[doc(alias = "vkCmdResetEvent")]
     #[inline]
     pub fn reset_event(&self, event: &raw::Event, stage_mask: PipelineStageFlags) {
         unsafe { raw::cmd_reset_event(self, event, stage_mask, self.disp.get_command_dispatcher()) }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdWaitEvents.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdWaitEvents.html>"]
     #[doc(alias = "vkCmdWaitEvents")]
     #[inline]
     pub fn wait_events<'a, V2: Alias<raw::Event> + 'a>(
@@ -8376,7 +8376,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdPushConstants.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdPushConstants.html>"]
     #[doc(alias = "vkCmdPushConstants")]
     #[inline]
     pub fn push_constants(
@@ -8399,7 +8399,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetViewport.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetViewport.html>"]
     #[doc(alias = "vkCmdSetViewport")]
     #[inline]
     pub fn set_viewport<'a>(&self, first_viewport: u32, p_viewports: impl AsSlice<'a, Viewport>) {
@@ -8412,7 +8412,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetScissor.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetScissor.html>"]
     #[doc(alias = "vkCmdSetScissor")]
     #[inline]
     pub fn set_scissor<'a>(&self, first_scissor: u32, p_scissors: impl AsSlice<'a, Rect2D>) {
@@ -8425,13 +8425,13 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetLineWidth.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetLineWidth.html>"]
     #[doc(alias = "vkCmdSetLineWidth")]
     #[inline]
     pub fn set_line_width(&self, line_width: f32) {
         unsafe { raw::cmd_set_line_width(self, line_width, self.disp.get_command_dispatcher()) }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetDepthBias.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetDepthBias.html>"]
     #[doc(alias = "vkCmdSetDepthBias")]
     #[inline]
     pub fn set_depth_bias(
@@ -8450,7 +8450,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetBlendConstants.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetBlendConstants.html>"]
     #[doc(alias = "vkCmdSetBlendConstants")]
     #[inline]
     pub fn set_blend_constants(&self, blend_constants: [f32; 4u16 as _]) {
@@ -8458,7 +8458,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
             raw::cmd_set_blend_constants(self, blend_constants, self.disp.get_command_dispatcher())
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetDepthBounds.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetDepthBounds.html>"]
     #[doc(alias = "vkCmdSetDepthBounds")]
     #[inline]
     pub fn set_depth_bounds(&self, min_depth_bounds: f32, max_depth_bounds: f32) {
@@ -8471,7 +8471,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetStencilCompareMask.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetStencilCompareMask.html>"]
     #[doc(alias = "vkCmdSetStencilCompareMask")]
     #[inline]
     pub fn set_stencil_compare_mask(&self, face_mask: StencilFaceFlags, compare_mask: u32) {
@@ -8484,7 +8484,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetStencilWriteMask.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetStencilWriteMask.html>"]
     #[doc(alias = "vkCmdSetStencilWriteMask")]
     #[inline]
     pub fn set_stencil_write_mask(&self, face_mask: StencilFaceFlags, write_mask: u32) {
@@ -8497,7 +8497,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetStencilReference.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetStencilReference.html>"]
     #[doc(alias = "vkCmdSetStencilReference")]
     #[inline]
     pub fn set_stencil_reference(&self, face_mask: StencilFaceFlags, reference: u32) {
@@ -8510,7 +8510,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdBindIndexBuffer.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBindIndexBuffer.html>"]
     #[doc(alias = "vkCmdBindIndexBuffer")]
     #[inline]
     pub fn bind_index_buffer(
@@ -8529,7 +8529,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdBindVertexBuffers.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBindVertexBuffers.html>"]
     #[doc(alias = "vkCmdBindVertexBuffers")]
     #[inline]
     pub fn bind_vertex_buffers<'a, V3: Alias<raw::Buffer> + 'a>(
@@ -8548,7 +8548,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdDraw.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDraw.html>"]
     #[doc(alias = "vkCmdDraw")]
     #[inline]
     pub fn draw(
@@ -8569,7 +8569,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdDrawIndexed.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDrawIndexed.html>"]
     #[doc(alias = "vkCmdDrawIndexed")]
     #[inline]
     pub fn draw_indexed(
@@ -8592,7 +8592,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdDrawIndirect.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDrawIndirect.html>"]
     #[doc(alias = "vkCmdDrawIndirect")]
     #[inline]
     pub fn draw_indirect(
@@ -8613,7 +8613,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdDrawIndexedIndirect.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDrawIndexedIndirect.html>"]
     #[doc(alias = "vkCmdDrawIndexedIndirect")]
     #[inline]
     pub fn draw_indexed_indirect(
@@ -8634,7 +8634,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdBlitImage.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBlitImage.html>"]
     #[doc(alias = "vkCmdBlitImage")]
     #[inline]
     pub fn blit_image<'a>(
@@ -8659,7 +8659,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdClearDepthStencilImage.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdClearDepthStencilImage.html>"]
     #[doc(alias = "vkCmdClearDepthStencilImage")]
     #[inline]
     pub fn clear_depth_stencil_image<'a>(
@@ -8680,7 +8680,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdClearAttachments.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdClearAttachments.html>"]
     #[doc(alias = "vkCmdClearAttachments")]
     #[inline]
     pub fn clear_attachments<'a>(
@@ -8697,7 +8697,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdResolveImage.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdResolveImage.html>"]
     #[doc(alias = "vkCmdResolveImage")]
     #[inline]
     pub fn resolve_image<'a>(
@@ -8720,7 +8720,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdBeginRenderPass.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBeginRenderPass.html>"]
     #[doc(alias = "vkCmdBeginRenderPass")]
     #[inline]
     pub fn begin_render_pass(
@@ -8737,27 +8737,27 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
             )
         }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdNextSubpass.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdNextSubpass.html>"]
     #[doc(alias = "vkCmdNextSubpass")]
     #[inline]
     pub fn next_subpass(&self, contents: SubpassContents) {
         unsafe { raw::cmd_next_subpass(self, contents, self.disp.get_command_dispatcher()) }
     }
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdEndRenderPass.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdEndRenderPass.html>"]
     #[doc(alias = "vkCmdEndRenderPass")]
     #[inline]
     pub fn end_render_pass(&self) {
         unsafe { raw::cmd_end_render_pass(self, self.disp.get_command_dispatcher()) }
     }
     #[cfg(any(feature = "ext_device_group", feature = "version_1_1"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetDeviceMask.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetDeviceMask.html>"]
     #[doc(alias = "vkCmdSetDeviceMask")]
     #[inline]
     pub fn set_device_mask(&self, device_mask: u32) {
         unsafe { raw::cmd_set_device_mask(self, device_mask, self.disp.get_command_dispatcher()) }
     }
     #[cfg(any(feature = "ext_device_group", feature = "version_1_1"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetDeviceMaskKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetDeviceMaskKHR.html>"]
     #[doc(alias = "vkCmdSetDeviceMaskKHR")]
     #[inline]
     pub fn set_device_mask_khr(&self, device_mask: u32) {
@@ -8766,7 +8766,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(any(feature = "ext_device_group", feature = "version_1_1"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdDispatchBase.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDispatchBase.html>"]
     #[doc(alias = "vkCmdDispatchBase")]
     #[inline]
     pub fn dispatch_base(
@@ -8792,7 +8792,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(any(feature = "ext_device_group", feature = "version_1_1"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdDispatchBaseKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDispatchBaseKHR.html>"]
     #[doc(alias = "vkCmdDispatchBaseKHR")]
     #[inline]
     pub fn dispatch_base_khr(
@@ -8818,7 +8818,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(any(feature = "ext_draw_indirect_count", feature = "version_1_2"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdDrawIndirectCount.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDrawIndirectCount.html>"]
     #[doc(alias = "vkCmdDrawIndirectCount")]
     #[inline]
     pub fn draw_indirect_count(
@@ -8844,7 +8844,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(any(feature = "ext_draw_indirect_count", feature = "version_1_2"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdDrawIndirectCountKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDrawIndirectCountKHR.html>"]
     #[doc(alias = "vkCmdDrawIndirectCountKHR")]
     #[inline]
     pub fn draw_indirect_count_khr(
@@ -8870,7 +8870,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(any(feature = "ext_draw_indirect_count", feature = "version_1_2"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdDrawIndirectCountAMD.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDrawIndirectCountAMD.html>"]
     #[doc(alias = "vkCmdDrawIndirectCountAMD")]
     #[inline]
     pub fn draw_indirect_count_amd(
@@ -8896,7 +8896,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(any(feature = "ext_draw_indirect_count", feature = "version_1_2"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdDrawIndexedIndirectCount.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDrawIndexedIndirectCount.html>"]
     #[doc(alias = "vkCmdDrawIndexedIndirectCount")]
     #[inline]
     pub fn draw_indexed_indirect_count(
@@ -8922,7 +8922,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(any(feature = "ext_draw_indirect_count", feature = "version_1_2"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdDrawIndexedIndirectCountKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDrawIndexedIndirectCountKHR.html>"]
     #[doc(alias = "vkCmdDrawIndexedIndirectCountKHR")]
     #[inline]
     pub fn draw_indexed_indirect_count_khr(
@@ -8948,7 +8948,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(any(feature = "ext_draw_indirect_count", feature = "version_1_2"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdDrawIndexedIndirectCountAMD.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDrawIndexedIndirectCountAMD.html>"]
     #[doc(alias = "vkCmdDrawIndexedIndirectCountAMD")]
     #[inline]
     pub fn draw_indexed_indirect_count_amd(
@@ -8974,7 +8974,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(any(feature = "ext_create_renderpass2", feature = "version_1_2"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdBeginRenderPass2.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBeginRenderPass2.html>"]
     #[doc(alias = "vkCmdBeginRenderPass2")]
     #[inline]
     pub fn begin_render_pass2(
@@ -8992,7 +8992,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(any(feature = "ext_create_renderpass2", feature = "version_1_2"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdBeginRenderPass2KHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBeginRenderPass2KHR.html>"]
     #[doc(alias = "vkCmdBeginRenderPass2KHR")]
     #[inline]
     pub fn begin_render_pass2_khr(
@@ -9010,7 +9010,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(any(feature = "ext_create_renderpass2", feature = "version_1_2"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdNextSubpass2.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdNextSubpass2.html>"]
     #[doc(alias = "vkCmdNextSubpass2")]
     #[inline]
     pub fn next_subpass2(
@@ -9028,7 +9028,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(any(feature = "ext_create_renderpass2", feature = "version_1_2"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdNextSubpass2KHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdNextSubpass2KHR.html>"]
     #[doc(alias = "vkCmdNextSubpass2KHR")]
     #[inline]
     pub fn next_subpass2_khr(
@@ -9046,7 +9046,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(any(feature = "ext_create_renderpass2", feature = "version_1_2"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdEndRenderPass2.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdEndRenderPass2.html>"]
     #[doc(alias = "vkCmdEndRenderPass2")]
     #[inline]
     pub fn end_render_pass2(&self, p_subpass_end_info: &SubpassEndInfo) {
@@ -9055,7 +9055,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(any(feature = "ext_create_renderpass2", feature = "version_1_2"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdEndRenderPass2KHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdEndRenderPass2KHR.html>"]
     #[doc(alias = "vkCmdEndRenderPass2KHR")]
     #[inline]
     pub fn end_render_pass2_khr(&self, p_subpass_end_info: &SubpassEndInfo) {
@@ -9068,7 +9068,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdPipelineBarrier2.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdPipelineBarrier2.html>"]
     #[doc(alias = "vkCmdPipelineBarrier2")]
     #[inline]
     pub fn pipeline_barrier2(&self, p_dependency_info: &DependencyInfo) {
@@ -9077,7 +9077,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdPipelineBarrier2KHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdPipelineBarrier2KHR.html>"]
     #[doc(alias = "vkCmdPipelineBarrier2KHR")]
     #[inline]
     pub fn pipeline_barrier2_khr(&self, p_dependency_info: &DependencyInfo) {
@@ -9090,7 +9090,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdWriteTimestamp2.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdWriteTimestamp2.html>"]
     #[doc(alias = "vkCmdWriteTimestamp2")]
     #[inline]
     pub fn write_timestamp2(
@@ -9110,7 +9110,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdWriteTimestamp2KHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdWriteTimestamp2KHR.html>"]
     #[doc(alias = "vkCmdWriteTimestamp2KHR")]
     #[inline]
     pub fn write_timestamp2_khr(
@@ -9130,7 +9130,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(any(feature = "ext_copy_commands2", feature = "version_1_3"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdCopyBuffer2.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCopyBuffer2.html>"]
     #[doc(alias = "vkCmdCopyBuffer2")]
     #[inline]
     pub fn copy_buffer2(&self, p_copy_buffer_info: &CopyBufferInfo2) {
@@ -9139,7 +9139,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(any(feature = "ext_copy_commands2", feature = "version_1_3"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdCopyBuffer2KHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCopyBuffer2KHR.html>"]
     #[doc(alias = "vkCmdCopyBuffer2KHR")]
     #[inline]
     pub fn copy_buffer2_khr(&self, p_copy_buffer_info: &CopyBufferInfo2) {
@@ -9148,14 +9148,14 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(any(feature = "ext_copy_commands2", feature = "version_1_3"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdCopyImage2.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCopyImage2.html>"]
     #[doc(alias = "vkCmdCopyImage2")]
     #[inline]
     pub fn copy_image2(&self, p_copy_image_info: &CopyImageInfo2) {
         unsafe { raw::cmd_copy_image2(self, p_copy_image_info, self.disp.get_command_dispatcher()) }
     }
     #[cfg(any(feature = "ext_copy_commands2", feature = "version_1_3"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdCopyImage2KHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCopyImage2KHR.html>"]
     #[doc(alias = "vkCmdCopyImage2KHR")]
     #[inline]
     pub fn copy_image2_khr(&self, p_copy_image_info: &CopyImageInfo2) {
@@ -9164,7 +9164,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(any(feature = "ext_copy_commands2", feature = "version_1_3"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdCopyBufferToImage2.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCopyBufferToImage2.html>"]
     #[doc(alias = "vkCmdCopyBufferToImage2")]
     #[inline]
     pub fn copy_buffer_to_image2(&self, p_copy_buffer_to_image_info: &CopyBufferToImageInfo2) {
@@ -9177,7 +9177,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(any(feature = "ext_copy_commands2", feature = "version_1_3"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdCopyBufferToImage2KHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCopyBufferToImage2KHR.html>"]
     #[doc(alias = "vkCmdCopyBufferToImage2KHR")]
     #[inline]
     pub fn copy_buffer_to_image2_khr(&self, p_copy_buffer_to_image_info: &CopyBufferToImageInfo2) {
@@ -9190,7 +9190,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(any(feature = "ext_copy_commands2", feature = "version_1_3"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdCopyImageToBuffer2.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCopyImageToBuffer2.html>"]
     #[doc(alias = "vkCmdCopyImageToBuffer2")]
     #[inline]
     pub fn copy_image_to_buffer2(&self, p_copy_image_to_buffer_info: &CopyImageToBufferInfo2) {
@@ -9203,7 +9203,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(any(feature = "ext_copy_commands2", feature = "version_1_3"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdCopyImageToBuffer2KHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCopyImageToBuffer2KHR.html>"]
     #[doc(alias = "vkCmdCopyImageToBuffer2KHR")]
     #[inline]
     pub fn copy_image_to_buffer2_khr(&self, p_copy_image_to_buffer_info: &CopyImageToBufferInfo2) {
@@ -9216,7 +9216,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetEvent2.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetEvent2.html>"]
     #[doc(alias = "vkCmdSetEvent2")]
     #[inline]
     pub fn set_event2(&self, event: &raw::Event, p_dependency_info: &DependencyInfo) {
@@ -9230,7 +9230,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetEvent2KHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetEvent2KHR.html>"]
     #[doc(alias = "vkCmdSetEvent2KHR")]
     #[inline]
     pub fn set_event2_khr(&self, event: &raw::Event, p_dependency_info: &DependencyInfo) {
@@ -9244,7 +9244,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdResetEvent2.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdResetEvent2.html>"]
     #[doc(alias = "vkCmdResetEvent2")]
     #[inline]
     pub fn reset_event2(&self, event: &raw::Event, stage_mask: PipelineStageFlags2) {
@@ -9253,7 +9253,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdResetEvent2KHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdResetEvent2KHR.html>"]
     #[doc(alias = "vkCmdResetEvent2KHR")]
     #[inline]
     pub fn reset_event2_khr(&self, event: &raw::Event, stage_mask: PipelineStageFlags2) {
@@ -9262,7 +9262,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdWaitEvents2.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdWaitEvents2.html>"]
     #[doc(alias = "vkCmdWaitEvents2")]
     #[inline]
     pub fn wait_events2<'a, V2: Alias<raw::Event> + 'a>(
@@ -9280,7 +9280,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(any(feature = "ext_synchronization2", feature = "version_1_3"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdWaitEvents2KHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdWaitEvents2KHR.html>"]
     #[doc(alias = "vkCmdWaitEvents2KHR")]
     #[inline]
     pub fn wait_events2_khr<'a, V2: Alias<raw::Event> + 'a>(
@@ -9298,14 +9298,14 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(any(feature = "ext_copy_commands2", feature = "version_1_3"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdBlitImage2.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBlitImage2.html>"]
     #[doc(alias = "vkCmdBlitImage2")]
     #[inline]
     pub fn blit_image2(&self, p_blit_image_info: &BlitImageInfo2) {
         unsafe { raw::cmd_blit_image2(self, p_blit_image_info, self.disp.get_command_dispatcher()) }
     }
     #[cfg(any(feature = "ext_copy_commands2", feature = "version_1_3"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdBlitImage2KHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBlitImage2KHR.html>"]
     #[doc(alias = "vkCmdBlitImage2KHR")]
     #[inline]
     pub fn blit_image2_khr(&self, p_blit_image_info: &BlitImageInfo2) {
@@ -9314,7 +9314,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(any(feature = "ext_copy_commands2", feature = "version_1_3"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdResolveImage2.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdResolveImage2.html>"]
     #[doc(alias = "vkCmdResolveImage2")]
     #[inline]
     pub fn resolve_image2(&self, p_resolve_image_info: &ResolveImageInfo2) {
@@ -9327,7 +9327,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(any(feature = "ext_copy_commands2", feature = "version_1_3"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdResolveImage2KHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdResolveImage2KHR.html>"]
     #[doc(alias = "vkCmdResolveImage2KHR")]
     #[inline]
     pub fn resolve_image2_khr(&self, p_resolve_image_info: &ResolveImageInfo2) {
@@ -9340,7 +9340,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(any(feature = "ext_dynamic_rendering", feature = "version_1_3"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdBeginRendering.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBeginRendering.html>"]
     #[doc(alias = "vkCmdBeginRendering")]
     #[inline]
     pub fn begin_rendering(&self, p_rendering_info: &RenderingInfo) {
@@ -9349,7 +9349,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(any(feature = "ext_dynamic_rendering", feature = "version_1_3"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdBeginRenderingKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBeginRenderingKHR.html>"]
     #[doc(alias = "vkCmdBeginRenderingKHR")]
     #[inline]
     pub fn begin_rendering_khr(&self, p_rendering_info: &RenderingInfo) {
@@ -9358,14 +9358,14 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(any(feature = "ext_dynamic_rendering", feature = "version_1_3"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdEndRendering.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdEndRendering.html>"]
     #[doc(alias = "vkCmdEndRendering")]
     #[inline]
     pub fn end_rendering(&self) {
         unsafe { raw::cmd_end_rendering(self, self.disp.get_command_dispatcher()) }
     }
     #[cfg(any(feature = "ext_dynamic_rendering", feature = "version_1_3"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdEndRenderingKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdEndRenderingKHR.html>"]
     #[doc(alias = "vkCmdEndRenderingKHR")]
     #[inline]
     pub fn end_rendering_khr(&self) {
@@ -9376,7 +9376,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         feature = "ext_shader_object",
         feature = "version_1_3"
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetCullMode.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetCullMode.html>"]
     #[doc(alias = "vkCmdSetCullMode")]
     #[inline]
     pub fn set_cull_mode(&self, cull_mode: CullModeFlags) {
@@ -9387,7 +9387,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         feature = "ext_shader_object",
         feature = "version_1_3"
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetCullModeEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetCullModeEXT.html>"]
     #[doc(alias = "vkCmdSetCullModeEXT")]
     #[inline]
     pub fn set_cull_mode_ext(&self, cull_mode: CullModeFlags) {
@@ -9398,7 +9398,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         feature = "ext_shader_object",
         feature = "version_1_3"
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetFrontFace.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetFrontFace.html>"]
     #[doc(alias = "vkCmdSetFrontFace")]
     #[inline]
     pub fn set_front_face(&self, front_face: FrontFace) {
@@ -9409,7 +9409,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         feature = "ext_shader_object",
         feature = "version_1_3"
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetFrontFaceEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetFrontFaceEXT.html>"]
     #[doc(alias = "vkCmdSetFrontFaceEXT")]
     #[inline]
     pub fn set_front_face_ext(&self, front_face: FrontFace) {
@@ -9420,7 +9420,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         feature = "ext_shader_object",
         feature = "version_1_3"
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetPrimitiveTopology.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetPrimitiveTopology.html>"]
     #[doc(alias = "vkCmdSetPrimitiveTopology")]
     #[inline]
     pub fn set_primitive_topology(&self, primitive_topology: PrimitiveTopology) {
@@ -9437,7 +9437,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         feature = "ext_shader_object",
         feature = "version_1_3"
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetPrimitiveTopologyEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetPrimitiveTopologyEXT.html>"]
     #[doc(alias = "vkCmdSetPrimitiveTopologyEXT")]
     #[inline]
     pub fn set_primitive_topology_ext(&self, primitive_topology: PrimitiveTopology) {
@@ -9454,7 +9454,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         feature = "ext_shader_object",
         feature = "version_1_3"
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetViewportWithCount.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetViewportWithCount.html>"]
     #[doc(alias = "vkCmdSetViewportWithCount")]
     #[inline]
     pub fn set_viewport_with_count<'a>(&self, p_viewports: impl AsSlice<'a, Viewport>) {
@@ -9467,7 +9467,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         feature = "ext_shader_object",
         feature = "version_1_3"
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetViewportWithCountEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetViewportWithCountEXT.html>"]
     #[doc(alias = "vkCmdSetViewportWithCountEXT")]
     #[inline]
     pub fn set_viewport_with_count_ext<'a>(&self, p_viewports: impl AsSlice<'a, Viewport>) {
@@ -9484,7 +9484,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         feature = "ext_shader_object",
         feature = "version_1_3"
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetScissorWithCount.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetScissorWithCount.html>"]
     #[doc(alias = "vkCmdSetScissorWithCount")]
     #[inline]
     pub fn set_scissor_with_count<'a>(&self, p_scissors: impl AsSlice<'a, Rect2D>) {
@@ -9497,7 +9497,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         feature = "ext_shader_object",
         feature = "version_1_3"
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetScissorWithCountEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetScissorWithCountEXT.html>"]
     #[doc(alias = "vkCmdSetScissorWithCountEXT")]
     #[inline]
     pub fn set_scissor_with_count_ext<'a>(&self, p_scissors: impl AsSlice<'a, Rect2D>) {
@@ -9514,7 +9514,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         feature = "ext_shader_object",
         feature = "version_1_3"
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdBindVertexBuffers2.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBindVertexBuffers2.html>"]
     #[doc(alias = "vkCmdBindVertexBuffers2")]
     #[inline]
     pub fn bind_vertex_buffers2<'a, V3: Alias<raw::Buffer> + 'a>(
@@ -9542,7 +9542,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         feature = "ext_shader_object",
         feature = "version_1_3"
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdBindVertexBuffers2EXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBindVertexBuffers2EXT.html>"]
     #[doc(alias = "vkCmdBindVertexBuffers2EXT")]
     #[inline]
     pub fn bind_vertex_buffers2_ext<'a, V3: Alias<raw::Buffer> + 'a>(
@@ -9570,7 +9570,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         feature = "ext_shader_object",
         feature = "version_1_3"
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetDepthTestEnable.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetDepthTestEnable.html>"]
     #[doc(alias = "vkCmdSetDepthTestEnable")]
     #[inline]
     pub fn set_depth_test_enable(&self, depth_test_enable: impl Into<Bool32>) {
@@ -9587,7 +9587,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         feature = "ext_shader_object",
         feature = "version_1_3"
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetDepthTestEnableEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetDepthTestEnableEXT.html>"]
     #[doc(alias = "vkCmdSetDepthTestEnableEXT")]
     #[inline]
     pub fn set_depth_test_enable_ext(&self, depth_test_enable: impl Into<Bool32>) {
@@ -9604,7 +9604,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         feature = "ext_shader_object",
         feature = "version_1_3"
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetDepthWriteEnable.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetDepthWriteEnable.html>"]
     #[doc(alias = "vkCmdSetDepthWriteEnable")]
     #[inline]
     pub fn set_depth_write_enable(&self, depth_write_enable: impl Into<Bool32>) {
@@ -9621,7 +9621,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         feature = "ext_shader_object",
         feature = "version_1_3"
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetDepthWriteEnableEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetDepthWriteEnableEXT.html>"]
     #[doc(alias = "vkCmdSetDepthWriteEnableEXT")]
     #[inline]
     pub fn set_depth_write_enable_ext(&self, depth_write_enable: impl Into<Bool32>) {
@@ -9638,7 +9638,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         feature = "ext_shader_object",
         feature = "version_1_3"
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetDepthCompareOp.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetDepthCompareOp.html>"]
     #[doc(alias = "vkCmdSetDepthCompareOp")]
     #[inline]
     pub fn set_depth_compare_op(&self, depth_compare_op: CompareOp) {
@@ -9655,7 +9655,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         feature = "ext_shader_object",
         feature = "version_1_3"
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetDepthCompareOpEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetDepthCompareOpEXT.html>"]
     #[doc(alias = "vkCmdSetDepthCompareOpEXT")]
     #[inline]
     pub fn set_depth_compare_op_ext(&self, depth_compare_op: CompareOp) {
@@ -9672,7 +9672,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         feature = "ext_shader_object",
         feature = "version_1_3"
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetDepthBoundsTestEnable.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetDepthBoundsTestEnable.html>"]
     #[doc(alias = "vkCmdSetDepthBoundsTestEnable")]
     #[inline]
     pub fn set_depth_bounds_test_enable(&self, depth_bounds_test_enable: impl Into<Bool32>) {
@@ -9689,7 +9689,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         feature = "ext_shader_object",
         feature = "version_1_3"
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetDepthBoundsTestEnableEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetDepthBoundsTestEnableEXT.html>"]
     #[doc(alias = "vkCmdSetDepthBoundsTestEnableEXT")]
     #[inline]
     pub fn set_depth_bounds_test_enable_ext(&self, depth_bounds_test_enable: impl Into<Bool32>) {
@@ -9706,7 +9706,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         feature = "ext_shader_object",
         feature = "version_1_3"
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetStencilTestEnable.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetStencilTestEnable.html>"]
     #[doc(alias = "vkCmdSetStencilTestEnable")]
     #[inline]
     pub fn set_stencil_test_enable(&self, stencil_test_enable: impl Into<Bool32>) {
@@ -9723,7 +9723,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         feature = "ext_shader_object",
         feature = "version_1_3"
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetStencilTestEnableEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetStencilTestEnableEXT.html>"]
     #[doc(alias = "vkCmdSetStencilTestEnableEXT")]
     #[inline]
     pub fn set_stencil_test_enable_ext(&self, stencil_test_enable: impl Into<Bool32>) {
@@ -9740,7 +9740,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         feature = "ext_shader_object",
         feature = "version_1_3"
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetStencilOp.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetStencilOp.html>"]
     #[doc(alias = "vkCmdSetStencilOp")]
     #[inline]
     pub fn set_stencil_op(
@@ -9768,7 +9768,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         feature = "ext_shader_object",
         feature = "version_1_3"
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetStencilOpEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetStencilOpEXT.html>"]
     #[doc(alias = "vkCmdSetStencilOpEXT")]
     #[inline]
     pub fn set_stencil_op_ext(
@@ -9796,7 +9796,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         feature = "ext_shader_object",
         feature = "version_1_3"
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetRasterizerDiscardEnable.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetRasterizerDiscardEnable.html>"]
     #[doc(alias = "vkCmdSetRasterizerDiscardEnable")]
     #[inline]
     pub fn set_rasterizer_discard_enable(&self, rasterizer_discard_enable: impl Into<Bool32>) {
@@ -9813,7 +9813,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         feature = "ext_shader_object",
         feature = "version_1_3"
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetRasterizerDiscardEnableEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetRasterizerDiscardEnableEXT.html>"]
     #[doc(alias = "vkCmdSetRasterizerDiscardEnableEXT")]
     #[inline]
     pub fn set_rasterizer_discard_enable_ext(&self, rasterizer_discard_enable: impl Into<Bool32>) {
@@ -9830,7 +9830,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         feature = "ext_shader_object",
         feature = "version_1_3"
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetDepthBiasEnable.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetDepthBiasEnable.html>"]
     #[doc(alias = "vkCmdSetDepthBiasEnable")]
     #[inline]
     pub fn set_depth_bias_enable(&self, depth_bias_enable: impl Into<Bool32>) {
@@ -9847,7 +9847,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         feature = "ext_shader_object",
         feature = "version_1_3"
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetDepthBiasEnableEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetDepthBiasEnableEXT.html>"]
     #[doc(alias = "vkCmdSetDepthBiasEnableEXT")]
     #[inline]
     pub fn set_depth_bias_enable_ext(&self, depth_bias_enable: impl Into<Bool32>) {
@@ -9864,7 +9864,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         feature = "ext_shader_object",
         feature = "version_1_3"
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetPrimitiveRestartEnable.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetPrimitiveRestartEnable.html>"]
     #[doc(alias = "vkCmdSetPrimitiveRestartEnable")]
     #[inline]
     pub fn set_primitive_restart_enable(&self, primitive_restart_enable: impl Into<Bool32>) {
@@ -9881,7 +9881,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         feature = "ext_shader_object",
         feature = "version_1_3"
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetPrimitiveRestartEnableEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetPrimitiveRestartEnableEXT.html>"]
     #[doc(alias = "vkCmdSetPrimitiveRestartEnableEXT")]
     #[inline]
     pub fn set_primitive_restart_enable_ext(&self, primitive_restart_enable: impl Into<Bool32>) {
@@ -9894,7 +9894,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(any(feature = "ext_push_descriptor", feature = "version_1_4"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdPushDescriptorSet.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdPushDescriptorSet.html>"]
     #[doc(alias = "vkCmdPushDescriptorSet")]
     #[inline]
     pub fn push_descriptor_set<'a>(
@@ -9916,7 +9916,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(any(feature = "ext_push_descriptor", feature = "version_1_4"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdPushDescriptorSetKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdPushDescriptorSetKHR.html>"]
     #[doc(alias = "vkCmdPushDescriptorSetKHR")]
     #[inline]
     pub fn push_descriptor_set_khr<'a>(
@@ -9948,7 +9948,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         ),
         feature = "version_1_4"
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdPushDescriptorSetWithTemplate.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdPushDescriptorSetWithTemplate.html>"]
     #[doc(alias = "vkCmdPushDescriptorSetWithTemplate")]
     #[inline]
     pub fn push_descriptor_set_with_template(
@@ -9980,7 +9980,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         ),
         feature = "version_1_4"
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdPushDescriptorSetWithTemplateKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdPushDescriptorSetWithTemplateKHR.html>"]
     #[doc(alias = "vkCmdPushDescriptorSetWithTemplateKHR")]
     #[inline]
     pub fn push_descriptor_set_with_template_khr(
@@ -10002,7 +10002,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(any(feature = "ext_maintenance6", feature = "version_1_4"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdBindDescriptorSets2.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBindDescriptorSets2.html>"]
     #[doc(alias = "vkCmdBindDescriptorSets2")]
     #[inline]
     pub fn bind_descriptor_sets2(&self, p_bind_descriptor_sets_info: &BindDescriptorSetsInfo) {
@@ -10015,7 +10015,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(any(feature = "ext_maintenance6", feature = "version_1_4"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdBindDescriptorSets2KHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBindDescriptorSets2KHR.html>"]
     #[doc(alias = "vkCmdBindDescriptorSets2KHR")]
     #[inline]
     pub fn bind_descriptor_sets2_khr(&self, p_bind_descriptor_sets_info: &BindDescriptorSetsInfo) {
@@ -10028,7 +10028,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(any(feature = "ext_maintenance6", feature = "version_1_4"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdPushConstants2.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdPushConstants2.html>"]
     #[doc(alias = "vkCmdPushConstants2")]
     #[inline]
     pub fn push_constants2(&self, p_push_constants_info: &PushConstantsInfo) {
@@ -10041,7 +10041,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(any(feature = "ext_maintenance6", feature = "version_1_4"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdPushConstants2KHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdPushConstants2KHR.html>"]
     #[doc(alias = "vkCmdPushConstants2KHR")]
     #[inline]
     pub fn push_constants2_khr(&self, p_push_constants_info: &PushConstantsInfo) {
@@ -10057,7 +10057,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         all(feature = "ext_maintenance6", feature = "ext_push_descriptor"),
         feature = "version_1_4"
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdPushDescriptorSet2.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdPushDescriptorSet2.html>"]
     #[doc(alias = "vkCmdPushDescriptorSet2")]
     #[inline]
     pub fn push_descriptor_set2(&self, p_push_descriptor_set_info: &PushDescriptorSetInfo) {
@@ -10073,7 +10073,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         all(feature = "ext_maintenance6", feature = "ext_push_descriptor"),
         feature = "version_1_4"
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdPushDescriptorSet2KHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdPushDescriptorSet2KHR.html>"]
     #[doc(alias = "vkCmdPushDescriptorSet2KHR")]
     #[inline]
     pub fn push_descriptor_set2_khr(&self, p_push_descriptor_set_info: &PushDescriptorSetInfo) {
@@ -10089,7 +10089,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         all(feature = "ext_maintenance6", feature = "ext_push_descriptor"),
         feature = "version_1_4"
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdPushDescriptorSetWithTemplate2.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdPushDescriptorSetWithTemplate2.html>"]
     #[doc(alias = "vkCmdPushDescriptorSetWithTemplate2")]
     #[inline]
     pub fn push_descriptor_set_with_template2(
@@ -10108,7 +10108,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         all(feature = "ext_maintenance6", feature = "ext_push_descriptor"),
         feature = "version_1_4"
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdPushDescriptorSetWithTemplate2KHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdPushDescriptorSetWithTemplate2KHR.html>"]
     #[doc(alias = "vkCmdPushDescriptorSetWithTemplate2KHR")]
     #[inline]
     pub fn push_descriptor_set_with_template2_khr(
@@ -10124,7 +10124,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(any(feature = "ext_line_rasterization", feature = "version_1_4"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetLineStipple.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetLineStipple.html>"]
     #[doc(alias = "vkCmdSetLineStipple")]
     #[inline]
     pub fn set_line_stipple(&self, line_stipple_factor: u32, line_stipple_pattern: u16) {
@@ -10138,7 +10138,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(any(feature = "ext_line_rasterization", feature = "version_1_4"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetLineStippleKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetLineStippleKHR.html>"]
     #[doc(alias = "vkCmdSetLineStippleKHR")]
     #[inline]
     pub fn set_line_stipple_khr(&self, line_stipple_factor: u32, line_stipple_pattern: u16) {
@@ -10152,7 +10152,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(any(feature = "ext_line_rasterization", feature = "version_1_4"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetLineStippleEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetLineStippleEXT.html>"]
     #[doc(alias = "vkCmdSetLineStippleEXT")]
     #[inline]
     pub fn set_line_stipple_ext(&self, line_stipple_factor: u32, line_stipple_pattern: u16) {
@@ -10166,7 +10166,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdBindIndexBuffer2.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBindIndexBuffer2.html>"]
     #[doc(alias = "vkCmdBindIndexBuffer2")]
     #[inline]
     pub fn bind_index_buffer2(
@@ -10188,7 +10188,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdBindIndexBuffer2KHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBindIndexBuffer2KHR.html>"]
     #[doc(alias = "vkCmdBindIndexBuffer2KHR")]
     #[inline]
     pub fn bind_index_buffer2_khr(
@@ -10210,7 +10210,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(any(feature = "ext_dynamic_rendering_local_read", feature = "version_1_4"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetRenderingAttachmentLocations.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetRenderingAttachmentLocations.html>"]
     #[doc(alias = "vkCmdSetRenderingAttachmentLocations")]
     #[inline]
     pub fn set_rendering_attachment_locations(
@@ -10226,7 +10226,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(any(feature = "ext_dynamic_rendering_local_read", feature = "version_1_4"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetRenderingAttachmentLocationsKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetRenderingAttachmentLocationsKHR.html>"]
     #[doc(alias = "vkCmdSetRenderingAttachmentLocationsKHR")]
     #[inline]
     pub fn set_rendering_attachment_locations_khr(
@@ -10242,7 +10242,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(any(feature = "ext_dynamic_rendering_local_read", feature = "version_1_4"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetRenderingInputAttachmentIndices.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetRenderingInputAttachmentIndices.html>"]
     #[doc(alias = "vkCmdSetRenderingInputAttachmentIndices")]
     #[inline]
     pub fn set_rendering_input_attachment_indices(
@@ -10258,7 +10258,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(any(feature = "ext_dynamic_rendering_local_read", feature = "version_1_4"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetRenderingInputAttachmentIndicesKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetRenderingInputAttachmentIndicesKHR.html>"]
     #[doc(alias = "vkCmdSetRenderingInputAttachmentIndicesKHR")]
     #[inline]
     pub fn set_rendering_input_attachment_indices_khr(
@@ -10274,7 +10274,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_debug_marker")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdDebugMarkerBeginEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDebugMarkerBeginEXT.html>"]
     #[doc(alias = "vkCmdDebugMarkerBeginEXT")]
     #[inline]
     pub fn debug_marker_begin_ext(&self, p_marker_info: &DebugMarkerMarkerInfoEXT) {
@@ -10283,14 +10283,14 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_debug_marker")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdDebugMarkerEndEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDebugMarkerEndEXT.html>"]
     #[doc(alias = "vkCmdDebugMarkerEndEXT")]
     #[inline]
     pub fn debug_marker_end_ext(&self) {
         unsafe { raw::cmd_debug_marker_end_ext(self, self.disp.get_command_dispatcher()) }
     }
     #[cfg(feature = "ext_debug_marker")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdDebugMarkerInsertEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDebugMarkerInsertEXT.html>"]
     #[doc(alias = "vkCmdDebugMarkerInsertEXT")]
     #[inline]
     pub fn debug_marker_insert_ext(&self, p_marker_info: &DebugMarkerMarkerInfoEXT) {
@@ -10303,7 +10303,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_transform_feedback")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdBindTransformFeedbackBuffersEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBindTransformFeedbackBuffersEXT.html>"]
     #[doc(alias = "vkCmdBindTransformFeedbackBuffersEXT")]
     #[inline]
     pub fn bind_transform_feedback_buffers_ext<'a, V3: Alias<raw::Buffer> + 'a>(
@@ -10325,7 +10325,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_transform_feedback")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdBeginTransformFeedbackEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBeginTransformFeedbackEXT.html>"]
     #[doc(alias = "vkCmdBeginTransformFeedbackEXT")]
     #[inline]
     pub fn begin_transform_feedback_ext<'a, V3: Alias<raw::Buffer> + 'a>(
@@ -10345,7 +10345,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_transform_feedback")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdEndTransformFeedbackEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdEndTransformFeedbackEXT.html>"]
     #[doc(alias = "vkCmdEndTransformFeedbackEXT")]
     #[inline]
     pub fn end_transform_feedback_ext<'a, V3: Alias<raw::Buffer> + 'a>(
@@ -10365,7 +10365,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_transform_feedback")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdBeginQueryIndexedEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBeginQueryIndexedEXT.html>"]
     #[doc(alias = "vkCmdBeginQueryIndexedEXT")]
     #[inline]
     pub fn begin_query_indexed_ext(
@@ -10387,7 +10387,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_transform_feedback")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdEndQueryIndexedEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdEndQueryIndexedEXT.html>"]
     #[doc(alias = "vkCmdEndQueryIndexedEXT")]
     #[inline]
     pub fn end_query_indexed_ext(&self, query_pool: &raw::QueryPool, query: u32, index: u32) {
@@ -10402,7 +10402,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_transform_feedback")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdDrawIndirectByteCountEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDrawIndirectByteCountEXT.html>"]
     #[doc(alias = "vkCmdDrawIndirectByteCountEXT")]
     #[inline]
     pub fn draw_indirect_byte_count_ext(
@@ -10428,7 +10428,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_binary_import")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdCuLaunchKernelNVX.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCuLaunchKernelNVX.html>"]
     #[doc(alias = "vkCmdCuLaunchKernelNVX")]
     #[inline]
     pub fn cu_launch_kernel_nvx(&self, p_launch_info: &CuLaunchInfoNVX) {
@@ -10437,7 +10437,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_conditional_rendering")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdBeginConditionalRenderingEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBeginConditionalRenderingEXT.html>"]
     #[doc(alias = "vkCmdBeginConditionalRenderingEXT")]
     #[inline]
     pub fn begin_conditional_rendering_ext(
@@ -10453,14 +10453,14 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_conditional_rendering")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdEndConditionalRenderingEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdEndConditionalRenderingEXT.html>"]
     #[doc(alias = "vkCmdEndConditionalRenderingEXT")]
     #[inline]
     pub fn end_conditional_rendering_ext(&self) {
         unsafe { raw::cmd_end_conditional_rendering_ext(self, self.disp.get_command_dispatcher()) }
     }
     #[cfg(feature = "ext_clip_space_w_scaling")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetViewportWScalingNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetViewportWScalingNV.html>"]
     #[doc(alias = "vkCmdSetViewportWScalingNV")]
     #[inline]
     pub fn set_viewport_wscaling_nv<'a>(
@@ -10478,7 +10478,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_discard_rectangles")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetDiscardRectangleEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetDiscardRectangleEXT.html>"]
     #[doc(alias = "vkCmdSetDiscardRectangleEXT")]
     #[inline]
     pub fn set_discard_rectangle_ext<'a>(
@@ -10496,7 +10496,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_discard_rectangles")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetDiscardRectangleEnableEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetDiscardRectangleEnableEXT.html>"]
     #[doc(alias = "vkCmdSetDiscardRectangleEnableEXT")]
     #[inline]
     pub fn set_discard_rectangle_enable_ext(&self, discard_rectangle_enable: impl Into<Bool32>) {
@@ -10509,7 +10509,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_discard_rectangles")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetDiscardRectangleModeEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetDiscardRectangleModeEXT.html>"]
     #[doc(alias = "vkCmdSetDiscardRectangleModeEXT")]
     #[inline]
     pub fn set_discard_rectangle_mode_ext(&self, discard_rectangle_mode: DiscardRectangleModeEXT) {
@@ -10522,7 +10522,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_debug_utils")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdBeginDebugUtilsLabelEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBeginDebugUtilsLabelEXT.html>"]
     #[doc(alias = "vkCmdBeginDebugUtilsLabelEXT")]
     #[inline]
     pub fn begin_debug_utils_label_ext(&self, p_label_info: &DebugUtilsLabelEXT) {
@@ -10535,14 +10535,14 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_debug_utils")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdEndDebugUtilsLabelEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdEndDebugUtilsLabelEXT.html>"]
     #[doc(alias = "vkCmdEndDebugUtilsLabelEXT")]
     #[inline]
     pub fn end_debug_utils_label_ext(&self) {
         unsafe { raw::cmd_end_debug_utils_label_ext(self, self.disp.get_command_dispatcher()) }
     }
     #[cfg(feature = "ext_debug_utils")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdInsertDebugUtilsLabelEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdInsertDebugUtilsLabelEXT.html>"]
     #[doc(alias = "vkCmdInsertDebugUtilsLabelEXT")]
     #[inline]
     pub fn insert_debug_utils_label_ext(&self, p_label_info: &DebugUtilsLabelEXT) {
@@ -10555,7 +10555,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_shader_enqueue")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdInitializeGraphScratchMemoryAMDX.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdInitializeGraphScratchMemoryAMDX.html>"]
     #[doc(alias = "vkCmdInitializeGraphScratchMemoryAMDX")]
     #[inline]
     pub fn initialize_graph_scratch_memory_amdx(
@@ -10575,7 +10575,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_shader_enqueue")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdDispatchGraphAMDX.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDispatchGraphAMDX.html>"]
     #[doc(alias = "vkCmdDispatchGraphAMDX")]
     #[inline]
     pub fn dispatch_graph_amdx(
@@ -10595,7 +10595,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_shader_enqueue")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdDispatchGraphIndirectAMDX.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDispatchGraphIndirectAMDX.html>"]
     #[doc(alias = "vkCmdDispatchGraphIndirectAMDX")]
     #[inline]
     pub fn dispatch_graph_indirect_amdx(
@@ -10615,7 +10615,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_shader_enqueue")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdDispatchGraphIndirectCountAMDX.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDispatchGraphIndirectCountAMDX.html>"]
     #[doc(alias = "vkCmdDispatchGraphIndirectCountAMDX")]
     #[inline]
     pub fn dispatch_graph_indirect_count_amdx(
@@ -10635,7 +10635,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_descriptor_heap")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdBindSamplerHeapEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBindSamplerHeapEXT.html>"]
     #[doc(alias = "vkCmdBindSamplerHeapEXT")]
     #[inline]
     pub fn bind_sampler_heap_ext(&self, p_bind_info: &BindHeapInfoEXT) {
@@ -10644,7 +10644,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_descriptor_heap")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdBindResourceHeapEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBindResourceHeapEXT.html>"]
     #[doc(alias = "vkCmdBindResourceHeapEXT")]
     #[inline]
     pub fn bind_resource_heap_ext(&self, p_bind_info: &BindHeapInfoEXT) {
@@ -10653,7 +10653,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_descriptor_heap")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdPushDataEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdPushDataEXT.html>"]
     #[doc(alias = "vkCmdPushDataEXT")]
     #[inline]
     pub fn push_data_ext(&self, p_push_data_info: &PushDataInfoEXT) {
@@ -10662,7 +10662,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_sample_locations")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetSampleLocationsEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetSampleLocationsEXT.html>"]
     #[doc(alias = "vkCmdSetSampleLocationsEXT")]
     #[inline]
     pub fn set_sample_locations_ext(&self, p_sample_locations_info: &SampleLocationsInfoEXT) {
@@ -10675,7 +10675,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_acceleration_structure")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdBuildAccelerationStructuresKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBuildAccelerationStructuresKHR.html>"]
     #[doc(alias = "vkCmdBuildAccelerationStructuresKHR")]
     #[inline]
     pub fn build_acceleration_structures_khr<'a>(
@@ -10693,7 +10693,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_acceleration_structure")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdBuildAccelerationStructuresIndirectKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBuildAccelerationStructuresIndirectKHR.html>"]
     #[doc(alias = "vkCmdBuildAccelerationStructuresIndirectKHR")]
     #[inline]
     pub fn build_acceleration_structures_indirect_khr<'a>(
@@ -10715,7 +10715,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_acceleration_structure")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdCopyAccelerationStructureKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCopyAccelerationStructureKHR.html>"]
     #[doc(alias = "vkCmdCopyAccelerationStructureKHR")]
     #[inline]
     pub fn copy_acceleration_structure_khr(&self, p_info: &CopyAccelerationStructureInfoKHR) {
@@ -10728,7 +10728,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_acceleration_structure")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdCopyAccelerationStructureToMemoryKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCopyAccelerationStructureToMemoryKHR.html>"]
     #[doc(alias = "vkCmdCopyAccelerationStructureToMemoryKHR")]
     #[inline]
     pub fn copy_acceleration_structure_to_memory_khr(
@@ -10744,7 +10744,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_acceleration_structure")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdCopyMemoryToAccelerationStructureKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCopyMemoryToAccelerationStructureKHR.html>"]
     #[doc(alias = "vkCmdCopyMemoryToAccelerationStructureKHR")]
     #[inline]
     pub fn copy_memory_to_acceleration_structure_khr(
@@ -10760,7 +10760,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_acceleration_structure")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdWriteAccelerationStructuresPropertiesKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdWriteAccelerationStructuresPropertiesKHR.html>"]
     #[doc(alias = "vkCmdWriteAccelerationStructuresPropertiesKHR")]
     #[inline]
     pub fn write_acceleration_structures_properties_khr<
@@ -10785,7 +10785,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_ray_tracing_pipeline")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdTraceRaysKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdTraceRaysKHR.html>"]
     #[doc(alias = "vkCmdTraceRaysKHR")]
     #[inline]
     pub fn trace_rays_khr(
@@ -10813,7 +10813,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_ray_tracing_pipeline")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdTraceRaysIndirectKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdTraceRaysIndirectKHR.html>"]
     #[doc(alias = "vkCmdTraceRaysIndirectKHR")]
     #[inline]
     pub fn trace_rays_indirect_khr(
@@ -10837,7 +10837,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_ray_tracing_pipeline")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetRayTracingPipelineStackSizeKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetRayTracingPipelineStackSizeKHR.html>"]
     #[doc(alias = "vkCmdSetRayTracingPipelineStackSizeKHR")]
     #[inline]
     pub fn set_ray_tracing_pipeline_stack_size_khr(&self, pipeline_stack_size: u32) {
@@ -10850,7 +10850,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_shading_rate_image")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdBindShadingRateImageNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBindShadingRateImageNV.html>"]
     #[doc(alias = "vkCmdBindShadingRateImageNV")]
     #[inline]
     pub fn bind_shading_rate_image_nv(
@@ -10868,7 +10868,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_shading_rate_image")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetViewportShadingRatePaletteNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetViewportShadingRatePaletteNV.html>"]
     #[doc(alias = "vkCmdSetViewportShadingRatePaletteNV")]
     #[inline]
     pub fn set_viewport_shading_rate_palette_nv<'a>(
@@ -10886,7 +10886,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_shading_rate_image")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetCoarseSampleOrderNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetCoarseSampleOrderNV.html>"]
     #[doc(alias = "vkCmdSetCoarseSampleOrderNV")]
     #[inline]
     pub fn set_coarse_sample_order_nv<'a>(
@@ -10904,7 +10904,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_ray_tracing")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdBuildAccelerationStructureNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBuildAccelerationStructureNV.html>"]
     #[doc(alias = "vkCmdBuildAccelerationStructureNV")]
     #[inline]
     pub fn build_acceleration_structure_nv(
@@ -10934,7 +10934,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_ray_tracing")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdCopyAccelerationStructureNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCopyAccelerationStructureNV.html>"]
     #[doc(alias = "vkCmdCopyAccelerationStructureNV")]
     #[inline]
     pub fn copy_acceleration_structure_nv(
@@ -10954,7 +10954,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_ray_tracing")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdTraceRaysNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdTraceRaysNV.html>"]
     #[doc(alias = "vkCmdTraceRaysNV")]
     #[inline]
     pub fn trace_rays_nv(
@@ -10996,7 +10996,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_ray_tracing")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdWriteAccelerationStructuresPropertiesNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdWriteAccelerationStructuresPropertiesNV.html>"]
     #[doc(alias = "vkCmdWriteAccelerationStructuresPropertiesNV")]
     #[inline]
     pub fn write_acceleration_structures_properties_nv<
@@ -11021,7 +11021,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_buffer_marker")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdWriteBufferMarkerAMD.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdWriteBufferMarkerAMD.html>"]
     #[doc(alias = "vkCmdWriteBufferMarkerAMD")]
     #[inline]
     pub fn write_buffer_marker_amd(
@@ -11046,7 +11046,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         feature = "ext_buffer_marker",
         any(feature = "version_1_3", feature = "ext_synchronization2")
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdWriteBufferMarker2AMD.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdWriteBufferMarker2AMD.html>"]
     #[doc(alias = "vkCmdWriteBufferMarker2AMD")]
     #[inline]
     pub fn write_buffer_marker2_amd(
@@ -11068,7 +11068,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_mesh_shader")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdDrawMeshTasksNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDrawMeshTasksNV.html>"]
     #[doc(alias = "vkCmdDrawMeshTasksNV")]
     #[inline]
     pub fn draw_mesh_tasks_nv(&self, task_count: u32, first_task: u32) {
@@ -11082,7 +11082,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_mesh_shader")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdDrawMeshTasksIndirectNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDrawMeshTasksIndirectNV.html>"]
     #[doc(alias = "vkCmdDrawMeshTasksIndirectNV")]
     #[inline]
     pub fn draw_mesh_tasks_indirect_nv(
@@ -11107,7 +11107,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         feature = "ext_mesh_shader",
         any(feature = "version_1_2", feature = "ext_draw_indirect_count")
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdDrawMeshTasksIndirectCountNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDrawMeshTasksIndirectCountNV.html>"]
     #[doc(alias = "vkCmdDrawMeshTasksIndirectCountNV")]
     #[inline]
     pub fn draw_mesh_tasks_indirect_count_nv(
@@ -11133,7 +11133,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_scissor_exclusive")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetExclusiveScissorEnableNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetExclusiveScissorEnableNV.html>"]
     #[doc(alias = "vkCmdSetExclusiveScissorEnableNV")]
     #[inline]
     pub fn set_exclusive_scissor_enable_nv<'a>(
@@ -11151,7 +11151,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_scissor_exclusive")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetExclusiveScissorNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetExclusiveScissorNV.html>"]
     #[doc(alias = "vkCmdSetExclusiveScissorNV")]
     #[inline]
     pub fn set_exclusive_scissor_nv<'a>(
@@ -11169,7 +11169,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_device_diagnostic_checkpoints")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetCheckpointNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetCheckpointNV.html>"]
     #[doc(alias = "vkCmdSetCheckpointNV")]
     #[inline]
     pub fn set_checkpoint_nv(&self, p_checkpoint_marker: VoidPtr) {
@@ -11182,7 +11182,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_performance_query")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetPerformanceMarkerINTEL.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetPerformanceMarkerINTEL.html>"]
     #[doc(alias = "vkCmdSetPerformanceMarkerINTEL")]
     #[inline]
     pub fn set_performance_marker_intel(
@@ -11198,7 +11198,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_performance_query")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetPerformanceStreamMarkerINTEL.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetPerformanceStreamMarkerINTEL.html>"]
     #[doc(alias = "vkCmdSetPerformanceStreamMarkerINTEL")]
     #[inline]
     pub fn set_performance_stream_marker_intel(
@@ -11214,7 +11214,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_performance_query")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetPerformanceOverrideINTEL.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetPerformanceOverrideINTEL.html>"]
     #[doc(alias = "vkCmdSetPerformanceOverrideINTEL")]
     #[inline]
     pub fn set_performance_override_intel(
@@ -11230,7 +11230,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_fragment_shading_rate")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetFragmentShadingRateKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetFragmentShadingRateKHR.html>"]
     #[doc(alias = "vkCmdSetFragmentShadingRateKHR")]
     #[inline]
     pub fn set_fragment_shading_rate_khr(
@@ -11248,7 +11248,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_device_generated_commands")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdPreprocessGeneratedCommandsNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdPreprocessGeneratedCommandsNV.html>"]
     #[doc(alias = "vkCmdPreprocessGeneratedCommandsNV")]
     #[inline]
     pub fn preprocess_generated_commands_nv(
@@ -11264,7 +11264,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_device_generated_commands")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdExecuteGeneratedCommandsNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdExecuteGeneratedCommandsNV.html>"]
     #[doc(alias = "vkCmdExecuteGeneratedCommandsNV")]
     #[inline]
     pub fn execute_generated_commands_nv(
@@ -11282,7 +11282,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_device_generated_commands")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdBindPipelineShaderGroupNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBindPipelineShaderGroupNV.html>"]
     #[doc(alias = "vkCmdBindPipelineShaderGroupNV")]
     #[inline]
     pub fn bind_pipeline_shader_group_nv(
@@ -11302,7 +11302,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_depth_bias_control")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetDepthBias2EXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetDepthBias2EXT.html>"]
     #[doc(alias = "vkCmdSetDepthBias2EXT")]
     #[inline]
     pub fn set_depth_bias2_ext(&self, p_depth_bias_info: &DepthBiasInfoEXT) {
@@ -11315,7 +11315,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_cuda_kernel_launch")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdCudaLaunchKernelNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCudaLaunchKernelNV.html>"]
     #[doc(alias = "vkCmdCudaLaunchKernelNV")]
     #[inline]
     pub fn cuda_launch_kernel_nv(&self, p_launch_info: &CudaLaunchInfoNV) {
@@ -11324,7 +11324,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_tile_shading")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdDispatchTileQCOM.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDispatchTileQCOM.html>"]
     #[doc(alias = "vkCmdDispatchTileQCOM")]
     #[inline]
     pub fn dispatch_tile_qcom(&self, p_dispatch_tile_info: &DispatchTileInfoQCOM) {
@@ -11337,7 +11337,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_tile_shading")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdBeginPerTileExecutionQCOM.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBeginPerTileExecutionQCOM.html>"]
     #[doc(alias = "vkCmdBeginPerTileExecutionQCOM")]
     #[inline]
     pub fn begin_per_tile_execution_qcom(&self, p_per_tile_begin_info: &PerTileBeginInfoQCOM) {
@@ -11350,7 +11350,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_tile_shading")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdEndPerTileExecutionQCOM.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdEndPerTileExecutionQCOM.html>"]
     #[doc(alias = "vkCmdEndPerTileExecutionQCOM")]
     #[inline]
     pub fn end_per_tile_execution_qcom(&self, p_per_tile_end_info: &PerTileEndInfoQCOM) {
@@ -11363,7 +11363,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_descriptor_buffer")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdBindDescriptorBuffersEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBindDescriptorBuffersEXT.html>"]
     #[doc(alias = "vkCmdBindDescriptorBuffersEXT")]
     #[inline]
     pub fn bind_descriptor_buffers_ext<'a>(
@@ -11379,7 +11379,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_descriptor_buffer")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetDescriptorBufferOffsetsEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetDescriptorBufferOffsetsEXT.html>"]
     #[doc(alias = "vkCmdSetDescriptorBufferOffsetsEXT")]
     #[inline]
     pub fn set_descriptor_buffer_offsets_ext<'a>(
@@ -11403,7 +11403,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_descriptor_buffer")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdBindDescriptorBufferEmbeddedSamplersEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBindDescriptorBufferEmbeddedSamplersEXT.html>"]
     #[doc(alias = "vkCmdBindDescriptorBufferEmbeddedSamplersEXT")]
     #[inline]
     pub fn bind_descriptor_buffer_embedded_samplers_ext(
@@ -11423,7 +11423,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_fragment_shading_rate_enums")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetFragmentShadingRateEnumNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetFragmentShadingRateEnumNV.html>"]
     #[doc(alias = "vkCmdSetFragmentShadingRateEnumNV")]
     #[inline]
     pub fn set_fragment_shading_rate_enum_nv(
@@ -11441,7 +11441,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_mesh_shader")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdDrawMeshTasksEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDrawMeshTasksEXT.html>"]
     #[doc(alias = "vkCmdDrawMeshTasksEXT")]
     #[inline]
     pub fn draw_mesh_tasks_ext(&self, group_count_x: u32, group_count_y: u32, group_count_z: u32) {
@@ -11456,7 +11456,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_mesh_shader")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdDrawMeshTasksIndirectEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDrawMeshTasksIndirectEXT.html>"]
     #[doc(alias = "vkCmdDrawMeshTasksIndirectEXT")]
     #[inline]
     pub fn draw_mesh_tasks_indirect_ext(
@@ -11481,7 +11481,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         feature = "ext_mesh_shader",
         any(feature = "version_1_2", feature = "ext_draw_indirect_count")
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdDrawMeshTasksIndirectCountEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDrawMeshTasksIndirectCountEXT.html>"]
     #[doc(alias = "vkCmdDrawMeshTasksIndirectCountEXT")]
     #[inline]
     pub fn draw_mesh_tasks_indirect_count_ext(
@@ -11510,7 +11510,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         feature = "ext_vertex_input_dynamic_state",
         feature = "ext_shader_object"
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetVertexInputEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetVertexInputEXT.html>"]
     #[doc(alias = "vkCmdSetVertexInputEXT")]
     #[inline]
     pub fn set_vertex_input_ext<'a>(
@@ -11528,14 +11528,14 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_subpass_shading")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSubpassShadingHUAWEI.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSubpassShadingHUAWEI.html>"]
     #[doc(alias = "vkCmdSubpassShadingHUAWEI")]
     #[inline]
     pub fn subpass_shading_huawei(&self) {
         unsafe { raw::cmd_subpass_shading_huawei(self, self.disp.get_command_dispatcher()) }
     }
     #[cfg(feature = "ext_invocation_mask")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdBindInvocationMaskHUAWEI.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBindInvocationMaskHUAWEI.html>"]
     #[doc(alias = "vkCmdBindInvocationMaskHUAWEI")]
     #[inline]
     pub fn bind_invocation_mask_huawei(
@@ -11553,7 +11553,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(any(feature = "ext_extended_dynamic_state2", feature = "ext_shader_object"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetPatchControlPointsEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetPatchControlPointsEXT.html>"]
     #[doc(alias = "vkCmdSetPatchControlPointsEXT")]
     #[inline]
     pub fn set_patch_control_points_ext(&self, patch_control_points: u32) {
@@ -11566,14 +11566,14 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(any(feature = "ext_extended_dynamic_state2", feature = "ext_shader_object"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetLogicOpEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetLogicOpEXT.html>"]
     #[doc(alias = "vkCmdSetLogicOpEXT")]
     #[inline]
     pub fn set_logic_op_ext(&self, logic_op: LogicOp) {
         unsafe { raw::cmd_set_logic_op_ext(self, logic_op, self.disp.get_command_dispatcher()) }
     }
     #[cfg(feature = "ext_color_write_enable")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetColorWriteEnableEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetColorWriteEnableEXT.html>"]
     #[doc(alias = "vkCmdSetColorWriteEnableEXT")]
     #[inline]
     pub fn set_color_write_enable_ext<'a>(&self, p_color_write_enables: impl AsSlice<'a, Bool32>) {
@@ -11589,7 +11589,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         feature = "ext_ray_tracing_maintenance1",
         feature = "ext_ray_tracing_pipeline"
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdTraceRaysIndirect2KHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdTraceRaysIndirect2KHR.html>"]
     #[doc(alias = "vkCmdTraceRaysIndirect2KHR")]
     #[inline]
     pub fn trace_rays_indirect2_khr(&self, indirect_device_address: DeviceAddress) {
@@ -11602,7 +11602,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_multi_draw")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdDrawMultiEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDrawMultiEXT.html>"]
     #[doc(alias = "vkCmdDrawMultiEXT")]
     #[inline]
     pub fn draw_multi_ext<'a>(
@@ -11624,7 +11624,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_multi_draw")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdDrawMultiIndexedEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDrawMultiIndexedEXT.html>"]
     #[doc(alias = "vkCmdDrawMultiIndexedEXT")]
     #[inline]
     pub fn draw_multi_indexed_ext<'a>(
@@ -11648,21 +11648,21 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_opacity_micromap")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdBuildMicromapsEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBuildMicromapsEXT.html>"]
     #[doc(alias = "vkCmdBuildMicromapsEXT")]
     #[inline]
     pub fn build_micromaps_ext<'a>(&self, p_infos: impl AsSlice<'a, MicromapBuildInfoEXT<'a>>) {
         unsafe { raw::cmd_build_micromaps_ext(self, p_infos, self.disp.get_command_dispatcher()) }
     }
     #[cfg(feature = "ext_opacity_micromap")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdCopyMicromapEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCopyMicromapEXT.html>"]
     #[doc(alias = "vkCmdCopyMicromapEXT")]
     #[inline]
     pub fn copy_micromap_ext(&self, p_info: &CopyMicromapInfoEXT) {
         unsafe { raw::cmd_copy_micromap_ext(self, p_info, self.disp.get_command_dispatcher()) }
     }
     #[cfg(feature = "ext_opacity_micromap")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdCopyMicromapToMemoryEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCopyMicromapToMemoryEXT.html>"]
     #[doc(alias = "vkCmdCopyMicromapToMemoryEXT")]
     #[inline]
     pub fn copy_micromap_to_memory_ext(&self, p_info: &CopyMicromapToMemoryInfoEXT) {
@@ -11671,7 +11671,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_opacity_micromap")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdCopyMemoryToMicromapEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCopyMemoryToMicromapEXT.html>"]
     #[doc(alias = "vkCmdCopyMemoryToMicromapEXT")]
     #[inline]
     pub fn copy_memory_to_micromap_ext(&self, p_info: &CopyMemoryToMicromapInfoEXT) {
@@ -11680,7 +11680,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_opacity_micromap")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdWriteMicromapsPropertiesEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdWriteMicromapsPropertiesEXT.html>"]
     #[doc(alias = "vkCmdWriteMicromapsPropertiesEXT")]
     #[inline]
     pub fn write_micromaps_properties_ext<'a, V2: Alias<raw::MicromapEXT> + 'a>(
@@ -11702,7 +11702,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_cluster_culling_shader")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdDrawClusterHUAWEI.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDrawClusterHUAWEI.html>"]
     #[doc(alias = "vkCmdDrawClusterHUAWEI")]
     #[inline]
     pub fn draw_cluster_huawei(&self, group_count_x: u32, group_count_y: u32, group_count_z: u32) {
@@ -11717,7 +11717,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_cluster_culling_shader")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdDrawClusterIndirectHUAWEI.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDrawClusterIndirectHUAWEI.html>"]
     #[doc(alias = "vkCmdDrawClusterIndirectHUAWEI")]
     #[inline]
     pub fn draw_cluster_indirect_huawei(&self, buffer: &raw::Buffer, offset: DeviceSize) {
@@ -11731,7 +11731,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_copy_memory_indirect")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdCopyMemoryIndirectNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCopyMemoryIndirectNV.html>"]
     #[doc(alias = "vkCmdCopyMemoryIndirectNV")]
     #[inline]
     pub fn copy_memory_indirect_nv(
@@ -11751,7 +11751,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_copy_memory_indirect")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdCopyMemoryToImageIndirectNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCopyMemoryToImageIndirectNV.html>"]
     #[doc(alias = "vkCmdCopyMemoryToImageIndirectNV")]
     #[inline]
     pub fn copy_memory_to_image_indirect_nv<'a>(
@@ -11775,7 +11775,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_memory_decompression")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdDecompressMemoryNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDecompressMemoryNV.html>"]
     #[doc(alias = "vkCmdDecompressMemoryNV")]
     #[inline]
     pub fn decompress_memory_nv<'a>(
@@ -11791,7 +11791,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_memory_decompression")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdDecompressMemoryIndirectCountNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDecompressMemoryIndirectCountNV.html>"]
     #[doc(alias = "vkCmdDecompressMemoryIndirectCountNV")]
     #[inline]
     pub fn decompress_memory_indirect_count_nv(
@@ -11811,7 +11811,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_device_generated_commands_compute")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdUpdatePipelineIndirectBufferNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdUpdatePipelineIndirectBufferNV.html>"]
     #[doc(alias = "vkCmdUpdatePipelineIndirectBufferNV")]
     #[inline]
     pub fn update_pipeline_indirect_buffer_nv(
@@ -11829,7 +11829,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(any(feature = "ext_extended_dynamic_state3", feature = "ext_shader_object"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetDepthClampEnableEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetDepthClampEnableEXT.html>"]
     #[doc(alias = "vkCmdSetDepthClampEnableEXT")]
     #[inline]
     pub fn set_depth_clamp_enable_ext(&self, depth_clamp_enable: impl Into<Bool32>) {
@@ -11842,7 +11842,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(any(feature = "ext_extended_dynamic_state3", feature = "ext_shader_object"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetPolygonModeEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetPolygonModeEXT.html>"]
     #[doc(alias = "vkCmdSetPolygonModeEXT")]
     #[inline]
     pub fn set_polygon_mode_ext(&self, polygon_mode: PolygonMode) {
@@ -11851,7 +11851,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(any(feature = "ext_extended_dynamic_state3", feature = "ext_shader_object"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetRasterizationSamplesEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetRasterizationSamplesEXT.html>"]
     #[doc(alias = "vkCmdSetRasterizationSamplesEXT")]
     #[inline]
     pub fn set_rasterization_samples_ext(&self, rasterization_samples: SampleCountFlags) {
@@ -11864,7 +11864,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(any(feature = "ext_extended_dynamic_state3", feature = "ext_shader_object"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetSampleMaskEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetSampleMaskEXT.html>"]
     #[doc(alias = "vkCmdSetSampleMaskEXT")]
     #[inline]
     pub fn set_sample_mask_ext<'a>(
@@ -11882,7 +11882,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(any(feature = "ext_extended_dynamic_state3", feature = "ext_shader_object"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetAlphaToCoverageEnableEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetAlphaToCoverageEnableEXT.html>"]
     #[doc(alias = "vkCmdSetAlphaToCoverageEnableEXT")]
     #[inline]
     pub fn set_alpha_to_coverage_enable_ext(&self, alpha_to_coverage_enable: impl Into<Bool32>) {
@@ -11895,7 +11895,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(any(feature = "ext_extended_dynamic_state3", feature = "ext_shader_object"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetAlphaToOneEnableEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetAlphaToOneEnableEXT.html>"]
     #[doc(alias = "vkCmdSetAlphaToOneEnableEXT")]
     #[inline]
     pub fn set_alpha_to_one_enable_ext(&self, alpha_to_one_enable: impl Into<Bool32>) {
@@ -11908,7 +11908,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(any(feature = "ext_extended_dynamic_state3", feature = "ext_shader_object"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetLogicOpEnableEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetLogicOpEnableEXT.html>"]
     #[doc(alias = "vkCmdSetLogicOpEnableEXT")]
     #[inline]
     pub fn set_logic_op_enable_ext(&self, logic_op_enable: impl Into<Bool32>) {
@@ -11921,7 +11921,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(any(feature = "ext_extended_dynamic_state3", feature = "ext_shader_object"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetColorBlendEnableEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetColorBlendEnableEXT.html>"]
     #[doc(alias = "vkCmdSetColorBlendEnableEXT")]
     #[inline]
     pub fn set_color_blend_enable_ext<'a>(
@@ -11939,7 +11939,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(any(feature = "ext_extended_dynamic_state3", feature = "ext_shader_object"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetColorBlendEquationEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetColorBlendEquationEXT.html>"]
     #[doc(alias = "vkCmdSetColorBlendEquationEXT")]
     #[inline]
     pub fn set_color_blend_equation_ext<'a>(
@@ -11957,7 +11957,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(any(feature = "ext_extended_dynamic_state3", feature = "ext_shader_object"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetColorWriteMaskEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetColorWriteMaskEXT.html>"]
     #[doc(alias = "vkCmdSetColorWriteMaskEXT")]
     #[inline]
     pub fn set_color_write_mask_ext<'a>(
@@ -11981,7 +11981,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         ),
         feature = "ext_shader_object"
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetTessellationDomainOriginEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetTessellationDomainOriginEXT.html>"]
     #[doc(alias = "vkCmdSetTessellationDomainOriginEXT")]
     #[inline]
     pub fn set_tessellation_domain_origin_ext(&self, domain_origin: TessellationDomainOrigin) {
@@ -12000,7 +12000,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         ),
         all(feature = "ext_shader_object", feature = "ext_transform_feedback")
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetRasterizationStreamEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetRasterizationStreamEXT.html>"]
     #[doc(alias = "vkCmdSetRasterizationStreamEXT")]
     #[inline]
     pub fn set_rasterization_stream_ext(&self, rasterization_stream: u32) {
@@ -12022,7 +12022,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
             feature = "ext_conservative_rasterization"
         )
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetConservativeRasterizationModeEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetConservativeRasterizationModeEXT.html>"]
     #[doc(alias = "vkCmdSetConservativeRasterizationModeEXT")]
     #[inline]
     pub fn set_conservative_rasterization_mode_ext(
@@ -12047,7 +12047,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
             feature = "ext_conservative_rasterization"
         )
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetExtraPrimitiveOverestimationSizeEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetExtraPrimitiveOverestimationSizeEXT.html>"]
     #[doc(alias = "vkCmdSetExtraPrimitiveOverestimationSizeEXT")]
     #[inline]
     pub fn set_extra_primitive_overestimation_size_ext(
@@ -12069,7 +12069,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         ),
         all(feature = "ext_shader_object", feature = "ext_depth_clip_enable")
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetDepthClipEnableEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetDepthClipEnableEXT.html>"]
     #[doc(alias = "vkCmdSetDepthClipEnableEXT")]
     #[inline]
     pub fn set_depth_clip_enable_ext(&self, depth_clip_enable: impl Into<Bool32>) {
@@ -12088,7 +12088,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         ),
         all(feature = "ext_shader_object", feature = "ext_sample_locations")
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetSampleLocationsEnableEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetSampleLocationsEnableEXT.html>"]
     #[doc(alias = "vkCmdSetSampleLocationsEnableEXT")]
     #[inline]
     pub fn set_sample_locations_enable_ext(&self, sample_locations_enable: impl Into<Bool32>) {
@@ -12110,7 +12110,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
             feature = "ext_blend_operation_advanced"
         )
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetColorBlendAdvancedEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetColorBlendAdvancedEXT.html>"]
     #[doc(alias = "vkCmdSetColorBlendAdvancedEXT")]
     #[inline]
     pub fn set_color_blend_advanced_ext<'a>(
@@ -12134,7 +12134,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         ),
         all(feature = "ext_shader_object", feature = "ext_provoking_vertex")
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetProvokingVertexModeEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetProvokingVertexModeEXT.html>"]
     #[doc(alias = "vkCmdSetProvokingVertexModeEXT")]
     #[inline]
     pub fn set_provoking_vertex_mode_ext(&self, provoking_vertex_mode: ProvokingVertexModeEXT) {
@@ -12153,7 +12153,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         ),
         all(feature = "ext_shader_object", feature = "ext_line_rasterization")
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetLineRasterizationModeEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetLineRasterizationModeEXT.html>"]
     #[doc(alias = "vkCmdSetLineRasterizationModeEXT")]
     #[inline]
     pub fn set_line_rasterization_mode_ext(
@@ -12175,7 +12175,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         ),
         all(feature = "ext_shader_object", feature = "ext_line_rasterization")
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetLineStippleEnableEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetLineStippleEnableEXT.html>"]
     #[doc(alias = "vkCmdSetLineStippleEnableEXT")]
     #[inline]
     pub fn set_line_stipple_enable_ext(&self, stippled_line_enable: impl Into<Bool32>) {
@@ -12194,7 +12194,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         ),
         all(feature = "ext_shader_object", feature = "ext_depth_clip_control")
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetDepthClipNegativeOneToOneEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetDepthClipNegativeOneToOneEXT.html>"]
     #[doc(alias = "vkCmdSetDepthClipNegativeOneToOneEXT")]
     #[inline]
     pub fn set_depth_clip_negative_one_to_one_ext(&self, negative_one_to_one: impl Into<Bool32>) {
@@ -12213,7 +12213,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         ),
         all(feature = "ext_shader_object", feature = "ext_clip_space_w_scaling")
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetViewportWScalingEnableNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetViewportWScalingEnableNV.html>"]
     #[doc(alias = "vkCmdSetViewportWScalingEnableNV")]
     #[inline]
     pub fn set_viewport_wscaling_enable_nv(&self, viewport_wscaling_enable: impl Into<Bool32>) {
@@ -12232,7 +12232,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         ),
         all(feature = "ext_shader_object", feature = "ext_viewport_swizzle")
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetViewportSwizzleNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetViewportSwizzleNV.html>"]
     #[doc(alias = "vkCmdSetViewportSwizzleNV")]
     #[inline]
     pub fn set_viewport_swizzle_nv<'a>(
@@ -12259,7 +12259,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
             feature = "ext_fragment_coverage_to_color"
         )
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetCoverageToColorEnableNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetCoverageToColorEnableNV.html>"]
     #[doc(alias = "vkCmdSetCoverageToColorEnableNV")]
     #[inline]
     pub fn set_coverage_to_color_enable_nv(&self, coverage_to_color_enable: impl Into<Bool32>) {
@@ -12281,7 +12281,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
             feature = "ext_fragment_coverage_to_color"
         )
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetCoverageToColorLocationNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetCoverageToColorLocationNV.html>"]
     #[doc(alias = "vkCmdSetCoverageToColorLocationNV")]
     #[inline]
     pub fn set_coverage_to_color_location_nv(&self, coverage_to_color_location: u32) {
@@ -12303,7 +12303,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
             feature = "ext_framebuffer_mixed_samples"
         )
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetCoverageModulationModeNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetCoverageModulationModeNV.html>"]
     #[doc(alias = "vkCmdSetCoverageModulationModeNV")]
     #[inline]
     pub fn set_coverage_modulation_mode_nv(
@@ -12328,7 +12328,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
             feature = "ext_framebuffer_mixed_samples"
         )
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetCoverageModulationTableEnableNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetCoverageModulationTableEnableNV.html>"]
     #[doc(alias = "vkCmdSetCoverageModulationTableEnableNV")]
     #[inline]
     pub fn set_coverage_modulation_table_enable_nv(
@@ -12353,7 +12353,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
             feature = "ext_framebuffer_mixed_samples"
         )
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetCoverageModulationTableNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetCoverageModulationTableNV.html>"]
     #[doc(alias = "vkCmdSetCoverageModulationTableNV")]
     #[inline]
     pub fn set_coverage_modulation_table_nv<'a>(
@@ -12375,7 +12375,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         ),
         all(feature = "ext_shader_object", feature = "ext_shading_rate_image")
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetShadingRateImageEnableNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetShadingRateImageEnableNV.html>"]
     #[doc(alias = "vkCmdSetShadingRateImageEnableNV")]
     #[inline]
     pub fn set_shading_rate_image_enable_nv(&self, shading_rate_image_enable: impl Into<Bool32>) {
@@ -12397,7 +12397,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
             feature = "ext_representative_fragment_test"
         )
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetRepresentativeFragmentTestEnableNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetRepresentativeFragmentTestEnableNV.html>"]
     #[doc(alias = "vkCmdSetRepresentativeFragmentTestEnableNV")]
     #[inline]
     pub fn set_representative_fragment_test_enable_nv(
@@ -12419,7 +12419,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         ),
         all(feature = "ext_shader_object", feature = "ext_coverage_reduction_mode")
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetCoverageReductionModeNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetCoverageReductionModeNV.html>"]
     #[doc(alias = "vkCmdSetCoverageReductionModeNV")]
     #[inline]
     pub fn set_coverage_reduction_mode_nv(&self, coverage_reduction_mode: CoverageReductionModeNV) {
@@ -12432,7 +12432,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_tensors")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdCopyTensorARM.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCopyTensorARM.html>"]
     #[doc(alias = "vkCmdCopyTensorARM")]
     #[inline]
     pub fn copy_tensor_arm(&self, p_copy_tensor_info: &CopyTensorInfoARM) {
@@ -12441,7 +12441,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_optical_flow")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdOpticalFlowExecuteNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdOpticalFlowExecuteNV.html>"]
     #[doc(alias = "vkCmdOpticalFlowExecuteNV")]
     #[inline]
     pub fn optical_flow_execute_nv(
@@ -12459,7 +12459,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_shader_object")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdBindShadersEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBindShadersEXT.html>"]
     #[doc(alias = "vkCmdBindShadersEXT")]
     #[inline]
     pub fn bind_shaders_ext<'a, V3: Alias<raw::ShaderEXT> + 'a>(
@@ -12477,7 +12477,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(all(feature = "ext_shader_object", feature = "ext_depth_clamp_control"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetDepthClampRangeEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetDepthClampRangeEXT.html>"]
     #[doc(alias = "vkCmdSetDepthClampRangeEXT")]
     #[inline]
     pub fn set_depth_clamp_range_ext(
@@ -12495,7 +12495,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_cooperative_vector")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdConvertCooperativeVectorMatrixNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdConvertCooperativeVectorMatrixNV.html>"]
     #[doc(alias = "vkCmdConvertCooperativeVectorMatrixNV")]
     #[inline]
     pub fn convert_cooperative_vector_matrix_nv<'a>(
@@ -12511,7 +12511,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_data_graph")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdDispatchDataGraphARM.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDispatchDataGraphARM.html>"]
     #[doc(alias = "vkCmdDispatchDataGraphARM")]
     #[inline]
     pub fn dispatch_data_graph_arm(
@@ -12529,7 +12529,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_attachment_feedback_loop_dynamic_state")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetAttachmentFeedbackLoopEnableEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetAttachmentFeedbackLoopEnableEXT.html>"]
     #[doc(alias = "vkCmdSetAttachmentFeedbackLoopEnableEXT")]
     #[inline]
     pub fn set_attachment_feedback_loop_enable_ext(&self, aspect_mask: ImageAspectFlags) {
@@ -12542,7 +12542,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(all(feature = "ext_maintenance6", feature = "ext_descriptor_buffer"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetDescriptorBufferOffsets2EXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetDescriptorBufferOffsets2EXT.html>"]
     #[doc(alias = "vkCmdSetDescriptorBufferOffsets2EXT")]
     #[inline]
     pub fn set_descriptor_buffer_offsets2_ext(
@@ -12558,7 +12558,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(all(feature = "ext_maintenance6", feature = "ext_descriptor_buffer"))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdBindDescriptorBufferEmbeddedSamplers2EXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBindDescriptorBufferEmbeddedSamplers2EXT.html>"]
     #[doc(alias = "vkCmdBindDescriptorBufferEmbeddedSamplers2EXT")]
     #[inline]
     pub fn bind_descriptor_buffer_embedded_samplers2_ext(
@@ -12574,7 +12574,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_tile_memory_heap")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdBindTileMemoryQCOM.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBindTileMemoryQCOM.html>"]
     #[doc(alias = "vkCmdBindTileMemoryQCOM")]
     #[inline]
     pub fn bind_tile_memory_qcom(&self, p_tile_memory_bind_info: Option<&TileMemoryBindInfoQCOM>) {
@@ -12587,7 +12587,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_copy_memory_indirect")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdCopyMemoryIndirectKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCopyMemoryIndirectKHR.html>"]
     #[doc(alias = "vkCmdCopyMemoryIndirectKHR")]
     #[inline]
     pub fn copy_memory_indirect_khr(
@@ -12603,7 +12603,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_copy_memory_indirect")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdCopyMemoryToImageIndirectKHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCopyMemoryToImageIndirectKHR.html>"]
     #[doc(alias = "vkCmdCopyMemoryToImageIndirectKHR")]
     #[inline]
     pub fn copy_memory_to_image_indirect_khr(
@@ -12619,7 +12619,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_memory_decompression")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdDecompressMemoryEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDecompressMemoryEXT.html>"]
     #[doc(alias = "vkCmdDecompressMemoryEXT")]
     #[inline]
     pub fn decompress_memory_ext(&self, p_decompress_memory_info_ext: &DecompressMemoryInfoEXT) {
@@ -12632,7 +12632,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_memory_decompression")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdDecompressMemoryIndirectCountEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDecompressMemoryIndirectCountEXT.html>"]
     #[doc(alias = "vkCmdDecompressMemoryIndirectCountEXT")]
     #[inline]
     pub fn decompress_memory_indirect_count_ext(
@@ -12656,7 +12656,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_cluster_acceleration_structure")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdBuildClusterAccelerationStructureIndirectNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBuildClusterAccelerationStructureIndirectNV.html>"]
     #[doc(alias = "vkCmdBuildClusterAccelerationStructureIndirectNV")]
     #[inline]
     pub fn build_cluster_acceleration_structure_indirect_nv(
@@ -12672,7 +12672,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_partitioned_acceleration_structure")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdBuildPartitionedAccelerationStructuresNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBuildPartitionedAccelerationStructuresNV.html>"]
     #[doc(alias = "vkCmdBuildPartitionedAccelerationStructuresNV")]
     #[inline]
     pub fn build_partitioned_acceleration_structures_nv(
@@ -12688,7 +12688,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_device_generated_commands")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdPreprocessGeneratedCommandsEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdPreprocessGeneratedCommandsEXT.html>"]
     #[doc(alias = "vkCmdPreprocessGeneratedCommandsEXT")]
     #[inline]
     pub fn preprocess_generated_commands_ext(
@@ -12706,7 +12706,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_device_generated_commands")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdExecuteGeneratedCommandsEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdExecuteGeneratedCommandsEXT.html>"]
     #[doc(alias = "vkCmdExecuteGeneratedCommandsEXT")]
     #[inline]
     pub fn execute_generated_commands_ext(
@@ -12724,7 +12724,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_shader_instrumentation")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdBeginShaderInstrumentationARM.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBeginShaderInstrumentationARM.html>"]
     #[doc(alias = "vkCmdBeginShaderInstrumentationARM")]
     #[inline]
     pub fn begin_shader_instrumentation_arm(
@@ -12740,7 +12740,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_shader_instrumentation")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdEndShaderInstrumentationARM.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdEndShaderInstrumentationARM.html>"]
     #[doc(alias = "vkCmdEndShaderInstrumentationARM")]
     #[inline]
     pub fn end_shader_instrumentation_arm(&self) {
@@ -12750,7 +12750,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         feature = "ext_custom_resolve",
         any(feature = "ext_dynamic_rendering", feature = "version_1_3")
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdBeginCustomResolveEXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBeginCustomResolveEXT.html>"]
     #[doc(alias = "vkCmdBeginCustomResolveEXT")]
     #[inline]
     pub fn begin_custom_resolve_ext(
@@ -12769,7 +12769,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         feature = "ext_fragment_density_map_offset",
         feature = "ext_maintenance10"
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdEndRendering2KHR.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdEndRendering2KHR.html>"]
     #[doc(alias = "vkCmdEndRendering2KHR")]
     #[inline]
     pub fn end_rendering2_khr(&self, p_rendering_end_info: Option<&RenderingEndInfoKHR>) {
@@ -12785,7 +12785,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         feature = "ext_fragment_density_map_offset",
         feature = "ext_maintenance10"
     ))]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdEndRendering2EXT.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdEndRendering2EXT.html>"]
     #[doc(alias = "vkCmdEndRendering2EXT")]
     #[inline]
     pub fn end_rendering2_ext(&self, p_rendering_end_info: Option<&RenderingEndInfoKHR>) {
@@ -12798,7 +12798,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
         }
     }
     #[cfg(feature = "ext_compute_occupancy_priority")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkCmdSetComputeOccupancyPriorityNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetComputeOccupancyPriorityNV.html>"]
     #[doc(alias = "vkCmdSetComputeOccupancyPriorityNV")]
     #[inline]
     pub fn set_compute_occupancy_priority_nv(
@@ -12816,7 +12816,7 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkEvent.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkEvent.html>"]
 #[doc(alias = "VkEvent")]
 pub struct Event {
     inner: <raw::Event as Handle>::InnerType,
@@ -12837,7 +12837,7 @@ impl Event {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkBufferView.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkBufferView.html>"]
 #[doc(alias = "VkBufferView")]
 pub struct BufferView {
     inner: <raw::BufferView as Handle>::InnerType,
@@ -12858,7 +12858,7 @@ impl BufferView {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkShaderModule.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkShaderModule.html>"]
 #[doc(alias = "VkShaderModule")]
 pub struct ShaderModule {
     inner: <raw::ShaderModule as Handle>::InnerType,
@@ -12879,7 +12879,7 @@ impl ShaderModule {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineCache.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineCache.html>"]
 #[doc(alias = "VkPipelineCache")]
 pub struct PipelineCache {
     inner: <raw::PipelineCache as Handle>::InnerType,
@@ -12900,7 +12900,7 @@ impl PipelineCache {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipeline.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipeline.html>"]
 #[doc(alias = "VkPipeline")]
 pub struct Pipeline {
     inner: <raw::Pipeline as Handle>::InnerType,
@@ -12921,7 +12921,7 @@ impl Pipeline {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineLayout.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineLayout.html>"]
 #[doc(alias = "VkPipelineLayout")]
 pub struct PipelineLayout {
     inner: <raw::PipelineLayout as Handle>::InnerType,
@@ -12942,7 +12942,7 @@ impl PipelineLayout {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSampler.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSampler.html>"]
 #[doc(alias = "VkSampler")]
 pub struct Sampler {
     inner: <raw::Sampler as Handle>::InnerType,
@@ -12963,7 +12963,7 @@ impl Sampler {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDescriptorPool.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDescriptorPool.html>"]
 #[doc(alias = "VkDescriptorPool")]
 pub struct DescriptorPool {
     inner: <raw::DescriptorPool as Handle>::InnerType,
@@ -12984,7 +12984,7 @@ impl DescriptorPool {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDescriptorSet.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDescriptorSet.html>"]
 #[doc(alias = "VkDescriptorSet")]
 pub struct DescriptorSet {
     inner: <raw::DescriptorSet as Handle>::InnerType,
@@ -13005,7 +13005,7 @@ impl DescriptorSet {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDescriptorSetLayout.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDescriptorSetLayout.html>"]
 #[doc(alias = "VkDescriptorSetLayout")]
 pub struct DescriptorSetLayout {
     inner: <raw::DescriptorSetLayout as Handle>::InnerType,
@@ -13026,7 +13026,7 @@ impl DescriptorSetLayout {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkFramebuffer.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkFramebuffer.html>"]
 #[doc(alias = "VkFramebuffer")]
 pub struct Framebuffer {
     inner: <raw::Framebuffer as Handle>::InnerType,
@@ -13047,7 +13047,7 @@ impl Framebuffer {
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkRenderPass.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkRenderPass.html>"]
 #[doc(alias = "VkRenderPass")]
 pub struct RenderPass {
     inner: <raw::RenderPass as Handle>::InnerType,
@@ -13069,7 +13069,7 @@ impl RenderPass {
 #[cfg(any(feature = "ext_descriptor_update_template", feature = "version_1_1"))]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDescriptorUpdateTemplate.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDescriptorUpdateTemplate.html>"]
 #[doc(alias = "VkDescriptorUpdateTemplate")]
 pub struct DescriptorUpdateTemplate {
     inner: <raw::DescriptorUpdateTemplate as Handle>::InnerType,
@@ -13092,13 +13092,13 @@ impl DescriptorUpdateTemplate {
     }
 }
 #[cfg(any(feature = "ext_descriptor_update_template", feature = "version_1_1"))]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDescriptorUpdateTemplateKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDescriptorUpdateTemplateKHR.html>"]
 #[doc(alias = "VkDescriptorUpdateTemplateKHR")]
 pub type DescriptorUpdateTemplateKHR = raw::DescriptorUpdateTemplate;
 #[cfg(any(feature = "ext_sampler_ycbcr_conversion", feature = "version_1_1"))]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSamplerYcbcrConversion.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSamplerYcbcrConversion.html>"]
 #[doc(alias = "VkSamplerYcbcrConversion")]
 pub struct SamplerYcbcrConversion {
     inner: <raw::SamplerYcbcrConversion as Handle>::InnerType,
@@ -13121,13 +13121,13 @@ impl SamplerYcbcrConversion {
     }
 }
 #[cfg(any(feature = "ext_sampler_ycbcr_conversion", feature = "version_1_1"))]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSamplerYcbcrConversionKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSamplerYcbcrConversionKHR.html>"]
 #[doc(alias = "VkSamplerYcbcrConversionKHR")]
 pub type SamplerYcbcrConversionKHR = raw::SamplerYcbcrConversion;
 #[cfg(any(feature = "ext_private_data", feature = "version_1_3"))]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPrivateDataSlot.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPrivateDataSlot.html>"]
 #[doc(alias = "VkPrivateDataSlot")]
 pub struct PrivateDataSlot {
     inner: <raw::PrivateDataSlot as Handle>::InnerType,
@@ -13150,13 +13150,13 @@ impl PrivateDataSlot {
     }
 }
 #[cfg(any(feature = "ext_private_data", feature = "version_1_3"))]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPrivateDataSlotEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPrivateDataSlotEXT.html>"]
 #[doc(alias = "VkPrivateDataSlotEXT")]
 pub type PrivateDataSlotEXT = raw::PrivateDataSlot;
 #[cfg(feature = "ext_surface")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSurfaceKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSurfaceKHR.html>"]
 #[doc(alias = "VkSurfaceKHR")]
 pub struct SurfaceKHR {
     inner: <raw::SurfaceKHR as Handle>::InnerType,
@@ -13181,7 +13181,7 @@ impl SurfaceKHR {
 #[cfg(feature = "ext_swapchain")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkSwapchainKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSwapchainKHR.html>"]
 #[doc(alias = "VkSwapchainKHR")]
 pub struct SwapchainKHR {
     inner: <raw::SwapchainKHR as Handle>::InnerType,
@@ -13206,7 +13206,7 @@ impl SwapchainKHR {
 #[cfg(feature = "ext_display")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDisplayKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDisplayKHR.html>"]
 #[doc(alias = "VkDisplayKHR")]
 pub struct DisplayKHR {
     inner: <raw::DisplayKHR as Handle>::InnerType,
@@ -13231,7 +13231,7 @@ impl DisplayKHR {
 #[cfg(feature = "ext_display")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDisplayModeKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDisplayModeKHR.html>"]
 #[doc(alias = "VkDisplayModeKHR")]
 pub struct DisplayModeKHR {
     inner: <raw::DisplayModeKHR as Handle>::InnerType,
@@ -13256,7 +13256,7 @@ impl DisplayModeKHR {
 #[cfg(feature = "ext_debug_report")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDebugReportCallbackEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDebugReportCallbackEXT.html>"]
 #[doc(alias = "VkDebugReportCallbackEXT")]
 pub struct DebugReportCallbackEXT {
     inner: <raw::DebugReportCallbackEXT as Handle>::InnerType,
@@ -13281,7 +13281,7 @@ impl DebugReportCallbackEXT {
 #[cfg(feature = "ext_binary_import")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCuModuleNVX.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCuModuleNVX.html>"]
 #[doc(alias = "VkCuModuleNVX")]
 pub struct CuModuleNVX {
     inner: <raw::CuModuleNVX as Handle>::InnerType,
@@ -13306,7 +13306,7 @@ impl CuModuleNVX {
 #[cfg(feature = "ext_binary_import")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCuFunctionNVX.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCuFunctionNVX.html>"]
 #[doc(alias = "VkCuFunctionNVX")]
 pub struct CuFunctionNVX {
     inner: <raw::CuFunctionNVX as Handle>::InnerType,
@@ -13331,7 +13331,7 @@ impl CuFunctionNVX {
 #[cfg(feature = "ext_debug_utils")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDebugUtilsMessengerEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDebugUtilsMessengerEXT.html>"]
 #[doc(alias = "VkDebugUtilsMessengerEXT")]
 pub struct DebugUtilsMessengerEXT {
     inner: <raw::DebugUtilsMessengerEXT as Handle>::InnerType,
@@ -13356,7 +13356,7 @@ impl DebugUtilsMessengerEXT {
 #[cfg(any(feature = "ext_descriptor_heap", feature = "ext_tensors"))]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkTensorARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkTensorARM.html>"]
 #[doc(alias = "VkTensorARM")]
 pub struct TensorARM {
     inner: <raw::TensorARM as Handle>::InnerType,
@@ -13381,7 +13381,7 @@ impl TensorARM {
 #[cfg(feature = "ext_acceleration_structure")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAccelerationStructureKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAccelerationStructureKHR.html>"]
 #[doc(alias = "VkAccelerationStructureKHR")]
 pub struct AccelerationStructureKHR {
     inner: <raw::AccelerationStructureKHR as Handle>::InnerType,
@@ -13406,7 +13406,7 @@ impl AccelerationStructureKHR {
 #[cfg(feature = "ext_validation_cache")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkValidationCacheEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkValidationCacheEXT.html>"]
 #[doc(alias = "VkValidationCacheEXT")]
 pub struct ValidationCacheEXT {
     inner: <raw::ValidationCacheEXT as Handle>::InnerType,
@@ -13431,7 +13431,7 @@ impl ValidationCacheEXT {
 #[cfg(feature = "ext_ray_tracing")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkAccelerationStructureNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAccelerationStructureNV.html>"]
 #[doc(alias = "VkAccelerationStructureNV")]
 pub struct AccelerationStructureNV {
     inner: <raw::AccelerationStructureNV as Handle>::InnerType,
@@ -13456,7 +13456,7 @@ impl AccelerationStructureNV {
 #[cfg(feature = "ext_performance_query")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPerformanceConfigurationINTEL.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPerformanceConfigurationINTEL.html>"]
 #[doc(alias = "VkPerformanceConfigurationINTEL")]
 pub struct PerformanceConfigurationINTEL {
     inner: <raw::PerformanceConfigurationINTEL as Handle>::InnerType,
@@ -13481,7 +13481,7 @@ impl PerformanceConfigurationINTEL {
 #[cfg(feature = "ext_deferred_host_operations")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDeferredOperationKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDeferredOperationKHR.html>"]
 #[doc(alias = "VkDeferredOperationKHR")]
 pub struct DeferredOperationKHR {
     inner: <raw::DeferredOperationKHR as Handle>::InnerType,
@@ -13506,7 +13506,7 @@ impl DeferredOperationKHR {
 #[cfg(feature = "ext_device_generated_commands")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkIndirectCommandsLayoutNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkIndirectCommandsLayoutNV.html>"]
 #[doc(alias = "VkIndirectCommandsLayoutNV")]
 pub struct IndirectCommandsLayoutNV {
     inner: <raw::IndirectCommandsLayoutNV as Handle>::InnerType,
@@ -13531,7 +13531,7 @@ impl IndirectCommandsLayoutNV {
 #[cfg(feature = "ext_cuda_kernel_launch")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCudaModuleNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCudaModuleNV.html>"]
 #[doc(alias = "VkCudaModuleNV")]
 pub struct CudaModuleNV {
     inner: <raw::CudaModuleNV as Handle>::InnerType,
@@ -13556,7 +13556,7 @@ impl CudaModuleNV {
 #[cfg(feature = "ext_cuda_kernel_launch")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkCudaFunctionNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCudaFunctionNV.html>"]
 #[doc(alias = "VkCudaFunctionNV")]
 pub struct CudaFunctionNV {
     inner: <raw::CudaFunctionNV as Handle>::InnerType,
@@ -13581,7 +13581,7 @@ impl CudaFunctionNV {
 #[cfg(feature = "ext_buffer_collection")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkBufferCollectionFUCHSIA.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkBufferCollectionFUCHSIA.html>"]
 #[doc(alias = "VkBufferCollectionFUCHSIA")]
 pub struct BufferCollectionFUCHSIA {
     inner: <raw::BufferCollectionFUCHSIA as Handle>::InnerType,
@@ -13606,7 +13606,7 @@ impl BufferCollectionFUCHSIA {
 #[cfg(feature = "ext_opacity_micromap")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkMicromapEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkMicromapEXT.html>"]
 #[doc(alias = "VkMicromapEXT")]
 pub struct MicromapEXT {
     inner: <raw::MicromapEXT as Handle>::InnerType,
@@ -13631,7 +13631,7 @@ impl MicromapEXT {
 #[cfg(feature = "ext_tensors")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkTensorViewARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkTensorViewARM.html>"]
 #[doc(alias = "VkTensorViewARM")]
 pub struct TensorViewARM {
     inner: <raw::TensorViewARM as Handle>::InnerType,
@@ -13656,7 +13656,7 @@ impl TensorViewARM {
 #[cfg(feature = "ext_optical_flow")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkOpticalFlowSessionNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkOpticalFlowSessionNV.html>"]
 #[doc(alias = "VkOpticalFlowSessionNV")]
 pub struct OpticalFlowSessionNV {
     inner: <raw::OpticalFlowSessionNV as Handle>::InnerType,
@@ -13681,7 +13681,7 @@ impl OpticalFlowSessionNV {
 #[cfg(feature = "ext_shader_object")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkShaderEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkShaderEXT.html>"]
 #[doc(alias = "VkShaderEXT")]
 pub struct ShaderEXT {
     inner: <raw::ShaderEXT as Handle>::InnerType,
@@ -13706,7 +13706,7 @@ impl ShaderEXT {
 #[cfg(feature = "ext_pipeline_binary")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkPipelineBinaryKHR.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineBinaryKHR.html>"]
 #[doc(alias = "VkPipelineBinaryKHR")]
 pub struct PipelineBinaryKHR {
     inner: <raw::PipelineBinaryKHR as Handle>::InnerType,
@@ -13731,7 +13731,7 @@ impl PipelineBinaryKHR {
 #[cfg(feature = "ext_data_graph")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkDataGraphPipelineSessionARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphPipelineSessionARM.html>"]
 #[doc(alias = "VkDataGraphPipelineSessionARM")]
 pub struct DataGraphPipelineSessionARM {
     inner: <raw::DataGraphPipelineSessionARM as Handle>::InnerType,
@@ -13756,7 +13756,7 @@ impl DataGraphPipelineSessionARM {
 #[cfg(feature = "ext_external_compute_queue")]
 #[repr(C)]
 #[derive(Clone)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkExternalComputeQueueNV.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkExternalComputeQueueNV.html>"]
 #[doc(alias = "VkExternalComputeQueueNV")]
 pub struct ExternalComputeQueueNV<
     D: Dispatcher = DynamicDispatcher,
@@ -13801,7 +13801,7 @@ impl<D: Dispatcher, A: BaseAllocator> ExternalComputeQueueNV<D, A> {
         &self.alloc
     }
     #[cfg(feature = "ext_external_compute_queue")]
-    #[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/vkGetExternalComputeQueueDataNV.html>"]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetExternalComputeQueueDataNV.html>"]
     #[doc(alias = "vkGetExternalComputeQueueDataNV")]
     pub fn get_external_compute_queue_data_nv<
         S: StructureChainOut<ExternalComputeQueueDataParamsNV<'static>>,
@@ -13821,7 +13821,7 @@ impl<D: Dispatcher, A: BaseAllocator> ExternalComputeQueueNV<D, A> {
 #[cfg(feature = "ext_device_generated_commands")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkIndirectCommandsLayoutEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkIndirectCommandsLayoutEXT.html>"]
 #[doc(alias = "VkIndirectCommandsLayoutEXT")]
 pub struct IndirectCommandsLayoutEXT {
     inner: <raw::IndirectCommandsLayoutEXT as Handle>::InnerType,
@@ -13846,7 +13846,7 @@ impl IndirectCommandsLayoutEXT {
 #[cfg(feature = "ext_device_generated_commands")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkIndirectExecutionSetEXT.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkIndirectExecutionSetEXT.html>"]
 #[doc(alias = "VkIndirectExecutionSetEXT")]
 pub struct IndirectExecutionSetEXT {
     inner: <raw::IndirectExecutionSetEXT as Handle>::InnerType,
@@ -13871,7 +13871,7 @@ impl IndirectExecutionSetEXT {
 #[cfg(feature = "ext_shader_instrumentation")]
 #[repr(C)]
 #[derive(Clone, Copy)]
-#[doc = "<https://www.khronos.org/registry/vulkan/specs/latest/man/html/VkShaderInstrumentationARM.html>"]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkShaderInstrumentationARM.html>"]
 #[doc(alias = "VkShaderInstrumentationARM")]
 pub struct ShaderInstrumentationARM {
     inner: <raw::ShaderInstrumentationARM as Handle>::InnerType,
