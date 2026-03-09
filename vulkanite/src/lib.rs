@@ -348,21 +348,22 @@ unsafe impl BaseAllocator for DefaultAllocator {
     }
 }
 
-/// Quality-Of-Life macro to create bitflags with multiple flags.
+/// Quality-Of-Life macro to create bitflags with multiple flags. This macro also has the advantage of being const-compatible.
 /// # Example
 /// ```
-/// let debug_info = vk::DebugUtilsMessengerCreateInfoEXT::default()
-///     .message_severity(
-///         flagbits!(vk::DebugUtilsMessageSeverityFlagsEXT::{Info | Warning | Error}),
+/// use vulkanite::{vk, flagbits};
+/// let buffer_info = vk::BufferCreateInfo::default()
+///     .flags(
+///         flagbits!(vk::BufferCreateFlags::{SparseBinding | SparseResidency | SparseAliased}),
 ///     );
 /// ```
 #[macro_export]
 macro_rules! flagbits {
     ( $enum:ident ::{ $($variant:ident)|+ } ) => {
-        $($enum::$variant)|+
+        $enum::empty()$(.union($enum::$variant))+
     };
     ( vk :: $enum:ident ::{ $($variant:ident)|+ } ) => {
-        $(vk::$enum::$variant)|+
+        vk::$enum::empty()$(.union(vk::$enum::$variant))+
     }
 }
 
