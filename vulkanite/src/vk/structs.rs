@@ -34815,41 +34815,6 @@ impl<'a> HostAddressRangeConstEXT<'a> {
 }
 #[cfg(feature = "ext_descriptor_heap")]
 #[repr(C)]
-#[derive(Clone, Copy)]
-#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceAddressRangeEXT.html>"]
-#[doc(alias = "VkDeviceAddressRangeEXT")]
-pub struct DeviceAddressRangeEXT {
-    pub address: DeviceAddress,
-    pub size: DeviceSize,
-}
-#[cfg(feature = "ext_descriptor_heap")]
-unsafe impl Send for DeviceAddressRangeEXT {}
-#[cfg(feature = "ext_descriptor_heap")]
-unsafe impl Sync for DeviceAddressRangeEXT {}
-#[cfg(feature = "ext_descriptor_heap")]
-impl Default for DeviceAddressRangeEXT {
-    fn default() -> Self {
-        Self {
-            address: Default::default(),
-            size: Default::default(),
-        }
-    }
-}
-#[cfg(feature = "ext_descriptor_heap")]
-impl DeviceAddressRangeEXT {
-    #[inline]
-    pub fn address(mut self, value: DeviceAddress) -> Self {
-        self.address = value;
-        self
-    }
-    #[inline]
-    pub fn size(mut self, value: DeviceSize) -> Self {
-        self.size = value;
-        self
-    }
-}
-#[cfg(feature = "ext_descriptor_heap")]
-#[repr(C)]
 #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkTexelBufferDescriptorInfoEXT.html>"]
 #[doc(alias = "VkTexelBufferDescriptorInfoEXT")]
 pub struct TexelBufferDescriptorInfoEXT<'a> {
@@ -52854,6 +52819,17 @@ unsafe impl<'a, 'b> ExtendingStructure<TensorViewCreateInfoARM<'b>>
     for OpaqueCaptureDescriptorDataCreateInfoEXT<'a>
 {
 }
+#[cfg(all(
+    feature = "ext_descriptor_buffer",
+    all(
+        feature = "ext_device_address_commands",
+        feature = "ext_acceleration_structure"
+    )
+))]
+unsafe impl<'a, 'b> ExtendingStructure<AccelerationStructureCreateInfo2KHR<'b>>
+    for OpaqueCaptureDescriptorDataCreateInfoEXT<'a>
+{
+}
 #[cfg(feature = "ext_descriptor_buffer")]
 impl<'a> Default for OpaqueCaptureDescriptorDataCreateInfoEXT<'a> {
     fn default() -> Self {
@@ -52949,6 +52925,1212 @@ impl<'a> AccelerationStructureCaptureDescriptorDataInfoEXT<'a> {
         value: Option<&'a raw::AccelerationStructureNV>,
     ) -> Self {
         self.acceleration_structure_nv = value.map(|v| v.borrow());
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[cfg(any(
+    feature = "ext_descriptor_heap",
+    feature = "ext_device_address_commands"
+))]
+#[repr(C)]
+#[derive(Clone, Copy)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceAddressRangeKHR.html>"]
+#[doc(alias = "VkDeviceAddressRangeKHR")]
+pub struct DeviceAddressRangeKHR {
+    pub address: DeviceAddress,
+    pub size: DeviceSize,
+}
+#[cfg(any(
+    feature = "ext_descriptor_heap",
+    feature = "ext_device_address_commands"
+))]
+unsafe impl Send for DeviceAddressRangeKHR {}
+#[cfg(any(
+    feature = "ext_descriptor_heap",
+    feature = "ext_device_address_commands"
+))]
+unsafe impl Sync for DeviceAddressRangeKHR {}
+#[cfg(any(
+    feature = "ext_descriptor_heap",
+    feature = "ext_device_address_commands"
+))]
+impl Default for DeviceAddressRangeKHR {
+    fn default() -> Self {
+        Self {
+            address: Default::default(),
+            size: Default::default(),
+        }
+    }
+}
+#[cfg(any(
+    feature = "ext_descriptor_heap",
+    feature = "ext_device_address_commands"
+))]
+impl DeviceAddressRangeKHR {
+    #[inline]
+    pub fn address(mut self, value: DeviceAddress) -> Self {
+        self.address = value;
+        self
+    }
+    #[inline]
+    pub fn size(mut self, value: DeviceSize) -> Self {
+        self.size = value;
+        self
+    }
+}
+#[cfg(any(
+    feature = "ext_descriptor_heap",
+    feature = "ext_device_address_commands"
+))]
+pub type DeviceAddressRangeEXT = DeviceAddressRangeKHR;
+#[cfg(any(
+    feature = "ext_device_address_commands",
+    feature = "ext_copy_memory_indirect"
+))]
+#[repr(C)]
+#[derive(Clone, Copy)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkStridedDeviceAddressRangeKHR.html>"]
+#[doc(alias = "VkStridedDeviceAddressRangeKHR")]
+pub struct StridedDeviceAddressRangeKHR {
+    pub address: DeviceAddress,
+    pub size: DeviceSize,
+    pub stride: DeviceSize,
+}
+#[cfg(any(
+    feature = "ext_device_address_commands",
+    feature = "ext_copy_memory_indirect"
+))]
+unsafe impl Send for StridedDeviceAddressRangeKHR {}
+#[cfg(any(
+    feature = "ext_device_address_commands",
+    feature = "ext_copy_memory_indirect"
+))]
+unsafe impl Sync for StridedDeviceAddressRangeKHR {}
+#[cfg(any(
+    feature = "ext_device_address_commands",
+    feature = "ext_copy_memory_indirect"
+))]
+impl Default for StridedDeviceAddressRangeKHR {
+    fn default() -> Self {
+        Self {
+            address: Default::default(),
+            size: Default::default(),
+            stride: Default::default(),
+        }
+    }
+}
+#[cfg(any(
+    feature = "ext_device_address_commands",
+    feature = "ext_copy_memory_indirect"
+))]
+impl StridedDeviceAddressRangeKHR {
+    #[inline]
+    pub fn address(mut self, value: DeviceAddress) -> Self {
+        self.address = value;
+        self
+    }
+    #[inline]
+    pub fn size(mut self, value: DeviceSize) -> Self {
+        self.size = value;
+        self
+    }
+    #[inline]
+    pub fn stride(mut self, value: DeviceSize) -> Self {
+        self.stride = value;
+        self
+    }
+}
+#[cfg(feature = "ext_device_address_commands")]
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceMemoryCopyKHR.html>"]
+#[doc(alias = "VkDeviceMemoryCopyKHR")]
+pub struct DeviceMemoryCopyKHR<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub src_range: DeviceAddressRangeKHR,
+    pub src_flags: AddressCommandFlagsKHR,
+    pub dst_range: DeviceAddressRangeKHR,
+    pub dst_flags: AddressCommandFlagsKHR,
+    phantom: PhantomData<&'a ()>,
+}
+#[cfg(feature = "ext_device_address_commands")]
+unsafe impl<'a> ExtendableStructureBase for DeviceMemoryCopyKHR<'a> {}
+#[cfg(feature = "ext_device_address_commands")]
+unsafe impl<'a> ExtendableStructure for DeviceMemoryCopyKHR<'a> {
+    const STRUCTURE_TYPE: StructureType = StructureType::DeviceMemoryCopyKHR;
+}
+#[cfg(feature = "ext_device_address_commands")]
+unsafe impl<'a> Send for DeviceMemoryCopyKHR<'a> {}
+#[cfg(feature = "ext_device_address_commands")]
+unsafe impl<'a> Sync for DeviceMemoryCopyKHR<'a> {}
+#[cfg(feature = "ext_device_address_commands")]
+impl<'a> Default for DeviceMemoryCopyKHR<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            src_range: Default::default(),
+            src_flags: Default::default(),
+            dst_range: Default::default(),
+            dst_flags: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+#[cfg(feature = "ext_device_address_commands")]
+impl<'a> DeviceMemoryCopyKHR<'a> {
+    #[inline]
+    pub fn src_range(mut self, value: DeviceAddressRangeKHR) -> Self {
+        self.src_range = value;
+        self
+    }
+    #[inline]
+    pub fn src_flags(mut self, value: AddressCommandFlagsKHR) -> Self {
+        self.src_flags = value;
+        self
+    }
+    #[inline]
+    pub fn dst_range(mut self, value: DeviceAddressRangeKHR) -> Self {
+        self.dst_range = value;
+        self
+    }
+    #[inline]
+    pub fn dst_flags(mut self, value: AddressCommandFlagsKHR) -> Self {
+        self.dst_flags = value;
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[cfg(feature = "ext_device_address_commands")]
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCopyDeviceMemoryInfoKHR.html>"]
+#[doc(alias = "VkCopyDeviceMemoryInfoKHR")]
+pub struct CopyDeviceMemoryInfoKHR<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub(crate) region_count: u32,
+    pub(crate) p_regions: *const DeviceMemoryCopyKHR<'a>,
+    phantom: PhantomData<&'a ()>,
+}
+#[cfg(feature = "ext_device_address_commands")]
+unsafe impl<'a> ExtendableStructureBase for CopyDeviceMemoryInfoKHR<'a> {}
+#[cfg(feature = "ext_device_address_commands")]
+unsafe impl<'a> ExtendableStructure for CopyDeviceMemoryInfoKHR<'a> {
+    const STRUCTURE_TYPE: StructureType = StructureType::CopyDeviceMemoryInfoKHR;
+}
+#[cfg(feature = "ext_device_address_commands")]
+unsafe impl<'a> Send for CopyDeviceMemoryInfoKHR<'a> {}
+#[cfg(feature = "ext_device_address_commands")]
+unsafe impl<'a> Sync for CopyDeviceMemoryInfoKHR<'a> {}
+#[cfg(feature = "ext_device_address_commands")]
+impl<'a> Default for CopyDeviceMemoryInfoKHR<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            region_count: Default::default(),
+            p_regions: ptr::null(),
+            phantom: PhantomData,
+        }
+    }
+}
+#[cfg(feature = "ext_device_address_commands")]
+impl<'a> CopyDeviceMemoryInfoKHR<'a> {
+    #[inline]
+    pub fn regions(mut self, p_regions: impl AsSlice<'a, DeviceMemoryCopyKHR<'a>>) -> Self {
+        self.p_regions = p_regions.as_slice().as_ptr().cast();
+        self.region_count = p_regions.as_slice().len() as _;
+        self
+    }
+    #[inline]
+    pub fn get_regions(&self) -> &'a [DeviceMemoryCopyKHR<'a>] {
+        (!self.p_regions.is_null())
+            .then(|| unsafe {
+                slice::from_raw_parts(self.p_regions.cast(), self.region_count as _)
+            })
+            .unwrap_or(&[])
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[cfg(feature = "ext_device_address_commands")]
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceMemoryImageCopyKHR.html>"]
+#[doc(alias = "VkDeviceMemoryImageCopyKHR")]
+pub struct DeviceMemoryImageCopyKHR<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub address_range: DeviceAddressRangeKHR,
+    pub address_flags: AddressCommandFlagsKHR,
+    pub address_row_length: u32,
+    pub address_image_height: u32,
+    pub image_subresource: ImageSubresourceLayers,
+    pub image_layout: ImageLayout,
+    pub image_offset: Offset3D,
+    pub image_extent: Extent3D,
+    phantom: PhantomData<&'a ()>,
+}
+#[cfg(feature = "ext_device_address_commands")]
+unsafe impl<'a> ExtendableStructureBase for DeviceMemoryImageCopyKHR<'a> {}
+#[cfg(feature = "ext_device_address_commands")]
+unsafe impl<'a> ExtendableStructure for DeviceMemoryImageCopyKHR<'a> {
+    const STRUCTURE_TYPE: StructureType = StructureType::DeviceMemoryImageCopyKHR;
+}
+#[cfg(feature = "ext_device_address_commands")]
+unsafe impl<'a> Send for DeviceMemoryImageCopyKHR<'a> {}
+#[cfg(feature = "ext_device_address_commands")]
+unsafe impl<'a> Sync for DeviceMemoryImageCopyKHR<'a> {}
+#[cfg(feature = "ext_device_address_commands")]
+impl<'a> Default for DeviceMemoryImageCopyKHR<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            address_range: Default::default(),
+            address_flags: Default::default(),
+            address_row_length: Default::default(),
+            address_image_height: Default::default(),
+            image_subresource: Default::default(),
+            image_layout: ImageLayout::Undefined,
+            image_offset: Default::default(),
+            image_extent: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+#[cfg(feature = "ext_device_address_commands")]
+impl<'a> DeviceMemoryImageCopyKHR<'a> {
+    #[inline]
+    pub fn address_range(mut self, value: DeviceAddressRangeKHR) -> Self {
+        self.address_range = value;
+        self
+    }
+    #[inline]
+    pub fn address_flags(mut self, value: AddressCommandFlagsKHR) -> Self {
+        self.address_flags = value;
+        self
+    }
+    #[inline]
+    pub fn address_row_length(mut self, value: u32) -> Self {
+        self.address_row_length = value;
+        self
+    }
+    #[inline]
+    pub fn address_image_height(mut self, value: u32) -> Self {
+        self.address_image_height = value;
+        self
+    }
+    #[inline]
+    pub fn image_subresource(mut self, value: ImageSubresourceLayers) -> Self {
+        self.image_subresource = value;
+        self
+    }
+    #[inline]
+    pub fn image_layout(mut self, value: ImageLayout) -> Self {
+        self.image_layout = value;
+        self
+    }
+    #[inline]
+    pub fn image_offset(mut self, value: Offset3D) -> Self {
+        self.image_offset = value;
+        self
+    }
+    #[inline]
+    pub fn image_extent(mut self, value: Extent3D) -> Self {
+        self.image_extent = value;
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[cfg(feature = "ext_device_address_commands")]
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCopyDeviceMemoryImageInfoKHR.html>"]
+#[doc(alias = "VkCopyDeviceMemoryImageInfoKHR")]
+pub struct CopyDeviceMemoryImageInfoKHR<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub image: Option<BorrowedHandle<'a, Image>>,
+    pub(crate) region_count: u32,
+    pub(crate) p_regions: *const DeviceMemoryImageCopyKHR<'a>,
+    phantom: PhantomData<&'a ()>,
+}
+#[cfg(feature = "ext_device_address_commands")]
+unsafe impl<'a> ExtendableStructureBase for CopyDeviceMemoryImageInfoKHR<'a> {}
+#[cfg(feature = "ext_device_address_commands")]
+unsafe impl<'a> ExtendableStructure for CopyDeviceMemoryImageInfoKHR<'a> {
+    const STRUCTURE_TYPE: StructureType = StructureType::CopyDeviceMemoryImageInfoKHR;
+}
+#[cfg(feature = "ext_device_address_commands")]
+unsafe impl<'a> Send for CopyDeviceMemoryImageInfoKHR<'a> {}
+#[cfg(feature = "ext_device_address_commands")]
+unsafe impl<'a> Sync for CopyDeviceMemoryImageInfoKHR<'a> {}
+#[cfg(feature = "ext_device_address_commands")]
+impl<'a> Default for CopyDeviceMemoryImageInfoKHR<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            image: Default::default(),
+            region_count: Default::default(),
+            p_regions: ptr::null(),
+            phantom: PhantomData,
+        }
+    }
+}
+#[cfg(feature = "ext_device_address_commands")]
+impl<'a> CopyDeviceMemoryImageInfoKHR<'a> {
+    #[inline]
+    pub fn image(mut self, value: &'a raw::Image) -> Self {
+        self.image = Some(value.borrow());
+        self
+    }
+    #[inline]
+    pub fn regions(mut self, p_regions: impl AsSlice<'a, DeviceMemoryImageCopyKHR<'a>>) -> Self {
+        self.p_regions = p_regions.as_slice().as_ptr().cast();
+        self.region_count = p_regions.as_slice().len() as _;
+        self
+    }
+    #[inline]
+    pub fn get_regions(&self) -> &'a [DeviceMemoryImageCopyKHR<'a>] {
+        (!self.p_regions.is_null())
+            .then(|| unsafe {
+                slice::from_raw_parts(self.p_regions.cast(), self.region_count as _)
+            })
+            .unwrap_or(&[])
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[cfg(feature = "ext_device_address_commands")]
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkMemoryRangeBarriersInfoKHR.html>"]
+#[doc(alias = "VkMemoryRangeBarriersInfoKHR")]
+pub struct MemoryRangeBarriersInfoKHR<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub(crate) memory_range_barrier_count: u32,
+    pub(crate) p_memory_range_barriers: *const MemoryRangeBarrierKHR<'a>,
+    phantom: PhantomData<&'a ()>,
+}
+#[cfg(feature = "ext_device_address_commands")]
+unsafe impl<'a> ExtendableStructureBase for MemoryRangeBarriersInfoKHR<'a> {}
+#[cfg(feature = "ext_device_address_commands")]
+unsafe impl<'a> ExtendableStructure for MemoryRangeBarriersInfoKHR<'a> {
+    const STRUCTURE_TYPE: StructureType = StructureType::MemoryRangeBarriersInfoKHR;
+}
+#[cfg(feature = "ext_device_address_commands")]
+unsafe impl<'a> Send for MemoryRangeBarriersInfoKHR<'a> {}
+#[cfg(feature = "ext_device_address_commands")]
+unsafe impl<'a> Sync for MemoryRangeBarriersInfoKHR<'a> {}
+#[cfg(all(
+    feature = "ext_device_address_commands",
+    any(feature = "ext_synchronization2", feature = "version_1_3")
+))]
+unsafe impl<'a, 'b> ExtendingStructure<DependencyInfo<'b>> for MemoryRangeBarriersInfoKHR<'a> {}
+#[cfg(feature = "ext_device_address_commands")]
+impl<'a> Default for MemoryRangeBarriersInfoKHR<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            memory_range_barrier_count: Default::default(),
+            p_memory_range_barriers: ptr::null(),
+            phantom: PhantomData,
+        }
+    }
+}
+#[cfg(feature = "ext_device_address_commands")]
+impl<'a> MemoryRangeBarriersInfoKHR<'a> {
+    #[inline]
+    pub fn memory_range_barriers(
+        mut self,
+        p_memory_range_barriers: impl AsSlice<'a, MemoryRangeBarrierKHR<'a>>,
+    ) -> Self {
+        self.p_memory_range_barriers = p_memory_range_barriers.as_slice().as_ptr().cast();
+        self.memory_range_barrier_count = p_memory_range_barriers.as_slice().len() as _;
+        self
+    }
+    #[inline]
+    pub fn get_memory_range_barriers(&self) -> &'a [MemoryRangeBarrierKHR<'a>] {
+        (!self.p_memory_range_barriers.is_null())
+            .then(|| unsafe {
+                slice::from_raw_parts(
+                    self.p_memory_range_barriers.cast(),
+                    self.memory_range_barrier_count as _,
+                )
+            })
+            .unwrap_or(&[])
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[cfg(feature = "ext_device_address_commands")]
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkMemoryRangeBarrierKHR.html>"]
+#[doc(alias = "VkMemoryRangeBarrierKHR")]
+pub struct MemoryRangeBarrierKHR<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub src_stage_mask: PipelineStageFlags2,
+    pub src_access_mask: AccessFlags2,
+    pub dst_stage_mask: PipelineStageFlags2,
+    pub dst_access_mask: AccessFlags2,
+    pub src_queue_family_index: u32,
+    pub dst_queue_family_index: u32,
+    pub address_range: DeviceAddressRangeKHR,
+    pub address_flags: AddressCommandFlagsKHR,
+    phantom: PhantomData<&'a ()>,
+}
+#[cfg(feature = "ext_device_address_commands")]
+unsafe impl<'a> ExtendableStructureBase for MemoryRangeBarrierKHR<'a> {}
+#[cfg(feature = "ext_device_address_commands")]
+unsafe impl<'a> ExtendableStructure for MemoryRangeBarrierKHR<'a> {
+    const STRUCTURE_TYPE: StructureType = StructureType::MemoryRangeBarrierKHR;
+}
+#[cfg(feature = "ext_device_address_commands")]
+unsafe impl<'a> Send for MemoryRangeBarrierKHR<'a> {}
+#[cfg(feature = "ext_device_address_commands")]
+unsafe impl<'a> Sync for MemoryRangeBarrierKHR<'a> {}
+#[cfg(feature = "ext_device_address_commands")]
+impl<'a> Default for MemoryRangeBarrierKHR<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            src_stage_mask: Default::default(),
+            src_access_mask: Default::default(),
+            dst_stage_mask: Default::default(),
+            dst_access_mask: Default::default(),
+            src_queue_family_index: QUEUE_FAMILY_IGNORED,
+            dst_queue_family_index: QUEUE_FAMILY_IGNORED,
+            address_range: Default::default(),
+            address_flags: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+#[cfg(feature = "ext_device_address_commands")]
+impl<'a> MemoryRangeBarrierKHR<'a> {
+    #[inline]
+    pub fn src_stage_mask(mut self, value: PipelineStageFlags2) -> Self {
+        self.src_stage_mask = value;
+        self
+    }
+    #[inline]
+    pub fn src_access_mask(mut self, value: AccessFlags2) -> Self {
+        self.src_access_mask = value;
+        self
+    }
+    #[inline]
+    pub fn dst_stage_mask(mut self, value: PipelineStageFlags2) -> Self {
+        self.dst_stage_mask = value;
+        self
+    }
+    #[inline]
+    pub fn dst_access_mask(mut self, value: AccessFlags2) -> Self {
+        self.dst_access_mask = value;
+        self
+    }
+    #[inline]
+    pub fn src_queue_family_index(mut self, value: u32) -> Self {
+        self.src_queue_family_index = value;
+        self
+    }
+    #[inline]
+    pub fn dst_queue_family_index(mut self, value: u32) -> Self {
+        self.dst_queue_family_index = value;
+        self
+    }
+    #[inline]
+    pub fn address_range(mut self, value: DeviceAddressRangeKHR) -> Self {
+        self.address_range = value;
+        self
+    }
+    #[inline]
+    pub fn address_flags(mut self, value: AddressCommandFlagsKHR) -> Self {
+        self.address_flags = value;
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[cfg(feature = "ext_device_address_commands")]
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceDeviceAddressCommandsFeaturesKHR.html>"]
+#[doc(alias = "VkPhysicalDeviceDeviceAddressCommandsFeaturesKHR")]
+pub struct PhysicalDeviceDeviceAddressCommandsFeaturesKHR<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub device_address_commands: Bool32,
+    phantom: PhantomData<&'a ()>,
+}
+#[cfg(feature = "ext_device_address_commands")]
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceDeviceAddressCommandsFeaturesKHR<'a> {}
+#[cfg(feature = "ext_device_address_commands")]
+unsafe impl<'a> ExtendableStructure for PhysicalDeviceDeviceAddressCommandsFeaturesKHR<'a> {
+    const STRUCTURE_TYPE: StructureType =
+        StructureType::PhysicalDeviceDeviceAddressCommandsFeaturesKHR;
+}
+#[cfg(feature = "ext_device_address_commands")]
+unsafe impl<'a> Send for PhysicalDeviceDeviceAddressCommandsFeaturesKHR<'a> {}
+#[cfg(feature = "ext_device_address_commands")]
+unsafe impl<'a> Sync for PhysicalDeviceDeviceAddressCommandsFeaturesKHR<'a> {}
+#[cfg(all(
+    feature = "ext_device_address_commands",
+    any(
+        feature = "ext_get_physical_device_properties2",
+        feature = "version_1_1"
+    )
+))]
+unsafe impl<'a, 'b> ExtendingStructure<PhysicalDeviceFeatures2<'b>>
+    for PhysicalDeviceDeviceAddressCommandsFeaturesKHR<'a>
+{
+}
+#[cfg(all(feature = "ext_device_address_commands",))]
+unsafe impl<'a, 'b> ExtendingStructure<DeviceCreateInfo<'b>>
+    for PhysicalDeviceDeviceAddressCommandsFeaturesKHR<'a>
+{
+}
+#[cfg(feature = "ext_device_address_commands")]
+impl<'a> Default for PhysicalDeviceDeviceAddressCommandsFeaturesKHR<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            device_address_commands: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+#[cfg(feature = "ext_device_address_commands")]
+impl<'a> PhysicalDeviceDeviceAddressCommandsFeaturesKHR<'a> {
+    #[inline]
+    pub fn device_address_commands(mut self, value: impl Into<Bool32>) -> Self {
+        self.device_address_commands = value.into();
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[cfg(feature = "ext_device_address_commands")]
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkBindIndexBuffer3InfoKHR.html>"]
+#[doc(alias = "VkBindIndexBuffer3InfoKHR")]
+pub struct BindIndexBuffer3InfoKHR<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub address_range: DeviceAddressRangeKHR,
+    pub address_flags: AddressCommandFlagsKHR,
+    pub index_type: IndexType,
+    phantom: PhantomData<&'a ()>,
+}
+#[cfg(feature = "ext_device_address_commands")]
+unsafe impl<'a> ExtendableStructureBase for BindIndexBuffer3InfoKHR<'a> {}
+#[cfg(feature = "ext_device_address_commands")]
+unsafe impl<'a> ExtendableStructure for BindIndexBuffer3InfoKHR<'a> {
+    const STRUCTURE_TYPE: StructureType = StructureType::BindIndexBuffer3InfoKHR;
+}
+#[cfg(feature = "ext_device_address_commands")]
+unsafe impl<'a> Send for BindIndexBuffer3InfoKHR<'a> {}
+#[cfg(feature = "ext_device_address_commands")]
+unsafe impl<'a> Sync for BindIndexBuffer3InfoKHR<'a> {}
+#[cfg(feature = "ext_device_address_commands")]
+impl<'a> Default for BindIndexBuffer3InfoKHR<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            address_range: Default::default(),
+            address_flags: Default::default(),
+            index_type: IndexType::Uint16,
+            phantom: PhantomData,
+        }
+    }
+}
+#[cfg(feature = "ext_device_address_commands")]
+impl<'a> BindIndexBuffer3InfoKHR<'a> {
+    #[inline]
+    pub fn address_range(mut self, value: DeviceAddressRangeKHR) -> Self {
+        self.address_range = value;
+        self
+    }
+    #[inline]
+    pub fn address_flags(mut self, value: AddressCommandFlagsKHR) -> Self {
+        self.address_flags = value;
+        self
+    }
+    #[inline]
+    pub fn index_type(mut self, value: IndexType) -> Self {
+        self.index_type = value;
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[cfg(feature = "ext_device_address_commands")]
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkBindVertexBuffer3InfoKHR.html>"]
+#[doc(alias = "VkBindVertexBuffer3InfoKHR")]
+pub struct BindVertexBuffer3InfoKHR<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub set_stride: Bool32,
+    pub address_range: StridedDeviceAddressRangeKHR,
+    pub address_flags: AddressCommandFlagsKHR,
+    phantom: PhantomData<&'a ()>,
+}
+#[cfg(feature = "ext_device_address_commands")]
+unsafe impl<'a> ExtendableStructureBase for BindVertexBuffer3InfoKHR<'a> {}
+#[cfg(feature = "ext_device_address_commands")]
+unsafe impl<'a> ExtendableStructure for BindVertexBuffer3InfoKHR<'a> {
+    const STRUCTURE_TYPE: StructureType = StructureType::BindVertexBuffer3InfoKHR;
+}
+#[cfg(feature = "ext_device_address_commands")]
+unsafe impl<'a> Send for BindVertexBuffer3InfoKHR<'a> {}
+#[cfg(feature = "ext_device_address_commands")]
+unsafe impl<'a> Sync for BindVertexBuffer3InfoKHR<'a> {}
+#[cfg(feature = "ext_device_address_commands")]
+impl<'a> Default for BindVertexBuffer3InfoKHR<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            set_stride: Default::default(),
+            address_range: Default::default(),
+            address_flags: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+#[cfg(feature = "ext_device_address_commands")]
+impl<'a> BindVertexBuffer3InfoKHR<'a> {
+    #[inline]
+    pub fn set_stride(mut self, value: impl Into<Bool32>) -> Self {
+        self.set_stride = value.into();
+        self
+    }
+    #[inline]
+    pub fn address_range(mut self, value: StridedDeviceAddressRangeKHR) -> Self {
+        self.address_range = value;
+        self
+    }
+    #[inline]
+    pub fn address_flags(mut self, value: AddressCommandFlagsKHR) -> Self {
+        self.address_flags = value;
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[cfg(feature = "ext_device_address_commands")]
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDrawIndirect2InfoKHR.html>"]
+#[doc(alias = "VkDrawIndirect2InfoKHR")]
+pub struct DrawIndirect2InfoKHR<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub address_range: StridedDeviceAddressRangeKHR,
+    pub address_flags: AddressCommandFlagsKHR,
+    pub draw_count: u32,
+    phantom: PhantomData<&'a ()>,
+}
+#[cfg(feature = "ext_device_address_commands")]
+unsafe impl<'a> ExtendableStructureBase for DrawIndirect2InfoKHR<'a> {}
+#[cfg(feature = "ext_device_address_commands")]
+unsafe impl<'a> ExtendableStructure for DrawIndirect2InfoKHR<'a> {
+    const STRUCTURE_TYPE: StructureType = StructureType::DrawIndirect2InfoKHR;
+}
+#[cfg(feature = "ext_device_address_commands")]
+unsafe impl<'a> Send for DrawIndirect2InfoKHR<'a> {}
+#[cfg(feature = "ext_device_address_commands")]
+unsafe impl<'a> Sync for DrawIndirect2InfoKHR<'a> {}
+#[cfg(feature = "ext_device_address_commands")]
+impl<'a> Default for DrawIndirect2InfoKHR<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            address_range: Default::default(),
+            address_flags: Default::default(),
+            draw_count: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+#[cfg(feature = "ext_device_address_commands")]
+impl<'a> DrawIndirect2InfoKHR<'a> {
+    #[inline]
+    pub fn address_range(mut self, value: StridedDeviceAddressRangeKHR) -> Self {
+        self.address_range = value;
+        self
+    }
+    #[inline]
+    pub fn address_flags(mut self, value: AddressCommandFlagsKHR) -> Self {
+        self.address_flags = value;
+        self
+    }
+    #[inline]
+    pub fn draw_count(mut self, value: u32) -> Self {
+        self.draw_count = value;
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[cfg(feature = "ext_device_address_commands")]
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDrawIndirectCount2InfoKHR.html>"]
+#[doc(alias = "VkDrawIndirectCount2InfoKHR")]
+pub struct DrawIndirectCount2InfoKHR<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub address_range: StridedDeviceAddressRangeKHR,
+    pub address_flags: AddressCommandFlagsKHR,
+    pub count_address_range: DeviceAddressRangeKHR,
+    pub count_address_flags: AddressCommandFlagsKHR,
+    pub max_draw_count: u32,
+    phantom: PhantomData<&'a ()>,
+}
+#[cfg(feature = "ext_device_address_commands")]
+unsafe impl<'a> ExtendableStructureBase for DrawIndirectCount2InfoKHR<'a> {}
+#[cfg(feature = "ext_device_address_commands")]
+unsafe impl<'a> ExtendableStructure for DrawIndirectCount2InfoKHR<'a> {
+    const STRUCTURE_TYPE: StructureType = StructureType::DrawIndirectCount2InfoKHR;
+}
+#[cfg(feature = "ext_device_address_commands")]
+unsafe impl<'a> Send for DrawIndirectCount2InfoKHR<'a> {}
+#[cfg(feature = "ext_device_address_commands")]
+unsafe impl<'a> Sync for DrawIndirectCount2InfoKHR<'a> {}
+#[cfg(feature = "ext_device_address_commands")]
+impl<'a> Default for DrawIndirectCount2InfoKHR<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            address_range: Default::default(),
+            address_flags: Default::default(),
+            count_address_range: Default::default(),
+            count_address_flags: Default::default(),
+            max_draw_count: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+#[cfg(feature = "ext_device_address_commands")]
+impl<'a> DrawIndirectCount2InfoKHR<'a> {
+    #[inline]
+    pub fn address_range(mut self, value: StridedDeviceAddressRangeKHR) -> Self {
+        self.address_range = value;
+        self
+    }
+    #[inline]
+    pub fn address_flags(mut self, value: AddressCommandFlagsKHR) -> Self {
+        self.address_flags = value;
+        self
+    }
+    #[inline]
+    pub fn count_address_range(mut self, value: DeviceAddressRangeKHR) -> Self {
+        self.count_address_range = value;
+        self
+    }
+    #[inline]
+    pub fn count_address_flags(mut self, value: AddressCommandFlagsKHR) -> Self {
+        self.count_address_flags = value;
+        self
+    }
+    #[inline]
+    pub fn max_draw_count(mut self, value: u32) -> Self {
+        self.max_draw_count = value;
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[cfg(feature = "ext_device_address_commands")]
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDispatchIndirect2InfoKHR.html>"]
+#[doc(alias = "VkDispatchIndirect2InfoKHR")]
+pub struct DispatchIndirect2InfoKHR<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub address_range: DeviceAddressRangeKHR,
+    pub address_flags: AddressCommandFlagsKHR,
+    phantom: PhantomData<&'a ()>,
+}
+#[cfg(feature = "ext_device_address_commands")]
+unsafe impl<'a> ExtendableStructureBase for DispatchIndirect2InfoKHR<'a> {}
+#[cfg(feature = "ext_device_address_commands")]
+unsafe impl<'a> ExtendableStructure for DispatchIndirect2InfoKHR<'a> {
+    const STRUCTURE_TYPE: StructureType = StructureType::DispatchIndirect2InfoKHR;
+}
+#[cfg(feature = "ext_device_address_commands")]
+unsafe impl<'a> Send for DispatchIndirect2InfoKHR<'a> {}
+#[cfg(feature = "ext_device_address_commands")]
+unsafe impl<'a> Sync for DispatchIndirect2InfoKHR<'a> {}
+#[cfg(feature = "ext_device_address_commands")]
+impl<'a> Default for DispatchIndirect2InfoKHR<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            address_range: Default::default(),
+            address_flags: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+#[cfg(feature = "ext_device_address_commands")]
+impl<'a> DispatchIndirect2InfoKHR<'a> {
+    #[inline]
+    pub fn address_range(mut self, value: DeviceAddressRangeKHR) -> Self {
+        self.address_range = value;
+        self
+    }
+    #[inline]
+    pub fn address_flags(mut self, value: AddressCommandFlagsKHR) -> Self {
+        self.address_flags = value;
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[cfg(all(
+    feature = "ext_device_address_commands",
+    feature = "ext_conditional_rendering"
+))]
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkConditionalRenderingBeginInfo2EXT.html>"]
+#[doc(alias = "VkConditionalRenderingBeginInfo2EXT")]
+pub struct ConditionalRenderingBeginInfo2EXT<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub address_range: DeviceAddressRangeKHR,
+    pub address_flags: AddressCommandFlagsKHR,
+    pub flags: ConditionalRenderingFlagsEXT,
+    phantom: PhantomData<&'a ()>,
+}
+#[cfg(all(
+    feature = "ext_device_address_commands",
+    feature = "ext_conditional_rendering"
+))]
+unsafe impl<'a> ExtendableStructureBase for ConditionalRenderingBeginInfo2EXT<'a> {}
+#[cfg(all(
+    feature = "ext_device_address_commands",
+    feature = "ext_conditional_rendering"
+))]
+unsafe impl<'a> ExtendableStructure for ConditionalRenderingBeginInfo2EXT<'a> {
+    const STRUCTURE_TYPE: StructureType = StructureType::ConditionalRenderingBeginInfo2EXT;
+}
+#[cfg(all(
+    feature = "ext_device_address_commands",
+    feature = "ext_conditional_rendering"
+))]
+unsafe impl<'a> Send for ConditionalRenderingBeginInfo2EXT<'a> {}
+#[cfg(all(
+    feature = "ext_device_address_commands",
+    feature = "ext_conditional_rendering"
+))]
+unsafe impl<'a> Sync for ConditionalRenderingBeginInfo2EXT<'a> {}
+#[cfg(all(
+    feature = "ext_device_address_commands",
+    feature = "ext_conditional_rendering"
+))]
+impl<'a> Default for ConditionalRenderingBeginInfo2EXT<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            address_range: Default::default(),
+            address_flags: Default::default(),
+            flags: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+#[cfg(all(
+    feature = "ext_device_address_commands",
+    feature = "ext_conditional_rendering"
+))]
+impl<'a> ConditionalRenderingBeginInfo2EXT<'a> {
+    #[inline]
+    pub fn address_range(mut self, value: DeviceAddressRangeKHR) -> Self {
+        self.address_range = value;
+        self
+    }
+    #[inline]
+    pub fn address_flags(mut self, value: AddressCommandFlagsKHR) -> Self {
+        self.address_flags = value;
+        self
+    }
+    #[inline]
+    pub fn flags(mut self, value: ConditionalRenderingFlagsEXT) -> Self {
+        self.flags = value;
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[cfg(all(
+    feature = "ext_device_address_commands",
+    feature = "ext_transform_feedback"
+))]
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkBindTransformFeedbackBuffer2InfoEXT.html>"]
+#[doc(alias = "VkBindTransformFeedbackBuffer2InfoEXT")]
+pub struct BindTransformFeedbackBuffer2InfoEXT<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub address_range: DeviceAddressRangeKHR,
+    pub address_flags: AddressCommandFlagsKHR,
+    phantom: PhantomData<&'a ()>,
+}
+#[cfg(all(
+    feature = "ext_device_address_commands",
+    feature = "ext_transform_feedback"
+))]
+unsafe impl<'a> ExtendableStructureBase for BindTransformFeedbackBuffer2InfoEXT<'a> {}
+#[cfg(all(
+    feature = "ext_device_address_commands",
+    feature = "ext_transform_feedback"
+))]
+unsafe impl<'a> ExtendableStructure for BindTransformFeedbackBuffer2InfoEXT<'a> {
+    const STRUCTURE_TYPE: StructureType = StructureType::BindTransformFeedbackBuffer2InfoEXT;
+}
+#[cfg(all(
+    feature = "ext_device_address_commands",
+    feature = "ext_transform_feedback"
+))]
+unsafe impl<'a> Send for BindTransformFeedbackBuffer2InfoEXT<'a> {}
+#[cfg(all(
+    feature = "ext_device_address_commands",
+    feature = "ext_transform_feedback"
+))]
+unsafe impl<'a> Sync for BindTransformFeedbackBuffer2InfoEXT<'a> {}
+#[cfg(all(
+    feature = "ext_device_address_commands",
+    feature = "ext_transform_feedback"
+))]
+impl<'a> Default for BindTransformFeedbackBuffer2InfoEXT<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            address_range: Default::default(),
+            address_flags: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+#[cfg(all(
+    feature = "ext_device_address_commands",
+    feature = "ext_transform_feedback"
+))]
+impl<'a> BindTransformFeedbackBuffer2InfoEXT<'a> {
+    #[inline]
+    pub fn address_range(mut self, value: DeviceAddressRangeKHR) -> Self {
+        self.address_range = value;
+        self
+    }
+    #[inline]
+    pub fn address_flags(mut self, value: AddressCommandFlagsKHR) -> Self {
+        self.address_flags = value;
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[cfg(all(feature = "ext_device_address_commands", feature = "ext_buffer_marker"))]
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkMemoryMarkerInfoAMD.html>"]
+#[doc(alias = "VkMemoryMarkerInfoAMD")]
+pub struct MemoryMarkerInfoAMD<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub stage: PipelineStageFlags2KHR,
+    pub dst_range: DeviceAddressRangeKHR,
+    pub dst_flags: AddressCommandFlagsKHR,
+    pub marker: u32,
+    phantom: PhantomData<&'a ()>,
+}
+#[cfg(all(feature = "ext_device_address_commands", feature = "ext_buffer_marker"))]
+unsafe impl<'a> ExtendableStructureBase for MemoryMarkerInfoAMD<'a> {}
+#[cfg(all(feature = "ext_device_address_commands", feature = "ext_buffer_marker"))]
+unsafe impl<'a> ExtendableStructure for MemoryMarkerInfoAMD<'a> {
+    const STRUCTURE_TYPE: StructureType = StructureType::MemoryMarkerInfoAMD;
+}
+#[cfg(all(feature = "ext_device_address_commands", feature = "ext_buffer_marker"))]
+unsafe impl<'a> Send for MemoryMarkerInfoAMD<'a> {}
+#[cfg(all(feature = "ext_device_address_commands", feature = "ext_buffer_marker"))]
+unsafe impl<'a> Sync for MemoryMarkerInfoAMD<'a> {}
+#[cfg(all(feature = "ext_device_address_commands", feature = "ext_buffer_marker"))]
+impl<'a> Default for MemoryMarkerInfoAMD<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            stage: Default::default(),
+            dst_range: Default::default(),
+            dst_flags: Default::default(),
+            marker: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+#[cfg(all(feature = "ext_device_address_commands", feature = "ext_buffer_marker"))]
+impl<'a> MemoryMarkerInfoAMD<'a> {
+    #[inline]
+    pub fn stage(mut self, value: PipelineStageFlags2KHR) -> Self {
+        self.stage = value;
+        self
+    }
+    #[inline]
+    pub fn dst_range(mut self, value: DeviceAddressRangeKHR) -> Self {
+        self.dst_range = value;
+        self
+    }
+    #[inline]
+    pub fn dst_flags(mut self, value: AddressCommandFlagsKHR) -> Self {
+        self.dst_flags = value;
+        self
+    }
+    #[inline]
+    pub fn marker(mut self, value: u32) -> Self {
+        self.marker = value;
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[cfg(all(
+    feature = "ext_device_address_commands",
+    feature = "ext_acceleration_structure"
+))]
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAccelerationStructureCreateInfo2KHR.html>"]
+#[doc(alias = "VkAccelerationStructureCreateInfo2KHR")]
+pub struct AccelerationStructureCreateInfo2KHR<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub create_flags: AccelerationStructureCreateFlagsKHR,
+    pub address_range: DeviceAddressRangeKHR,
+    pub address_flags: AddressCommandFlagsKHR,
+    pub ty: AccelerationStructureTypeKHR,
+    phantom: PhantomData<&'a ()>,
+}
+#[cfg(all(
+    feature = "ext_device_address_commands",
+    feature = "ext_acceleration_structure"
+))]
+unsafe impl<'a> ExtendableStructureBase for AccelerationStructureCreateInfo2KHR<'a> {}
+#[cfg(all(
+    feature = "ext_device_address_commands",
+    feature = "ext_acceleration_structure"
+))]
+unsafe impl<'a> ExtendableStructure for AccelerationStructureCreateInfo2KHR<'a> {
+    const STRUCTURE_TYPE: StructureType = StructureType::AccelerationStructureCreateInfo2KHR;
+}
+#[cfg(all(
+    feature = "ext_device_address_commands",
+    feature = "ext_acceleration_structure"
+))]
+unsafe impl<'a> Send for AccelerationStructureCreateInfo2KHR<'a> {}
+#[cfg(all(
+    feature = "ext_device_address_commands",
+    feature = "ext_acceleration_structure"
+))]
+unsafe impl<'a> Sync for AccelerationStructureCreateInfo2KHR<'a> {}
+#[cfg(all(
+    feature = "ext_device_address_commands",
+    feature = "ext_acceleration_structure"
+))]
+impl<'a> Default for AccelerationStructureCreateInfo2KHR<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            create_flags: Default::default(),
+            address_range: Default::default(),
+            address_flags: Default::default(),
+            ty: AccelerationStructureTypeKHR::TopLevel,
+            phantom: PhantomData,
+        }
+    }
+}
+#[cfg(all(
+    feature = "ext_device_address_commands",
+    feature = "ext_acceleration_structure"
+))]
+impl<'a> AccelerationStructureCreateInfo2KHR<'a> {
+    #[inline]
+    pub fn create_flags(mut self, value: AccelerationStructureCreateFlagsKHR) -> Self {
+        self.create_flags = value;
+        self
+    }
+    #[inline]
+    pub fn address_range(mut self, value: DeviceAddressRangeKHR) -> Self {
+        self.address_range = value;
+        self
+    }
+    #[inline]
+    pub fn address_flags(mut self, value: AddressCommandFlagsKHR) -> Self {
+        self.address_flags = value;
+        self
+    }
+    #[inline]
+    pub fn ty(mut self, value: AccelerationStructureTypeKHR) -> Self {
+        self.ty = value;
         self
     }
     #[inline]
@@ -54660,6 +55842,14 @@ unsafe impl<'a, 'b> ExtendingStructure<BufferImageCopy2<'b>> for CopyCommandTran
     any(feature = "ext_copy_commands2", feature = "version_1_3")
 ))]
 unsafe impl<'a, 'b> ExtendingStructure<ImageBlit2<'b>> for CopyCommandTransformInfoQCOM<'a> {}
+#[cfg(all(
+    feature = "ext_rotated_copy_commands",
+    feature = "ext_device_address_commands"
+))]
+unsafe impl<'a, 'b> ExtendingStructure<DeviceMemoryImageCopyKHR<'b>>
+    for CopyCommandTransformInfoQCOM<'a>
+{
+}
 #[cfg(feature = "ext_rotated_copy_commands")]
 impl<'a> Default for CopyCommandTransformInfoQCOM<'a> {
     fn default() -> Self {
@@ -74785,48 +75975,6 @@ impl<'a> TileMemorySizeInfoQCOM<'a> {
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
         unsafe { self.push_next_unchecked(ext) };
-        self
-    }
-}
-#[cfg(feature = "ext_copy_memory_indirect")]
-#[repr(C)]
-#[derive(Clone, Copy)]
-#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkStridedDeviceAddressRangeKHR.html>"]
-#[doc(alias = "VkStridedDeviceAddressRangeKHR")]
-pub struct StridedDeviceAddressRangeKHR {
-    pub address: DeviceAddress,
-    pub size: DeviceSize,
-    pub stride: DeviceSize,
-}
-#[cfg(feature = "ext_copy_memory_indirect")]
-unsafe impl Send for StridedDeviceAddressRangeKHR {}
-#[cfg(feature = "ext_copy_memory_indirect")]
-unsafe impl Sync for StridedDeviceAddressRangeKHR {}
-#[cfg(feature = "ext_copy_memory_indirect")]
-impl Default for StridedDeviceAddressRangeKHR {
-    fn default() -> Self {
-        Self {
-            address: Default::default(),
-            size: Default::default(),
-            stride: Default::default(),
-        }
-    }
-}
-#[cfg(feature = "ext_copy_memory_indirect")]
-impl StridedDeviceAddressRangeKHR {
-    #[inline]
-    pub fn address(mut self, value: DeviceAddress) -> Self {
-        self.address = value;
-        self
-    }
-    #[inline]
-    pub fn size(mut self, value: DeviceSize) -> Self {
-        self.size = value;
-        self
-    }
-    #[inline]
-    pub fn stride(mut self, value: DeviceSize) -> Self {
-        self.stride = value;
         self
     }
 }

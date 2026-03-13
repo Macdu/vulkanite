@@ -4744,6 +4744,214 @@ pub struct CommandsDispatcher {
             VoidPtr,
         ) -> Status,
     >,
+    #[cfg(feature = "ext_device_address_commands")]
+    pub cmd_bind_index_buffer3_khr: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            *const BindIndexBuffer3InfoKHR,
+        ),
+    >,
+    #[cfg(feature = "ext_device_address_commands")]
+    pub cmd_bind_vertex_buffers3_khr: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            u32,
+            u32,
+            *const BindVertexBuffer3InfoKHR,
+        ),
+    >,
+    #[cfg(feature = "ext_device_address_commands")]
+    pub cmd_draw_indirect2_khr: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            *const DrawIndirect2InfoKHR,
+        ),
+    >,
+    #[cfg(feature = "ext_device_address_commands")]
+    pub cmd_draw_indexed_indirect2_khr: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            *const DrawIndirect2InfoKHR,
+        ),
+    >,
+    #[cfg(feature = "ext_device_address_commands")]
+    pub cmd_dispatch_indirect2_khr: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            *const DispatchIndirect2InfoKHR,
+        ),
+    >,
+    #[cfg(feature = "ext_device_address_commands")]
+    pub cmd_copy_memory_khr: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            *const CopyDeviceMemoryInfoKHR,
+        ),
+    >,
+    #[cfg(feature = "ext_device_address_commands")]
+    pub cmd_copy_memory_to_image_khr: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            *const CopyDeviceMemoryImageInfoKHR,
+        ),
+    >,
+    #[cfg(feature = "ext_device_address_commands")]
+    pub cmd_copy_image_to_memory_khr: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            *const CopyDeviceMemoryImageInfoKHR,
+        ),
+    >,
+    #[cfg(feature = "ext_device_address_commands")]
+    pub cmd_update_memory_khr: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            *const DeviceAddressRangeKHR,
+            AddressCommandFlagsKHR,
+            DeviceSize,
+            VoidPtr,
+        ),
+    >,
+    #[cfg(feature = "ext_device_address_commands")]
+    pub cmd_fill_memory_khr: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            *const DeviceAddressRangeKHR,
+            AddressCommandFlagsKHR,
+            u32,
+        ),
+    >,
+    #[cfg(feature = "ext_device_address_commands")]
+    pub cmd_copy_query_pool_results_to_memory_khr: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            Option<BorrowedHandle<'_, QueryPool>>,
+            u32,
+            u32,
+            *const StridedDeviceAddressRangeKHR,
+            AddressCommandFlagsKHR,
+            QueryResultFlags,
+        ),
+    >,
+    #[cfg(all(
+        feature = "ext_device_address_commands",
+        any(feature = "ext_draw_indirect_count", feature = "version_1_2")
+    ))]
+    pub cmd_draw_indirect_count2_khr: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            *const DrawIndirectCount2InfoKHR,
+        ),
+    >,
+    #[cfg(all(
+        feature = "ext_device_address_commands",
+        any(feature = "ext_draw_indirect_count", feature = "version_1_2")
+    ))]
+    pub cmd_draw_indexed_indirect_count2_khr: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            *const DrawIndirectCount2InfoKHR,
+        ),
+    >,
+    #[cfg(all(
+        feature = "ext_device_address_commands",
+        feature = "ext_conditional_rendering"
+    ))]
+    pub cmd_begin_conditional_rendering2_ext: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            *const ConditionalRenderingBeginInfo2EXT,
+        ),
+    >,
+    #[cfg(all(
+        feature = "ext_device_address_commands",
+        feature = "ext_transform_feedback"
+    ))]
+    pub cmd_bind_transform_feedback_buffers2_ext: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            u32,
+            u32,
+            *const BindTransformFeedbackBuffer2InfoEXT,
+        ),
+    >,
+    #[cfg(all(
+        feature = "ext_device_address_commands",
+        feature = "ext_transform_feedback"
+    ))]
+    pub cmd_begin_transform_feedback2_ext: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            u32,
+            u32,
+            *const BindTransformFeedbackBuffer2InfoEXT,
+        ),
+    >,
+    #[cfg(all(
+        feature = "ext_device_address_commands",
+        feature = "ext_transform_feedback"
+    ))]
+    pub cmd_end_transform_feedback2_ext: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            u32,
+            u32,
+            *const BindTransformFeedbackBuffer2InfoEXT,
+        ),
+    >,
+    #[cfg(all(
+        feature = "ext_device_address_commands",
+        feature = "ext_transform_feedback"
+    ))]
+    pub cmd_draw_indirect_byte_count2_ext: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            u32,
+            u32,
+            *const BindTransformFeedbackBuffer2InfoEXT,
+            u32,
+            u32,
+        ),
+    >,
+    #[cfg(all(feature = "ext_device_address_commands", feature = "ext_mesh_shader"))]
+    pub cmd_draw_mesh_tasks_indirect2_ext: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            *const DrawIndirect2InfoKHR,
+        ),
+    >,
+    #[cfg(all(
+        feature = "ext_device_address_commands",
+        all(
+            any(feature = "ext_draw_indirect_count", feature = "version_1_2"),
+            feature = "ext_mesh_shader"
+        )
+    ))]
+    pub cmd_draw_mesh_tasks_indirect_count2_ext: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            *const DrawIndirectCount2InfoKHR,
+        ),
+    >,
+    #[cfg(all(feature = "ext_device_address_commands", feature = "ext_buffer_marker"))]
+    pub cmd_write_marker_to_memory_amd: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            *const MemoryMarkerInfoAMD,
+        ),
+    >,
+    #[cfg(all(
+        feature = "ext_device_address_commands",
+        feature = "ext_acceleration_structure"
+    ))]
+    pub create_acceleration_structure2_khr: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            *const AccelerationStructureCreateInfo2KHR,
+            *const AllocationCallbacks,
+            *const AccelerationStructureKHR,
+        ) -> Status,
+    >,
     #[cfg(feature = "ext_fragment_shading_rate_enums")]
     pub cmd_set_fragment_shading_rate_enum_nv: Cell<
         unsafe extern "system" fn(
@@ -12672,6 +12880,295 @@ impl CommandsDispatcher {
             self.get_acceleration_structure_opaque_capture_descriptor_data_ext
                 .set(vk_func_ptr);
         }
+        #[cfg(feature = "ext_device_address_commands")]
+        {
+            let mut vk_func_ptr = self.cmd_bind_index_buffer3_khr.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkCmdBindIndexBuffer3KHR".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_bind_index_buffer3_khr.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_device_address_commands")]
+        {
+            let mut vk_func_ptr = self.cmd_bind_vertex_buffers3_khr.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkCmdBindVertexBuffers3KHR".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_bind_vertex_buffers3_khr.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_device_address_commands")]
+        {
+            let mut vk_func_ptr = self.cmd_draw_indirect2_khr.get();
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdDrawIndirect2KHR".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_draw_indirect2_khr.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_device_address_commands")]
+        {
+            let mut vk_func_ptr = self.cmd_draw_indexed_indirect2_khr.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkCmdDrawIndexedIndirect2KHR".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_draw_indexed_indirect2_khr.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_device_address_commands")]
+        {
+            let mut vk_func_ptr = self.cmd_dispatch_indirect2_khr.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkCmdDispatchIndirect2KHR".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_dispatch_indirect2_khr.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_device_address_commands")]
+        {
+            let mut vk_func_ptr = self.cmd_copy_memory_khr.get();
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdCopyMemoryKHR".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_copy_memory_khr.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_device_address_commands")]
+        {
+            let mut vk_func_ptr = self.cmd_copy_memory_to_image_khr.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkCmdCopyMemoryToImageKHR".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_copy_memory_to_image_khr.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_device_address_commands")]
+        {
+            let mut vk_func_ptr = self.cmd_copy_image_to_memory_khr.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkCmdCopyImageToMemoryKHR".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_copy_image_to_memory_khr.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_device_address_commands")]
+        {
+            let mut vk_func_ptr = self.cmd_update_memory_khr.get();
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdUpdateMemoryKHR".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_update_memory_khr.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_device_address_commands")]
+        {
+            let mut vk_func_ptr = self.cmd_fill_memory_khr.get();
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdFillMemoryKHR".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_fill_memory_khr.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_device_address_commands")]
+        {
+            let mut vk_func_ptr = self.cmd_copy_query_pool_results_to_memory_khr.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkCmdCopyQueryPoolResultsToMemoryKHR".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_copy_query_pool_results_to_memory_khr
+                .set(vk_func_ptr);
+        }
+        #[cfg(all(
+            feature = "ext_device_address_commands",
+            any(feature = "ext_draw_indirect_count", feature = "version_1_2")
+        ))]
+        {
+            let mut vk_func_ptr = self.cmd_draw_indirect_count2_khr.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkCmdDrawIndirectCount2KHR".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_draw_indirect_count2_khr.set(vk_func_ptr);
+        }
+        #[cfg(all(
+            feature = "ext_device_address_commands",
+            any(feature = "ext_draw_indirect_count", feature = "version_1_2")
+        ))]
+        {
+            let mut vk_func_ptr = self.cmd_draw_indexed_indirect_count2_khr.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkCmdDrawIndexedIndirectCount2KHR".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_draw_indexed_indirect_count2_khr.set(vk_func_ptr);
+        }
+        #[cfg(all(
+            feature = "ext_device_address_commands",
+            feature = "ext_conditional_rendering"
+        ))]
+        {
+            let mut vk_func_ptr = self.cmd_begin_conditional_rendering2_ext.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkCmdBeginConditionalRendering2EXT".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_begin_conditional_rendering2_ext.set(vk_func_ptr);
+        }
+        #[cfg(all(
+            feature = "ext_device_address_commands",
+            feature = "ext_transform_feedback"
+        ))]
+        {
+            let mut vk_func_ptr = self.cmd_bind_transform_feedback_buffers2_ext.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkCmdBindTransformFeedbackBuffers2EXT".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_bind_transform_feedback_buffers2_ext
+                .set(vk_func_ptr);
+        }
+        #[cfg(all(
+            feature = "ext_device_address_commands",
+            feature = "ext_transform_feedback"
+        ))]
+        {
+            let mut vk_func_ptr = self.cmd_begin_transform_feedback2_ext.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkCmdBeginTransformFeedback2EXT".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_begin_transform_feedback2_ext.set(vk_func_ptr);
+        }
+        #[cfg(all(
+            feature = "ext_device_address_commands",
+            feature = "ext_transform_feedback"
+        ))]
+        {
+            let mut vk_func_ptr = self.cmd_end_transform_feedback2_ext.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkCmdEndTransformFeedback2EXT".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_end_transform_feedback2_ext.set(vk_func_ptr);
+        }
+        #[cfg(all(
+            feature = "ext_device_address_commands",
+            feature = "ext_transform_feedback"
+        ))]
+        {
+            let mut vk_func_ptr = self.cmd_draw_indirect_byte_count2_ext.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkCmdDrawIndirectByteCount2EXT".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_draw_indirect_byte_count2_ext.set(vk_func_ptr);
+        }
+        #[cfg(all(feature = "ext_device_address_commands", feature = "ext_mesh_shader"))]
+        {
+            let mut vk_func_ptr = self.cmd_draw_mesh_tasks_indirect2_ext.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkCmdDrawMeshTasksIndirect2EXT".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_draw_mesh_tasks_indirect2_ext.set(vk_func_ptr);
+        }
+        #[cfg(all(
+            feature = "ext_device_address_commands",
+            all(
+                any(feature = "ext_draw_indirect_count", feature = "version_1_2"),
+                feature = "ext_mesh_shader"
+            )
+        ))]
+        {
+            let mut vk_func_ptr = self.cmd_draw_mesh_tasks_indirect_count2_ext.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkCmdDrawMeshTasksIndirectCount2EXT".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_draw_mesh_tasks_indirect_count2_ext
+                .set(vk_func_ptr);
+        }
+        #[cfg(all(feature = "ext_device_address_commands", feature = "ext_buffer_marker"))]
+        {
+            let mut vk_func_ptr = self.cmd_write_marker_to_memory_amd.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkCmdWriteMarkerToMemoryAMD".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_write_marker_to_memory_amd.set(vk_func_ptr);
+        }
+        #[cfg(all(
+            feature = "ext_device_address_commands",
+            feature = "ext_acceleration_structure"
+        ))]
+        {
+            let mut vk_func_ptr = self.create_acceleration_structure2_khr.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkCreateAccelerationStructure2KHR".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.create_acceleration_structure2_khr.set(vk_func_ptr);
+        }
         #[cfg(feature = "ext_fragment_shading_rate_enums")]
         {
             let mut vk_func_ptr = self.cmd_set_fragment_shading_rate_enum_nv.get();
@@ -20150,6 +20647,287 @@ impl CommandsDispatcher {
             self.get_acceleration_structure_opaque_capture_descriptor_data_ext
                 .set(vk_func_ptr);
         }
+        #[cfg(feature = "ext_device_address_commands")]
+        {
+            let mut vk_func_ptr = self.cmd_bind_index_buffer3_khr.get();
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkCmdBindIndexBuffer3KHR".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_bind_index_buffer3_khr.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_device_address_commands")]
+        {
+            let mut vk_func_ptr = self.cmd_bind_vertex_buffers3_khr.get();
+            let loaded_ptr = get_device_proc_addr(
+                Some(device.borrow()),
+                c"vkCmdBindVertexBuffers3KHR".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_bind_vertex_buffers3_khr.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_device_address_commands")]
+        {
+            let mut vk_func_ptr = self.cmd_draw_indirect2_khr.get();
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkCmdDrawIndirect2KHR".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_draw_indirect2_khr.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_device_address_commands")]
+        {
+            let mut vk_func_ptr = self.cmd_draw_indexed_indirect2_khr.get();
+            let loaded_ptr = get_device_proc_addr(
+                Some(device.borrow()),
+                c"vkCmdDrawIndexedIndirect2KHR".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_draw_indexed_indirect2_khr.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_device_address_commands")]
+        {
+            let mut vk_func_ptr = self.cmd_dispatch_indirect2_khr.get();
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkCmdDispatchIndirect2KHR".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_dispatch_indirect2_khr.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_device_address_commands")]
+        {
+            let mut vk_func_ptr = self.cmd_copy_memory_khr.get();
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkCmdCopyMemoryKHR".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_copy_memory_khr.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_device_address_commands")]
+        {
+            let mut vk_func_ptr = self.cmd_copy_memory_to_image_khr.get();
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkCmdCopyMemoryToImageKHR".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_copy_memory_to_image_khr.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_device_address_commands")]
+        {
+            let mut vk_func_ptr = self.cmd_copy_image_to_memory_khr.get();
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkCmdCopyImageToMemoryKHR".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_copy_image_to_memory_khr.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_device_address_commands")]
+        {
+            let mut vk_func_ptr = self.cmd_update_memory_khr.get();
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkCmdUpdateMemoryKHR".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_update_memory_khr.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_device_address_commands")]
+        {
+            let mut vk_func_ptr = self.cmd_fill_memory_khr.get();
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkCmdFillMemoryKHR".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_fill_memory_khr.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_device_address_commands")]
+        {
+            let mut vk_func_ptr = self.cmd_copy_query_pool_results_to_memory_khr.get();
+            let loaded_ptr = get_device_proc_addr(
+                Some(device.borrow()),
+                c"vkCmdCopyQueryPoolResultsToMemoryKHR".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_copy_query_pool_results_to_memory_khr
+                .set(vk_func_ptr);
+        }
+        #[cfg(all(
+            feature = "ext_device_address_commands",
+            any(feature = "ext_draw_indirect_count", feature = "version_1_2")
+        ))]
+        {
+            let mut vk_func_ptr = self.cmd_draw_indirect_count2_khr.get();
+            let loaded_ptr = get_device_proc_addr(
+                Some(device.borrow()),
+                c"vkCmdDrawIndirectCount2KHR".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_draw_indirect_count2_khr.set(vk_func_ptr);
+        }
+        #[cfg(all(
+            feature = "ext_device_address_commands",
+            any(feature = "ext_draw_indirect_count", feature = "version_1_2")
+        ))]
+        {
+            let mut vk_func_ptr = self.cmd_draw_indexed_indirect_count2_khr.get();
+            let loaded_ptr = get_device_proc_addr(
+                Some(device.borrow()),
+                c"vkCmdDrawIndexedIndirectCount2KHR".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_draw_indexed_indirect_count2_khr.set(vk_func_ptr);
+        }
+        #[cfg(all(
+            feature = "ext_device_address_commands",
+            feature = "ext_conditional_rendering"
+        ))]
+        {
+            let mut vk_func_ptr = self.cmd_begin_conditional_rendering2_ext.get();
+            let loaded_ptr = get_device_proc_addr(
+                Some(device.borrow()),
+                c"vkCmdBeginConditionalRendering2EXT".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_begin_conditional_rendering2_ext.set(vk_func_ptr);
+        }
+        #[cfg(all(
+            feature = "ext_device_address_commands",
+            feature = "ext_transform_feedback"
+        ))]
+        {
+            let mut vk_func_ptr = self.cmd_bind_transform_feedback_buffers2_ext.get();
+            let loaded_ptr = get_device_proc_addr(
+                Some(device.borrow()),
+                c"vkCmdBindTransformFeedbackBuffers2EXT".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_bind_transform_feedback_buffers2_ext
+                .set(vk_func_ptr);
+        }
+        #[cfg(all(
+            feature = "ext_device_address_commands",
+            feature = "ext_transform_feedback"
+        ))]
+        {
+            let mut vk_func_ptr = self.cmd_begin_transform_feedback2_ext.get();
+            let loaded_ptr = get_device_proc_addr(
+                Some(device.borrow()),
+                c"vkCmdBeginTransformFeedback2EXT".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_begin_transform_feedback2_ext.set(vk_func_ptr);
+        }
+        #[cfg(all(
+            feature = "ext_device_address_commands",
+            feature = "ext_transform_feedback"
+        ))]
+        {
+            let mut vk_func_ptr = self.cmd_end_transform_feedback2_ext.get();
+            let loaded_ptr = get_device_proc_addr(
+                Some(device.borrow()),
+                c"vkCmdEndTransformFeedback2EXT".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_end_transform_feedback2_ext.set(vk_func_ptr);
+        }
+        #[cfg(all(
+            feature = "ext_device_address_commands",
+            feature = "ext_transform_feedback"
+        ))]
+        {
+            let mut vk_func_ptr = self.cmd_draw_indirect_byte_count2_ext.get();
+            let loaded_ptr = get_device_proc_addr(
+                Some(device.borrow()),
+                c"vkCmdDrawIndirectByteCount2EXT".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_draw_indirect_byte_count2_ext.set(vk_func_ptr);
+        }
+        #[cfg(all(feature = "ext_device_address_commands", feature = "ext_mesh_shader"))]
+        {
+            let mut vk_func_ptr = self.cmd_draw_mesh_tasks_indirect2_ext.get();
+            let loaded_ptr = get_device_proc_addr(
+                Some(device.borrow()),
+                c"vkCmdDrawMeshTasksIndirect2EXT".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_draw_mesh_tasks_indirect2_ext.set(vk_func_ptr);
+        }
+        #[cfg(all(
+            feature = "ext_device_address_commands",
+            all(
+                any(feature = "ext_draw_indirect_count", feature = "version_1_2"),
+                feature = "ext_mesh_shader"
+            )
+        ))]
+        {
+            let mut vk_func_ptr = self.cmd_draw_mesh_tasks_indirect_count2_ext.get();
+            let loaded_ptr = get_device_proc_addr(
+                Some(device.borrow()),
+                c"vkCmdDrawMeshTasksIndirectCount2EXT".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_draw_mesh_tasks_indirect_count2_ext
+                .set(vk_func_ptr);
+        }
+        #[cfg(all(feature = "ext_device_address_commands", feature = "ext_buffer_marker"))]
+        {
+            let mut vk_func_ptr = self.cmd_write_marker_to_memory_amd.get();
+            let loaded_ptr = get_device_proc_addr(
+                Some(device.borrow()),
+                c"vkCmdWriteMarkerToMemoryAMD".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_write_marker_to_memory_amd.set(vk_func_ptr);
+        }
+        #[cfg(all(
+            feature = "ext_device_address_commands",
+            feature = "ext_acceleration_structure"
+        ))]
+        {
+            let mut vk_func_ptr = self.create_acceleration_structure2_khr.get();
+            let loaded_ptr = get_device_proc_addr(
+                Some(device.borrow()),
+                c"vkCreateAccelerationStructure2KHR".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.create_acceleration_structure2_khr.set(vk_func_ptr);
+        }
         #[cfg(feature = "ext_fragment_shading_rate_enums")]
         {
             let mut vk_func_ptr = self.cmd_set_fragment_shading_rate_enum_nv.get();
@@ -23730,6 +24508,83 @@ impl CommandsDispatcher {
                 get_acceleration_structure_opaque_capture_descriptor_data_ext: Cell::new(
                     mem::transmute(unload_cmd),
                 ),
+                #[cfg(feature = "ext_device_address_commands")]
+                cmd_bind_index_buffer3_khr: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(feature = "ext_device_address_commands")]
+                cmd_bind_vertex_buffers3_khr: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(feature = "ext_device_address_commands")]
+                cmd_draw_indirect2_khr: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(feature = "ext_device_address_commands")]
+                cmd_draw_indexed_indirect2_khr: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(feature = "ext_device_address_commands")]
+                cmd_dispatch_indirect2_khr: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(feature = "ext_device_address_commands")]
+                cmd_copy_memory_khr: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(feature = "ext_device_address_commands")]
+                cmd_copy_memory_to_image_khr: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(feature = "ext_device_address_commands")]
+                cmd_copy_image_to_memory_khr: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(feature = "ext_device_address_commands")]
+                cmd_update_memory_khr: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(feature = "ext_device_address_commands")]
+                cmd_fill_memory_khr: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(feature = "ext_device_address_commands")]
+                cmd_copy_query_pool_results_to_memory_khr: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(all(
+                    feature = "ext_device_address_commands",
+                    any(feature = "ext_draw_indirect_count", feature = "version_1_2")
+                ))]
+                cmd_draw_indirect_count2_khr: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(all(
+                    feature = "ext_device_address_commands",
+                    any(feature = "ext_draw_indirect_count", feature = "version_1_2")
+                ))]
+                cmd_draw_indexed_indirect_count2_khr: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(all(
+                    feature = "ext_device_address_commands",
+                    feature = "ext_conditional_rendering"
+                ))]
+                cmd_begin_conditional_rendering2_ext: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(all(
+                    feature = "ext_device_address_commands",
+                    feature = "ext_transform_feedback"
+                ))]
+                cmd_bind_transform_feedback_buffers2_ext: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(all(
+                    feature = "ext_device_address_commands",
+                    feature = "ext_transform_feedback"
+                ))]
+                cmd_begin_transform_feedback2_ext: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(all(
+                    feature = "ext_device_address_commands",
+                    feature = "ext_transform_feedback"
+                ))]
+                cmd_end_transform_feedback2_ext: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(all(
+                    feature = "ext_device_address_commands",
+                    feature = "ext_transform_feedback"
+                ))]
+                cmd_draw_indirect_byte_count2_ext: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(all(feature = "ext_device_address_commands", feature = "ext_mesh_shader"))]
+                cmd_draw_mesh_tasks_indirect2_ext: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(all(
+                    feature = "ext_device_address_commands",
+                    all(
+                        any(feature = "ext_draw_indirect_count", feature = "version_1_2"),
+                        feature = "ext_mesh_shader"
+                    )
+                ))]
+                cmd_draw_mesh_tasks_indirect_count2_ext: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(all(
+                    feature = "ext_device_address_commands",
+                    feature = "ext_buffer_marker"
+                ))]
+                cmd_write_marker_to_memory_amd: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(all(
+                    feature = "ext_device_address_commands",
+                    feature = "ext_acceleration_structure"
+                ))]
+                create_acceleration_structure2_khr: Cell::new(mem::transmute(unload_cmd)),
                 #[cfg(feature = "ext_fragment_shading_rate_enums")]
                 cmd_set_fragment_shading_rate_enum_nv: Cell::new(mem::transmute(unload_cmd)),
                 #[cfg(feature = "ext_mesh_shader")]
@@ -28487,6 +29342,214 @@ impl CommandsDispatcher {
         ) -> Status {
             panic!("Trying to call an unloaded Vulkan command");
         }
+        #[cfg(feature = "ext_device_address_commands")]
+        extern "system" fn cmd_bind_index_buffer3_khr(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
+            _: *const BindIndexBuffer3InfoKHR,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(feature = "ext_device_address_commands")]
+        extern "system" fn cmd_bind_vertex_buffers3_khr(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
+            _: u32,
+            _: u32,
+            _: *const BindVertexBuffer3InfoKHR,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(feature = "ext_device_address_commands")]
+        extern "system" fn cmd_draw_indirect2_khr(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
+            _: *const DrawIndirect2InfoKHR,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(feature = "ext_device_address_commands")]
+        extern "system" fn cmd_draw_indexed_indirect2_khr(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
+            _: *const DrawIndirect2InfoKHR,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(feature = "ext_device_address_commands")]
+        extern "system" fn cmd_dispatch_indirect2_khr(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
+            _: *const DispatchIndirect2InfoKHR,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(feature = "ext_device_address_commands")]
+        extern "system" fn cmd_copy_memory_khr(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
+            _: *const CopyDeviceMemoryInfoKHR,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(feature = "ext_device_address_commands")]
+        extern "system" fn cmd_copy_memory_to_image_khr(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
+            _: *const CopyDeviceMemoryImageInfoKHR,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(feature = "ext_device_address_commands")]
+        extern "system" fn cmd_copy_image_to_memory_khr(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
+            _: *const CopyDeviceMemoryImageInfoKHR,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(feature = "ext_device_address_commands")]
+        extern "system" fn cmd_update_memory_khr(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
+            _: *const DeviceAddressRangeKHR,
+            _: AddressCommandFlagsKHR,
+            _: DeviceSize,
+            _: VoidPtr,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(feature = "ext_device_address_commands")]
+        extern "system" fn cmd_fill_memory_khr(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
+            _: *const DeviceAddressRangeKHR,
+            _: AddressCommandFlagsKHR,
+            _: u32,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(feature = "ext_device_address_commands")]
+        extern "system" fn cmd_copy_query_pool_results_to_memory_khr(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
+            _: Option<BorrowedHandle<'_, QueryPool>>,
+            _: u32,
+            _: u32,
+            _: *const StridedDeviceAddressRangeKHR,
+            _: AddressCommandFlagsKHR,
+            _: QueryResultFlags,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(all(
+            feature = "ext_device_address_commands",
+            any(feature = "ext_draw_indirect_count", feature = "version_1_2")
+        ))]
+        extern "system" fn cmd_draw_indirect_count2_khr(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
+            _: *const DrawIndirectCount2InfoKHR,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(all(
+            feature = "ext_device_address_commands",
+            any(feature = "ext_draw_indirect_count", feature = "version_1_2")
+        ))]
+        extern "system" fn cmd_draw_indexed_indirect_count2_khr(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
+            _: *const DrawIndirectCount2InfoKHR,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(all(
+            feature = "ext_device_address_commands",
+            feature = "ext_conditional_rendering"
+        ))]
+        extern "system" fn cmd_begin_conditional_rendering2_ext(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
+            _: *const ConditionalRenderingBeginInfo2EXT,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(all(
+            feature = "ext_device_address_commands",
+            feature = "ext_transform_feedback"
+        ))]
+        extern "system" fn cmd_bind_transform_feedback_buffers2_ext(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
+            _: u32,
+            _: u32,
+            _: *const BindTransformFeedbackBuffer2InfoEXT,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(all(
+            feature = "ext_device_address_commands",
+            feature = "ext_transform_feedback"
+        ))]
+        extern "system" fn cmd_begin_transform_feedback2_ext(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
+            _: u32,
+            _: u32,
+            _: *const BindTransformFeedbackBuffer2InfoEXT,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(all(
+            feature = "ext_device_address_commands",
+            feature = "ext_transform_feedback"
+        ))]
+        extern "system" fn cmd_end_transform_feedback2_ext(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
+            _: u32,
+            _: u32,
+            _: *const BindTransformFeedbackBuffer2InfoEXT,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(all(
+            feature = "ext_device_address_commands",
+            feature = "ext_transform_feedback"
+        ))]
+        extern "system" fn cmd_draw_indirect_byte_count2_ext(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
+            _: u32,
+            _: u32,
+            _: *const BindTransformFeedbackBuffer2InfoEXT,
+            _: u32,
+            _: u32,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(all(feature = "ext_device_address_commands", feature = "ext_mesh_shader"))]
+        extern "system" fn cmd_draw_mesh_tasks_indirect2_ext(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
+            _: *const DrawIndirect2InfoKHR,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(all(
+            feature = "ext_device_address_commands",
+            all(
+                any(feature = "ext_draw_indirect_count", feature = "version_1_2"),
+                feature = "ext_mesh_shader"
+            )
+        ))]
+        extern "system" fn cmd_draw_mesh_tasks_indirect_count2_ext(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
+            _: *const DrawIndirectCount2InfoKHR,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(all(feature = "ext_device_address_commands", feature = "ext_buffer_marker"))]
+        extern "system" fn cmd_write_marker_to_memory_amd(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
+            _: *const MemoryMarkerInfoAMD,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(all(
+            feature = "ext_device_address_commands",
+            feature = "ext_acceleration_structure"
+        ))]
+        extern "system" fn create_acceleration_structure2_khr(
+            _: Option<BorrowedHandle<'_, Device>>,
+            _: *const AccelerationStructureCreateInfo2KHR,
+            _: *const AllocationCallbacks,
+            _: *const AccelerationStructureKHR,
+        ) -> Status {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
         #[cfg(feature = "ext_fragment_shading_rate_enums")]
         extern "system" fn cmd_set_fragment_shading_rate_enum_nv(
             _: Option<BorrowedHandle<'_, CommandBuffer>>,
@@ -31688,6 +32751,86 @@ impl CommandsDispatcher {
             get_acceleration_structure_opaque_capture_descriptor_data_ext: Cell::new(
                 get_acceleration_structure_opaque_capture_descriptor_data_ext,
             ),
+            #[cfg(feature = "ext_device_address_commands")]
+            cmd_bind_index_buffer3_khr: Cell::new(cmd_bind_index_buffer3_khr),
+            #[cfg(feature = "ext_device_address_commands")]
+            cmd_bind_vertex_buffers3_khr: Cell::new(cmd_bind_vertex_buffers3_khr),
+            #[cfg(feature = "ext_device_address_commands")]
+            cmd_draw_indirect2_khr: Cell::new(cmd_draw_indirect2_khr),
+            #[cfg(feature = "ext_device_address_commands")]
+            cmd_draw_indexed_indirect2_khr: Cell::new(cmd_draw_indexed_indirect2_khr),
+            #[cfg(feature = "ext_device_address_commands")]
+            cmd_dispatch_indirect2_khr: Cell::new(cmd_dispatch_indirect2_khr),
+            #[cfg(feature = "ext_device_address_commands")]
+            cmd_copy_memory_khr: Cell::new(cmd_copy_memory_khr),
+            #[cfg(feature = "ext_device_address_commands")]
+            cmd_copy_memory_to_image_khr: Cell::new(cmd_copy_memory_to_image_khr),
+            #[cfg(feature = "ext_device_address_commands")]
+            cmd_copy_image_to_memory_khr: Cell::new(cmd_copy_image_to_memory_khr),
+            #[cfg(feature = "ext_device_address_commands")]
+            cmd_update_memory_khr: Cell::new(cmd_update_memory_khr),
+            #[cfg(feature = "ext_device_address_commands")]
+            cmd_fill_memory_khr: Cell::new(cmd_fill_memory_khr),
+            #[cfg(feature = "ext_device_address_commands")]
+            cmd_copy_query_pool_results_to_memory_khr: Cell::new(
+                cmd_copy_query_pool_results_to_memory_khr,
+            ),
+            #[cfg(all(
+                feature = "ext_device_address_commands",
+                any(feature = "ext_draw_indirect_count", feature = "version_1_2")
+            ))]
+            cmd_draw_indirect_count2_khr: Cell::new(cmd_draw_indirect_count2_khr),
+            #[cfg(all(
+                feature = "ext_device_address_commands",
+                any(feature = "ext_draw_indirect_count", feature = "version_1_2")
+            ))]
+            cmd_draw_indexed_indirect_count2_khr: Cell::new(cmd_draw_indexed_indirect_count2_khr),
+            #[cfg(all(
+                feature = "ext_device_address_commands",
+                feature = "ext_conditional_rendering"
+            ))]
+            cmd_begin_conditional_rendering2_ext: Cell::new(cmd_begin_conditional_rendering2_ext),
+            #[cfg(all(
+                feature = "ext_device_address_commands",
+                feature = "ext_transform_feedback"
+            ))]
+            cmd_bind_transform_feedback_buffers2_ext: Cell::new(
+                cmd_bind_transform_feedback_buffers2_ext,
+            ),
+            #[cfg(all(
+                feature = "ext_device_address_commands",
+                feature = "ext_transform_feedback"
+            ))]
+            cmd_begin_transform_feedback2_ext: Cell::new(cmd_begin_transform_feedback2_ext),
+            #[cfg(all(
+                feature = "ext_device_address_commands",
+                feature = "ext_transform_feedback"
+            ))]
+            cmd_end_transform_feedback2_ext: Cell::new(cmd_end_transform_feedback2_ext),
+            #[cfg(all(
+                feature = "ext_device_address_commands",
+                feature = "ext_transform_feedback"
+            ))]
+            cmd_draw_indirect_byte_count2_ext: Cell::new(cmd_draw_indirect_byte_count2_ext),
+            #[cfg(all(feature = "ext_device_address_commands", feature = "ext_mesh_shader"))]
+            cmd_draw_mesh_tasks_indirect2_ext: Cell::new(cmd_draw_mesh_tasks_indirect2_ext),
+            #[cfg(all(
+                feature = "ext_device_address_commands",
+                all(
+                    any(feature = "ext_draw_indirect_count", feature = "version_1_2"),
+                    feature = "ext_mesh_shader"
+                )
+            ))]
+            cmd_draw_mesh_tasks_indirect_count2_ext: Cell::new(
+                cmd_draw_mesh_tasks_indirect_count2_ext,
+            ),
+            #[cfg(all(feature = "ext_device_address_commands", feature = "ext_buffer_marker"))]
+            cmd_write_marker_to_memory_amd: Cell::new(cmd_write_marker_to_memory_amd),
+            #[cfg(all(
+                feature = "ext_device_address_commands",
+                feature = "ext_acceleration_structure"
+            ))]
+            create_acceleration_structure2_khr: Cell::new(create_acceleration_structure2_khr),
             #[cfg(feature = "ext_fragment_shading_rate_enums")]
             cmd_set_fragment_shading_rate_enum_nv: Cell::new(cmd_set_fragment_shading_rate_enum_nv),
             #[cfg(feature = "ext_mesh_shader")]

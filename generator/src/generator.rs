@@ -1147,7 +1147,9 @@ impl<'a> Generator<'a> {
             if param.is_const {
                 if let Some(len) = &param.xml.len {
                     if len != "null-terminated" {
-                        erase_from_vec(&mut simple_fields, len);
+                        if !param.optional {
+                            erase_from_vec(&mut simple_fields, len);
+                        }
                         erase_from_vec(&mut simple_fields, param.vk_name);
 
                         vec_fields.push((param.vk_name, param));

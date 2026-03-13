@@ -1,7 +1,7 @@
 use super::{
     ApiVersion, DeviceExtension, DeviceExtensionName, InstanceExtension, InstanceExtensionName,
 };
-pub const HEADER_VERSION: ApiVersion = ApiVersion::new(0, 1, 4, 345u32);
+pub const HEADER_VERSION: ApiVersion = ApiVersion::new(0, 1, 4, 346u32);
 #[cfg(feature = "ext_surface")]
 pub const KHR_SURFACE: InstanceExtension = InstanceExtension {
     name: unsafe { InstanceExtensionName::new(c"VK_KHR_surface") },
@@ -2040,6 +2040,32 @@ pub const EXT_DESCRIPTOR_BUFFER: DeviceExtension = DeviceExtension {
     ))
 ))]
 compile_error ! ("The feature ext_descriptor_buffer requires (((((ext_get_physical_device_properties2 or version_1_1) and ext_buffer_device_address and ext_descriptor_indexing) or version_1_2) and ext_synchronization2) or version_1_3) to be enabled.") ;
+#[cfg(feature = "ext_device_address_commands")]
+pub const KHR_DEVICE_ADDRESS_COMMANDS: DeviceExtension = DeviceExtension {
+    name: unsafe { DeviceExtensionName::new(c"VK_KHR_device_address_commands") },
+    spec: 1u32,
+};
+#[cfg(all(
+    feature = "ext_device_address_commands",
+    not(any(
+        all(
+            any(
+                all(
+                    any(
+                        feature = "ext_get_physical_device_properties2",
+                        feature = "version_1_1"
+                    ),
+                    feature = "ext_buffer_device_address"
+                ),
+                feature = "version_1_2"
+            ),
+            feature = "ext_synchronization2",
+            feature = "ext_extended_dynamic_state"
+        ),
+        feature = "version_1_3"
+    ))
+))]
+compile_error ! ("The feature ext_device_address_commands requires (((((ext_get_physical_device_properties2 or version_1_1) and ext_buffer_device_address) or version_1_2) and ext_synchronization2 and ext_extended_dynamic_state) or version_1_3) to be enabled.") ;
 #[cfg(feature = "ext_graphics_pipeline_library")]
 pub const EXT_GRAPHICS_PIPELINE_LIBRARY: DeviceExtension = DeviceExtension {
     name: unsafe { DeviceExtensionName::new(c"VK_EXT_graphics_pipeline_library") },

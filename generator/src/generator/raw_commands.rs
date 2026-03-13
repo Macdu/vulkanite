@@ -153,9 +153,9 @@ fn generate_raw_command<'a, 'b>(
                 Ok(quote! (#name))
             } else {
                 // it is the length of a vec field
-                let vec_field = length_mappings
-                    .get(param.vk_name)
-                    .ok_or_else(|| anyhow!("Failed to find field for {}", param.vk_name))?;
+                let vec_field = length_mappings.get(param.vk_name).ok_or_else(|| {
+                    anyhow!("Failed to find field for {} in {}", param.vk_name, vk_name)
+                })?;
                 let vec_field_name = format_ident!("{}", vec_field.name);
                 Ok(quote! (#vec_field_name.as_slice().len() as _))
             }

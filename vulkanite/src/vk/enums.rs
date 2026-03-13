@@ -693,6 +693,22 @@ pub enum StructureType {
     DescriptorBufferBindingInfoEXT = 1000316011,
     DescriptorBufferBindingPushDescriptorBufferHandleEXT = 1000316012,
     AccelerationStructureCaptureDescriptorDataInfoEXT = 1000316009,
+    DeviceMemoryCopyKHR = 1000318000,
+    CopyDeviceMemoryInfoKHR = 1000318001,
+    DeviceMemoryImageCopyKHR = 1000318002,
+    CopyDeviceMemoryImageInfoKHR = 1000318003,
+    MemoryRangeBarriersInfoKHR = 1000318004,
+    MemoryRangeBarrierKHR = 1000318005,
+    PhysicalDeviceDeviceAddressCommandsFeaturesKHR = 1000318006,
+    BindIndexBuffer3InfoKHR = 1000318007,
+    BindVertexBuffer3InfoKHR = 1000318008,
+    DrawIndirect2InfoKHR = 1000318009,
+    DrawIndirectCount2InfoKHR = 1000318010,
+    DispatchIndirect2InfoKHR = 1000318011,
+    ConditionalRenderingBeginInfo2EXT = 1000318012,
+    BindTransformFeedbackBuffer2InfoEXT = 1000318013,
+    MemoryMarkerInfoAMD = 1000318014,
+    AccelerationStructureCreateInfo2KHR = 1000318015,
     PhysicalDeviceGraphicsPipelineLibraryFeaturesEXT = 1000320000,
     PhysicalDeviceGraphicsPipelineLibraryPropertiesEXT = 1000320001,
     GraphicsPipelineLibraryCreateInfoEXT = 1000320002,
@@ -2744,6 +2760,18 @@ bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineCacheCreateFlagBits.html>"]
+    #[doc(alias = "VkPipelineCacheCreateFlagBits")]
+    pub struct PipelineCacheCreateFlags : u32 {
+        const ExternallySynchronized = 1u32 << 0;
+        const ExternallySynchronizedEXT = Self::ExternallySynchronized.bits();
+        const InternallySynchronizedMergeKHR = 1u32 << 3;
+    }
+}
+bitflags! {
+    #[derive(Default)]
+    #[repr(transparent)]
+    #[derive(Debug, Clone, Copy, PartialEq, Eq)]
     #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineCreateFlagBits.html>"]
     #[doc(alias = "VkPipelineCreateFlagBits")]
     pub struct PipelineCreateFlags : u32 {
@@ -2786,6 +2814,16 @@ bitflags! {
         const RayTracingDisplacementMicromapNV = 1u32 << 28;
         const NoProtectedAccessEXT = Self::NoProtectedAccess.bits();
         const ProtectedAccessOnlyEXT = Self::ProtectedAccessOnly.bits();
+    }
+}
+bitflags! {
+    #[derive(Default)]
+    #[repr(transparent)]
+    #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineLayoutCreateFlagBits.html>"]
+    #[doc(alias = "VkPipelineLayoutCreateFlagBits")]
+    pub struct PipelineLayoutCreateFlags : u32 {
+        const IndependentSetsEXT = 1u32 << 1;
     }
 }
 bitflags! {
@@ -3224,6 +3262,30 @@ pub enum StencilOp {
 pub enum VertexInputRate {
     Vertex = 0,
     Instance = 1,
+}
+bitflags! {
+    #[derive(Default)]
+    #[repr(transparent)]
+    #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineColorBlendStateCreateFlagBits.html>"]
+    #[doc(alias = "VkPipelineColorBlendStateCreateFlagBits")]
+    pub struct PipelineColorBlendStateCreateFlags : u32 {
+        const RasterizationOrderAttachmentAccessARM = Self::RasterizationOrderAttachmentAccessEXT.bits();
+        const RasterizationOrderAttachmentAccessEXT = 1u32 << 0;
+    }
+}
+bitflags! {
+    #[derive(Default)]
+    #[repr(transparent)]
+    #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineDepthStencilStateCreateFlagBits.html>"]
+    #[doc(alias = "VkPipelineDepthStencilStateCreateFlagBits")]
+    pub struct PipelineDepthStencilStateCreateFlags : u32 {
+        const RasterizationOrderAttachmentDepthAccessARM = Self::RasterizationOrderAttachmentDepthAccessEXT.bits();
+        const RasterizationOrderAttachmentStencilAccessARM = Self::RasterizationOrderAttachmentStencilAccessEXT.bits();
+        const RasterizationOrderAttachmentDepthAccessEXT = 1u32 << 0;
+        const RasterizationOrderAttachmentStencilAccessEXT = 1u32 << 1;
+    }
 }
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPolygonMode.html>"]
@@ -4277,18 +4339,6 @@ bitflags! {
 #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineCreationFeedbackFlagBitsEXT.html>"]
 #[doc(alias = "VkPipelineCreationFeedbackFlagBitsEXT")]
 pub type PipelineCreationFeedbackFlagsEXT = PipelineCreationFeedbackFlags;
-bitflags! {
-    #[derive(Default)]
-    #[repr(transparent)]
-    #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineCacheCreateFlagBits.html>"]
-    #[doc(alias = "VkPipelineCacheCreateFlagBits")]
-    pub struct PipelineCacheCreateFlags : u32 {
-        const ExternallySynchronized = 1u32 << 0;
-        const ExternallySynchronizedEXT = Self::ExternallySynchronized.bits();
-        const InternallySynchronizedMergeKHR = 1u32 << 3;
-    }
-}
 #[cfg(any(feature = "ext_dynamic_rendering", feature = "version_1_3"))]
 bitflags! {
     #[derive(Default)]
@@ -5648,6 +5698,22 @@ bitflags! {
         const MetalSharedEvent = 1u32 << 5;
     }
 }
+#[cfg(feature = "ext_device_address_commands")]
+bitflags! {
+    #[derive(Default)]
+    #[repr(transparent)]
+    #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAddressCommandFlagBitsKHR.html>"]
+    #[doc(alias = "VkAddressCommandFlagBitsKHR")]
+    pub struct AddressCommandFlagsKHR : u32 {
+        const Protected = 1u32 << 0;
+        const FullyBound = 1u32 << 1;
+        const StorageBufferUsage = 1u32 << 2;
+        const UnknownStorageBufferUsage = 1u32 << 3;
+        const TransformFeedbackBufferUsage = 1u32 << 4;
+        const UnknownTransformFeedbackBufferUsage = 1u32 << 5;
+    }
+}
 #[cfg(feature = "ext_graphics_pipeline_library")]
 bitflags! {
     #[derive(Default)]
@@ -5660,16 +5726,6 @@ bitflags! {
         const PreRasterizationShaders = 1u32 << 1;
         const FragmentShader = 1u32 << 2;
         const FragmentOutputInterface = 1u32 << 3;
-    }
-}
-bitflags! {
-    #[derive(Default)]
-    #[repr(transparent)]
-    #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineLayoutCreateFlagBits.html>"]
-    #[doc(alias = "VkPipelineLayoutCreateFlagBits")]
-    pub struct PipelineLayoutCreateFlags : u32 {
-        const IndependentSetsEXT = 1u32 << 1;
     }
 }
 #[cfg(feature = "ext_fragment_shading_rate_enums")]
@@ -6063,30 +6119,6 @@ pub enum TensorTilingARM {
 #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VK_MAX_SHADER_MODULE_IDENTIFIER_SIZE_EXT.html>"]
 #[doc(alias = "VK_MAX_SHADER_MODULE_IDENTIFIER_SIZE_EXT")]
 pub const MAX_SHADER_MODULE_IDENTIFIER_SIZE_EXT: u32 = 32;
-bitflags! {
-    #[derive(Default)]
-    #[repr(transparent)]
-    #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineColorBlendStateCreateFlagBits.html>"]
-    #[doc(alias = "VkPipelineColorBlendStateCreateFlagBits")]
-    pub struct PipelineColorBlendStateCreateFlags : u32 {
-        const RasterizationOrderAttachmentAccessARM = Self::RasterizationOrderAttachmentAccessEXT.bits();
-        const RasterizationOrderAttachmentAccessEXT = 1u32 << 0;
-    }
-}
-bitflags! {
-    #[derive(Default)]
-    #[repr(transparent)]
-    #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineDepthStencilStateCreateFlagBits.html>"]
-    #[doc(alias = "VkPipelineDepthStencilStateCreateFlagBits")]
-    pub struct PipelineDepthStencilStateCreateFlags : u32 {
-        const RasterizationOrderAttachmentDepthAccessARM = Self::RasterizationOrderAttachmentDepthAccessEXT.bits();
-        const RasterizationOrderAttachmentStencilAccessARM = Self::RasterizationOrderAttachmentStencilAccessEXT.bits();
-        const RasterizationOrderAttachmentDepthAccessEXT = 1u32 << 0;
-        const RasterizationOrderAttachmentStencilAccessEXT = 1u32 << 1;
-    }
-}
 #[cfg(feature = "ext_optical_flow")]
 bitflags! {
     #[derive(Default)]

@@ -11350,6 +11350,398 @@ pub unsafe fn get_acceleration_structure_opaque_capture_descriptor_data_ext(
         .get();
     vulkan_command(Some(device.borrow()), ptr::from_ref(p_info), p_data).map_success(|| ())
 }
+#[cfg(feature = "ext_device_address_commands")]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBindIndexBuffer3KHR.html>"]
+#[doc(alias = "vkCmdBindIndexBuffer3KHR")]
+#[inline]
+pub unsafe fn cmd_bind_index_buffer3_khr(
+    command_buffer: &raw::CommandBuffer,
+    p_info: &BindIndexBuffer3InfoKHR,
+    dispatcher: &CommandsDispatcher,
+) {
+    let vulkan_command = dispatcher.cmd_bind_index_buffer3_khr.get();
+    vulkan_command(Some(command_buffer.borrow()), ptr::from_ref(p_info))
+}
+#[cfg(feature = "ext_device_address_commands")]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBindVertexBuffers3KHR.html>"]
+#[doc(alias = "vkCmdBindVertexBuffers3KHR")]
+#[inline]
+pub unsafe fn cmd_bind_vertex_buffers3_khr<'a>(
+    command_buffer: &raw::CommandBuffer,
+    first_binding: u32,
+    p_binding_infos: impl AsSlice<'a, BindVertexBuffer3InfoKHR<'a>>,
+    dispatcher: &CommandsDispatcher,
+) {
+    let vulkan_command = dispatcher.cmd_bind_vertex_buffers3_khr.get();
+    vulkan_command(
+        Some(command_buffer.borrow()),
+        first_binding,
+        p_binding_infos.as_slice().len() as _,
+        p_binding_infos.as_slice().as_ptr().cast(),
+    )
+}
+#[cfg(feature = "ext_device_address_commands")]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDrawIndirect2KHR.html>"]
+#[doc(alias = "vkCmdDrawIndirect2KHR")]
+#[inline]
+pub unsafe fn cmd_draw_indirect2_khr(
+    command_buffer: &raw::CommandBuffer,
+    p_info: &DrawIndirect2InfoKHR,
+    dispatcher: &CommandsDispatcher,
+) {
+    let vulkan_command = dispatcher.cmd_draw_indirect2_khr.get();
+    vulkan_command(Some(command_buffer.borrow()), ptr::from_ref(p_info))
+}
+#[cfg(feature = "ext_device_address_commands")]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDrawIndexedIndirect2KHR.html>"]
+#[doc(alias = "vkCmdDrawIndexedIndirect2KHR")]
+#[inline]
+pub unsafe fn cmd_draw_indexed_indirect2_khr(
+    command_buffer: &raw::CommandBuffer,
+    p_info: &DrawIndirect2InfoKHR,
+    dispatcher: &CommandsDispatcher,
+) {
+    let vulkan_command = dispatcher.cmd_draw_indexed_indirect2_khr.get();
+    vulkan_command(Some(command_buffer.borrow()), ptr::from_ref(p_info))
+}
+#[cfg(feature = "ext_device_address_commands")]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDispatchIndirect2KHR.html>"]
+#[doc(alias = "vkCmdDispatchIndirect2KHR")]
+#[inline]
+pub unsafe fn cmd_dispatch_indirect2_khr(
+    command_buffer: &raw::CommandBuffer,
+    p_info: &DispatchIndirect2InfoKHR,
+    dispatcher: &CommandsDispatcher,
+) {
+    let vulkan_command = dispatcher.cmd_dispatch_indirect2_khr.get();
+    vulkan_command(Some(command_buffer.borrow()), ptr::from_ref(p_info))
+}
+#[cfg(feature = "ext_device_address_commands")]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCopyMemoryKHR.html>"]
+#[doc(alias = "vkCmdCopyMemoryKHR")]
+#[inline]
+pub unsafe fn cmd_copy_memory_khr(
+    command_buffer: &raw::CommandBuffer,
+    p_copy_memory_info: Option<&CopyDeviceMemoryInfoKHR>,
+    dispatcher: &CommandsDispatcher,
+) {
+    let vulkan_command = dispatcher.cmd_copy_memory_khr.get();
+    vulkan_command(
+        Some(command_buffer.borrow()),
+        p_copy_memory_info
+            .map(|v| ptr::from_ref(v))
+            .unwrap_or(ptr::null()),
+    )
+}
+#[cfg(feature = "ext_device_address_commands")]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCopyMemoryToImageKHR.html>"]
+#[doc(alias = "vkCmdCopyMemoryToImageKHR")]
+#[inline]
+pub unsafe fn cmd_copy_memory_to_image_khr(
+    command_buffer: &raw::CommandBuffer,
+    p_copy_memory_info: Option<&CopyDeviceMemoryImageInfoKHR>,
+    dispatcher: &CommandsDispatcher,
+) {
+    let vulkan_command = dispatcher.cmd_copy_memory_to_image_khr.get();
+    vulkan_command(
+        Some(command_buffer.borrow()),
+        p_copy_memory_info
+            .map(|v| ptr::from_ref(v))
+            .unwrap_or(ptr::null()),
+    )
+}
+#[cfg(feature = "ext_device_address_commands")]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCopyImageToMemoryKHR.html>"]
+#[doc(alias = "vkCmdCopyImageToMemoryKHR")]
+#[inline]
+pub unsafe fn cmd_copy_image_to_memory_khr(
+    command_buffer: &raw::CommandBuffer,
+    p_copy_memory_info: Option<&CopyDeviceMemoryImageInfoKHR>,
+    dispatcher: &CommandsDispatcher,
+) {
+    let vulkan_command = dispatcher.cmd_copy_image_to_memory_khr.get();
+    vulkan_command(
+        Some(command_buffer.borrow()),
+        p_copy_memory_info
+            .map(|v| ptr::from_ref(v))
+            .unwrap_or(ptr::null()),
+    )
+}
+#[cfg(feature = "ext_device_address_commands")]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdUpdateMemoryKHR.html>"]
+#[doc(alias = "vkCmdUpdateMemoryKHR")]
+#[inline]
+pub unsafe fn cmd_update_memory_khr(
+    command_buffer: &raw::CommandBuffer,
+    p_dst_range: &DeviceAddressRangeKHR,
+    dst_flags: AddressCommandFlagsKHR,
+    data_size: DeviceSize,
+    p_data: VoidPtr,
+    dispatcher: &CommandsDispatcher,
+) {
+    let vulkan_command = dispatcher.cmd_update_memory_khr.get();
+    vulkan_command(
+        Some(command_buffer.borrow()),
+        ptr::from_ref(p_dst_range),
+        dst_flags,
+        data_size,
+        p_data,
+    )
+}
+#[cfg(feature = "ext_device_address_commands")]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdFillMemoryKHR.html>"]
+#[doc(alias = "vkCmdFillMemoryKHR")]
+#[inline]
+pub unsafe fn cmd_fill_memory_khr(
+    command_buffer: &raw::CommandBuffer,
+    p_dst_range: &DeviceAddressRangeKHR,
+    dst_flags: AddressCommandFlagsKHR,
+    data: u32,
+    dispatcher: &CommandsDispatcher,
+) {
+    let vulkan_command = dispatcher.cmd_fill_memory_khr.get();
+    vulkan_command(
+        Some(command_buffer.borrow()),
+        ptr::from_ref(p_dst_range),
+        dst_flags,
+        data,
+    )
+}
+#[cfg(feature = "ext_device_address_commands")]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCopyQueryPoolResultsToMemoryKHR.html>"]
+#[doc(alias = "vkCmdCopyQueryPoolResultsToMemoryKHR")]
+#[inline]
+pub unsafe fn cmd_copy_query_pool_results_to_memory_khr(
+    command_buffer: &raw::CommandBuffer,
+    query_pool: &raw::QueryPool,
+    first_query: u32,
+    query_count: u32,
+    p_dst_range: &StridedDeviceAddressRangeKHR,
+    dst_flags: AddressCommandFlagsKHR,
+    query_result_flags: QueryResultFlags,
+    dispatcher: &CommandsDispatcher,
+) {
+    let vulkan_command = dispatcher.cmd_copy_query_pool_results_to_memory_khr.get();
+    vulkan_command(
+        Some(command_buffer.borrow()),
+        Some(query_pool.borrow()),
+        first_query,
+        query_count,
+        ptr::from_ref(p_dst_range),
+        dst_flags,
+        query_result_flags,
+    )
+}
+#[cfg(all(
+    feature = "ext_device_address_commands",
+    any(feature = "ext_draw_indirect_count", feature = "version_1_2")
+))]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDrawIndirectCount2KHR.html>"]
+#[doc(alias = "vkCmdDrawIndirectCount2KHR")]
+#[inline]
+pub unsafe fn cmd_draw_indirect_count2_khr(
+    command_buffer: &raw::CommandBuffer,
+    p_info: &DrawIndirectCount2InfoKHR,
+    dispatcher: &CommandsDispatcher,
+) {
+    let vulkan_command = dispatcher.cmd_draw_indirect_count2_khr.get();
+    vulkan_command(Some(command_buffer.borrow()), ptr::from_ref(p_info))
+}
+#[cfg(all(
+    feature = "ext_device_address_commands",
+    any(feature = "ext_draw_indirect_count", feature = "version_1_2")
+))]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDrawIndexedIndirectCount2KHR.html>"]
+#[doc(alias = "vkCmdDrawIndexedIndirectCount2KHR")]
+#[inline]
+pub unsafe fn cmd_draw_indexed_indirect_count2_khr(
+    command_buffer: &raw::CommandBuffer,
+    p_info: &DrawIndirectCount2InfoKHR,
+    dispatcher: &CommandsDispatcher,
+) {
+    let vulkan_command = dispatcher.cmd_draw_indexed_indirect_count2_khr.get();
+    vulkan_command(Some(command_buffer.borrow()), ptr::from_ref(p_info))
+}
+#[cfg(all(
+    feature = "ext_device_address_commands",
+    feature = "ext_conditional_rendering"
+))]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBeginConditionalRendering2EXT.html>"]
+#[doc(alias = "vkCmdBeginConditionalRendering2EXT")]
+#[inline]
+pub unsafe fn cmd_begin_conditional_rendering2_ext(
+    command_buffer: &raw::CommandBuffer,
+    p_conditional_rendering_begin: &ConditionalRenderingBeginInfo2EXT,
+    dispatcher: &CommandsDispatcher,
+) {
+    let vulkan_command = dispatcher.cmd_begin_conditional_rendering2_ext.get();
+    vulkan_command(
+        Some(command_buffer.borrow()),
+        ptr::from_ref(p_conditional_rendering_begin),
+    )
+}
+#[cfg(all(
+    feature = "ext_device_address_commands",
+    feature = "ext_transform_feedback"
+))]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBindTransformFeedbackBuffers2EXT.html>"]
+#[doc(alias = "vkCmdBindTransformFeedbackBuffers2EXT")]
+#[inline]
+pub unsafe fn cmd_bind_transform_feedback_buffers2_ext<'a>(
+    command_buffer: &raw::CommandBuffer,
+    first_binding: u32,
+    binding_count: u32,
+    p_binding_infos: Option<impl AsSlice<'a, BindTransformFeedbackBuffer2InfoEXT<'a>>>,
+    dispatcher: &CommandsDispatcher,
+) {
+    let vulkan_command = dispatcher.cmd_bind_transform_feedback_buffers2_ext.get();
+    vulkan_command(
+        Some(command_buffer.borrow()),
+        first_binding,
+        binding_count,
+        p_binding_infos
+            .map(|p| p.as_slice().as_ptr().cast())
+            .unwrap_or(ptr::null()),
+    )
+}
+#[cfg(all(
+    feature = "ext_device_address_commands",
+    feature = "ext_transform_feedback"
+))]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBeginTransformFeedback2EXT.html>"]
+#[doc(alias = "vkCmdBeginTransformFeedback2EXT")]
+#[inline]
+pub unsafe fn cmd_begin_transform_feedback2_ext<'a>(
+    command_buffer: &raw::CommandBuffer,
+    first_counter_range: u32,
+    counter_range_count: u32,
+    p_counter_infos: Option<impl AsSlice<'a, BindTransformFeedbackBuffer2InfoEXT<'a>>>,
+    dispatcher: &CommandsDispatcher,
+) {
+    let vulkan_command = dispatcher.cmd_begin_transform_feedback2_ext.get();
+    vulkan_command(
+        Some(command_buffer.borrow()),
+        first_counter_range,
+        counter_range_count,
+        p_counter_infos
+            .map(|p| p.as_slice().as_ptr().cast())
+            .unwrap_or(ptr::null()),
+    )
+}
+#[cfg(all(
+    feature = "ext_device_address_commands",
+    feature = "ext_transform_feedback"
+))]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdEndTransformFeedback2EXT.html>"]
+#[doc(alias = "vkCmdEndTransformFeedback2EXT")]
+#[inline]
+pub unsafe fn cmd_end_transform_feedback2_ext<'a>(
+    command_buffer: &raw::CommandBuffer,
+    first_counter_range: u32,
+    counter_range_count: u32,
+    p_counter_infos: Option<impl AsSlice<'a, BindTransformFeedbackBuffer2InfoEXT<'a>>>,
+    dispatcher: &CommandsDispatcher,
+) {
+    let vulkan_command = dispatcher.cmd_end_transform_feedback2_ext.get();
+    vulkan_command(
+        Some(command_buffer.borrow()),
+        first_counter_range,
+        counter_range_count,
+        p_counter_infos
+            .map(|p| p.as_slice().as_ptr().cast())
+            .unwrap_or(ptr::null()),
+    )
+}
+#[cfg(all(
+    feature = "ext_device_address_commands",
+    feature = "ext_transform_feedback"
+))]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDrawIndirectByteCount2EXT.html>"]
+#[doc(alias = "vkCmdDrawIndirectByteCount2EXT")]
+#[inline]
+pub unsafe fn cmd_draw_indirect_byte_count2_ext(
+    command_buffer: &raw::CommandBuffer,
+    instance_count: u32,
+    first_instance: u32,
+    p_counter_info: &BindTransformFeedbackBuffer2InfoEXT,
+    counter_offset: u32,
+    vertex_stride: u32,
+    dispatcher: &CommandsDispatcher,
+) {
+    let vulkan_command = dispatcher.cmd_draw_indirect_byte_count2_ext.get();
+    vulkan_command(
+        Some(command_buffer.borrow()),
+        instance_count,
+        first_instance,
+        ptr::from_ref(p_counter_info),
+        counter_offset,
+        vertex_stride,
+    )
+}
+#[cfg(all(feature = "ext_device_address_commands", feature = "ext_mesh_shader"))]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDrawMeshTasksIndirect2EXT.html>"]
+#[doc(alias = "vkCmdDrawMeshTasksIndirect2EXT")]
+#[inline]
+pub unsafe fn cmd_draw_mesh_tasks_indirect2_ext(
+    command_buffer: &raw::CommandBuffer,
+    p_info: &DrawIndirect2InfoKHR,
+    dispatcher: &CommandsDispatcher,
+) {
+    let vulkan_command = dispatcher.cmd_draw_mesh_tasks_indirect2_ext.get();
+    vulkan_command(Some(command_buffer.borrow()), ptr::from_ref(p_info))
+}
+#[cfg(all(
+    feature = "ext_device_address_commands",
+    all(
+        any(feature = "ext_draw_indirect_count", feature = "version_1_2"),
+        feature = "ext_mesh_shader"
+    )
+))]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDrawMeshTasksIndirectCount2EXT.html>"]
+#[doc(alias = "vkCmdDrawMeshTasksIndirectCount2EXT")]
+#[inline]
+pub unsafe fn cmd_draw_mesh_tasks_indirect_count2_ext(
+    command_buffer: &raw::CommandBuffer,
+    p_info: &DrawIndirectCount2InfoKHR,
+    dispatcher: &CommandsDispatcher,
+) {
+    let vulkan_command = dispatcher.cmd_draw_mesh_tasks_indirect_count2_ext.get();
+    vulkan_command(Some(command_buffer.borrow()), ptr::from_ref(p_info))
+}
+#[cfg(all(feature = "ext_device_address_commands", feature = "ext_buffer_marker"))]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdWriteMarkerToMemoryAMD.html>"]
+#[doc(alias = "vkCmdWriteMarkerToMemoryAMD")]
+#[inline]
+pub unsafe fn cmd_write_marker_to_memory_amd(
+    command_buffer: &raw::CommandBuffer,
+    p_info: &MemoryMarkerInfoAMD,
+    dispatcher: &CommandsDispatcher,
+) {
+    let vulkan_command = dispatcher.cmd_write_marker_to_memory_amd.get();
+    vulkan_command(Some(command_buffer.borrow()), ptr::from_ref(p_info))
+}
+#[cfg(all(
+    feature = "ext_device_address_commands",
+    feature = "ext_acceleration_structure"
+))]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateAccelerationStructure2KHR.html>"]
+#[doc(alias = "vkCreateAccelerationStructure2KHR")]
+pub unsafe fn create_acceleration_structure2_khr(
+    device: &raw::Device,
+    p_create_info: &AccelerationStructureCreateInfo2KHR,
+    p_allocator: Option<&AllocationCallbacks>,
+    dispatcher: &CommandsDispatcher,
+) -> Result<AccelerationStructureKHR> {
+    let vulkan_command = dispatcher.create_acceleration_structure2_khr.get();
+    let mut p_acceleration_structure = MaybeUninit::uninit();
+    let vk_status = vulkan_command(
+        Some(device.borrow()),
+        ptr::from_ref(p_create_info),
+        p_allocator.map(|v| ptr::from_ref(v)).unwrap_or(ptr::null()),
+        p_acceleration_structure.as_mut_ptr(),
+    );
+    vk_status.map_success(|| p_acceleration_structure.assume_init())
+}
 #[cfg(feature = "ext_fragment_shading_rate_enums")]
 #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetFragmentShadingRateEnumNV.html>"]
 #[doc(alias = "vkCmdSetFragmentShadingRateEnumNV")]
