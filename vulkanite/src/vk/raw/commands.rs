@@ -8653,6 +8653,201 @@ pub unsafe fn get_memory_android_hardware_buffer_android(
     )
     .map_success(|| ())
 }
+#[cfg(feature = "ext_gpa_interface")]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateGpaSessionAMD.html>"]
+#[doc(alias = "vkCreateGpaSessionAMD")]
+pub unsafe fn create_gpa_session_amd(
+    device: &raw::Device,
+    p_create_info: &GpaSessionCreateInfoAMD,
+    p_allocator: Option<&AllocationCallbacks>,
+    dispatcher: &CommandsDispatcher,
+) -> Result<GpaSessionAMD> {
+    let vulkan_command = dispatcher.create_gpa_session_amd.get();
+    let mut p_gpa_session = MaybeUninit::uninit();
+    let vk_status = vulkan_command(
+        Some(device.borrow()),
+        ptr::from_ref(p_create_info),
+        p_allocator.map(|v| ptr::from_ref(v)).unwrap_or(ptr::null()),
+        p_gpa_session.as_mut_ptr(),
+    );
+    vk_status.map_success(|| p_gpa_session.assume_init())
+}
+#[cfg(feature = "ext_gpa_interface")]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyGpaSessionAMD.html>"]
+#[doc(alias = "vkDestroyGpaSessionAMD")]
+#[inline]
+pub unsafe fn destroy_gpa_session_amd(
+    device: &raw::Device,
+    gpa_session: Option<&raw::GpaSessionAMD>,
+    p_allocator: Option<&AllocationCallbacks>,
+    dispatcher: &CommandsDispatcher,
+) {
+    let vulkan_command = dispatcher.destroy_gpa_session_amd.get();
+    vulkan_command(
+        Some(device.borrow()),
+        gpa_session.map(|v| v.borrow()),
+        p_allocator.map(|v| ptr::from_ref(v)).unwrap_or(ptr::null()),
+    )
+}
+#[cfg(feature = "ext_gpa_interface")]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkSetGpaDeviceClockModeAMD.html>"]
+#[doc(alias = "vkSetGpaDeviceClockModeAMD")]
+pub unsafe fn set_gpa_device_clock_mode_amd<
+    S: StructureChainOut<GpaDeviceClockModeInfoAMD<'static>>,
+>(
+    device: &raw::Device,
+    dispatcher: &CommandsDispatcher,
+) -> Result<S> {
+    let vulkan_command = dispatcher.set_gpa_device_clock_mode_amd.get();
+    let mut p_info = MaybeUninit::uninit();
+    S::setup_uninit(&mut p_info);
+    let vk_status = vulkan_command(
+        Some(device.borrow()),
+        S::get_uninit_head_ptr(p_info.as_mut_ptr()),
+    );
+    vk_status.map_success(|| {
+        S::setup_cleanup(p_info.as_mut_ptr());
+        p_info.assume_init()
+    })
+}
+#[cfg(feature = "ext_gpa_interface")]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetGpaDeviceClockInfoAMD.html>"]
+#[doc(alias = "vkGetGpaDeviceClockInfoAMD")]
+pub unsafe fn get_gpa_device_clock_info_amd<
+    S: StructureChainOut<GpaDeviceGetClockInfoAMD<'static>>,
+>(
+    device: &raw::Device,
+    dispatcher: &CommandsDispatcher,
+) -> Result<S> {
+    let vulkan_command = dispatcher.get_gpa_device_clock_info_amd.get();
+    let mut p_info = MaybeUninit::uninit();
+    S::setup_uninit(&mut p_info);
+    let vk_status = vulkan_command(
+        Some(device.borrow()),
+        S::get_uninit_head_ptr(p_info.as_mut_ptr()),
+    );
+    vk_status.map_success(|| {
+        S::setup_cleanup(p_info.as_mut_ptr());
+        p_info.assume_init()
+    })
+}
+#[cfg(feature = "ext_gpa_interface")]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBeginGpaSessionAMD.html>"]
+#[doc(alias = "vkCmdBeginGpaSessionAMD")]
+#[inline]
+pub unsafe fn cmd_begin_gpa_session_amd(
+    command_buffer: &raw::CommandBuffer,
+    gpa_session: &raw::GpaSessionAMD,
+    dispatcher: &CommandsDispatcher,
+) -> Result<()> {
+    let vulkan_command = dispatcher.cmd_begin_gpa_session_amd.get();
+    vulkan_command(Some(command_buffer.borrow()), Some(gpa_session.borrow())).map_success(|| ())
+}
+#[cfg(feature = "ext_gpa_interface")]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdEndGpaSessionAMD.html>"]
+#[doc(alias = "vkCmdEndGpaSessionAMD")]
+#[inline]
+pub unsafe fn cmd_end_gpa_session_amd(
+    command_buffer: &raw::CommandBuffer,
+    gpa_session: &raw::GpaSessionAMD,
+    dispatcher: &CommandsDispatcher,
+) -> Result<()> {
+    let vulkan_command = dispatcher.cmd_end_gpa_session_amd.get();
+    vulkan_command(Some(command_buffer.borrow()), Some(gpa_session.borrow())).map_success(|| ())
+}
+#[cfg(feature = "ext_gpa_interface")]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBeginGpaSampleAMD.html>"]
+#[doc(alias = "vkCmdBeginGpaSampleAMD")]
+pub unsafe fn cmd_begin_gpa_sample_amd(
+    command_buffer: &raw::CommandBuffer,
+    gpa_session: &raw::GpaSessionAMD,
+    p_gpa_sample_begin_info: &GpaSampleBeginInfoAMD,
+    dispatcher: &CommandsDispatcher,
+) -> Result<u32> {
+    let vulkan_command = dispatcher.cmd_begin_gpa_sample_amd.get();
+    let mut p_sample_id = MaybeUninit::uninit();
+    let vk_status = vulkan_command(
+        Some(command_buffer.borrow()),
+        Some(gpa_session.borrow()),
+        ptr::from_ref(p_gpa_sample_begin_info),
+        p_sample_id.as_mut_ptr(),
+    );
+    vk_status.map_success(|| p_sample_id.assume_init())
+}
+#[cfg(feature = "ext_gpa_interface")]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdEndGpaSampleAMD.html>"]
+#[doc(alias = "vkCmdEndGpaSampleAMD")]
+#[inline]
+pub unsafe fn cmd_end_gpa_sample_amd(
+    command_buffer: &raw::CommandBuffer,
+    gpa_session: &raw::GpaSessionAMD,
+    sample_id: u32,
+    dispatcher: &CommandsDispatcher,
+) {
+    let vulkan_command = dispatcher.cmd_end_gpa_sample_amd.get();
+    vulkan_command(
+        Some(command_buffer.borrow()),
+        Some(gpa_session.borrow()),
+        sample_id,
+    )
+}
+#[cfg(feature = "ext_gpa_interface")]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetGpaSessionStatusAMD.html>"]
+#[doc(alias = "vkGetGpaSessionStatusAMD")]
+#[inline]
+pub unsafe fn get_gpa_session_status_amd(
+    device: &raw::Device,
+    gpa_session: &raw::GpaSessionAMD,
+    dispatcher: &CommandsDispatcher,
+) -> Result<()> {
+    let vulkan_command = dispatcher.get_gpa_session_status_amd.get();
+    vulkan_command(Some(device.borrow()), Some(gpa_session.borrow())).map_success(|| ())
+}
+#[cfg(feature = "ext_gpa_interface")]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetGpaSessionResultsAMD.html>"]
+#[doc(alias = "vkGetGpaSessionResultsAMD")]
+pub unsafe fn get_gpa_session_results_amd(
+    device: &raw::Device,
+    gpa_session: &raw::GpaSessionAMD,
+    sample_id: u32,
+    p_data: VoidPtr,
+    dispatcher: &CommandsDispatcher,
+) -> Result<usize> {
+    let vulkan_command = dispatcher.get_gpa_session_results_amd.get();
+    let mut p_size_in_bytes = MaybeUninit::uninit();
+    let vk_status = vulkan_command(
+        Some(device.borrow()),
+        Some(gpa_session.borrow()),
+        sample_id,
+        p_size_in_bytes.as_mut_ptr(),
+        p_data,
+    );
+    vk_status.map_success(|| p_size_in_bytes.assume_init())
+}
+#[cfg(feature = "ext_gpa_interface")]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkResetGpaSessionAMD.html>"]
+#[doc(alias = "vkResetGpaSessionAMD")]
+#[inline]
+pub unsafe fn reset_gpa_session_amd(
+    device: &raw::Device,
+    gpa_session: &raw::GpaSessionAMD,
+    dispatcher: &CommandsDispatcher,
+) -> Result<()> {
+    let vulkan_command = dispatcher.reset_gpa_session_amd.get();
+    vulkan_command(Some(device.borrow()), Some(gpa_session.borrow())).map_success(|| ())
+}
+#[cfg(feature = "ext_gpa_interface")]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCopyGpaSessionResultsAMD.html>"]
+#[doc(alias = "vkCmdCopyGpaSessionResultsAMD")]
+#[inline]
+pub unsafe fn cmd_copy_gpa_session_results_amd(
+    command_buffer: &raw::CommandBuffer,
+    gpa_session: &raw::GpaSessionAMD,
+    dispatcher: &CommandsDispatcher,
+) {
+    let vulkan_command = dispatcher.cmd_copy_gpa_session_results_amd.get();
+    vulkan_command(Some(command_buffer.borrow()), Some(gpa_session.borrow()))
+}
 #[cfg(feature = "ext_shader_enqueue")]
 #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateExecutionGraphPipelinesAMDX.html>"]
 #[doc(alias = "vkCreateExecutionGraphPipelinesAMDX")]
@@ -9693,7 +9888,7 @@ pub unsafe fn destroy_acceleration_structure_nv(
 #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetAccelerationStructureMemoryRequirementsNV.html>"]
 #[doc(alias = "vkGetAccelerationStructureMemoryRequirementsNV")]
 pub unsafe fn get_acceleration_structure_memory_requirements_nv<
-    S: StructureChainOut<MemoryRequirements2KHR<'static>>,
+    S: StructureChainOut<MemoryRequirements2<'static>>,
 >(
     device: &raw::Device,
     p_info: &AccelerationStructureMemoryRequirementsInfoNV,
@@ -10989,6 +11184,18 @@ pub unsafe fn get_drm_display_ext(
     );
     vk_status.map_success(|| display.assume_init())
 }
+#[cfg(feature = "ext_queue_perf_hint")]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkQueueSetPerfHintQCOM.html>"]
+#[doc(alias = "vkQueueSetPerfHintQCOM")]
+#[inline]
+pub unsafe fn queue_set_perf_hint_qcom(
+    queue: &raw::Queue,
+    p_perf_hint_info: &PerfHintInfoQCOM,
+    dispatcher: &CommandsDispatcher,
+) -> Result<()> {
+    let vulkan_command = dispatcher.queue_set_perf_hint_qcom.get();
+    vulkan_command(Some(queue.borrow()), ptr::from_ref(p_perf_hint_info)).map_success(|| ())
+}
 #[cfg(feature = "ext_cuda_kernel_launch")]
 #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateCudaModuleNV.html>"]
 #[doc(alias = "vkCreateCudaModuleNV")]
@@ -12159,7 +12366,7 @@ pub unsafe fn get_memory_remote_address_nv(
 #[doc(alias = "vkGetPipelinePropertiesEXT")]
 pub unsafe fn get_pipeline_properties_ext(
     device: &raw::Device,
-    p_pipeline_info: &PipelineInfoEXT,
+    p_pipeline_info: &PipelineInfoKHR,
     dispatcher: &CommandsDispatcher,
 ) -> Result<BaseOutStructure<'static>> {
     let vulkan_command = dispatcher.get_pipeline_properties_ext.get();
@@ -12605,6 +12812,21 @@ pub unsafe fn set_device_memory_priority_ext(
 ) {
     let vulkan_command = dispatcher.set_device_memory_priority_ext.get();
     vulkan_command(Some(device.borrow()), Some(memory.borrow()), priority)
+}
+#[cfg(feature = "ext_scheduling_controls")]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetDispatchParametersARM.html>"]
+#[doc(alias = "vkCmdSetDispatchParametersARM")]
+#[inline]
+pub unsafe fn cmd_set_dispatch_parameters_arm(
+    command_buffer: &raw::CommandBuffer,
+    p_dispatch_parameters: &DispatchParametersARM,
+    dispatcher: &CommandsDispatcher,
+) {
+    let vulkan_command = dispatcher.cmd_set_dispatch_parameters_arm.get();
+    vulkan_command(
+        Some(command_buffer.borrow()),
+        ptr::from_ref(p_dispatch_parameters),
+    )
 }
 #[cfg(feature = "ext_descriptor_set_host_mapping")]
 #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDescriptorSetLayoutHostMappingInfoVALVE.html>"]
@@ -13138,9 +13360,12 @@ pub unsafe fn cmd_set_provoking_vertex_mode_ext(
 #[cfg(any(
     all(
         feature = "ext_extended_dynamic_state3",
-        feature = "ext_line_rasterization"
+        any(feature = "version_1_4", feature = "ext_line_rasterization")
     ),
-    all(feature = "ext_shader_object", feature = "ext_line_rasterization")
+    all(
+        feature = "ext_shader_object",
+        any(feature = "version_1_4", feature = "ext_line_rasterization")
+    )
 ))]
 #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetLineRasterizationModeEXT.html>"]
 #[doc(alias = "vkCmdSetLineRasterizationModeEXT")]
@@ -13156,9 +13381,12 @@ pub unsafe fn cmd_set_line_rasterization_mode_ext(
 #[cfg(any(
     all(
         feature = "ext_extended_dynamic_state3",
-        feature = "ext_line_rasterization"
+        any(feature = "version_1_4", feature = "ext_line_rasterization")
     ),
-    all(feature = "ext_shader_object", feature = "ext_line_rasterization")
+    all(
+        feature = "ext_shader_object",
+        any(feature = "version_1_4", feature = "ext_line_rasterization")
+    )
 ))]
 #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetLineStippleEnableEXT.html>"]
 #[doc(alias = "vkCmdSetLineStippleEnableEXT")]
@@ -14579,6 +14807,30 @@ pub unsafe fn get_physical_device_queue_family_data_graph_processing_engine_prop
     S::setup_cleanup(p_queue_family_data_graph_processing_engine_properties.as_mut_ptr());
     p_queue_family_data_graph_processing_engine_properties.assume_init()
 }
+#[cfg(any(
+    feature = "ext_data_graph_instruction_set_tosa",
+    feature = "ext_data_graph_optical_flow"
+))]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceQueueFamilyDataGraphEngineOperationPropertiesARM.html>"]
+#[doc(alias = "vkGetPhysicalDeviceQueueFamilyDataGraphEngineOperationPropertiesARM")]
+pub unsafe fn get_physical_device_queue_family_data_graph_engine_operation_properties_arm(
+    physical_device: &raw::PhysicalDevice,
+    queue_family_index: u32,
+    p_queue_family_data_graph_properties: &QueueFamilyDataGraphPropertiesARM,
+    dispatcher: &CommandsDispatcher,
+) -> Result<BaseOutStructure<'static>> {
+    let vulkan_command = dispatcher
+        .get_physical_device_queue_family_data_graph_engine_operation_properties_arm
+        .get();
+    let mut p_properties = MaybeUninit::uninit();
+    let vk_status = vulkan_command(
+        Some(physical_device.borrow()),
+        queue_family_index,
+        ptr::from_ref(p_queue_family_data_graph_properties),
+        p_properties.as_mut_ptr(),
+    );
+    vk_status.map_success(|| p_properties.assume_init())
+}
 #[cfg(feature = "ext_attachment_feedback_loop_dynamic_state")]
 #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetAttachmentFeedbackLoopEnableEXT.html>"]
 #[doc(alias = "vkCmdSetAttachmentFeedbackLoopEnableEXT")]
@@ -15112,6 +15364,59 @@ pub unsafe fn update_indirect_execution_set_shader_ext<'a>(
         p_execution_set_writes.as_slice().as_ptr().cast(),
     )
 }
+#[cfg(feature = "ext_device_fault")]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDeviceFaultReportsKHR.html>"]
+#[doc(alias = "vkGetDeviceFaultReportsKHR")]
+pub unsafe fn get_device_fault_reports_khr<R: DynamicArray<DeviceFaultInfoKHR<'static>>>(
+    device: &raw::Device,
+    timeout: u64,
+    dispatcher: &CommandsDispatcher,
+) -> Result<(Status, R)> {
+    let vulkan_command = dispatcher.get_device_fault_reports_khr.get();
+    let mut vk_len = MaybeUninit::uninit();
+    let p_fault_counts = vk_len.as_mut_ptr();
+    let p_fault_info = ptr::null_mut();
+    vulkan_command(Some(device.borrow()), timeout, p_fault_counts, p_fault_info)
+        .map_success(|| ())?;
+    let mut vk_len = vk_len.assume_init();
+    let mut vk_vec = R::create_with_capacity(vk_len as _);
+    let mut p_fault_counts = ptr::from_mut(&mut vk_len);
+    let mut p_fault_info = vk_vec.get_content_mut_ptr();
+    let vk_status = loop {
+        let status = vulkan_command(Some(device.borrow()), timeout, p_fault_counts, p_fault_info);
+        if status != Status::Incomplete {
+            break status;
+        }
+        vk_vec.update_with_capacity(vk_len as _);
+        p_fault_counts = ptr::from_mut(&mut vk_len);
+        p_fault_info = vk_vec.get_content_mut_ptr();
+    };
+    vk_status.map_successes(|| {
+        vk_vec.resize_with_len(vk_len as _);
+        vk_vec
+    })
+}
+#[cfg(feature = "ext_device_fault")]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDeviceFaultDebugInfoKHR.html>"]
+#[doc(alias = "vkGetDeviceFaultDebugInfoKHR")]
+pub unsafe fn get_device_fault_debug_info_khr<
+    S: StructureChainOut<DeviceFaultDebugInfoKHR<'static>>,
+>(
+    device: &raw::Device,
+    dispatcher: &CommandsDispatcher,
+) -> Result<S> {
+    let vulkan_command = dispatcher.get_device_fault_debug_info_khr.get();
+    let mut p_debug_info = MaybeUninit::uninit();
+    S::setup_uninit(&mut p_debug_info);
+    let vk_status = vulkan_command(
+        Some(device.borrow()),
+        S::get_uninit_head_ptr(p_debug_info.as_mut_ptr()),
+    );
+    vk_status.map_success(|| {
+        S::setup_cleanup(p_debug_info.as_mut_ptr());
+        p_debug_info.assume_init()
+    })
+}
 #[cfg(feature = "ext_ohos_surface")]
 #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateSurfaceOHOS.html>"]
 #[doc(alias = "vkCreateSurfaceOHOS")]
@@ -15414,6 +15719,58 @@ pub unsafe fn cmd_end_rendering2_ext(
             .unwrap_or(ptr::null()),
     )
 }
+#[cfg(feature = "ext_data_graph_optical_flow")]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceQueueFamilyDataGraphOpticalFlowImageFormatsARM.html>"]
+#[doc(alias = "vkGetPhysicalDeviceQueueFamilyDataGraphOpticalFlowImageFormatsARM")]
+pub unsafe fn get_physical_device_queue_family_data_graph_optical_flow_image_formats_arm<
+    R: DynamicArray<DataGraphOpticalFlowImageFormatPropertiesARM<'static>>,
+>(
+    physical_device: &raw::PhysicalDevice,
+    queue_family_index: u32,
+    p_queue_family_data_graph_properties: &QueueFamilyDataGraphPropertiesARM,
+    p_optical_flow_image_format_info: &DataGraphOpticalFlowImageFormatInfoARM,
+    dispatcher: &CommandsDispatcher,
+) -> Result<R> {
+    let vulkan_command = dispatcher
+        .get_physical_device_queue_family_data_graph_optical_flow_image_formats_arm
+        .get();
+    let mut vk_len = MaybeUninit::uninit();
+    let p_format_count = vk_len.as_mut_ptr();
+    let p_image_format_properties = ptr::null_mut();
+    vulkan_command(
+        Some(physical_device.borrow()),
+        queue_family_index,
+        ptr::from_ref(p_queue_family_data_graph_properties),
+        ptr::from_ref(p_optical_flow_image_format_info),
+        p_format_count,
+        p_image_format_properties,
+    )
+    .map_success(|| ())?;
+    let mut vk_len = vk_len.assume_init();
+    let mut vk_vec = R::create_with_capacity(vk_len as _);
+    let mut p_format_count = ptr::from_mut(&mut vk_len);
+    let mut p_image_format_properties = vk_vec.get_content_mut_ptr();
+    let vk_status = loop {
+        let status = vulkan_command(
+            Some(physical_device.borrow()),
+            queue_family_index,
+            ptr::from_ref(p_queue_family_data_graph_properties),
+            ptr::from_ref(p_optical_flow_image_format_info),
+            p_format_count,
+            p_image_format_properties,
+        );
+        if status != Status::Incomplete {
+            break status;
+        }
+        vk_vec.update_with_capacity(vk_len as _);
+        p_format_count = ptr::from_mut(&mut vk_len);
+        p_image_format_properties = vk_vec.get_content_mut_ptr();
+    };
+    vk_status.map_success(|| {
+        vk_vec.resize_with_len(vk_len as _);
+        vk_vec
+    })
+}
 #[cfg(feature = "ext_compute_occupancy_priority")]
 #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetComputeOccupancyPriorityNV.html>"]
 #[doc(alias = "vkCmdSetComputeOccupancyPriorityNV")]
@@ -15464,4 +15821,16 @@ pub unsafe fn get_physical_device_ubm_presentation_support_sec(
         ptr::from_ref(device),
     )
     .into()
+}
+#[cfg(feature = "ext_primitive_restart_index")]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetPrimitiveRestartIndexEXT.html>"]
+#[doc(alias = "vkCmdSetPrimitiveRestartIndexEXT")]
+#[inline]
+pub unsafe fn cmd_set_primitive_restart_index_ext(
+    command_buffer: &raw::CommandBuffer,
+    primitive_restart_index: u32,
+    dispatcher: &CommandsDispatcher,
+) {
+    let vulkan_command = dispatcher.cmd_set_primitive_restart_index_ext.get();
+    vulkan_command(Some(command_buffer.borrow()), primitive_restart_index)
 }

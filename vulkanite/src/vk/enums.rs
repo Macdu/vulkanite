@@ -450,6 +450,13 @@ pub enum StructureType {
     MemoryGetAndroidHardwareBufferInfoANDROID = 1000129004,
     ExternalFormatANDROID = 1000129005,
     AndroidHardwareBufferFormatProperties2ANDROID = 1000129006,
+    PhysicalDeviceGpaFeaturesAMD = 1000133000,
+    PhysicalDeviceGpaPropertiesAMD = 1000133001,
+    GpaSampleBeginInfoAMD = 1000133002,
+    GpaSessionCreateInfoAMD = 1000133003,
+    GpaDeviceClockModeInfoAMD = 1000133004,
+    PhysicalDeviceGpaProperties2AMD = 1000133005,
+    GpaDeviceGetClockInfoAMD = 1000133006,
     PhysicalDeviceShaderEnqueueFeaturesAMDX = 1000134000,
     PhysicalDeviceShaderEnqueuePropertiesAMDX = 1000134001,
     ExecutionGraphPipelineScratchSizeAMDX = 1000134002,
@@ -535,6 +542,7 @@ pub enum StructureType {
     PhysicalDeviceImageViewImageFormatInfoEXT = 1000170000,
     FilterCubicImageViewImageFormatPropertiesEXT = 1000170001,
     PhysicalDeviceCooperativeMatrixConversionFeaturesQCOM = 1000172000,
+    PhysicalDeviceElapsedTimerQueryFeaturesQCOM = 1000173000,
     ImportMemoryHostPointerInfoEXT = 1000178000,
     MemoryHostPointerPropertiesEXT = 1000178001,
     PhysicalDeviceExternalMemoryHostPropertiesEXT = 1000178002,
@@ -587,6 +595,10 @@ pub enum StructureType {
     RenderingFragmentShadingRateAttachmentInfoKHR = 1000044006,
     PhysicalDeviceShaderCoreProperties2AMD = 1000227000,
     PhysicalDeviceCoherentMemoryFeaturesAMD = 1000229000,
+    PhysicalDeviceShaderConstantDataFeaturesKHR = 1000231000,
+    PhysicalDeviceShaderAbortFeaturesKHR = 1000233000,
+    DeviceFaultShaderAbortMessageInfoKHR = 1000233001,
+    PhysicalDeviceShaderAbortPropertiesKHR = 1000233002,
     PhysicalDeviceShaderImageAtomicInt64FeaturesEXT = 1000234000,
     PhysicalDeviceShaderQuadControlFeaturesKHR = 1000235000,
     PhysicalDeviceMemoryBudgetPropertiesEXT = 1000237000,
@@ -656,6 +668,14 @@ pub enum StructureType {
     PhysicalDevicePresentIdFeaturesKHR = 1000294001,
     PhysicalDeviceDiagnosticsConfigFeaturesNV = 1000300000,
     DeviceDiagnosticsConfigCreateInfoNV = 1000300001,
+    PerfHintInfoQCOM = 1000302000,
+    PhysicalDeviceQueuePerfHintFeaturesQCOM = 1000302001,
+    PhysicalDeviceQueuePerfHintPropertiesQCOM = 1000302002,
+    PhysicalDeviceImageProcessing3FeaturesQCOM = 1000303000,
+    PhysicalDeviceShaderMultipleWaitQueuesFeaturesQCOM = 1000304000,
+    PhysicalDeviceShaderMultipleWaitQueuesPropertiesQCOM = 1000304001,
+    PhysicalDeviceShaderSplitBarrierFeaturesEXT = 1000305000,
+    PhysicalDeviceShaderSplitBarrierPropertiesEXT = 1000305001,
     CudaModuleCreateInfoNV = 1000307000,
     CudaFunctionCreateInfoNV = 1000307001,
     CudaLaunchInfoNV = 1000307002,
@@ -817,6 +837,8 @@ pub enum StructureType {
     DeviceQueueShaderCoreControlCreateInfoARM = 1000417000,
     PhysicalDeviceSchedulingControlsFeaturesARM = 1000417001,
     PhysicalDeviceSchedulingControlsPropertiesARM = 1000417002,
+    DispatchParametersARM = 1000417003,
+    PhysicalDeviceSchedulingControlsDispatchParametersPropertiesARM = 1000417004,
     PhysicalDeviceImageSlicedViewOf3DFeaturesEXT = 1000418000,
     ImageViewSlicedCreateInfoEXT = 1000418001,
     PhysicalDeviceDescriptorSetHostMappingFeaturesVALVE = 1000420000,
@@ -987,6 +1009,7 @@ pub enum StructureType {
     QueueFamilyDataGraphPropertiesARM = 1000507018,
     PhysicalDeviceQueueFamilyDataGraphProcessingEngineInfoARM = 1000507019,
     DataGraphPipelineConstantTensorSemiStructuredSparsityInfoARM = 1000507015,
+    QueueFamilyDataGraphTosaPropertiesARM = 1000508000,
     PhysicalDeviceMultiviewPerViewRenderAreasFeaturesQCOM = 1000510000,
     MultiviewPerViewRenderAreasRenderPassBeginInfoQCOM = 1000510001,
     PhysicalDeviceComputeShaderDerivativesFeaturesKHR = 1000201000,
@@ -1072,6 +1095,10 @@ pub enum StructureType {
     IndirectExecutionSetShaderLayoutInfoEXT = 1000572012,
     GeneratedCommandsPipelineInfoEXT = 1000572013,
     GeneratedCommandsShaderInfoEXT = 1000572014,
+    PhysicalDeviceFaultFeaturesKHR = 1000573000,
+    PhysicalDeviceFaultPropertiesKHR = 1000573001,
+    DeviceFaultInfoKHR = 1000573002,
+    DeviceFaultDebugInfoKHR = 1000573003,
     PhysicalDeviceMaintenance8FeaturesKHR = 1000574000,
     MemoryBarrierAccessFlags3KHR = 1000574002,
     PhysicalDeviceImageAlignmentControlFeaturesMESA = 1000575000,
@@ -1117,11 +1144,17 @@ pub enum StructureType {
     PhysicalDeviceRobustness2PropertiesKHR = 1000286001,
     SetPresentConfigNV = 1000613000,
     PhysicalDevicePresentMeteringFeaturesNV = 1000613001,
+    PhysicalDeviceMultisampledRenderToSwapchainFeaturesEXT = 1000616000,
+    SwapchainFlagsSurfaceCapabilitiesEXT = 1000616001,
     PhysicalDeviceFragmentDensityMapOffsetFeaturesEXT = 1000425000,
     PhysicalDeviceFragmentDensityMapOffsetPropertiesEXT = 1000425001,
     RenderPassFragmentDensityMapOffsetEndInfoEXT = 1000425002,
     PhysicalDeviceZeroInitializeDeviceMemoryFeaturesEXT = 1000620000,
     PhysicalDevicePresentModeFifoLatestReadyFeaturesKHR = 1000361000,
+    PhysicalDeviceOpacityMicromapFeaturesKHR = 1000623000,
+    PhysicalDeviceOpacityMicromapPropertiesKHR = 1000623001,
+    AccelerationStructureGeometryMicromapDataKHR = 1000623002,
+    AccelerationStructureTrianglesOpacityMicromapKHR = 1000623003,
     PhysicalDeviceShader64BitIndexingFeaturesEXT = 1000627000,
     PhysicalDeviceCustomResolveFeaturesEXT = 1000628000,
     BeginCustomResolveInfoEXT = 1000628001,
@@ -1133,15 +1166,40 @@ pub enum StructureType {
     RenderingAttachmentFlagsInfoKHR = 1000630002,
     RenderingEndInfoKHR = 1000619003,
     ResolveImageModeInfoKHR = 1000630004,
+    PhysicalDeviceDataGraphOpticalFlowFeaturesARM = 1000631000,
+    QueueFamilyDataGraphOpticalFlowPropertiesARM = 1000631001,
+    DataGraphOpticalFlowImageFormatInfoARM = 1000631003,
+    DataGraphOpticalFlowImageFormatPropertiesARM = 1000631004,
+    DataGraphPipelineOpticalFlowDispatchInfoARM = 1000631005,
+    DataGraphPipelineOpticalFlowCreateInfoARM = 1000631002,
+    DataGraphPipelineResourceInfoImageLayoutARM = 1000631006,
+    DataGraphPipelineSingleNodeCreateInfoARM = 1000631007,
+    DataGraphPipelineSingleNodeConnectionARM = 1000631008,
     PhysicalDeviceShaderLongVectorFeaturesEXT = 1000635000,
     PhysicalDeviceShaderLongVectorPropertiesEXT = 1000635001,
     PhysicalDevicePipelineCacheIncrementalModeFeaturesSEC = 1000637000,
     PhysicalDeviceShaderUniformBufferUnsizedArrayFeaturesEXT = 1000642000,
     ComputeOccupancyPriorityParametersNV = 1000645000,
     PhysicalDeviceComputeOccupancyPriorityFeaturesNV = 1000645001,
+    PhysicalDeviceMaintenance11FeaturesKHR = 1000657000,
+    QueueFamilyOptimalImageTransferGranularityPropertiesKHR = 1000657001,
     PhysicalDeviceShaderSubgroupPartitionedFeaturesEXT = 1000662000,
     UbmSurfaceCreateInfoSEC = 1000664000,
+    FormatProperties4KHR = 1000668000,
+    ImageCreateFlags2CreateInfoKHR = 1000668001,
+    ImageUsageFlags2CreateInfoKHR = 1000668002,
+    ImageViewUsage2CreateInfoKHR = 1000668003,
+    PhysicalDeviceExtendedFlagsFeaturesKHR = 1000668004,
+    ImageStencilUsage2CreateInfoKHR = 1000668005,
+    SharedPresentSurfaceCapabilities2KHR = 1000668006,
     PhysicalDeviceShaderMixedFloatDotProductFeaturesVALVE = 1000673000,
+    PhysicalDeviceThrottleHintFeaturesSEC = 1000674000,
+    ThrottleHintSubmitInfoSEC = 1000674001,
+    DataGraphPipelineNeuralStatisticsCreateInfoARM = 1000676000,
+    DataGraphPipelineSessionNeuralStatisticsCreateInfoARM = 1000676001,
+    PhysicalDeviceDataGraphNeuralAcceleratorStatisticsFeaturesARM = 1000676002,
+    PhysicalDevicePrimitiveRestartIndexFeaturesEXT = 1000678000,
+    PhysicalDeviceCooperativeMatrixDecodeVectorFeaturesNV = 1000689000,
 }
 #[allow(non_upper_case_globals)]
 impl StructureType {
@@ -1589,6 +1647,7 @@ pub enum ObjectType {
     CuModuleNVX = 1000029000,
     CuFunctionNVX = 1000029001,
     DebugUtilsMessengerEXT = 1000128000,
+    GpaSessionAMD = 1000133000,
     AccelerationStructureKHR = 1000150000,
     ValidationCacheEXT = 1000160000,
     AccelerationStructureNV = 1000165000,
@@ -2091,6 +2150,7 @@ bitflags! {
         const Image2DViewCompatibleEXT = 1u32 << 17;
         const FragmentDensityMapOffsetQCOM = Self::FragmentDensityMapOffsetEXT.bits();
         const FragmentDensityMapOffsetEXT = 1u32 << 15;
+        const AliasSingleLayerDescriptorKHR = 1u32 << 22;
     }
 }
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -2445,6 +2505,7 @@ pub enum QueryType {
     AccelerationStructureCompactedSizeKHR = 1000150000,
     AccelerationStructureSerializationSizeKHR = 1000150001,
     AccelerationStructureCompactedSizeNV = 1000165000,
+    TimeElapsedQCOM = 1000173000,
     PerformanceQueryINTEL = 1000210000,
     MeshPrimitivesGeneratedEXT = 1000328000,
     PrimitivesGeneratedEXT = 1000382000,
@@ -2810,10 +2871,11 @@ bitflags! {
         const RayTracingAllowMotionNV = 1u32 << 20;
         const ColorAttachmentFeedbackLoopEXT = 1u32 << 25;
         const DepthStencilAttachmentFeedbackLoopEXT = 1u32 << 26;
-        const RayTracingOpacityMicromapEXT = 1u32 << 24;
+        const RayTracingOpacityMicromapEXT = Self::RayTracingOpacityMicromapKHR.bits();
         const RayTracingDisplacementMicromapNV = 1u32 << 28;
         const NoProtectedAccessEXT = Self::NoProtectedAccess.bits();
         const ProtectedAccessOnlyEXT = Self::ProtectedAccessOnly.bits();
+        const RayTracingOpacityMicromapKHR = 1u32 << 24;
     }
 }
 bitflags! {
@@ -2824,6 +2886,7 @@ bitflags! {
     #[doc(alias = "VkPipelineLayoutCreateFlagBits")]
     pub struct PipelineLayoutCreateFlags : u32 {
         const IndependentSetsEXT = 1u32 << 1;
+        const NoTaskShaderKHR = 1u32 << 2;
     }
 }
 bitflags! {
@@ -3861,6 +3924,7 @@ pub enum DriverId {
     MesaHoneykrisp = 26,
     VulkanScEmulationOnVulkan = 27,
     MesaKosmickrisp = 28,
+    MesaGfxstream = 29,
 }
 #[cfg(any(feature = "ext_driver_properties", feature = "version_1_2"))]
 #[allow(non_upper_case_globals)]
@@ -4269,6 +4333,7 @@ bitflags! {
         const FragmentDensityMapEXT = 1u64 << 24;
         const FragmentShadingRateAttachmentKHR = 1u64 << 30;
         const HostImageTransferEXT = Self::HostImageTransfer.bits();
+        const BlockMatchingSxdQCOM = 1u64 << 44;
         const SampledImageKHR = Self::SampledImage.bits();
         const StorageImageKHR = Self::StorageImage.bits();
         const StorageImageAtomicKHR = Self::StorageImageAtomic.bits();
@@ -4313,6 +4378,9 @@ bitflags! {
         const DepthCopyOnTransferQueueKHR = 1u64 << 53;
         const StencilCopyOnComputeQueueKHR = 1u64 << 54;
         const StencilCopyOnTransferQueueKHR = 1u64 << 55;
+        const DataGraphOpticalFlowImageARM = 1u64 << 56;
+        const DataGraphOpticalFlowVectorARM = 1u64 << 57;
+        const DataGraphOpticalFlowCostARM = 1u64 << 58;
     }
 }
 #[cfg(any(feature = "ext_format_feature_flags2", feature = "version_1_3"))]
@@ -4461,7 +4529,11 @@ bitflags! {
 #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkMemoryUnmapFlagBitsKHR.html>"]
 #[doc(alias = "VkMemoryUnmapFlagBitsKHR")]
 pub type MemoryUnmapFlagsKHR = MemoryUnmapFlags;
-#[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
+#[cfg(any(
+    feature = "ext_maintenance5",
+    feature = "ext_extended_flags",
+    feature = "version_1_4"
+))]
 bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
@@ -4481,6 +4553,8 @@ bitflags! {
         const ShaderDeviceAddress = 1u64 << 17;
         const ExecutionGraphScratchAMDX = 1u64 << 25;
         const DescriptorHeapEXT = 1u64 << 28;
+        const MicromapBuildInputReadOnlyEXT = 1u64 << 23;
+        const MicromapStorageEXT = 1u64 << 24;
         const TransferSrcKHR = Self::TransferSrc.bits();
         const TransferDstKHR = Self::TransferDst.bits();
         const UniformTexelBufferKHR = Self::UniformTexelBuffer.bits();
@@ -4505,8 +4579,6 @@ bitflags! {
         const SamplerDescriptorBufferEXT = 1u64 << 21;
         const ResourceDescriptorBufferEXT = 1u64 << 22;
         const PushDescriptorsDescriptorBufferEXT = 1u64 << 26;
-        const MicromapBuildInputReadOnlyEXT = 1u64 << 23;
-        const MicromapStorageEXT = 1u64 << 24;
         const CompressedDataDgf1AMDX = 1u64 << 33;
         const DataGraphForeignDescriptorARM = 1u64 << 29;
         const TileMemoryQCOM = 1u64 << 27;
@@ -4514,7 +4586,11 @@ bitflags! {
         const PreprocessBufferEXT = 1u64 << 31;
     }
 }
-#[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
+#[cfg(any(
+    feature = "ext_maintenance5",
+    feature = "ext_extended_flags",
+    feature = "version_1_4"
+))]
 #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkBufferUsageFlagBits2KHR.html>"]
 #[doc(alias = "VkBufferUsageFlagBits2KHR")]
 pub type BufferUsageFlags2KHR = BufferUsageFlags2;
@@ -4534,7 +4610,11 @@ bitflags! {
 #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkHostImageCopyFlagBitsEXT.html>"]
 #[doc(alias = "VkHostImageCopyFlagBitsEXT")]
 pub type HostImageCopyFlagsEXT = HostImageCopyFlags;
-#[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
+#[cfg(any(
+    feature = "ext_maintenance5",
+    feature = "ext_extended_flags",
+    feature = "version_1_4"
+))]
 bitflags! {
     #[derive(Default)]
     #[repr(transparent)]
@@ -4554,6 +4634,7 @@ bitflags! {
         const ExecutionGraphAMDX = 1u64 << 32;
         const DescriptorHeapEXT = 1u64 << 36;
         const RayTracingSkipBuiltInPrimitivesKHR = Self::RayTracingSkipTrianglesKHR.bits();
+        const RayTracingOpacityMicromapEXT = Self::RayTracingOpacityMicromapKHR.bits();
         const RayTracingAllowSpheresAndLinearSweptSpheresNV = 1u64 << 33;
         const EnableLegacyDitheringEXT = 1u64 << 34;
         const DisableOptimizationKHR = Self::DisableOptimization.bits();
@@ -4580,7 +4661,6 @@ bitflags! {
         const RayTracingAllowMotionNV = 1u64 << 20;
         const RenderingFragmentShadingRateAttachmentKHR = 1u64 << 21;
         const RenderingFragmentDensityMapAttachmentEXT = 1u64 << 22;
-        const RayTracingOpacityMicromapEXT = 1u64 << 24;
         const ColorAttachmentFeedbackLoopEXT = 1u64 << 25;
         const DepthStencilAttachmentFeedbackLoopEXT = 1u64 << 26;
         const NoProtectedAccessEXT = Self::NoProtectedAccess.bits();
@@ -4592,10 +4672,16 @@ bitflags! {
         const CaptureDataKHR = 1u64 << 31;
         const IndirectBindableEXT = 1u64 << 38;
         const PerLayerFragmentDensityVALVE = 1u64 << 40;
+        const RayTracingOpacityMicromapKHR = 1u64 << 24;
+        const OpacityMicromapDisallowMixedSpecialIndexKHR = 1u64 << 41;
         const Pipeline64BitIndexingEXT = 1u64 << 43;
     }
 }
-#[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
+#[cfg(any(
+    feature = "ext_maintenance5",
+    feature = "ext_extended_flags",
+    feature = "version_1_4"
+))]
 #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineCreateFlagBits2KHR.html>"]
 #[doc(alias = "VkPipelineCreateFlagBits2KHR")]
 pub type PipelineCreateFlags2KHR = PipelineCreateFlags2;
@@ -4727,6 +4813,7 @@ bitflags! {
         const PresentId2 = 1u32 << 6;
         const PresentWait2 = 1u32 << 7;
         const DeferredMemoryAllocation = 1u32 << 3;
+        const MultisampledRenderToSingleSampledEXT = 1u32 << 8;
     }
 }
 #[cfg(any(
@@ -5069,6 +5156,116 @@ bitflags! {
         const DeviceAddressBinding = 1u32 << 3;
     }
 }
+#[cfg(feature = "ext_gpa_interface")]
+bitflags! {
+    #[derive(Default)]
+    #[repr(transparent)]
+    #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkGpaSqShaderStageFlagBitsAMD.html>"]
+    #[doc(alias = "VkGpaSqShaderStageFlagBitsAMD")]
+    pub struct GpaSqShaderStageFlagsAMD : u32 {
+        const Ps = 1u32 << 0;
+        const Vs = 1u32 << 1;
+        const Gs = 1u32 << 2;
+        const Es = 1u32 << 3;
+        const Hs = 1u32 << 4;
+        const Ls = 1u32 << 5;
+        const Cs = 1u32 << 6;
+    }
+}
+#[cfg(feature = "ext_gpa_interface")]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkGpaPerfBlockAMD.html>"]
+#[doc(alias = "VkGpaPerfBlockAMD")]
+#[repr(u32)]
+pub enum GpaPerfBlockAMD {
+    Cpf = 0,
+    Ia = 1,
+    Vgt = 2,
+    Pa = 3,
+    Sc = 4,
+    Spi = 5,
+    Sq = 6,
+    Sx = 7,
+    Ta = 8,
+    Td = 9,
+    Tcp = 10,
+    Tcc = 11,
+    Tca = 12,
+    Db = 13,
+    Cb = 14,
+    Gds = 15,
+    Srbm = 16,
+    Grbm = 17,
+    GrbmSe = 18,
+    Rlc = 19,
+    Dma = 20,
+    Mc = 21,
+    Cpg = 22,
+    Cpc = 23,
+    Wd = 24,
+    Tcs = 25,
+    Atc = 26,
+    AtcL2 = 27,
+    McVmL2 = 28,
+    Ea = 29,
+    Rpb = 30,
+    Rmi = 31,
+    Umcch = 32,
+    Ge = 33,
+    Gl1A = 34,
+    Gl1C = 35,
+    Gl1Cg = 36,
+    Gl2A = 37,
+    Gl2C = 38,
+    Cha = 39,
+    Chc = 40,
+    Chcg = 41,
+    Gus = 42,
+    Gcr = 43,
+    Ph = 44,
+    Utcl1 = 45,
+    GeDist = 46,
+    GeSe = 47,
+    DfMall = 48,
+    SqWgp = 49,
+    Pc = 50,
+    Gl1Xa = 51,
+    Gl1Xc = 52,
+    Wgs = 53,
+    Eacpwd = 54,
+    Ease = 55,
+    Rlcuser = 56,
+}
+#[cfg(feature = "ext_gpa_interface")]
+#[allow(non_upper_case_globals)]
+impl GpaPerfBlockAMD {
+    pub const Ge1: Self = Self::Ge;
+    pub const Rlclocal: Self = Self::Rlcuser;
+}
+#[cfg(feature = "ext_gpa_interface")]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkGpaSampleTypeAMD.html>"]
+#[doc(alias = "VkGpaSampleTypeAMD")]
+#[repr(u32)]
+pub enum GpaSampleTypeAMD {
+    Cumulative = 0,
+    Trace = 1,
+    Timing = 2,
+}
+#[cfg(feature = "ext_gpa_interface")]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkGpaDeviceClockModeAMD.html>"]
+#[doc(alias = "VkGpaDeviceClockModeAMD")]
+#[repr(u32)]
+pub enum GpaDeviceClockModeAMD {
+    Default = 0,
+    Query = 1,
+    Profiling = 2,
+    MinMemory = 3,
+    MinEngine = 4,
+    Peak = 5,
+}
 #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VK_SHADER_INDEX_UNUSED_AMDX.html>"]
 #[doc(alias = "VK_SHADER_INDEX_UNUSED_AMDX")]
 pub const SHADER_INDEX_UNUSED_AMDX: u32 = !0u32;
@@ -5134,6 +5331,7 @@ pub enum AccelerationStructureTypeKHR {
     TopLevel = 0,
     BottomLevel = 1,
     Generic = 2,
+    OpacityMicromap = 1000623000,
 }
 #[cfg(any(feature = "ext_acceleration_structure", feature = "ext_ray_tracing"))]
 #[allow(non_upper_case_globals)]
@@ -5190,8 +5388,10 @@ bitflags! {
         const TriangleFrontCounterclockwiseNV = Self::TriangleFrontCounterclockwise.bits();
         const ForceOpaqueNV = Self::ForceOpaque.bits();
         const ForceNoOpaqueNV = Self::ForceNoOpaque.bits();
-        const ForceOpacityMicromap2StateEXT = 1u32 << 4;
-        const DisableOpacityMicromapsEXT = 1u32 << 5;
+        const ForceOpacityMicromap2StateEXT = Self::ForceOpacityMicromap2State.bits();
+        const DisableOpacityMicromapsEXT = Self::DisableOpacityMicromaps.bits();
+        const ForceOpacityMicromap2State = 1u32 << 4;
+        const DisableOpacityMicromaps = 1u32 << 5;
     }
 }
 #[cfg(any(feature = "ext_acceleration_structure", feature = "ext_ray_tracing"))]
@@ -5217,12 +5417,15 @@ bitflags! {
         const PreferFastBuildNV = Self::PreferFastBuild.bits();
         const LowMemoryNV = Self::LowMemory.bits();
         const MotionNV = 1u32 << 5;
-        const AllowOpacityMicromapUpdateEXT = 1u32 << 6;
-        const AllowDisableOpacityMicromapsEXT = 1u32 << 7;
+        const AllowOpacityMicromapUpdateEXT = Self::AllowOpacityMicromapUpdate.bits();
+        const AllowDisableOpacityMicromapsEXT = Self::AllowDisableOpacityMicromaps.bits();
         const AllowOpacityMicromapDataUpdateEXT = 1u32 << 8;
         const AllowDisplacementMicromapUpdateNV = 1u32 << 9;
         const AllowDataAccess = 1u32 << 11;
         const AllowClusterOpacityMicromapsNV = 1u32 << 12;
+        const AllowOpacityMicromapUpdate = 1u32 << 6;
+        const AllowDisableOpacityMicromaps = 1u32 << 7;
+        const MicromapLossy = 1u32 << 10;
     }
 }
 #[cfg(any(feature = "ext_acceleration_structure", feature = "ext_ray_tracing"))]
@@ -5262,6 +5465,7 @@ pub enum GeometryTypeKHR {
     SpheresNV = 1000429004,
     LinearSweptSpheresNV = 1000429005,
     DenseGeometryFormatTrianglesAMDX = 1000478000,
+    Micromap = 1000623000,
 }
 #[cfg(any(feature = "ext_acceleration_structure", feature = "ext_ray_tracing"))]
 #[allow(non_upper_case_globals)]
@@ -5670,6 +5874,17 @@ bitflags! {
         const EnableShaderErrorReporting = 1u32 << 3;
     }
 }
+#[cfg(feature = "ext_queue_perf_hint")]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPerfHintTypeQCOM.html>"]
+#[doc(alias = "VkPerfHintTypeQCOM")]
+#[repr(u32)]
+pub enum PerfHintTypeQCOM {
+    Default = 0,
+    FrequencyMin = 1,
+    FrequencyMax = 2,
+    FrequencyScaled = 3,
+}
 #[cfg(feature = "ext_tile_shading")]
 bitflags! {
     #[derive(Default)]
@@ -5815,28 +6030,6 @@ bitflags! {
         const Rate24Bpc = 1u32 << 23;
     }
 }
-#[cfg(feature = "ext_device_fault")]
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceFaultAddressTypeEXT.html>"]
-#[doc(alias = "VkDeviceFaultAddressTypeEXT")]
-#[repr(u32)]
-pub enum DeviceFaultAddressTypeEXT {
-    None = 0,
-    ReadInvalid = 1,
-    WriteInvalid = 2,
-    ExecuteInvalid = 3,
-    InstructionPointerUnknown = 4,
-    InstructionPointerInvalid = 5,
-    InstructionPointerFault = 6,
-}
-#[cfg(feature = "ext_device_fault")]
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceFaultVendorBinaryHeaderVersionEXT.html>"]
-#[doc(alias = "VkDeviceFaultVendorBinaryHeaderVersionEXT")]
-#[repr(u32)]
-pub enum DeviceFaultVendorBinaryHeaderVersionEXT {
-    One = 1,
-}
 #[cfg(feature = "ext_device_address_binding_report")]
 bitflags! {
     #[derive(Default)]
@@ -5974,27 +6167,6 @@ bitflags! {
 pub enum BuildMicromapModeEXT {
     Build = 0,
 }
-#[cfg(feature = "ext_opacity_micromap")]
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkOpacityMicromapFormatEXT.html>"]
-#[doc(alias = "VkOpacityMicromapFormatEXT")]
-#[repr(u32)]
-pub enum OpacityMicromapFormatEXT {
-    Format2State = 1,
-    Format4State = 2,
-}
-#[cfg(feature = "ext_opacity_micromap")]
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkOpacityMicromapSpecialIndexEXT.html>"]
-#[doc(alias = "VkOpacityMicromapSpecialIndexEXT")]
-#[repr(i32)]
-pub enum OpacityMicromapSpecialIndexEXT {
-    FullyTransparent = -1,
-    FullyOpaque = -2,
-    FullyUnknownTransparent = -3,
-    FullyUnknownOpaque = -4,
-    ClusterGeometryDisableOpacityMicromapNV = -5,
-}
 #[cfg(feature = "ext_displacement_micromap")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDisplacementMicromapFormatNV.html>"]
@@ -6014,6 +6186,7 @@ bitflags! {
     #[doc(alias = "VkPhysicalDeviceSchedulingControlsFlagBitsARM")]
     pub struct PhysicalDeviceSchedulingControlsFlagsARM : u64 {
         const ShaderCoreCount = 1u64 << 0;
+        const DispatchParameters = 1u64 << 1;
     }
 }
 #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VK_REMAINING_3D_SLICES_EXT.html>"]
@@ -6254,7 +6427,9 @@ bitflags! {
         const FragmentShadingRateAttachment = 1u32 << 5;
         const FragmentDensityMapAttachment = 1u32 << 6;
         const IndirectBindable = 1u32 << 7;
+        const OpacityMicromapDisallowMixedSpecialIndex = 1u32 << 12;
         const Shader64BitIndexing = 1u32 << 15;
+        const IndependentSetsKHR = 1u32 << 18;
     }
 }
 #[cfg(feature = "ext_shader_object")]
@@ -6440,6 +6615,8 @@ pub const MAX_PHYSICAL_DEVICE_DATA_GRAPH_OPERATION_SET_NAME_SIZE_ARM: u32 = 128;
 #[repr(u32)]
 pub enum DataGraphPipelineSessionBindPointARM {
     Transient = 0,
+    OpticalFlowCache = 1000631001,
+    NeuralAcceleratorStatistics = 1000676000,
 }
 #[cfg(feature = "ext_data_graph")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -6458,6 +6635,7 @@ bitflags! {
     #[doc(alias = "VkDataGraphPipelineSessionCreateFlagBitsARM")]
     pub struct DataGraphPipelineSessionCreateFlagsARM : u64 {
         const Protected = 1u64 << 0;
+        const OpticalFlowCache = 1u64 << 1;
     }
 }
 #[cfg(feature = "ext_data_graph")]
@@ -6468,6 +6646,8 @@ bitflags! {
 pub enum DataGraphPipelinePropertyARM {
     CreationLog = 0,
     Identifier = 1,
+    NeuralAcceleratorDebugDatabase = 1000676000,
+    NeuralAcceleratorStatisticsInfo = 1000676001,
 }
 #[cfg(feature = "ext_data_graph")]
 bitflags! {
@@ -6498,6 +6678,33 @@ pub enum PhysicalDeviceDataGraphOperationTypeARM {
     SpirvExtendedInstructionSet = 0,
     NeuralModelQCOM = 1000629000,
     BuiltinModelQCOM = 1000629001,
+    OpticalFlow = 1000631000,
+}
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VK_MAX_DATA_GRAPH_TOSA_NAME_SIZE_ARM.html>"]
+#[doc(alias = "VK_MAX_DATA_GRAPH_TOSA_NAME_SIZE_ARM")]
+pub const MAX_DATA_GRAPH_TOSA_NAME_SIZE_ARM: u32 = 128;
+#[cfg(feature = "ext_data_graph_instruction_set_tosa")]
+bitflags! {
+    #[derive(Default)]
+    #[repr(transparent)]
+    #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphTOSAQualityFlagBitsARM.html>"]
+    #[doc(alias = "VkDataGraphTOSAQualityFlagBitsARM")]
+    pub struct DataGraphTOSAQualityFlagsARM : u32 {
+        const osaQualityAccelerated = 1u32 << 0;
+        const osaQualityConformant = 1u32 << 1;
+        const osaQualityExperimental = 1u32 << 2;
+        const osaQualityDeprecated = 1u32 << 3;
+    }
+}
+#[cfg(feature = "ext_data_graph_instruction_set_tosa")]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphTOSALevelARM.html>"]
+#[doc(alias = "VkDataGraphTOSALevelARM")]
+#[repr(u32)]
+pub enum DataGraphTOSALevelARM {
+    osaLevelNone = 0,
+    osaLevel8K = 1,
 }
 #[cfg(feature = "ext_image_processing2")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -6777,6 +6984,68 @@ bitflags! {
         const DxgiIndexBuffer = 1u32 << 1;
     }
 }
+#[cfg(feature = "ext_device_fault")]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceFaultAddressTypeKHR.html>"]
+#[doc(alias = "VkDeviceFaultAddressTypeKHR")]
+#[repr(u32)]
+pub enum DeviceFaultAddressTypeKHR {
+    None = 0,
+    ReadInvalid = 1,
+    WriteInvalid = 2,
+    ExecuteInvalid = 3,
+    InstructionPointerUnknown = 4,
+    InstructionPointerInvalid = 5,
+    InstructionPointerFault = 6,
+}
+#[cfg(feature = "ext_device_fault")]
+#[allow(non_upper_case_globals)]
+impl DeviceFaultAddressTypeKHR {
+    pub const NoneEXT: Self = Self::None;
+    pub const ReadInvalidEXT: Self = Self::ReadInvalid;
+    pub const WriteInvalidEXT: Self = Self::WriteInvalid;
+    pub const ExecuteInvalidEXT: Self = Self::ExecuteInvalid;
+    pub const InstructionPointerUnknownEXT: Self = Self::InstructionPointerUnknown;
+    pub const InstructionPointerInvalidEXT: Self = Self::InstructionPointerInvalid;
+    pub const InstructionPointerFaultEXT: Self = Self::InstructionPointerFault;
+}
+#[cfg(feature = "ext_device_fault")]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceFaultAddressTypeEXT.html>"]
+#[doc(alias = "VkDeviceFaultAddressTypeEXT")]
+pub type DeviceFaultAddressTypeEXT = DeviceFaultAddressTypeKHR;
+#[cfg(feature = "ext_device_fault")]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceFaultVendorBinaryHeaderVersionKHR.html>"]
+#[doc(alias = "VkDeviceFaultVendorBinaryHeaderVersionKHR")]
+#[repr(u32)]
+pub enum DeviceFaultVendorBinaryHeaderVersionKHR {
+    One = 1,
+}
+#[cfg(feature = "ext_device_fault")]
+#[allow(non_upper_case_globals)]
+impl DeviceFaultVendorBinaryHeaderVersionKHR {
+    pub const OneEXT: Self = Self::One;
+}
+#[cfg(feature = "ext_device_fault")]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceFaultVendorBinaryHeaderVersionEXT.html>"]
+#[doc(alias = "VkDeviceFaultVendorBinaryHeaderVersionEXT")]
+pub type DeviceFaultVendorBinaryHeaderVersionEXT = DeviceFaultVendorBinaryHeaderVersionKHR;
+#[cfg(feature = "ext_device_fault")]
+bitflags! {
+    #[derive(Default)]
+    #[repr(transparent)]
+    #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceFaultFlagBitsKHR.html>"]
+    #[doc(alias = "VkDeviceFaultFlagBitsKHR")]
+    pub struct DeviceFaultFlagsKHR : u32 {
+        const FlagDeviceLost = 1u32 << 0;
+        const FlagMemoryAddress = 1u32 << 1;
+        const FlagInstructionAddress = 1u32 << 2;
+        const FlagVendor = 1u32 << 3;
+        const FlagWatchdogTimeout = 1u32 << 4;
+        const FlagOverflow = 1u32 << 5;
+    }
+}
 #[cfg(feature = "ext_maintenance8")]
 bitflags! {
     #[derive(Default)]
@@ -6825,6 +7094,57 @@ pub enum DefaultVertexAttributeValueKHR {
     ZeroZeroZeroZero = 0,
     ZeroZeroZeroOne = 1,
 }
+#[cfg(feature = "ext_opacity_micromap")]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkOpacityMicromapFormatKHR.html>"]
+#[doc(alias = "VkOpacityMicromapFormatKHR")]
+#[repr(u32)]
+pub enum OpacityMicromapFormatKHR {
+    Format2State = 1,
+    Format4State = 2,
+}
+#[cfg(feature = "ext_opacity_micromap")]
+#[allow(non_upper_case_globals)]
+impl OpacityMicromapFormatKHR {
+    pub const Format2StateEXT: Self = Self::Format2State;
+    pub const Format4StateEXT: Self = Self::Format4State;
+}
+#[cfg(feature = "ext_opacity_micromap")]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkOpacityMicromapFormatEXT.html>"]
+#[doc(alias = "VkOpacityMicromapFormatEXT")]
+pub type OpacityMicromapFormatEXT = OpacityMicromapFormatKHR;
+#[cfg(feature = "ext_opacity_micromap")]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkOpacityMicromapSpecialIndexKHR.html>"]
+#[doc(alias = "VkOpacityMicromapSpecialIndexKHR")]
+#[repr(i32)]
+pub enum OpacityMicromapSpecialIndexKHR {
+    FullyTransparent = -1,
+    FullyOpaque = -2,
+    FullyUnknownTransparent = -3,
+    FullyUnknownOpaque = -4,
+    ClusterGeometryDisableOpacityMicromapNV = -5,
+}
+#[cfg(feature = "ext_opacity_micromap")]
+#[allow(non_upper_case_globals)]
+impl OpacityMicromapSpecialIndexKHR {
+    pub const FullyTransparentEXT: Self = Self::FullyTransparent;
+    pub const FullyOpaqueEXT: Self = Self::FullyOpaque;
+    pub const FullyUnknownTransparentEXT: Self = Self::FullyUnknownTransparent;
+    pub const FullyUnknownOpaqueEXT: Self = Self::FullyUnknownOpaque;
+}
+#[cfg(feature = "ext_opacity_micromap")]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkOpacityMicromapSpecialIndexEXT.html>"]
+#[doc(alias = "VkOpacityMicromapSpecialIndexEXT")]
+pub type OpacityMicromapSpecialIndexEXT = OpacityMicromapSpecialIndexKHR;
+#[cfg(feature = "ext_opacity_micromap")]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAccelerationStructureSerializedBlockTypeKHR.html>"]
+#[doc(alias = "VkAccelerationStructureSerializedBlockTypeKHR")]
+#[repr(u32)]
+pub enum AccelerationStructureSerializedBlockTypeKHR {
+    OpacityMicromap = 0,
+}
 #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VK_DATA_GRAPH_MODEL_TOOLCHAIN_VERSION_LENGTH_QCOM.html>"]
 #[doc(alias = "VK_DATA_GRAPH_MODEL_TOOLCHAIN_VERSION_LENGTH_QCOM")]
 pub const DATA_GRAPH_MODEL_TOOLCHAIN_VERSION_LENGTH_QCOM: u32 = 3;
@@ -6861,6 +7181,95 @@ bitflags! {
         const EnableTransferFunction = 1u32 << 1;
     }
 }
+#[cfg(feature = "ext_data_graph_optical_flow")]
+bitflags! {
+    #[derive(Default)]
+    #[repr(transparent)]
+    #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphOpticalFlowImageUsageFlagBitsARM.html>"]
+    #[doc(alias = "VkDataGraphOpticalFlowImageUsageFlagBitsARM")]
+    pub struct DataGraphOpticalFlowImageUsageFlagsARM : u32 {
+        const Unknown = 0;
+        const Input = 1u32 << 0;
+        const Output = 1u32 << 1;
+        const Hint = 1u32 << 2;
+        const Cost = 1u32 << 3;
+    }
+}
+#[cfg(feature = "ext_data_graph_optical_flow")]
+bitflags! {
+    #[derive(Default)]
+    #[repr(transparent)]
+    #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphOpticalFlowCreateFlagBitsARM.html>"]
+    #[doc(alias = "VkDataGraphOpticalFlowCreateFlagBitsARM")]
+    pub struct DataGraphOpticalFlowCreateFlagsARM : u32 {
+        const EnableHint = 1u32 << 0;
+        const EnableCost = 1u32 << 1;
+        const Reserved30 = 1u32 << 30;
+    }
+}
+#[cfg(feature = "ext_data_graph_optical_flow")]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphOpticalFlowPerformanceLevelARM.html>"]
+#[doc(alias = "VkDataGraphOpticalFlowPerformanceLevelARM")]
+#[repr(u32)]
+pub enum DataGraphOpticalFlowPerformanceLevelARM {
+    Unknown = 0,
+    Slow = 1,
+    Medium = 2,
+    Fast = 3,
+}
+#[cfg(feature = "ext_data_graph_optical_flow")]
+bitflags! {
+    #[derive(Default)]
+    #[repr(transparent)]
+    #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphOpticalFlowGridSizeFlagBitsARM.html>"]
+    #[doc(alias = "VkDataGraphOpticalFlowGridSizeFlagBitsARM")]
+    pub struct DataGraphOpticalFlowGridSizeFlagsARM : u32 {
+        const Unknown = 0;
+        const Size1X1 = 1u32 << 0;
+        const Size2X2 = 1u32 << 1;
+        const Size4X4 = 1u32 << 2;
+        const Size8X8 = 1u32 << 3;
+    }
+}
+#[cfg(feature = "ext_data_graph_optical_flow")]
+bitflags! {
+    #[derive(Default)]
+    #[repr(transparent)]
+    #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphOpticalFlowExecuteFlagBitsARM.html>"]
+    #[doc(alias = "VkDataGraphOpticalFlowExecuteFlagBitsARM")]
+    pub struct DataGraphOpticalFlowExecuteFlagsARM : u32 {
+        const DisableTemporalHints = 1u32 << 0;
+        const InputUnchanged = 1u32 << 1;
+        const ReferenceUnchanged = 1u32 << 2;
+        const InputIsPreviousReference = 1u32 << 3;
+        const ReferenceIsPreviousInput = 1u32 << 4;
+    }
+}
+#[cfg(feature = "ext_data_graph_optical_flow")]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphPipelineNodeTypeARM.html>"]
+#[doc(alias = "VkDataGraphPipelineNodeTypeARM")]
+#[repr(u32)]
+pub enum DataGraphPipelineNodeTypeARM {
+    OpticalFlow = 1000631000,
+}
+#[cfg(feature = "ext_data_graph_optical_flow")]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphPipelineNodeConnectionTypeARM.html>"]
+#[doc(alias = "VkDataGraphPipelineNodeConnectionTypeARM")]
+#[repr(u32)]
+pub enum DataGraphPipelineNodeConnectionTypeARM {
+    OpticalFlowInput = 1000631000,
+    OpticalFlowReference = 1000631001,
+    OpticalFlowHint = 1000631002,
+    OpticalFlowFlowVector = 1000631003,
+    OpticalFlowCost = 1000631004,
+}
 #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VK_COMPUTE_OCCUPANCY_PRIORITY_LOW_NV.html>"]
 #[doc(alias = "VK_COMPUTE_OCCUPANCY_PRIORITY_LOW_NV")]
 pub const COMPUTE_OCCUPANCY_PRIORITY_LOW_NV: f32 = 0.25f32;
@@ -6870,3 +7279,99 @@ pub const COMPUTE_OCCUPANCY_PRIORITY_NORMAL_NV: f32 = 0.50f32;
 #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VK_COMPUTE_OCCUPANCY_PRIORITY_HIGH_NV.html>"]
 #[doc(alias = "VK_COMPUTE_OCCUPANCY_PRIORITY_HIGH_NV")]
 pub const COMPUTE_OCCUPANCY_PRIORITY_HIGH_NV: f32 = 0.75f32;
+#[cfg(feature = "ext_extended_flags")]
+bitflags! {
+    #[derive(Default)]
+    #[repr(transparent)]
+    #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkFormatFeatureFlagBits4KHR.html>"]
+    #[doc(alias = "VkFormatFeatureFlagBits4KHR")]
+    pub struct FormatFeatureFlags4KHR : u64 {
+    }
+}
+#[cfg(feature = "ext_extended_flags")]
+bitflags! {
+    #[derive(Default)]
+    #[repr(transparent)]
+    #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImageUsageFlagBits2KHR.html>"]
+    #[doc(alias = "VkImageUsageFlagBits2KHR")]
+    pub struct ImageUsageFlags2KHR : u64 {
+        const TransferSrc = 1u64 << 0;
+        const TransferDst = 1u64 << 1;
+        const Sampled = 1u64 << 2;
+        const Storage = 1u64 << 3;
+        const ColorAttachment = 1u64 << 4;
+        const DepthStencilAttachment = 1u64 << 5;
+        const TransientAttachment = 1u64 << 6;
+        const InputAttachment = 1u64 << 7;
+        const FragmentShadingRateAttachment = 1u64 << 8;
+        const FragmentDensityMapEXT = 1u64 << 9;
+        const VideoDecodeDst = 1u64 << 10;
+        const VideoDecodeSrc = 1u64 << 11;
+        const VideoDecodeDpb = 1u64 << 12;
+        const VideoEncodeDst = 1u64 << 13;
+        const VideoEncodeSrc = 1u64 << 14;
+        const VideoEncodeDpb = 1u64 << 15;
+        const InvocationMaskHUAWEI = 1u64 << 18;
+        const AttachmentFeedbackLoopEXT = 1u64 << 19;
+        const SampleWeightQCOM = 1u64 << 20;
+        const SampleBlockMatchQCOM = 1u64 << 21;
+        const HostTransfer = 1u64 << 22;
+        const TensorAliasingARM = 1u64 << 23;
+        const VideoEncodeQuantizationDeltaMap = 1u64 << 25;
+        const VideoEncodeEmphasisMap = 1u64 << 26;
+        const TileMemoryQCOM = 1u64 << 27;
+    }
+}
+#[cfg(feature = "ext_extended_flags")]
+bitflags! {
+    #[derive(Default)]
+    #[repr(transparent)]
+    #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImageCreateFlagBits2KHR.html>"]
+    #[doc(alias = "VkImageCreateFlagBits2KHR")]
+    pub struct ImageCreateFlags2KHR : u64 {
+        const SparseBinding = 1u64 << 0;
+        const SparseResidency = 1u64 << 1;
+        const SparseAliased = 1u64 << 2;
+        const MutableFormat = 1u64 << 3;
+        const CubeCompatible = 1u64 << 4;
+        const AliasSingleLayerDescriptor = 1u64 << 22;
+        const Image2DArrayCompatible = 1u64 << 5;
+        const SplitInstanceBindRegions = 1u64 << 6;
+        const BlockTexelViewCompatible = 1u64 << 7;
+        const ExtendedUsage = 1u64 << 8;
+        const Disjoint = 1u64 << 9;
+        const Alias = 1u64 << 10;
+        const Protected = 1u64 << 11;
+        const SampleLocationsCompatibleDepthEXT = 1u64 << 12;
+        const CornerSampledNV = 1u64 << 13;
+        const SubsampledEXT = 1u64 << 14;
+        const FragmentDensityMapOffsetEXT = 1u64 << 15;
+        const DescriptorBufferCaptureReplayEXT = 1u64 << 16;
+        const Image2DViewCompatibleEXT = 1u64 << 17;
+        const MultisampledRenderToSingleSampledEXT = 1u64 << 18;
+        const VideoProfileIndependent = 1u64 << 20;
+    }
+}
+#[cfg(feature = "ext_throttle_hint")]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkThrottleHintTypeSEC.html>"]
+#[doc(alias = "VkThrottleHintTypeSEC")]
+#[repr(u32)]
+pub enum ThrottleHintTypeSEC {
+    Default = 0,
+    Low = 1,
+    High = 2,
+}
+#[cfg(feature = "ext_data_graph_neural_accelerator_statistics")]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkNeuralAcceleratorStatisticsModeARM.html>"]
+#[doc(alias = "VkNeuralAcceleratorStatisticsModeARM")]
+#[repr(u32)]
+pub enum NeuralAcceleratorStatisticsModeARM {
+    Disabled = 0,
+    Statistics0 = 1,
+    Statistics1 = 2,
+}

@@ -199,6 +199,7 @@ pub enum MemberContent {
 pub enum Deprecated {
     True,
     Ignored,
+    Unused,
 }
 
 #[derive(Deserialize, Debug, PartialEq)]

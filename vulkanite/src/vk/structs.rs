@@ -22892,7 +22892,11 @@ impl<'a> DeviceImageSubresourceInfo<'a> {
 }
 #[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
 pub type DeviceImageSubresourceInfoKHR<'a> = DeviceImageSubresourceInfo<'a>;
-#[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
+#[cfg(any(
+    feature = "ext_maintenance5",
+    feature = "ext_extended_flags",
+    feature = "version_1_4"
+))]
 #[repr(C)]
 #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkBufferUsageFlags2CreateInfo.html>"]
 #[doc(alias = "VkBufferUsageFlags2CreateInfo")]
@@ -22902,25 +22906,53 @@ pub struct BufferUsageFlags2CreateInfo<'a> {
     pub usage: BufferUsageFlags2,
     phantom: PhantomData<&'a ()>,
 }
-#[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
+#[cfg(any(
+    feature = "ext_maintenance5",
+    feature = "ext_extended_flags",
+    feature = "version_1_4"
+))]
 unsafe impl<'a> ExtendableStructureBase for BufferUsageFlags2CreateInfo<'a> {}
-#[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
+#[cfg(any(
+    feature = "ext_maintenance5",
+    feature = "ext_extended_flags",
+    feature = "version_1_4"
+))]
 unsafe impl<'a> ExtendableStructure for BufferUsageFlags2CreateInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::BufferUsageFlags2CreateInfo;
 }
-#[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
+#[cfg(any(
+    feature = "ext_maintenance5",
+    feature = "ext_extended_flags",
+    feature = "version_1_4"
+))]
 unsafe impl<'a> Send for BufferUsageFlags2CreateInfo<'a> {}
-#[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
+#[cfg(any(
+    feature = "ext_maintenance5",
+    feature = "ext_extended_flags",
+    feature = "version_1_4"
+))]
 unsafe impl<'a> Sync for BufferUsageFlags2CreateInfo<'a> {}
-#[cfg(all(any(feature = "ext_maintenance5", feature = "version_1_4"),))]
+#[cfg(all(any(
+    feature = "ext_maintenance5",
+    feature = "ext_extended_flags",
+    feature = "version_1_4"
+),))]
 unsafe impl<'a, 'b> ExtendingStructure<BufferViewCreateInfo<'b>>
     for BufferUsageFlags2CreateInfo<'a>
 {
 }
-#[cfg(all(any(feature = "ext_maintenance5", feature = "version_1_4"),))]
+#[cfg(all(any(
+    feature = "ext_maintenance5",
+    feature = "ext_extended_flags",
+    feature = "version_1_4"
+),))]
 unsafe impl<'a, 'b> ExtendingStructure<BufferCreateInfo<'b>> for BufferUsageFlags2CreateInfo<'a> {}
 #[cfg(all(
-    any(feature = "ext_maintenance5", feature = "version_1_4"),
+    any(
+        feature = "ext_maintenance5",
+        feature = "ext_extended_flags",
+        feature = "version_1_4"
+    ),
     any(feature = "ext_external_memory_capabilities", feature = "version_1_1")
 ))]
 unsafe impl<'a, 'b> ExtendingStructure<PhysicalDeviceExternalBufferInfo<'b>>
@@ -22928,14 +22960,22 @@ unsafe impl<'a, 'b> ExtendingStructure<PhysicalDeviceExternalBufferInfo<'b>>
 {
 }
 #[cfg(all(
-    any(feature = "ext_maintenance5", feature = "version_1_4"),
+    any(
+        feature = "ext_maintenance5",
+        feature = "ext_extended_flags",
+        feature = "version_1_4"
+    ),
     feature = "ext_descriptor_buffer"
 ))]
 unsafe impl<'a, 'b> ExtendingStructure<DescriptorBufferBindingInfoEXT<'b>>
     for BufferUsageFlags2CreateInfo<'a>
 {
 }
-#[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
+#[cfg(any(
+    feature = "ext_maintenance5",
+    feature = "ext_extended_flags",
+    feature = "version_1_4"
+))]
 impl<'a> Default for BufferUsageFlags2CreateInfo<'a> {
     fn default() -> Self {
         Self {
@@ -22946,7 +22986,11 @@ impl<'a> Default for BufferUsageFlags2CreateInfo<'a> {
         }
     }
 }
-#[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
+#[cfg(any(
+    feature = "ext_maintenance5",
+    feature = "ext_extended_flags",
+    feature = "version_1_4"
+))]
 impl<'a> BufferUsageFlags2CreateInfo<'a> {
     #[inline]
     pub fn usage(mut self, value: BufferUsageFlags2) -> Self {
@@ -22959,7 +23003,11 @@ impl<'a> BufferUsageFlags2CreateInfo<'a> {
         self
     }
 }
-#[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
+#[cfg(any(
+    feature = "ext_maintenance5",
+    feature = "ext_extended_flags",
+    feature = "version_1_4"
+))]
 pub type BufferUsageFlags2CreateInfoKHR<'a> = BufferUsageFlags2CreateInfo<'a>;
 #[cfg(any(feature = "ext_maintenance6", feature = "version_1_4"))]
 #[repr(C)]
@@ -24097,7 +24145,11 @@ impl<'a> PhysicalDeviceShaderExpectAssumeFeatures<'a> {
 }
 pub type PhysicalDeviceShaderExpectAssumeFeaturesKHR<'a> =
     PhysicalDeviceShaderExpectAssumeFeatures<'a>;
-#[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
+#[cfg(any(
+    feature = "ext_maintenance5",
+    feature = "ext_extended_flags",
+    feature = "version_1_4"
+))]
 #[repr(C)]
 #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineCreateFlags2CreateInfo.html>"]
 #[doc(alias = "VkPipelineCreateFlags2CreateInfo")]
@@ -24107,28 +24159,56 @@ pub struct PipelineCreateFlags2CreateInfo<'a> {
     pub flags: PipelineCreateFlags2,
     phantom: PhantomData<&'a ()>,
 }
-#[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
+#[cfg(any(
+    feature = "ext_maintenance5",
+    feature = "ext_extended_flags",
+    feature = "version_1_4"
+))]
 unsafe impl<'a> ExtendableStructureBase for PipelineCreateFlags2CreateInfo<'a> {}
-#[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
+#[cfg(any(
+    feature = "ext_maintenance5",
+    feature = "ext_extended_flags",
+    feature = "version_1_4"
+))]
 unsafe impl<'a> ExtendableStructure for PipelineCreateFlags2CreateInfo<'a> {
     const STRUCTURE_TYPE: StructureType = StructureType::PipelineCreateFlags2CreateInfo;
 }
-#[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
+#[cfg(any(
+    feature = "ext_maintenance5",
+    feature = "ext_extended_flags",
+    feature = "version_1_4"
+))]
 unsafe impl<'a> Send for PipelineCreateFlags2CreateInfo<'a> {}
-#[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
+#[cfg(any(
+    feature = "ext_maintenance5",
+    feature = "ext_extended_flags",
+    feature = "version_1_4"
+))]
 unsafe impl<'a> Sync for PipelineCreateFlags2CreateInfo<'a> {}
-#[cfg(all(any(feature = "ext_maintenance5", feature = "version_1_4"),))]
+#[cfg(all(any(
+    feature = "ext_maintenance5",
+    feature = "ext_extended_flags",
+    feature = "version_1_4"
+),))]
 unsafe impl<'a, 'b> ExtendingStructure<ComputePipelineCreateInfo<'b>>
     for PipelineCreateFlags2CreateInfo<'a>
 {
 }
-#[cfg(all(any(feature = "ext_maintenance5", feature = "version_1_4"),))]
+#[cfg(all(any(
+    feature = "ext_maintenance5",
+    feature = "ext_extended_flags",
+    feature = "version_1_4"
+),))]
 unsafe impl<'a, 'b> ExtendingStructure<GraphicsPipelineCreateInfo<'b>>
     for PipelineCreateFlags2CreateInfo<'a>
 {
 }
 #[cfg(all(
-    any(feature = "ext_maintenance5", feature = "version_1_4"),
+    any(
+        feature = "ext_maintenance5",
+        feature = "ext_extended_flags",
+        feature = "version_1_4"
+    ),
     feature = "ext_ray_tracing"
 ))]
 unsafe impl<'a, 'b> ExtendingStructure<RayTracingPipelineCreateInfoNV<'b>>
@@ -24136,14 +24216,22 @@ unsafe impl<'a, 'b> ExtendingStructure<RayTracingPipelineCreateInfoNV<'b>>
 {
 }
 #[cfg(all(
-    any(feature = "ext_maintenance5", feature = "version_1_4"),
+    any(
+        feature = "ext_maintenance5",
+        feature = "ext_extended_flags",
+        feature = "version_1_4"
+    ),
     feature = "ext_ray_tracing_pipeline"
 ))]
 unsafe impl<'a, 'b> ExtendingStructure<RayTracingPipelineCreateInfoKHR<'b>>
     for PipelineCreateFlags2CreateInfo<'a>
 {
 }
-#[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
+#[cfg(any(
+    feature = "ext_maintenance5",
+    feature = "ext_extended_flags",
+    feature = "version_1_4"
+))]
 impl<'a> Default for PipelineCreateFlags2CreateInfo<'a> {
     fn default() -> Self {
         Self {
@@ -24154,7 +24242,11 @@ impl<'a> Default for PipelineCreateFlags2CreateInfo<'a> {
         }
     }
 }
-#[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
+#[cfg(any(
+    feature = "ext_maintenance5",
+    feature = "ext_extended_flags",
+    feature = "version_1_4"
+))]
 impl<'a> PipelineCreateFlags2CreateInfo<'a> {
     #[inline]
     pub fn flags(mut self, value: PipelineCreateFlags2) -> Self {
@@ -24167,7 +24259,11 @@ impl<'a> PipelineCreateFlags2CreateInfo<'a> {
         self
     }
 }
-#[cfg(any(feature = "ext_maintenance5", feature = "version_1_4"))]
+#[cfg(any(
+    feature = "ext_maintenance5",
+    feature = "ext_extended_flags",
+    feature = "version_1_4"
+))]
 pub type PipelineCreateFlags2CreateInfoKHR<'a> = PipelineCreateFlags2CreateInfo<'a>;
 #[cfg(any(feature = "ext_push_descriptor", feature = "version_1_4"))]
 #[repr(C)]
@@ -34254,6 +34350,638 @@ impl<'a> AndroidHardwareBufferFormatProperties2ANDROID<'a> {
         self
     }
 }
+#[cfg(feature = "ext_gpa_interface")]
+#[repr(C)]
+#[derive(Clone, Copy)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkGpaPerfBlockPropertiesAMD.html>"]
+#[doc(alias = "VkGpaPerfBlockPropertiesAMD")]
+pub struct GpaPerfBlockPropertiesAMD {
+    pub block_type: GpaPerfBlockAMD,
+    pub flags: u32,
+    pub instance_count: u32,
+    pub max_event_id: u32,
+    pub max_global_only_counters: u32,
+    pub max_global_shared_counters: u32,
+    pub max_streaming_counters: u32,
+}
+#[cfg(feature = "ext_gpa_interface")]
+unsafe impl Send for GpaPerfBlockPropertiesAMD {}
+#[cfg(feature = "ext_gpa_interface")]
+unsafe impl Sync for GpaPerfBlockPropertiesAMD {}
+#[cfg(feature = "ext_gpa_interface")]
+impl Default for GpaPerfBlockPropertiesAMD {
+    fn default() -> Self {
+        Self {
+            block_type: GpaPerfBlockAMD::Cpf,
+            flags: Default::default(),
+            instance_count: Default::default(),
+            max_event_id: Default::default(),
+            max_global_only_counters: Default::default(),
+            max_global_shared_counters: Default::default(),
+            max_streaming_counters: Default::default(),
+        }
+    }
+}
+#[cfg(feature = "ext_gpa_interface")]
+impl GpaPerfBlockPropertiesAMD {
+    #[inline]
+    pub fn block_type(mut self, value: GpaPerfBlockAMD) -> Self {
+        self.block_type = value;
+        self
+    }
+    #[inline]
+    pub fn flags(mut self, value: u32) -> Self {
+        self.flags = value;
+        self
+    }
+    #[inline]
+    pub fn instance_count(mut self, value: u32) -> Self {
+        self.instance_count = value;
+        self
+    }
+    #[inline]
+    pub fn max_event_id(mut self, value: u32) -> Self {
+        self.max_event_id = value;
+        self
+    }
+    #[inline]
+    pub fn max_global_only_counters(mut self, value: u32) -> Self {
+        self.max_global_only_counters = value;
+        self
+    }
+    #[inline]
+    pub fn max_global_shared_counters(mut self, value: u32) -> Self {
+        self.max_global_shared_counters = value;
+        self
+    }
+    #[inline]
+    pub fn max_streaming_counters(mut self, value: u32) -> Self {
+        self.max_streaming_counters = value;
+        self
+    }
+}
+#[cfg(feature = "ext_gpa_interface")]
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceGpaFeaturesAMD.html>"]
+#[doc(alias = "VkPhysicalDeviceGpaFeaturesAMD")]
+pub struct PhysicalDeviceGpaFeaturesAMD<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub perf_counters: Bool32,
+    pub streaming_perf_counters: Bool32,
+    pub sq_thread_tracing: Bool32,
+    pub clock_modes: Bool32,
+    phantom: PhantomData<&'a ()>,
+}
+#[cfg(feature = "ext_gpa_interface")]
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceGpaFeaturesAMD<'a> {}
+#[cfg(feature = "ext_gpa_interface")]
+unsafe impl<'a> ExtendableStructure for PhysicalDeviceGpaFeaturesAMD<'a> {
+    const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceGpaFeaturesAMD;
+}
+#[cfg(feature = "ext_gpa_interface")]
+unsafe impl<'a> Send for PhysicalDeviceGpaFeaturesAMD<'a> {}
+#[cfg(feature = "ext_gpa_interface")]
+unsafe impl<'a> Sync for PhysicalDeviceGpaFeaturesAMD<'a> {}
+#[cfg(all(
+    feature = "ext_gpa_interface",
+    any(
+        feature = "ext_get_physical_device_properties2",
+        feature = "version_1_1"
+    )
+))]
+unsafe impl<'a, 'b> ExtendingStructure<PhysicalDeviceFeatures2<'b>>
+    for PhysicalDeviceGpaFeaturesAMD<'a>
+{
+}
+#[cfg(all(feature = "ext_gpa_interface",))]
+unsafe impl<'a, 'b> ExtendingStructure<DeviceCreateInfo<'b>> for PhysicalDeviceGpaFeaturesAMD<'a> {}
+#[cfg(feature = "ext_gpa_interface")]
+impl<'a> Default for PhysicalDeviceGpaFeaturesAMD<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            perf_counters: Default::default(),
+            streaming_perf_counters: Default::default(),
+            sq_thread_tracing: Default::default(),
+            clock_modes: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+#[cfg(feature = "ext_gpa_interface")]
+impl<'a> PhysicalDeviceGpaFeaturesAMD<'a> {
+    #[inline]
+    pub fn perf_counters(mut self, value: impl Into<Bool32>) -> Self {
+        self.perf_counters = value.into();
+        self
+    }
+    #[inline]
+    pub fn streaming_perf_counters(mut self, value: impl Into<Bool32>) -> Self {
+        self.streaming_perf_counters = value.into();
+        self
+    }
+    #[inline]
+    pub fn sq_thread_tracing(mut self, value: impl Into<Bool32>) -> Self {
+        self.sq_thread_tracing = value.into();
+        self
+    }
+    #[inline]
+    pub fn clock_modes(mut self, value: impl Into<Bool32>) -> Self {
+        self.clock_modes = value.into();
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[cfg(feature = "ext_gpa_interface")]
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceGpaPropertiesAMD.html>"]
+#[doc(alias = "VkPhysicalDeviceGpaPropertiesAMD")]
+pub struct PhysicalDeviceGpaPropertiesAMD<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub flags: u32,
+    pub max_sqtt_se_buffer_size: DeviceSize,
+    pub shader_engine_count: u32,
+    pub(crate) perf_block_count: u32,
+    pub(crate) p_perf_blocks: *const GpaPerfBlockPropertiesAMD,
+    phantom: PhantomData<&'a ()>,
+}
+#[cfg(feature = "ext_gpa_interface")]
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceGpaPropertiesAMD<'a> {}
+#[cfg(feature = "ext_gpa_interface")]
+unsafe impl<'a> ExtendableStructure for PhysicalDeviceGpaPropertiesAMD<'a> {
+    const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceGpaPropertiesAMD;
+}
+#[cfg(feature = "ext_gpa_interface")]
+unsafe impl<'a> Send for PhysicalDeviceGpaPropertiesAMD<'a> {}
+#[cfg(feature = "ext_gpa_interface")]
+unsafe impl<'a> Sync for PhysicalDeviceGpaPropertiesAMD<'a> {}
+#[cfg(all(
+    feature = "ext_gpa_interface",
+    any(
+        feature = "ext_get_physical_device_properties2",
+        feature = "version_1_1"
+    )
+))]
+unsafe impl<'a, 'b> ExtendingStructure<PhysicalDeviceProperties2<'b>>
+    for PhysicalDeviceGpaPropertiesAMD<'a>
+{
+}
+#[cfg(feature = "ext_gpa_interface")]
+impl<'a> Default for PhysicalDeviceGpaPropertiesAMD<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            flags: Default::default(),
+            max_sqtt_se_buffer_size: Default::default(),
+            shader_engine_count: Default::default(),
+            perf_block_count: Default::default(),
+            p_perf_blocks: ptr::null(),
+            phantom: PhantomData,
+        }
+    }
+}
+#[cfg(feature = "ext_gpa_interface")]
+impl<'a> PhysicalDeviceGpaPropertiesAMD<'a> {
+    #[inline]
+    pub fn flags(mut self, value: u32) -> Self {
+        self.flags = value;
+        self
+    }
+    #[inline]
+    pub fn max_sqtt_se_buffer_size(mut self, value: DeviceSize) -> Self {
+        self.max_sqtt_se_buffer_size = value;
+        self
+    }
+    #[inline]
+    pub fn shader_engine_count(mut self, value: u32) -> Self {
+        self.shader_engine_count = value;
+        self
+    }
+    #[inline]
+    pub fn get_perf_blocks(&self) -> &'a [GpaPerfBlockPropertiesAMD] {
+        (!self.p_perf_blocks.is_null())
+            .then(|| unsafe {
+                slice::from_raw_parts(self.p_perf_blocks.cast(), self.perf_block_count as _)
+            })
+            .unwrap_or(&[])
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[cfg(feature = "ext_gpa_interface")]
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceGpaProperties2AMD.html>"]
+#[doc(alias = "VkPhysicalDeviceGpaProperties2AMD")]
+pub struct PhysicalDeviceGpaProperties2AMD<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub revision_id: u32,
+    phantom: PhantomData<&'a ()>,
+}
+#[cfg(feature = "ext_gpa_interface")]
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceGpaProperties2AMD<'a> {}
+#[cfg(feature = "ext_gpa_interface")]
+unsafe impl<'a> ExtendableStructure for PhysicalDeviceGpaProperties2AMD<'a> {
+    const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceGpaProperties2AMD;
+}
+#[cfg(feature = "ext_gpa_interface")]
+unsafe impl<'a> Send for PhysicalDeviceGpaProperties2AMD<'a> {}
+#[cfg(feature = "ext_gpa_interface")]
+unsafe impl<'a> Sync for PhysicalDeviceGpaProperties2AMD<'a> {}
+#[cfg(all(
+    feature = "ext_gpa_interface",
+    any(
+        feature = "ext_get_physical_device_properties2",
+        feature = "version_1_1"
+    )
+))]
+unsafe impl<'a, 'b> ExtendingStructure<PhysicalDeviceProperties2<'b>>
+    for PhysicalDeviceGpaProperties2AMD<'a>
+{
+}
+#[cfg(feature = "ext_gpa_interface")]
+impl<'a> Default for PhysicalDeviceGpaProperties2AMD<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            revision_id: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+#[cfg(feature = "ext_gpa_interface")]
+impl<'a> PhysicalDeviceGpaProperties2AMD<'a> {
+    #[inline]
+    pub fn revision_id(mut self, value: u32) -> Self {
+        self.revision_id = value;
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[cfg(feature = "ext_gpa_interface")]
+#[repr(C)]
+#[derive(Clone, Copy)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkGpaPerfCounterAMD.html>"]
+#[doc(alias = "VkGpaPerfCounterAMD")]
+pub struct GpaPerfCounterAMD {
+    pub block_type: GpaPerfBlockAMD,
+    pub block_instance: u32,
+    pub event_id: u32,
+}
+#[cfg(feature = "ext_gpa_interface")]
+unsafe impl Send for GpaPerfCounterAMD {}
+#[cfg(feature = "ext_gpa_interface")]
+unsafe impl Sync for GpaPerfCounterAMD {}
+#[cfg(feature = "ext_gpa_interface")]
+impl Default for GpaPerfCounterAMD {
+    fn default() -> Self {
+        Self {
+            block_type: GpaPerfBlockAMD::Cpf,
+            block_instance: Default::default(),
+            event_id: Default::default(),
+        }
+    }
+}
+#[cfg(feature = "ext_gpa_interface")]
+impl GpaPerfCounterAMD {
+    #[inline]
+    pub fn block_type(mut self, value: GpaPerfBlockAMD) -> Self {
+        self.block_type = value;
+        self
+    }
+    #[inline]
+    pub fn block_instance(mut self, value: u32) -> Self {
+        self.block_instance = value;
+        self
+    }
+    #[inline]
+    pub fn event_id(mut self, value: u32) -> Self {
+        self.event_id = value;
+        self
+    }
+}
+#[cfg(feature = "ext_gpa_interface")]
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkGpaSampleBeginInfoAMD.html>"]
+#[doc(alias = "VkGpaSampleBeginInfoAMD")]
+pub struct GpaSampleBeginInfoAMD<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub sample_type: GpaSampleTypeAMD,
+    pub sample_internal_operations: Bool32,
+    pub cache_flush_on_counter_collection: Bool32,
+    pub sq_shader_mask_enable: Bool32,
+    pub sq_shader_mask: GpaSqShaderStageFlagsAMD,
+    pub(crate) perf_counter_count: u32,
+    pub(crate) p_perf_counters: *const GpaPerfCounterAMD,
+    pub streaming_perf_trace_sample_interval: u32,
+    pub perf_counter_device_memory_limit: DeviceSize,
+    pub sq_thread_trace_enable: Bool32,
+    pub sq_thread_trace_suppress_instruction_tokens: Bool32,
+    pub sq_thread_trace_device_memory_limit: DeviceSize,
+    pub timing_pre_sample: PipelineStageFlags,
+    pub timing_post_sample: PipelineStageFlags,
+    phantom: PhantomData<&'a ()>,
+}
+#[cfg(feature = "ext_gpa_interface")]
+unsafe impl<'a> ExtendableStructureBase for GpaSampleBeginInfoAMD<'a> {}
+#[cfg(feature = "ext_gpa_interface")]
+unsafe impl<'a> ExtendableStructure for GpaSampleBeginInfoAMD<'a> {
+    const STRUCTURE_TYPE: StructureType = StructureType::GpaSampleBeginInfoAMD;
+}
+#[cfg(feature = "ext_gpa_interface")]
+unsafe impl<'a> Send for GpaSampleBeginInfoAMD<'a> {}
+#[cfg(feature = "ext_gpa_interface")]
+unsafe impl<'a> Sync for GpaSampleBeginInfoAMD<'a> {}
+#[cfg(feature = "ext_gpa_interface")]
+impl<'a> Default for GpaSampleBeginInfoAMD<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            sample_type: GpaSampleTypeAMD::Cumulative,
+            sample_internal_operations: Default::default(),
+            cache_flush_on_counter_collection: Default::default(),
+            sq_shader_mask_enable: Default::default(),
+            sq_shader_mask: Default::default(),
+            perf_counter_count: Default::default(),
+            p_perf_counters: ptr::null(),
+            streaming_perf_trace_sample_interval: Default::default(),
+            perf_counter_device_memory_limit: Default::default(),
+            sq_thread_trace_enable: Default::default(),
+            sq_thread_trace_suppress_instruction_tokens: Default::default(),
+            sq_thread_trace_device_memory_limit: Default::default(),
+            timing_pre_sample: Default::default(),
+            timing_post_sample: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+#[cfg(feature = "ext_gpa_interface")]
+impl<'a> GpaSampleBeginInfoAMD<'a> {
+    #[inline]
+    pub fn sample_type(mut self, value: GpaSampleTypeAMD) -> Self {
+        self.sample_type = value;
+        self
+    }
+    #[inline]
+    pub fn sample_internal_operations(mut self, value: impl Into<Bool32>) -> Self {
+        self.sample_internal_operations = value.into();
+        self
+    }
+    #[inline]
+    pub fn cache_flush_on_counter_collection(mut self, value: impl Into<Bool32>) -> Self {
+        self.cache_flush_on_counter_collection = value.into();
+        self
+    }
+    #[inline]
+    pub fn sq_shader_mask_enable(mut self, value: impl Into<Bool32>) -> Self {
+        self.sq_shader_mask_enable = value.into();
+        self
+    }
+    #[inline]
+    pub fn sq_shader_mask(mut self, value: GpaSqShaderStageFlagsAMD) -> Self {
+        self.sq_shader_mask = value;
+        self
+    }
+    #[inline]
+    pub fn streaming_perf_trace_sample_interval(mut self, value: u32) -> Self {
+        self.streaming_perf_trace_sample_interval = value;
+        self
+    }
+    #[inline]
+    pub fn perf_counter_device_memory_limit(mut self, value: DeviceSize) -> Self {
+        self.perf_counter_device_memory_limit = value;
+        self
+    }
+    #[inline]
+    pub fn sq_thread_trace_enable(mut self, value: impl Into<Bool32>) -> Self {
+        self.sq_thread_trace_enable = value.into();
+        self
+    }
+    #[inline]
+    pub fn sq_thread_trace_suppress_instruction_tokens(mut self, value: impl Into<Bool32>) -> Self {
+        self.sq_thread_trace_suppress_instruction_tokens = value.into();
+        self
+    }
+    #[inline]
+    pub fn sq_thread_trace_device_memory_limit(mut self, value: DeviceSize) -> Self {
+        self.sq_thread_trace_device_memory_limit = value;
+        self
+    }
+    #[inline]
+    pub fn timing_pre_sample(mut self, value: PipelineStageFlags) -> Self {
+        self.timing_pre_sample = value;
+        self
+    }
+    #[inline]
+    pub fn timing_post_sample(mut self, value: PipelineStageFlags) -> Self {
+        self.timing_post_sample = value;
+        self
+    }
+    #[inline]
+    pub fn perf_counters(mut self, p_perf_counters: impl AsSlice<'a, GpaPerfCounterAMD>) -> Self {
+        self.p_perf_counters = p_perf_counters.as_slice().as_ptr().cast();
+        self.perf_counter_count = p_perf_counters.as_slice().len() as _;
+        self
+    }
+    #[inline]
+    pub fn get_perf_counters(&self) -> &'a [GpaPerfCounterAMD] {
+        (!self.p_perf_counters.is_null())
+            .then(|| unsafe {
+                slice::from_raw_parts(self.p_perf_counters.cast(), self.perf_counter_count as _)
+            })
+            .unwrap_or(&[])
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[cfg(feature = "ext_gpa_interface")]
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkGpaDeviceClockModeInfoAMD.html>"]
+#[doc(alias = "VkGpaDeviceClockModeInfoAMD")]
+pub struct GpaDeviceClockModeInfoAMD<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub clock_mode: GpaDeviceClockModeAMD,
+    pub memory_clock_ratio_to_peak: f32,
+    pub engine_clock_ratio_to_peak: f32,
+    phantom: PhantomData<&'a ()>,
+}
+#[cfg(feature = "ext_gpa_interface")]
+unsafe impl<'a> ExtendableStructureBase for GpaDeviceClockModeInfoAMD<'a> {}
+#[cfg(feature = "ext_gpa_interface")]
+unsafe impl<'a> ExtendableStructure for GpaDeviceClockModeInfoAMD<'a> {
+    const STRUCTURE_TYPE: StructureType = StructureType::GpaDeviceClockModeInfoAMD;
+}
+#[cfg(feature = "ext_gpa_interface")]
+unsafe impl<'a> Send for GpaDeviceClockModeInfoAMD<'a> {}
+#[cfg(feature = "ext_gpa_interface")]
+unsafe impl<'a> Sync for GpaDeviceClockModeInfoAMD<'a> {}
+#[cfg(feature = "ext_gpa_interface")]
+impl<'a> Default for GpaDeviceClockModeInfoAMD<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            clock_mode: GpaDeviceClockModeAMD::Default,
+            memory_clock_ratio_to_peak: Default::default(),
+            engine_clock_ratio_to_peak: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+#[cfg(feature = "ext_gpa_interface")]
+impl<'a> GpaDeviceClockModeInfoAMD<'a> {
+    #[inline]
+    pub fn clock_mode(mut self, value: GpaDeviceClockModeAMD) -> Self {
+        self.clock_mode = value;
+        self
+    }
+    #[inline]
+    pub fn memory_clock_ratio_to_peak(mut self, value: f32) -> Self {
+        self.memory_clock_ratio_to_peak = value;
+        self
+    }
+    #[inline]
+    pub fn engine_clock_ratio_to_peak(mut self, value: f32) -> Self {
+        self.engine_clock_ratio_to_peak = value;
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[cfg(feature = "ext_gpa_interface")]
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkGpaDeviceGetClockInfoAMD.html>"]
+#[doc(alias = "VkGpaDeviceGetClockInfoAMD")]
+pub struct GpaDeviceGetClockInfoAMD<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub memory_clock_ratio_to_peak: f32,
+    pub engine_clock_ratio_to_peak: f32,
+    pub memory_clock_frequency: u32,
+    pub engine_clock_frequency: u32,
+    phantom: PhantomData<&'a ()>,
+}
+#[cfg(feature = "ext_gpa_interface")]
+unsafe impl<'a> ExtendableStructureBase for GpaDeviceGetClockInfoAMD<'a> {}
+#[cfg(feature = "ext_gpa_interface")]
+unsafe impl<'a> ExtendableStructure for GpaDeviceGetClockInfoAMD<'a> {
+    const STRUCTURE_TYPE: StructureType = StructureType::GpaDeviceGetClockInfoAMD;
+}
+#[cfg(feature = "ext_gpa_interface")]
+unsafe impl<'a> Send for GpaDeviceGetClockInfoAMD<'a> {}
+#[cfg(feature = "ext_gpa_interface")]
+unsafe impl<'a> Sync for GpaDeviceGetClockInfoAMD<'a> {}
+#[cfg(feature = "ext_gpa_interface")]
+impl<'a> Default for GpaDeviceGetClockInfoAMD<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            memory_clock_ratio_to_peak: Default::default(),
+            engine_clock_ratio_to_peak: Default::default(),
+            memory_clock_frequency: Default::default(),
+            engine_clock_frequency: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+#[cfg(feature = "ext_gpa_interface")]
+impl<'a> GpaDeviceGetClockInfoAMD<'a> {
+    #[inline]
+    pub fn memory_clock_ratio_to_peak(mut self, value: f32) -> Self {
+        self.memory_clock_ratio_to_peak = value;
+        self
+    }
+    #[inline]
+    pub fn engine_clock_ratio_to_peak(mut self, value: f32) -> Self {
+        self.engine_clock_ratio_to_peak = value;
+        self
+    }
+    #[inline]
+    pub fn memory_clock_frequency(mut self, value: u32) -> Self {
+        self.memory_clock_frequency = value;
+        self
+    }
+    #[inline]
+    pub fn engine_clock_frequency(mut self, value: u32) -> Self {
+        self.engine_clock_frequency = value;
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[cfg(feature = "ext_gpa_interface")]
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkGpaSessionCreateInfoAMD.html>"]
+#[doc(alias = "VkGpaSessionCreateInfoAMD")]
+pub struct GpaSessionCreateInfoAMD<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub secondary_copy_source: Option<BorrowedHandle<'a, GpaSessionAMD>>,
+    phantom: PhantomData<&'a ()>,
+}
+#[cfg(feature = "ext_gpa_interface")]
+unsafe impl<'a> ExtendableStructureBase for GpaSessionCreateInfoAMD<'a> {}
+#[cfg(feature = "ext_gpa_interface")]
+unsafe impl<'a> ExtendableStructure for GpaSessionCreateInfoAMD<'a> {
+    const STRUCTURE_TYPE: StructureType = StructureType::GpaSessionCreateInfoAMD;
+}
+#[cfg(feature = "ext_gpa_interface")]
+unsafe impl<'a> Send for GpaSessionCreateInfoAMD<'a> {}
+#[cfg(feature = "ext_gpa_interface")]
+unsafe impl<'a> Sync for GpaSessionCreateInfoAMD<'a> {}
+#[cfg(feature = "ext_gpa_interface")]
+impl<'a> Default for GpaSessionCreateInfoAMD<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            secondary_copy_source: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+#[cfg(feature = "ext_gpa_interface")]
+impl<'a> GpaSessionCreateInfoAMD<'a> {
+    #[inline]
+    pub fn secondary_copy_source(mut self, value: Option<&'a raw::GpaSessionAMD>) -> Self {
+        self.secondary_copy_source = value.map(|v| v.borrow());
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
 #[cfg(feature = "ext_shader_enqueue")]
 #[repr(C)]
 #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderEnqueueFeaturesAMDX.html>"]
@@ -41303,7 +42031,7 @@ pub struct AccelerationStructureInfoNV<'a> {
     pub(crate) s_type: StructureType,
     pub(crate) p_next: Cell<*const Header>,
     pub ty: AccelerationStructureTypeNV,
-    pub flags: BuildAccelerationStructureFlagsNV,
+    pub flags: BuildAccelerationStructureFlagsKHR,
     pub instance_count: u32,
     pub(crate) geometry_count: u32,
     pub(crate) p_geometries: *const GeometryNV<'a>,
@@ -41342,7 +42070,7 @@ impl<'a> AccelerationStructureInfoNV<'a> {
         self
     }
     #[inline]
-    pub fn flags(mut self, value: BuildAccelerationStructureFlagsNV) -> Self {
+    pub fn flags(mut self, value: BuildAccelerationStructureFlagsKHR) -> Self {
         self.flags = value;
         self
     }
@@ -42008,6 +42736,60 @@ impl<'a> PhysicalDeviceCooperativeMatrixConversionFeaturesQCOM<'a> {
     #[inline]
     pub fn cooperative_matrix_conversion(mut self, value: impl Into<Bool32>) -> Self {
         self.cooperative_matrix_conversion = value.into();
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceElapsedTimerQueryFeaturesQCOM.html>"]
+#[doc(alias = "VkPhysicalDeviceElapsedTimerQueryFeaturesQCOM")]
+pub struct PhysicalDeviceElapsedTimerQueryFeaturesQCOM<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub elapsed_timer_query: Bool32,
+    phantom: PhantomData<&'a ()>,
+}
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceElapsedTimerQueryFeaturesQCOM<'a> {}
+unsafe impl<'a> ExtendableStructure for PhysicalDeviceElapsedTimerQueryFeaturesQCOM<'a> {
+    const STRUCTURE_TYPE: StructureType =
+        StructureType::PhysicalDeviceElapsedTimerQueryFeaturesQCOM;
+}
+unsafe impl<'a> Send for PhysicalDeviceElapsedTimerQueryFeaturesQCOM<'a> {}
+unsafe impl<'a> Sync for PhysicalDeviceElapsedTimerQueryFeaturesQCOM<'a> {}
+#[cfg(all(
+    all(),
+    any(
+        feature = "ext_get_physical_device_properties2",
+        feature = "version_1_1"
+    )
+))]
+unsafe impl<'a, 'b> ExtendingStructure<PhysicalDeviceFeatures2<'b>>
+    for PhysicalDeviceElapsedTimerQueryFeaturesQCOM<'a>
+{
+}
+#[cfg(all(all(),))]
+unsafe impl<'a, 'b> ExtendingStructure<DeviceCreateInfo<'b>>
+    for PhysicalDeviceElapsedTimerQueryFeaturesQCOM<'a>
+{
+}
+impl<'a> Default for PhysicalDeviceElapsedTimerQueryFeaturesQCOM<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            elapsed_timer_query: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+impl<'a> PhysicalDeviceElapsedTimerQueryFeaturesQCOM<'a> {
+    #[inline]
+    pub fn elapsed_timer_query(mut self, value: impl Into<Bool32>) -> Self {
+        self.elapsed_timer_query = value.into();
         self
     }
     #[inline]
@@ -45573,6 +46355,237 @@ impl<'a> PhysicalDeviceCoherentMemoryFeaturesAMD<'a> {
     #[inline]
     pub fn device_coherent_memory(mut self, value: impl Into<Bool32>) -> Self {
         self.device_coherent_memory = value.into();
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderConstantDataFeaturesKHR.html>"]
+#[doc(alias = "VkPhysicalDeviceShaderConstantDataFeaturesKHR")]
+pub struct PhysicalDeviceShaderConstantDataFeaturesKHR<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub shader_constant_data: Bool32,
+    phantom: PhantomData<&'a ()>,
+}
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceShaderConstantDataFeaturesKHR<'a> {}
+unsafe impl<'a> ExtendableStructure for PhysicalDeviceShaderConstantDataFeaturesKHR<'a> {
+    const STRUCTURE_TYPE: StructureType =
+        StructureType::PhysicalDeviceShaderConstantDataFeaturesKHR;
+}
+unsafe impl<'a> Send for PhysicalDeviceShaderConstantDataFeaturesKHR<'a> {}
+unsafe impl<'a> Sync for PhysicalDeviceShaderConstantDataFeaturesKHR<'a> {}
+#[cfg(all(
+    all(),
+    any(
+        feature = "ext_get_physical_device_properties2",
+        feature = "version_1_1"
+    )
+))]
+unsafe impl<'a, 'b> ExtendingStructure<PhysicalDeviceFeatures2<'b>>
+    for PhysicalDeviceShaderConstantDataFeaturesKHR<'a>
+{
+}
+#[cfg(all(all(),))]
+unsafe impl<'a, 'b> ExtendingStructure<DeviceCreateInfo<'b>>
+    for PhysicalDeviceShaderConstantDataFeaturesKHR<'a>
+{
+}
+impl<'a> Default for PhysicalDeviceShaderConstantDataFeaturesKHR<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            shader_constant_data: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+impl<'a> PhysicalDeviceShaderConstantDataFeaturesKHR<'a> {
+    #[inline]
+    pub fn shader_constant_data(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_constant_data = value.into();
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[cfg(feature = "ext_shader_abort")]
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderAbortFeaturesKHR.html>"]
+#[doc(alias = "VkPhysicalDeviceShaderAbortFeaturesKHR")]
+pub struct PhysicalDeviceShaderAbortFeaturesKHR<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub shader_abort: Bool32,
+    phantom: PhantomData<&'a ()>,
+}
+#[cfg(feature = "ext_shader_abort")]
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceShaderAbortFeaturesKHR<'a> {}
+#[cfg(feature = "ext_shader_abort")]
+unsafe impl<'a> ExtendableStructure for PhysicalDeviceShaderAbortFeaturesKHR<'a> {
+    const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceShaderAbortFeaturesKHR;
+}
+#[cfg(feature = "ext_shader_abort")]
+unsafe impl<'a> Send for PhysicalDeviceShaderAbortFeaturesKHR<'a> {}
+#[cfg(feature = "ext_shader_abort")]
+unsafe impl<'a> Sync for PhysicalDeviceShaderAbortFeaturesKHR<'a> {}
+#[cfg(all(
+    feature = "ext_shader_abort",
+    any(
+        feature = "ext_get_physical_device_properties2",
+        feature = "version_1_1"
+    )
+))]
+unsafe impl<'a, 'b> ExtendingStructure<PhysicalDeviceFeatures2<'b>>
+    for PhysicalDeviceShaderAbortFeaturesKHR<'a>
+{
+}
+#[cfg(all(feature = "ext_shader_abort",))]
+unsafe impl<'a, 'b> ExtendingStructure<DeviceCreateInfo<'b>>
+    for PhysicalDeviceShaderAbortFeaturesKHR<'a>
+{
+}
+#[cfg(feature = "ext_shader_abort")]
+impl<'a> Default for PhysicalDeviceShaderAbortFeaturesKHR<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            shader_abort: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+#[cfg(feature = "ext_shader_abort")]
+impl<'a> PhysicalDeviceShaderAbortFeaturesKHR<'a> {
+    #[inline]
+    pub fn shader_abort(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_abort = value.into();
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[cfg(feature = "ext_shader_abort")]
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceFaultShaderAbortMessageInfoKHR.html>"]
+#[doc(alias = "VkDeviceFaultShaderAbortMessageInfoKHR")]
+pub struct DeviceFaultShaderAbortMessageInfoKHR<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub message_data_size: u64,
+    pub(crate) p_message_data: VoidPtr,
+    phantom: PhantomData<&'a ()>,
+}
+#[cfg(feature = "ext_shader_abort")]
+unsafe impl<'a> ExtendableStructureBase for DeviceFaultShaderAbortMessageInfoKHR<'a> {}
+#[cfg(feature = "ext_shader_abort")]
+unsafe impl<'a> ExtendableStructure for DeviceFaultShaderAbortMessageInfoKHR<'a> {
+    const STRUCTURE_TYPE: StructureType = StructureType::DeviceFaultShaderAbortMessageInfoKHR;
+}
+#[cfg(feature = "ext_shader_abort")]
+unsafe impl<'a> Send for DeviceFaultShaderAbortMessageInfoKHR<'a> {}
+#[cfg(feature = "ext_shader_abort")]
+unsafe impl<'a> Sync for DeviceFaultShaderAbortMessageInfoKHR<'a> {}
+#[cfg(all(feature = "ext_shader_abort", feature = "ext_device_fault"))]
+unsafe impl<'a, 'b> ExtendingStructure<DeviceFaultDebugInfoKHR<'b>>
+    for DeviceFaultShaderAbortMessageInfoKHR<'a>
+{
+}
+#[cfg(feature = "ext_shader_abort")]
+impl<'a> Default for DeviceFaultShaderAbortMessageInfoKHR<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            message_data_size: Default::default(),
+            p_message_data: ptr::null(),
+            phantom: PhantomData,
+        }
+    }
+}
+#[cfg(feature = "ext_shader_abort")]
+impl<'a> DeviceFaultShaderAbortMessageInfoKHR<'a> {
+    #[inline]
+    pub fn message_data_size(mut self, value: u64) -> Self {
+        self.message_data_size = value;
+        self
+    }
+    #[inline]
+    pub fn get_message_data(&self) -> &'a [u8] {
+        (!self.p_message_data.is_null())
+            .then(|| unsafe {
+                slice::from_raw_parts(
+                    self.p_message_data.cast::<u8>().cast(),
+                    self.message_data_size as _,
+                )
+            })
+            .unwrap_or(&[])
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[cfg(feature = "ext_shader_abort")]
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderAbortPropertiesKHR.html>"]
+#[doc(alias = "VkPhysicalDeviceShaderAbortPropertiesKHR")]
+pub struct PhysicalDeviceShaderAbortPropertiesKHR<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub max_shader_abort_message_size: u64,
+    phantom: PhantomData<&'a ()>,
+}
+#[cfg(feature = "ext_shader_abort")]
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceShaderAbortPropertiesKHR<'a> {}
+#[cfg(feature = "ext_shader_abort")]
+unsafe impl<'a> ExtendableStructure for PhysicalDeviceShaderAbortPropertiesKHR<'a> {
+    const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceShaderAbortPropertiesKHR;
+}
+#[cfg(feature = "ext_shader_abort")]
+unsafe impl<'a> Send for PhysicalDeviceShaderAbortPropertiesKHR<'a> {}
+#[cfg(feature = "ext_shader_abort")]
+unsafe impl<'a> Sync for PhysicalDeviceShaderAbortPropertiesKHR<'a> {}
+#[cfg(all(
+    feature = "ext_shader_abort",
+    any(
+        feature = "ext_get_physical_device_properties2",
+        feature = "version_1_1"
+    )
+))]
+unsafe impl<'a, 'b> ExtendingStructure<PhysicalDeviceProperties2<'b>>
+    for PhysicalDeviceShaderAbortPropertiesKHR<'a>
+{
+}
+#[cfg(feature = "ext_shader_abort")]
+impl<'a> Default for PhysicalDeviceShaderAbortPropertiesKHR<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            max_shader_abort_message_size: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+#[cfg(feature = "ext_shader_abort")]
+impl<'a> PhysicalDeviceShaderAbortPropertiesKHR<'a> {
+    #[inline]
+    pub fn max_shader_abort_message_size(mut self, value: u64) -> Self {
+        self.max_shader_abort_message_size = value;
         self
     }
     #[inline]
@@ -50405,6 +51418,448 @@ impl<'a> DeviceDiagnosticsConfigCreateInfoNV<'a> {
         self
     }
 }
+#[cfg(feature = "ext_queue_perf_hint")]
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPerfHintInfoQCOM.html>"]
+#[doc(alias = "VkPerfHintInfoQCOM")]
+pub struct PerfHintInfoQCOM<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub ty: PerfHintTypeQCOM,
+    pub scale: u32,
+    phantom: PhantomData<&'a ()>,
+}
+#[cfg(feature = "ext_queue_perf_hint")]
+unsafe impl<'a> ExtendableStructureBase for PerfHintInfoQCOM<'a> {}
+#[cfg(feature = "ext_queue_perf_hint")]
+unsafe impl<'a> ExtendableStructure for PerfHintInfoQCOM<'a> {
+    const STRUCTURE_TYPE: StructureType = StructureType::PerfHintInfoQCOM;
+}
+#[cfg(feature = "ext_queue_perf_hint")]
+unsafe impl<'a> Send for PerfHintInfoQCOM<'a> {}
+#[cfg(feature = "ext_queue_perf_hint")]
+unsafe impl<'a> Sync for PerfHintInfoQCOM<'a> {}
+#[cfg(feature = "ext_queue_perf_hint")]
+impl<'a> Default for PerfHintInfoQCOM<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            ty: PerfHintTypeQCOM::Default,
+            scale: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+#[cfg(feature = "ext_queue_perf_hint")]
+impl<'a> PerfHintInfoQCOM<'a> {
+    #[inline]
+    pub fn ty(mut self, value: PerfHintTypeQCOM) -> Self {
+        self.ty = value;
+        self
+    }
+    #[inline]
+    pub fn scale(mut self, value: u32) -> Self {
+        self.scale = value;
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[cfg(feature = "ext_queue_perf_hint")]
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceQueuePerfHintFeaturesQCOM.html>"]
+#[doc(alias = "VkPhysicalDeviceQueuePerfHintFeaturesQCOM")]
+pub struct PhysicalDeviceQueuePerfHintFeaturesQCOM<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub queue_perf_hint: Bool32,
+    phantom: PhantomData<&'a ()>,
+}
+#[cfg(feature = "ext_queue_perf_hint")]
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceQueuePerfHintFeaturesQCOM<'a> {}
+#[cfg(feature = "ext_queue_perf_hint")]
+unsafe impl<'a> ExtendableStructure for PhysicalDeviceQueuePerfHintFeaturesQCOM<'a> {
+    const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceQueuePerfHintFeaturesQCOM;
+}
+#[cfg(feature = "ext_queue_perf_hint")]
+unsafe impl<'a> Send for PhysicalDeviceQueuePerfHintFeaturesQCOM<'a> {}
+#[cfg(feature = "ext_queue_perf_hint")]
+unsafe impl<'a> Sync for PhysicalDeviceQueuePerfHintFeaturesQCOM<'a> {}
+#[cfg(all(
+    feature = "ext_queue_perf_hint",
+    any(
+        feature = "ext_get_physical_device_properties2",
+        feature = "version_1_1"
+    )
+))]
+unsafe impl<'a, 'b> ExtendingStructure<PhysicalDeviceFeatures2<'b>>
+    for PhysicalDeviceQueuePerfHintFeaturesQCOM<'a>
+{
+}
+#[cfg(all(feature = "ext_queue_perf_hint",))]
+unsafe impl<'a, 'b> ExtendingStructure<DeviceCreateInfo<'b>>
+    for PhysicalDeviceQueuePerfHintFeaturesQCOM<'a>
+{
+}
+#[cfg(feature = "ext_queue_perf_hint")]
+impl<'a> Default for PhysicalDeviceQueuePerfHintFeaturesQCOM<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            queue_perf_hint: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+#[cfg(feature = "ext_queue_perf_hint")]
+impl<'a> PhysicalDeviceQueuePerfHintFeaturesQCOM<'a> {
+    #[inline]
+    pub fn queue_perf_hint(mut self, value: impl Into<Bool32>) -> Self {
+        self.queue_perf_hint = value.into();
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[cfg(feature = "ext_queue_perf_hint")]
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceQueuePerfHintPropertiesQCOM.html>"]
+#[doc(alias = "VkPhysicalDeviceQueuePerfHintPropertiesQCOM")]
+pub struct PhysicalDeviceQueuePerfHintPropertiesQCOM<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub supported_queues: QueueFlags,
+    phantom: PhantomData<&'a ()>,
+}
+#[cfg(feature = "ext_queue_perf_hint")]
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceQueuePerfHintPropertiesQCOM<'a> {}
+#[cfg(feature = "ext_queue_perf_hint")]
+unsafe impl<'a> ExtendableStructure for PhysicalDeviceQueuePerfHintPropertiesQCOM<'a> {
+    const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceQueuePerfHintPropertiesQCOM;
+}
+#[cfg(feature = "ext_queue_perf_hint")]
+unsafe impl<'a> Send for PhysicalDeviceQueuePerfHintPropertiesQCOM<'a> {}
+#[cfg(feature = "ext_queue_perf_hint")]
+unsafe impl<'a> Sync for PhysicalDeviceQueuePerfHintPropertiesQCOM<'a> {}
+#[cfg(all(
+    feature = "ext_queue_perf_hint",
+    any(
+        feature = "ext_get_physical_device_properties2",
+        feature = "version_1_1"
+    )
+))]
+unsafe impl<'a, 'b> ExtendingStructure<PhysicalDeviceProperties2<'b>>
+    for PhysicalDeviceQueuePerfHintPropertiesQCOM<'a>
+{
+}
+#[cfg(feature = "ext_queue_perf_hint")]
+impl<'a> Default for PhysicalDeviceQueuePerfHintPropertiesQCOM<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            supported_queues: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+#[cfg(feature = "ext_queue_perf_hint")]
+impl<'a> PhysicalDeviceQueuePerfHintPropertiesQCOM<'a> {
+    #[inline]
+    pub fn supported_queues(mut self, value: QueueFlags) -> Self {
+        self.supported_queues = value;
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceImageProcessing3FeaturesQCOM.html>"]
+#[doc(alias = "VkPhysicalDeviceImageProcessing3FeaturesQCOM")]
+pub struct PhysicalDeviceImageProcessing3FeaturesQCOM<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub image_gather_linear: Bool32,
+    pub image_gather_extended_modes: Bool32,
+    pub block_match_extended_clamp_to_edge: Bool32,
+    phantom: PhantomData<&'a ()>,
+}
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceImageProcessing3FeaturesQCOM<'a> {}
+unsafe impl<'a> ExtendableStructure for PhysicalDeviceImageProcessing3FeaturesQCOM<'a> {
+    const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceImageProcessing3FeaturesQCOM;
+}
+unsafe impl<'a> Send for PhysicalDeviceImageProcessing3FeaturesQCOM<'a> {}
+unsafe impl<'a> Sync for PhysicalDeviceImageProcessing3FeaturesQCOM<'a> {}
+#[cfg(all(
+    all(),
+    any(
+        feature = "ext_get_physical_device_properties2",
+        feature = "version_1_1"
+    )
+))]
+unsafe impl<'a, 'b> ExtendingStructure<PhysicalDeviceFeatures2<'b>>
+    for PhysicalDeviceImageProcessing3FeaturesQCOM<'a>
+{
+}
+#[cfg(all(all(),))]
+unsafe impl<'a, 'b> ExtendingStructure<DeviceCreateInfo<'b>>
+    for PhysicalDeviceImageProcessing3FeaturesQCOM<'a>
+{
+}
+impl<'a> Default for PhysicalDeviceImageProcessing3FeaturesQCOM<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            image_gather_linear: Default::default(),
+            image_gather_extended_modes: Default::default(),
+            block_match_extended_clamp_to_edge: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+impl<'a> PhysicalDeviceImageProcessing3FeaturesQCOM<'a> {
+    #[inline]
+    pub fn image_gather_linear(mut self, value: impl Into<Bool32>) -> Self {
+        self.image_gather_linear = value.into();
+        self
+    }
+    #[inline]
+    pub fn image_gather_extended_modes(mut self, value: impl Into<Bool32>) -> Self {
+        self.image_gather_extended_modes = value.into();
+        self
+    }
+    #[inline]
+    pub fn block_match_extended_clamp_to_edge(mut self, value: impl Into<Bool32>) -> Self {
+        self.block_match_extended_clamp_to_edge = value.into();
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderMultipleWaitQueuesFeaturesQCOM.html>"]
+#[doc(alias = "VkPhysicalDeviceShaderMultipleWaitQueuesFeaturesQCOM")]
+pub struct PhysicalDeviceShaderMultipleWaitQueuesFeaturesQCOM<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub shader_multiple_wait_queues: Bool32,
+    phantom: PhantomData<&'a ()>,
+}
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceShaderMultipleWaitQueuesFeaturesQCOM<'a> {}
+unsafe impl<'a> ExtendableStructure for PhysicalDeviceShaderMultipleWaitQueuesFeaturesQCOM<'a> {
+    const STRUCTURE_TYPE: StructureType =
+        StructureType::PhysicalDeviceShaderMultipleWaitQueuesFeaturesQCOM;
+}
+unsafe impl<'a> Send for PhysicalDeviceShaderMultipleWaitQueuesFeaturesQCOM<'a> {}
+unsafe impl<'a> Sync for PhysicalDeviceShaderMultipleWaitQueuesFeaturesQCOM<'a> {}
+#[cfg(all(
+    all(),
+    any(
+        feature = "ext_get_physical_device_properties2",
+        feature = "version_1_1"
+    )
+))]
+unsafe impl<'a, 'b> ExtendingStructure<PhysicalDeviceFeatures2<'b>>
+    for PhysicalDeviceShaderMultipleWaitQueuesFeaturesQCOM<'a>
+{
+}
+#[cfg(all(all(),))]
+unsafe impl<'a, 'b> ExtendingStructure<DeviceCreateInfo<'b>>
+    for PhysicalDeviceShaderMultipleWaitQueuesFeaturesQCOM<'a>
+{
+}
+impl<'a> Default for PhysicalDeviceShaderMultipleWaitQueuesFeaturesQCOM<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            shader_multiple_wait_queues: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+impl<'a> PhysicalDeviceShaderMultipleWaitQueuesFeaturesQCOM<'a> {
+    #[inline]
+    pub fn shader_multiple_wait_queues(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_multiple_wait_queues = value.into();
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderMultipleWaitQueuesPropertiesQCOM.html>"]
+#[doc(alias = "VkPhysicalDeviceShaderMultipleWaitQueuesPropertiesQCOM")]
+pub struct PhysicalDeviceShaderMultipleWaitQueuesPropertiesQCOM<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub max_shader_wait_queues: u32,
+    phantom: PhantomData<&'a ()>,
+}
+unsafe impl<'a> ExtendableStructureBase
+    for PhysicalDeviceShaderMultipleWaitQueuesPropertiesQCOM<'a>
+{
+}
+unsafe impl<'a> ExtendableStructure for PhysicalDeviceShaderMultipleWaitQueuesPropertiesQCOM<'a> {
+    const STRUCTURE_TYPE: StructureType =
+        StructureType::PhysicalDeviceShaderMultipleWaitQueuesPropertiesQCOM;
+}
+unsafe impl<'a> Send for PhysicalDeviceShaderMultipleWaitQueuesPropertiesQCOM<'a> {}
+unsafe impl<'a> Sync for PhysicalDeviceShaderMultipleWaitQueuesPropertiesQCOM<'a> {}
+#[cfg(all(
+    all(),
+    any(
+        feature = "ext_get_physical_device_properties2",
+        feature = "version_1_1"
+    )
+))]
+unsafe impl<'a, 'b> ExtendingStructure<PhysicalDeviceProperties2<'b>>
+    for PhysicalDeviceShaderMultipleWaitQueuesPropertiesQCOM<'a>
+{
+}
+impl<'a> Default for PhysicalDeviceShaderMultipleWaitQueuesPropertiesQCOM<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            max_shader_wait_queues: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+impl<'a> PhysicalDeviceShaderMultipleWaitQueuesPropertiesQCOM<'a> {
+    #[inline]
+    pub fn max_shader_wait_queues(mut self, value: u32) -> Self {
+        self.max_shader_wait_queues = value;
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderSplitBarrierFeaturesEXT.html>"]
+#[doc(alias = "VkPhysicalDeviceShaderSplitBarrierFeaturesEXT")]
+pub struct PhysicalDeviceShaderSplitBarrierFeaturesEXT<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub shader_split_barrier: Bool32,
+    phantom: PhantomData<&'a ()>,
+}
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceShaderSplitBarrierFeaturesEXT<'a> {}
+unsafe impl<'a> ExtendableStructure for PhysicalDeviceShaderSplitBarrierFeaturesEXT<'a> {
+    const STRUCTURE_TYPE: StructureType =
+        StructureType::PhysicalDeviceShaderSplitBarrierFeaturesEXT;
+}
+unsafe impl<'a> Send for PhysicalDeviceShaderSplitBarrierFeaturesEXT<'a> {}
+unsafe impl<'a> Sync for PhysicalDeviceShaderSplitBarrierFeaturesEXT<'a> {}
+#[cfg(all(
+    all(),
+    any(
+        feature = "ext_get_physical_device_properties2",
+        feature = "version_1_1"
+    )
+))]
+unsafe impl<'a, 'b> ExtendingStructure<PhysicalDeviceFeatures2<'b>>
+    for PhysicalDeviceShaderSplitBarrierFeaturesEXT<'a>
+{
+}
+#[cfg(all(all(),))]
+unsafe impl<'a, 'b> ExtendingStructure<DeviceCreateInfo<'b>>
+    for PhysicalDeviceShaderSplitBarrierFeaturesEXT<'a>
+{
+}
+impl<'a> Default for PhysicalDeviceShaderSplitBarrierFeaturesEXT<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            shader_split_barrier: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+impl<'a> PhysicalDeviceShaderSplitBarrierFeaturesEXT<'a> {
+    #[inline]
+    pub fn shader_split_barrier(mut self, value: impl Into<Bool32>) -> Self {
+        self.shader_split_barrier = value.into();
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderSplitBarrierPropertiesEXT.html>"]
+#[doc(alias = "VkPhysicalDeviceShaderSplitBarrierPropertiesEXT")]
+pub struct PhysicalDeviceShaderSplitBarrierPropertiesEXT<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub split_barrier_reserved_shared_memory: u32,
+    phantom: PhantomData<&'a ()>,
+}
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceShaderSplitBarrierPropertiesEXT<'a> {}
+unsafe impl<'a> ExtendableStructure for PhysicalDeviceShaderSplitBarrierPropertiesEXT<'a> {
+    const STRUCTURE_TYPE: StructureType =
+        StructureType::PhysicalDeviceShaderSplitBarrierPropertiesEXT;
+}
+unsafe impl<'a> Send for PhysicalDeviceShaderSplitBarrierPropertiesEXT<'a> {}
+unsafe impl<'a> Sync for PhysicalDeviceShaderSplitBarrierPropertiesEXT<'a> {}
+#[cfg(all(
+    all(),
+    any(
+        feature = "ext_get_physical_device_properties2",
+        feature = "version_1_1"
+    )
+))]
+unsafe impl<'a, 'b> ExtendingStructure<PhysicalDeviceProperties2<'b>>
+    for PhysicalDeviceShaderSplitBarrierPropertiesEXT<'a>
+{
+}
+impl<'a> Default for PhysicalDeviceShaderSplitBarrierPropertiesEXT<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            split_barrier_reserved_shared_memory: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+impl<'a> PhysicalDeviceShaderSplitBarrierPropertiesEXT<'a> {
+    #[inline]
+    pub fn split_barrier_reserved_shared_memory(mut self, value: u32) -> Self {
+        self.split_barrier_reserved_shared_memory = value;
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
 #[cfg(feature = "ext_cuda_kernel_launch")]
 #[repr(C)]
 #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCudaModuleCreateInfoNV.html>"]
@@ -52202,65 +53657,6 @@ impl<'a> PhysicalDeviceDescriptorBufferPropertiesEXT<'a> {
 }
 #[cfg(feature = "ext_descriptor_buffer")]
 #[repr(C)]
-#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceDescriptorBufferDensityMapPropertiesEXT.html>"]
-#[doc(alias = "VkPhysicalDeviceDescriptorBufferDensityMapPropertiesEXT")]
-pub struct PhysicalDeviceDescriptorBufferDensityMapPropertiesEXT<'a> {
-    pub(crate) s_type: StructureType,
-    pub(crate) p_next: Cell<*const Header>,
-    pub combined_image_sampler_density_map_descriptor_size: usize,
-    phantom: PhantomData<&'a ()>,
-}
-#[cfg(feature = "ext_descriptor_buffer")]
-unsafe impl<'a> ExtendableStructureBase
-    for PhysicalDeviceDescriptorBufferDensityMapPropertiesEXT<'a>
-{
-}
-#[cfg(feature = "ext_descriptor_buffer")]
-unsafe impl<'a> ExtendableStructure for PhysicalDeviceDescriptorBufferDensityMapPropertiesEXT<'a> {
-    const STRUCTURE_TYPE: StructureType =
-        StructureType::PhysicalDeviceDescriptorBufferDensityMapPropertiesEXT;
-}
-#[cfg(feature = "ext_descriptor_buffer")]
-unsafe impl<'a> Send for PhysicalDeviceDescriptorBufferDensityMapPropertiesEXT<'a> {}
-#[cfg(feature = "ext_descriptor_buffer")]
-unsafe impl<'a> Sync for PhysicalDeviceDescriptorBufferDensityMapPropertiesEXT<'a> {}
-#[cfg(all(
-    feature = "ext_descriptor_buffer",
-    any(
-        feature = "ext_get_physical_device_properties2",
-        feature = "version_1_1"
-    )
-))]
-unsafe impl<'a, 'b> ExtendingStructure<PhysicalDeviceProperties2<'b>>
-    for PhysicalDeviceDescriptorBufferDensityMapPropertiesEXT<'a>
-{
-}
-#[cfg(feature = "ext_descriptor_buffer")]
-impl<'a> Default for PhysicalDeviceDescriptorBufferDensityMapPropertiesEXT<'a> {
-    fn default() -> Self {
-        Self {
-            s_type: Self::STRUCTURE_TYPE,
-            p_next: Cell::new(ptr::null()),
-            combined_image_sampler_density_map_descriptor_size: Default::default(),
-            phantom: PhantomData,
-        }
-    }
-}
-#[cfg(feature = "ext_descriptor_buffer")]
-impl<'a> PhysicalDeviceDescriptorBufferDensityMapPropertiesEXT<'a> {
-    #[inline]
-    pub fn combined_image_sampler_density_map_descriptor_size(mut self, value: usize) -> Self {
-        self.combined_image_sampler_density_map_descriptor_size = value;
-        self
-    }
-    #[inline]
-    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
-        unsafe { self.push_next_unchecked(ext) };
-        self
-    }
-}
-#[cfg(feature = "ext_descriptor_buffer")]
-#[repr(C)]
 #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceDescriptorBufferFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceDescriptorBufferFeaturesEXT")]
 pub struct PhysicalDeviceDescriptorBufferFeaturesEXT<'a> {
@@ -52925,6 +54321,89 @@ impl<'a> AccelerationStructureCaptureDescriptorDataInfoEXT<'a> {
         value: Option<&'a raw::AccelerationStructureNV>,
     ) -> Self {
         self.acceleration_structure_nv = value.map(|v| v.borrow());
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[cfg(all(
+    feature = "ext_descriptor_buffer",
+    feature = "ext_fragment_density_map"
+))]
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceDescriptorBufferDensityMapPropertiesEXT.html>"]
+#[doc(alias = "VkPhysicalDeviceDescriptorBufferDensityMapPropertiesEXT")]
+pub struct PhysicalDeviceDescriptorBufferDensityMapPropertiesEXT<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub combined_image_sampler_density_map_descriptor_size: usize,
+    phantom: PhantomData<&'a ()>,
+}
+#[cfg(all(
+    feature = "ext_descriptor_buffer",
+    feature = "ext_fragment_density_map"
+))]
+unsafe impl<'a> ExtendableStructureBase
+    for PhysicalDeviceDescriptorBufferDensityMapPropertiesEXT<'a>
+{
+}
+#[cfg(all(
+    feature = "ext_descriptor_buffer",
+    feature = "ext_fragment_density_map"
+))]
+unsafe impl<'a> ExtendableStructure for PhysicalDeviceDescriptorBufferDensityMapPropertiesEXT<'a> {
+    const STRUCTURE_TYPE: StructureType =
+        StructureType::PhysicalDeviceDescriptorBufferDensityMapPropertiesEXT;
+}
+#[cfg(all(
+    feature = "ext_descriptor_buffer",
+    feature = "ext_fragment_density_map"
+))]
+unsafe impl<'a> Send for PhysicalDeviceDescriptorBufferDensityMapPropertiesEXT<'a> {}
+#[cfg(all(
+    feature = "ext_descriptor_buffer",
+    feature = "ext_fragment_density_map"
+))]
+unsafe impl<'a> Sync for PhysicalDeviceDescriptorBufferDensityMapPropertiesEXT<'a> {}
+#[cfg(all(
+    all(
+        feature = "ext_descriptor_buffer",
+        feature = "ext_fragment_density_map"
+    ),
+    any(
+        feature = "ext_get_physical_device_properties2",
+        feature = "version_1_1"
+    )
+))]
+unsafe impl<'a, 'b> ExtendingStructure<PhysicalDeviceProperties2<'b>>
+    for PhysicalDeviceDescriptorBufferDensityMapPropertiesEXT<'a>
+{
+}
+#[cfg(all(
+    feature = "ext_descriptor_buffer",
+    feature = "ext_fragment_density_map"
+))]
+impl<'a> Default for PhysicalDeviceDescriptorBufferDensityMapPropertiesEXT<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            combined_image_sampler_density_map_descriptor_size: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+#[cfg(all(
+    feature = "ext_descriptor_buffer",
+    feature = "ext_fragment_density_map"
+))]
+impl<'a> PhysicalDeviceDescriptorBufferDensityMapPropertiesEXT<'a> {
+    #[inline]
+    pub fn combined_image_sampler_density_map_descriptor_size(mut self, value: usize) -> Self {
+        self.combined_image_sampler_density_map_descriptor_size = value;
         self
     }
     #[inline]
@@ -54430,6 +55909,7 @@ impl<'a> PhysicalDeviceFragmentShaderBarycentricFeaturesKHR<'a> {
 }
 pub type PhysicalDeviceFragmentShaderBarycentricFeaturesNV<'a> =
     PhysicalDeviceFragmentShaderBarycentricFeaturesKHR<'a>;
+#[cfg(all(feature = "ext_provoking_vertex"))]
 #[repr(C)]
 #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceFragmentShaderBarycentricPropertiesKHR.html>"]
 #[doc(alias = "VkPhysicalDeviceFragmentShaderBarycentricPropertiesKHR")]
@@ -54439,18 +55919,22 @@ pub struct PhysicalDeviceFragmentShaderBarycentricPropertiesKHR<'a> {
     pub tri_strip_vertex_order_independent_of_provoking_vertex: Bool32,
     phantom: PhantomData<&'a ()>,
 }
+#[cfg(all(feature = "ext_provoking_vertex"))]
 unsafe impl<'a> ExtendableStructureBase
     for PhysicalDeviceFragmentShaderBarycentricPropertiesKHR<'a>
 {
 }
+#[cfg(all(feature = "ext_provoking_vertex"))]
 unsafe impl<'a> ExtendableStructure for PhysicalDeviceFragmentShaderBarycentricPropertiesKHR<'a> {
     const STRUCTURE_TYPE: StructureType =
         StructureType::PhysicalDeviceFragmentShaderBarycentricPropertiesKHR;
 }
+#[cfg(all(feature = "ext_provoking_vertex"))]
 unsafe impl<'a> Send for PhysicalDeviceFragmentShaderBarycentricPropertiesKHR<'a> {}
+#[cfg(all(feature = "ext_provoking_vertex"))]
 unsafe impl<'a> Sync for PhysicalDeviceFragmentShaderBarycentricPropertiesKHR<'a> {}
 #[cfg(all(
-    all(),
+    all(feature = "ext_provoking_vertex"),
     any(
         feature = "ext_get_physical_device_properties2",
         feature = "version_1_1"
@@ -54460,6 +55944,7 @@ unsafe impl<'a, 'b> ExtendingStructure<PhysicalDeviceProperties2<'b>>
     for PhysicalDeviceFragmentShaderBarycentricPropertiesKHR<'a>
 {
 }
+#[cfg(all(feature = "ext_provoking_vertex"))]
 impl<'a> Default for PhysicalDeviceFragmentShaderBarycentricPropertiesKHR<'a> {
     fn default() -> Self {
         Self {
@@ -54470,6 +55955,7 @@ impl<'a> Default for PhysicalDeviceFragmentShaderBarycentricPropertiesKHR<'a> {
         }
     }
 }
+#[cfg(all(feature = "ext_provoking_vertex"))]
 impl<'a> PhysicalDeviceFragmentShaderBarycentricPropertiesKHR<'a> {
     #[inline]
     pub fn tri_strip_vertex_order_independent_of_provoking_vertex(
@@ -56449,8 +57935,8 @@ pub struct DeviceFaultInfoEXT<'a> {
     pub(crate) s_type: StructureType,
     pub(crate) p_next: Cell<*const Header>,
     pub(crate) description: [c_char; MAX_DESCRIPTION_SIZE as _],
-    pub p_address_infos: *const DeviceFaultAddressInfoEXT,
-    pub p_vendor_infos: *const DeviceFaultVendorInfoEXT,
+    pub p_address_infos: *const DeviceFaultAddressInfoKHR,
+    pub p_vendor_infos: *const DeviceFaultVendorInfoKHR,
     pub p_vendor_binary_data: VoidPtr,
     phantom: PhantomData<&'a ()>,
 }
@@ -56481,12 +57967,12 @@ impl<'a> Default for DeviceFaultInfoEXT<'a> {
 #[cfg(feature = "ext_device_fault")]
 impl<'a> DeviceFaultInfoEXT<'a> {
     #[inline]
-    pub fn address_infos(mut self, value: Option<&'a DeviceFaultAddressInfoEXT>) -> Self {
+    pub fn address_infos(mut self, value: Option<&'a DeviceFaultAddressInfoKHR>) -> Self {
         self.p_address_infos = value.map(|v| ptr::from_ref(v)).unwrap_or(ptr::null());
         self
     }
     #[inline]
-    pub fn vendor_infos(mut self, value: Option<&'a DeviceFaultVendorInfoEXT>) -> Self {
+    pub fn vendor_infos(mut self, value: Option<&'a DeviceFaultVendorInfoKHR>) -> Self {
         self.p_vendor_infos = value.map(|v| ptr::from_ref(v)).unwrap_or(ptr::null());
         self
     }
@@ -56505,190 +57991,6 @@ impl<'a> DeviceFaultInfoEXT<'a> {
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
         unsafe { self.push_next_unchecked(ext) };
-        self
-    }
-}
-#[cfg(feature = "ext_device_fault")]
-#[repr(C)]
-#[derive(Clone, Copy)]
-#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceFaultAddressInfoEXT.html>"]
-#[doc(alias = "VkDeviceFaultAddressInfoEXT")]
-pub struct DeviceFaultAddressInfoEXT {
-    pub address_type: DeviceFaultAddressTypeEXT,
-    pub reported_address: DeviceAddress,
-    pub address_precision: DeviceSize,
-}
-#[cfg(feature = "ext_device_fault")]
-unsafe impl Send for DeviceFaultAddressInfoEXT {}
-#[cfg(feature = "ext_device_fault")]
-unsafe impl Sync for DeviceFaultAddressInfoEXT {}
-#[cfg(feature = "ext_device_fault")]
-impl Default for DeviceFaultAddressInfoEXT {
-    fn default() -> Self {
-        Self {
-            address_type: DeviceFaultAddressTypeEXT::None,
-            reported_address: Default::default(),
-            address_precision: Default::default(),
-        }
-    }
-}
-#[cfg(feature = "ext_device_fault")]
-impl DeviceFaultAddressInfoEXT {
-    #[inline]
-    pub fn address_type(mut self, value: DeviceFaultAddressTypeEXT) -> Self {
-        self.address_type = value;
-        self
-    }
-    #[inline]
-    pub fn reported_address(mut self, value: DeviceAddress) -> Self {
-        self.reported_address = value;
-        self
-    }
-    #[inline]
-    pub fn address_precision(mut self, value: DeviceSize) -> Self {
-        self.address_precision = value;
-        self
-    }
-}
-#[cfg(feature = "ext_device_fault")]
-#[repr(C)]
-#[derive(Clone, Copy)]
-#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceFaultVendorInfoEXT.html>"]
-#[doc(alias = "VkDeviceFaultVendorInfoEXT")]
-pub struct DeviceFaultVendorInfoEXT {
-    pub(crate) description: [c_char; MAX_DESCRIPTION_SIZE as _],
-    pub vendor_fault_code: u64,
-    pub vendor_fault_data: u64,
-}
-#[cfg(feature = "ext_device_fault")]
-unsafe impl Send for DeviceFaultVendorInfoEXT {}
-#[cfg(feature = "ext_device_fault")]
-unsafe impl Sync for DeviceFaultVendorInfoEXT {}
-#[cfg(feature = "ext_device_fault")]
-impl Default for DeviceFaultVendorInfoEXT {
-    fn default() -> Self {
-        Self {
-            description: array::from_fn(|_| Default::default()),
-            vendor_fault_code: Default::default(),
-            vendor_fault_data: Default::default(),
-        }
-    }
-}
-#[cfg(feature = "ext_device_fault")]
-impl DeviceFaultVendorInfoEXT {
-    #[inline]
-    pub fn vendor_fault_code(mut self, value: u64) -> Self {
-        self.vendor_fault_code = value;
-        self
-    }
-    #[inline]
-    pub fn vendor_fault_data(mut self, value: u64) -> Self {
-        self.vendor_fault_data = value;
-        self
-    }
-    pub fn get_description(&self) -> &CStr {
-        CStr::from_bytes_until_nul(
-            unsafe { mem::transmute::<_, &[u8; MAX_DESCRIPTION_SIZE as _]>(&self.description) }
-                .as_slice(),
-        )
-        .unwrap()
-    }
-}
-#[cfg(feature = "ext_device_fault")]
-#[repr(C)]
-#[derive(Clone, Copy)]
-#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceFaultVendorBinaryHeaderVersionOneEXT.html>"]
-#[doc(alias = "VkDeviceFaultVendorBinaryHeaderVersionOneEXT")]
-pub struct DeviceFaultVendorBinaryHeaderVersionOneEXT {
-    pub header_size: u32,
-    pub header_version: DeviceFaultVendorBinaryHeaderVersionEXT,
-    pub vendor_id: u32,
-    pub device_id: u32,
-    pub driver_version: u32,
-    pub pipeline_cache_uuid: [u8; UUID_SIZE as _],
-    pub application_name_offset: u32,
-    pub application_version: u32,
-    pub engine_name_offset: u32,
-    pub engine_version: u32,
-    pub api_version: ApiVersion,
-}
-#[cfg(feature = "ext_device_fault")]
-unsafe impl Send for DeviceFaultVendorBinaryHeaderVersionOneEXT {}
-#[cfg(feature = "ext_device_fault")]
-unsafe impl Sync for DeviceFaultVendorBinaryHeaderVersionOneEXT {}
-#[cfg(feature = "ext_device_fault")]
-impl Default for DeviceFaultVendorBinaryHeaderVersionOneEXT {
-    fn default() -> Self {
-        Self {
-            header_size: Default::default(),
-            header_version: DeviceFaultVendorBinaryHeaderVersionEXT::One,
-            vendor_id: Default::default(),
-            device_id: Default::default(),
-            driver_version: Default::default(),
-            pipeline_cache_uuid: array::from_fn(|_| Default::default()),
-            application_name_offset: Default::default(),
-            application_version: Default::default(),
-            engine_name_offset: Default::default(),
-            engine_version: Default::default(),
-            api_version: Default::default(),
-        }
-    }
-}
-#[cfg(feature = "ext_device_fault")]
-impl DeviceFaultVendorBinaryHeaderVersionOneEXT {
-    #[inline]
-    pub fn header_size(mut self, value: u32) -> Self {
-        self.header_size = value;
-        self
-    }
-    #[inline]
-    pub fn header_version(mut self, value: DeviceFaultVendorBinaryHeaderVersionEXT) -> Self {
-        self.header_version = value;
-        self
-    }
-    #[inline]
-    pub fn vendor_id(mut self, value: u32) -> Self {
-        self.vendor_id = value;
-        self
-    }
-    #[inline]
-    pub fn device_id(mut self, value: u32) -> Self {
-        self.device_id = value;
-        self
-    }
-    #[inline]
-    pub fn driver_version(mut self, value: u32) -> Self {
-        self.driver_version = value;
-        self
-    }
-    #[inline]
-    pub fn pipeline_cache_uuid(mut self, value: [u8; UUID_SIZE as _]) -> Self {
-        self.pipeline_cache_uuid = value;
-        self
-    }
-    #[inline]
-    pub fn application_name_offset(mut self, value: u32) -> Self {
-        self.application_name_offset = value;
-        self
-    }
-    #[inline]
-    pub fn application_version(mut self, value: u32) -> Self {
-        self.application_version = value;
-        self
-    }
-    #[inline]
-    pub fn engine_name_offset(mut self, value: u32) -> Self {
-        self.engine_name_offset = value;
-        self
-    }
-    #[inline]
-    pub fn engine_version(mut self, value: u32) -> Self {
-        self.engine_version = value;
-        self
-    }
-    #[inline]
-    pub fn api_version(mut self, value: ApiVersion) -> Self {
-        self.api_version = value;
         self
     }
 }
@@ -61349,48 +62651,6 @@ impl<'a> AccelerationStructureTrianglesOpacityMicromapEXT<'a> {
         self
     }
 }
-#[cfg(feature = "ext_opacity_micromap")]
-#[repr(C)]
-#[derive(Clone, Copy)]
-#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkMicromapTriangleEXT.html>"]
-#[doc(alias = "VkMicromapTriangleEXT")]
-pub struct MicromapTriangleEXT {
-    pub data_offset: u32,
-    pub subdivision_level: u16,
-    pub format: u16,
-}
-#[cfg(feature = "ext_opacity_micromap")]
-unsafe impl Send for MicromapTriangleEXT {}
-#[cfg(feature = "ext_opacity_micromap")]
-unsafe impl Sync for MicromapTriangleEXT {}
-#[cfg(feature = "ext_opacity_micromap")]
-impl Default for MicromapTriangleEXT {
-    fn default() -> Self {
-        Self {
-            data_offset: Default::default(),
-            subdivision_level: Default::default(),
-            format: Default::default(),
-        }
-    }
-}
-#[cfg(feature = "ext_opacity_micromap")]
-impl MicromapTriangleEXT {
-    #[inline]
-    pub fn data_offset(mut self, value: u32) -> Self {
-        self.data_offset = value;
-        self
-    }
-    #[inline]
-    pub fn subdivision_level(mut self, value: u16) -> Self {
-        self.subdivision_level = value;
-        self
-    }
-    #[inline]
-    pub fn format(mut self, value: u16) -> Self {
-        self.format = value;
-        self
-    }
-}
 #[cfg(feature = "ext_displacement_micromap")]
 #[repr(C)]
 #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceDisplacementMicromapFeaturesNV.html>"]
@@ -62321,6 +63581,139 @@ impl<'a> PhysicalDeviceSchedulingControlsPropertiesARM<'a> {
         self
     }
 }
+#[cfg(feature = "ext_scheduling_controls")]
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDispatchParametersARM.html>"]
+#[doc(alias = "VkDispatchParametersARM")]
+pub struct DispatchParametersARM<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub work_group_batch_size: u32,
+    pub max_queued_work_group_batches: u32,
+    pub max_warps_per_shader_core: u32,
+    phantom: PhantomData<&'a ()>,
+}
+#[cfg(feature = "ext_scheduling_controls")]
+unsafe impl<'a> ExtendableStructureBase for DispatchParametersARM<'a> {}
+#[cfg(feature = "ext_scheduling_controls")]
+unsafe impl<'a> ExtendableStructure for DispatchParametersARM<'a> {
+    const STRUCTURE_TYPE: StructureType = StructureType::DispatchParametersARM;
+}
+#[cfg(feature = "ext_scheduling_controls")]
+unsafe impl<'a> Send for DispatchParametersARM<'a> {}
+#[cfg(feature = "ext_scheduling_controls")]
+unsafe impl<'a> Sync for DispatchParametersARM<'a> {}
+#[cfg(feature = "ext_scheduling_controls")]
+impl<'a> Default for DispatchParametersARM<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            work_group_batch_size: Default::default(),
+            max_queued_work_group_batches: Default::default(),
+            max_warps_per_shader_core: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+#[cfg(feature = "ext_scheduling_controls")]
+impl<'a> DispatchParametersARM<'a> {
+    #[inline]
+    pub fn work_group_batch_size(mut self, value: u32) -> Self {
+        self.work_group_batch_size = value;
+        self
+    }
+    #[inline]
+    pub fn max_queued_work_group_batches(mut self, value: u32) -> Self {
+        self.max_queued_work_group_batches = value;
+        self
+    }
+    #[inline]
+    pub fn max_warps_per_shader_core(mut self, value: u32) -> Self {
+        self.max_warps_per_shader_core = value;
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[cfg(feature = "ext_scheduling_controls")]
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceSchedulingControlsDispatchParametersPropertiesARM.html>"]
+#[doc(alias = "VkPhysicalDeviceSchedulingControlsDispatchParametersPropertiesARM")]
+pub struct PhysicalDeviceSchedulingControlsDispatchParametersPropertiesARM<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub scheduling_controls_max_warps_count: u32,
+    pub scheduling_controls_max_queued_batches_count: u32,
+    pub scheduling_controls_max_work_group_batch_size: u32,
+    phantom: PhantomData<&'a ()>,
+}
+#[cfg(feature = "ext_scheduling_controls")]
+unsafe impl<'a> ExtendableStructureBase
+    for PhysicalDeviceSchedulingControlsDispatchParametersPropertiesARM<'a>
+{
+}
+#[cfg(feature = "ext_scheduling_controls")]
+unsafe impl<'a> ExtendableStructure
+    for PhysicalDeviceSchedulingControlsDispatchParametersPropertiesARM<'a>
+{
+    const STRUCTURE_TYPE: StructureType =
+        StructureType::PhysicalDeviceSchedulingControlsDispatchParametersPropertiesARM;
+}
+#[cfg(feature = "ext_scheduling_controls")]
+unsafe impl<'a> Send for PhysicalDeviceSchedulingControlsDispatchParametersPropertiesARM<'a> {}
+#[cfg(feature = "ext_scheduling_controls")]
+unsafe impl<'a> Sync for PhysicalDeviceSchedulingControlsDispatchParametersPropertiesARM<'a> {}
+#[cfg(all(
+    feature = "ext_scheduling_controls",
+    any(
+        feature = "ext_get_physical_device_properties2",
+        feature = "version_1_1"
+    )
+))]
+unsafe impl<'a, 'b> ExtendingStructure<PhysicalDeviceProperties2<'b>>
+    for PhysicalDeviceSchedulingControlsDispatchParametersPropertiesARM<'a>
+{
+}
+#[cfg(feature = "ext_scheduling_controls")]
+impl<'a> Default for PhysicalDeviceSchedulingControlsDispatchParametersPropertiesARM<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            scheduling_controls_max_warps_count: Default::default(),
+            scheduling_controls_max_queued_batches_count: Default::default(),
+            scheduling_controls_max_work_group_batch_size: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+#[cfg(feature = "ext_scheduling_controls")]
+impl<'a> PhysicalDeviceSchedulingControlsDispatchParametersPropertiesARM<'a> {
+    #[inline]
+    pub fn scheduling_controls_max_warps_count(mut self, value: u32) -> Self {
+        self.scheduling_controls_max_warps_count = value;
+        self
+    }
+    #[inline]
+    pub fn scheduling_controls_max_queued_batches_count(mut self, value: u32) -> Self {
+        self.scheduling_controls_max_queued_batches_count = value;
+        self
+    }
+    #[inline]
+    pub fn scheduling_controls_max_work_group_batch_size(mut self, value: u32) -> Self {
+        self.scheduling_controls_max_work_group_batch_size = value;
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
 #[cfg(feature = "ext_image_sliced_view_of_3d")]
 #[repr(C)]
 #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceImageSlicedViewOf3DFeaturesEXT.html>"]
@@ -63039,7 +64432,7 @@ pub struct DecompressMemoryRegionNV {
     pub dst_address: DeviceAddress,
     pub compressed_size: DeviceSize,
     pub decompressed_size: DeviceSize,
-    pub decompression_method: MemoryDecompressionMethodFlagsNV,
+    pub decompression_method: MemoryDecompressionMethodFlagsEXT,
 }
 #[cfg(feature = "ext_memory_decompression")]
 unsafe impl Send for DecompressMemoryRegionNV {}
@@ -63080,7 +64473,7 @@ impl DecompressMemoryRegionNV {
         self
     }
     #[inline]
-    pub fn decompression_method(mut self, value: MemoryDecompressionMethodFlagsNV) -> Self {
+    pub fn decompression_method(mut self, value: MemoryDecompressionMethodFlagsEXT) -> Self {
         self.decompression_method = value;
         self
     }
@@ -66127,8 +67520,8 @@ impl<'a> TensorMemoryBarrierARM<'a> {
 pub struct TensorDependencyInfoARM<'a> {
     pub(crate) s_type: StructureType,
     pub(crate) p_next: Cell<*const Header>,
-    pub tensor_memory_barrier_count: u32,
-    pub p_tensor_memory_barriers: *const TensorMemoryBarrierARM<'a>,
+    pub(crate) tensor_memory_barrier_count: u32,
+    pub(crate) p_tensor_memory_barriers: *const TensorMemoryBarrierARM<'a>,
     phantom: PhantomData<&'a ()>,
 }
 #[cfg(feature = "ext_tensors")]
@@ -66161,14 +67554,24 @@ impl<'a> Default for TensorDependencyInfoARM<'a> {
 #[cfg(feature = "ext_tensors")]
 impl<'a> TensorDependencyInfoARM<'a> {
     #[inline]
-    pub fn tensor_memory_barrier_count(mut self, value: u32) -> Self {
-        self.tensor_memory_barrier_count = value;
+    pub fn tensor_memory_barriers(
+        mut self,
+        p_tensor_memory_barriers: impl AsSlice<'a, TensorMemoryBarrierARM<'a>>,
+    ) -> Self {
+        self.p_tensor_memory_barriers = p_tensor_memory_barriers.as_slice().as_ptr().cast();
+        self.tensor_memory_barrier_count = p_tensor_memory_barriers.as_slice().len() as _;
         self
     }
     #[inline]
-    pub fn tensor_memory_barriers(mut self, value: &'a TensorMemoryBarrierARM<'a>) -> Self {
-        self.p_tensor_memory_barriers = ptr::from_ref(value);
-        self
+    pub fn get_tensor_memory_barriers(&self) -> &'a [TensorMemoryBarrierARM<'a>] {
+        (!self.p_tensor_memory_barriers.is_null())
+            .then(|| unsafe {
+                slice::from_raw_parts(
+                    self.p_tensor_memory_barriers.cast(),
+                    self.tensor_memory_barrier_count as _,
+                )
+            })
+            .unwrap_or(&[])
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -72957,7 +74360,7 @@ impl<'a> DataGraphPipelineCompilerControlCreateInfoARM<'a> {
 pub struct DataGraphPipelineCreateInfoARM<'a> {
     pub(crate) s_type: StructureType,
     pub(crate) p_next: Cell<*const Header>,
-    pub flags: PipelineCreateFlags2KHR,
+    pub flags: PipelineCreateFlags2,
     pub layout: Option<BorrowedHandle<'a, PipelineLayout>>,
     pub(crate) resource_info_count: u32,
     pub(crate) p_resource_infos: *const DataGraphPipelineResourceInfoARM<'a>,
@@ -72990,7 +74393,7 @@ impl<'a> Default for DataGraphPipelineCreateInfoARM<'a> {
 #[cfg(feature = "ext_data_graph")]
 impl<'a> DataGraphPipelineCreateInfoARM<'a> {
     #[inline]
-    pub fn flags(mut self, value: PipelineCreateFlags2KHR) -> Self {
+    pub fn flags(mut self, value: PipelineCreateFlags2) -> Self {
         self.flags = value;
         self
     }
@@ -74010,6 +75413,113 @@ impl<'a> DataGraphPipelineConstantTensorSemiStructuredSparsityInfoARM<'a> {
     pub fn group_size(mut self, value: u32) -> Self {
         self.group_size = value;
         self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[cfg(feature = "ext_data_graph_instruction_set_tosa")]
+#[repr(C)]
+#[derive(Clone, Copy)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphTOSANameQualityARM.html>"]
+#[doc(alias = "VkDataGraphTOSANameQualityARM")]
+pub struct DataGraphTOSANameQualityARM {
+    pub(crate) name: [c_char; MAX_DATA_GRAPH_TOSA_NAME_SIZE_ARM as _],
+    pub quality_flags: DataGraphTOSAQualityFlagsARM,
+}
+#[cfg(feature = "ext_data_graph_instruction_set_tosa")]
+unsafe impl Send for DataGraphTOSANameQualityARM {}
+#[cfg(feature = "ext_data_graph_instruction_set_tosa")]
+unsafe impl Sync for DataGraphTOSANameQualityARM {}
+#[cfg(feature = "ext_data_graph_instruction_set_tosa")]
+impl Default for DataGraphTOSANameQualityARM {
+    fn default() -> Self {
+        Self {
+            name: array::from_fn(|_| Default::default()),
+            quality_flags: Default::default(),
+        }
+    }
+}
+#[cfg(feature = "ext_data_graph_instruction_set_tosa")]
+impl DataGraphTOSANameQualityARM {
+    #[inline]
+    pub fn quality_flags(mut self, value: DataGraphTOSAQualityFlagsARM) -> Self {
+        self.quality_flags = value;
+        self
+    }
+    pub fn get_name(&self) -> &CStr {
+        CStr::from_bytes_until_nul(
+            unsafe {
+                mem::transmute::<_, &[u8; MAX_DATA_GRAPH_TOSA_NAME_SIZE_ARM as _]>(&self.name)
+            }
+            .as_slice(),
+        )
+        .unwrap()
+    }
+}
+#[cfg(feature = "ext_data_graph_instruction_set_tosa")]
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkQueueFamilyDataGraphTOSAPropertiesARM.html>"]
+#[doc(alias = "VkQueueFamilyDataGraphTOSAPropertiesARM")]
+pub struct QueueFamilyDataGraphTOSAPropertiesARM<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub(crate) profile_count: u32,
+    pub(crate) p_profiles: *const DataGraphTOSANameQualityARM,
+    pub(crate) extension_count: u32,
+    pub(crate) p_extensions: *const DataGraphTOSANameQualityARM,
+    pub level: DataGraphTOSALevelARM,
+    phantom: PhantomData<&'a ()>,
+}
+#[cfg(feature = "ext_data_graph_instruction_set_tosa")]
+unsafe impl<'a> ExtendableStructureBase for QueueFamilyDataGraphTOSAPropertiesARM<'a> {}
+#[cfg(feature = "ext_data_graph_instruction_set_tosa")]
+unsafe impl<'a> ExtendableStructure for QueueFamilyDataGraphTOSAPropertiesARM<'a> {
+    const STRUCTURE_TYPE: StructureType = StructureType::QueueFamilyDataGraphTosaPropertiesARM;
+}
+#[cfg(feature = "ext_data_graph_instruction_set_tosa")]
+unsafe impl<'a> Send for QueueFamilyDataGraphTOSAPropertiesARM<'a> {}
+#[cfg(feature = "ext_data_graph_instruction_set_tosa")]
+unsafe impl<'a> Sync for QueueFamilyDataGraphTOSAPropertiesARM<'a> {}
+#[cfg(feature = "ext_data_graph_instruction_set_tosa")]
+impl<'a> Default for QueueFamilyDataGraphTOSAPropertiesARM<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            profile_count: Default::default(),
+            p_profiles: ptr::null(),
+            extension_count: Default::default(),
+            p_extensions: ptr::null(),
+            level: DataGraphTOSALevelARM::osaLevelNone,
+            phantom: PhantomData,
+        }
+    }
+}
+#[cfg(feature = "ext_data_graph_instruction_set_tosa")]
+impl<'a> QueueFamilyDataGraphTOSAPropertiesARM<'a> {
+    #[inline]
+    pub fn level(mut self, value: DataGraphTOSALevelARM) -> Self {
+        self.level = value;
+        self
+    }
+    #[inline]
+    pub fn get_profiles(&self) -> &'a [DataGraphTOSANameQualityARM] {
+        (!self.p_profiles.is_null())
+            .then(|| unsafe {
+                slice::from_raw_parts(self.p_profiles.cast(), self.profile_count as _)
+            })
+            .unwrap_or(&[])
+    }
+    #[inline]
+    pub fn get_extensions(&self) -> &'a [DataGraphTOSANameQualityARM] {
+        (!self.p_extensions.is_null())
+            .then(|| unsafe {
+                slice::from_raw_parts(self.p_extensions.cast(), self.extension_count as _)
+            })
+            .unwrap_or(&[])
     }
     #[inline]
     pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
@@ -80796,6 +82306,470 @@ impl<'a> WriteIndirectExecutionSetShaderEXT<'a> {
         self
     }
 }
+#[cfg(feature = "ext_device_fault")]
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceFaultFeaturesKHR.html>"]
+#[doc(alias = "VkPhysicalDeviceFaultFeaturesKHR")]
+pub struct PhysicalDeviceFaultFeaturesKHR<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub device_fault: Bool32,
+    pub device_fault_vendor_binary: Bool32,
+    pub device_fault_report_masked: Bool32,
+    pub device_fault_device_lost_on_masked: Bool32,
+    phantom: PhantomData<&'a ()>,
+}
+#[cfg(feature = "ext_device_fault")]
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceFaultFeaturesKHR<'a> {}
+#[cfg(feature = "ext_device_fault")]
+unsafe impl<'a> ExtendableStructure for PhysicalDeviceFaultFeaturesKHR<'a> {
+    const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceFaultFeaturesKHR;
+}
+#[cfg(feature = "ext_device_fault")]
+unsafe impl<'a> Send for PhysicalDeviceFaultFeaturesKHR<'a> {}
+#[cfg(feature = "ext_device_fault")]
+unsafe impl<'a> Sync for PhysicalDeviceFaultFeaturesKHR<'a> {}
+#[cfg(all(
+    feature = "ext_device_fault",
+    any(
+        feature = "ext_get_physical_device_properties2",
+        feature = "version_1_1"
+    )
+))]
+unsafe impl<'a, 'b> ExtendingStructure<PhysicalDeviceFeatures2<'b>>
+    for PhysicalDeviceFaultFeaturesKHR<'a>
+{
+}
+#[cfg(all(feature = "ext_device_fault",))]
+unsafe impl<'a, 'b> ExtendingStructure<DeviceCreateInfo<'b>>
+    for PhysicalDeviceFaultFeaturesKHR<'a>
+{
+}
+#[cfg(feature = "ext_device_fault")]
+impl<'a> Default for PhysicalDeviceFaultFeaturesKHR<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            device_fault: Default::default(),
+            device_fault_vendor_binary: Default::default(),
+            device_fault_report_masked: Default::default(),
+            device_fault_device_lost_on_masked: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+#[cfg(feature = "ext_device_fault")]
+impl<'a> PhysicalDeviceFaultFeaturesKHR<'a> {
+    #[inline]
+    pub fn device_fault(mut self, value: impl Into<Bool32>) -> Self {
+        self.device_fault = value.into();
+        self
+    }
+    #[inline]
+    pub fn device_fault_vendor_binary(mut self, value: impl Into<Bool32>) -> Self {
+        self.device_fault_vendor_binary = value.into();
+        self
+    }
+    #[inline]
+    pub fn device_fault_report_masked(mut self, value: impl Into<Bool32>) -> Self {
+        self.device_fault_report_masked = value.into();
+        self
+    }
+    #[inline]
+    pub fn device_fault_device_lost_on_masked(mut self, value: impl Into<Bool32>) -> Self {
+        self.device_fault_device_lost_on_masked = value.into();
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[cfg(feature = "ext_device_fault")]
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceFaultPropertiesKHR.html>"]
+#[doc(alias = "VkPhysicalDeviceFaultPropertiesKHR")]
+pub struct PhysicalDeviceFaultPropertiesKHR<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub max_device_fault_count: u32,
+    phantom: PhantomData<&'a ()>,
+}
+#[cfg(feature = "ext_device_fault")]
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceFaultPropertiesKHR<'a> {}
+#[cfg(feature = "ext_device_fault")]
+unsafe impl<'a> ExtendableStructure for PhysicalDeviceFaultPropertiesKHR<'a> {
+    const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceFaultPropertiesKHR;
+}
+#[cfg(feature = "ext_device_fault")]
+unsafe impl<'a> Send for PhysicalDeviceFaultPropertiesKHR<'a> {}
+#[cfg(feature = "ext_device_fault")]
+unsafe impl<'a> Sync for PhysicalDeviceFaultPropertiesKHR<'a> {}
+#[cfg(all(
+    feature = "ext_device_fault",
+    any(
+        feature = "ext_get_physical_device_properties2",
+        feature = "version_1_1"
+    )
+))]
+unsafe impl<'a, 'b> ExtendingStructure<PhysicalDeviceProperties2<'b>>
+    for PhysicalDeviceFaultPropertiesKHR<'a>
+{
+}
+#[cfg(feature = "ext_device_fault")]
+impl<'a> Default for PhysicalDeviceFaultPropertiesKHR<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            max_device_fault_count: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+#[cfg(feature = "ext_device_fault")]
+impl<'a> PhysicalDeviceFaultPropertiesKHR<'a> {
+    #[inline]
+    pub fn max_device_fault_count(mut self, value: u32) -> Self {
+        self.max_device_fault_count = value;
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[cfg(feature = "ext_device_fault")]
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceFaultInfoKHR.html>"]
+#[doc(alias = "VkDeviceFaultInfoKHR")]
+pub struct DeviceFaultInfoKHR<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub flags: DeviceFaultFlagsKHR,
+    pub group_id: u64,
+    pub(crate) description: [c_char; MAX_DESCRIPTION_SIZE as _],
+    pub fault_address_info: DeviceFaultAddressInfoKHR,
+    pub instruction_address_info: DeviceFaultAddressInfoKHR,
+    pub vendor_info: DeviceFaultVendorInfoKHR,
+    phantom: PhantomData<&'a ()>,
+}
+#[cfg(feature = "ext_device_fault")]
+unsafe impl<'a> ExtendableStructureBase for DeviceFaultInfoKHR<'a> {}
+#[cfg(feature = "ext_device_fault")]
+unsafe impl<'a> ExtendableStructure for DeviceFaultInfoKHR<'a> {
+    const STRUCTURE_TYPE: StructureType = StructureType::DeviceFaultInfoKHR;
+}
+#[cfg(feature = "ext_device_fault")]
+unsafe impl<'a> Send for DeviceFaultInfoKHR<'a> {}
+#[cfg(feature = "ext_device_fault")]
+unsafe impl<'a> Sync for DeviceFaultInfoKHR<'a> {}
+#[cfg(feature = "ext_device_fault")]
+impl<'a> Default for DeviceFaultInfoKHR<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            flags: Default::default(),
+            group_id: Default::default(),
+            description: array::from_fn(|_| Default::default()),
+            fault_address_info: Default::default(),
+            instruction_address_info: Default::default(),
+            vendor_info: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+#[cfg(feature = "ext_device_fault")]
+impl<'a> DeviceFaultInfoKHR<'a> {
+    #[inline]
+    pub fn flags(mut self, value: DeviceFaultFlagsKHR) -> Self {
+        self.flags = value;
+        self
+    }
+    #[inline]
+    pub fn group_id(mut self, value: u64) -> Self {
+        self.group_id = value;
+        self
+    }
+    #[inline]
+    pub fn fault_address_info(mut self, value: DeviceFaultAddressInfoKHR) -> Self {
+        self.fault_address_info = value;
+        self
+    }
+    #[inline]
+    pub fn instruction_address_info(mut self, value: DeviceFaultAddressInfoKHR) -> Self {
+        self.instruction_address_info = value;
+        self
+    }
+    #[inline]
+    pub fn vendor_info(mut self, value: DeviceFaultVendorInfoKHR) -> Self {
+        self.vendor_info = value;
+        self
+    }
+    pub fn get_description(&self) -> &CStr {
+        CStr::from_bytes_until_nul(
+            unsafe { mem::transmute::<_, &[u8; MAX_DESCRIPTION_SIZE as _]>(&self.description) }
+                .as_slice(),
+        )
+        .unwrap()
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[cfg(feature = "ext_device_fault")]
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceFaultDebugInfoKHR.html>"]
+#[doc(alias = "VkDeviceFaultDebugInfoKHR")]
+pub struct DeviceFaultDebugInfoKHR<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub vendor_binary_size: u32,
+    pub(crate) p_vendor_binary_data: VoidPtr,
+    phantom: PhantomData<&'a ()>,
+}
+#[cfg(feature = "ext_device_fault")]
+unsafe impl<'a> ExtendableStructureBase for DeviceFaultDebugInfoKHR<'a> {}
+#[cfg(feature = "ext_device_fault")]
+unsafe impl<'a> ExtendableStructure for DeviceFaultDebugInfoKHR<'a> {
+    const STRUCTURE_TYPE: StructureType = StructureType::DeviceFaultDebugInfoKHR;
+}
+#[cfg(feature = "ext_device_fault")]
+unsafe impl<'a> Send for DeviceFaultDebugInfoKHR<'a> {}
+#[cfg(feature = "ext_device_fault")]
+unsafe impl<'a> Sync for DeviceFaultDebugInfoKHR<'a> {}
+#[cfg(feature = "ext_device_fault")]
+impl<'a> Default for DeviceFaultDebugInfoKHR<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            vendor_binary_size: Default::default(),
+            p_vendor_binary_data: ptr::null(),
+            phantom: PhantomData,
+        }
+    }
+}
+#[cfg(feature = "ext_device_fault")]
+impl<'a> DeviceFaultDebugInfoKHR<'a> {
+    #[inline]
+    pub fn vendor_binary_size(mut self, value: u32) -> Self {
+        self.vendor_binary_size = value;
+        self
+    }
+    #[inline]
+    pub fn get_vendor_binary_data(&self) -> &'a [u8] {
+        (!self.p_vendor_binary_data.is_null())
+            .then(|| unsafe {
+                slice::from_raw_parts(
+                    self.p_vendor_binary_data.cast::<u8>().cast(),
+                    self.vendor_binary_size as _,
+                )
+            })
+            .unwrap_or(&[])
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[cfg(feature = "ext_device_fault")]
+#[repr(C)]
+#[derive(Clone, Copy)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceFaultAddressInfoKHR.html>"]
+#[doc(alias = "VkDeviceFaultAddressInfoKHR")]
+pub struct DeviceFaultAddressInfoKHR {
+    pub address_type: DeviceFaultAddressTypeKHR,
+    pub reported_address: DeviceAddress,
+    pub address_precision: DeviceSize,
+}
+#[cfg(feature = "ext_device_fault")]
+unsafe impl Send for DeviceFaultAddressInfoKHR {}
+#[cfg(feature = "ext_device_fault")]
+unsafe impl Sync for DeviceFaultAddressInfoKHR {}
+#[cfg(feature = "ext_device_fault")]
+impl Default for DeviceFaultAddressInfoKHR {
+    fn default() -> Self {
+        Self {
+            address_type: DeviceFaultAddressTypeKHR::None,
+            reported_address: Default::default(),
+            address_precision: Default::default(),
+        }
+    }
+}
+#[cfg(feature = "ext_device_fault")]
+impl DeviceFaultAddressInfoKHR {
+    #[inline]
+    pub fn address_type(mut self, value: DeviceFaultAddressTypeKHR) -> Self {
+        self.address_type = value;
+        self
+    }
+    #[inline]
+    pub fn reported_address(mut self, value: DeviceAddress) -> Self {
+        self.reported_address = value;
+        self
+    }
+    #[inline]
+    pub fn address_precision(mut self, value: DeviceSize) -> Self {
+        self.address_precision = value;
+        self
+    }
+}
+#[cfg(feature = "ext_device_fault")]
+pub type DeviceFaultAddressInfoEXT = DeviceFaultAddressInfoKHR;
+#[cfg(feature = "ext_device_fault")]
+#[repr(C)]
+#[derive(Clone, Copy)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceFaultVendorInfoKHR.html>"]
+#[doc(alias = "VkDeviceFaultVendorInfoKHR")]
+pub struct DeviceFaultVendorInfoKHR {
+    pub(crate) description: [c_char; MAX_DESCRIPTION_SIZE as _],
+    pub vendor_fault_code: u64,
+    pub vendor_fault_data: u64,
+}
+#[cfg(feature = "ext_device_fault")]
+unsafe impl Send for DeviceFaultVendorInfoKHR {}
+#[cfg(feature = "ext_device_fault")]
+unsafe impl Sync for DeviceFaultVendorInfoKHR {}
+#[cfg(feature = "ext_device_fault")]
+impl Default for DeviceFaultVendorInfoKHR {
+    fn default() -> Self {
+        Self {
+            description: array::from_fn(|_| Default::default()),
+            vendor_fault_code: Default::default(),
+            vendor_fault_data: Default::default(),
+        }
+    }
+}
+#[cfg(feature = "ext_device_fault")]
+impl DeviceFaultVendorInfoKHR {
+    #[inline]
+    pub fn vendor_fault_code(mut self, value: u64) -> Self {
+        self.vendor_fault_code = value;
+        self
+    }
+    #[inline]
+    pub fn vendor_fault_data(mut self, value: u64) -> Self {
+        self.vendor_fault_data = value;
+        self
+    }
+    pub fn get_description(&self) -> &CStr {
+        CStr::from_bytes_until_nul(
+            unsafe { mem::transmute::<_, &[u8; MAX_DESCRIPTION_SIZE as _]>(&self.description) }
+                .as_slice(),
+        )
+        .unwrap()
+    }
+}
+#[cfg(feature = "ext_device_fault")]
+pub type DeviceFaultVendorInfoEXT = DeviceFaultVendorInfoKHR;
+#[cfg(feature = "ext_device_fault")]
+#[repr(C)]
+#[derive(Clone, Copy)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceFaultVendorBinaryHeaderVersionOneKHR.html>"]
+#[doc(alias = "VkDeviceFaultVendorBinaryHeaderVersionOneKHR")]
+pub struct DeviceFaultVendorBinaryHeaderVersionOneKHR {
+    pub header_size: u32,
+    pub header_version: DeviceFaultVendorBinaryHeaderVersionKHR,
+    pub vendor_id: u32,
+    pub device_id: u32,
+    pub driver_version: u32,
+    pub pipeline_cache_uuid: [u8; UUID_SIZE as _],
+    pub application_name_offset: u32,
+    pub application_version: u32,
+    pub engine_name_offset: u32,
+    pub engine_version: u32,
+    pub api_version: ApiVersion,
+}
+#[cfg(feature = "ext_device_fault")]
+unsafe impl Send for DeviceFaultVendorBinaryHeaderVersionOneKHR {}
+#[cfg(feature = "ext_device_fault")]
+unsafe impl Sync for DeviceFaultVendorBinaryHeaderVersionOneKHR {}
+#[cfg(feature = "ext_device_fault")]
+impl Default for DeviceFaultVendorBinaryHeaderVersionOneKHR {
+    fn default() -> Self {
+        Self {
+            header_size: Default::default(),
+            header_version: DeviceFaultVendorBinaryHeaderVersionKHR::One,
+            vendor_id: Default::default(),
+            device_id: Default::default(),
+            driver_version: Default::default(),
+            pipeline_cache_uuid: array::from_fn(|_| Default::default()),
+            application_name_offset: Default::default(),
+            application_version: Default::default(),
+            engine_name_offset: Default::default(),
+            engine_version: Default::default(),
+            api_version: Default::default(),
+        }
+    }
+}
+#[cfg(feature = "ext_device_fault")]
+impl DeviceFaultVendorBinaryHeaderVersionOneKHR {
+    #[inline]
+    pub fn header_size(mut self, value: u32) -> Self {
+        self.header_size = value;
+        self
+    }
+    #[inline]
+    pub fn header_version(mut self, value: DeviceFaultVendorBinaryHeaderVersionKHR) -> Self {
+        self.header_version = value;
+        self
+    }
+    #[inline]
+    pub fn vendor_id(mut self, value: u32) -> Self {
+        self.vendor_id = value;
+        self
+    }
+    #[inline]
+    pub fn device_id(mut self, value: u32) -> Self {
+        self.device_id = value;
+        self
+    }
+    #[inline]
+    pub fn driver_version(mut self, value: u32) -> Self {
+        self.driver_version = value;
+        self
+    }
+    #[inline]
+    pub fn pipeline_cache_uuid(mut self, value: [u8; UUID_SIZE as _]) -> Self {
+        self.pipeline_cache_uuid = value;
+        self
+    }
+    #[inline]
+    pub fn application_name_offset(mut self, value: u32) -> Self {
+        self.application_name_offset = value;
+        self
+    }
+    #[inline]
+    pub fn application_version(mut self, value: u32) -> Self {
+        self.application_version = value;
+        self
+    }
+    #[inline]
+    pub fn engine_name_offset(mut self, value: u32) -> Self {
+        self.engine_name_offset = value;
+        self
+    }
+    #[inline]
+    pub fn engine_version(mut self, value: u32) -> Self {
+        self.engine_version = value;
+        self
+    }
+    #[inline]
+    pub fn api_version(mut self, value: ApiVersion) -> Self {
+        self.api_version = value;
+        self
+    }
+}
+#[cfg(feature = "ext_device_fault")]
+pub type DeviceFaultVendorBinaryHeaderVersionOneEXT = DeviceFaultVendorBinaryHeaderVersionOneKHR;
 #[cfg(feature = "ext_maintenance8")]
 #[repr(C)]
 #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkMemoryBarrierAccessFlags3KHR.html>"]
@@ -80838,6 +82812,11 @@ unsafe impl<'a, 'b> ExtendingStructure<BufferMemoryBarrier2<'b>>
     any(feature = "ext_synchronization2", feature = "version_1_3")
 ))]
 unsafe impl<'a, 'b> ExtendingStructure<ImageMemoryBarrier2<'b>>
+    for MemoryBarrierAccessFlags3KHR<'a>
+{
+}
+#[cfg(all(feature = "ext_maintenance8", feature = "ext_device_address_commands"))]
+unsafe impl<'a, 'b> ExtendingStructure<MemoryRangeBarriersInfoKHR<'b>>
     for MemoryBarrierAccessFlags3KHR<'a>
 {
 }
@@ -83675,6 +85654,122 @@ impl<'a> PhysicalDevicePresentMeteringFeaturesNV<'a> {
         self
     }
 }
+#[cfg(feature = "ext_multisampled_render_to_swapchain")]
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceMultisampledRenderToSwapchainFeaturesEXT.html>"]
+#[doc(alias = "VkPhysicalDeviceMultisampledRenderToSwapchainFeaturesEXT")]
+pub struct PhysicalDeviceMultisampledRenderToSwapchainFeaturesEXT<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub multisampled_render_to_swapchain: Bool32,
+    phantom: PhantomData<&'a ()>,
+}
+#[cfg(feature = "ext_multisampled_render_to_swapchain")]
+unsafe impl<'a> ExtendableStructureBase
+    for PhysicalDeviceMultisampledRenderToSwapchainFeaturesEXT<'a>
+{
+}
+#[cfg(feature = "ext_multisampled_render_to_swapchain")]
+unsafe impl<'a> ExtendableStructure for PhysicalDeviceMultisampledRenderToSwapchainFeaturesEXT<'a> {
+    const STRUCTURE_TYPE: StructureType =
+        StructureType::PhysicalDeviceMultisampledRenderToSwapchainFeaturesEXT;
+}
+#[cfg(feature = "ext_multisampled_render_to_swapchain")]
+unsafe impl<'a> Send for PhysicalDeviceMultisampledRenderToSwapchainFeaturesEXT<'a> {}
+#[cfg(feature = "ext_multisampled_render_to_swapchain")]
+unsafe impl<'a> Sync for PhysicalDeviceMultisampledRenderToSwapchainFeaturesEXT<'a> {}
+#[cfg(all(
+    feature = "ext_multisampled_render_to_swapchain",
+    any(
+        feature = "ext_get_physical_device_properties2",
+        feature = "version_1_1"
+    )
+))]
+unsafe impl<'a, 'b> ExtendingStructure<PhysicalDeviceFeatures2<'b>>
+    for PhysicalDeviceMultisampledRenderToSwapchainFeaturesEXT<'a>
+{
+}
+#[cfg(all(feature = "ext_multisampled_render_to_swapchain",))]
+unsafe impl<'a, 'b> ExtendingStructure<DeviceCreateInfo<'b>>
+    for PhysicalDeviceMultisampledRenderToSwapchainFeaturesEXT<'a>
+{
+}
+#[cfg(feature = "ext_multisampled_render_to_swapchain")]
+impl<'a> Default for PhysicalDeviceMultisampledRenderToSwapchainFeaturesEXT<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            multisampled_render_to_swapchain: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+#[cfg(feature = "ext_multisampled_render_to_swapchain")]
+impl<'a> PhysicalDeviceMultisampledRenderToSwapchainFeaturesEXT<'a> {
+    #[inline]
+    pub fn multisampled_render_to_swapchain(mut self, value: impl Into<Bool32>) -> Self {
+        self.multisampled_render_to_swapchain = value.into();
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[cfg(feature = "ext_multisampled_render_to_swapchain")]
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSwapchainFlagsSurfaceCapabilitiesEXT.html>"]
+#[doc(alias = "VkSwapchainFlagsSurfaceCapabilitiesEXT")]
+pub struct SwapchainFlagsSurfaceCapabilitiesEXT<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub swapchain_supported_flags: SwapchainCreateFlagsKHR,
+    phantom: PhantomData<&'a ()>,
+}
+#[cfg(feature = "ext_multisampled_render_to_swapchain")]
+unsafe impl<'a> ExtendableStructureBase for SwapchainFlagsSurfaceCapabilitiesEXT<'a> {}
+#[cfg(feature = "ext_multisampled_render_to_swapchain")]
+unsafe impl<'a> ExtendableStructure for SwapchainFlagsSurfaceCapabilitiesEXT<'a> {
+    const STRUCTURE_TYPE: StructureType = StructureType::SwapchainFlagsSurfaceCapabilitiesEXT;
+}
+#[cfg(feature = "ext_multisampled_render_to_swapchain")]
+unsafe impl<'a> Send for SwapchainFlagsSurfaceCapabilitiesEXT<'a> {}
+#[cfg(feature = "ext_multisampled_render_to_swapchain")]
+unsafe impl<'a> Sync for SwapchainFlagsSurfaceCapabilitiesEXT<'a> {}
+#[cfg(all(
+    feature = "ext_multisampled_render_to_swapchain",
+    feature = "ext_get_surface_capabilities2"
+))]
+unsafe impl<'a, 'b> ExtendingStructure<SurfaceCapabilities2KHR<'b>>
+    for SwapchainFlagsSurfaceCapabilitiesEXT<'a>
+{
+}
+#[cfg(feature = "ext_multisampled_render_to_swapchain")]
+impl<'a> Default for SwapchainFlagsSurfaceCapabilitiesEXT<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            swapchain_supported_flags: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+#[cfg(feature = "ext_multisampled_render_to_swapchain")]
+impl<'a> SwapchainFlagsSurfaceCapabilitiesEXT<'a> {
+    #[inline]
+    pub fn swapchain_supported_flags(mut self, value: SwapchainCreateFlagsKHR) -> Self {
+        self.swapchain_supported_flags = value;
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
 #[cfg(feature = "ext_fragment_density_map_offset")]
 #[repr(C)]
 #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceFragmentDensityMapOffsetFeaturesEXT.html>"]
@@ -84001,6 +86096,429 @@ impl<'a> PhysicalDevicePresentModeFifoLatestReadyFeaturesKHR<'a> {
 }
 pub type PhysicalDevicePresentModeFifoLatestReadyFeaturesEXT<'a> =
     PhysicalDevicePresentModeFifoLatestReadyFeaturesKHR<'a>;
+#[cfg(feature = "ext_opacity_micromap")]
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAccelerationStructureGeometryMicromapDataKHR.html>"]
+#[doc(alias = "VkAccelerationStructureGeometryMicromapDataKHR")]
+pub struct AccelerationStructureGeometryMicromapDataKHR<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub usage_counts_count: u32,
+    pub(crate) p_usage_counts: *const MicromapUsageKHR,
+    pub(crate) pp_usage_counts: *const *const MicromapUsageKHR,
+    pub data: DeviceAddress,
+    pub triangle_array: DeviceAddress,
+    pub triangle_array_stride: DeviceSize,
+    phantom: PhantomData<&'a ()>,
+}
+#[cfg(feature = "ext_opacity_micromap")]
+unsafe impl<'a> ExtendableStructureBase for AccelerationStructureGeometryMicromapDataKHR<'a> {}
+#[cfg(feature = "ext_opacity_micromap")]
+unsafe impl<'a> ExtendableStructure for AccelerationStructureGeometryMicromapDataKHR<'a> {
+    const STRUCTURE_TYPE: StructureType =
+        StructureType::AccelerationStructureGeometryMicromapDataKHR;
+}
+#[cfg(feature = "ext_opacity_micromap")]
+unsafe impl<'a> Send for AccelerationStructureGeometryMicromapDataKHR<'a> {}
+#[cfg(feature = "ext_opacity_micromap")]
+unsafe impl<'a> Sync for AccelerationStructureGeometryMicromapDataKHR<'a> {}
+#[cfg(all(
+    feature = "ext_opacity_micromap",
+    feature = "ext_acceleration_structure"
+))]
+unsafe impl<'a, 'b> ExtendingStructure<AccelerationStructureGeometryKHR<'b>>
+    for AccelerationStructureGeometryMicromapDataKHR<'a>
+{
+}
+#[cfg(feature = "ext_opacity_micromap")]
+impl<'a> Default for AccelerationStructureGeometryMicromapDataKHR<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            usage_counts_count: Default::default(),
+            p_usage_counts: ptr::null(),
+            pp_usage_counts: ptr::null(),
+            data: Default::default(),
+            triangle_array: Default::default(),
+            triangle_array_stride: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+#[cfg(feature = "ext_opacity_micromap")]
+impl<'a> AccelerationStructureGeometryMicromapDataKHR<'a> {
+    #[inline]
+    pub fn usage_counts_count(mut self, value: u32) -> Self {
+        self.usage_counts_count = value;
+        self
+    }
+    #[inline]
+    pub fn data(mut self, value: DeviceAddress) -> Self {
+        self.data = value;
+        self
+    }
+    #[inline]
+    pub fn triangle_array(mut self, value: DeviceAddress) -> Self {
+        self.triangle_array = value;
+        self
+    }
+    #[inline]
+    pub fn triangle_array_stride(mut self, value: DeviceSize) -> Self {
+        self.triangle_array_stride = value;
+        self
+    }
+    #[inline]
+    pub fn usage_counts(
+        mut self,
+        p_usage_counts: Option<impl AsSlice<'a, MicromapUsageKHR>>,
+        pp_usage_counts: Option<impl AsSlice<'a, &'a MicromapUsageKHR>>,
+    ) -> Self {
+        self.p_usage_counts = p_usage_counts
+            .map(|p| p.as_slice().as_ptr().cast())
+            .unwrap_or(ptr::null());
+        self.pp_usage_counts = pp_usage_counts
+            .map(|p| p.as_slice().as_ptr().cast())
+            .unwrap_or(ptr::null());
+        self.usage_counts_count = p_usage_counts
+            .map(|p| p.as_slice().len())
+            .unwrap_or_default() as _;
+        self
+    }
+    #[inline]
+    pub fn get_usage_counts(&self) -> &'a [MicromapUsageKHR] {
+        (!self.p_usage_counts.is_null())
+            .then(|| unsafe {
+                slice::from_raw_parts(self.p_usage_counts.cast(), self.usage_counts_count as _)
+            })
+            .unwrap_or(&[])
+    }
+    #[inline]
+    pub fn get_pp_usage_counts(&self) -> &'a [&'a MicromapUsageKHR] {
+        (!self.pp_usage_counts.is_null())
+            .then(|| unsafe {
+                slice::from_raw_parts(self.pp_usage_counts.cast(), self.usage_counts_count as _)
+            })
+            .unwrap_or(&[])
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[cfg(feature = "ext_opacity_micromap")]
+#[repr(C)]
+#[derive(Clone, Copy)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkMicromapUsageKHR.html>"]
+#[doc(alias = "VkMicromapUsageKHR")]
+pub struct MicromapUsageKHR {
+    pub count: u32,
+    pub subdivision_level: u32,
+    pub format: OpacityMicromapFormatKHR,
+}
+#[cfg(feature = "ext_opacity_micromap")]
+unsafe impl Send for MicromapUsageKHR {}
+#[cfg(feature = "ext_opacity_micromap")]
+unsafe impl Sync for MicromapUsageKHR {}
+#[cfg(feature = "ext_opacity_micromap")]
+impl Default for MicromapUsageKHR {
+    fn default() -> Self {
+        Self {
+            count: Default::default(),
+            subdivision_level: Default::default(),
+            format: OpacityMicromapFormatKHR::Format2State,
+        }
+    }
+}
+#[cfg(feature = "ext_opacity_micromap")]
+impl MicromapUsageKHR {
+    #[inline]
+    pub fn count(mut self, value: u32) -> Self {
+        self.count = value;
+        self
+    }
+    #[inline]
+    pub fn subdivision_level(mut self, value: u32) -> Self {
+        self.subdivision_level = value;
+        self
+    }
+    #[inline]
+    pub fn format(mut self, value: OpacityMicromapFormatKHR) -> Self {
+        self.format = value;
+        self
+    }
+}
+#[cfg(feature = "ext_opacity_micromap")]
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceOpacityMicromapFeaturesKHR.html>"]
+#[doc(alias = "VkPhysicalDeviceOpacityMicromapFeaturesKHR")]
+pub struct PhysicalDeviceOpacityMicromapFeaturesKHR<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub micromap: Bool32,
+    phantom: PhantomData<&'a ()>,
+}
+#[cfg(feature = "ext_opacity_micromap")]
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceOpacityMicromapFeaturesKHR<'a> {}
+#[cfg(feature = "ext_opacity_micromap")]
+unsafe impl<'a> ExtendableStructure for PhysicalDeviceOpacityMicromapFeaturesKHR<'a> {
+    const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceOpacityMicromapFeaturesKHR;
+}
+#[cfg(feature = "ext_opacity_micromap")]
+unsafe impl<'a> Send for PhysicalDeviceOpacityMicromapFeaturesKHR<'a> {}
+#[cfg(feature = "ext_opacity_micromap")]
+unsafe impl<'a> Sync for PhysicalDeviceOpacityMicromapFeaturesKHR<'a> {}
+#[cfg(all(
+    feature = "ext_opacity_micromap",
+    any(
+        feature = "ext_get_physical_device_properties2",
+        feature = "version_1_1"
+    )
+))]
+unsafe impl<'a, 'b> ExtendingStructure<PhysicalDeviceFeatures2<'b>>
+    for PhysicalDeviceOpacityMicromapFeaturesKHR<'a>
+{
+}
+#[cfg(all(feature = "ext_opacity_micromap",))]
+unsafe impl<'a, 'b> ExtendingStructure<DeviceCreateInfo<'b>>
+    for PhysicalDeviceOpacityMicromapFeaturesKHR<'a>
+{
+}
+#[cfg(feature = "ext_opacity_micromap")]
+impl<'a> Default for PhysicalDeviceOpacityMicromapFeaturesKHR<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            micromap: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+#[cfg(feature = "ext_opacity_micromap")]
+impl<'a> PhysicalDeviceOpacityMicromapFeaturesKHR<'a> {
+    #[inline]
+    pub fn micromap(mut self, value: impl Into<Bool32>) -> Self {
+        self.micromap = value.into();
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[cfg(feature = "ext_opacity_micromap")]
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceOpacityMicromapPropertiesKHR.html>"]
+#[doc(alias = "VkPhysicalDeviceOpacityMicromapPropertiesKHR")]
+pub struct PhysicalDeviceOpacityMicromapPropertiesKHR<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub max_opacity2_state_subdivision_level: u32,
+    pub max_opacity4_state_subdivision_level: u32,
+    pub max_opacity_lossy4_state_subdivision_level: u32,
+    pub max_micromap_triangles: u64,
+    phantom: PhantomData<&'a ()>,
+}
+#[cfg(feature = "ext_opacity_micromap")]
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceOpacityMicromapPropertiesKHR<'a> {}
+#[cfg(feature = "ext_opacity_micromap")]
+unsafe impl<'a> ExtendableStructure for PhysicalDeviceOpacityMicromapPropertiesKHR<'a> {
+    const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceOpacityMicromapPropertiesKHR;
+}
+#[cfg(feature = "ext_opacity_micromap")]
+unsafe impl<'a> Send for PhysicalDeviceOpacityMicromapPropertiesKHR<'a> {}
+#[cfg(feature = "ext_opacity_micromap")]
+unsafe impl<'a> Sync for PhysicalDeviceOpacityMicromapPropertiesKHR<'a> {}
+#[cfg(all(
+    feature = "ext_opacity_micromap",
+    any(
+        feature = "ext_get_physical_device_properties2",
+        feature = "version_1_1"
+    )
+))]
+unsafe impl<'a, 'b> ExtendingStructure<PhysicalDeviceProperties2<'b>>
+    for PhysicalDeviceOpacityMicromapPropertiesKHR<'a>
+{
+}
+#[cfg(feature = "ext_opacity_micromap")]
+impl<'a> Default for PhysicalDeviceOpacityMicromapPropertiesKHR<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            max_opacity2_state_subdivision_level: Default::default(),
+            max_opacity4_state_subdivision_level: Default::default(),
+            max_opacity_lossy4_state_subdivision_level: Default::default(),
+            max_micromap_triangles: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+#[cfg(feature = "ext_opacity_micromap")]
+impl<'a> PhysicalDeviceOpacityMicromapPropertiesKHR<'a> {
+    #[inline]
+    pub fn max_opacity2_state_subdivision_level(mut self, value: u32) -> Self {
+        self.max_opacity2_state_subdivision_level = value;
+        self
+    }
+    #[inline]
+    pub fn max_opacity4_state_subdivision_level(mut self, value: u32) -> Self {
+        self.max_opacity4_state_subdivision_level = value;
+        self
+    }
+    #[inline]
+    pub fn max_opacity_lossy4_state_subdivision_level(mut self, value: u32) -> Self {
+        self.max_opacity_lossy4_state_subdivision_level = value;
+        self
+    }
+    #[inline]
+    pub fn max_micromap_triangles(mut self, value: u64) -> Self {
+        self.max_micromap_triangles = value;
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[cfg(feature = "ext_opacity_micromap")]
+#[repr(C)]
+#[derive(Clone, Copy)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkMicromapTriangleKHR.html>"]
+#[doc(alias = "VkMicromapTriangleKHR")]
+pub struct MicromapTriangleKHR {
+    pub data_offset: u32,
+    pub subdivision_level: u16,
+    pub format: u16,
+}
+#[cfg(feature = "ext_opacity_micromap")]
+unsafe impl Send for MicromapTriangleKHR {}
+#[cfg(feature = "ext_opacity_micromap")]
+unsafe impl Sync for MicromapTriangleKHR {}
+#[cfg(feature = "ext_opacity_micromap")]
+impl Default for MicromapTriangleKHR {
+    fn default() -> Self {
+        Self {
+            data_offset: Default::default(),
+            subdivision_level: Default::default(),
+            format: Default::default(),
+        }
+    }
+}
+#[cfg(feature = "ext_opacity_micromap")]
+impl MicromapTriangleKHR {
+    #[inline]
+    pub fn data_offset(mut self, value: u32) -> Self {
+        self.data_offset = value;
+        self
+    }
+    #[inline]
+    pub fn subdivision_level(mut self, value: u16) -> Self {
+        self.subdivision_level = value;
+        self
+    }
+    #[inline]
+    pub fn format(mut self, value: u16) -> Self {
+        self.format = value;
+        self
+    }
+}
+#[cfg(feature = "ext_opacity_micromap")]
+pub type MicromapTriangleEXT = MicromapTriangleKHR;
+#[cfg(feature = "ext_opacity_micromap")]
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkAccelerationStructureTrianglesOpacityMicromapKHR.html>"]
+#[doc(alias = "VkAccelerationStructureTrianglesOpacityMicromapKHR")]
+pub struct AccelerationStructureTrianglesOpacityMicromapKHR<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub index_type: IndexType,
+    pub index_buffer: DeviceAddress,
+    pub index_stride: DeviceSize,
+    pub base_triangle: u32,
+    pub micromap: Option<BorrowedHandle<'a, AccelerationStructureKHR>>,
+    phantom: PhantomData<&'a ()>,
+}
+#[cfg(feature = "ext_opacity_micromap")]
+unsafe impl<'a> ExtendableStructureBase for AccelerationStructureTrianglesOpacityMicromapKHR<'a> {}
+#[cfg(feature = "ext_opacity_micromap")]
+unsafe impl<'a> ExtendableStructure for AccelerationStructureTrianglesOpacityMicromapKHR<'a> {
+    const STRUCTURE_TYPE: StructureType =
+        StructureType::AccelerationStructureTrianglesOpacityMicromapKHR;
+}
+#[cfg(feature = "ext_opacity_micromap")]
+unsafe impl<'a> Send for AccelerationStructureTrianglesOpacityMicromapKHR<'a> {}
+#[cfg(feature = "ext_opacity_micromap")]
+unsafe impl<'a> Sync for AccelerationStructureTrianglesOpacityMicromapKHR<'a> {}
+#[cfg(all(
+    feature = "ext_opacity_micromap",
+    feature = "ext_acceleration_structure"
+))]
+unsafe impl<'a, 'b> ExtendingStructure<AccelerationStructureGeometryTrianglesDataKHR<'b>>
+    for AccelerationStructureTrianglesOpacityMicromapKHR<'a>
+{
+}
+#[cfg(all(
+    feature = "ext_opacity_micromap",
+    feature = "ext_dense_geometry_format"
+))]
+unsafe impl<'a, 'b>
+    ExtendingStructure<AccelerationStructureDenseGeometryFormatTrianglesDataAMDX<'b>>
+    for AccelerationStructureTrianglesOpacityMicromapKHR<'a>
+{
+}
+#[cfg(feature = "ext_opacity_micromap")]
+impl<'a> Default for AccelerationStructureTrianglesOpacityMicromapKHR<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            index_type: IndexType::Uint16,
+            index_buffer: Default::default(),
+            index_stride: Default::default(),
+            base_triangle: Default::default(),
+            micromap: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+#[cfg(feature = "ext_opacity_micromap")]
+impl<'a> AccelerationStructureTrianglesOpacityMicromapKHR<'a> {
+    #[inline]
+    pub fn index_type(mut self, value: IndexType) -> Self {
+        self.index_type = value;
+        self
+    }
+    #[inline]
+    pub fn index_buffer(mut self, value: DeviceAddress) -> Self {
+        self.index_buffer = value;
+        self
+    }
+    #[inline]
+    pub fn index_stride(mut self, value: DeviceSize) -> Self {
+        self.index_stride = value;
+        self
+    }
+    #[inline]
+    pub fn base_triangle(mut self, value: u32) -> Self {
+        self.base_triangle = value;
+        self
+    }
+    #[inline]
+    pub fn micromap(mut self, value: Option<&'a raw::AccelerationStructureKHR>) -> Self {
+        self.micromap = value.map(|v| v.borrow());
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
 #[repr(C)]
 #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShader64BitIndexingFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceShader64BitIndexingFeaturesEXT")]
@@ -84787,6 +87305,612 @@ impl<'a> ResolveImageModeInfoKHR<'a> {
         self
     }
 }
+#[cfg(feature = "ext_data_graph_optical_flow")]
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceDataGraphOpticalFlowFeaturesARM.html>"]
+#[doc(alias = "VkPhysicalDeviceDataGraphOpticalFlowFeaturesARM")]
+pub struct PhysicalDeviceDataGraphOpticalFlowFeaturesARM<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub data_graph_optical_flow: Bool32,
+    phantom: PhantomData<&'a ()>,
+}
+#[cfg(feature = "ext_data_graph_optical_flow")]
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceDataGraphOpticalFlowFeaturesARM<'a> {}
+#[cfg(feature = "ext_data_graph_optical_flow")]
+unsafe impl<'a> ExtendableStructure for PhysicalDeviceDataGraphOpticalFlowFeaturesARM<'a> {
+    const STRUCTURE_TYPE: StructureType =
+        StructureType::PhysicalDeviceDataGraphOpticalFlowFeaturesARM;
+}
+#[cfg(feature = "ext_data_graph_optical_flow")]
+unsafe impl<'a> Send for PhysicalDeviceDataGraphOpticalFlowFeaturesARM<'a> {}
+#[cfg(feature = "ext_data_graph_optical_flow")]
+unsafe impl<'a> Sync for PhysicalDeviceDataGraphOpticalFlowFeaturesARM<'a> {}
+#[cfg(all(
+    feature = "ext_data_graph_optical_flow",
+    any(
+        feature = "ext_get_physical_device_properties2",
+        feature = "version_1_1"
+    )
+))]
+unsafe impl<'a, 'b> ExtendingStructure<PhysicalDeviceFeatures2<'b>>
+    for PhysicalDeviceDataGraphOpticalFlowFeaturesARM<'a>
+{
+}
+#[cfg(all(feature = "ext_data_graph_optical_flow",))]
+unsafe impl<'a, 'b> ExtendingStructure<DeviceCreateInfo<'b>>
+    for PhysicalDeviceDataGraphOpticalFlowFeaturesARM<'a>
+{
+}
+#[cfg(feature = "ext_data_graph_optical_flow")]
+impl<'a> Default for PhysicalDeviceDataGraphOpticalFlowFeaturesARM<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            data_graph_optical_flow: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+#[cfg(feature = "ext_data_graph_optical_flow")]
+impl<'a> PhysicalDeviceDataGraphOpticalFlowFeaturesARM<'a> {
+    #[inline]
+    pub fn data_graph_optical_flow(mut self, value: impl Into<Bool32>) -> Self {
+        self.data_graph_optical_flow = value.into();
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[cfg(feature = "ext_data_graph_optical_flow")]
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkQueueFamilyDataGraphOpticalFlowPropertiesARM.html>"]
+#[doc(alias = "VkQueueFamilyDataGraphOpticalFlowPropertiesARM")]
+pub struct QueueFamilyDataGraphOpticalFlowPropertiesARM<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub supported_output_grid_sizes: DataGraphOpticalFlowGridSizeFlagsARM,
+    pub supported_hint_grid_sizes: DataGraphOpticalFlowGridSizeFlagsARM,
+    pub hint_supported: Bool32,
+    pub cost_supported: Bool32,
+    pub min_width: u32,
+    pub min_height: u32,
+    pub max_width: u32,
+    pub max_height: u32,
+    phantom: PhantomData<&'a ()>,
+}
+#[cfg(feature = "ext_data_graph_optical_flow")]
+unsafe impl<'a> ExtendableStructureBase for QueueFamilyDataGraphOpticalFlowPropertiesARM<'a> {}
+#[cfg(feature = "ext_data_graph_optical_flow")]
+unsafe impl<'a> ExtendableStructure for QueueFamilyDataGraphOpticalFlowPropertiesARM<'a> {
+    const STRUCTURE_TYPE: StructureType =
+        StructureType::QueueFamilyDataGraphOpticalFlowPropertiesARM;
+}
+#[cfg(feature = "ext_data_graph_optical_flow")]
+unsafe impl<'a> Send for QueueFamilyDataGraphOpticalFlowPropertiesARM<'a> {}
+#[cfg(feature = "ext_data_graph_optical_flow")]
+unsafe impl<'a> Sync for QueueFamilyDataGraphOpticalFlowPropertiesARM<'a> {}
+#[cfg(feature = "ext_data_graph_optical_flow")]
+impl<'a> Default for QueueFamilyDataGraphOpticalFlowPropertiesARM<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            supported_output_grid_sizes: Default::default(),
+            supported_hint_grid_sizes: Default::default(),
+            hint_supported: Default::default(),
+            cost_supported: Default::default(),
+            min_width: Default::default(),
+            min_height: Default::default(),
+            max_width: Default::default(),
+            max_height: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+#[cfg(feature = "ext_data_graph_optical_flow")]
+impl<'a> QueueFamilyDataGraphOpticalFlowPropertiesARM<'a> {
+    #[inline]
+    pub fn supported_output_grid_sizes(
+        mut self,
+        value: DataGraphOpticalFlowGridSizeFlagsARM,
+    ) -> Self {
+        self.supported_output_grid_sizes = value;
+        self
+    }
+    #[inline]
+    pub fn supported_hint_grid_sizes(
+        mut self,
+        value: DataGraphOpticalFlowGridSizeFlagsARM,
+    ) -> Self {
+        self.supported_hint_grid_sizes = value;
+        self
+    }
+    #[inline]
+    pub fn hint_supported(mut self, value: impl Into<Bool32>) -> Self {
+        self.hint_supported = value.into();
+        self
+    }
+    #[inline]
+    pub fn cost_supported(mut self, value: impl Into<Bool32>) -> Self {
+        self.cost_supported = value.into();
+        self
+    }
+    #[inline]
+    pub fn min_width(mut self, value: u32) -> Self {
+        self.min_width = value;
+        self
+    }
+    #[inline]
+    pub fn min_height(mut self, value: u32) -> Self {
+        self.min_height = value;
+        self
+    }
+    #[inline]
+    pub fn max_width(mut self, value: u32) -> Self {
+        self.max_width = value;
+        self
+    }
+    #[inline]
+    pub fn max_height(mut self, value: u32) -> Self {
+        self.max_height = value;
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[cfg(feature = "ext_data_graph_optical_flow")]
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphPipelineOpticalFlowCreateInfoARM.html>"]
+#[doc(alias = "VkDataGraphPipelineOpticalFlowCreateInfoARM")]
+pub struct DataGraphPipelineOpticalFlowCreateInfoARM<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub width: u32,
+    pub height: u32,
+    pub image_format: Format,
+    pub flow_vector_format: Format,
+    pub cost_format: Format,
+    pub output_grid_size: DataGraphOpticalFlowGridSizeFlagsARM,
+    pub hint_grid_size: DataGraphOpticalFlowGridSizeFlagsARM,
+    pub performance_level: DataGraphOpticalFlowPerformanceLevelARM,
+    pub flags: DataGraphOpticalFlowCreateFlagsARM,
+    phantom: PhantomData<&'a ()>,
+}
+#[cfg(feature = "ext_data_graph_optical_flow")]
+unsafe impl<'a> ExtendableStructureBase for DataGraphPipelineOpticalFlowCreateInfoARM<'a> {}
+#[cfg(feature = "ext_data_graph_optical_flow")]
+unsafe impl<'a> ExtendableStructure for DataGraphPipelineOpticalFlowCreateInfoARM<'a> {
+    const STRUCTURE_TYPE: StructureType = StructureType::DataGraphPipelineOpticalFlowCreateInfoARM;
+}
+#[cfg(feature = "ext_data_graph_optical_flow")]
+unsafe impl<'a> Send for DataGraphPipelineOpticalFlowCreateInfoARM<'a> {}
+#[cfg(feature = "ext_data_graph_optical_flow")]
+unsafe impl<'a> Sync for DataGraphPipelineOpticalFlowCreateInfoARM<'a> {}
+#[cfg(all(feature = "ext_data_graph_optical_flow", feature = "ext_data_graph"))]
+unsafe impl<'a, 'b> ExtendingStructure<DataGraphPipelineCreateInfoARM<'b>>
+    for DataGraphPipelineOpticalFlowCreateInfoARM<'a>
+{
+}
+#[cfg(feature = "ext_data_graph_optical_flow")]
+impl<'a> Default for DataGraphPipelineOpticalFlowCreateInfoARM<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            width: Default::default(),
+            height: Default::default(),
+            image_format: Format::Undefined,
+            flow_vector_format: Format::Undefined,
+            cost_format: Format::Undefined,
+            output_grid_size: Default::default(),
+            hint_grid_size: Default::default(),
+            performance_level: DataGraphOpticalFlowPerformanceLevelARM::Unknown,
+            flags: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+#[cfg(feature = "ext_data_graph_optical_flow")]
+impl<'a> DataGraphPipelineOpticalFlowCreateInfoARM<'a> {
+    #[inline]
+    pub fn width(mut self, value: u32) -> Self {
+        self.width = value;
+        self
+    }
+    #[inline]
+    pub fn height(mut self, value: u32) -> Self {
+        self.height = value;
+        self
+    }
+    #[inline]
+    pub fn image_format(mut self, value: Format) -> Self {
+        self.image_format = value;
+        self
+    }
+    #[inline]
+    pub fn flow_vector_format(mut self, value: Format) -> Self {
+        self.flow_vector_format = value;
+        self
+    }
+    #[inline]
+    pub fn cost_format(mut self, value: Format) -> Self {
+        self.cost_format = value;
+        self
+    }
+    #[inline]
+    pub fn output_grid_size(mut self, value: DataGraphOpticalFlowGridSizeFlagsARM) -> Self {
+        self.output_grid_size = value;
+        self
+    }
+    #[inline]
+    pub fn hint_grid_size(mut self, value: DataGraphOpticalFlowGridSizeFlagsARM) -> Self {
+        self.hint_grid_size = value;
+        self
+    }
+    #[inline]
+    pub fn performance_level(mut self, value: DataGraphOpticalFlowPerformanceLevelARM) -> Self {
+        self.performance_level = value;
+        self
+    }
+    #[inline]
+    pub fn flags(mut self, value: DataGraphOpticalFlowCreateFlagsARM) -> Self {
+        self.flags = value;
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[cfg(feature = "ext_data_graph_optical_flow")]
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphOpticalFlowImageFormatPropertiesARM.html>"]
+#[doc(alias = "VkDataGraphOpticalFlowImageFormatPropertiesARM")]
+pub struct DataGraphOpticalFlowImageFormatPropertiesARM<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub format: Format,
+    phantom: PhantomData<&'a ()>,
+}
+#[cfg(feature = "ext_data_graph_optical_flow")]
+unsafe impl<'a> ExtendableStructureBase for DataGraphOpticalFlowImageFormatPropertiesARM<'a> {}
+#[cfg(feature = "ext_data_graph_optical_flow")]
+unsafe impl<'a> ExtendableStructure for DataGraphOpticalFlowImageFormatPropertiesARM<'a> {
+    const STRUCTURE_TYPE: StructureType =
+        StructureType::DataGraphOpticalFlowImageFormatPropertiesARM;
+}
+#[cfg(feature = "ext_data_graph_optical_flow")]
+unsafe impl<'a> Send for DataGraphOpticalFlowImageFormatPropertiesARM<'a> {}
+#[cfg(feature = "ext_data_graph_optical_flow")]
+unsafe impl<'a> Sync for DataGraphOpticalFlowImageFormatPropertiesARM<'a> {}
+#[cfg(feature = "ext_data_graph_optical_flow")]
+impl<'a> Default for DataGraphOpticalFlowImageFormatPropertiesARM<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            format: Format::Undefined,
+            phantom: PhantomData,
+        }
+    }
+}
+#[cfg(feature = "ext_data_graph_optical_flow")]
+impl<'a> DataGraphOpticalFlowImageFormatPropertiesARM<'a> {
+    #[inline]
+    pub fn format(mut self, value: Format) -> Self {
+        self.format = value;
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[cfg(feature = "ext_data_graph_optical_flow")]
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphOpticalFlowImageFormatInfoARM.html>"]
+#[doc(alias = "VkDataGraphOpticalFlowImageFormatInfoARM")]
+pub struct DataGraphOpticalFlowImageFormatInfoARM<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub usage: DataGraphOpticalFlowImageUsageFlagsARM,
+    phantom: PhantomData<&'a ()>,
+}
+#[cfg(feature = "ext_data_graph_optical_flow")]
+unsafe impl<'a> ExtendableStructureBase for DataGraphOpticalFlowImageFormatInfoARM<'a> {}
+#[cfg(feature = "ext_data_graph_optical_flow")]
+unsafe impl<'a> ExtendableStructure for DataGraphOpticalFlowImageFormatInfoARM<'a> {
+    const STRUCTURE_TYPE: StructureType = StructureType::DataGraphOpticalFlowImageFormatInfoARM;
+}
+#[cfg(feature = "ext_data_graph_optical_flow")]
+unsafe impl<'a> Send for DataGraphOpticalFlowImageFormatInfoARM<'a> {}
+#[cfg(feature = "ext_data_graph_optical_flow")]
+unsafe impl<'a> Sync for DataGraphOpticalFlowImageFormatInfoARM<'a> {}
+#[cfg(all(
+    feature = "ext_data_graph_optical_flow",
+    any(
+        feature = "ext_get_physical_device_properties2",
+        feature = "version_1_1"
+    )
+))]
+unsafe impl<'a, 'b> ExtendingStructure<PhysicalDeviceImageFormatInfo2<'b>>
+    for DataGraphOpticalFlowImageFormatInfoARM<'a>
+{
+}
+#[cfg(all(feature = "ext_data_graph_optical_flow",))]
+unsafe impl<'a, 'b> ExtendingStructure<ImageCreateInfo<'b>>
+    for DataGraphOpticalFlowImageFormatInfoARM<'a>
+{
+}
+#[cfg(feature = "ext_data_graph_optical_flow")]
+impl<'a> Default for DataGraphOpticalFlowImageFormatInfoARM<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            usage: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+#[cfg(feature = "ext_data_graph_optical_flow")]
+impl<'a> DataGraphOpticalFlowImageFormatInfoARM<'a> {
+    #[inline]
+    pub fn usage(mut self, value: DataGraphOpticalFlowImageUsageFlagsARM) -> Self {
+        self.usage = value;
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[cfg(feature = "ext_data_graph_optical_flow")]
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphPipelineOpticalFlowDispatchInfoARM.html>"]
+#[doc(alias = "VkDataGraphPipelineOpticalFlowDispatchInfoARM")]
+pub struct DataGraphPipelineOpticalFlowDispatchInfoARM<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub flags: DataGraphOpticalFlowExecuteFlagsARM,
+    pub mean_flow_l1_norm_hint: u32,
+    phantom: PhantomData<&'a ()>,
+}
+#[cfg(feature = "ext_data_graph_optical_flow")]
+unsafe impl<'a> ExtendableStructureBase for DataGraphPipelineOpticalFlowDispatchInfoARM<'a> {}
+#[cfg(feature = "ext_data_graph_optical_flow")]
+unsafe impl<'a> ExtendableStructure for DataGraphPipelineOpticalFlowDispatchInfoARM<'a> {
+    const STRUCTURE_TYPE: StructureType =
+        StructureType::DataGraphPipelineOpticalFlowDispatchInfoARM;
+}
+#[cfg(feature = "ext_data_graph_optical_flow")]
+unsafe impl<'a> Send for DataGraphPipelineOpticalFlowDispatchInfoARM<'a> {}
+#[cfg(feature = "ext_data_graph_optical_flow")]
+unsafe impl<'a> Sync for DataGraphPipelineOpticalFlowDispatchInfoARM<'a> {}
+#[cfg(all(feature = "ext_data_graph_optical_flow", feature = "ext_data_graph"))]
+unsafe impl<'a, 'b> ExtendingStructure<DataGraphPipelineDispatchInfoARM<'b>>
+    for DataGraphPipelineOpticalFlowDispatchInfoARM<'a>
+{
+}
+#[cfg(feature = "ext_data_graph_optical_flow")]
+impl<'a> Default for DataGraphPipelineOpticalFlowDispatchInfoARM<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            flags: Default::default(),
+            mean_flow_l1_norm_hint: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+#[cfg(feature = "ext_data_graph_optical_flow")]
+impl<'a> DataGraphPipelineOpticalFlowDispatchInfoARM<'a> {
+    #[inline]
+    pub fn flags(mut self, value: DataGraphOpticalFlowExecuteFlagsARM) -> Self {
+        self.flags = value;
+        self
+    }
+    #[inline]
+    pub fn mean_flow_l1_norm_hint(mut self, value: u32) -> Self {
+        self.mean_flow_l1_norm_hint = value;
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[cfg(feature = "ext_data_graph_optical_flow")]
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphPipelineResourceInfoImageLayoutARM.html>"]
+#[doc(alias = "VkDataGraphPipelineResourceInfoImageLayoutARM")]
+pub struct DataGraphPipelineResourceInfoImageLayoutARM<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub layout: ImageLayout,
+    phantom: PhantomData<&'a ()>,
+}
+#[cfg(feature = "ext_data_graph_optical_flow")]
+unsafe impl<'a> ExtendableStructureBase for DataGraphPipelineResourceInfoImageLayoutARM<'a> {}
+#[cfg(feature = "ext_data_graph_optical_flow")]
+unsafe impl<'a> ExtendableStructure for DataGraphPipelineResourceInfoImageLayoutARM<'a> {
+    const STRUCTURE_TYPE: StructureType =
+        StructureType::DataGraphPipelineResourceInfoImageLayoutARM;
+}
+#[cfg(feature = "ext_data_graph_optical_flow")]
+unsafe impl<'a> Send for DataGraphPipelineResourceInfoImageLayoutARM<'a> {}
+#[cfg(feature = "ext_data_graph_optical_flow")]
+unsafe impl<'a> Sync for DataGraphPipelineResourceInfoImageLayoutARM<'a> {}
+#[cfg(all(feature = "ext_data_graph_optical_flow", feature = "ext_data_graph"))]
+unsafe impl<'a, 'b> ExtendingStructure<DataGraphPipelineResourceInfoARM<'b>>
+    for DataGraphPipelineResourceInfoImageLayoutARM<'a>
+{
+}
+#[cfg(feature = "ext_data_graph_optical_flow")]
+impl<'a> Default for DataGraphPipelineResourceInfoImageLayoutARM<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            layout: ImageLayout::Undefined,
+            phantom: PhantomData,
+        }
+    }
+}
+#[cfg(feature = "ext_data_graph_optical_flow")]
+impl<'a> DataGraphPipelineResourceInfoImageLayoutARM<'a> {
+    #[inline]
+    pub fn layout(mut self, value: ImageLayout) -> Self {
+        self.layout = value;
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[cfg(feature = "ext_data_graph_optical_flow")]
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphPipelineSingleNodeCreateInfoARM.html>"]
+#[doc(alias = "VkDataGraphPipelineSingleNodeCreateInfoARM")]
+pub struct DataGraphPipelineSingleNodeCreateInfoARM<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub node_type: DataGraphPipelineNodeTypeARM,
+    pub(crate) connection_count: u32,
+    pub(crate) p_connections: *const DataGraphPipelineSingleNodeConnectionARM<'a>,
+    phantom: PhantomData<&'a ()>,
+}
+#[cfg(feature = "ext_data_graph_optical_flow")]
+unsafe impl<'a> ExtendableStructureBase for DataGraphPipelineSingleNodeCreateInfoARM<'a> {}
+#[cfg(feature = "ext_data_graph_optical_flow")]
+unsafe impl<'a> ExtendableStructure for DataGraphPipelineSingleNodeCreateInfoARM<'a> {
+    const STRUCTURE_TYPE: StructureType = StructureType::DataGraphPipelineSingleNodeCreateInfoARM;
+}
+#[cfg(feature = "ext_data_graph_optical_flow")]
+unsafe impl<'a> Send for DataGraphPipelineSingleNodeCreateInfoARM<'a> {}
+#[cfg(feature = "ext_data_graph_optical_flow")]
+unsafe impl<'a> Sync for DataGraphPipelineSingleNodeCreateInfoARM<'a> {}
+#[cfg(all(feature = "ext_data_graph_optical_flow", feature = "ext_data_graph"))]
+unsafe impl<'a, 'b> ExtendingStructure<DataGraphPipelineCreateInfoARM<'b>>
+    for DataGraphPipelineSingleNodeCreateInfoARM<'a>
+{
+}
+#[cfg(feature = "ext_data_graph_optical_flow")]
+impl<'a> Default for DataGraphPipelineSingleNodeCreateInfoARM<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            node_type: DataGraphPipelineNodeTypeARM::OpticalFlow,
+            connection_count: Default::default(),
+            p_connections: ptr::null(),
+            phantom: PhantomData,
+        }
+    }
+}
+#[cfg(feature = "ext_data_graph_optical_flow")]
+impl<'a> DataGraphPipelineSingleNodeCreateInfoARM<'a> {
+    #[inline]
+    pub fn node_type(mut self, value: DataGraphPipelineNodeTypeARM) -> Self {
+        self.node_type = value;
+        self
+    }
+    #[inline]
+    pub fn connections(
+        mut self,
+        p_connections: impl AsSlice<'a, DataGraphPipelineSingleNodeConnectionARM<'a>>,
+    ) -> Self {
+        self.p_connections = p_connections.as_slice().as_ptr().cast();
+        self.connection_count = p_connections.as_slice().len() as _;
+        self
+    }
+    #[inline]
+    pub fn get_connections(&self) -> &'a [DataGraphPipelineSingleNodeConnectionARM<'a>] {
+        (!self.p_connections.is_null())
+            .then(|| unsafe {
+                slice::from_raw_parts(self.p_connections.cast(), self.connection_count as _)
+            })
+            .unwrap_or(&[])
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[cfg(feature = "ext_data_graph_optical_flow")]
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphPipelineSingleNodeConnectionARM.html>"]
+#[doc(alias = "VkDataGraphPipelineSingleNodeConnectionARM")]
+pub struct DataGraphPipelineSingleNodeConnectionARM<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub set: u32,
+    pub binding: u32,
+    pub connection: DataGraphPipelineNodeConnectionTypeARM,
+    phantom: PhantomData<&'a ()>,
+}
+#[cfg(feature = "ext_data_graph_optical_flow")]
+unsafe impl<'a> ExtendableStructureBase for DataGraphPipelineSingleNodeConnectionARM<'a> {}
+#[cfg(feature = "ext_data_graph_optical_flow")]
+unsafe impl<'a> ExtendableStructure for DataGraphPipelineSingleNodeConnectionARM<'a> {
+    const STRUCTURE_TYPE: StructureType = StructureType::DataGraphPipelineSingleNodeConnectionARM;
+}
+#[cfg(feature = "ext_data_graph_optical_flow")]
+unsafe impl<'a> Send for DataGraphPipelineSingleNodeConnectionARM<'a> {}
+#[cfg(feature = "ext_data_graph_optical_flow")]
+unsafe impl<'a> Sync for DataGraphPipelineSingleNodeConnectionARM<'a> {}
+#[cfg(feature = "ext_data_graph_optical_flow")]
+impl<'a> Default for DataGraphPipelineSingleNodeConnectionARM<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            set: Default::default(),
+            binding: Default::default(),
+            connection: DataGraphPipelineNodeConnectionTypeARM::OpticalFlowInput,
+            phantom: PhantomData,
+        }
+    }
+}
+#[cfg(feature = "ext_data_graph_optical_flow")]
+impl<'a> DataGraphPipelineSingleNodeConnectionARM<'a> {
+    #[inline]
+    pub fn set(mut self, value: u32) -> Self {
+        self.set = value;
+        self
+    }
+    #[inline]
+    pub fn binding(mut self, value: u32) -> Self {
+        self.binding = value;
+        self
+    }
+    #[inline]
+    pub fn connection(mut self, value: DataGraphPipelineNodeConnectionTypeARM) -> Self {
+        self.connection = value;
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
 #[repr(C)]
 #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderLongVectorFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceShaderLongVectorFeaturesEXT")]
@@ -85118,6 +88242,113 @@ impl<'a> PhysicalDeviceComputeOccupancyPriorityFeaturesNV<'a> {
     }
 }
 #[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceMaintenance11FeaturesKHR.html>"]
+#[doc(alias = "VkPhysicalDeviceMaintenance11FeaturesKHR")]
+pub struct PhysicalDeviceMaintenance11FeaturesKHR<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub maintenance11: Bool32,
+    phantom: PhantomData<&'a ()>,
+}
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceMaintenance11FeaturesKHR<'a> {}
+unsafe impl<'a> ExtendableStructure for PhysicalDeviceMaintenance11FeaturesKHR<'a> {
+    const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceMaintenance11FeaturesKHR;
+}
+unsafe impl<'a> Send for PhysicalDeviceMaintenance11FeaturesKHR<'a> {}
+unsafe impl<'a> Sync for PhysicalDeviceMaintenance11FeaturesKHR<'a> {}
+#[cfg(all(
+    all(),
+    any(
+        feature = "ext_get_physical_device_properties2",
+        feature = "version_1_1"
+    )
+))]
+unsafe impl<'a, 'b> ExtendingStructure<PhysicalDeviceFeatures2<'b>>
+    for PhysicalDeviceMaintenance11FeaturesKHR<'a>
+{
+}
+#[cfg(all(all(),))]
+unsafe impl<'a, 'b> ExtendingStructure<DeviceCreateInfo<'b>>
+    for PhysicalDeviceMaintenance11FeaturesKHR<'a>
+{
+}
+impl<'a> Default for PhysicalDeviceMaintenance11FeaturesKHR<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            maintenance11: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+impl<'a> PhysicalDeviceMaintenance11FeaturesKHR<'a> {
+    #[inline]
+    pub fn maintenance11(mut self, value: impl Into<Bool32>) -> Self {
+        self.maintenance11 = value.into();
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkQueueFamilyOptimalImageTransferGranularityPropertiesKHR.html>"]
+#[doc(alias = "VkQueueFamilyOptimalImageTransferGranularityPropertiesKHR")]
+pub struct QueueFamilyOptimalImageTransferGranularityPropertiesKHR<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub optimal_image_transfer_granularity: Extent3D,
+    phantom: PhantomData<&'a ()>,
+}
+unsafe impl<'a> ExtendableStructureBase
+    for QueueFamilyOptimalImageTransferGranularityPropertiesKHR<'a>
+{
+}
+unsafe impl<'a> ExtendableStructure
+    for QueueFamilyOptimalImageTransferGranularityPropertiesKHR<'a>
+{
+    const STRUCTURE_TYPE: StructureType =
+        StructureType::QueueFamilyOptimalImageTransferGranularityPropertiesKHR;
+}
+unsafe impl<'a> Send for QueueFamilyOptimalImageTransferGranularityPropertiesKHR<'a> {}
+unsafe impl<'a> Sync for QueueFamilyOptimalImageTransferGranularityPropertiesKHR<'a> {}
+#[cfg(all(
+    all(),
+    any(
+        feature = "ext_get_physical_device_properties2",
+        feature = "version_1_1"
+    )
+))]
+unsafe impl<'a, 'b> ExtendingStructure<QueueFamilyProperties2<'b>>
+    for QueueFamilyOptimalImageTransferGranularityPropertiesKHR<'a>
+{
+}
+impl<'a> Default for QueueFamilyOptimalImageTransferGranularityPropertiesKHR<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            optimal_image_transfer_granularity: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+impl<'a> QueueFamilyOptimalImageTransferGranularityPropertiesKHR<'a> {
+    #[inline]
+    pub fn optimal_image_transfer_granularity(mut self, value: Extent3D) -> Self {
+        self.optimal_image_transfer_granularity = value;
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[repr(C)]
 #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderSubgroupPartitionedFeaturesEXT.html>"]
 #[doc(alias = "VkPhysicalDeviceShaderSubgroupPartitionedFeaturesEXT")]
 pub struct PhysicalDeviceShaderSubgroupPartitionedFeaturesEXT<'a> {
@@ -85229,6 +88460,513 @@ impl<'a> UbmSurfaceCreateInfoSEC<'a> {
         self
     }
 }
+#[cfg(feature = "ext_extended_flags")]
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkFormatProperties4KHR.html>"]
+#[doc(alias = "VkFormatProperties4KHR")]
+pub struct FormatProperties4KHR<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub linear_tiling_features: FormatFeatureFlags4KHR,
+    pub optimal_tiling_features: FormatFeatureFlags4KHR,
+    pub buffer_features: FormatFeatureFlags4KHR,
+    phantom: PhantomData<&'a ()>,
+}
+#[cfg(feature = "ext_extended_flags")]
+unsafe impl<'a> ExtendableStructureBase for FormatProperties4KHR<'a> {}
+#[cfg(feature = "ext_extended_flags")]
+unsafe impl<'a> ExtendableStructure for FormatProperties4KHR<'a> {
+    const STRUCTURE_TYPE: StructureType = StructureType::FormatProperties4KHR;
+}
+#[cfg(feature = "ext_extended_flags")]
+unsafe impl<'a> Send for FormatProperties4KHR<'a> {}
+#[cfg(feature = "ext_extended_flags")]
+unsafe impl<'a> Sync for FormatProperties4KHR<'a> {}
+#[cfg(all(
+    feature = "ext_extended_flags",
+    any(
+        feature = "ext_get_physical_device_properties2",
+        feature = "version_1_1"
+    )
+))]
+unsafe impl<'a, 'b> ExtendingStructure<FormatProperties2<'b>> for FormatProperties4KHR<'a> {}
+#[cfg(feature = "ext_extended_flags")]
+impl<'a> Default for FormatProperties4KHR<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            linear_tiling_features: Default::default(),
+            optimal_tiling_features: Default::default(),
+            buffer_features: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+#[cfg(feature = "ext_extended_flags")]
+impl<'a> FormatProperties4KHR<'a> {
+    #[inline]
+    pub fn linear_tiling_features(mut self, value: FormatFeatureFlags4KHR) -> Self {
+        self.linear_tiling_features = value;
+        self
+    }
+    #[inline]
+    pub fn optimal_tiling_features(mut self, value: FormatFeatureFlags4KHR) -> Self {
+        self.optimal_tiling_features = value;
+        self
+    }
+    #[inline]
+    pub fn buffer_features(mut self, value: FormatFeatureFlags4KHR) -> Self {
+        self.buffer_features = value;
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[cfg(feature = "ext_extended_flags")]
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImageUsageFlags2CreateInfoKHR.html>"]
+#[doc(alias = "VkImageUsageFlags2CreateInfoKHR")]
+pub struct ImageUsageFlags2CreateInfoKHR<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub usage: ImageUsageFlags2KHR,
+    phantom: PhantomData<&'a ()>,
+}
+#[cfg(feature = "ext_extended_flags")]
+unsafe impl<'a> ExtendableStructureBase for ImageUsageFlags2CreateInfoKHR<'a> {}
+#[cfg(feature = "ext_extended_flags")]
+unsafe impl<'a> ExtendableStructure for ImageUsageFlags2CreateInfoKHR<'a> {
+    const STRUCTURE_TYPE: StructureType = StructureType::ImageUsageFlags2CreateInfoKHR;
+}
+#[cfg(feature = "ext_extended_flags")]
+unsafe impl<'a> Send for ImageUsageFlags2CreateInfoKHR<'a> {}
+#[cfg(feature = "ext_extended_flags")]
+unsafe impl<'a> Sync for ImageUsageFlags2CreateInfoKHR<'a> {}
+#[cfg(all(
+    feature = "ext_extended_flags",
+    any(feature = "ext_imageless_framebuffer", feature = "version_1_2")
+))]
+unsafe impl<'a, 'b> ExtendingStructure<FramebufferAttachmentImageInfo<'b>>
+    for ImageUsageFlags2CreateInfoKHR<'a>
+{
+}
+#[cfg(all(feature = "ext_extended_flags",))]
+unsafe impl<'a, 'b> ExtendingStructure<ImageCreateInfo<'b>> for ImageUsageFlags2CreateInfoKHR<'a> {}
+#[cfg(all(
+    feature = "ext_extended_flags",
+    any(
+        feature = "ext_get_physical_device_properties2",
+        feature = "version_1_1"
+    )
+))]
+unsafe impl<'a, 'b> ExtendingStructure<PhysicalDeviceImageFormatInfo2<'b>>
+    for ImageUsageFlags2CreateInfoKHR<'a>
+{
+}
+#[cfg(all(
+    feature = "ext_extended_flags",
+    any(
+        feature = "ext_get_physical_device_properties2",
+        feature = "version_1_1"
+    )
+))]
+unsafe impl<'a, 'b> ExtendingStructure<PhysicalDeviceSparseImageFormatInfo2<'b>>
+    for ImageUsageFlags2CreateInfoKHR<'a>
+{
+}
+#[cfg(all(feature = "ext_extended_flags",))]
+unsafe impl<'a, 'b> ExtendingStructure<PhysicalDeviceVideoFormatInfoKHR<'b>>
+    for ImageUsageFlags2CreateInfoKHR<'a>
+{
+}
+#[cfg(all(
+    feature = "ext_extended_flags",
+    feature = "ext_get_surface_capabilities2"
+))]
+unsafe impl<'a, 'b> ExtendingStructure<SurfaceCapabilities2KHR<'b>>
+    for ImageUsageFlags2CreateInfoKHR<'a>
+{
+}
+#[cfg(all(feature = "ext_extended_flags", feature = "ext_swapchain"))]
+unsafe impl<'a, 'b> ExtendingStructure<SwapchainCreateInfoKHR<'b>>
+    for ImageUsageFlags2CreateInfoKHR<'a>
+{
+}
+#[cfg(all(feature = "ext_extended_flags",))]
+unsafe impl<'a, 'b> ExtendingStructure<VideoFormatPropertiesKHR<'b>>
+    for ImageUsageFlags2CreateInfoKHR<'a>
+{
+}
+#[cfg(feature = "ext_extended_flags")]
+impl<'a> Default for ImageUsageFlags2CreateInfoKHR<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            usage: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+#[cfg(feature = "ext_extended_flags")]
+impl<'a> ImageUsageFlags2CreateInfoKHR<'a> {
+    #[inline]
+    pub fn usage(mut self, value: ImageUsageFlags2KHR) -> Self {
+        self.usage = value;
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[cfg(feature = "ext_extended_flags")]
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImageCreateFlags2CreateInfoKHR.html>"]
+#[doc(alias = "VkImageCreateFlags2CreateInfoKHR")]
+pub struct ImageCreateFlags2CreateInfoKHR<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub flags: ImageCreateFlags2KHR,
+    phantom: PhantomData<&'a ()>,
+}
+#[cfg(feature = "ext_extended_flags")]
+unsafe impl<'a> ExtendableStructureBase for ImageCreateFlags2CreateInfoKHR<'a> {}
+#[cfg(feature = "ext_extended_flags")]
+unsafe impl<'a> ExtendableStructure for ImageCreateFlags2CreateInfoKHR<'a> {
+    const STRUCTURE_TYPE: StructureType = StructureType::ImageCreateFlags2CreateInfoKHR;
+}
+#[cfg(feature = "ext_extended_flags")]
+unsafe impl<'a> Send for ImageCreateFlags2CreateInfoKHR<'a> {}
+#[cfg(feature = "ext_extended_flags")]
+unsafe impl<'a> Sync for ImageCreateFlags2CreateInfoKHR<'a> {}
+#[cfg(all(feature = "ext_extended_flags",))]
+unsafe impl<'a, 'b> ExtendingStructure<ImageCreateInfo<'b>> for ImageCreateFlags2CreateInfoKHR<'a> {}
+#[cfg(all(
+    feature = "ext_extended_flags",
+    any(
+        feature = "ext_get_physical_device_properties2",
+        feature = "version_1_1"
+    )
+))]
+unsafe impl<'a, 'b> ExtendingStructure<PhysicalDeviceImageFormatInfo2<'b>>
+    for ImageCreateFlags2CreateInfoKHR<'a>
+{
+}
+#[cfg(all(
+    feature = "ext_extended_flags",
+    any(feature = "ext_imageless_framebuffer", feature = "version_1_2")
+))]
+unsafe impl<'a, 'b> ExtendingStructure<FramebufferAttachmentImageInfo<'b>>
+    for ImageCreateFlags2CreateInfoKHR<'a>
+{
+}
+#[cfg(all(feature = "ext_extended_flags",))]
+unsafe impl<'a, 'b> ExtendingStructure<VideoFormatPropertiesKHR<'b>>
+    for ImageCreateFlags2CreateInfoKHR<'a>
+{
+}
+#[cfg(feature = "ext_extended_flags")]
+impl<'a> Default for ImageCreateFlags2CreateInfoKHR<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            flags: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+#[cfg(feature = "ext_extended_flags")]
+impl<'a> ImageCreateFlags2CreateInfoKHR<'a> {
+    #[inline]
+    pub fn flags(mut self, value: ImageCreateFlags2KHR) -> Self {
+        self.flags = value;
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[cfg(feature = "ext_extended_flags")]
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImageViewUsage2CreateInfoKHR.html>"]
+#[doc(alias = "VkImageViewUsage2CreateInfoKHR")]
+pub struct ImageViewUsage2CreateInfoKHR<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub usage: ImageUsageFlags2KHR,
+    phantom: PhantomData<&'a ()>,
+}
+#[cfg(feature = "ext_extended_flags")]
+unsafe impl<'a> ExtendableStructureBase for ImageViewUsage2CreateInfoKHR<'a> {}
+#[cfg(feature = "ext_extended_flags")]
+unsafe impl<'a> ExtendableStructure for ImageViewUsage2CreateInfoKHR<'a> {
+    const STRUCTURE_TYPE: StructureType = StructureType::ImageViewUsage2CreateInfoKHR;
+}
+#[cfg(feature = "ext_extended_flags")]
+unsafe impl<'a> Send for ImageViewUsage2CreateInfoKHR<'a> {}
+#[cfg(feature = "ext_extended_flags")]
+unsafe impl<'a> Sync for ImageViewUsage2CreateInfoKHR<'a> {}
+#[cfg(all(feature = "ext_extended_flags",))]
+unsafe impl<'a, 'b> ExtendingStructure<ImageViewCreateInfo<'b>>
+    for ImageViewUsage2CreateInfoKHR<'a>
+{
+}
+#[cfg(feature = "ext_extended_flags")]
+impl<'a> Default for ImageViewUsage2CreateInfoKHR<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            usage: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+#[cfg(feature = "ext_extended_flags")]
+impl<'a> ImageViewUsage2CreateInfoKHR<'a> {
+    #[inline]
+    pub fn usage(mut self, value: ImageUsageFlags2KHR) -> Self {
+        self.usage = value;
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[cfg(feature = "ext_extended_flags")]
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceExtendedFlagsFeaturesKHR.html>"]
+#[doc(alias = "VkPhysicalDeviceExtendedFlagsFeaturesKHR")]
+pub struct PhysicalDeviceExtendedFlagsFeaturesKHR<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub extended_flags: Bool32,
+    phantom: PhantomData<&'a ()>,
+}
+#[cfg(feature = "ext_extended_flags")]
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceExtendedFlagsFeaturesKHR<'a> {}
+#[cfg(feature = "ext_extended_flags")]
+unsafe impl<'a> ExtendableStructure for PhysicalDeviceExtendedFlagsFeaturesKHR<'a> {
+    const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceExtendedFlagsFeaturesKHR;
+}
+#[cfg(feature = "ext_extended_flags")]
+unsafe impl<'a> Send for PhysicalDeviceExtendedFlagsFeaturesKHR<'a> {}
+#[cfg(feature = "ext_extended_flags")]
+unsafe impl<'a> Sync for PhysicalDeviceExtendedFlagsFeaturesKHR<'a> {}
+#[cfg(all(
+    feature = "ext_extended_flags",
+    any(
+        feature = "ext_get_physical_device_properties2",
+        feature = "version_1_1"
+    )
+))]
+unsafe impl<'a, 'b> ExtendingStructure<PhysicalDeviceFeatures2<'b>>
+    for PhysicalDeviceExtendedFlagsFeaturesKHR<'a>
+{
+}
+#[cfg(all(feature = "ext_extended_flags",))]
+unsafe impl<'a, 'b> ExtendingStructure<DeviceCreateInfo<'b>>
+    for PhysicalDeviceExtendedFlagsFeaturesKHR<'a>
+{
+}
+#[cfg(feature = "ext_extended_flags")]
+impl<'a> Default for PhysicalDeviceExtendedFlagsFeaturesKHR<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            extended_flags: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+#[cfg(feature = "ext_extended_flags")]
+impl<'a> PhysicalDeviceExtendedFlagsFeaturesKHR<'a> {
+    #[inline]
+    pub fn extended_flags(mut self, value: impl Into<Bool32>) -> Self {
+        self.extended_flags = value.into();
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[cfg(all(
+    feature = "ext_extended_flags",
+    any(feature = "version_1_2", feature = "ext_separate_stencil_usage")
+))]
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkImageStencilUsage2CreateInfoKHR.html>"]
+#[doc(alias = "VkImageStencilUsage2CreateInfoKHR")]
+pub struct ImageStencilUsage2CreateInfoKHR<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub stencil_usage: ImageUsageFlags2KHR,
+    phantom: PhantomData<&'a ()>,
+}
+#[cfg(all(
+    feature = "ext_extended_flags",
+    any(feature = "version_1_2", feature = "ext_separate_stencil_usage")
+))]
+unsafe impl<'a> ExtendableStructureBase for ImageStencilUsage2CreateInfoKHR<'a> {}
+#[cfg(all(
+    feature = "ext_extended_flags",
+    any(feature = "version_1_2", feature = "ext_separate_stencil_usage")
+))]
+unsafe impl<'a> ExtendableStructure for ImageStencilUsage2CreateInfoKHR<'a> {
+    const STRUCTURE_TYPE: StructureType = StructureType::ImageStencilUsage2CreateInfoKHR;
+}
+#[cfg(all(
+    feature = "ext_extended_flags",
+    any(feature = "version_1_2", feature = "ext_separate_stencil_usage")
+))]
+unsafe impl<'a> Send for ImageStencilUsage2CreateInfoKHR<'a> {}
+#[cfg(all(
+    feature = "ext_extended_flags",
+    any(feature = "version_1_2", feature = "ext_separate_stencil_usage")
+))]
+unsafe impl<'a> Sync for ImageStencilUsage2CreateInfoKHR<'a> {}
+#[cfg(all(all(
+    feature = "ext_extended_flags",
+    any(feature = "version_1_2", feature = "ext_separate_stencil_usage")
+),))]
+unsafe impl<'a, 'b> ExtendingStructure<ImageCreateInfo<'b>>
+    for ImageStencilUsage2CreateInfoKHR<'a>
+{
+}
+#[cfg(all(
+    all(
+        feature = "ext_extended_flags",
+        any(feature = "version_1_2", feature = "ext_separate_stencil_usage")
+    ),
+    any(
+        feature = "ext_get_physical_device_properties2",
+        feature = "version_1_1"
+    )
+))]
+unsafe impl<'a, 'b> ExtendingStructure<PhysicalDeviceImageFormatInfo2<'b>>
+    for ImageStencilUsage2CreateInfoKHR<'a>
+{
+}
+#[cfg(all(
+    feature = "ext_extended_flags",
+    any(feature = "version_1_2", feature = "ext_separate_stencil_usage")
+))]
+impl<'a> Default for ImageStencilUsage2CreateInfoKHR<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            stencil_usage: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+#[cfg(all(
+    feature = "ext_extended_flags",
+    any(feature = "version_1_2", feature = "ext_separate_stencil_usage")
+))]
+impl<'a> ImageStencilUsage2CreateInfoKHR<'a> {
+    #[inline]
+    pub fn stencil_usage(mut self, value: ImageUsageFlags2KHR) -> Self {
+        self.stencil_usage = value;
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[cfg(all(
+    feature = "ext_extended_flags",
+    feature = "ext_shared_presentable_image"
+))]
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkSharedPresentSurfaceCapabilities2KHR.html>"]
+#[doc(alias = "VkSharedPresentSurfaceCapabilities2KHR")]
+pub struct SharedPresentSurfaceCapabilities2KHR<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub shared_present_supported_usage_flags: ImageUsageFlags2KHR,
+    phantom: PhantomData<&'a ()>,
+}
+#[cfg(all(
+    feature = "ext_extended_flags",
+    feature = "ext_shared_presentable_image"
+))]
+unsafe impl<'a> ExtendableStructureBase for SharedPresentSurfaceCapabilities2KHR<'a> {}
+#[cfg(all(
+    feature = "ext_extended_flags",
+    feature = "ext_shared_presentable_image"
+))]
+unsafe impl<'a> ExtendableStructure for SharedPresentSurfaceCapabilities2KHR<'a> {
+    const STRUCTURE_TYPE: StructureType = StructureType::SharedPresentSurfaceCapabilities2KHR;
+}
+#[cfg(all(
+    feature = "ext_extended_flags",
+    feature = "ext_shared_presentable_image"
+))]
+unsafe impl<'a> Send for SharedPresentSurfaceCapabilities2KHR<'a> {}
+#[cfg(all(
+    feature = "ext_extended_flags",
+    feature = "ext_shared_presentable_image"
+))]
+unsafe impl<'a> Sync for SharedPresentSurfaceCapabilities2KHR<'a> {}
+#[cfg(all(
+    all(
+        feature = "ext_extended_flags",
+        feature = "ext_shared_presentable_image"
+    ),
+    feature = "ext_get_surface_capabilities2"
+))]
+unsafe impl<'a, 'b> ExtendingStructure<SurfaceCapabilities2KHR<'b>>
+    for SharedPresentSurfaceCapabilities2KHR<'a>
+{
+}
+#[cfg(all(
+    feature = "ext_extended_flags",
+    feature = "ext_shared_presentable_image"
+))]
+impl<'a> Default for SharedPresentSurfaceCapabilities2KHR<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            shared_present_supported_usage_flags: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+#[cfg(all(
+    feature = "ext_extended_flags",
+    feature = "ext_shared_presentable_image"
+))]
+impl<'a> SharedPresentSurfaceCapabilities2KHR<'a> {
+    #[inline]
+    pub fn shared_present_supported_usage_flags(mut self, value: ImageUsageFlags2KHR) -> Self {
+        self.shared_present_supported_usage_flags = value;
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
 #[repr(C)]
 #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderMixedFloatDotProductFeaturesVALVE.html>"]
 #[doc(alias = "VkPhysicalDeviceShaderMixedFloatDotProductFeaturesVALVE")]
@@ -85308,6 +89046,405 @@ impl<'a> PhysicalDeviceShaderMixedFloatDotProductFeaturesVALVE<'a> {
         value: impl Into<Bool32>,
     ) -> Self {
         self.shader_mixed_float_dot_product_float8_acc_float32 = value.into();
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[cfg(feature = "ext_throttle_hint")]
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkThrottleHintSubmitInfoSEC.html>"]
+#[doc(alias = "VkThrottleHintSubmitInfoSEC")]
+pub struct ThrottleHintSubmitInfoSEC<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub throttle_hint: ThrottleHintTypeSEC,
+    phantom: PhantomData<&'a ()>,
+}
+#[cfg(feature = "ext_throttle_hint")]
+unsafe impl<'a> ExtendableStructureBase for ThrottleHintSubmitInfoSEC<'a> {}
+#[cfg(feature = "ext_throttle_hint")]
+unsafe impl<'a> ExtendableStructure for ThrottleHintSubmitInfoSEC<'a> {
+    const STRUCTURE_TYPE: StructureType = StructureType::ThrottleHintSubmitInfoSEC;
+}
+#[cfg(feature = "ext_throttle_hint")]
+unsafe impl<'a> Send for ThrottleHintSubmitInfoSEC<'a> {}
+#[cfg(feature = "ext_throttle_hint")]
+unsafe impl<'a> Sync for ThrottleHintSubmitInfoSEC<'a> {}
+#[cfg(all(feature = "ext_throttle_hint",))]
+unsafe impl<'a, 'b> ExtendingStructure<SubmitInfo<'b>> for ThrottleHintSubmitInfoSEC<'a> {}
+#[cfg(feature = "ext_throttle_hint")]
+impl<'a> Default for ThrottleHintSubmitInfoSEC<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            throttle_hint: ThrottleHintTypeSEC::Default,
+            phantom: PhantomData,
+        }
+    }
+}
+#[cfg(feature = "ext_throttle_hint")]
+impl<'a> ThrottleHintSubmitInfoSEC<'a> {
+    #[inline]
+    pub fn throttle_hint(mut self, value: ThrottleHintTypeSEC) -> Self {
+        self.throttle_hint = value;
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[cfg(feature = "ext_throttle_hint")]
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceThrottleHintFeaturesSEC.html>"]
+#[doc(alias = "VkPhysicalDeviceThrottleHintFeaturesSEC")]
+pub struct PhysicalDeviceThrottleHintFeaturesSEC<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub throttle_hint: Bool32,
+    phantom: PhantomData<&'a ()>,
+}
+#[cfg(feature = "ext_throttle_hint")]
+unsafe impl<'a> ExtendableStructureBase for PhysicalDeviceThrottleHintFeaturesSEC<'a> {}
+#[cfg(feature = "ext_throttle_hint")]
+unsafe impl<'a> ExtendableStructure for PhysicalDeviceThrottleHintFeaturesSEC<'a> {
+    const STRUCTURE_TYPE: StructureType = StructureType::PhysicalDeviceThrottleHintFeaturesSEC;
+}
+#[cfg(feature = "ext_throttle_hint")]
+unsafe impl<'a> Send for PhysicalDeviceThrottleHintFeaturesSEC<'a> {}
+#[cfg(feature = "ext_throttle_hint")]
+unsafe impl<'a> Sync for PhysicalDeviceThrottleHintFeaturesSEC<'a> {}
+#[cfg(all(
+    feature = "ext_throttle_hint",
+    any(
+        feature = "ext_get_physical_device_properties2",
+        feature = "version_1_1"
+    )
+))]
+unsafe impl<'a, 'b> ExtendingStructure<PhysicalDeviceFeatures2<'b>>
+    for PhysicalDeviceThrottleHintFeaturesSEC<'a>
+{
+}
+#[cfg(all(feature = "ext_throttle_hint",))]
+unsafe impl<'a, 'b> ExtendingStructure<DeviceCreateInfo<'b>>
+    for PhysicalDeviceThrottleHintFeaturesSEC<'a>
+{
+}
+#[cfg(feature = "ext_throttle_hint")]
+impl<'a> Default for PhysicalDeviceThrottleHintFeaturesSEC<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            throttle_hint: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+#[cfg(feature = "ext_throttle_hint")]
+impl<'a> PhysicalDeviceThrottleHintFeaturesSEC<'a> {
+    #[inline]
+    pub fn throttle_hint(mut self, value: impl Into<Bool32>) -> Self {
+        self.throttle_hint = value.into();
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[cfg(feature = "ext_data_graph_neural_accelerator_statistics")]
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceDataGraphNeuralAcceleratorStatisticsFeaturesARM.html>"]
+#[doc(alias = "VkPhysicalDeviceDataGraphNeuralAcceleratorStatisticsFeaturesARM")]
+pub struct PhysicalDeviceDataGraphNeuralAcceleratorStatisticsFeaturesARM<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub data_graph_neural_accelerator_statistics: Bool32,
+    phantom: PhantomData<&'a ()>,
+}
+#[cfg(feature = "ext_data_graph_neural_accelerator_statistics")]
+unsafe impl<'a> ExtendableStructureBase
+    for PhysicalDeviceDataGraphNeuralAcceleratorStatisticsFeaturesARM<'a>
+{
+}
+#[cfg(feature = "ext_data_graph_neural_accelerator_statistics")]
+unsafe impl<'a> ExtendableStructure
+    for PhysicalDeviceDataGraphNeuralAcceleratorStatisticsFeaturesARM<'a>
+{
+    const STRUCTURE_TYPE: StructureType =
+        StructureType::PhysicalDeviceDataGraphNeuralAcceleratorStatisticsFeaturesARM;
+}
+#[cfg(feature = "ext_data_graph_neural_accelerator_statistics")]
+unsafe impl<'a> Send for PhysicalDeviceDataGraphNeuralAcceleratorStatisticsFeaturesARM<'a> {}
+#[cfg(feature = "ext_data_graph_neural_accelerator_statistics")]
+unsafe impl<'a> Sync for PhysicalDeviceDataGraphNeuralAcceleratorStatisticsFeaturesARM<'a> {}
+#[cfg(all(
+    feature = "ext_data_graph_neural_accelerator_statistics",
+    any(
+        feature = "ext_get_physical_device_properties2",
+        feature = "version_1_1"
+    )
+))]
+unsafe impl<'a, 'b> ExtendingStructure<PhysicalDeviceFeatures2<'b>>
+    for PhysicalDeviceDataGraphNeuralAcceleratorStatisticsFeaturesARM<'a>
+{
+}
+#[cfg(all(feature = "ext_data_graph_neural_accelerator_statistics",))]
+unsafe impl<'a, 'b> ExtendingStructure<DeviceCreateInfo<'b>>
+    for PhysicalDeviceDataGraphNeuralAcceleratorStatisticsFeaturesARM<'a>
+{
+}
+#[cfg(feature = "ext_data_graph_neural_accelerator_statistics")]
+impl<'a> Default for PhysicalDeviceDataGraphNeuralAcceleratorStatisticsFeaturesARM<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            data_graph_neural_accelerator_statistics: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+#[cfg(feature = "ext_data_graph_neural_accelerator_statistics")]
+impl<'a> PhysicalDeviceDataGraphNeuralAcceleratorStatisticsFeaturesARM<'a> {
+    #[inline]
+    pub fn data_graph_neural_accelerator_statistics(mut self, value: impl Into<Bool32>) -> Self {
+        self.data_graph_neural_accelerator_statistics = value.into();
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[cfg(feature = "ext_data_graph_neural_accelerator_statistics")]
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphPipelineNeuralStatisticsCreateInfoARM.html>"]
+#[doc(alias = "VkDataGraphPipelineNeuralStatisticsCreateInfoARM")]
+pub struct DataGraphPipelineNeuralStatisticsCreateInfoARM<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub allow_neural_statistics: Bool32,
+    phantom: PhantomData<&'a ()>,
+}
+#[cfg(feature = "ext_data_graph_neural_accelerator_statistics")]
+unsafe impl<'a> ExtendableStructureBase for DataGraphPipelineNeuralStatisticsCreateInfoARM<'a> {}
+#[cfg(feature = "ext_data_graph_neural_accelerator_statistics")]
+unsafe impl<'a> ExtendableStructure for DataGraphPipelineNeuralStatisticsCreateInfoARM<'a> {
+    const STRUCTURE_TYPE: StructureType =
+        StructureType::DataGraphPipelineNeuralStatisticsCreateInfoARM;
+}
+#[cfg(feature = "ext_data_graph_neural_accelerator_statistics")]
+unsafe impl<'a> Send for DataGraphPipelineNeuralStatisticsCreateInfoARM<'a> {}
+#[cfg(feature = "ext_data_graph_neural_accelerator_statistics")]
+unsafe impl<'a> Sync for DataGraphPipelineNeuralStatisticsCreateInfoARM<'a> {}
+#[cfg(all(
+    feature = "ext_data_graph_neural_accelerator_statistics",
+    feature = "ext_data_graph"
+))]
+unsafe impl<'a, 'b> ExtendingStructure<DataGraphPipelineCreateInfoARM<'b>>
+    for DataGraphPipelineNeuralStatisticsCreateInfoARM<'a>
+{
+}
+#[cfg(feature = "ext_data_graph_neural_accelerator_statistics")]
+impl<'a> Default for DataGraphPipelineNeuralStatisticsCreateInfoARM<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            allow_neural_statistics: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+#[cfg(feature = "ext_data_graph_neural_accelerator_statistics")]
+impl<'a> DataGraphPipelineNeuralStatisticsCreateInfoARM<'a> {
+    #[inline]
+    pub fn allow_neural_statistics(mut self, value: impl Into<Bool32>) -> Self {
+        self.allow_neural_statistics = value.into();
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[cfg(feature = "ext_data_graph_neural_accelerator_statistics")]
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphPipelineSessionNeuralStatisticsCreateInfoARM.html>"]
+#[doc(alias = "VkDataGraphPipelineSessionNeuralStatisticsCreateInfoARM")]
+pub struct DataGraphPipelineSessionNeuralStatisticsCreateInfoARM<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub mode: NeuralAcceleratorStatisticsModeARM,
+    phantom: PhantomData<&'a ()>,
+}
+#[cfg(feature = "ext_data_graph_neural_accelerator_statistics")]
+unsafe impl<'a> ExtendableStructureBase
+    for DataGraphPipelineSessionNeuralStatisticsCreateInfoARM<'a>
+{
+}
+#[cfg(feature = "ext_data_graph_neural_accelerator_statistics")]
+unsafe impl<'a> ExtendableStructure for DataGraphPipelineSessionNeuralStatisticsCreateInfoARM<'a> {
+    const STRUCTURE_TYPE: StructureType =
+        StructureType::DataGraphPipelineSessionNeuralStatisticsCreateInfoARM;
+}
+#[cfg(feature = "ext_data_graph_neural_accelerator_statistics")]
+unsafe impl<'a> Send for DataGraphPipelineSessionNeuralStatisticsCreateInfoARM<'a> {}
+#[cfg(feature = "ext_data_graph_neural_accelerator_statistics")]
+unsafe impl<'a> Sync for DataGraphPipelineSessionNeuralStatisticsCreateInfoARM<'a> {}
+#[cfg(all(
+    feature = "ext_data_graph_neural_accelerator_statistics",
+    feature = "ext_data_graph"
+))]
+unsafe impl<'a, 'b> ExtendingStructure<DataGraphPipelineSessionCreateInfoARM<'b>>
+    for DataGraphPipelineSessionNeuralStatisticsCreateInfoARM<'a>
+{
+}
+#[cfg(feature = "ext_data_graph_neural_accelerator_statistics")]
+impl<'a> Default for DataGraphPipelineSessionNeuralStatisticsCreateInfoARM<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            mode: NeuralAcceleratorStatisticsModeARM::Disabled,
+            phantom: PhantomData,
+        }
+    }
+}
+#[cfg(feature = "ext_data_graph_neural_accelerator_statistics")]
+impl<'a> DataGraphPipelineSessionNeuralStatisticsCreateInfoARM<'a> {
+    #[inline]
+    pub fn mode(mut self, value: NeuralAcceleratorStatisticsModeARM) -> Self {
+        self.mode = value;
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[cfg(feature = "ext_primitive_restart_index")]
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDevicePrimitiveRestartIndexFeaturesEXT.html>"]
+#[doc(alias = "VkPhysicalDevicePrimitiveRestartIndexFeaturesEXT")]
+pub struct PhysicalDevicePrimitiveRestartIndexFeaturesEXT<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub primitive_restart_index: Bool32,
+    phantom: PhantomData<&'a ()>,
+}
+#[cfg(feature = "ext_primitive_restart_index")]
+unsafe impl<'a> ExtendableStructureBase for PhysicalDevicePrimitiveRestartIndexFeaturesEXT<'a> {}
+#[cfg(feature = "ext_primitive_restart_index")]
+unsafe impl<'a> ExtendableStructure for PhysicalDevicePrimitiveRestartIndexFeaturesEXT<'a> {
+    const STRUCTURE_TYPE: StructureType =
+        StructureType::PhysicalDevicePrimitiveRestartIndexFeaturesEXT;
+}
+#[cfg(feature = "ext_primitive_restart_index")]
+unsafe impl<'a> Send for PhysicalDevicePrimitiveRestartIndexFeaturesEXT<'a> {}
+#[cfg(feature = "ext_primitive_restart_index")]
+unsafe impl<'a> Sync for PhysicalDevicePrimitiveRestartIndexFeaturesEXT<'a> {}
+#[cfg(all(
+    feature = "ext_primitive_restart_index",
+    any(
+        feature = "ext_get_physical_device_properties2",
+        feature = "version_1_1"
+    )
+))]
+unsafe impl<'a, 'b> ExtendingStructure<PhysicalDeviceFeatures2<'b>>
+    for PhysicalDevicePrimitiveRestartIndexFeaturesEXT<'a>
+{
+}
+#[cfg(all(feature = "ext_primitive_restart_index",))]
+unsafe impl<'a, 'b> ExtendingStructure<DeviceCreateInfo<'b>>
+    for PhysicalDevicePrimitiveRestartIndexFeaturesEXT<'a>
+{
+}
+#[cfg(feature = "ext_primitive_restart_index")]
+impl<'a> Default for PhysicalDevicePrimitiveRestartIndexFeaturesEXT<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            primitive_restart_index: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+#[cfg(feature = "ext_primitive_restart_index")]
+impl<'a> PhysicalDevicePrimitiveRestartIndexFeaturesEXT<'a> {
+    #[inline]
+    pub fn primitive_restart_index(mut self, value: impl Into<Bool32>) -> Self {
+        self.primitive_restart_index = value.into();
+        self
+    }
+    #[inline]
+    pub fn push_next<T: ExtendingStructure<Self>>(self, ext: &'a mut T) -> Self {
+        unsafe { self.push_next_unchecked(ext) };
+        self
+    }
+}
+#[repr(C)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceCooperativeMatrixDecodeVectorFeaturesNV.html>"]
+#[doc(alias = "VkPhysicalDeviceCooperativeMatrixDecodeVectorFeaturesNV")]
+pub struct PhysicalDeviceCooperativeMatrixDecodeVectorFeaturesNV<'a> {
+    pub(crate) s_type: StructureType,
+    pub(crate) p_next: Cell<*const Header>,
+    pub cooperative_matrix_decode_vector: Bool32,
+    phantom: PhantomData<&'a ()>,
+}
+unsafe impl<'a> ExtendableStructureBase
+    for PhysicalDeviceCooperativeMatrixDecodeVectorFeaturesNV<'a>
+{
+}
+unsafe impl<'a> ExtendableStructure for PhysicalDeviceCooperativeMatrixDecodeVectorFeaturesNV<'a> {
+    const STRUCTURE_TYPE: StructureType =
+        StructureType::PhysicalDeviceCooperativeMatrixDecodeVectorFeaturesNV;
+}
+unsafe impl<'a> Send for PhysicalDeviceCooperativeMatrixDecodeVectorFeaturesNV<'a> {}
+unsafe impl<'a> Sync for PhysicalDeviceCooperativeMatrixDecodeVectorFeaturesNV<'a> {}
+#[cfg(all(
+    all(),
+    any(
+        feature = "ext_get_physical_device_properties2",
+        feature = "version_1_1"
+    )
+))]
+unsafe impl<'a, 'b> ExtendingStructure<PhysicalDeviceFeatures2<'b>>
+    for PhysicalDeviceCooperativeMatrixDecodeVectorFeaturesNV<'a>
+{
+}
+#[cfg(all(all(),))]
+unsafe impl<'a, 'b> ExtendingStructure<DeviceCreateInfo<'b>>
+    for PhysicalDeviceCooperativeMatrixDecodeVectorFeaturesNV<'a>
+{
+}
+impl<'a> Default for PhysicalDeviceCooperativeMatrixDecodeVectorFeaturesNV<'a> {
+    fn default() -> Self {
+        Self {
+            s_type: Self::STRUCTURE_TYPE,
+            p_next: Cell::new(ptr::null()),
+            cooperative_matrix_decode_vector: Default::default(),
+            phantom: PhantomData,
+        }
+    }
+}
+impl<'a> PhysicalDeviceCooperativeMatrixDecodeVectorFeaturesNV<'a> {
+    #[inline]
+    pub fn cooperative_matrix_decode_vector(mut self, value: impl Into<Bool32>) -> Self {
+        self.cooperative_matrix_decode_vector = value.into();
         self
     }
     #[inline]

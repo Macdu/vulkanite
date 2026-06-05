@@ -3566,6 +3566,99 @@ pub struct CommandsDispatcher {
             *const *const AHardwareBuffer,
         ) -> Status,
     >,
+    #[cfg(feature = "ext_gpa_interface")]
+    pub create_gpa_session_amd: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            *const GpaSessionCreateInfoAMD,
+            *const AllocationCallbacks,
+            *const GpaSessionAMD,
+        ) -> Status,
+    >,
+    #[cfg(feature = "ext_gpa_interface")]
+    pub destroy_gpa_session_amd: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            Option<BorrowedHandle<'_, GpaSessionAMD>>,
+            *const AllocationCallbacks,
+        ),
+    >,
+    #[cfg(feature = "ext_gpa_interface")]
+    pub set_gpa_device_clock_mode_amd: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            *const GpaDeviceClockModeInfoAMD,
+        ) -> Status,
+    >,
+    #[cfg(feature = "ext_gpa_interface")]
+    pub get_gpa_device_clock_info_amd: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            *const GpaDeviceGetClockInfoAMD,
+        ) -> Status,
+    >,
+    #[cfg(feature = "ext_gpa_interface")]
+    pub cmd_begin_gpa_session_amd: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            Option<BorrowedHandle<'_, GpaSessionAMD>>,
+        ) -> Status,
+    >,
+    #[cfg(feature = "ext_gpa_interface")]
+    pub cmd_end_gpa_session_amd: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            Option<BorrowedHandle<'_, GpaSessionAMD>>,
+        ) -> Status,
+    >,
+    #[cfg(feature = "ext_gpa_interface")]
+    pub cmd_begin_gpa_sample_amd: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            Option<BorrowedHandle<'_, GpaSessionAMD>>,
+            *const GpaSampleBeginInfoAMD,
+            *const u32,
+        ) -> Status,
+    >,
+    #[cfg(feature = "ext_gpa_interface")]
+    pub cmd_end_gpa_sample_amd: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            Option<BorrowedHandle<'_, GpaSessionAMD>>,
+            u32,
+        ),
+    >,
+    #[cfg(feature = "ext_gpa_interface")]
+    pub get_gpa_session_status_amd: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            Option<BorrowedHandle<'_, GpaSessionAMD>>,
+        ) -> Status,
+    >,
+    #[cfg(feature = "ext_gpa_interface")]
+    pub get_gpa_session_results_amd: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            Option<BorrowedHandle<'_, GpaSessionAMD>>,
+            u32,
+            *const usize,
+            VoidPtr,
+        ) -> Status,
+    >,
+    #[cfg(feature = "ext_gpa_interface")]
+    pub reset_gpa_session_amd: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            Option<BorrowedHandle<'_, GpaSessionAMD>>,
+        ) -> Status,
+    >,
+    #[cfg(feature = "ext_gpa_interface")]
+    pub cmd_copy_gpa_session_results_amd: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            Option<BorrowedHandle<'_, GpaSessionAMD>>,
+        ),
+    >,
     #[cfg(feature = "ext_shader_enqueue")]
     pub create_execution_graph_pipelines_amdx: Cell<
         unsafe extern "system" fn(
@@ -4033,7 +4126,7 @@ pub struct CommandsDispatcher {
         unsafe extern "system" fn(
             Option<BorrowedHandle<'_, Device>>,
             *const AccelerationStructureMemoryRequirementsInfoNV,
-            *const MemoryRequirements2KHR,
+            *const MemoryRequirements2,
         ),
     >,
     #[cfg(feature = "ext_ray_tracing")]
@@ -4566,6 +4659,13 @@ pub struct CommandsDispatcher {
             i32,
             u32,
             *const DisplayKHR,
+        ) -> Status,
+    >,
+    #[cfg(feature = "ext_queue_perf_hint")]
+    pub queue_set_perf_hint_qcom: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Queue>>,
+            *const PerfHintInfoQCOM,
         ) -> Status,
     >,
     #[cfg(feature = "ext_cuda_kernel_launch")]
@@ -5145,7 +5245,7 @@ pub struct CommandsDispatcher {
     pub get_pipeline_properties_ext: Cell<
         unsafe extern "system" fn(
             Option<BorrowedHandle<'_, Device>>,
-            *const PipelineInfoEXT,
+            *const PipelineInfoKHR,
             *const BaseOutStructure,
         ) -> Status,
     >,
@@ -5341,6 +5441,13 @@ pub struct CommandsDispatcher {
             Option<BorrowedHandle<'_, Device>>,
             Option<BorrowedHandle<'_, DeviceMemory>>,
             f32,
+        ),
+    >,
+    #[cfg(feature = "ext_scheduling_controls")]
+    pub cmd_set_dispatch_parameters_arm: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, CommandBuffer>>,
+            *const DispatchParametersARM,
         ),
     >,
     #[cfg(feature = "ext_descriptor_set_host_mapping")]
@@ -5592,9 +5699,12 @@ pub struct CommandsDispatcher {
     #[cfg(any(
         all(
             feature = "ext_extended_dynamic_state3",
-            feature = "ext_line_rasterization"
+            any(feature = "version_1_4", feature = "ext_line_rasterization")
         ),
-        all(feature = "ext_shader_object", feature = "ext_line_rasterization")
+        all(
+            feature = "ext_shader_object",
+            any(feature = "version_1_4", feature = "ext_line_rasterization")
+        )
     ))]
     pub cmd_set_line_rasterization_mode_ext: Cell<
         unsafe extern "system" fn(
@@ -5605,9 +5715,12 @@ pub struct CommandsDispatcher {
     #[cfg(any(
         all(
             feature = "ext_extended_dynamic_state3",
-            feature = "ext_line_rasterization"
+            any(feature = "version_1_4", feature = "ext_line_rasterization")
         ),
-        all(feature = "ext_shader_object", feature = "ext_line_rasterization")
+        all(
+            feature = "ext_shader_object",
+            any(feature = "version_1_4", feature = "ext_line_rasterization")
+        )
     ))]
     pub cmd_set_line_stipple_enable_ext:
         Cell<unsafe extern "system" fn(Option<BorrowedHandle<'_, CommandBuffer>>, Bool32)>,
@@ -6187,6 +6300,18 @@ pub struct CommandsDispatcher {
             *const QueueFamilyDataGraphProcessingEnginePropertiesARM,
         ),
     >,
+    #[cfg(any(
+        feature = "ext_data_graph_instruction_set_tosa",
+        feature = "ext_data_graph_optical_flow"
+    ))]
+    pub get_physical_device_queue_family_data_graph_engine_operation_properties_arm: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, PhysicalDevice>>,
+            u32,
+            *const QueueFamilyDataGraphPropertiesARM,
+            *const BaseOutStructure,
+        ) -> Status,
+    >,
     #[cfg(feature = "ext_attachment_feedback_loop_dynamic_state")]
     pub cmd_set_attachment_feedback_loop_enable_ext: Cell<
         unsafe extern "system" fn(Option<BorrowedHandle<'_, CommandBuffer>>, ImageAspectFlags),
@@ -6419,6 +6544,22 @@ pub struct CommandsDispatcher {
             *const WriteIndirectExecutionSetShaderEXT,
         ),
     >,
+    #[cfg(feature = "ext_device_fault")]
+    pub get_device_fault_reports_khr: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            u64,
+            *const u32,
+            *const DeviceFaultInfoKHR,
+        ) -> Status,
+    >,
+    #[cfg(feature = "ext_device_fault")]
+    pub get_device_fault_debug_info_khr: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, Device>>,
+            *const DeviceFaultDebugInfoKHR,
+        ) -> Status,
+    >,
     #[cfg(feature = "ext_ohos_surface")]
     pub create_surface_ohos: Cell<
         unsafe extern "system" fn(
@@ -6545,6 +6686,17 @@ pub struct CommandsDispatcher {
             *const RenderingEndInfoKHR,
         ),
     >,
+    #[cfg(feature = "ext_data_graph_optical_flow")]
+    pub get_physical_device_queue_family_data_graph_optical_flow_image_formats_arm: Cell<
+        unsafe extern "system" fn(
+            Option<BorrowedHandle<'_, PhysicalDevice>>,
+            u32,
+            *const QueueFamilyDataGraphPropertiesARM,
+            *const DataGraphOpticalFlowImageFormatInfoARM,
+            *const u32,
+            *const DataGraphOpticalFlowImageFormatPropertiesARM,
+        ) -> Status,
+    >,
     #[cfg(feature = "ext_compute_occupancy_priority")]
     pub cmd_set_compute_occupancy_priority_nv: Cell<
         unsafe extern "system" fn(
@@ -6569,6 +6721,9 @@ pub struct CommandsDispatcher {
             *const VoidPtr,
         ) -> Bool32,
     >,
+    #[cfg(feature = "ext_primitive_restart_index")]
+    pub cmd_set_primitive_restart_index_ext:
+        Cell<unsafe extern "system" fn(Option<BorrowedHandle<'_, CommandBuffer>>, u32)>,
 }
 #[doc = r" SAFETY: This trait is safe to implement assuming setting an aligned pointer-size value is coherent (another thread can see the previous value"]
 #[doc = r" or the new value but not for example 4 bytes of the previous value then 4 bytes of the new value if the pointer is 8 bytes)."]
@@ -11204,6 +11359,138 @@ impl CommandsDispatcher {
             self.get_memory_android_hardware_buffer_android
                 .set(vk_func_ptr);
         }
+        #[cfg(feature = "ext_gpa_interface")]
+        {
+            let mut vk_func_ptr = self.create_gpa_session_amd.get();
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkCreateGpaSessionAMD".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.create_gpa_session_amd.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_gpa_interface")]
+        {
+            let mut vk_func_ptr = self.destroy_gpa_session_amd.get();
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkDestroyGpaSessionAMD".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.destroy_gpa_session_amd.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_gpa_interface")]
+        {
+            let mut vk_func_ptr = self.set_gpa_device_clock_mode_amd.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkSetGpaDeviceClockModeAMD".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.set_gpa_device_clock_mode_amd.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_gpa_interface")]
+        {
+            let mut vk_func_ptr = self.get_gpa_device_clock_info_amd.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkGetGpaDeviceClockInfoAMD".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.get_gpa_device_clock_info_amd.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_gpa_interface")]
+        {
+            let mut vk_func_ptr = self.cmd_begin_gpa_session_amd.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkCmdBeginGpaSessionAMD".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_begin_gpa_session_amd.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_gpa_interface")]
+        {
+            let mut vk_func_ptr = self.cmd_end_gpa_session_amd.get();
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdEndGpaSessionAMD".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_end_gpa_session_amd.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_gpa_interface")]
+        {
+            let mut vk_func_ptr = self.cmd_begin_gpa_sample_amd.get();
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdBeginGpaSampleAMD".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_begin_gpa_sample_amd.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_gpa_interface")]
+        {
+            let mut vk_func_ptr = self.cmd_end_gpa_sample_amd.get();
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkCmdEndGpaSampleAMD".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_end_gpa_sample_amd.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_gpa_interface")]
+        {
+            let mut vk_func_ptr = self.get_gpa_session_status_amd.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkGetGpaSessionStatusAMD".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.get_gpa_session_status_amd.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_gpa_interface")]
+        {
+            let mut vk_func_ptr = self.get_gpa_session_results_amd.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkGetGpaSessionResultsAMD".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.get_gpa_session_results_amd.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_gpa_interface")]
+        {
+            let mut vk_func_ptr = self.reset_gpa_session_amd.get();
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkResetGpaSessionAMD".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.reset_gpa_session_amd.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_gpa_interface")]
+        {
+            let mut vk_func_ptr = self.cmd_copy_gpa_session_results_amd.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkCmdCopyGpaSessionResultsAMD".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_copy_gpa_session_results_amd.set(vk_func_ptr);
+        }
         #[cfg(feature = "ext_shader_enqueue")]
         {
             let mut vk_func_ptr = self.create_execution_graph_pipelines_amdx.get();
@@ -12628,6 +12915,16 @@ impl CommandsDispatcher {
             }
             self.get_drm_display_ext.set(vk_func_ptr);
         }
+        #[cfg(feature = "ext_queue_perf_hint")]
+        {
+            let mut vk_func_ptr = self.queue_set_perf_hint_qcom.get();
+            let loaded_ptr =
+                get_instance_proc_addr(Some(instance.borrow()), c"vkQueueSetPerfHintQCOM".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.queue_set_perf_hint_qcom.set(vk_func_ptr);
+        }
         #[cfg(feature = "ext_cuda_kernel_launch")]
         {
             let mut vk_func_ptr = self.create_cuda_module_nv.get();
@@ -13755,6 +14052,18 @@ impl CommandsDispatcher {
             }
             self.set_device_memory_priority_ext.set(vk_func_ptr);
         }
+        #[cfg(feature = "ext_scheduling_controls")]
+        {
+            let mut vk_func_ptr = self.cmd_set_dispatch_parameters_arm.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkCmdSetDispatchParametersARM".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_set_dispatch_parameters_arm.set(vk_func_ptr);
+        }
         #[cfg(feature = "ext_descriptor_set_host_mapping")]
         {
             let mut vk_func_ptr = self.get_descriptor_set_layout_host_mapping_info_valve.get();
@@ -14165,9 +14474,12 @@ impl CommandsDispatcher {
         #[cfg(any(
             all(
                 feature = "ext_extended_dynamic_state3",
-                feature = "ext_line_rasterization"
+                any(feature = "version_1_4", feature = "ext_line_rasterization")
             ),
-            all(feature = "ext_shader_object", feature = "ext_line_rasterization")
+            all(
+                feature = "ext_shader_object",
+                any(feature = "version_1_4", feature = "ext_line_rasterization")
+            )
         ))]
         {
             let mut vk_func_ptr = self.cmd_set_line_rasterization_mode_ext.get();
@@ -14183,9 +14495,12 @@ impl CommandsDispatcher {
         #[cfg(any(
             all(
                 feature = "ext_extended_dynamic_state3",
-                feature = "ext_line_rasterization"
+                any(feature = "version_1_4", feature = "ext_line_rasterization")
             ),
-            all(feature = "ext_shader_object", feature = "ext_line_rasterization")
+            all(
+                feature = "ext_shader_object",
+                any(feature = "version_1_4", feature = "ext_line_rasterization")
+            )
         ))]
         {
             let mut vk_func_ptr = self.cmd_set_line_stipple_enable_ext.get();
@@ -15064,6 +15379,24 @@ impl CommandsDispatcher {
             self.get_physical_device_queue_family_data_graph_processing_engine_properties_arm
                 .set(vk_func_ptr);
         }
+        #[cfg(any(
+            feature = "ext_data_graph_instruction_set_tosa",
+            feature = "ext_data_graph_optical_flow"
+        ))]
+        {
+            let mut vk_func_ptr = self
+                .get_physical_device_queue_family_data_graph_engine_operation_properties_arm
+                .get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkGetPhysicalDeviceQueueFamilyDataGraphEngineOperationPropertiesARM".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.get_physical_device_queue_family_data_graph_engine_operation_properties_arm
+                .set(vk_func_ptr);
+        }
         #[cfg(feature = "ext_attachment_feedback_loop_dynamic_state")]
         {
             let mut vk_func_ptr = self.cmd_set_attachment_feedback_loop_enable_ext.get();
@@ -15422,6 +15755,30 @@ impl CommandsDispatcher {
             self.update_indirect_execution_set_shader_ext
                 .set(vk_func_ptr);
         }
+        #[cfg(feature = "ext_device_fault")]
+        {
+            let mut vk_func_ptr = self.get_device_fault_reports_khr.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkGetDeviceFaultReportsKHR".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.get_device_fault_reports_khr.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_device_fault")]
+        {
+            let mut vk_func_ptr = self.get_device_fault_debug_info_khr.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkGetDeviceFaultDebugInfoKHR".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.get_device_fault_debug_info_khr.set(vk_func_ptr);
+        }
         #[cfg(feature = "ext_ohos_surface")]
         {
             let mut vk_func_ptr = self.create_surface_ohos.get();
@@ -15608,6 +15965,21 @@ impl CommandsDispatcher {
             }
             self.cmd_end_rendering2_khr.set(vk_func_ptr);
         }
+        #[cfg(feature = "ext_data_graph_optical_flow")]
+        {
+            let mut vk_func_ptr = self
+                .get_physical_device_queue_family_data_graph_optical_flow_image_formats_arm
+                .get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkGetPhysicalDeviceQueueFamilyDataGraphOpticalFlowImageFormatsARM".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.get_physical_device_queue_family_data_graph_optical_flow_image_formats_arm
+                .set(vk_func_ptr);
+        }
         #[cfg(feature = "ext_compute_occupancy_priority")]
         {
             let mut vk_func_ptr = self.cmd_set_compute_occupancy_priority_nv.get();
@@ -15642,6 +16014,18 @@ impl CommandsDispatcher {
             }
             self.get_physical_device_ubm_presentation_support_sec
                 .set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_primitive_restart_index")]
+        {
+            let mut vk_func_ptr = self.cmd_set_primitive_restart_index_ext.get();
+            let loaded_ptr = get_instance_proc_addr(
+                Some(instance.borrow()),
+                c"vkCmdSetPrimitiveRestartIndexEXT".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_set_primitive_restart_index_ext.set(vk_func_ptr);
         }
     }
     pub unsafe fn load_device(&self, device: &Device) {
@@ -19123,6 +19507,132 @@ impl CommandsDispatcher {
             self.get_memory_android_hardware_buffer_android
                 .set(vk_func_ptr);
         }
+        #[cfg(feature = "ext_gpa_interface")]
+        {
+            let mut vk_func_ptr = self.create_gpa_session_amd.get();
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkCreateGpaSessionAMD".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.create_gpa_session_amd.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_gpa_interface")]
+        {
+            let mut vk_func_ptr = self.destroy_gpa_session_amd.get();
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkDestroyGpaSessionAMD".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.destroy_gpa_session_amd.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_gpa_interface")]
+        {
+            let mut vk_func_ptr = self.set_gpa_device_clock_mode_amd.get();
+            let loaded_ptr = get_device_proc_addr(
+                Some(device.borrow()),
+                c"vkSetGpaDeviceClockModeAMD".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.set_gpa_device_clock_mode_amd.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_gpa_interface")]
+        {
+            let mut vk_func_ptr = self.get_gpa_device_clock_info_amd.get();
+            let loaded_ptr = get_device_proc_addr(
+                Some(device.borrow()),
+                c"vkGetGpaDeviceClockInfoAMD".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.get_gpa_device_clock_info_amd.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_gpa_interface")]
+        {
+            let mut vk_func_ptr = self.cmd_begin_gpa_session_amd.get();
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkCmdBeginGpaSessionAMD".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_begin_gpa_session_amd.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_gpa_interface")]
+        {
+            let mut vk_func_ptr = self.cmd_end_gpa_session_amd.get();
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkCmdEndGpaSessionAMD".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_end_gpa_session_amd.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_gpa_interface")]
+        {
+            let mut vk_func_ptr = self.cmd_begin_gpa_sample_amd.get();
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkCmdBeginGpaSampleAMD".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_begin_gpa_sample_amd.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_gpa_interface")]
+        {
+            let mut vk_func_ptr = self.cmd_end_gpa_sample_amd.get();
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkCmdEndGpaSampleAMD".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_end_gpa_sample_amd.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_gpa_interface")]
+        {
+            let mut vk_func_ptr = self.get_gpa_session_status_amd.get();
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkGetGpaSessionStatusAMD".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.get_gpa_session_status_amd.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_gpa_interface")]
+        {
+            let mut vk_func_ptr = self.get_gpa_session_results_amd.get();
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkGetGpaSessionResultsAMD".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.get_gpa_session_results_amd.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_gpa_interface")]
+        {
+            let mut vk_func_ptr = self.reset_gpa_session_amd.get();
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkResetGpaSessionAMD".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.reset_gpa_session_amd.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_gpa_interface")]
+        {
+            let mut vk_func_ptr = self.cmd_copy_gpa_session_results_amd.get();
+            let loaded_ptr = get_device_proc_addr(
+                Some(device.borrow()),
+                c"vkCmdCopyGpaSessionResultsAMD".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_copy_gpa_session_results_amd.set(vk_func_ptr);
+        }
         #[cfg(feature = "ext_shader_enqueue")]
         {
             let mut vk_func_ptr = self.create_execution_graph_pipelines_amdx.get();
@@ -20401,6 +20911,16 @@ impl CommandsDispatcher {
             }
             self.cmd_set_depth_bias2_ext.set(vk_func_ptr);
         }
+        #[cfg(feature = "ext_queue_perf_hint")]
+        {
+            let mut vk_func_ptr = self.queue_set_perf_hint_qcom.get();
+            let loaded_ptr =
+                get_device_proc_addr(Some(device.borrow()), c"vkQueueSetPerfHintQCOM".as_ptr());
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.queue_set_perf_hint_qcom.set(vk_func_ptr);
+        }
         #[cfg(feature = "ext_cuda_kernel_launch")]
         {
             let mut vk_func_ptr = self.create_cuda_module_nv.get();
@@ -21428,6 +21948,18 @@ impl CommandsDispatcher {
             }
             self.set_device_memory_priority_ext.set(vk_func_ptr);
         }
+        #[cfg(feature = "ext_scheduling_controls")]
+        {
+            let mut vk_func_ptr = self.cmd_set_dispatch_parameters_arm.get();
+            let loaded_ptr = get_device_proc_addr(
+                Some(device.borrow()),
+                c"vkCmdSetDispatchParametersARM".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_set_dispatch_parameters_arm.set(vk_func_ptr);
+        }
         #[cfg(feature = "ext_descriptor_set_host_mapping")]
         {
             let mut vk_func_ptr = self.get_descriptor_set_layout_host_mapping_info_valve.get();
@@ -21830,9 +22362,12 @@ impl CommandsDispatcher {
         #[cfg(any(
             all(
                 feature = "ext_extended_dynamic_state3",
-                feature = "ext_line_rasterization"
+                any(feature = "version_1_4", feature = "ext_line_rasterization")
             ),
-            all(feature = "ext_shader_object", feature = "ext_line_rasterization")
+            all(
+                feature = "ext_shader_object",
+                any(feature = "version_1_4", feature = "ext_line_rasterization")
+            )
         ))]
         {
             let mut vk_func_ptr = self.cmd_set_line_rasterization_mode_ext.get();
@@ -21848,9 +22383,12 @@ impl CommandsDispatcher {
         #[cfg(any(
             all(
                 feature = "ext_extended_dynamic_state3",
-                feature = "ext_line_rasterization"
+                any(feature = "version_1_4", feature = "ext_line_rasterization")
             ),
-            all(feature = "ext_shader_object", feature = "ext_line_rasterization")
+            all(
+                feature = "ext_shader_object",
+                any(feature = "version_1_4", feature = "ext_line_rasterization")
+            )
         ))]
         {
             let mut vk_func_ptr = self.cmd_set_line_stipple_enable_ext.get();
@@ -22959,6 +23497,30 @@ impl CommandsDispatcher {
             self.update_indirect_execution_set_shader_ext
                 .set(vk_func_ptr);
         }
+        #[cfg(feature = "ext_device_fault")]
+        {
+            let mut vk_func_ptr = self.get_device_fault_reports_khr.get();
+            let loaded_ptr = get_device_proc_addr(
+                Some(device.borrow()),
+                c"vkGetDeviceFaultReportsKHR".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.get_device_fault_reports_khr.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_device_fault")]
+        {
+            let mut vk_func_ptr = self.get_device_fault_debug_info_khr.get();
+            let loaded_ptr = get_device_proc_addr(
+                Some(device.borrow()),
+                c"vkGetDeviceFaultDebugInfoKHR".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.get_device_fault_debug_info_khr.set(vk_func_ptr);
+        }
         #[cfg(feature = "ext_external_memory_metal")]
         {
             let mut vk_func_ptr = self.get_memory_metal_handle_ext.get();
@@ -23099,6 +23661,18 @@ impl CommandsDispatcher {
                 vk_func_ptr = mem::transmute(loaded_ptr);
             }
             self.cmd_set_compute_occupancy_priority_nv.set(vk_func_ptr);
+        }
+        #[cfg(feature = "ext_primitive_restart_index")]
+        {
+            let mut vk_func_ptr = self.cmd_set_primitive_restart_index_ext.get();
+            let loaded_ptr = get_device_proc_addr(
+                Some(device.borrow()),
+                c"vkCmdSetPrimitiveRestartIndexEXT".as_ptr(),
+            );
+            if !loaded_ptr.is_null() {
+                vk_func_ptr = mem::transmute(loaded_ptr);
+            }
+            self.cmd_set_primitive_restart_index_ext.set(vk_func_ptr);
         };
     }
 }
@@ -24175,6 +24749,30 @@ impl CommandsDispatcher {
                 )),
                 #[cfg(feature = "ext_external_memory_android_hardware_buffer")]
                 get_memory_android_hardware_buffer_android: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(feature = "ext_gpa_interface")]
+                create_gpa_session_amd: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(feature = "ext_gpa_interface")]
+                destroy_gpa_session_amd: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(feature = "ext_gpa_interface")]
+                set_gpa_device_clock_mode_amd: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(feature = "ext_gpa_interface")]
+                get_gpa_device_clock_info_amd: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(feature = "ext_gpa_interface")]
+                cmd_begin_gpa_session_amd: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(feature = "ext_gpa_interface")]
+                cmd_end_gpa_session_amd: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(feature = "ext_gpa_interface")]
+                cmd_begin_gpa_sample_amd: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(feature = "ext_gpa_interface")]
+                cmd_end_gpa_sample_amd: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(feature = "ext_gpa_interface")]
+                get_gpa_session_status_amd: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(feature = "ext_gpa_interface")]
+                get_gpa_session_results_amd: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(feature = "ext_gpa_interface")]
+                reset_gpa_session_amd: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(feature = "ext_gpa_interface")]
+                cmd_copy_gpa_session_results_amd: Cell::new(mem::transmute(unload_cmd)),
                 #[cfg(feature = "ext_shader_enqueue")]
                 create_execution_graph_pipelines_amdx: Cell::new(mem::transmute(unload_cmd)),
                 #[cfg(feature = "ext_shader_enqueue")]
@@ -24453,6 +25051,8 @@ impl CommandsDispatcher {
                 acquire_drm_display_ext: Cell::new(mem::transmute(unload_cmd)),
                 #[cfg(feature = "ext_acquire_drm_display")]
                 get_drm_display_ext: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(feature = "ext_queue_perf_hint")]
+                queue_set_perf_hint_qcom: Cell::new(mem::transmute(unload_cmd)),
                 #[cfg(feature = "ext_cuda_kernel_launch")]
                 create_cuda_module_nv: Cell::new(mem::transmute(unload_cmd)),
                 #[cfg(feature = "ext_cuda_kernel_launch")]
@@ -24708,6 +25308,8 @@ impl CommandsDispatcher {
                 cmd_draw_cluster_indirect_huawei: Cell::new(mem::transmute(unload_cmd)),
                 #[cfg(feature = "ext_pageable_device_local_memory")]
                 set_device_memory_priority_ext: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(feature = "ext_scheduling_controls")]
+                cmd_set_dispatch_parameters_arm: Cell::new(mem::transmute(unload_cmd)),
                 #[cfg(feature = "ext_descriptor_set_host_mapping")]
                 get_descriptor_set_layout_host_mapping_info_valve: Cell::new(mem::transmute(
                     unload_cmd,
@@ -24860,17 +25462,23 @@ impl CommandsDispatcher {
                 #[cfg(any(
                     all(
                         feature = "ext_extended_dynamic_state3",
-                        feature = "ext_line_rasterization"
+                        any(feature = "version_1_4", feature = "ext_line_rasterization")
                     ),
-                    all(feature = "ext_shader_object", feature = "ext_line_rasterization")
+                    all(
+                        feature = "ext_shader_object",
+                        any(feature = "version_1_4", feature = "ext_line_rasterization")
+                    )
                 ))]
                 cmd_set_line_rasterization_mode_ext: Cell::new(mem::transmute(unload_cmd)),
                 #[cfg(any(
                     all(
                         feature = "ext_extended_dynamic_state3",
-                        feature = "ext_line_rasterization"
+                        any(feature = "version_1_4", feature = "ext_line_rasterization")
                     ),
-                    all(feature = "ext_shader_object", feature = "ext_line_rasterization")
+                    all(
+                        feature = "ext_shader_object",
+                        any(feature = "version_1_4", feature = "ext_line_rasterization")
+                    )
                 ))]
                 cmd_set_line_stipple_enable_ext: Cell::new(mem::transmute(unload_cmd)),
                 #[cfg(any(
@@ -25110,6 +25718,12 @@ impl CommandsDispatcher {
                 #[cfg(feature = "ext_data_graph")]
                 get_physical_device_queue_family_data_graph_processing_engine_properties_arm:
                     Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(any(
+                    feature = "ext_data_graph_instruction_set_tosa",
+                    feature = "ext_data_graph_optical_flow"
+                ))]
+                get_physical_device_queue_family_data_graph_engine_operation_properties_arm:
+                    Cell::new(mem::transmute(unload_cmd)),
                 #[cfg(feature = "ext_attachment_feedback_loop_dynamic_state")]
                 cmd_set_attachment_feedback_loop_enable_ext: Cell::new(mem::transmute(unload_cmd)),
                 #[cfg(feature = "ext_external_memory_screen_buffer")]
@@ -25184,6 +25798,10 @@ impl CommandsDispatcher {
                 update_indirect_execution_set_pipeline_ext: Cell::new(mem::transmute(unload_cmd)),
                 #[cfg(feature = "ext_device_generated_commands")]
                 update_indirect_execution_set_shader_ext: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(feature = "ext_device_fault")]
+                get_device_fault_reports_khr: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(feature = "ext_device_fault")]
+                get_device_fault_debug_info_khr: Cell::new(mem::transmute(unload_cmd)),
                 #[cfg(feature = "ext_ohos_surface")]
                 create_surface_ohos: Cell::new(mem::transmute(unload_cmd)),
                 #[cfg(feature = "ext_cooperative_matrix2")]
@@ -25228,6 +25846,9 @@ impl CommandsDispatcher {
                     feature = "ext_maintenance10"
                 ))]
                 cmd_end_rendering2_khr: Cell::new(mem::transmute(unload_cmd)),
+                #[cfg(feature = "ext_data_graph_optical_flow")]
+                get_physical_device_queue_family_data_graph_optical_flow_image_formats_arm:
+                    Cell::new(mem::transmute(unload_cmd)),
                 #[cfg(feature = "ext_compute_occupancy_priority")]
                 cmd_set_compute_occupancy_priority_nv: Cell::new(mem::transmute(unload_cmd)),
                 #[cfg(feature = "ext_ubm_surface")]
@@ -25236,6 +25857,8 @@ impl CommandsDispatcher {
                 get_physical_device_ubm_presentation_support_sec: Cell::new(mem::transmute(
                     unload_cmd,
                 )),
+                #[cfg(feature = "ext_primitive_restart_index")]
+                cmd_set_primitive_restart_index_ext: Cell::new(mem::transmute(unload_cmd)),
             }
         }
     }
@@ -28155,6 +28778,99 @@ impl CommandsDispatcher {
         ) -> Status {
             panic!("Trying to call an unloaded Vulkan command");
         }
+        #[cfg(feature = "ext_gpa_interface")]
+        extern "system" fn create_gpa_session_amd(
+            _: Option<BorrowedHandle<'_, Device>>,
+            _: *const GpaSessionCreateInfoAMD,
+            _: *const AllocationCallbacks,
+            _: *const GpaSessionAMD,
+        ) -> Status {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(feature = "ext_gpa_interface")]
+        extern "system" fn destroy_gpa_session_amd(
+            _: Option<BorrowedHandle<'_, Device>>,
+            _: Option<BorrowedHandle<'_, GpaSessionAMD>>,
+            _: *const AllocationCallbacks,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(feature = "ext_gpa_interface")]
+        extern "system" fn set_gpa_device_clock_mode_amd(
+            _: Option<BorrowedHandle<'_, Device>>,
+            _: *const GpaDeviceClockModeInfoAMD,
+        ) -> Status {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(feature = "ext_gpa_interface")]
+        extern "system" fn get_gpa_device_clock_info_amd(
+            _: Option<BorrowedHandle<'_, Device>>,
+            _: *const GpaDeviceGetClockInfoAMD,
+        ) -> Status {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(feature = "ext_gpa_interface")]
+        extern "system" fn cmd_begin_gpa_session_amd(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
+            _: Option<BorrowedHandle<'_, GpaSessionAMD>>,
+        ) -> Status {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(feature = "ext_gpa_interface")]
+        extern "system" fn cmd_end_gpa_session_amd(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
+            _: Option<BorrowedHandle<'_, GpaSessionAMD>>,
+        ) -> Status {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(feature = "ext_gpa_interface")]
+        extern "system" fn cmd_begin_gpa_sample_amd(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
+            _: Option<BorrowedHandle<'_, GpaSessionAMD>>,
+            _: *const GpaSampleBeginInfoAMD,
+            _: *const u32,
+        ) -> Status {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(feature = "ext_gpa_interface")]
+        extern "system" fn cmd_end_gpa_sample_amd(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
+            _: Option<BorrowedHandle<'_, GpaSessionAMD>>,
+            _: u32,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(feature = "ext_gpa_interface")]
+        extern "system" fn get_gpa_session_status_amd(
+            _: Option<BorrowedHandle<'_, Device>>,
+            _: Option<BorrowedHandle<'_, GpaSessionAMD>>,
+        ) -> Status {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(feature = "ext_gpa_interface")]
+        extern "system" fn get_gpa_session_results_amd(
+            _: Option<BorrowedHandle<'_, Device>>,
+            _: Option<BorrowedHandle<'_, GpaSessionAMD>>,
+            _: u32,
+            _: *const usize,
+            _: VoidPtr,
+        ) -> Status {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(feature = "ext_gpa_interface")]
+        extern "system" fn reset_gpa_session_amd(
+            _: Option<BorrowedHandle<'_, Device>>,
+            _: Option<BorrowedHandle<'_, GpaSessionAMD>>,
+        ) -> Status {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(feature = "ext_gpa_interface")]
+        extern "system" fn cmd_copy_gpa_session_results_amd(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
+            _: Option<BorrowedHandle<'_, GpaSessionAMD>>,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
         #[cfg(feature = "ext_shader_enqueue")]
         extern "system" fn create_execution_graph_pipelines_amdx(
             _: Option<BorrowedHandle<'_, Device>>,
@@ -28618,7 +29334,7 @@ impl CommandsDispatcher {
         extern "system" fn get_acceleration_structure_memory_requirements_nv(
             _: Option<BorrowedHandle<'_, Device>>,
             _: *const AccelerationStructureMemoryRequirementsInfoNV,
-            _: *const MemoryRequirements2KHR,
+            _: *const MemoryRequirements2,
         ) {
             panic!("Trying to call an unloaded Vulkan command");
         }
@@ -29163,6 +29879,13 @@ impl CommandsDispatcher {
             _: i32,
             _: u32,
             _: *const DisplayKHR,
+        ) -> Status {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(feature = "ext_queue_perf_hint")]
+        extern "system" fn queue_set_perf_hint_qcom(
+            _: Option<BorrowedHandle<'_, Queue>>,
+            _: *const PerfHintInfoQCOM,
         ) -> Status {
             panic!("Trying to call an unloaded Vulkan command");
         }
@@ -29751,7 +30474,7 @@ impl CommandsDispatcher {
         #[cfg(feature = "ext_pipeline_properties")]
         extern "system" fn get_pipeline_properties_ext(
             _: Option<BorrowedHandle<'_, Device>>,
-            _: *const PipelineInfoEXT,
+            _: *const PipelineInfoKHR,
             _: *const BaseOutStructure,
         ) -> Status {
             panic!("Trying to call an unloaded Vulkan command");
@@ -29969,6 +30692,13 @@ impl CommandsDispatcher {
             _: Option<BorrowedHandle<'_, Device>>,
             _: Option<BorrowedHandle<'_, DeviceMemory>>,
             _: f32,
+        ) {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(feature = "ext_scheduling_controls")]
+        extern "system" fn cmd_set_dispatch_parameters_arm(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
+            _: *const DispatchParametersARM,
         ) {
             panic!("Trying to call an unloaded Vulkan command");
         }
@@ -30260,9 +30990,12 @@ impl CommandsDispatcher {
         #[cfg(any(
             all(
                 feature = "ext_extended_dynamic_state3",
-                feature = "ext_line_rasterization"
+                any(feature = "version_1_4", feature = "ext_line_rasterization")
             ),
-            all(feature = "ext_shader_object", feature = "ext_line_rasterization")
+            all(
+                feature = "ext_shader_object",
+                any(feature = "version_1_4", feature = "ext_line_rasterization")
+            )
         ))]
         extern "system" fn cmd_set_line_rasterization_mode_ext(
             _: Option<BorrowedHandle<'_, CommandBuffer>>,
@@ -30273,9 +31006,12 @@ impl CommandsDispatcher {
         #[cfg(any(
             all(
                 feature = "ext_extended_dynamic_state3",
-                feature = "ext_line_rasterization"
+                any(feature = "version_1_4", feature = "ext_line_rasterization")
             ),
-            all(feature = "ext_shader_object", feature = "ext_line_rasterization")
+            all(
+                feature = "ext_shader_object",
+                any(feature = "version_1_4", feature = "ext_line_rasterization")
+            )
         ))]
         extern "system" fn cmd_set_line_stipple_enable_ext(
             _: Option<BorrowedHandle<'_, CommandBuffer>>,
@@ -30889,6 +31625,18 @@ impl CommandsDispatcher {
         ) {
             panic!("Trying to call an unloaded Vulkan command");
         }
+        #[cfg(any(
+            feature = "ext_data_graph_instruction_set_tosa",
+            feature = "ext_data_graph_optical_flow"
+        ))]
+        extern "system" fn get_physical_device_queue_family_data_graph_engine_operation_properties_arm(
+            _: Option<BorrowedHandle<'_, PhysicalDevice>>,
+            _: u32,
+            _: *const QueueFamilyDataGraphPropertiesARM,
+            _: *const BaseOutStructure,
+        ) -> Status {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
         #[cfg(feature = "ext_attachment_feedback_loop_dynamic_state")]
         extern "system" fn cmd_set_attachment_feedback_loop_enable_ext(
             _: Option<BorrowedHandle<'_, CommandBuffer>>,
@@ -31106,6 +31854,22 @@ impl CommandsDispatcher {
         ) {
             panic!("Trying to call an unloaded Vulkan command");
         }
+        #[cfg(feature = "ext_device_fault")]
+        extern "system" fn get_device_fault_reports_khr(
+            _: Option<BorrowedHandle<'_, Device>>,
+            _: u64,
+            _: *const u32,
+            _: *const DeviceFaultInfoKHR,
+        ) -> Status {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(feature = "ext_device_fault")]
+        extern "system" fn get_device_fault_debug_info_khr(
+            _: Option<BorrowedHandle<'_, Device>>,
+            _: *const DeviceFaultDebugInfoKHR,
+        ) -> Status {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
         #[cfg(feature = "ext_ohos_surface")]
         extern "system" fn create_surface_ohos(
             _: Option<BorrowedHandle<'_, Instance>>,
@@ -31225,6 +31989,17 @@ impl CommandsDispatcher {
         ) {
             panic!("Trying to call an unloaded Vulkan command");
         }
+        #[cfg(feature = "ext_data_graph_optical_flow")]
+        extern "system" fn get_physical_device_queue_family_data_graph_optical_flow_image_formats_arm(
+            _: Option<BorrowedHandle<'_, PhysicalDevice>>,
+            _: u32,
+            _: *const QueueFamilyDataGraphPropertiesARM,
+            _: *const DataGraphOpticalFlowImageFormatInfoARM,
+            _: *const u32,
+            _: *const DataGraphOpticalFlowImageFormatPropertiesARM,
+        ) -> Status {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
         #[cfg(feature = "ext_compute_occupancy_priority")]
         extern "system" fn cmd_set_compute_occupancy_priority_nv(
             _: Option<BorrowedHandle<'_, CommandBuffer>>,
@@ -31247,6 +32022,13 @@ impl CommandsDispatcher {
             _: u32,
             _: *const VoidPtr,
         ) -> Bool32 {
+            panic!("Trying to call an unloaded Vulkan command");
+        }
+        #[cfg(feature = "ext_primitive_restart_index")]
+        extern "system" fn cmd_set_primitive_restart_index_ext(
+            _: Option<BorrowedHandle<'_, CommandBuffer>>,
+            _: u32,
+        ) {
             panic!("Trying to call an unloaded Vulkan command");
         }
         Self {
@@ -32360,6 +33142,30 @@ impl CommandsDispatcher {
             get_memory_android_hardware_buffer_android: Cell::new(
                 get_memory_android_hardware_buffer_android,
             ),
+            #[cfg(feature = "ext_gpa_interface")]
+            create_gpa_session_amd: Cell::new(create_gpa_session_amd),
+            #[cfg(feature = "ext_gpa_interface")]
+            destroy_gpa_session_amd: Cell::new(destroy_gpa_session_amd),
+            #[cfg(feature = "ext_gpa_interface")]
+            set_gpa_device_clock_mode_amd: Cell::new(set_gpa_device_clock_mode_amd),
+            #[cfg(feature = "ext_gpa_interface")]
+            get_gpa_device_clock_info_amd: Cell::new(get_gpa_device_clock_info_amd),
+            #[cfg(feature = "ext_gpa_interface")]
+            cmd_begin_gpa_session_amd: Cell::new(cmd_begin_gpa_session_amd),
+            #[cfg(feature = "ext_gpa_interface")]
+            cmd_end_gpa_session_amd: Cell::new(cmd_end_gpa_session_amd),
+            #[cfg(feature = "ext_gpa_interface")]
+            cmd_begin_gpa_sample_amd: Cell::new(cmd_begin_gpa_sample_amd),
+            #[cfg(feature = "ext_gpa_interface")]
+            cmd_end_gpa_sample_amd: Cell::new(cmd_end_gpa_sample_amd),
+            #[cfg(feature = "ext_gpa_interface")]
+            get_gpa_session_status_amd: Cell::new(get_gpa_session_status_amd),
+            #[cfg(feature = "ext_gpa_interface")]
+            get_gpa_session_results_amd: Cell::new(get_gpa_session_results_amd),
+            #[cfg(feature = "ext_gpa_interface")]
+            reset_gpa_session_amd: Cell::new(reset_gpa_session_amd),
+            #[cfg(feature = "ext_gpa_interface")]
+            cmd_copy_gpa_session_results_amd: Cell::new(cmd_copy_gpa_session_results_amd),
             #[cfg(feature = "ext_shader_enqueue")]
             create_execution_graph_pipelines_amdx: Cell::new(create_execution_graph_pipelines_amdx),
             #[cfg(feature = "ext_shader_enqueue")]
@@ -32692,6 +33498,8 @@ impl CommandsDispatcher {
             acquire_drm_display_ext: Cell::new(acquire_drm_display_ext),
             #[cfg(feature = "ext_acquire_drm_display")]
             get_drm_display_ext: Cell::new(get_drm_display_ext),
+            #[cfg(feature = "ext_queue_perf_hint")]
+            queue_set_perf_hint_qcom: Cell::new(queue_set_perf_hint_qcom),
             #[cfg(feature = "ext_cuda_kernel_launch")]
             create_cuda_module_nv: Cell::new(create_cuda_module_nv),
             #[cfg(feature = "ext_cuda_kernel_launch")]
@@ -32956,6 +33764,8 @@ impl CommandsDispatcher {
             cmd_draw_cluster_indirect_huawei: Cell::new(cmd_draw_cluster_indirect_huawei),
             #[cfg(feature = "ext_pageable_device_local_memory")]
             set_device_memory_priority_ext: Cell::new(set_device_memory_priority_ext),
+            #[cfg(feature = "ext_scheduling_controls")]
+            cmd_set_dispatch_parameters_arm: Cell::new(cmd_set_dispatch_parameters_arm),
             #[cfg(feature = "ext_descriptor_set_host_mapping")]
             get_descriptor_set_layout_host_mapping_info_valve: Cell::new(
                 get_descriptor_set_layout_host_mapping_info_valve,
@@ -33090,17 +33900,23 @@ impl CommandsDispatcher {
             #[cfg(any(
                 all(
                     feature = "ext_extended_dynamic_state3",
-                    feature = "ext_line_rasterization"
+                    any(feature = "version_1_4", feature = "ext_line_rasterization")
                 ),
-                all(feature = "ext_shader_object", feature = "ext_line_rasterization")
+                all(
+                    feature = "ext_shader_object",
+                    any(feature = "version_1_4", feature = "ext_line_rasterization")
+                )
             ))]
             cmd_set_line_rasterization_mode_ext: Cell::new(cmd_set_line_rasterization_mode_ext),
             #[cfg(any(
                 all(
                     feature = "ext_extended_dynamic_state3",
-                    feature = "ext_line_rasterization"
+                    any(feature = "version_1_4", feature = "ext_line_rasterization")
                 ),
-                all(feature = "ext_shader_object", feature = "ext_line_rasterization")
+                all(
+                    feature = "ext_shader_object",
+                    any(feature = "version_1_4", feature = "ext_line_rasterization")
+                )
             ))]
             cmd_set_line_stipple_enable_ext: Cell::new(cmd_set_line_stipple_enable_ext),
             #[cfg(any(
@@ -33361,6 +34177,13 @@ impl CommandsDispatcher {
             get_physical_device_queue_family_data_graph_processing_engine_properties_arm: Cell::new(
                 get_physical_device_queue_family_data_graph_processing_engine_properties_arm,
             ),
+            #[cfg(any(
+                feature = "ext_data_graph_instruction_set_tosa",
+                feature = "ext_data_graph_optical_flow"
+            ))]
+            get_physical_device_queue_family_data_graph_engine_operation_properties_arm: Cell::new(
+                get_physical_device_queue_family_data_graph_engine_operation_properties_arm,
+            ),
             #[cfg(feature = "ext_attachment_feedback_loop_dynamic_state")]
             cmd_set_attachment_feedback_loop_enable_ext: Cell::new(
                 cmd_set_attachment_feedback_loop_enable_ext,
@@ -33445,6 +34268,10 @@ impl CommandsDispatcher {
             update_indirect_execution_set_shader_ext: Cell::new(
                 update_indirect_execution_set_shader_ext,
             ),
+            #[cfg(feature = "ext_device_fault")]
+            get_device_fault_reports_khr: Cell::new(get_device_fault_reports_khr),
+            #[cfg(feature = "ext_device_fault")]
+            get_device_fault_debug_info_khr: Cell::new(get_device_fault_debug_info_khr),
             #[cfg(feature = "ext_ohos_surface")]
             create_surface_ohos: Cell::new(create_surface_ohos),
             #[cfg(feature = "ext_cooperative_matrix2")]
@@ -33494,6 +34321,10 @@ impl CommandsDispatcher {
                 feature = "ext_maintenance10"
             ))]
             cmd_end_rendering2_khr: Cell::new(cmd_end_rendering2_khr),
+            #[cfg(feature = "ext_data_graph_optical_flow")]
+            get_physical_device_queue_family_data_graph_optical_flow_image_formats_arm: Cell::new(
+                get_physical_device_queue_family_data_graph_optical_flow_image_formats_arm,
+            ),
             #[cfg(feature = "ext_compute_occupancy_priority")]
             cmd_set_compute_occupancy_priority_nv: Cell::new(cmd_set_compute_occupancy_priority_nv),
             #[cfg(feature = "ext_ubm_surface")]
@@ -33502,6 +34333,8 @@ impl CommandsDispatcher {
             get_physical_device_ubm_presentation_support_sec: Cell::new(
                 get_physical_device_ubm_presentation_support_sec,
             ),
+            #[cfg(feature = "ext_primitive_restart_index")]
+            cmd_set_primitive_restart_index_ext: Cell::new(cmd_set_primitive_restart_index_ext),
         }
     }
 }

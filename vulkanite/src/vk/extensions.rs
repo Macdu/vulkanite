@@ -1,7 +1,7 @@
 use super::{
     ApiVersion, DeviceExtension, DeviceExtensionName, InstanceExtension, InstanceExtensionName,
 };
-pub const HEADER_VERSION: ApiVersion = ApiVersion::new(0, 1, 4, 346u32);
+pub const HEADER_VERSION: ApiVersion = ApiVersion::new(0, 1, 4, 353u32);
 #[cfg(feature = "ext_surface")]
 pub const KHR_SURFACE: InstanceExtension = InstanceExtension {
     name: unsafe { InstanceExtensionName::new(c"VK_KHR_surface") },
@@ -803,6 +803,19 @@ pub const AMD_GPU_SHADER_INT16: DeviceExtension = DeviceExtension {
     name: unsafe { DeviceExtensionName::new(c"VK_AMD_gpu_shader_int16") },
     spec: 2u32,
 };
+#[cfg(feature = "ext_gpa_interface")]
+pub const AMD_GPA_INTERFACE: DeviceExtension = DeviceExtension {
+    name: unsafe { DeviceExtensionName::new(c"VK_AMD_gpa_interface") },
+    spec: 1u32,
+};
+#[cfg(all(
+    feature = "ext_gpa_interface",
+    not(any(
+        feature = "ext_get_physical_device_properties2",
+        feature = "version_1_1"
+    ))
+))]
+compile_error ! ("The feature ext_gpa_interface requires (ext_get_physical_device_properties2 or version_1_1) to be enabled.") ;
 #[cfg(feature = "ext_shader_enqueue")]
 pub const AMDX_SHADER_ENQUEUE: DeviceExtension = DeviceExtension {
     name: unsafe { DeviceExtensionName::new(c"VK_AMDX_shader_enqueue") },
@@ -830,12 +843,15 @@ pub const EXT_DESCRIPTOR_HEAP: DeviceExtension = DeviceExtension {
 };
 #[cfg(all(
     feature = "ext_descriptor_heap",
-    not(all(
-        feature = "ext_maintenance5",
-        any(feature = "ext_buffer_device_address", feature = "version_1_2")
-    ))
+    not(all(any(
+        all(
+            any(feature = "ext_extended_flags", feature = "ext_maintenance5"),
+            any(feature = "ext_buffer_device_address", feature = "version_1_2")
+        ),
+        feature = "version_1_4"
+    )))
 ))]
-compile_error ! ("The feature ext_descriptor_heap requires (ext_maintenance5 and (ext_buffer_device_address or version_1_2)) to be enabled.") ;
+compile_error ! ("The feature ext_descriptor_heap requires ((((ext_extended_flags or ext_maintenance5) and (ext_buffer_device_address or version_1_2)) or version_1_4)) to be enabled.") ;
 #[cfg(feature = "ext_mixed_attachment_samples")]
 pub const AMD_MIXED_ATTACHMENT_SAMPLES: DeviceExtension = DeviceExtension {
     name: unsafe { DeviceExtensionName::new(c"VK_AMD_mixed_attachment_samples") },
@@ -1111,6 +1127,10 @@ pub const QCOM_RENDER_PASS_SHADER_RESOLVE: DeviceExtension = DeviceExtension {
 };
 pub const QCOM_COOPERATIVE_MATRIX_CONVERSION: DeviceExtension = DeviceExtension {
     name: unsafe { DeviceExtensionName::new(c"VK_QCOM_cooperative_matrix_conversion") },
+    spec: 1u32,
+};
+pub const QCOM_ELAPSED_TIMER_QUERY: DeviceExtension = DeviceExtension {
+    name: unsafe { DeviceExtensionName::new(c"VK_QCOM_elapsed_timer_query") },
     spec: 1u32,
 };
 #[cfg(feature = "ext_global_priority")]
@@ -1444,6 +1464,10 @@ pub const AMD_DEVICE_COHERENT_MEMORY: DeviceExtension = DeviceExtension {
     name: unsafe { DeviceExtensionName::new(c"VK_AMD_device_coherent_memory") },
     spec: 1u32,
 };
+pub const KHR_SHADER_CONSTANT_DATA: DeviceExtension = DeviceExtension {
+    name: unsafe { DeviceExtensionName::new(c"VK_KHR_shader_constant_data") },
+    spec: 1u32,
+};
 #[cfg(feature = "ext_dynamic_rendering_local_read")]
 pub const KHR_DYNAMIC_RENDERING_LOCAL_READ: DeviceExtension = DeviceExtension {
     name: unsafe { DeviceExtensionName::new(c"VK_KHR_dynamic_rendering_local_read") },
@@ -1454,6 +1478,13 @@ pub const KHR_DYNAMIC_RENDERING_LOCAL_READ: DeviceExtension = DeviceExtension {
     not(any(feature = "ext_dynamic_rendering", feature = "version_1_3"))
 ))]
 compile_error ! ("The feature ext_dynamic_rendering_local_read requires (ext_dynamic_rendering or version_1_3) to be enabled.") ;
+#[cfg(feature = "ext_shader_abort")]
+pub const KHR_SHADER_ABORT: DeviceExtension = DeviceExtension {
+    name: unsafe { DeviceExtensionName::new(c"VK_KHR_shader_abort") },
+    spec: 1u32,
+};
+#[cfg(all(feature = "ext_shader_abort", not(all(feature = "ext_device_fault"))))]
+compile_error ! ("The feature ext_shader_abort requires (ext_device_fault and ext_shader_constant_data) to be enabled.") ;
 pub const EXT_SHADER_IMAGE_ATOMIC_INT64: DeviceExtension = DeviceExtension {
     name: unsafe { DeviceExtensionName::new(c"VK_EXT_shader_image_atomic_int64") },
     spec: 1u32,
@@ -1790,12 +1821,12 @@ pub const NV_DEVICE_GENERATED_COMMANDS: DeviceExtension = DeviceExtension {
     not(any(
         all(
             any(feature = "ext_buffer_device_address", feature = "version_1_2"),
-            feature = "ext_maintenance5"
+            any(feature = "ext_extended_flags", feature = "ext_maintenance5")
         ),
         feature = "version_1_3"
     ))
 ))]
-compile_error ! ("The feature ext_device_generated_commands requires (((ext_buffer_device_address or version_1_2) and ext_maintenance5) or version_1_3) to be enabled.") ;
+compile_error ! ("The feature ext_device_generated_commands requires (((ext_buffer_device_address or version_1_2) and (ext_extended_flags or ext_maintenance5)) or version_1_3) to be enabled.") ;
 #[cfg(feature = "ext_inherited_viewport_scissor")]
 pub const NV_INHERITED_VIEWPORT_SCISSOR: DeviceExtension = DeviceExtension {
     name: unsafe { DeviceExtensionName::new(c"VK_NV_inherited_viewport_scissor") },
@@ -1970,6 +2001,31 @@ compile_error ! ("The feature ext_device_diagnostics_config requires (ext_get_ph
 pub const QCOM_RENDER_PASS_STORE_OPS: DeviceExtension = DeviceExtension {
     name: unsafe { DeviceExtensionName::new(c"VK_QCOM_render_pass_store_ops") },
     spec: 2u32,
+};
+#[cfg(feature = "ext_queue_perf_hint")]
+pub const QCOM_QUEUE_PERF_HINT: DeviceExtension = DeviceExtension {
+    name: unsafe { DeviceExtensionName::new(c"VK_QCOM_queue_perf_hint") },
+    spec: 1u32,
+};
+#[cfg(all(
+    feature = "ext_queue_perf_hint",
+    not(any(
+        feature = "ext_get_physical_device_properties2",
+        feature = "version_1_1"
+    ))
+))]
+compile_error ! ("The feature ext_queue_perf_hint requires (ext_get_physical_device_properties2 or version_1_1) to be enabled.") ;
+pub const QCOM_IMAGE_PROCESSING3: DeviceExtension = DeviceExtension {
+    name: unsafe { DeviceExtensionName::new(c"VK_QCOM_image_processing3") },
+    spec: 1u32,
+};
+pub const QCOM_SHADER_MULTIPLE_WAIT_QUEUES: DeviceExtension = DeviceExtension {
+    name: unsafe { DeviceExtensionName::new(c"VK_QCOM_shader_multiple_wait_queues") },
+    spec: 1u32,
+};
+pub const EXT_SHADER_SPLIT_BARRIER: DeviceExtension = DeviceExtension {
+    name: unsafe { DeviceExtensionName::new(c"VK_EXT_shader_split_barrier") },
+    spec: 1u32,
 };
 #[cfg(feature = "ext_cuda_kernel_launch")]
 pub const NV_CUDA_KERNEL_LAUNCH: DeviceExtension = DeviceExtension {
@@ -2550,10 +2606,10 @@ pub const EXT_OPACITY_MICROMAP: DeviceExtension = DeviceExtension {
     feature = "ext_opacity_micromap",
     not(all(
         feature = "ext_acceleration_structure",
-        any(feature = "ext_synchronization2", feature = "version_1_3")
+        feature = "ext_device_address_commands"
     ))
 ))]
-compile_error ! ("The feature ext_opacity_micromap requires (ext_acceleration_structure and (ext_synchronization2 or version_1_3)) to be enabled.") ;
+compile_error ! ("The feature ext_opacity_micromap requires (ext_acceleration_structure and ext_device_address_commands) to be enabled.") ;
 #[cfg(feature = "ext_displacement_micromap")]
 pub const NV_DISPLACEMENT_MICROMAP: DeviceExtension = DeviceExtension {
     name: unsafe { DeviceExtensionName::new(c"VK_NV_displacement_micromap") },
@@ -2625,7 +2681,7 @@ pub const KHR_SHADER_SUBGROUP_ROTATE: DeviceExtension = DeviceExtension {
 #[cfg(feature = "ext_scheduling_controls")]
 pub const ARM_SCHEDULING_CONTROLS: DeviceExtension = DeviceExtension {
     name: unsafe { DeviceExtensionName::new(c"VK_ARM_scheduling_controls") },
-    spec: 1u32,
+    spec: 2u32,
 };
 #[cfg(feature = "ext_image_sliced_view_of_3d")]
 pub const EXT_IMAGE_SLICED_VIEW_OF_3D: DeviceExtension = DeviceExtension {
@@ -2936,10 +2992,14 @@ pub const AMDX_DENSE_GEOMETRY_FORMAT: DeviceExtension = DeviceExtension {
     feature = "ext_dense_geometry_format",
     not(all(
         feature = "ext_acceleration_structure",
-        any(feature = "ext_maintenance5", feature = "version_1_4")
+        any(
+            feature = "version_1_4",
+            feature = "ext_extended_flags",
+            feature = "ext_maintenance5"
+        )
     ))
 ))]
-compile_error ! ("The feature ext_dense_geometry_format requires (ext_acceleration_structure and (ext_maintenance5 or version_1_4)) to be enabled.") ;
+compile_error ! ("The feature ext_dense_geometry_format requires (ext_acceleration_structure and (version_1_4 or ext_extended_flags or ext_maintenance5)) to be enabled.") ;
 #[cfg(feature = "ext_present_id2")]
 pub const KHR_PRESENT_ID2: DeviceExtension = DeviceExtension {
     name: unsafe { DeviceExtensionName::new(c"VK_KHR_present_id2") },
@@ -2999,11 +3059,13 @@ pub const KHR_PIPELINE_BINARY: DeviceExtension = DeviceExtension {
 };
 #[cfg(all(
     feature = "ext_pipeline_binary",
-    not(any(feature = "ext_maintenance5", feature = "version_1_4"))
+    not(any(
+        feature = "version_1_4",
+        feature = "ext_extended_flags",
+        feature = "ext_maintenance5"
+    ))
 ))]
-compile_error!(
-    "The feature ext_pipeline_binary requires (ext_maintenance5 or version_1_4) to be enabled."
-);
+compile_error ! ("The feature ext_pipeline_binary requires (version_1_4 or ext_extended_flags or ext_maintenance5) to be enabled.") ;
 #[cfg(feature = "ext_tile_properties")]
 pub const QCOM_TILE_PROPERTIES: DeviceExtension = DeviceExtension {
     name: unsafe { DeviceExtensionName::new(c"VK_QCOM_tile_properties") },
@@ -3128,11 +3190,23 @@ pub const ARM_DATA_GRAPH: DeviceExtension = DeviceExtension {
     feature = "ext_data_graph",
     not(all(
         feature = "version_1_3",
-        feature = "ext_maintenance5",
+        any(feature = "ext_extended_flags", feature = "ext_maintenance5"),
         feature = "ext_deferred_host_operations"
     ))
 ))]
-compile_error ! ("The feature ext_data_graph requires (version_1_3 and ext_maintenance5 and ext_deferred_host_operations) to be enabled.") ;
+compile_error ! ("The feature ext_data_graph requires (version_1_3 and (ext_extended_flags or ext_maintenance5) and ext_deferred_host_operations) to be enabled.") ;
+#[cfg(feature = "ext_data_graph_instruction_set_tosa")]
+pub const ARM_DATA_GRAPH_INSTRUCTION_SET_TOSA: DeviceExtension = DeviceExtension {
+    name: unsafe { DeviceExtensionName::new(c"VK_ARM_data_graph_instruction_set_tosa") },
+    spec: 1u32,
+};
+#[cfg(all(
+    feature = "ext_data_graph_instruction_set_tosa",
+    not(feature = "ext_data_graph")
+))]
+compile_error!(
+    "The feature ext_data_graph_instruction_set_tosa requires ext_data_graph to be enabled."
+);
 #[cfg(feature = "ext_multiview_per_view_render_areas")]
 pub const QCOM_MULTIVIEW_PER_VIEW_RENDER_AREAS: DeviceExtension = DeviceExtension {
     name: unsafe { DeviceExtensionName::new(c"VK_QCOM_multiview_per_view_render_areas") },
@@ -3390,6 +3464,11 @@ pub const EXT_DEVICE_GENERATED_COMMANDS: DeviceExtension = DeviceExtension {
     name: unsafe { DeviceExtensionName::new(c"VK_EXT_device_generated_commands") },
     spec: 1u32,
 };
+#[cfg(feature = "ext_device_fault")]
+pub const KHR_DEVICE_FAULT: DeviceExtension = DeviceExtension {
+    name: unsafe { DeviceExtensionName::new(c"VK_KHR_device_fault") },
+    spec: 1u32,
+};
 #[cfg(feature = "ext_maintenance8")]
 pub const KHR_MAINTENANCE8: DeviceExtension = DeviceExtension {
     name: unsafe { DeviceExtensionName::new(c"VK_KHR_maintenance8") },
@@ -3422,7 +3501,7 @@ pub const NV_PUSH_CONSTANT_BANK: DeviceExtension = DeviceExtension {
 #[cfg(feature = "ext_ray_tracing_invocation_reorder")]
 pub const EXT_RAY_TRACING_INVOCATION_REORDER: DeviceExtension = DeviceExtension {
     name: unsafe { DeviceExtensionName::new(c"VK_EXT_ray_tracing_invocation_reorder") },
-    spec: 1u32,
+    spec: 2u32,
 };
 #[cfg(feature = "ext_depth_clamp_control")]
 pub const EXT_DEPTH_CLAMP_CONTROL: DeviceExtension = DeviceExtension {
@@ -3546,11 +3625,15 @@ pub const VALVE_FRAGMENT_DENSITY_MAP_LAYERED: DeviceExtension = DeviceExtension 
 #[cfg(all(
     feature = "ext_fragment_density_map_layered",
     not(all(
-        any(feature = "ext_maintenance5", feature = "version_1_4"),
+        any(
+            feature = "version_1_4",
+            feature = "ext_extended_flags",
+            feature = "ext_maintenance5"
+        ),
         feature = "ext_fragment_density_map"
     ))
 ))]
-compile_error ! ("The feature ext_fragment_density_map_layered requires ((ext_maintenance5 or version_1_4) and ext_fragment_density_map) to be enabled.") ;
+compile_error ! ("The feature ext_fragment_density_map_layered requires ((version_1_4 or ext_extended_flags or ext_maintenance5) and ext_fragment_density_map) to be enabled.") ;
 pub const KHR_ROBUSTNESS2: DeviceExtension = DeviceExtension {
     name: unsafe { DeviceExtensionName::new(c"VK_KHR_robustness2") },
     spec: 1u32,
@@ -3568,6 +3651,19 @@ pub const NV_PRESENT_METERING: DeviceExtension = DeviceExtension {
     ))
 ))]
 compile_error ! ("The feature ext_present_metering requires (ext_get_physical_device_properties2 or version_1_1) to be enabled.") ;
+#[cfg(feature = "ext_multisampled_render_to_swapchain")]
+pub const EXT_MULTISAMPLED_RENDER_TO_SWAPCHAIN: DeviceExtension = DeviceExtension {
+    name: unsafe { DeviceExtensionName::new(c"VK_EXT_multisampled_render_to_swapchain") },
+    spec: 1u32,
+};
+#[cfg(all(
+    feature = "ext_multisampled_render_to_swapchain",
+    not(all(
+        feature = "ext_swapchain",
+        feature = "ext_multisampled_render_to_single_sampled"
+    ))
+))]
+compile_error ! ("The feature ext_multisampled_render_to_swapchain requires (ext_swapchain and ext_multisampled_render_to_single_sampled) to be enabled.") ;
 #[cfg(feature = "ext_fragment_density_map_offset")]
 pub const EXT_FRAGMENT_DENSITY_MAP_OFFSET: DeviceExtension = DeviceExtension {
     name: unsafe { DeviceExtensionName::new(c"VK_EXT_fragment_density_map_offset") },
@@ -3579,6 +3675,11 @@ pub const EXT_ZERO_INITIALIZE_DEVICE_MEMORY: DeviceExtension = DeviceExtension {
 };
 pub const KHR_PRESENT_MODE_FIFO_LATEST_READY: DeviceExtension = DeviceExtension {
     name: unsafe { DeviceExtensionName::new(c"VK_KHR_present_mode_fifo_latest_ready") },
+    spec: 1u32,
+};
+#[cfg(feature = "ext_opacity_micromap")]
+pub const KHR_OPACITY_MICROMAP: DeviceExtension = DeviceExtension {
+    name: unsafe { DeviceExtensionName::new(c"VK_KHR_opacity_micromap") },
     spec: 1u32,
 };
 pub const EXT_SHADER_64BIT_INDEXING: DeviceExtension = DeviceExtension {
@@ -3618,6 +3719,16 @@ pub const KHR_MAINTENANCE10: DeviceExtension = DeviceExtension {
     ))
 ))]
 compile_error ! ("The feature ext_maintenance10 requires (ext_get_physical_device_properties2 or version_1_1) to be enabled.") ;
+#[cfg(feature = "ext_data_graph_optical_flow")]
+pub const ARM_DATA_GRAPH_OPTICAL_FLOW: DeviceExtension = DeviceExtension {
+    name: unsafe { DeviceExtensionName::new(c"VK_ARM_data_graph_optical_flow") },
+    spec: 1u32,
+};
+#[cfg(all(
+    feature = "ext_data_graph_optical_flow",
+    not(feature = "ext_data_graph")
+))]
+compile_error!("The feature ext_data_graph_optical_flow requires ext_data_graph to be enabled.");
 pub const EXT_SHADER_LONG_VECTOR: DeviceExtension = DeviceExtension {
     name: unsafe { DeviceExtensionName::new(c"VK_EXT_shader_long_vector") },
     spec: 1u32,
@@ -3643,6 +3754,10 @@ pub const NV_COMPUTE_OCCUPANCY_PRIORITY: DeviceExtension = DeviceExtension {
     ))
 ))]
 compile_error ! ("The feature ext_compute_occupancy_priority requires (ext_get_physical_device_properties2 or version_1_1) to be enabled.") ;
+pub const KHR_MAINTENANCE11: DeviceExtension = DeviceExtension {
+    name: unsafe { DeviceExtensionName::new(c"VK_KHR_maintenance11") },
+    spec: 1u32,
+};
 pub const EXT_SHADER_SUBGROUP_PARTITIONED: DeviceExtension = DeviceExtension {
     name: unsafe { DeviceExtensionName::new(c"VK_EXT_shader_subgroup_partitioned") },
     spec: 1u32,
@@ -3654,7 +3769,47 @@ pub const SEC_UBM_SURFACE: InstanceExtension = InstanceExtension {
 };
 #[cfg(all(feature = "ext_ubm_surface", not(feature = "ext_surface")))]
 compile_error!("The feature ext_ubm_surface requires ext_surface to be enabled.");
+#[cfg(feature = "ext_extended_flags")]
+pub const KHR_EXTENDED_FLAGS: DeviceExtension = DeviceExtension {
+    name: unsafe { DeviceExtensionName::new(c"VK_KHR_extended_flags") },
+    spec: 1u32,
+};
+#[cfg(all(
+    feature = "ext_extended_flags",
+    not(any(
+        feature = "ext_get_physical_device_properties2",
+        feature = "version_1_1"
+    ))
+))]
+compile_error ! ("The feature ext_extended_flags requires (ext_get_physical_device_properties2 or version_1_1) to be enabled.") ;
 pub const VALVE_SHADER_MIXED_FLOAT_DOT_PRODUCT: DeviceExtension = DeviceExtension {
     name: unsafe { DeviceExtensionName::new(c"VK_VALVE_shader_mixed_float_dot_product") },
+    spec: 1u32,
+};
+#[cfg(feature = "ext_throttle_hint")]
+pub const SEC_THROTTLE_HINT: DeviceExtension = DeviceExtension {
+    name: unsafe { DeviceExtensionName::new(c"VK_SEC_throttle_hint") },
+    spec: 1u32,
+};
+#[cfg(feature = "ext_data_graph_neural_accelerator_statistics")]
+pub const ARM_DATA_GRAPH_NEURAL_ACCELERATOR_STATISTICS: DeviceExtension = DeviceExtension {
+    name: unsafe { DeviceExtensionName::new(c"VK_ARM_data_graph_neural_accelerator_statistics") },
+    spec: 1u32,
+};
+#[cfg(feature = "ext_primitive_restart_index")]
+pub const EXT_PRIMITIVE_RESTART_INDEX: DeviceExtension = DeviceExtension {
+    name: unsafe { DeviceExtensionName::new(c"VK_EXT_primitive_restart_index") },
+    spec: 1u32,
+};
+#[cfg(all(
+    feature = "ext_primitive_restart_index",
+    not(any(
+        feature = "ext_get_physical_device_properties2",
+        feature = "version_1_1"
+    ))
+))]
+compile_error ! ("The feature ext_primitive_restart_index requires (ext_get_physical_device_properties2 or version_1_1) to be enabled.") ;
+pub const NV_COOPERATIVE_MATRIX_DECODE_VECTOR: DeviceExtension = DeviceExtension {
+    name: unsafe { DeviceExtensionName::new(c"VK_NV_cooperative_matrix_decode_vector") },
     spec: 1u32,
 };

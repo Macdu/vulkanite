@@ -63,6 +63,8 @@ handle_nondispatchable! { CuModuleNVX , CuModuleNVX , doc = "<https://docs.vulka
 handle_nondispatchable! { CuFunctionNVX , CuFunctionNVX , doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkCuFunctionNVX.html>" , "VkCuFunctionNVX" }
 #[cfg(feature = "ext_debug_utils")]
 handle_nondispatchable! { DebugUtilsMessengerEXT , DebugUtilsMessengerEXT , doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDebugUtilsMessengerEXT.html>" , "VkDebugUtilsMessengerEXT" }
+#[cfg(feature = "ext_gpa_interface")]
+handle_nondispatchable! { GpaSessionAMD , GpaSessionAMD , doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkGpaSessionAMD.html>" , "VkGpaSessionAMD" }
 #[cfg(any(feature = "ext_descriptor_heap", feature = "ext_tensors"))]
 handle_nondispatchable! { TensorARM , TensorARM , doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkTensorARM.html>" , "VkTensorARM" }
 #[cfg(feature = "ext_acceleration_structure")]

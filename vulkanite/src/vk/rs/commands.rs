@@ -1813,6 +1813,27 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
             )
         }
     }
+    #[cfg(any(
+        feature = "ext_data_graph_instruction_set_tosa",
+        feature = "ext_data_graph_optical_flow"
+    ))]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceQueueFamilyDataGraphEngineOperationPropertiesARM.html>"]
+    #[doc(alias = "vkGetPhysicalDeviceQueueFamilyDataGraphEngineOperationPropertiesARM")]
+    #[inline]
+    pub fn get_queue_family_data_graph_engine_operation_properties_arm(
+        &self,
+        queue_family_index: u32,
+        p_queue_family_data_graph_properties: &QueueFamilyDataGraphPropertiesARM,
+    ) -> Result<BaseOutStructure<'static>> {
+        unsafe {
+            raw::get_physical_device_queue_family_data_graph_engine_operation_properties_arm(
+                self,
+                queue_family_index,
+                p_queue_family_data_graph_properties,
+                self.disp.get_command_dispatcher(),
+            )
+        }
+    }
     #[cfg(feature = "ext_calibrated_timestamps")]
     #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceCalibrateableTimeDomainsKHR.html>"]
     #[doc(alias = "vkGetPhysicalDeviceCalibrateableTimeDomainsKHR")]
@@ -1861,6 +1882,27 @@ impl<D: Dispatcher, A: BaseAllocator> PhysicalDevice<D, A> {
         unsafe {
             raw::enumerate_physical_device_shader_instrumentation_metrics_arm(
                 self,
+                self.disp.get_command_dispatcher(),
+            )
+        }
+    }
+    #[cfg(feature = "ext_data_graph_optical_flow")]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceQueueFamilyDataGraphOpticalFlowImageFormatsARM.html>"]
+    #[doc(alias = "vkGetPhysicalDeviceQueueFamilyDataGraphOpticalFlowImageFormatsARM")]
+    pub fn get_queue_family_data_graph_optical_flow_image_formats_arm<
+        R: DynamicArray<DataGraphOpticalFlowImageFormatPropertiesARM<'static>>,
+    >(
+        &self,
+        queue_family_index: u32,
+        p_queue_family_data_graph_properties: &QueueFamilyDataGraphPropertiesARM,
+        p_optical_flow_image_format_info: &DataGraphOpticalFlowImageFormatInfoARM,
+    ) -> Result<R> {
+        unsafe {
+            raw::get_physical_device_queue_family_data_graph_optical_flow_image_formats_arm(
+                self,
+                queue_family_index,
+                p_queue_family_data_graph_properties,
+                p_optical_flow_image_format_info,
                 self.disp.get_command_dispatcher(),
             )
         }
@@ -4827,6 +4869,90 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
             )
         }
     }
+    #[cfg(feature = "ext_gpa_interface")]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateGpaSessionAMD.html>"]
+    #[doc(alias = "vkCreateGpaSessionAMD")]
+    #[inline]
+    pub fn create_gpa_session_amd(
+        &self,
+        p_create_info: &GpaSessionCreateInfoAMD,
+    ) -> Result<GpaSessionAMD> {
+        let vk_result = unsafe {
+            raw::create_gpa_session_amd(
+                self,
+                p_create_info,
+                self.alloc.get_allocation_callbacks().as_ref(),
+                self.disp.get_command_dispatcher(),
+            )
+        };
+        vk_result.map(|vk_result| unsafe { GpaSessionAMD::from_inner(vk_result) })
+    }
+    #[cfg(feature = "ext_gpa_interface")]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyGpaSessionAMD.html>"]
+    #[doc(alias = "vkDestroyGpaSessionAMD")]
+    #[inline]
+    pub unsafe fn destroy_gpa_session_amd(&self, gpa_session: Option<&raw::GpaSessionAMD>) {
+        unsafe {
+            raw::destroy_gpa_session_amd(
+                self,
+                gpa_session,
+                self.alloc.get_allocation_callbacks().as_ref(),
+                self.disp.get_command_dispatcher(),
+            )
+        }
+    }
+    #[cfg(feature = "ext_gpa_interface")]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkSetGpaDeviceClockModeAMD.html>"]
+    #[doc(alias = "vkSetGpaDeviceClockModeAMD")]
+    pub fn set_gpa_clock_mode_amd<S: StructureChainOut<GpaDeviceClockModeInfoAMD<'static>>>(
+        &self,
+    ) -> Result<S> {
+        unsafe { raw::set_gpa_device_clock_mode_amd(self, self.disp.get_command_dispatcher()) }
+    }
+    #[cfg(feature = "ext_gpa_interface")]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetGpaDeviceClockInfoAMD.html>"]
+    #[doc(alias = "vkGetGpaDeviceClockInfoAMD")]
+    pub fn get_gpa_clock_info_amd<S: StructureChainOut<GpaDeviceGetClockInfoAMD<'static>>>(
+        &self,
+    ) -> Result<S> {
+        unsafe { raw::get_gpa_device_clock_info_amd(self, self.disp.get_command_dispatcher()) }
+    }
+    #[cfg(feature = "ext_gpa_interface")]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetGpaSessionStatusAMD.html>"]
+    #[doc(alias = "vkGetGpaSessionStatusAMD")]
+    #[inline]
+    pub fn get_gpa_session_status_amd(&self, gpa_session: &raw::GpaSessionAMD) -> Result<()> {
+        unsafe {
+            raw::get_gpa_session_status_amd(self, gpa_session, self.disp.get_command_dispatcher())
+        }
+    }
+    #[cfg(feature = "ext_gpa_interface")]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetGpaSessionResultsAMD.html>"]
+    #[doc(alias = "vkGetGpaSessionResultsAMD")]
+    #[inline]
+    pub fn get_gpa_session_results_amd(
+        &self,
+        gpa_session: &raw::GpaSessionAMD,
+        sample_id: u32,
+        p_data: VoidPtr,
+    ) -> Result<usize> {
+        unsafe {
+            raw::get_gpa_session_results_amd(
+                self,
+                gpa_session,
+                sample_id,
+                p_data,
+                self.disp.get_command_dispatcher(),
+            )
+        }
+    }
+    #[cfg(feature = "ext_gpa_interface")]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkResetGpaSessionAMD.html>"]
+    #[doc(alias = "vkResetGpaSessionAMD")]
+    #[inline]
+    pub fn reset_gpa_session_amd(&self, gpa_session: &raw::GpaSessionAMD) -> Result<()> {
+        unsafe { raw::reset_gpa_session_amd(self, gpa_session, self.disp.get_command_dispatcher()) }
+    }
     #[cfg(feature = "ext_shader_enqueue")]
     #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateExecutionGraphPipelinesAMDX.html>"]
     #[doc(alias = "vkCreateExecutionGraphPipelinesAMDX")]
@@ -5434,7 +5560,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
     #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetAccelerationStructureMemoryRequirementsNV.html>"]
     #[doc(alias = "vkGetAccelerationStructureMemoryRequirementsNV")]
     pub fn get_acceleration_structure_memory_requirements_nv<
-        S: StructureChainOut<MemoryRequirements2KHR<'static>>,
+        S: StructureChainOut<MemoryRequirements2<'static>>,
     >(
         &self,
         p_info: &AccelerationStructureMemoryRequirementsInfoNV,
@@ -6362,7 +6488,7 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
     #[inline]
     pub fn get_pipeline_properties_ext(
         &self,
-        p_pipeline_info: &PipelineInfoEXT,
+        p_pipeline_info: &PipelineInfoKHR,
     ) -> Result<BaseOutStructure<'static>> {
         unsafe {
             raw::get_pipeline_properties_ext(
@@ -7526,6 +7652,25 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
             )
         }
     }
+    #[cfg(feature = "ext_device_fault")]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDeviceFaultReportsKHR.html>"]
+    #[doc(alias = "vkGetDeviceFaultReportsKHR")]
+    pub fn get_fault_reports_khr<R: DynamicArray<DeviceFaultInfoKHR<'static>>>(
+        &self,
+        timeout: u64,
+    ) -> Result<(Status, R)> {
+        unsafe {
+            raw::get_device_fault_reports_khr(self, timeout, self.disp.get_command_dispatcher())
+        }
+    }
+    #[cfg(feature = "ext_device_fault")]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDeviceFaultDebugInfoKHR.html>"]
+    #[doc(alias = "vkGetDeviceFaultDebugInfoKHR")]
+    pub fn get_fault_debug_info_khr<S: StructureChainOut<DeviceFaultDebugInfoKHR<'static>>>(
+        &self,
+    ) -> Result<S> {
+        unsafe { raw::get_device_fault_debug_info_khr(self, self.disp.get_command_dispatcher()) }
+    }
     #[cfg(feature = "ext_external_memory_metal")]
     #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkGetMemoryMetalHandleEXT.html>"]
     #[doc(alias = "vkGetMemoryMetalHandleEXT")]
@@ -7791,6 +7936,19 @@ impl<D: Dispatcher, A: BaseAllocator> Queue<D, A> {
             raw::queue_set_performance_configuration_intel(
                 self,
                 configuration,
+                self.disp.get_command_dispatcher(),
+            )
+        }
+    }
+    #[cfg(feature = "ext_queue_perf_hint")]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkQueueSetPerfHintQCOM.html>"]
+    #[doc(alias = "vkQueueSetPerfHintQCOM")]
+    #[inline]
+    pub fn set_perf_hint_qcom(&self, p_perf_hint_info: &PerfHintInfoQCOM) -> Result<()> {
+        unsafe {
+            raw::queue_set_perf_hint_qcom(
+                self,
+                p_perf_hint_info,
                 self.disp.get_command_dispatcher(),
             )
         }
@@ -10575,6 +10733,69 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
             )
         }
     }
+    #[cfg(feature = "ext_gpa_interface")]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBeginGpaSessionAMD.html>"]
+    #[doc(alias = "vkCmdBeginGpaSessionAMD")]
+    #[inline]
+    pub fn begin_gpa_session_amd(&self, gpa_session: &raw::GpaSessionAMD) -> Result<()> {
+        unsafe {
+            raw::cmd_begin_gpa_session_amd(self, gpa_session, self.disp.get_command_dispatcher())
+        }
+    }
+    #[cfg(feature = "ext_gpa_interface")]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdEndGpaSessionAMD.html>"]
+    #[doc(alias = "vkCmdEndGpaSessionAMD")]
+    #[inline]
+    pub fn end_gpa_session_amd(&self, gpa_session: &raw::GpaSessionAMD) -> Result<()> {
+        unsafe {
+            raw::cmd_end_gpa_session_amd(self, gpa_session, self.disp.get_command_dispatcher())
+        }
+    }
+    #[cfg(feature = "ext_gpa_interface")]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBeginGpaSampleAMD.html>"]
+    #[doc(alias = "vkCmdBeginGpaSampleAMD")]
+    #[inline]
+    pub fn begin_gpa_sample_amd(
+        &self,
+        gpa_session: &raw::GpaSessionAMD,
+        p_gpa_sample_begin_info: &GpaSampleBeginInfoAMD,
+    ) -> Result<u32> {
+        unsafe {
+            raw::cmd_begin_gpa_sample_amd(
+                self,
+                gpa_session,
+                p_gpa_sample_begin_info,
+                self.disp.get_command_dispatcher(),
+            )
+        }
+    }
+    #[cfg(feature = "ext_gpa_interface")]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdEndGpaSampleAMD.html>"]
+    #[doc(alias = "vkCmdEndGpaSampleAMD")]
+    #[inline]
+    pub fn end_gpa_sample_amd(&self, gpa_session: &raw::GpaSessionAMD, sample_id: u32) {
+        unsafe {
+            raw::cmd_end_gpa_sample_amd(
+                self,
+                gpa_session,
+                sample_id,
+                self.disp.get_command_dispatcher(),
+            )
+        }
+    }
+    #[cfg(feature = "ext_gpa_interface")]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCopyGpaSessionResultsAMD.html>"]
+    #[doc(alias = "vkCmdCopyGpaSessionResultsAMD")]
+    #[inline]
+    pub fn copy_gpa_session_results_amd(&self, gpa_session: &raw::GpaSessionAMD) {
+        unsafe {
+            raw::cmd_copy_gpa_session_results_amd(
+                self,
+                gpa_session,
+                self.disp.get_command_dispatcher(),
+            )
+        }
+    }
     #[cfg(feature = "ext_shader_enqueue")]
     #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdInitializeGraphScratchMemoryAMDX.html>"]
     #[doc(alias = "vkCmdInitializeGraphScratchMemoryAMDX")]
@@ -12088,6 +12309,19 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
             )
         }
     }
+    #[cfg(feature = "ext_scheduling_controls")]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetDispatchParametersARM.html>"]
+    #[doc(alias = "vkCmdSetDispatchParametersARM")]
+    #[inline]
+    pub fn set_dispatch_parameters_arm(&self, p_dispatch_parameters: &DispatchParametersARM) {
+        unsafe {
+            raw::cmd_set_dispatch_parameters_arm(
+                self,
+                p_dispatch_parameters,
+                self.disp.get_command_dispatcher(),
+            )
+        }
+    }
     #[cfg(feature = "ext_copy_memory_indirect")]
     #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCopyMemoryIndirectNV.html>"]
     #[doc(alias = "vkCmdCopyMemoryIndirectNV")]
@@ -12507,9 +12741,12 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
     #[cfg(any(
         all(
             feature = "ext_extended_dynamic_state3",
-            feature = "ext_line_rasterization"
+            any(feature = "version_1_4", feature = "ext_line_rasterization")
         ),
-        all(feature = "ext_shader_object", feature = "ext_line_rasterization")
+        all(
+            feature = "ext_shader_object",
+            any(feature = "version_1_4", feature = "ext_line_rasterization")
+        )
     ))]
     #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetLineRasterizationModeEXT.html>"]
     #[doc(alias = "vkCmdSetLineRasterizationModeEXT")]
@@ -12529,9 +12766,12 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
     #[cfg(any(
         all(
             feature = "ext_extended_dynamic_state3",
-            feature = "ext_line_rasterization"
+            any(feature = "version_1_4", feature = "ext_line_rasterization")
         ),
-        all(feature = "ext_shader_object", feature = "ext_line_rasterization")
+        all(
+            feature = "ext_shader_object",
+            any(feature = "version_1_4", feature = "ext_line_rasterization")
+        )
     ))]
     #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetLineStippleEnableEXT.html>"]
     #[doc(alias = "vkCmdSetLineStippleEnableEXT")]
@@ -13171,6 +13411,19 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
             )
         }
     }
+    #[cfg(feature = "ext_primitive_restart_index")]
+    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetPrimitiveRestartIndexEXT.html>"]
+    #[doc(alias = "vkCmdSetPrimitiveRestartIndexEXT")]
+    #[inline]
+    pub fn set_primitive_restart_index_ext(&self, primitive_restart_index: u32) {
+        unsafe {
+            raw::cmd_set_primitive_restart_index_ext(
+                self,
+                primitive_restart_index,
+                self.disp.get_command_dispatcher(),
+            )
+        }
+    }
 }
 #[repr(C)]
 #[derive(Clone, Copy)]
@@ -13706,6 +13959,31 @@ impl Deref for DebugUtilsMessengerEXT {
 #[cfg(feature = "ext_debug_utils")]
 impl DebugUtilsMessengerEXT {
     pub fn from_inner(handle: raw::DebugUtilsMessengerEXT) -> Self {
+        Self {
+            inner: handle.as_raw(),
+        }
+    }
+}
+#[cfg(feature = "ext_gpa_interface")]
+#[repr(C)]
+#[derive(Clone, Copy)]
+#[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkGpaSessionAMD.html>"]
+#[doc(alias = "VkGpaSessionAMD")]
+pub struct GpaSessionAMD {
+    inner: <raw::GpaSessionAMD as Handle>::InnerType,
+}
+#[cfg(feature = "ext_gpa_interface")]
+unsafe impl Alias<raw::GpaSessionAMD> for GpaSessionAMD {}
+#[cfg(feature = "ext_gpa_interface")]
+impl Deref for GpaSessionAMD {
+    type Target = raw::GpaSessionAMD;
+    fn deref(&self) -> &Self::Target {
+        unsafe { std::mem::transmute(&self.inner) }
+    }
+}
+#[cfg(feature = "ext_gpa_interface")]
+impl GpaSessionAMD {
+    pub fn from_inner(handle: raw::GpaSessionAMD) -> Self {
         Self {
             inner: handle.as_raw(),
         }
