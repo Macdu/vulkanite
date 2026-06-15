@@ -88350,11 +88350,6 @@ unsafe impl<'a, 'b> ExtendingStructure<PhysicalDeviceSparseImageFormatInfo2<'b>>
     for ImageUsageFlags2CreateInfoKHR<'a>
 {
 }
-#[cfg(all(feature = "ext_extended_flags",))]
-unsafe impl<'a, 'b> ExtendingStructure<PhysicalDeviceVideoFormatInfoKHR<'b>>
-    for ImageUsageFlags2CreateInfoKHR<'a>
-{
-}
 #[cfg(all(
     feature = "ext_extended_flags",
     feature = "ext_get_surface_capabilities2"
@@ -88365,11 +88360,6 @@ unsafe impl<'a, 'b> ExtendingStructure<SurfaceCapabilities2KHR<'b>>
 }
 #[cfg(all(feature = "ext_extended_flags", feature = "ext_swapchain"))]
 unsafe impl<'a, 'b> ExtendingStructure<SwapchainCreateInfoKHR<'b>>
-    for ImageUsageFlags2CreateInfoKHR<'a>
-{
-}
-#[cfg(all(feature = "ext_extended_flags",))]
-unsafe impl<'a, 'b> ExtendingStructure<VideoFormatPropertiesKHR<'b>>
     for ImageUsageFlags2CreateInfoKHR<'a>
 {
 }
@@ -88435,11 +88425,6 @@ unsafe impl<'a, 'b> ExtendingStructure<PhysicalDeviceImageFormatInfo2<'b>>
     any(feature = "ext_imageless_framebuffer", feature = "version_1_2")
 ))]
 unsafe impl<'a, 'b> ExtendingStructure<FramebufferAttachmentImageInfo<'b>>
-    for ImageCreateFlags2CreateInfoKHR<'a>
-{
-}
-#[cfg(all(feature = "ext_extended_flags",))]
-unsafe impl<'a, 'b> ExtendingStructure<VideoFormatPropertiesKHR<'b>>
     for ImageCreateFlags2CreateInfoKHR<'a>
 {
 }

@@ -437,6 +437,13 @@ fn generate_struct<'a>(
     let struct_extensions = my_struct
         .extends
         .iter()
+        .filter(|name| {
+            // Remove video-specific extensions
+            !matches!(
+                name.as_str(),
+                "VkPhysicalDeviceVideoFormatInfoKHR" | "VkVideoFormatPropertiesKHR"
+            )
+        })
         .map(|name| {
             let extended_struct = gen.get_struct(name).context("Failed to find structure")?;
             Ok((
