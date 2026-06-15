@@ -10,7 +10,9 @@ use proc_macro2::{Span, TokenStream};
 use syn::Ident;
 
 use crate::{
-    helpers::{camel_case_to_snake_case, longuest_common_prefix, screaming_snake_to_pascal_case},
+    helpers::{
+        camel_case_to_snake_case, longuest_common_prefix_nocase, screaming_snake_to_pascal_case,
+    },
     xml,
 };
 
@@ -1004,7 +1006,7 @@ pub fn convert_field_to_snake_case(
     } else {
         &container_name[..]
     };
-    let prefix = longuest_common_prefix(container_simplified, &result);
+    let prefix = longuest_common_prefix_nocase(container_simplified, &result);
 
     // remove the prefix
     let mut result = result[prefix.len()..].to_string();
@@ -1060,7 +1062,7 @@ pub fn convert_field_to_snake_case(
         // add something relevant in front
         [
             "Type", "Count", "Depth", "Size", "Rate", "Format", "Result", "Controls", "Chroma",
-            "Image", "Pipeline", "Shader",
+            "Image", "Pipeline", "Shader", "Level",
         ]
         .into_iter()
         .find(|kw| container_name.contains(kw))

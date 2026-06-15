@@ -4776,7 +4776,6 @@ pub enum ColorSpaceKHR {
 #[cfg(feature = "ext_surface")]
 #[allow(non_upper_case_globals)]
 impl ColorSpaceKHR {
-    pub const spaceSrgbNonlinear: Self = Self::SrgbNonlinear;
     pub const DciP3LinearEXT: Self = Self::DisplayP3LinearEXT;
 }
 #[cfg(feature = "ext_surface")]
@@ -6648,10 +6647,10 @@ bitflags! {
     #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphTOSAQualityFlagBitsARM.html>"]
     #[doc(alias = "VkDataGraphTOSAQualityFlagBitsARM")]
     pub struct DataGraphTOSAQualityFlagsARM : u32 {
-        const osaQualityAccelerated = 1u32 << 0;
-        const osaQualityConformant = 1u32 << 1;
-        const osaQualityExperimental = 1u32 << 2;
-        const osaQualityDeprecated = 1u32 << 3;
+        const Accelerated = 1u32 << 0;
+        const Conformant = 1u32 << 1;
+        const Experimental = 1u32 << 2;
+        const Deprecated = 1u32 << 3;
     }
 }
 #[cfg(feature = "ext_data_graph_instruction_set_tosa")]
@@ -6660,8 +6659,8 @@ bitflags! {
 #[doc(alias = "VkDataGraphTOSALevelARM")]
 #[repr(u32)]
 pub enum DataGraphTOSALevelARM {
-    osaLevelNone = 0,
-    osaLevel8K = 1,
+    None = 0,
+    Level8K = 1,
 }
 #[cfg(feature = "ext_image_processing2")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]

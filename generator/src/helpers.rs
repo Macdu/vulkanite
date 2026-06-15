@@ -156,11 +156,11 @@ pub(crate) fn camel_case_to_snake_case(name: &str) -> String {
     result
 }
 
-pub(crate) fn longuest_common_prefix<'a, 'b>(str1: &'a str, str2: &'b str) -> &'a str {
+pub(crate) fn longuest_common_prefix_nocase<'a, 'b>(str1: &'a str, str2: &'b str) -> &'a str {
     let prefix_size = str1
         .chars()
         .zip(str2.chars())
-        .take_while(|(c1, c2)| c1 == c2)
+        .take_while(|(c1, c2)| c1.eq_ignore_ascii_case(c2))
         .count();
     &str1[..prefix_size]
 }

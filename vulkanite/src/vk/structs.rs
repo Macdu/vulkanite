@@ -75265,7 +75265,7 @@ impl<'a> Default for QueueFamilyDataGraphTOSAPropertiesARM<'a> {
             p_profiles: ptr::null(),
             extension_count: Default::default(),
             p_extensions: ptr::null(),
-            level: DataGraphTOSALevelARM::osaLevelNone,
+            level: DataGraphTOSALevelARM::None,
             phantom: PhantomData,
         }
     }
