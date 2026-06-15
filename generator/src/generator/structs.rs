@@ -347,10 +347,11 @@ fn generate_struct<'a>(
             let template_arg = ty_tokens.iter().map(|t| &t.template_param).filter_map(|x| x.as_ref());
             let slice_ty = ty_tokens.iter().map(|t| &t.input_ty);
             let affectations = ty_tokens.iter().map(|t| &t.affectation);
+            let own_lifetime = ty_tokens.iter().any(|t| t.need_input_lifetime).then(|| quote! ('b: 'a,));
 
             let setter = (!my_struct.return_only).then(|| quote! (
                 #[inline]
-                pub fn #setter_name<#(#template_arg),*>(mut self, #(#field_names: #slice_ty),*) -> Self {
+                pub fn #setter_name<#own_lifetime #(#template_arg),*>(mut self, #(#field_names: #slice_ty),*) -> Self {
                     #(#affectations;)*
                     self.#length_name = #len_value;
                     self
@@ -370,8 +371,7 @@ fn generate_struct<'a>(
                 let ret_ty = &slice_ty.output_ty;
                 let access = &slice_ty.access;
                 // if the value is stored inside the struct, the lifetime of the slice is until the struct can be modified again
-                let own_lifetime = matches!(field.advanced_ty.get(), Some(AdvancedType::HandleArray(..)| AdvancedType::OtherArrayWithCst(..) | AdvancedType::OtherArrayWithEnum(..) ))
-                    .then(|| quote! ('b));
+                let own_lifetime = slice_ty.need_output_lifetime.then(|| quote! ('b));
                 quote! {
                     #[inline]
                     pub fn #getter_name<#own_lifetime>(&#own_lifetime self) -> #ret_ty {

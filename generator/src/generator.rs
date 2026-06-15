@@ -1243,6 +1243,7 @@ impl<'a> Generator<'a> {
             })
             .unwrap_or("");
 
+        let mut has_extended_lifetime = false;
         let result_params = cmd
             .params
             .iter()
@@ -1264,6 +1265,7 @@ impl<'a> Generator<'a> {
                     let SliceType {
                         template_param,
                         input_ty,
+                        need_input_lifetime,
                         ..
                     } = self.generate_slice_type(
                         advanced_ty,
@@ -1273,6 +1275,7 @@ impl<'a> Generator<'a> {
                         false,
                         param.optional,
                     )?;
+                    has_extended_lifetime |= need_input_lifetime;
                     Ok((template_param, (name.to_token_stream(), input_ty)))
                 } else {
                     Ok((None, (quote!(), quote!())))
@@ -1300,6 +1303,7 @@ impl<'a> Generator<'a> {
             parsed_arg_templates,
             parsed_args_in,
             command: cmd,
+            has_extended_lifetime,
         })
     }
 
@@ -1537,7 +1541,11 @@ impl<'a> Generator<'a> {
         is_assignment: bool,
         is_optional: bool,
     ) -> Result<SliceType> {
-        let get_lifetime = |ty: &str| self.compute_name_lifetime(ty).then(|| quote! (<'a>));
+        let get_lifetimes = |ty: &str| {
+            self.compute_name_lifetime(ty)
+                .then(|| (quote! (<'a>), quote! (<'b>)))
+                .unzip()
+        };
         let template_ty = format_ident!("V{}", index);
         let mut simple_affectation = if is_optional {
             quote! (#name.map(|p| p.as_slice().as_ptr().cast()).unwrap_or(ptr::null()))
@@ -1575,6 +1583,8 @@ impl<'a> Generator<'a> {
                     affectation: simple_affectation,
                     output_ty: quote! (&'a [BorrowedHandle<'a, raw::#name>]),
                     access,
+                    need_input_lifetime: false,
+                    need_output_lifetime: false,
                 })
             }
             AdvancedType::HandleArray(name, _) => {
@@ -1590,17 +1600,21 @@ impl<'a> Generator<'a> {
                         let handle_array = &self.#field_name[..(self.#len_field as _)];
                         unsafe { slice::from_raw_parts(handle_array.as_ptr().cast(), handle_array.len()) }
                     },
+                    need_input_lifetime: false,
+                    need_output_lifetime: true,
                 })
             }
             AdvancedType::OtherPtr(name) => {
-                let lifetime = get_lifetime(name);
+                let (lifetime_a, lifetime_b) = get_lifetimes(name);
                 let name = self.get_ident_name(name)?;
                 Ok(SliceType {
                     template_param: None,
-                    input_ty: wrap_ty(quote! (impl AsSlice<'a,#name #lifetime>)),
+                    input_ty: wrap_ty(quote! (impl AsSlice<'a,#name #lifetime_b>)),
                     affectation: simple_affectation,
-                    output_ty: quote! (&'a [#name #lifetime]),
+                    output_ty: quote! (&'a [#name #lifetime_a]),
                     access,
+                    need_input_lifetime: lifetime_b.is_some(),
+                    need_output_lifetime: false,
                 })
             }
             AdvancedType::VoidPtr => {
@@ -1611,10 +1625,12 @@ impl<'a> Generator<'a> {
                     affectation: simple_affectation,
                     output_ty: quote!(&'a [u8]),
                     access,
+                    need_input_lifetime: false,
+                    need_output_lifetime: false,
                 })
             }
             AdvancedType::OtherDoublePtr(ty) => {
-                let lifetime = get_lifetime(ty);
+                let (lifetime_a, lifetime_b) = get_lifetimes(ty);
                 let ty = if ty == "void" {
                     quote!(())
                 } else {
@@ -1622,10 +1638,12 @@ impl<'a> Generator<'a> {
                 };
                 Ok(SliceType {
                     template_param: None,
-                    input_ty: wrap_ty(quote! (impl AsSlice<'a, &'a #ty #lifetime>)),
+                    input_ty: wrap_ty(quote! (impl AsSlice<'a, &'a #ty #lifetime_b>)),
                     affectation: simple_affectation,
-                    output_ty: quote! (&'a [&'a #ty #lifetime]),
+                    output_ty: quote! (&'a [&'a #ty #lifetime_a]),
                     access,
+                    need_input_lifetime: lifetime_b.is_some(),
+                    need_output_lifetime: false,
                 })
             }
             AdvancedType::CStringPtr => Ok(SliceType {
@@ -1634,18 +1652,22 @@ impl<'a> Generator<'a> {
                 affectation: simple_affectation,
                 output_ty: quote!(&'a [*const c_char]),
                 access,
+                need_input_lifetime: false,
+                need_output_lifetime: false,
             }),
             AdvancedType::OtherArrayWithCst(name, _)
             | AdvancedType::OtherArrayWithEnum(name, _) => {
                 // output only type
-                let lifetime = get_lifetime(name);
+                assert!(get_lifetimes(name).0.is_none());
                 let name = self.get_ident_name(name)?;
                 Ok(SliceType {
                     template_param: None,
                     input_ty: quote!(),
                     affectation: quote!(),
-                    output_ty: quote!(&'b [#name #lifetime]),
+                    output_ty: quote!(&'b [#name]),
                     access: quote! (&self.#field_name[..(self.#len_field as _)]),
+                    need_input_lifetime: false,
+                    need_output_lifetime: true,
                 })
             }
             _ => Err(anyhow!(

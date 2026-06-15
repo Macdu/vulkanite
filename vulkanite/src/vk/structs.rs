@@ -2103,9 +2103,9 @@ impl<'a> DeviceCreateInfo<'a> {
         self
     }
     #[inline]
-    pub fn queue_create_infos(
+    pub fn queue_create_infos<'b: 'a>(
         mut self,
-        p_queue_create_infos: impl AsSlice<'a, DeviceQueueCreateInfo<'a>>,
+        p_queue_create_infos: impl AsSlice<'a, DeviceQueueCreateInfo<'b>>,
     ) -> Self {
         self.p_queue_create_infos = p_queue_create_infos.as_slice().as_ptr().cast();
         self.queue_create_info_count = p_queue_create_infos.as_slice().len() as _;
@@ -2662,7 +2662,7 @@ impl<'a> SparseImageMemoryBindInfo<'a> {
         self
     }
     #[inline]
-    pub fn binds(mut self, p_binds: impl AsSlice<'a, SparseImageMemoryBind<'a>>) -> Self {
+    pub fn binds<'b: 'a>(mut self, p_binds: impl AsSlice<'a, SparseImageMemoryBind<'b>>) -> Self {
         self.p_binds = p_binds.as_slice().as_ptr().cast();
         self.bind_count = p_binds.as_slice().len() as _;
         self
@@ -2805,7 +2805,7 @@ impl<'a> SparseBufferMemoryBindInfo<'a> {
         self
     }
     #[inline]
-    pub fn binds(mut self, p_binds: impl AsSlice<'a, SparseMemoryBind<'a>>) -> Self {
+    pub fn binds<'b: 'a>(mut self, p_binds: impl AsSlice<'a, SparseMemoryBind<'b>>) -> Self {
         self.p_binds = p_binds.as_slice().as_ptr().cast();
         self.bind_count = p_binds.as_slice().len() as _;
         self
@@ -2845,7 +2845,7 @@ impl<'a> SparseImageOpaqueMemoryBindInfo<'a> {
         self
     }
     #[inline]
-    pub fn binds(mut self, p_binds: impl AsSlice<'a, SparseMemoryBind<'a>>) -> Self {
+    pub fn binds<'b: 'a>(mut self, p_binds: impl AsSlice<'a, SparseMemoryBind<'b>>) -> Self {
         self.p_binds = p_binds.as_slice().as_ptr().cast();
         self.bind_count = p_binds.as_slice().len() as _;
         self
@@ -2922,9 +2922,9 @@ impl<'a> BindSparseInfo<'a> {
             .unwrap_or(&[])
     }
     #[inline]
-    pub fn buffer_binds(
+    pub fn buffer_binds<'b: 'a>(
         mut self,
-        p_buffer_binds: impl AsSlice<'a, SparseBufferMemoryBindInfo<'a>>,
+        p_buffer_binds: impl AsSlice<'a, SparseBufferMemoryBindInfo<'b>>,
     ) -> Self {
         self.p_buffer_binds = p_buffer_binds.as_slice().as_ptr().cast();
         self.buffer_bind_count = p_buffer_binds.as_slice().len() as _;
@@ -2939,9 +2939,9 @@ impl<'a> BindSparseInfo<'a> {
             .unwrap_or(&[])
     }
     #[inline]
-    pub fn image_opaque_binds(
+    pub fn image_opaque_binds<'b: 'a>(
         mut self,
-        p_image_opaque_binds: impl AsSlice<'a, SparseImageOpaqueMemoryBindInfo<'a>>,
+        p_image_opaque_binds: impl AsSlice<'a, SparseImageOpaqueMemoryBindInfo<'b>>,
     ) -> Self {
         self.p_image_opaque_binds = p_image_opaque_binds.as_slice().as_ptr().cast();
         self.image_opaque_bind_count = p_image_opaque_binds.as_slice().len() as _;
@@ -2959,9 +2959,9 @@ impl<'a> BindSparseInfo<'a> {
             .unwrap_or(&[])
     }
     #[inline]
-    pub fn image_binds(
+    pub fn image_binds<'b: 'a>(
         mut self,
-        p_image_binds: impl AsSlice<'a, SparseImageMemoryBindInfo<'a>>,
+        p_image_binds: impl AsSlice<'a, SparseImageMemoryBindInfo<'b>>,
     ) -> Self {
         self.p_image_binds = p_image_binds.as_slice().as_ptr().cast();
         self.image_bind_count = p_image_binds.as_slice().len() as _;
@@ -5421,9 +5421,9 @@ impl<'a> DescriptorSetLayoutCreateInfo<'a> {
         self
     }
     #[inline]
-    pub fn bindings(
+    pub fn bindings<'b: 'a>(
         mut self,
-        p_bindings: impl AsSlice<'a, DescriptorSetLayoutBinding<'a>>,
+        p_bindings: impl AsSlice<'a, DescriptorSetLayoutBinding<'b>>,
     ) -> Self {
         self.p_bindings = p_bindings.as_slice().as_ptr().cast();
         self.binding_count = p_bindings.as_slice().len() as _;
@@ -5509,10 +5509,10 @@ impl<'a> WriteDescriptorSet<'a> {
         self
     }
     #[inline]
-    pub fn descriptor<V2: Alias<raw::BufferView> + 'a>(
+    pub fn descriptor<'b: 'a, V2: Alias<raw::BufferView> + 'a>(
         mut self,
-        p_image_info: Option<impl AsSlice<'a, DescriptorImageInfo<'a>>>,
-        p_buffer_info: Option<impl AsSlice<'a, DescriptorBufferInfo<'a>>>,
+        p_image_info: Option<impl AsSlice<'a, DescriptorImageInfo<'b>>>,
+        p_buffer_info: Option<impl AsSlice<'a, DescriptorBufferInfo<'b>>>,
         p_texel_buffer_view: Option<impl AsSlice<'a, V2>>,
     ) -> Self {
         self.p_image_info = p_image_info
@@ -6804,7 +6804,10 @@ impl<'a> GraphicsPipelineCreateInfo<'a> {
         self
     }
     #[inline]
-    pub fn stages(mut self, p_stages: impl AsSlice<'a, PipelineShaderStageCreateInfo<'a>>) -> Self {
+    pub fn stages<'b: 'a>(
+        mut self,
+        p_stages: impl AsSlice<'a, PipelineShaderStageCreateInfo<'b>>,
+    ) -> Self {
         self.p_stages = p_stages.as_slice().as_ptr().cast();
         self.stage_count = p_stages.as_slice().len() as _;
         self
@@ -7268,7 +7271,10 @@ impl<'a> RenderPassCreateInfo<'a> {
             .unwrap_or(&[])
     }
     #[inline]
-    pub fn subpasses(mut self, p_subpasses: impl AsSlice<'a, SubpassDescription<'a>>) -> Self {
+    pub fn subpasses<'b: 'a>(
+        mut self,
+        p_subpasses: impl AsSlice<'a, SubpassDescription<'b>>,
+    ) -> Self {
         self.p_subpasses = p_subpasses.as_slice().as_ptr().cast();
         self.subpass_count = p_subpasses.as_slice().len() as _;
         self
@@ -15844,9 +15850,9 @@ impl<'a> SubpassDescription2<'a> {
         self
     }
     #[inline]
-    pub fn input_attachments(
+    pub fn input_attachments<'b: 'a>(
         mut self,
-        p_input_attachments: impl AsSlice<'a, AttachmentReference2<'a>>,
+        p_input_attachments: impl AsSlice<'a, AttachmentReference2<'b>>,
     ) -> Self {
         self.p_input_attachments = p_input_attachments.as_slice().as_ptr().cast();
         self.input_attachment_count = p_input_attachments.as_slice().len() as _;
@@ -15864,10 +15870,10 @@ impl<'a> SubpassDescription2<'a> {
             .unwrap_or(&[])
     }
     #[inline]
-    pub fn color_attachment(
+    pub fn color_attachment<'b: 'a>(
         mut self,
-        p_color_attachments: impl AsSlice<'a, AttachmentReference2<'a>>,
-        p_resolve_attachments: Option<impl AsSlice<'a, AttachmentReference2<'a>>>,
+        p_color_attachments: impl AsSlice<'a, AttachmentReference2<'b>>,
+        p_resolve_attachments: Option<impl AsSlice<'a, AttachmentReference2<'b>>>,
     ) -> Self {
         self.p_color_attachments = p_color_attachments.as_slice().as_ptr().cast();
         self.p_resolve_attachments = p_resolve_attachments
@@ -16158,9 +16164,9 @@ impl<'a> RenderPassCreateInfo2<'a> {
         self
     }
     #[inline]
-    pub fn attachments(
+    pub fn attachments<'b: 'a>(
         mut self,
-        p_attachments: impl AsSlice<'a, AttachmentDescription2<'a>>,
+        p_attachments: impl AsSlice<'a, AttachmentDescription2<'b>>,
     ) -> Self {
         self.p_attachments = p_attachments.as_slice().as_ptr().cast();
         self.attachment_count = p_attachments.as_slice().len() as _;
@@ -16175,7 +16181,10 @@ impl<'a> RenderPassCreateInfo2<'a> {
             .unwrap_or(&[])
     }
     #[inline]
-    pub fn subpasses(mut self, p_subpasses: impl AsSlice<'a, SubpassDescription2<'a>>) -> Self {
+    pub fn subpasses<'b: 'a>(
+        mut self,
+        p_subpasses: impl AsSlice<'a, SubpassDescription2<'b>>,
+    ) -> Self {
         self.p_subpasses = p_subpasses.as_slice().as_ptr().cast();
         self.subpass_count = p_subpasses.as_slice().len() as _;
         self
@@ -16189,9 +16198,9 @@ impl<'a> RenderPassCreateInfo2<'a> {
             .unwrap_or(&[])
     }
     #[inline]
-    pub fn dependencies(
+    pub fn dependencies<'b: 'a>(
         mut self,
-        p_dependencies: impl AsSlice<'a, SubpassDependency2<'a>>,
+        p_dependencies: impl AsSlice<'a, SubpassDependency2<'b>>,
     ) -> Self {
         self.p_dependencies = p_dependencies.as_slice().as_ptr().cast();
         self.dependency_count = p_dependencies.as_slice().len() as _;
@@ -16702,9 +16711,9 @@ impl<'a> Default for FramebufferAttachmentsCreateInfo<'a> {
 #[cfg(any(feature = "ext_imageless_framebuffer", feature = "version_1_2"))]
 impl<'a> FramebufferAttachmentsCreateInfo<'a> {
     #[inline]
-    pub fn attachment_image_infos(
+    pub fn attachment_image_infos<'b: 'a>(
         mut self,
-        p_attachment_image_infos: impl AsSlice<'a, FramebufferAttachmentImageInfo<'a>>,
+        p_attachment_image_infos: impl AsSlice<'a, FramebufferAttachmentImageInfo<'b>>,
     ) -> Self {
         self.p_attachment_image_infos = p_attachment_image_infos.as_slice().as_ptr().cast();
         self.attachment_image_info_count = p_attachment_image_infos.as_slice().len() as _;
@@ -18148,9 +18157,9 @@ impl<'a> DependencyInfo<'a> {
         self
     }
     #[inline]
-    pub fn memory_barriers(
+    pub fn memory_barriers<'b: 'a>(
         mut self,
-        p_memory_barriers: impl AsSlice<'a, MemoryBarrier2<'a>>,
+        p_memory_barriers: impl AsSlice<'a, MemoryBarrier2<'b>>,
     ) -> Self {
         self.p_memory_barriers = p_memory_barriers.as_slice().as_ptr().cast();
         self.memory_barrier_count = p_memory_barriers.as_slice().len() as _;
@@ -18168,9 +18177,9 @@ impl<'a> DependencyInfo<'a> {
             .unwrap_or(&[])
     }
     #[inline]
-    pub fn buffer_memory_barriers(
+    pub fn buffer_memory_barriers<'b: 'a>(
         mut self,
-        p_buffer_memory_barriers: impl AsSlice<'a, BufferMemoryBarrier2<'a>>,
+        p_buffer_memory_barriers: impl AsSlice<'a, BufferMemoryBarrier2<'b>>,
     ) -> Self {
         self.p_buffer_memory_barriers = p_buffer_memory_barriers.as_slice().as_ptr().cast();
         self.buffer_memory_barrier_count = p_buffer_memory_barriers.as_slice().len() as _;
@@ -18188,9 +18197,9 @@ impl<'a> DependencyInfo<'a> {
             .unwrap_or(&[])
     }
     #[inline]
-    pub fn image_memory_barriers(
+    pub fn image_memory_barriers<'b: 'a>(
         mut self,
-        p_image_memory_barriers: impl AsSlice<'a, ImageMemoryBarrier2<'a>>,
+        p_image_memory_barriers: impl AsSlice<'a, ImageMemoryBarrier2<'b>>,
     ) -> Self {
         self.p_image_memory_barriers = p_image_memory_barriers.as_slice().as_ptr().cast();
         self.image_memory_barrier_count = p_image_memory_barriers.as_slice().len() as _;
@@ -18386,9 +18395,9 @@ impl<'a> SubmitInfo2<'a> {
         self
     }
     #[inline]
-    pub fn wait_semaphore_infos(
+    pub fn wait_semaphore_infos<'b: 'a>(
         mut self,
-        p_wait_semaphore_infos: impl AsSlice<'a, SemaphoreSubmitInfo<'a>>,
+        p_wait_semaphore_infos: impl AsSlice<'a, SemaphoreSubmitInfo<'b>>,
     ) -> Self {
         self.p_wait_semaphore_infos = p_wait_semaphore_infos.as_slice().as_ptr().cast();
         self.wait_semaphore_info_count = p_wait_semaphore_infos.as_slice().len() as _;
@@ -18406,9 +18415,9 @@ impl<'a> SubmitInfo2<'a> {
             .unwrap_or(&[])
     }
     #[inline]
-    pub fn command_buffer_infos(
+    pub fn command_buffer_infos<'b: 'a>(
         mut self,
-        p_command_buffer_infos: impl AsSlice<'a, CommandBufferSubmitInfo<'a>>,
+        p_command_buffer_infos: impl AsSlice<'a, CommandBufferSubmitInfo<'b>>,
     ) -> Self {
         self.p_command_buffer_infos = p_command_buffer_infos.as_slice().as_ptr().cast();
         self.command_buffer_info_count = p_command_buffer_infos.as_slice().len() as _;
@@ -18426,9 +18435,9 @@ impl<'a> SubmitInfo2<'a> {
             .unwrap_or(&[])
     }
     #[inline]
-    pub fn signal_semaphore_infos(
+    pub fn signal_semaphore_infos<'b: 'a>(
         mut self,
-        p_signal_semaphore_infos: impl AsSlice<'a, SemaphoreSubmitInfo<'a>>,
+        p_signal_semaphore_infos: impl AsSlice<'a, SemaphoreSubmitInfo<'b>>,
     ) -> Self {
         self.p_signal_semaphore_infos = p_signal_semaphore_infos.as_slice().as_ptr().cast();
         self.signal_semaphore_info_count = p_signal_semaphore_infos.as_slice().len() as _;
@@ -18625,7 +18634,7 @@ impl<'a> CopyBufferInfo2<'a> {
         self
     }
     #[inline]
-    pub fn regions(mut self, p_regions: impl AsSlice<'a, BufferCopy2<'a>>) -> Self {
+    pub fn regions<'b: 'a>(mut self, p_regions: impl AsSlice<'a, BufferCopy2<'b>>) -> Self {
         self.p_regions = p_regions.as_slice().as_ptr().cast();
         self.region_count = p_regions.as_slice().len() as _;
         self
@@ -18784,7 +18793,7 @@ impl<'a> CopyImageInfo2<'a> {
         self
     }
     #[inline]
-    pub fn regions(mut self, p_regions: impl AsSlice<'a, ImageCopy2<'a>>) -> Self {
+    pub fn regions<'b: 'a>(mut self, p_regions: impl AsSlice<'a, ImageCopy2<'b>>) -> Self {
         self.p_regions = p_regions.as_slice().as_ptr().cast();
         self.region_count = p_regions.as_slice().len() as _;
         self
@@ -18943,7 +18952,7 @@ impl<'a> CopyBufferToImageInfo2<'a> {
         self
     }
     #[inline]
-    pub fn regions(mut self, p_regions: impl AsSlice<'a, BufferImageCopy2<'a>>) -> Self {
+    pub fn regions<'b: 'a>(mut self, p_regions: impl AsSlice<'a, BufferImageCopy2<'b>>) -> Self {
         self.p_regions = p_regions.as_slice().as_ptr().cast();
         self.region_count = p_regions.as_slice().len() as _;
         self
@@ -19021,7 +19030,7 @@ impl<'a> CopyImageToBufferInfo2<'a> {
         self
     }
     #[inline]
-    pub fn regions(mut self, p_regions: impl AsSlice<'a, BufferImageCopy2<'a>>) -> Self {
+    pub fn regions<'b: 'a>(mut self, p_regions: impl AsSlice<'a, BufferImageCopy2<'b>>) -> Self {
         self.p_regions = p_regions.as_slice().as_ptr().cast();
         self.region_count = p_regions.as_slice().len() as _;
         self
@@ -20982,7 +20991,7 @@ impl<'a> BlitImageInfo2<'a> {
         self
     }
     #[inline]
-    pub fn regions(mut self, p_regions: impl AsSlice<'a, ImageBlit2<'a>>) -> Self {
+    pub fn regions<'b: 'a>(mut self, p_regions: impl AsSlice<'a, ImageBlit2<'b>>) -> Self {
         self.p_regions = p_regions.as_slice().as_ptr().cast();
         self.region_count = p_regions.as_slice().len() as _;
         self
@@ -21141,7 +21150,7 @@ impl<'a> ResolveImageInfo2<'a> {
         self
     }
     #[inline]
-    pub fn regions(mut self, p_regions: impl AsSlice<'a, ImageResolve2<'a>>) -> Self {
+    pub fn regions<'b: 'a>(mut self, p_regions: impl AsSlice<'a, ImageResolve2<'b>>) -> Self {
         self.p_regions = p_regions.as_slice().as_ptr().cast();
         self.region_count = p_regions.as_slice().len() as _;
         self
@@ -21384,9 +21393,9 @@ impl<'a> RenderingInfo<'a> {
         self
     }
     #[inline]
-    pub fn color_attachments(
+    pub fn color_attachments<'b: 'a>(
         mut self,
-        p_color_attachments: impl AsSlice<'a, RenderingAttachmentInfo<'a>>,
+        p_color_attachments: impl AsSlice<'a, RenderingAttachmentInfo<'b>>,
     ) -> Self {
         self.p_color_attachments = p_color_attachments.as_slice().as_ptr().cast();
         self.color_attachment_count = p_color_attachments.as_slice().len() as _;
@@ -23595,7 +23604,7 @@ impl<'a> CopyMemoryToImageInfo<'a> {
         self
     }
     #[inline]
-    pub fn regions(mut self, p_regions: impl AsSlice<'a, MemoryToImageCopy<'a>>) -> Self {
+    pub fn regions<'b: 'a>(mut self, p_regions: impl AsSlice<'a, MemoryToImageCopy<'b>>) -> Self {
         self.p_regions = p_regions.as_slice().as_ptr().cast();
         self.region_count = p_regions.as_slice().len() as _;
         self
@@ -23673,7 +23682,7 @@ impl<'a> CopyImageToMemoryInfo<'a> {
         self
     }
     #[inline]
-    pub fn regions(mut self, p_regions: impl AsSlice<'a, ImageToMemoryCopy<'a>>) -> Self {
+    pub fn regions<'b: 'a>(mut self, p_regions: impl AsSlice<'a, ImageToMemoryCopy<'b>>) -> Self {
         self.p_regions = p_regions.as_slice().as_ptr().cast();
         self.region_count = p_regions.as_slice().len() as _;
         self
@@ -23765,7 +23774,7 @@ impl<'a> CopyImageToImageInfo<'a> {
         self
     }
     #[inline]
-    pub fn regions(mut self, p_regions: impl AsSlice<'a, ImageCopy2<'a>>) -> Self {
+    pub fn regions<'b: 'a>(mut self, p_regions: impl AsSlice<'a, ImageCopy2<'b>>) -> Self {
         self.p_regions = p_regions.as_slice().as_ptr().cast();
         self.region_count = p_regions.as_slice().len() as _;
         self
@@ -24588,9 +24597,9 @@ impl<'a> PushDescriptorSetInfo<'a> {
         self
     }
     #[inline]
-    pub fn descriptor_writes(
+    pub fn descriptor_writes<'b: 'a>(
         mut self,
-        p_descriptor_writes: impl AsSlice<'a, WriteDescriptorSet<'a>>,
+        p_descriptor_writes: impl AsSlice<'a, WriteDescriptorSet<'b>>,
     ) -> Self {
         self.p_descriptor_writes = p_descriptor_writes.as_slice().as_ptr().cast();
         self.descriptor_write_count = p_descriptor_writes.as_slice().len() as _;
@@ -30540,7 +30549,7 @@ impl<'a> PresentRegionsKHR<'a> {
         self
     }
     #[inline]
-    pub fn regions(mut self, p_regions: impl AsSlice<'a, PresentRegionKHR<'a>>) -> Self {
+    pub fn regions<'b: 'a>(mut self, p_regions: impl AsSlice<'a, PresentRegionKHR<'b>>) -> Self {
         self.p_regions = p_regions.as_slice().as_ptr().cast();
         self.swapchain_count = p_regions.as_slice().len() as _;
         self
@@ -33576,9 +33585,9 @@ impl<'a> DebugUtilsMessengerCallbackDataEXT<'a> {
         self
     }
     #[inline]
-    pub fn queue_labels(
+    pub fn queue_labels<'b: 'a>(
         mut self,
-        p_queue_labels: impl AsSlice<'a, DebugUtilsLabelEXT<'a>>,
+        p_queue_labels: impl AsSlice<'a, DebugUtilsLabelEXT<'b>>,
     ) -> Self {
         self.p_queue_labels = p_queue_labels.as_slice().as_ptr().cast();
         self.queue_label_count = p_queue_labels.as_slice().len() as _;
@@ -33593,9 +33602,9 @@ impl<'a> DebugUtilsMessengerCallbackDataEXT<'a> {
             .unwrap_or(&[])
     }
     #[inline]
-    pub fn cmd_buf_labels(
+    pub fn cmd_buf_labels<'b: 'a>(
         mut self,
-        p_cmd_buf_labels: impl AsSlice<'a, DebugUtilsLabelEXT<'a>>,
+        p_cmd_buf_labels: impl AsSlice<'a, DebugUtilsLabelEXT<'b>>,
     ) -> Self {
         self.p_cmd_buf_labels = p_cmd_buf_labels.as_slice().as_ptr().cast();
         self.cmd_buf_label_count = p_cmd_buf_labels.as_slice().len() as _;
@@ -33610,7 +33619,10 @@ impl<'a> DebugUtilsMessengerCallbackDataEXT<'a> {
             .unwrap_or(&[])
     }
     #[inline]
-    pub fn objects(mut self, p_objects: impl AsSlice<'a, DebugUtilsObjectNameInfoEXT<'a>>) -> Self {
+    pub fn objects<'b: 'a>(
+        mut self,
+        p_objects: impl AsSlice<'a, DebugUtilsObjectNameInfoEXT<'b>>,
+    ) -> Self {
         self.p_objects = p_objects.as_slice().as_ptr().cast();
         self.object_count = p_objects.as_slice().len() as _;
         self
@@ -35280,7 +35292,10 @@ impl<'a> ExecutionGraphPipelineCreateInfoAMDX<'a> {
         self
     }
     #[inline]
-    pub fn stages(mut self, p_stages: impl AsSlice<'a, PipelineShaderStageCreateInfo<'a>>) -> Self {
+    pub fn stages<'b: 'a>(
+        mut self,
+        p_stages: impl AsSlice<'a, PipelineShaderStageCreateInfo<'b>>,
+    ) -> Self {
         self.p_stages = p_stages.as_slice().as_ptr().cast();
         self.stage_count = p_stages.as_slice().len() as _;
         self
@@ -36481,9 +36496,9 @@ impl<'a> Default for ShaderDescriptorSetAndBindingMappingInfoEXT<'a> {
 #[cfg(feature = "ext_descriptor_heap")]
 impl<'a> ShaderDescriptorSetAndBindingMappingInfoEXT<'a> {
     #[inline]
-    pub fn mappings(
+    pub fn mappings<'b: 'a>(
         mut self,
-        p_mappings: impl AsSlice<'a, DescriptorSetAndBindingMappingEXT<'a>>,
+        p_mappings: impl AsSlice<'a, DescriptorSetAndBindingMappingEXT<'b>>,
     ) -> Self {
         self.p_mappings = p_mappings.as_slice().as_ptr().cast();
         self.mapping_count = p_mappings.as_slice().len() as _;
@@ -37650,9 +37665,9 @@ impl<'a> Default for RenderPassSampleLocationsBeginInfoEXT<'a> {
 #[cfg(feature = "ext_sample_locations")]
 impl<'a> RenderPassSampleLocationsBeginInfoEXT<'a> {
     #[inline]
-    pub fn attachment_initial_sample_locations(
+    pub fn attachment_initial_sample_locations<'b: 'a>(
         mut self,
-        p_attachment_initial_sample_locations: impl AsSlice<'a, AttachmentSampleLocationsEXT<'a>>,
+        p_attachment_initial_sample_locations: impl AsSlice<'a, AttachmentSampleLocationsEXT<'b>>,
     ) -> Self {
         self.p_attachment_initial_sample_locations = p_attachment_initial_sample_locations
             .as_slice()
@@ -37676,9 +37691,9 @@ impl<'a> RenderPassSampleLocationsBeginInfoEXT<'a> {
             .unwrap_or(&[])
     }
     #[inline]
-    pub fn post_subpass_sample_locations(
+    pub fn post_subpass_sample_locations<'b: 'a>(
         mut self,
-        p_post_subpass_sample_locations: impl AsSlice<'a, SubpassSampleLocationsEXT<'a>>,
+        p_post_subpass_sample_locations: impl AsSlice<'a, SubpassSampleLocationsEXT<'b>>,
     ) -> Self {
         self.p_post_subpass_sample_locations =
             p_post_subpass_sample_locations.as_slice().as_ptr().cast();
@@ -38533,10 +38548,10 @@ impl<'a> AccelerationStructureBuildGeometryInfoKHR<'a> {
         self
     }
     #[inline]
-    pub fn geometry(
+    pub fn geometry<'b: 'a>(
         mut self,
-        p_geometries: Option<impl AsSlice<'a, AccelerationStructureGeometryKHR<'a>>>,
-        pp_geometries: Option<impl AsSlice<'a, &'a AccelerationStructureGeometryKHR<'a>>>,
+        p_geometries: Option<impl AsSlice<'a, AccelerationStructureGeometryKHR<'b>>>,
+        pp_geometries: Option<impl AsSlice<'a, &'a AccelerationStructureGeometryKHR<'b>>>,
     ) -> Self {
         self.p_geometries = p_geometries
             .map(|p| p.as_slice().as_ptr().cast())
@@ -39666,7 +39681,10 @@ impl<'a> RayTracingPipelineCreateInfoKHR<'a> {
         self
     }
     #[inline]
-    pub fn stages(mut self, p_stages: impl AsSlice<'a, PipelineShaderStageCreateInfo<'a>>) -> Self {
+    pub fn stages<'b: 'a>(
+        mut self,
+        p_stages: impl AsSlice<'a, PipelineShaderStageCreateInfo<'b>>,
+    ) -> Self {
         self.p_stages = p_stages.as_slice().as_ptr().cast();
         self.stage_count = p_stages.as_slice().len() as _;
         self
@@ -39678,9 +39696,9 @@ impl<'a> RayTracingPipelineCreateInfoKHR<'a> {
             .unwrap_or(&[])
     }
     #[inline]
-    pub fn groups(
+    pub fn groups<'b: 'a>(
         mut self,
-        p_groups: impl AsSlice<'a, RayTracingShaderGroupCreateInfoKHR<'a>>,
+        p_groups: impl AsSlice<'a, RayTracingShaderGroupCreateInfoKHR<'b>>,
     ) -> Self {
         self.p_groups = p_groups.as_slice().as_ptr().cast();
         self.group_count = p_groups.as_slice().len() as _;
@@ -41234,9 +41252,9 @@ impl<'a> PipelineViewportShadingRateImageStateCreateInfoNV<'a> {
         self
     }
     #[inline]
-    pub fn shading_rate_palettes(
+    pub fn shading_rate_palettes<'b: 'a>(
         mut self,
-        p_shading_rate_palettes: impl AsSlice<'a, ShadingRatePaletteNV<'a>>,
+        p_shading_rate_palettes: impl AsSlice<'a, ShadingRatePaletteNV<'b>>,
     ) -> Self {
         self.p_shading_rate_palettes = p_shading_rate_palettes.as_slice().as_ptr().cast();
         self.viewport_count = p_shading_rate_palettes.as_slice().len() as _;
@@ -41546,9 +41564,9 @@ impl<'a> PipelineViewportCoarseSampleOrderStateCreateInfoNV<'a> {
         self
     }
     #[inline]
-    pub fn custom_sample_orders(
+    pub fn custom_sample_orders<'b: 'a>(
         mut self,
-        p_custom_sample_orders: impl AsSlice<'a, CoarseSampleOrderCustomNV<'a>>,
+        p_custom_sample_orders: impl AsSlice<'a, CoarseSampleOrderCustomNV<'b>>,
     ) -> Self {
         self.p_custom_sample_orders = p_custom_sample_orders.as_slice().as_ptr().cast();
         self.custom_sample_order_count = p_custom_sample_orders.as_slice().len() as _;
@@ -41718,7 +41736,10 @@ impl<'a> RayTracingPipelineCreateInfoNV<'a> {
         self
     }
     #[inline]
-    pub fn stages(mut self, p_stages: impl AsSlice<'a, PipelineShaderStageCreateInfo<'a>>) -> Self {
+    pub fn stages<'b: 'a>(
+        mut self,
+        p_stages: impl AsSlice<'a, PipelineShaderStageCreateInfo<'b>>,
+    ) -> Self {
         self.p_stages = p_stages.as_slice().as_ptr().cast();
         self.stage_count = p_stages.as_slice().len() as _;
         self
@@ -41730,9 +41751,9 @@ impl<'a> RayTracingPipelineCreateInfoNV<'a> {
             .unwrap_or(&[])
     }
     #[inline]
-    pub fn groups(
+    pub fn groups<'b: 'a>(
         mut self,
-        p_groups: impl AsSlice<'a, RayTracingShaderGroupCreateInfoNV<'a>>,
+        p_groups: impl AsSlice<'a, RayTracingShaderGroupCreateInfoNV<'b>>,
     ) -> Self {
         self.p_groups = p_groups.as_slice().as_ptr().cast();
         self.group_count = p_groups.as_slice().len() as _;
@@ -42080,7 +42101,7 @@ impl<'a> AccelerationStructureInfoNV<'a> {
         self
     }
     #[inline]
-    pub fn geometries(mut self, p_geometries: impl AsSlice<'a, GeometryNV<'a>>) -> Self {
+    pub fn geometries<'b: 'a>(mut self, p_geometries: impl AsSlice<'a, GeometryNV<'b>>) -> Self {
         self.p_geometries = p_geometries.as_slice().as_ptr().cast();
         self.geometry_count = p_geometries.as_slice().len() as _;
         self
@@ -44616,9 +44637,9 @@ impl<'a> PresentTimingsInfoEXT<'a> {
         self
     }
     #[inline]
-    pub fn timing_infos(
+    pub fn timing_infos<'b: 'a>(
         mut self,
-        p_timing_infos: impl AsSlice<'a, PresentTimingInfoEXT<'a>>,
+        p_timing_infos: impl AsSlice<'a, PresentTimingInfoEXT<'b>>,
     ) -> Self {
         self.p_timing_infos = p_timing_infos.as_slice().as_ptr().cast();
         self.swapchain_count = p_timing_infos.as_slice().len() as _;
@@ -49332,7 +49353,10 @@ impl<'a> GraphicsShaderGroupCreateInfoNV<'a> {
         self
     }
     #[inline]
-    pub fn stages(mut self, p_stages: impl AsSlice<'a, PipelineShaderStageCreateInfo<'a>>) -> Self {
+    pub fn stages<'b: 'a>(
+        mut self,
+        p_stages: impl AsSlice<'a, PipelineShaderStageCreateInfo<'b>>,
+    ) -> Self {
         self.p_stages = p_stages.as_slice().as_ptr().cast();
         self.stage_count = p_stages.as_slice().len() as _;
         self
@@ -49394,9 +49418,9 @@ impl<'a> Default for GraphicsPipelineShaderGroupsCreateInfoNV<'a> {
 #[cfg(feature = "ext_device_generated_commands")]
 impl<'a> GraphicsPipelineShaderGroupsCreateInfoNV<'a> {
     #[inline]
-    pub fn groups(
+    pub fn groups<'b: 'a>(
         mut self,
-        p_groups: impl AsSlice<'a, GraphicsShaderGroupCreateInfoNV<'a>>,
+        p_groups: impl AsSlice<'a, GraphicsShaderGroupCreateInfoNV<'b>>,
     ) -> Self {
         self.p_groups = p_groups.as_slice().as_ptr().cast();
         self.group_count = p_groups.as_slice().len() as _;
@@ -49801,7 +49825,10 @@ impl<'a> IndirectCommandsLayoutCreateInfoNV<'a> {
         self
     }
     #[inline]
-    pub fn tokens(mut self, p_tokens: impl AsSlice<'a, IndirectCommandsLayoutTokenNV<'a>>) -> Self {
+    pub fn tokens<'b: 'a>(
+        mut self,
+        p_tokens: impl AsSlice<'a, IndirectCommandsLayoutTokenNV<'b>>,
+    ) -> Self {
         self.p_tokens = p_tokens.as_slice().as_ptr().cast();
         self.token_count = p_tokens.as_slice().len() as _;
         self
@@ -49945,7 +49972,10 @@ impl<'a> GeneratedCommandsInfoNV<'a> {
         self
     }
     #[inline]
-    pub fn streams(mut self, p_streams: impl AsSlice<'a, IndirectCommandsStreamNV<'a>>) -> Self {
+    pub fn streams<'b: 'a>(
+        mut self,
+        p_streams: impl AsSlice<'a, IndirectCommandsStreamNV<'b>>,
+    ) -> Self {
         self.p_streams = p_streams.as_slice().as_ptr().cast();
         self.stream_count = p_streams.as_slice().len() as _;
         self
@@ -54625,7 +54655,7 @@ impl<'a> Default for CopyDeviceMemoryInfoKHR<'a> {
 #[cfg(feature = "ext_device_address_commands")]
 impl<'a> CopyDeviceMemoryInfoKHR<'a> {
     #[inline]
-    pub fn regions(mut self, p_regions: impl AsSlice<'a, DeviceMemoryCopyKHR<'a>>) -> Self {
+    pub fn regions<'b: 'a>(mut self, p_regions: impl AsSlice<'a, DeviceMemoryCopyKHR<'b>>) -> Self {
         self.p_regions = p_regions.as_slice().as_ptr().cast();
         self.region_count = p_regions.as_slice().len() as _;
         self
@@ -54780,7 +54810,10 @@ impl<'a> CopyDeviceMemoryImageInfoKHR<'a> {
         self
     }
     #[inline]
-    pub fn regions(mut self, p_regions: impl AsSlice<'a, DeviceMemoryImageCopyKHR<'a>>) -> Self {
+    pub fn regions<'b: 'a>(
+        mut self,
+        p_regions: impl AsSlice<'a, DeviceMemoryImageCopyKHR<'b>>,
+    ) -> Self {
         self.p_regions = p_regions.as_slice().as_ptr().cast();
         self.region_count = p_regions.as_slice().len() as _;
         self
@@ -54840,9 +54873,9 @@ impl<'a> Default for MemoryRangeBarriersInfoKHR<'a> {
 #[cfg(feature = "ext_device_address_commands")]
 impl<'a> MemoryRangeBarriersInfoKHR<'a> {
     #[inline]
-    pub fn memory_range_barriers(
+    pub fn memory_range_barriers<'b: 'a>(
         mut self,
-        p_memory_range_barriers: impl AsSlice<'a, MemoryRangeBarrierKHR<'a>>,
+        p_memory_range_barriers: impl AsSlice<'a, MemoryRangeBarrierKHR<'b>>,
     ) -> Self {
         self.p_memory_range_barriers = p_memory_range_barriers.as_slice().as_ptr().cast();
         self.memory_range_barrier_count = p_memory_range_barriers.as_slice().len() as _;
@@ -59480,9 +59513,9 @@ impl<'a> ImageConstraintsInfoFUCHSIA<'a> {
         self
     }
     #[inline]
-    pub fn format_constraints(
+    pub fn format_constraints<'b: 'a>(
         mut self,
-        p_format_constraints: impl AsSlice<'a, ImageFormatConstraintsInfoFUCHSIA<'a>>,
+        p_format_constraints: impl AsSlice<'a, ImageFormatConstraintsInfoFUCHSIA<'b>>,
     ) -> Self {
         self.p_format_constraints = p_format_constraints.as_slice().as_ptr().cast();
         self.format_constraints_count = p_format_constraints.as_slice().len() as _;
@@ -59569,9 +59602,9 @@ impl<'a> ImageFormatConstraintsInfoFUCHSIA<'a> {
         self
     }
     #[inline]
-    pub fn color_spaces(
+    pub fn color_spaces<'b: 'a>(
         mut self,
-        p_color_spaces: impl AsSlice<'a, SysmemColorSpaceFUCHSIA<'a>>,
+        p_color_spaces: impl AsSlice<'a, SysmemColorSpaceFUCHSIA<'b>>,
     ) -> Self {
         self.p_color_spaces = p_color_spaces.as_slice().as_ptr().cast();
         self.color_space_count = p_color_spaces.as_slice().len() as _;
@@ -64227,9 +64260,9 @@ impl<'a> Default for RenderPassStripeBeginInfoARM<'a> {
 #[cfg(feature = "ext_render_pass_striped")]
 impl<'a> RenderPassStripeBeginInfoARM<'a> {
     #[inline]
-    pub fn stripe_infos(
+    pub fn stripe_infos<'b: 'a>(
         mut self,
-        p_stripe_infos: impl AsSlice<'a, RenderPassStripeInfoARM<'a>>,
+        p_stripe_infos: impl AsSlice<'a, RenderPassStripeInfoARM<'b>>,
     ) -> Self {
         self.p_stripe_infos = p_stripe_infos.as_slice().as_ptr().cast();
         self.stripe_info_count = p_stripe_infos.as_slice().len() as _;
@@ -64337,9 +64370,9 @@ impl<'a> Default for RenderPassStripeSubmitInfoARM<'a> {
 #[cfg(feature = "ext_render_pass_striped")]
 impl<'a> RenderPassStripeSubmitInfoARM<'a> {
     #[inline]
-    pub fn stripe_semaphore_infos(
+    pub fn stripe_semaphore_infos<'b: 'a>(
         mut self,
-        p_stripe_semaphore_infos: impl AsSlice<'a, SemaphoreSubmitInfo<'a>>,
+        p_stripe_semaphore_infos: impl AsSlice<'a, SemaphoreSubmitInfo<'b>>,
     ) -> Self {
         self.p_stripe_semaphore_infos = p_stripe_semaphore_infos.as_slice().as_ptr().cast();
         self.stripe_semaphore_info_count = p_stripe_semaphore_infos.as_slice().len() as _;
@@ -66842,9 +66875,9 @@ impl<'a> DirectDriverLoadingListLUNARG<'a> {
         self
     }
     #[inline]
-    pub fn drivers(
+    pub fn drivers<'b: 'a>(
         mut self,
-        p_drivers: impl AsSlice<'a, DirectDriverLoadingInfoLUNARG<'a>>,
+        p_drivers: impl AsSlice<'a, DirectDriverLoadingInfoLUNARG<'b>>,
     ) -> Self {
         self.p_drivers = p_drivers.as_slice().as_ptr().cast();
         self.driver_count = p_drivers.as_slice().len() as _;
@@ -67554,9 +67587,9 @@ impl<'a> Default for TensorDependencyInfoARM<'a> {
 #[cfg(feature = "ext_tensors")]
 impl<'a> TensorDependencyInfoARM<'a> {
     #[inline]
-    pub fn tensor_memory_barriers(
+    pub fn tensor_memory_barriers<'b: 'a>(
         mut self,
-        p_tensor_memory_barriers: impl AsSlice<'a, TensorMemoryBarrierARM<'a>>,
+        p_tensor_memory_barriers: impl AsSlice<'a, TensorMemoryBarrierARM<'b>>,
     ) -> Self {
         self.p_tensor_memory_barriers = p_tensor_memory_barriers.as_slice().as_ptr().cast();
         self.tensor_memory_barrier_count = p_tensor_memory_barriers.as_slice().len() as _;
@@ -67777,7 +67810,7 @@ impl<'a> CopyTensorInfoARM<'a> {
         self
     }
     #[inline]
-    pub fn regions(mut self, p_regions: impl AsSlice<'a, TensorCopyARM<'a>>) -> Self {
+    pub fn regions<'b: 'a>(mut self, p_regions: impl AsSlice<'a, TensorCopyARM<'b>>) -> Self {
         self.p_regions = p_regions.as_slice().as_ptr().cast();
         self.region_count = p_regions.as_slice().len() as _;
         self
@@ -70792,10 +70825,10 @@ impl<'a> Default for PipelineBinaryKeysAndDataKHR<'a> {
 #[cfg(feature = "ext_pipeline_binary")]
 impl<'a> PipelineBinaryKeysAndDataKHR<'a> {
     #[inline]
-    pub fn binary(
+    pub fn binary<'b: 'a>(
         mut self,
-        p_pipeline_binary_keys: impl AsSlice<'a, PipelineBinaryKeyKHR<'a>>,
-        p_pipeline_binary_data: impl AsSlice<'a, PipelineBinaryDataKHR<'a>>,
+        p_pipeline_binary_keys: impl AsSlice<'a, PipelineBinaryKeyKHR<'b>>,
+        p_pipeline_binary_data: impl AsSlice<'a, PipelineBinaryDataKHR<'b>>,
     ) -> Self {
         self.p_pipeline_binary_keys = p_pipeline_binary_keys.as_slice().as_ptr().cast();
         self.p_pipeline_binary_data = p_pipeline_binary_data.as_slice().as_ptr().cast();
@@ -72771,9 +72804,9 @@ impl<'a> Default for MutableDescriptorTypeCreateInfoEXT<'a> {
 #[cfg(feature = "ext_mutable_descriptor_type")]
 impl<'a> MutableDescriptorTypeCreateInfoEXT<'a> {
     #[inline]
-    pub fn mutable_descriptor_type_lists(
+    pub fn mutable_descriptor_type_lists<'b: 'a>(
         mut self,
-        p_mutable_descriptor_type_lists: impl AsSlice<'a, MutableDescriptorTypeListEXT<'a>>,
+        p_mutable_descriptor_type_lists: impl AsSlice<'a, MutableDescriptorTypeListEXT<'b>>,
     ) -> Self {
         self.p_mutable_descriptor_type_lists =
             p_mutable_descriptor_type_lists.as_slice().as_ptr().cast();
@@ -72941,7 +72974,7 @@ impl<'a> Default for LayerSettingsCreateInfoEXT<'a> {
 #[cfg(feature = "ext_layer_settings")]
 impl<'a> LayerSettingsCreateInfoEXT<'a> {
     #[inline]
-    pub fn settings(mut self, p_settings: impl AsSlice<'a, LayerSettingEXT<'a>>) -> Self {
+    pub fn settings<'b: 'a>(mut self, p_settings: impl AsSlice<'a, LayerSettingEXT<'b>>) -> Self {
         self.p_settings = p_settings.as_slice().as_ptr().cast();
         self.setting_count = p_settings.as_slice().len() as _;
         self
@@ -73517,7 +73550,10 @@ impl<'a> GetLatencyMarkerInfoNV<'a> {
         self
     }
     #[inline]
-    pub fn timings(mut self, p_timings: impl AsSlice<'a, LatencyTimingsFrameReportNV<'a>>) -> Self {
+    pub fn timings<'b: 'a>(
+        mut self,
+        p_timings: impl AsSlice<'a, LatencyTimingsFrameReportNV<'b>>,
+    ) -> Self {
         self.p_timings = p_timings.as_slice().as_ptr().cast();
         self.timing_count = p_timings.as_slice().len() as _;
         self
@@ -74403,9 +74439,9 @@ impl<'a> DataGraphPipelineCreateInfoARM<'a> {
         self
     }
     #[inline]
-    pub fn resource_infos(
+    pub fn resource_infos<'b: 'a>(
         mut self,
-        p_resource_infos: impl AsSlice<'a, DataGraphPipelineResourceInfoARM<'a>>,
+        p_resource_infos: impl AsSlice<'a, DataGraphPipelineResourceInfoARM<'b>>,
     ) -> Self {
         self.p_resource_infos = p_resource_infos.as_slice().as_ptr().cast();
         self.resource_info_count = p_resource_infos.as_slice().len() as _;
@@ -74492,9 +74528,9 @@ impl<'a> DataGraphPipelineShaderModuleCreateInfoARM<'a> {
         self
     }
     #[inline]
-    pub fn constants(
+    pub fn constants<'b: 'a>(
         mut self,
-        p_constants: impl AsSlice<'a, DataGraphPipelineConstantARM<'a>>,
+        p_constants: impl AsSlice<'a, DataGraphPipelineConstantARM<'b>>,
     ) -> Self {
         self.p_constants = p_constants.as_slice().as_ptr().cast();
         self.constant_count = p_constants.as_slice().len() as _;
@@ -78811,9 +78847,9 @@ impl<'a> PhysicalDeviceLayeredApiPropertiesListKHR<'a> {
         self
     }
     #[inline]
-    pub fn layered_apis(
+    pub fn layered_apis<'b: 'a>(
         mut self,
-        p_layered_apis: impl AsSlice<'a, PhysicalDeviceLayeredApiPropertiesKHR<'a>>,
+        p_layered_apis: impl AsSlice<'a, PhysicalDeviceLayeredApiPropertiesKHR<'b>>,
     ) -> Self {
         self.p_layered_apis = p_layered_apis.as_slice().as_ptr().cast();
         self.layered_api_count = p_layered_apis.as_slice().len() as _;
@@ -81416,10 +81452,10 @@ impl<'a> IndirectExecutionSetShaderInfoEXT<'a> {
         self
     }
     #[inline]
-    pub fn shader<V0: Alias<raw::ShaderEXT> + 'a>(
+    pub fn shader<'b: 'a, V0: Alias<raw::ShaderEXT> + 'a>(
         mut self,
         p_initial_shaders: impl AsSlice<'a, V0>,
-        p_set_layout_infos: Option<impl AsSlice<'a, IndirectExecutionSetShaderLayoutInfoEXT<'a>>>,
+        p_set_layout_infos: Option<impl AsSlice<'a, IndirectExecutionSetShaderLayoutInfoEXT<'b>>>,
     ) -> Self {
         self.p_initial_shaders = p_initial_shaders.as_slice().as_ptr().cast();
         self.p_set_layout_infos = p_set_layout_infos
@@ -81695,9 +81731,9 @@ impl<'a> IndirectCommandsLayoutCreateInfoEXT<'a> {
         self
     }
     #[inline]
-    pub fn tokens(
+    pub fn tokens<'b: 'a>(
         mut self,
-        p_tokens: impl AsSlice<'a, IndirectCommandsLayoutTokenEXT<'a>>,
+        p_tokens: impl AsSlice<'a, IndirectCommandsLayoutTokenEXT<'b>>,
     ) -> Self {
         self.p_tokens = p_tokens.as_slice().as_ptr().cast();
         self.token_count = p_tokens.as_slice().len() as _;
@@ -87831,9 +87867,9 @@ impl<'a> DataGraphPipelineSingleNodeCreateInfoARM<'a> {
         self
     }
     #[inline]
-    pub fn connections(
+    pub fn connections<'b: 'a>(
         mut self,
-        p_connections: impl AsSlice<'a, DataGraphPipelineSingleNodeConnectionARM<'a>>,
+        p_connections: impl AsSlice<'a, DataGraphPipelineSingleNodeConnectionARM<'b>>,
     ) -> Self {
         self.p_connections = p_connections.as_slice().as_ptr().cast();
         self.connection_count = p_connections.as_slice().len() as _;

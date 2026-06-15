@@ -758,6 +758,7 @@ pub struct CommandParamsParsed<'a, 'b> {
     pub output_fields: Vec<(&'b str, &'b CommandParam<'a>)>,
     pub simple_fields: Vec<(&'b str, &'b CommandParam<'a>)>,
     pub vec_fields: Vec<(&'b str, &'b CommandParam<'a>)>,
+    pub has_extended_lifetime: bool,
     pub length_mappings: HashMap<&'b str, &'b CommandParam<'a>>,
     pub parsed_arg_templates: Vec<TokenStream>,
     pub parsed_args_in: Vec<(TokenStream, TokenStream)>,
@@ -775,6 +776,10 @@ pub struct SliceType {
     pub output_ty: TokenStream,
     /// unsafe { slices::from_raw_parts(..) }
     pub access: TokenStream,
+    /// Does it need a lifetime 'b:'a for input
+    pub need_input_lifetime: bool,
+    /// Does it need a lifetime 'b for output
+    pub need_output_lifetime: bool,
 }
 
 #[derive(Clone, Default, PartialEq, Eq)]

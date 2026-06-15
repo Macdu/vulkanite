@@ -481,6 +481,7 @@ where
     let doc_tag = make_doc_link(vk_name);
     let unsafe_tag = name.starts_with("destroy").then(|| quote!(unsafe));
     let lifetime = (!cmd_parsed.vec_fields.is_empty()).then(|| quote! ('a, ));
+    let ext_lifetime = cmd_parsed.has_extended_lifetime.then(|| quote! ('b : 'a, ));
 
     // Tell the compiler it should try to inline the function across crate boundaries
     // Without the inline tag it won't and when inlined the generated assembly is much simpler/shorter
@@ -493,7 +494,7 @@ where
         #config_tag
         #doc_tag
         #inline_tag
-        pub #unsafe_tag fn #fn_name<#lifetime #ret_template #(#arg_template),*>(&self, #(#arg_outer_name: #arg_outer_type),*) #ret_type {
+        pub #unsafe_tag fn #fn_name<#lifetime #ext_lifetime #ret_template #(#arg_template),*>(&self, #(#arg_outer_name: #arg_outer_type),*) #ret_type {
             #pre_call
             unsafe {
                 raw::#raw_fn_name(#caller #(#arg_outer_name,)* #allocator_param self.disp.get_command_dispatcher())

@@ -2060,9 +2060,9 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
     #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkFlushMappedMemoryRanges.html>"]
     #[doc(alias = "vkFlushMappedMemoryRanges")]
     #[inline]
-    pub fn flush_mapped_memory_ranges<'a>(
+    pub fn flush_mapped_memory_ranges<'a, 'b: 'a>(
         &self,
-        p_memory_ranges: impl AsSlice<'a, MappedMemoryRange<'a>>,
+        p_memory_ranges: impl AsSlice<'a, MappedMemoryRange<'b>>,
     ) -> Result<()> {
         unsafe {
             raw::flush_mapped_memory_ranges(
@@ -2075,9 +2075,9 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
     #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkInvalidateMappedMemoryRanges.html>"]
     #[doc(alias = "vkInvalidateMappedMemoryRanges")]
     #[inline]
-    pub fn invalidate_mapped_memory_ranges<'a>(
+    pub fn invalidate_mapped_memory_ranges<'a, 'b: 'a>(
         &self,
-        p_memory_ranges: impl AsSlice<'a, MappedMemoryRange<'a>>,
+        p_memory_ranges: impl AsSlice<'a, MappedMemoryRange<'b>>,
     ) -> Result<()> {
         unsafe {
             raw::invalidate_mapped_memory_ranges(
@@ -2655,10 +2655,14 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
     }
     #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateComputePipelines.html>"]
     #[doc(alias = "vkCreateComputePipelines")]
-    pub fn create_compute_pipelines<'a, R: AdvancedDynamicArray<Pipeline, raw::Pipeline>>(
+    pub fn create_compute_pipelines<
+        'a,
+        'b: 'a,
+        R: AdvancedDynamicArray<Pipeline, raw::Pipeline>,
+    >(
         &self,
         pipeline_cache: Option<&raw::PipelineCache>,
-        p_create_infos: impl AsSlice<'a, ComputePipelineCreateInfo<'a>>,
+        p_create_infos: impl AsSlice<'a, ComputePipelineCreateInfo<'b>>,
     ) -> Result<(Status, R)> {
         let vk_result: Result<(Status, R::InnerArrayType)> = unsafe {
             raw::create_compute_pipelines(
@@ -2865,10 +2869,10 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
     #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkUpdateDescriptorSets.html>"]
     #[doc(alias = "vkUpdateDescriptorSets")]
     #[inline]
-    pub fn update_descriptor_sets<'a>(
+    pub fn update_descriptor_sets<'a, 'b: 'a>(
         &self,
-        p_descriptor_writes: impl AsSlice<'a, WriteDescriptorSet<'a>>,
-        p_descriptor_copies: impl AsSlice<'a, CopyDescriptorSet<'a>>,
+        p_descriptor_writes: impl AsSlice<'a, WriteDescriptorSet<'b>>,
+        p_descriptor_copies: impl AsSlice<'a, CopyDescriptorSet<'b>>,
     ) {
         unsafe {
             raw::update_descriptor_sets(
@@ -2881,10 +2885,14 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
     }
     #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateGraphicsPipelines.html>"]
     #[doc(alias = "vkCreateGraphicsPipelines")]
-    pub fn create_graphics_pipelines<'a, R: AdvancedDynamicArray<Pipeline, raw::Pipeline>>(
+    pub fn create_graphics_pipelines<
+        'a,
+        'b: 'a,
+        R: AdvancedDynamicArray<Pipeline, raw::Pipeline>,
+    >(
         &self,
         pipeline_cache: Option<&raw::PipelineCache>,
-        p_create_infos: impl AsSlice<'a, GraphicsPipelineCreateInfo<'a>>,
+        p_create_infos: impl AsSlice<'a, GraphicsPipelineCreateInfo<'b>>,
     ) -> Result<(Status, R)> {
         let vk_result: Result<(Status, R::InnerArrayType)> = unsafe {
             raw::create_graphics_pipelines(
@@ -2971,9 +2979,9 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
     #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkBindBufferMemory2.html>"]
     #[doc(alias = "vkBindBufferMemory2")]
     #[inline]
-    pub fn bind_buffer_memory2<'a>(
+    pub fn bind_buffer_memory2<'a, 'b: 'a>(
         &self,
-        p_bind_infos: impl AsSlice<'a, BindBufferMemoryInfo<'a>>,
+        p_bind_infos: impl AsSlice<'a, BindBufferMemoryInfo<'b>>,
     ) -> Result<()> {
         unsafe { raw::bind_buffer_memory2(self, p_bind_infos, self.disp.get_command_dispatcher()) }
     }
@@ -2981,9 +2989,9 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
     #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkBindBufferMemory2KHR.html>"]
     #[doc(alias = "vkBindBufferMemory2KHR")]
     #[inline]
-    pub fn bind_buffer_memory2_khr<'a>(
+    pub fn bind_buffer_memory2_khr<'a, 'b: 'a>(
         &self,
-        p_bind_infos: impl AsSlice<'a, BindBufferMemoryInfo<'a>>,
+        p_bind_infos: impl AsSlice<'a, BindBufferMemoryInfo<'b>>,
     ) -> Result<()> {
         unsafe {
             raw::bind_buffer_memory2_khr(self, p_bind_infos, self.disp.get_command_dispatcher())
@@ -2993,9 +3001,9 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
     #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkBindImageMemory2.html>"]
     #[doc(alias = "vkBindImageMemory2")]
     #[inline]
-    pub fn bind_image_memory2<'a>(
+    pub fn bind_image_memory2<'a, 'b: 'a>(
         &self,
-        p_bind_infos: impl AsSlice<'a, BindImageMemoryInfo<'a>>,
+        p_bind_infos: impl AsSlice<'a, BindImageMemoryInfo<'b>>,
     ) -> Result<()> {
         unsafe { raw::bind_image_memory2(self, p_bind_infos, self.disp.get_command_dispatcher()) }
     }
@@ -3003,9 +3011,9 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
     #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkBindImageMemory2KHR.html>"]
     #[doc(alias = "vkBindImageMemory2KHR")]
     #[inline]
-    pub fn bind_image_memory2_khr<'a>(
+    pub fn bind_image_memory2_khr<'a, 'b: 'a>(
         &self,
-        p_bind_infos: impl AsSlice<'a, BindImageMemoryInfo<'a>>,
+        p_bind_infos: impl AsSlice<'a, BindImageMemoryInfo<'b>>,
     ) -> Result<()> {
         unsafe {
             raw::bind_image_memory2_khr(self, p_bind_infos, self.disp.get_command_dispatcher())
@@ -4107,9 +4115,9 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
     #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkTransitionImageLayout.html>"]
     #[doc(alias = "vkTransitionImageLayout")]
     #[inline]
-    pub fn transition_image_layout<'a>(
+    pub fn transition_image_layout<'a, 'b: 'a>(
         &self,
-        p_transitions: impl AsSlice<'a, HostImageLayoutTransitionInfo<'a>>,
+        p_transitions: impl AsSlice<'a, HostImageLayoutTransitionInfo<'b>>,
     ) -> Result<()> {
         unsafe {
             raw::transition_image_layout(self, p_transitions, self.disp.get_command_dispatcher())
@@ -4119,9 +4127,9 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
     #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkTransitionImageLayoutEXT.html>"]
     #[doc(alias = "vkTransitionImageLayoutEXT")]
     #[inline]
-    pub fn transition_image_layout_ext<'a>(
+    pub fn transition_image_layout_ext<'a, 'b: 'a>(
         &self,
-        p_transitions: impl AsSlice<'a, HostImageLayoutTransitionInfo<'a>>,
+        p_transitions: impl AsSlice<'a, HostImageLayoutTransitionInfo<'b>>,
     ) -> Result<()> {
         unsafe {
             raw::transition_image_layout_ext(
@@ -4288,10 +4296,11 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
     #[doc(alias = "vkCreateSharedSwapchainsKHR")]
     pub fn create_shared_swapchains_khr<
         'a,
+        'b: 'a,
         R: AdvancedDynamicArray<SwapchainKHR, raw::SwapchainKHR>,
     >(
         &self,
-        p_create_infos: impl AsSlice<'a, SwapchainCreateInfoKHR<'a>>,
+        p_create_infos: impl AsSlice<'a, SwapchainCreateInfoKHR<'b>>,
     ) -> Result<R> {
         let vk_result: Result<R::InnerArrayType> = unsafe {
             raw::create_shared_swapchains_khr(
@@ -4713,10 +4722,10 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
     #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkSetHdrMetadataEXT.html>"]
     #[doc(alias = "vkSetHdrMetadataEXT")]
     #[inline]
-    pub fn set_hdr_metadata_ext<'a, V2: Alias<raw::SwapchainKHR> + 'a>(
+    pub fn set_hdr_metadata_ext<'a, 'b: 'a, V2: Alias<raw::SwapchainKHR> + 'a>(
         &self,
         p_swapchains: impl AsSlice<'a, V2>,
-        p_metadata: impl AsSlice<'a, HdrMetadataEXT<'a>>,
+        p_metadata: impl AsSlice<'a, HdrMetadataEXT<'b>>,
     ) {
         unsafe {
             raw::set_hdr_metadata_ext(
@@ -4958,11 +4967,12 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
     #[doc(alias = "vkCreateExecutionGraphPipelinesAMDX")]
     pub fn create_execution_graph_pipelines_amdx<
         'a,
+        'b: 'a,
         R: AdvancedDynamicArray<Pipeline, raw::Pipeline>,
     >(
         &self,
         pipeline_cache: Option<&raw::PipelineCache>,
-        p_create_infos: impl AsSlice<'a, ExecutionGraphPipelineCreateInfoAMDX<'a>>,
+        p_create_infos: impl AsSlice<'a, ExecutionGraphPipelineCreateInfoAMDX<'b>>,
     ) -> Result<(Status, R)> {
         let vk_result: Result<(Status, R::InnerArrayType)> = unsafe {
             raw::create_execution_graph_pipelines_amdx(
@@ -5022,10 +5032,10 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
     #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkWriteSamplerDescriptorsEXT.html>"]
     #[doc(alias = "vkWriteSamplerDescriptorsEXT")]
     #[inline]
-    pub fn write_sampler_descriptors_ext<'a>(
+    pub fn write_sampler_descriptors_ext<'a, 'b: 'a>(
         &self,
-        p_samplers: impl AsSlice<'a, SamplerCreateInfo<'a>>,
-        p_descriptors: impl AsSlice<'a, HostAddressRangeEXT<'a>>,
+        p_samplers: impl AsSlice<'a, SamplerCreateInfo<'b>>,
+        p_descriptors: impl AsSlice<'a, HostAddressRangeEXT<'b>>,
     ) -> Result<()> {
         unsafe {
             raw::write_sampler_descriptors_ext(
@@ -5040,10 +5050,10 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
     #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkWriteResourceDescriptorsEXT.html>"]
     #[doc(alias = "vkWriteResourceDescriptorsEXT")]
     #[inline]
-    pub fn write_resource_descriptors_ext<'a>(
+    pub fn write_resource_descriptors_ext<'a, 'b: 'a>(
         &self,
-        p_resources: impl AsSlice<'a, ResourceDescriptorInfoEXT<'a>>,
-        p_descriptors: impl AsSlice<'a, HostAddressRangeEXT<'a>>,
+        p_resources: impl AsSlice<'a, ResourceDescriptorInfoEXT<'b>>,
+        p_descriptors: impl AsSlice<'a, HostAddressRangeEXT<'b>>,
     ) -> Result<()> {
         unsafe {
             raw::write_resource_descriptors_ext(
@@ -5158,10 +5168,10 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
     #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkBuildAccelerationStructuresKHR.html>"]
     #[doc(alias = "vkBuildAccelerationStructuresKHR")]
     #[inline]
-    pub fn build_acceleration_structures_khr<'a>(
+    pub fn build_acceleration_structures_khr<'a, 'b: 'a>(
         &self,
         deferred_operation: Option<&raw::DeferredOperationKHR>,
-        p_infos: impl AsSlice<'a, AccelerationStructureBuildGeometryInfoKHR<'a>>,
+        p_infos: impl AsSlice<'a, AccelerationStructureBuildGeometryInfoKHR<'b>>,
         pp_build_range_infos: &&AccelerationStructureBuildRangeInfoKHR,
     ) -> Result<Status> {
         unsafe {
@@ -5314,12 +5324,13 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
     #[doc(alias = "vkCreateRayTracingPipelinesKHR")]
     pub fn create_ray_tracing_pipelines_khr<
         'a,
+        'b: 'a,
         R: AdvancedDynamicArray<Pipeline, raw::Pipeline>,
     >(
         &self,
         deferred_operation: Option<&raw::DeferredOperationKHR>,
         pipeline_cache: Option<&raw::PipelineCache>,
-        p_create_infos: impl AsSlice<'a, RayTracingPipelineCreateInfoKHR<'a>>,
+        p_create_infos: impl AsSlice<'a, RayTracingPipelineCreateInfoKHR<'b>>,
     ) -> Result<(Status, R)> {
         let vk_result: Result<(Status, R::InnerArrayType)> = unsafe {
             raw::create_ray_tracing_pipelines_khr(
@@ -5577,9 +5588,9 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
     #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkBindAccelerationStructureMemoryNV.html>"]
     #[doc(alias = "vkBindAccelerationStructureMemoryNV")]
     #[inline]
-    pub fn bind_acceleration_structure_memory_nv<'a>(
+    pub fn bind_acceleration_structure_memory_nv<'a, 'b: 'a>(
         &self,
-        p_bind_infos: impl AsSlice<'a, BindAccelerationStructureMemoryInfoNV<'a>>,
+        p_bind_infos: impl AsSlice<'a, BindAccelerationStructureMemoryInfoNV<'b>>,
     ) -> Result<()> {
         unsafe {
             raw::bind_acceleration_structure_memory_nv(
@@ -5592,10 +5603,14 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
     #[cfg(feature = "ext_ray_tracing")]
     #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateRayTracingPipelinesNV.html>"]
     #[doc(alias = "vkCreateRayTracingPipelinesNV")]
-    pub fn create_ray_tracing_pipelines_nv<'a, R: AdvancedDynamicArray<Pipeline, raw::Pipeline>>(
+    pub fn create_ray_tracing_pipelines_nv<
+        'a,
+        'b: 'a,
+        R: AdvancedDynamicArray<Pipeline, raw::Pipeline>,
+    >(
         &self,
         pipeline_cache: Option<&raw::PipelineCache>,
-        p_create_infos: impl AsSlice<'a, RayTracingPipelineCreateInfoNV<'a>>,
+        p_create_infos: impl AsSlice<'a, RayTracingPipelineCreateInfoNV<'b>>,
     ) -> Result<(Status, R)> {
         let vk_result: Result<(Status, R::InnerArrayType)> = unsafe {
             raw::create_ray_tracing_pipelines_nv(
@@ -6534,10 +6549,10 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
     #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkBuildMicromapsEXT.html>"]
     #[doc(alias = "vkBuildMicromapsEXT")]
     #[inline]
-    pub fn build_micromaps_ext<'a>(
+    pub fn build_micromaps_ext<'a, 'b: 'a>(
         &self,
         deferred_operation: Option<&raw::DeferredOperationKHR>,
-        p_infos: impl AsSlice<'a, MicromapBuildInfoEXT<'a>>,
+        p_infos: impl AsSlice<'a, MicromapBuildInfoEXT<'b>>,
     ) -> Result<Status> {
         unsafe {
             raw::build_micromaps_ext(
@@ -6854,9 +6869,9 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
     #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkBindTensorMemoryARM.html>"]
     #[doc(alias = "vkBindTensorMemoryARM")]
     #[inline]
-    pub fn bind_tensor_memory_arm<'a>(
+    pub fn bind_tensor_memory_arm<'a, 'b: 'a>(
         &self,
-        p_bind_infos: impl AsSlice<'a, BindTensorMemoryInfoARM<'a>>,
+        p_bind_infos: impl AsSlice<'a, BindTensorMemoryInfoARM<'b>>,
     ) -> Result<()> {
         unsafe {
             raw::bind_tensor_memory_arm(self, p_bind_infos, self.disp.get_command_dispatcher())
@@ -7031,9 +7046,9 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
     #[cfg(feature = "ext_shader_object")]
     #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateShadersEXT.html>"]
     #[doc(alias = "vkCreateShadersEXT")]
-    pub fn create_shaders_ext<'a, R: AdvancedDynamicArray<ShaderEXT, raw::ShaderEXT>>(
+    pub fn create_shaders_ext<'a, 'b: 'a, R: AdvancedDynamicArray<ShaderEXT, raw::ShaderEXT>>(
         &self,
-        p_create_infos: impl AsSlice<'a, ShaderCreateInfoEXT<'a>>,
+        p_create_infos: impl AsSlice<'a, ShaderCreateInfoEXT<'b>>,
     ) -> Result<(Status, R)> {
         let vk_result: Result<(Status, R::InnerArrayType)> = unsafe {
             raw::create_shaders_ext(
@@ -7298,11 +7313,15 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
     #[cfg(feature = "ext_data_graph")]
     #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateDataGraphPipelinesARM.html>"]
     #[doc(alias = "vkCreateDataGraphPipelinesARM")]
-    pub fn create_data_graph_pipelines_arm<'a, R: AdvancedDynamicArray<Pipeline, raw::Pipeline>>(
+    pub fn create_data_graph_pipelines_arm<
+        'a,
+        'b: 'a,
+        R: AdvancedDynamicArray<Pipeline, raw::Pipeline>,
+    >(
         &self,
         deferred_operation: Option<&raw::DeferredOperationKHR>,
         pipeline_cache: Option<&raw::PipelineCache>,
-        p_create_infos: impl AsSlice<'a, DataGraphPipelineCreateInfoARM<'a>>,
+        p_create_infos: impl AsSlice<'a, DataGraphPipelineCreateInfoARM<'b>>,
     ) -> Result<(Status, R)> {
         let vk_result: Result<(Status, R::InnerArrayType)> = unsafe {
             raw::create_data_graph_pipelines_arm(
@@ -7380,9 +7399,9 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
     #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkBindDataGraphPipelineSessionMemoryARM.html>"]
     #[doc(alias = "vkBindDataGraphPipelineSessionMemoryARM")]
     #[inline]
-    pub fn bind_data_graph_pipeline_session_memory_arm<'a>(
+    pub fn bind_data_graph_pipeline_session_memory_arm<'a, 'b: 'a>(
         &self,
-        p_bind_infos: impl AsSlice<'a, BindDataGraphPipelineSessionMemoryInfoARM<'a>>,
+        p_bind_infos: impl AsSlice<'a, BindDataGraphPipelineSessionMemoryInfoARM<'b>>,
     ) -> Result<()> {
         unsafe {
             raw::bind_data_graph_pipeline_session_memory_arm(
@@ -7620,10 +7639,10 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
     #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkUpdateIndirectExecutionSetPipelineEXT.html>"]
     #[doc(alias = "vkUpdateIndirectExecutionSetPipelineEXT")]
     #[inline]
-    pub fn update_indirect_execution_set_pipeline_ext<'a>(
+    pub fn update_indirect_execution_set_pipeline_ext<'a, 'b: 'a>(
         &self,
         indirect_execution_set: &raw::IndirectExecutionSetEXT,
-        p_execution_set_writes: impl AsSlice<'a, WriteIndirectExecutionSetPipelineEXT<'a>>,
+        p_execution_set_writes: impl AsSlice<'a, WriteIndirectExecutionSetPipelineEXT<'b>>,
     ) {
         unsafe {
             raw::update_indirect_execution_set_pipeline_ext(
@@ -7638,10 +7657,10 @@ impl<D: Dispatcher, A: BaseAllocator> Device<D, A> {
     #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkUpdateIndirectExecutionSetShaderEXT.html>"]
     #[doc(alias = "vkUpdateIndirectExecutionSetShaderEXT")]
     #[inline]
-    pub fn update_indirect_execution_set_shader_ext<'a>(
+    pub fn update_indirect_execution_set_shader_ext<'a, 'b: 'a>(
         &self,
         indirect_execution_set: &raw::IndirectExecutionSetEXT,
-        p_execution_set_writes: impl AsSlice<'a, WriteIndirectExecutionSetShaderEXT<'a>>,
+        p_execution_set_writes: impl AsSlice<'a, WriteIndirectExecutionSetShaderEXT<'b>>,
     ) {
         unsafe {
             raw::update_indirect_execution_set_shader_ext(
@@ -7820,9 +7839,9 @@ impl<D: Dispatcher, A: BaseAllocator> Queue<D, A> {
     #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkQueueSubmit.html>"]
     #[doc(alias = "vkQueueSubmit")]
     #[inline]
-    pub fn submit<'a>(
+    pub fn submit<'a, 'b: 'a>(
         &self,
-        p_submits: impl AsSlice<'a, SubmitInfo<'a>>,
+        p_submits: impl AsSlice<'a, SubmitInfo<'b>>,
         fence: Option<&raw::Fence>,
     ) -> Result<()> {
         unsafe { raw::queue_submit(self, p_submits, fence, self.disp.get_command_dispatcher()) }
@@ -7836,9 +7855,9 @@ impl<D: Dispatcher, A: BaseAllocator> Queue<D, A> {
     #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkQueueBindSparse.html>"]
     #[doc(alias = "vkQueueBindSparse")]
     #[inline]
-    pub fn bind_sparse<'a>(
+    pub fn bind_sparse<'a, 'b: 'a>(
         &self,
-        p_bind_info: impl AsSlice<'a, BindSparseInfo<'a>>,
+        p_bind_info: impl AsSlice<'a, BindSparseInfo<'b>>,
         fence: Option<&raw::Fence>,
     ) -> Result<()> {
         unsafe {
@@ -7849,9 +7868,9 @@ impl<D: Dispatcher, A: BaseAllocator> Queue<D, A> {
     #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkQueueSubmit2.html>"]
     #[doc(alias = "vkQueueSubmit2")]
     #[inline]
-    pub fn submit2<'a>(
+    pub fn submit2<'a, 'b: 'a>(
         &self,
-        p_submits: impl AsSlice<'a, SubmitInfo2<'a>>,
+        p_submits: impl AsSlice<'a, SubmitInfo2<'b>>,
         fence: Option<&raw::Fence>,
     ) -> Result<()> {
         unsafe { raw::queue_submit2(self, p_submits, fence, self.disp.get_command_dispatcher()) }
@@ -7860,9 +7879,9 @@ impl<D: Dispatcher, A: BaseAllocator> Queue<D, A> {
     #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkQueueSubmit2KHR.html>"]
     #[doc(alias = "vkQueueSubmit2KHR")]
     #[inline]
-    pub fn submit2_khr<'a>(
+    pub fn submit2_khr<'a, 'b: 'a>(
         &self,
-        p_submits: impl AsSlice<'a, SubmitInfo2<'a>>,
+        p_submits: impl AsSlice<'a, SubmitInfo2<'b>>,
         fence: Option<&raw::Fence>,
     ) -> Result<()> {
         unsafe {
@@ -8321,14 +8340,14 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
     #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdPipelineBarrier.html>"]
     #[doc(alias = "vkCmdPipelineBarrier")]
     #[inline]
-    pub fn pipeline_barrier<'a>(
+    pub fn pipeline_barrier<'a, 'b: 'a>(
         &self,
         src_stage_mask: PipelineStageFlags,
         dst_stage_mask: PipelineStageFlags,
         dependency_flags: DependencyFlags,
-        p_memory_barriers: impl AsSlice<'a, MemoryBarrier<'a>>,
-        p_buffer_memory_barriers: impl AsSlice<'a, BufferMemoryBarrier<'a>>,
-        p_image_memory_barriers: impl AsSlice<'a, ImageMemoryBarrier<'a>>,
+        p_memory_barriers: impl AsSlice<'a, MemoryBarrier<'b>>,
+        p_buffer_memory_barriers: impl AsSlice<'a, BufferMemoryBarrier<'b>>,
+        p_image_memory_barriers: impl AsSlice<'a, ImageMemoryBarrier<'b>>,
     ) {
         unsafe {
             raw::cmd_pipeline_barrier(
@@ -8533,14 +8552,14 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
     #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdWaitEvents.html>"]
     #[doc(alias = "vkCmdWaitEvents")]
     #[inline]
-    pub fn wait_events<'a, V2: Alias<raw::Event> + 'a>(
+    pub fn wait_events<'a, 'b: 'a, V2: Alias<raw::Event> + 'a>(
         &self,
         p_events: impl AsSlice<'a, V2>,
         src_stage_mask: PipelineStageFlags,
         dst_stage_mask: PipelineStageFlags,
-        p_memory_barriers: impl AsSlice<'a, MemoryBarrier<'a>>,
-        p_buffer_memory_barriers: impl AsSlice<'a, BufferMemoryBarrier<'a>>,
-        p_image_memory_barriers: impl AsSlice<'a, ImageMemoryBarrier<'a>>,
+        p_memory_barriers: impl AsSlice<'a, MemoryBarrier<'b>>,
+        p_buffer_memory_barriers: impl AsSlice<'a, BufferMemoryBarrier<'b>>,
+        p_image_memory_barriers: impl AsSlice<'a, ImageMemoryBarrier<'b>>,
     ) {
         unsafe {
             raw::cmd_wait_events(
@@ -9444,10 +9463,10 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
     #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdWaitEvents2.html>"]
     #[doc(alias = "vkCmdWaitEvents2")]
     #[inline]
-    pub fn wait_events2<'a, V2: Alias<raw::Event> + 'a>(
+    pub fn wait_events2<'a, 'b: 'a, V2: Alias<raw::Event> + 'a>(
         &self,
         p_events: impl AsSlice<'a, V2>,
-        p_dependency_infos: impl AsSlice<'a, DependencyInfo<'a>>,
+        p_dependency_infos: impl AsSlice<'a, DependencyInfo<'b>>,
     ) {
         unsafe {
             raw::cmd_wait_events2(
@@ -9462,10 +9481,10 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
     #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdWaitEvents2KHR.html>"]
     #[doc(alias = "vkCmdWaitEvents2KHR")]
     #[inline]
-    pub fn wait_events2_khr<'a, V2: Alias<raw::Event> + 'a>(
+    pub fn wait_events2_khr<'a, 'b: 'a, V2: Alias<raw::Event> + 'a>(
         &self,
         p_events: impl AsSlice<'a, V2>,
-        p_dependency_infos: impl AsSlice<'a, DependencyInfo<'a>>,
+        p_dependency_infos: impl AsSlice<'a, DependencyInfo<'b>>,
     ) {
         unsafe {
             raw::cmd_wait_events2_khr(
@@ -10076,12 +10095,12 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
     #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdPushDescriptorSet.html>"]
     #[doc(alias = "vkCmdPushDescriptorSet")]
     #[inline]
-    pub fn push_descriptor_set<'a>(
+    pub fn push_descriptor_set<'a, 'b: 'a>(
         &self,
         pipeline_bind_point: PipelineBindPoint,
         layout: &raw::PipelineLayout,
         set: u32,
-        p_descriptor_writes: impl AsSlice<'a, WriteDescriptorSet<'a>>,
+        p_descriptor_writes: impl AsSlice<'a, WriteDescriptorSet<'b>>,
     ) {
         unsafe {
             raw::cmd_push_descriptor_set(
@@ -10098,12 +10117,12 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
     #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdPushDescriptorSetKHR.html>"]
     #[doc(alias = "vkCmdPushDescriptorSetKHR")]
     #[inline]
-    pub fn push_descriptor_set_khr<'a>(
+    pub fn push_descriptor_set_khr<'a, 'b: 'a>(
         &self,
         pipeline_bind_point: PipelineBindPoint,
         layout: &raw::PipelineLayout,
         set: u32,
-        p_descriptor_writes: impl AsSlice<'a, WriteDescriptorSet<'a>>,
+        p_descriptor_writes: impl AsSlice<'a, WriteDescriptorSet<'b>>,
     ) {
         unsafe {
             raw::cmd_push_descriptor_set_khr(
@@ -10920,9 +10939,9 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
     #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBuildAccelerationStructuresKHR.html>"]
     #[doc(alias = "vkCmdBuildAccelerationStructuresKHR")]
     #[inline]
-    pub fn build_acceleration_structures_khr<'a>(
+    pub fn build_acceleration_structures_khr<'a, 'b: 'a>(
         &self,
-        p_infos: impl AsSlice<'a, AccelerationStructureBuildGeometryInfoKHR<'a>>,
+        p_infos: impl AsSlice<'a, AccelerationStructureBuildGeometryInfoKHR<'b>>,
         pp_build_range_infos: &&AccelerationStructureBuildRangeInfoKHR,
     ) {
         unsafe {
@@ -10938,9 +10957,9 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
     #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBuildAccelerationStructuresIndirectKHR.html>"]
     #[doc(alias = "vkCmdBuildAccelerationStructuresIndirectKHR")]
     #[inline]
-    pub fn build_acceleration_structures_indirect_khr<'a>(
+    pub fn build_acceleration_structures_indirect_khr<'a, 'b: 'a>(
         &self,
-        p_infos: impl AsSlice<'a, AccelerationStructureBuildGeometryInfoKHR<'a>>,
+        p_infos: impl AsSlice<'a, AccelerationStructureBuildGeometryInfoKHR<'b>>,
         p_indirect_device_addresses: impl AsSlice<'a, DeviceAddress>,
         p_indirect_strides: impl AsSlice<'a, u32>,
         pp_max_primitive_counts: &&u32,
@@ -11113,10 +11132,10 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
     #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetViewportShadingRatePaletteNV.html>"]
     #[doc(alias = "vkCmdSetViewportShadingRatePaletteNV")]
     #[inline]
-    pub fn set_viewport_shading_rate_palette_nv<'a>(
+    pub fn set_viewport_shading_rate_palette_nv<'a, 'b: 'a>(
         &self,
         first_viewport: u32,
-        p_shading_rate_palettes: impl AsSlice<'a, ShadingRatePaletteNV<'a>>,
+        p_shading_rate_palettes: impl AsSlice<'a, ShadingRatePaletteNV<'b>>,
     ) {
         unsafe {
             raw::cmd_set_viewport_shading_rate_palette_nv(
@@ -11131,10 +11150,10 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
     #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetCoarseSampleOrderNV.html>"]
     #[doc(alias = "vkCmdSetCoarseSampleOrderNV")]
     #[inline]
-    pub fn set_coarse_sample_order_nv<'a>(
+    pub fn set_coarse_sample_order_nv<'a, 'b: 'a>(
         &self,
         sample_order_type: CoarseSampleOrderTypeNV,
-        p_custom_sample_orders: impl AsSlice<'a, CoarseSampleOrderCustomNV<'a>>,
+        p_custom_sample_orders: impl AsSlice<'a, CoarseSampleOrderCustomNV<'b>>,
     ) {
         unsafe {
             raw::cmd_set_coarse_sample_order_nv(
@@ -11608,9 +11627,9 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
     #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBindDescriptorBuffersEXT.html>"]
     #[doc(alias = "vkCmdBindDescriptorBuffersEXT")]
     #[inline]
-    pub fn bind_descriptor_buffers_ext<'a>(
+    pub fn bind_descriptor_buffers_ext<'a, 'b: 'a>(
         &self,
-        p_binding_infos: impl AsSlice<'a, DescriptorBufferBindingInfoEXT<'a>>,
+        p_binding_infos: impl AsSlice<'a, DescriptorBufferBindingInfoEXT<'b>>,
     ) {
         unsafe {
             raw::cmd_bind_descriptor_buffers_ext(
@@ -11675,10 +11694,10 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
     #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBindVertexBuffers3KHR.html>"]
     #[doc(alias = "vkCmdBindVertexBuffers3KHR")]
     #[inline]
-    pub fn bind_vertex_buffers3_khr<'a>(
+    pub fn bind_vertex_buffers3_khr<'a, 'b: 'a>(
         &self,
         first_binding: u32,
-        p_binding_infos: impl AsSlice<'a, BindVertexBuffer3InfoKHR<'a>>,
+        p_binding_infos: impl AsSlice<'a, BindVertexBuffer3InfoKHR<'b>>,
     ) {
         unsafe {
             raw::cmd_bind_vertex_buffers3_khr(
@@ -11875,11 +11894,11 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
     #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBindTransformFeedbackBuffers2EXT.html>"]
     #[doc(alias = "vkCmdBindTransformFeedbackBuffers2EXT")]
     #[inline]
-    pub fn bind_transform_feedback_buffers2_ext<'a>(
+    pub fn bind_transform_feedback_buffers2_ext<'a, 'b: 'a>(
         &self,
         first_binding: u32,
         binding_count: u32,
-        p_binding_infos: Option<impl AsSlice<'a, BindTransformFeedbackBuffer2InfoEXT<'a>>>,
+        p_binding_infos: Option<impl AsSlice<'a, BindTransformFeedbackBuffer2InfoEXT<'b>>>,
     ) {
         unsafe {
             raw::cmd_bind_transform_feedback_buffers2_ext(
@@ -11898,11 +11917,11 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
     #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBeginTransformFeedback2EXT.html>"]
     #[doc(alias = "vkCmdBeginTransformFeedback2EXT")]
     #[inline]
-    pub fn begin_transform_feedback2_ext<'a>(
+    pub fn begin_transform_feedback2_ext<'a, 'b: 'a>(
         &self,
         first_counter_range: u32,
         counter_range_count: u32,
-        p_counter_infos: Option<impl AsSlice<'a, BindTransformFeedbackBuffer2InfoEXT<'a>>>,
+        p_counter_infos: Option<impl AsSlice<'a, BindTransformFeedbackBuffer2InfoEXT<'b>>>,
     ) {
         unsafe {
             raw::cmd_begin_transform_feedback2_ext(
@@ -11921,11 +11940,11 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
     #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdEndTransformFeedback2EXT.html>"]
     #[doc(alias = "vkCmdEndTransformFeedback2EXT")]
     #[inline]
-    pub fn end_transform_feedback2_ext<'a>(
+    pub fn end_transform_feedback2_ext<'a, 'b: 'a>(
         &self,
         first_counter_range: u32,
         counter_range_count: u32,
-        p_counter_infos: Option<impl AsSlice<'a, BindTransformFeedbackBuffer2InfoEXT<'a>>>,
+        p_counter_infos: Option<impl AsSlice<'a, BindTransformFeedbackBuffer2InfoEXT<'b>>>,
     ) {
         unsafe {
             raw::cmd_end_transform_feedback2_ext(
@@ -12092,10 +12111,10 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
     #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetVertexInputEXT.html>"]
     #[doc(alias = "vkCmdSetVertexInputEXT")]
     #[inline]
-    pub fn set_vertex_input_ext<'a>(
+    pub fn set_vertex_input_ext<'a, 'b: 'a>(
         &self,
-        p_vertex_binding_descriptions: impl AsSlice<'a, VertexInputBindingDescription2EXT<'a>>,
-        p_vertex_attribute_descriptions: impl AsSlice<'a, VertexInputAttributeDescription2EXT<'a>>,
+        p_vertex_binding_descriptions: impl AsSlice<'a, VertexInputBindingDescription2EXT<'b>>,
+        p_vertex_attribute_descriptions: impl AsSlice<'a, VertexInputAttributeDescription2EXT<'b>>,
     ) {
         unsafe {
             raw::cmd_set_vertex_input_ext(
@@ -12230,7 +12249,10 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
     #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBuildMicromapsEXT.html>"]
     #[doc(alias = "vkCmdBuildMicromapsEXT")]
     #[inline]
-    pub fn build_micromaps_ext<'a>(&self, p_infos: impl AsSlice<'a, MicromapBuildInfoEXT<'a>>) {
+    pub fn build_micromaps_ext<'a, 'b: 'a>(
+        &self,
+        p_infos: impl AsSlice<'a, MicromapBuildInfoEXT<'b>>,
+    ) {
         unsafe { raw::cmd_build_micromaps_ext(self, p_infos, self.disp.get_command_dispatcher()) }
     }
     #[cfg(feature = "ext_opacity_micromap")]
@@ -13096,9 +13118,9 @@ impl<D: Dispatcher, A: BaseAllocator> CommandBuffer<D, A> {
     #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdConvertCooperativeVectorMatrixNV.html>"]
     #[doc(alias = "vkCmdConvertCooperativeVectorMatrixNV")]
     #[inline]
-    pub fn convert_cooperative_vector_matrix_nv<'a>(
+    pub fn convert_cooperative_vector_matrix_nv<'a, 'b: 'a>(
         &self,
-        p_infos: impl AsSlice<'a, ConvertCooperativeVectorMatrixInfoNV<'a>>,
+        p_infos: impl AsSlice<'a, ConvertCooperativeVectorMatrixInfoNV<'b>>,
     ) {
         unsafe {
             raw::cmd_convert_cooperative_vector_matrix_nv(

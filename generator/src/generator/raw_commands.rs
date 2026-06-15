@@ -91,6 +91,7 @@ fn generate_raw_command<'a, 'b>(
         command: cmd,
         parsed_arg_templates,
         parsed_args_in,
+        has_extended_lifetime,
         ..
     } = parsed_cmd;
 
@@ -329,6 +330,7 @@ fn generate_raw_command<'a, 'b>(
     let func_name = format_ident!("{name}");
     let doc = make_doc_link(vk_name);
     let lifetime = (!vec_fields.is_empty()).then(|| quote! ('a, ));
+    let ext_lifetime = has_extended_lifetime.then(|| quote! ('b : 'a, ));
 
     // if we don't do anything fancy, strongly encourage the compiler to inline this function
     // it will generate much simpler/shorter assembly (in particular when using the default allocator)
@@ -341,7 +343,8 @@ fn generate_raw_command<'a, 'b>(
         #config_tag
         #doc
         #inline_tag
-        pub unsafe fn #func_name<#lifetime #ret_template #(#templates),*>(#(#args_outer_name: #args_outer_type,)* dispatcher: &CommandsDispatcher ) #ret_type {
+        pub unsafe fn #func_name<#lifetime #ext_lifetime #ret_template #(#templates),*>
+                (#(#args_outer_name: #args_outer_type,)* dispatcher: &CommandsDispatcher ) #ret_type {
             let vulkan_command = dispatcher.#func_name.get();
             #pre_call
             #inner_call
