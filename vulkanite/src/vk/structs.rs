@@ -12130,7 +12130,7 @@ pub type ConformanceVersionKHR = ConformanceVersion;
 pub struct PhysicalDeviceDriverProperties<'a> {
     pub(crate) s_type: StructureType,
     pub(crate) p_next: Cell<*const Header>,
-    pub driver_id: DriverId,
+    pub driver_id: u32,
     pub(crate) driver_name: [c_char; MAX_DRIVER_NAME_SIZE as _],
     pub(crate) driver_info: [c_char; MAX_DRIVER_INFO_SIZE as _],
     pub conformance_version: ConformanceVersion,
@@ -12163,7 +12163,7 @@ impl<'a> Default for PhysicalDeviceDriverProperties<'a> {
         Self {
             s_type: Self::STRUCTURE_TYPE,
             p_next: Cell::new(ptr::null()),
-            driver_id: DriverId::AmdProprietary,
+            driver_id: 0,
             driver_name: array::from_fn(|_| Default::default()),
             driver_info: array::from_fn(|_| Default::default()),
             conformance_version: Default::default(),
@@ -12173,11 +12173,6 @@ impl<'a> Default for PhysicalDeviceDriverProperties<'a> {
 }
 #[cfg(any(feature = "ext_driver_properties", feature = "version_1_2"))]
 impl<'a> PhysicalDeviceDriverProperties<'a> {
-    #[inline]
-    pub fn driver_id(mut self, value: DriverId) -> Self {
-        self.driver_id = value;
-        self
-    }
     #[inline]
     pub fn conformance_version(mut self, value: ConformanceVersion) -> Self {
         self.conformance_version = value;
@@ -12941,7 +12936,7 @@ impl<'a> PhysicalDeviceVulkan12Features<'a> {
 pub struct PhysicalDeviceVulkan12Properties<'a> {
     pub(crate) s_type: StructureType,
     pub(crate) p_next: Cell<*const Header>,
-    pub driver_id: DriverId,
+    pub driver_id: u32,
     pub(crate) driver_name: [c_char; MAX_DRIVER_NAME_SIZE as _],
     pub(crate) driver_info: [c_char; MAX_DRIVER_INFO_SIZE as _],
     pub conformance_version: ConformanceVersion,
@@ -13022,7 +13017,7 @@ impl<'a> Default for PhysicalDeviceVulkan12Properties<'a> {
         Self {
             s_type: Self::STRUCTURE_TYPE,
             p_next: Cell::new(ptr::null()),
-            driver_id: DriverId::AmdProprietary,
+            driver_id: 0,
             driver_name: array::from_fn(|_| Default::default()),
             driver_info: array::from_fn(|_| Default::default()),
             conformance_version: Default::default(),
@@ -13080,11 +13075,6 @@ impl<'a> Default for PhysicalDeviceVulkan12Properties<'a> {
 }
 #[cfg(feature = "version_1_2")]
 impl<'a> PhysicalDeviceVulkan12Properties<'a> {
-    #[inline]
-    pub fn driver_id(mut self, value: DriverId) -> Self {
-        self.driver_id = value;
-        self
-    }
     #[inline]
     pub fn conformance_version(mut self, value: ConformanceVersion) -> Self {
         self.conformance_version = value;

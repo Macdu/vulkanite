@@ -177,6 +177,9 @@ fn generate_struct<'a>(
         "VkPipelineMultisampleStateCreateInfo" => {
             simple_fields.remove("rasterizationSamples");
         }
+        "VkPhysicalDeviceDriverProperties" | "VkPhysicalDeviceVulkan12Properties" => {
+            simple_fields.remove("driverID");
+        }
         _ => (),
     };
 
@@ -196,6 +199,7 @@ fn generate_struct<'a>(
                     quote! (pub(crate)),
                     quote! {p_next: Cell::new(ptr::null())},
                 ),
+                "driverID" => (quote!(u32), quote!(pub), quote! {driver_id: 0}),
                 _ => {
                     let default_value = if field.name.ends_with("queue_family_index")
                         && matches!(field.ty, Type::Path("uint32_t"))
