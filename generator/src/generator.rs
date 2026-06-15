@@ -1096,7 +1096,9 @@ impl<'a> Generator<'a> {
             .flat_map(|exts| &exts.extension)
             .filter(|ext| ext.supported.contains(&xml::ExtensionSupported::Vulkan))
             // for the time being, ignore video extensions
-            .filter(|ext| !ext.name.starts_with("VK_KHR_video"))
+            .filter(|ext| {
+                !ext.name.starts_with("VK_KHR_video") && !ext.name.starts_with("VK_VALVE_video")
+            })
     }
 
     fn filtered_extensions(&self) -> impl Iterator<Item = &'a xml::Extension> {

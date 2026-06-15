@@ -803,10 +803,6 @@ pub enum StructureType {
     PhysicalDevicePrimitivesGeneratedQueryFeaturesEXT = 1000382000,
     PhysicalDeviceRayTracingMaintenance1FeaturesKHR = 1000386000,
     PhysicalDeviceShaderUntypedPointersFeaturesKHR = 1000387000,
-    PhysicalDeviceVideoEncodeRgbConversionFeaturesVALVE = 1000390000,
-    VideoEncodeRgbConversionCapabilitiesVALVE = 1000390001,
-    VideoEncodeProfileRgbConversionInfoVALVE = 1000390002,
-    VideoEncodeSessionRgbConversionCreateInfoVALVE = 1000390003,
     PhysicalDeviceImageViewMinLodFeaturesEXT = 1000391000,
     ImageViewMinLodCreateInfoEXT = 1000391001,
     PhysicalDeviceMultiDrawFeaturesEXT = 1000392000,
@@ -6074,45 +6070,6 @@ bitflags! {
     #[doc(alias = "VkFrameBoundaryFlagBitsEXT")]
     pub struct FrameBoundaryFlagsEXT : u32 {
         const FrameEnd = 1u32 << 0;
-    }
-}
-#[cfg(feature = "ext_video_encode_rgb_conversion")]
-bitflags! {
-    #[derive(Default)]
-    #[repr(transparent)]
-    #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkVideoEncodeRgbModelConversionFlagBitsVALVE.html>"]
-    #[doc(alias = "VkVideoEncodeRgbModelConversionFlagBitsVALVE")]
-    pub struct VideoEncodeRgbModelConversionFlagsVALVE : u32 {
-        const RgbIdentity = 1u32 << 0;
-        const YcbcrIdentity = 1u32 << 1;
-        const Ycbcr709 = 1u32 << 2;
-        const Ycbcr601 = 1u32 << 3;
-        const Ycbcr2020 = 1u32 << 4;
-    }
-}
-#[cfg(feature = "ext_video_encode_rgb_conversion")]
-bitflags! {
-    #[derive(Default)]
-    #[repr(transparent)]
-    #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkVideoEncodeRgbRangeCompressionFlagBitsVALVE.html>"]
-    #[doc(alias = "VkVideoEncodeRgbRangeCompressionFlagBitsVALVE")]
-    pub struct VideoEncodeRgbRangeCompressionFlagsVALVE : u32 {
-        const FullRange = 1u32 << 0;
-        const NarrowRange = 1u32 << 1;
-    }
-}
-#[cfg(feature = "ext_video_encode_rgb_conversion")]
-bitflags! {
-    #[derive(Default)]
-    #[repr(transparent)]
-    #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[doc = "<https://docs.vulkan.org/refpages/latest/refpages/source/VkVideoEncodeRgbChromaOffsetFlagBitsVALVE.html>"]
-    #[doc(alias = "VkVideoEncodeRgbChromaOffsetFlagBitsVALVE")]
-    pub struct VideoEncodeRgbChromaOffsetFlagsVALVE : u32 {
-        const CositedEven = 1u32 << 0;
-        const Midpoint = 1u32 << 1;
     }
 }
 #[cfg(feature = "ext_opacity_micromap")]

@@ -2549,16 +2549,6 @@ pub const EXT_GLOBAL_PRIORITY_QUERY: DeviceExtension = DeviceExtension {
     name: unsafe { DeviceExtensionName::new(c"VK_EXT_global_priority_query") },
     spec: 1u32,
 };
-#[cfg(feature = "ext_video_encode_rgb_conversion")]
-pub const VALVE_VIDEO_ENCODE_RGB_CONVERSION: DeviceExtension = DeviceExtension {
-    name: unsafe { DeviceExtensionName::new(c"VK_VALVE_video_encode_rgb_conversion") },
-    spec: 1u32,
-};
-#[cfg(all(
-    feature = "ext_video_encode_rgb_conversion",
-    not(all(any(feature = "ext_sampler_ycbcr_conversion", feature = "version_1_1")))
-))]
-compile_error ! ("The feature ext_video_encode_rgb_conversion requires ((ext_sampler_ycbcr_conversion or version_1_1)) to be enabled.") ;
 #[cfg(feature = "ext_image_view_min_lod")]
 pub const EXT_IMAGE_VIEW_MIN_LOD: DeviceExtension = DeviceExtension {
     name: unsafe { DeviceExtensionName::new(c"VK_EXT_image_view_min_lod") },
